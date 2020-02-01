@@ -19,8 +19,7 @@ abstract class EhdaServiceProvider extends ServiceProvider
     abstract protected function getName();
 
     abstract protected function isApp();
-
-
+    
     protected function getDir() {
         $reflector = new \ReflectionClass(get_class($this));
         $filename = $reflector->getFileName();
