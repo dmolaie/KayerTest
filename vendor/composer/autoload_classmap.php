@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Admin\\AdminServiceProvider' => $baseDir . '/app/Admin/AdminServiceProvider.php',
+    'App\\Admin\\Controllers\\HomeController' => $baseDir . '/app/Admin/Controllers/HomeController.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -26,8 +28,13 @@ return array(
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
+    'App\\Providers\\EhdaServiceProvider' => $baseDir . '/app/Providers/EhdaServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Site\\Controllers\\HomeController' => $baseDir . '/app/Site/Controllers/HomeController.php',
+    'App\\Site\\Provider\\RouteServiceProvider' => $baseDir . '/app/Site/Provider/RouteServiceProvider.php',
+    'App\\Site\\Provider\\SiteServiceProvider' => $baseDir . '/app/Site/Provider/SiteServiceProvider.php',
+    'App\\Site\\SiteServiceProvider' => $baseDir . '/app/Site/SiteServiceProvider.php',
     'App\\User' => $baseDir . '/app/User.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonImmutable' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
@@ -107,6 +114,8 @@ return array(
     'Doctrine\\Instantiator\\Exception\\UnexpectedValueException' => $vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php',
     'Doctrine\\Instantiator\\Instantiator' => $vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator/Instantiator.php',
     'Doctrine\\Instantiator\\InstantiatorInterface' => $vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator/InstantiatorInterface.php',
+    'Domains\\HomeController' => $baseDir . '/Domains/News/Controllers/HomeController.php',
+    'Domains\\News\\NewsServiceProvider' => $baseDir . '/Domains/News/NewsServiceProvider.php',
     'Dotenv\\Dotenv' => $vendorDir . '/vlucas/phpdotenv/src/Dotenv.php',
     'Dotenv\\Environment\\AbstractVariables' => $vendorDir . '/vlucas/phpdotenv/src/Environment/AbstractVariables.php',
     'Dotenv\\Environment\\Adapter\\AdapterInterface' => $vendorDir . '/vlucas/phpdotenv/src/Environment/Adapter/AdapterInterface.php',

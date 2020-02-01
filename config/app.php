@@ -162,9 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Package Service Providers...
-         */
+
 
         /*
          * Application Service Providers...
@@ -174,6 +172,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Package Service Providers...
+         */
+        App\Site\SiteServiceProvider::class,
+        App\Admin\AdminServiceProvider::class,
+        \Domains\News\NewsServiceProvider::class
 
     ],
 

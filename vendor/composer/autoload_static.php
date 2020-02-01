@@ -127,6 +127,7 @@ class ComposerStaticInit1626639ea74bb7d8376f1299a4022974
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Domains\\' => 8,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
@@ -358,6 +359,10 @@ class ComposerStaticInit1626639ea74bb7d8376f1299a4022974
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
+        'Domains\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Domains',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -410,6 +415,8 @@ class ComposerStaticInit1626639ea74bb7d8376f1299a4022974
     );
 
     public static $classMap = array (
+        'App\\Admin\\AdminServiceProvider' => __DIR__ . '/../..' . '/app/Admin/AdminServiceProvider.php',
+        'App\\Admin\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Admin/Controllers/HomeController.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -430,8 +437,13 @@ class ComposerStaticInit1626639ea74bb7d8376f1299a4022974
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
+        'App\\Providers\\EhdaServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EhdaServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Site\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Site/Controllers/HomeController.php',
+        'App\\Site\\Provider\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Site/Provider/RouteServiceProvider.php',
+        'App\\Site\\Provider\\SiteServiceProvider' => __DIR__ . '/../..' . '/app/Site/Provider/SiteServiceProvider.php',
+        'App\\Site\\SiteServiceProvider' => __DIR__ . '/../..' . '/app/Site/SiteServiceProvider.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
@@ -511,6 +523,8 @@ class ComposerStaticInit1626639ea74bb7d8376f1299a4022974
         'Doctrine\\Instantiator\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php',
         'Doctrine\\Instantiator\\Instantiator' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Instantiator.php',
         'Doctrine\\Instantiator\\InstantiatorInterface' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/InstantiatorInterface.php',
+        'Domains\\HomeController' => __DIR__ . '/../..' . '/Domains/News/Controllers/HomeController.php',
+        'Domains\\News\\NewsServiceProvider' => __DIR__ . '/../..' . '/Domains/News/NewsServiceProvider.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
         'Dotenv\\Environment\\AbstractVariables' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Environment/AbstractVariables.php',
         'Dotenv\\Environment\\Adapter\\AdapterInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Environment/Adapter/AdapterInterface.php',
