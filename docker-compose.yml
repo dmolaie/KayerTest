@@ -33,16 +33,16 @@ services:
           - '/etc/localtime:/etc/localtime:ro'
           - ./docker-compose/php/php.ini:/usr/local/etc/php/php.ini
           - ./docker-compose/php/phperror.log:/var/log/phperror.log
-          - ./code:/var/www/code
+          - .:/var/www/
           - ./docker-compose/php/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       networks:
           - ehda-network
-      working_dir: '/var/www/code'
+      working_dir: '/var/www/'
 
   composer:
       build: docker-compose/composer/
       volumes:
-          - './code:/code'
+          - '.:/code'
           - './docker-compose/composer/cache:/root/.composer/cache'
       working_dir: /code
       networks:
@@ -53,7 +53,7 @@ services:
     depends_on:
       - php-fpm
     volumes:
-      - './code:/code'
+      - '.:/code'
     networks:
       - ehda-network
     working_dir: /code
