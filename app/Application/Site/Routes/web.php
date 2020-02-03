@@ -12,4 +12,8 @@
 */
 
 
-Auth::routes();
+Route::get('/', 'HomeController@home');
+Route::prefix('site')->name('site.')->group(function(){
+    Route::get('/news','HomeController@news')->name('news')->middleware('auth');
+});
+

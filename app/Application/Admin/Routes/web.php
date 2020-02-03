@@ -11,5 +11,6 @@
 |
 */
 
-
-Auth::routes();
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/news','HomeController@news')->name('news')->middleware('auth');
+});

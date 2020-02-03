@@ -1,7 +1,7 @@
 <?php
 
 
-    namespace App\Providers;
+namespace App\Providers;
 
 
 use Illuminate\Support\Facades\Route;
@@ -20,7 +20,8 @@ abstract class EhdaServiceProvider extends ServiceProvider
 
     abstract protected function isApp();
 
-    protected function getDir() {
+    protected function getDir()
+    {
         $reflector = new \ReflectionClass(get_class($this));
         $filename = $reflector->getFileName();
         return dirname($filename) . $this->directorySeperator;
@@ -28,11 +29,7 @@ abstract class EhdaServiceProvider extends ServiceProvider
 
     protected function getNamespace()
     {
-        if($this->isApp()){
-            return 'App\\' . ucfirst($this->getName()) . '\Controllers';
-        }else{
-            return 'Domains\\' . ucfirst($this->getName()) . '\Controllers';
-        }
+        return 'App\Application\\' . ucfirst($this->getName()) . '\Controllers';
     }
 
     /**
@@ -42,9 +39,8 @@ abstract class EhdaServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        dd($this->getDir() . 'Resources' . $this->directorySeperator . 'Views', "app");
         $this->loadMigrationsFrom($this->getDir() . 'Database' . $this->directorySeperator . 'Migrations');
-        $this->loadViewsFrom($this->getDir() . 'Resources' . $this->directorySeperator . 'Views',$this->getName());
+        $this->loadViewsFrom($this->getDir() . 'Resources' . $this->directorySeperator . 'Views', $this->getName());
         $this->loadTranslationsFrom($this->getDir() . 'resources' . $this->directorySeperator . 'Lang', $this->getName());
 
         $this->loadRoute('web');
@@ -58,7 +54,7 @@ abstract class EhdaServiceProvider extends ServiceProvider
 
         Route::prefix($prefix)
             ->middleware($middleware)
-            ->namespace($this->getNamespace() )
+            ->namespace($this->getNamespace())
             ->group($this->getDir() . "Routes" . $this->directorySeperator . $type . ".php");
     }
 }

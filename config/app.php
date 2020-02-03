@@ -176,9 +176,8 @@ return [
         /*
          * Package Service Providers...
          */
-        App\Site\SiteServiceProvider::class,
-        App\Admin\AdminServiceProvider::class,
-        \Domains\News\NewsServiceProvider::class
+        \App\Application\Site\SiteServiceProvider::class,
+        \App\Application\Admin\AdminServiceProvider::class,
 
     ],
 
