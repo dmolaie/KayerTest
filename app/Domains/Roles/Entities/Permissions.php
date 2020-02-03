@@ -2,7 +2,7 @@
 
 namespace App\Domains\Roles\Enitites;
 
-use App\Domaines\Roles\Entities\Roles;
+use App\Domains\Roles\Entities\Roles;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 

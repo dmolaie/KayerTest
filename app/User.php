@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Domaines\Roles\Entities\Roles;
+use App\Domains\Roles\Entities\Roles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role_id'
     ];
 
     /**
@@ -39,11 +39,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isSuperAdmin()
+    {
+        return auth()->user()->role_id ? 1 : 0;
+    }
+
     /**
      * @return HasOne
      */
     public function role()
     {
-        return $this->hasOne(Roles::class);
+        return $this->hasOne(Roles::class,'role_id');
     }
 }
