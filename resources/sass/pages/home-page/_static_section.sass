@@ -1,0 +1,55 @@
+.static__section
+  padding: 63px 0 45px
+  background: #dcf3fd url("/../images/img_flower--white.svg") no-repeat center
+    size: contain
+    attachment: fixed
+  @include L_Screen
+    background-size: 800px
+  .section
+    &__title
+      letter-spacing: -.12px
+      span
+        letter-spacing: -.15px
+    &__image
+      margin: 25px 0 16px
+  .progress_bar__container
+    margin:
+      top: 20px
+  .progress_bar__item
+    .c-progress
+      @include Size( 78px )
+      transform: rotate(-90deg)
+      &_body
+        fill: white
+        stroke: #bde8fa
+      &_bar
+        $stroke: (2 * $PI * 30)
+        stroke: $blue
+        stroke-dasharray: $stroke
+        stroke-dashoffset: $stroke
+        //stroke-dashoffset: $stroke * (1 - 0.8)
+        transition: stroke-dashoffset .7s linear .15s
+    &_title
+      margin: 12px 0 2px
+    &_icon
+      &::before
+        content: ""
+        position: absolute
+        @include Size( 34px )
+        top: 50%
+        left: 50%
+        background: url("/../images/ic_heart--gradient-red.svg") no-repeat center
+          size: contain
+        animation: heartbeatCenter 1.4s cubic-bezier(.455, .03, .515, .955) infinite
+        z-index: 1
+  .ic_person
+    margin: 0 .6vw
+    pointer-events: none
+    @include UserSelect( none )
+  .blue_symbol
+    @include fontSize( 40px )
+    font:
+      weight: bolder
+    margin: 18px 3vw 0
+    letter-spacing: -.3px
+    pointer-events: none

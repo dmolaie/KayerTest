@@ -1,0 +1,65 @@
+.header
+  &__brand
+    padding: 20px 0
+  &__logo
+    &_image
+      height: 46px
+  &__link
+    padding: 0 10px
+    height: 49px
+    &::after
+      content: ""
+      margin:
+        right: 7px
+      width: 20px
+      height: 30px
+      pointer-events: none
+    &--blue
+      &::after
+        background: url("/../images/ic_heart--red.svg") no-repeat center
+          size: contain
+        @extend .heartbeat-animation
+    &--green
+      &::after
+        background: url("/../images/ic_ribbon--white.svg") no-repeat center
+          size: contain
+  &__nav
+    background: $mischka
+    &_container
+      min-height: 56px
+    &_menu
+      &:not(:last-of-type)
+        margin:
+          left: 23px
+    &_btn
+      $size: 20px
+      width: $size
+      height: $size
+      &:not(:last-of-type)
+        margin:
+          left: 30px
+      &:last-of-type
+        margin:
+          left: 21px
+      &--search
+        background: url("/../images/ic_magnifying--gray.svg") no-repeat center
+      &--user
+        background: url("/../images/ic_user--gray.svg") no-repeat center
+      &--home
+        background: url("/../images/ic_home--gray.svg") no-repeat center
+    &_lang
+      $h: 30px
+      width: (57px * 2)
+      height: $h
+      line-height: $h
+      background: transparentize($white, (1 - .56))
+      &--en
+        color: #797c94
+      &--fa
+        background: $white
+      @include L_Screen
+        &--fa, &--en
+          &:hover
+            color: $black
+            background: $white
+//hsla(227, 29%, 27%, 0.25)
