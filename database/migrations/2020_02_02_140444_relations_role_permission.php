@@ -37,7 +37,10 @@ class RelationsRolePermission extends Migration
     public function down()
     {
         Schema::table('permission_role', function (Blueprint $table) {
-            $table->dropForeign('permission_role');
+            $table->dropForeign('permission_role_permission_id_foreign');
+        });
+        Schema::table('permission_role', function (Blueprint $table) {
+            $table->dropForeign('permission_role_role_id_foreign');
         });
     }
 }
