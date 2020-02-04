@@ -17,11 +17,11 @@ class CreateCityTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
-            $table->integer('state_id')->unsigned();
+            $table->integer('province_id')->unsigned();
             $table->timestamps();
-            $table->foreign('state_id')
+            $table->foreign('province_id')
                 ->references('id')
-                ->on('states')
+                ->on('provinces')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
