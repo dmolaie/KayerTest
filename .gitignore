@@ -2,7 +2,7 @@
 storage/logs
 storage/framework/*
 storage/proxies/*
-vendor/
+vendor/*
 bootstrap/cache/*
 .idea/
 tests/_support
@@ -10,3 +10,4 @@ tests/_output
 tests/_output/
 tests/_data/
 docker-compose/*
+composer.lock
