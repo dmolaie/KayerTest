@@ -1,0 +1,39 @@
+.ehda-news
+  &__section
+    padding: 40px 0 64px
+    .section__title
+      margin:
+        bottom: 33px
+    .cart
+      &__header
+        margin:
+          bottom: -62px
+      &__cover
+        width: calc(100% - 90px)
+        height: 190px
+        &::before
+          box-shadow: -1px 4px 7px 0 transparentize(#9b9b9b, ( 1 - .78 ))
+        &::after
+          box-shadow: -1px 4px 11px 0 #bee8fa
+          opacity: 0
+      &__body
+        width: calc(100% - 40px)
+        padding: 0 10px 25px
+          top: ( 28px + 46 )
+        border:
+          color: #e5ebf1
+        &::after
+          opacity: 0
+          box-shadow: 0 0 9px 0 transparentize(#4b869e, ( 1 - .38 ))
+      &__release
+        padding: 0 8px 14px 9px
+      &__title
+        line-height: 2
+        letter-spacing: -.1px
+        @include Truncate(2)
+      @include L_Screen
+        &:hover
+          .cart
+            &__cover, &__body
+              &::after
+                opacity: 1

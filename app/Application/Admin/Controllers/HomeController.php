@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     public function show(Roles $role)
     {
-        return $role->get();
+        return auth()->user()->role()->get();
     }
 
 }

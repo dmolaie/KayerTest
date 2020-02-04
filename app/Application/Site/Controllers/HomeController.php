@@ -8,14 +8,9 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function index()
     {
-        return view('site::index');
-    }
-
-    public function news()
-    {
-        dd('news');
+        return view('site::fa.index');
     }
 
 }

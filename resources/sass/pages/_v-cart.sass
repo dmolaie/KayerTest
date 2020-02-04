@@ -1,0 +1,22 @@
+.v-cart
+  padding: 15px 18px 20px
+  border:
+    color: #d2e3f4
+  &::before
+    box-shadow: 0 2px 6px 0 transparentize(#2f5397, (1 - .1))
+  &::after
+    box-shadow: 0 2px 17px 0 transparentize(#8dd8f8, (1 - .51))
+    opacity: 0
+  @include L_Screen
+    &:hover
+      &::before
+        opacity: 0
+      &::after
+        opacity: 1
+  &__cover
+    height: 168px
+    &_img
+      box-shadow: 0 2px 6px 0 transparentize(#2f5397, (1 - .1))
+  &__title
+    margin: 14px 0 10px
+    @include Truncate(2)
