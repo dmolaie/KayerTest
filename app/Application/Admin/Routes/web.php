@@ -12,5 +12,5 @@
 */
 
 Route::prefix('admin')->name('admin.')->group(function(){
-    Route::get('/news','HomeController@news')->name('news')->middleware('auth');
+    Route::get('/home','HomeController@show')->name('news')->middleware('can:view,App\Domains\Roles\Entities\Roles');
 });
