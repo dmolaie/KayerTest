@@ -3,7 +3,17 @@
     padding: 40px 0 64px
     .section__title
       margin:
-        bottom: 33px
+        bottom: 23px
+    .swiper-slide
+      padding: 10px 0
+      @include L_Screen
+        width: calc(50% - #{$SpaceBetweenItem})
+        margin:
+          left: ($SpaceBetweenItem + 3)
+      @include Xl_Screen
+        width: calc(33.33333% - #{$SpaceBetweenItem})
+        margin:
+          left: $SpaceBetweenItem
     .cart
       &__header
         margin:
@@ -18,6 +28,7 @@
           opacity: 0
       &__body
         width: calc(100% - 40px)
+        min-height: 155px
         padding: 0 10px 25px
           top: ( 28px + 46 )
         border:

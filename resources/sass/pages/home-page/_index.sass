@@ -1,20 +1,26 @@
+$SpaceBetweenItem: 32px
+
 .p-home
-  .main__title
-    $h: 80px
-    height: $h
-    line-height: $h
   .bg--sky-blue
     background: transparentize($blue-100, ( 1 - .12 ))
-  .m-b-17
-    margin:
-      bottom: (17px - 3)
-  .m-t-30
-    margin:
-      top: 30px
-  .m-r-30
-    margin:
-      right: 30px
+  .m
+    &-b
+      &-17
+        margin:
+          bottom: (17px - 3)
+    &-t
+      &-20
+        margin:
+          top: 20px
+      &-30
+        margin:
+          top: 30px
+    &-r
+      &-30
+        margin:
+          right: 30px
   @import "slider_section"
+  @import "heartbeat"
   @import "s-news_section"
   @import "recently-events_section"
   @import "static_section"

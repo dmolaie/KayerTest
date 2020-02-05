@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="{{ app()->getLocale() }}">
 @include('fa.template.part-theme.head')
 <body class="overflow-x-hidden">
 @include('fa.template.part-theme.header')
@@ -7,5 +7,6 @@
     @yield('content')
 </main>
 @include('fa.template.part-theme.footer')
+<script src="{{ asset('js/master.js') }}" defer ></script>
 </body>
 </html>

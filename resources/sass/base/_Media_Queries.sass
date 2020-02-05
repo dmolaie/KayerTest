@@ -32,6 +32,14 @@
         &-#{1}
           &:hover
             opacity: 1
+      &color
+        &-blue
+          &-#{200}
+            &:hover
+              color: $blue-200
+          &-#{800}
+            &:hover
+              color: $blue-800
       &font
         &-weight
           &-bold
@@ -84,8 +92,12 @@
 
 .md\:
   @include Md_Screen
+    &none
+      display: none
     &w
       &-100
+        width: 100%
+      &-full
         width: 100%
     &max
       &-w
@@ -94,5 +106,41 @@
     &flex
       &-col
         flex-direction: column
+        &-reverse
+          flex-direction: column-reverse
       &-wrap
         flex-wrap: wrap
+    &items
+      &-start
+        align-items: flex-start
+    &font
+      &-2xs
+        @include fontSize( 8px )
+      &-1xs
+        @include fontSize( 10px )
+      &-xs
+        @include fontSize( 12px )
+      &-sm
+        @include fontSize( 14px )
+      &-base
+        @include fontSize( 16px )
+      &-lg
+        @include fontSize( 18px )
+      &-20
+        @include fontSize( 20px )
+      &-22
+        @include fontSize( 22px )
+
+.sm\:
+  @include Md_Screen
+    &font
+      &-2xs
+        @include fontSize( 8px )
+      &-1xs
+        @include fontSize( 10px )
+      &-xs
+        @include fontSize( 12px )
+      &-sm
+        @include fontSize( 14px )
+      &-base
+        @include fontSize( 16px )

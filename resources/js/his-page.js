@@ -1,5 +1,4 @@
 import CopyToClipboard from '../vendor/plugin/CopyToClipboard/index';
-import ImageLazyLoading from "../vendor/plugin/imageLazyLoading";
 
 try {
     const Clipboard = document.querySelector('.history-page .clipboard');
@@ -8,6 +7,13 @@ try {
             'click',
             () => {
                 CopyToClipboard( Clipboard );
+                let messageEl = Clipboard.querySelector('.clipboard__message');
+                if ( !!messageEl ) {
+                    messageEl.classList.add('opacity-1');
+                    setTimeout(() => {
+                        messageEl.classList.remove('opacity-1');
+                    }, 1200)
+                }
             }
         )
     }

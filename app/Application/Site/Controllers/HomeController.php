@@ -5,12 +5,13 @@ namespace App\Application\Site\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('site::fa.index');
+        return view('site::'.$request->language.'.index');
     }
 
 }
