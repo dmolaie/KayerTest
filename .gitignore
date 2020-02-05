@@ -9,7 +9,7 @@ tests/_support
 tests/_output
 tests/_output/
 tests/_data/
+docker-compose/mongo-report/*
 composer.lock
 node_modules
-docker-compose/mongodb-report/*
 
