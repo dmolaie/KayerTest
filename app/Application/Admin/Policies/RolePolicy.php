@@ -10,11 +10,11 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
-/*    public function before($user){
+    public function before($user){
         if($user->isSuperAdmin()){
             return true;
         }
-    }*/
+    }
 
     /**
      * Determine whether the user can view any roles.
@@ -36,7 +36,7 @@ class RolePolicy
      */
     public function view(User $user)
     {
-        return true;
+        return $user->role_id == config('roles.super_admin.id') ? true : false ;
     }
 
     /**

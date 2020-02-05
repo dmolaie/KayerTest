@@ -10,10 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-Route::get('/', 'HomeController@home');
-Route::prefix('site')->name('site.')->group(function(){
-    Route::get('/news','HomeController@news')->name('news')->middleware('auth');
+Route::redirect('/','/fa');
+Route::group(['prefix' => '{language}','name' => 'site.' ],function (){
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::prefix('page')->name('page.')->group(function(){
+        Route::get('/ngo-history','PagesController@history')->name('ngo-history');
+    });
 });
+
 

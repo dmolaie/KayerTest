@@ -1,0 +1,110 @@
+.i-page
+  padding: 48px 0 98px
+  background: #ecf8fd
+  .m
+    &-r
+      &-10
+        margin:
+          right: 10px
+  &__flower_line
+    width: 110px
+    top: -50px
+    &--right
+      right: -47px
+      @include Md_Screen
+        right: -30px
+      @include Sm_Screen
+        right: -22px
+    &--left
+      left: -47px
+      @include Md_Screen
+        left: -30px
+      @include Sm_Screen
+        left: -22px
+  &__box
+    min-height: 34px
+    padding: 4px 14px
+    border:
+      color: #bde8fa
+    background: #eff3f7
+  &__title
+    cursor: default
+    margin: -6px 50px 0
+    @include Md_Screen
+      margin: -6px 35px 0
+    @include Sm_Screen
+      margin: -6px 25px 0
+  &__text
+    cursor: default
+    line-height: 1.94
+  &__social
+    @include Size( 16px )
+    &:not(:last-of-type)
+      margin:
+        left: 20px
+  &__list
+    &_item
+      &:not(:last-of-type)
+        margin:
+          bottom: 20px
+      &::before
+        content: ''
+        flex-shrink: 0
+        @include Size( 10px )
+        border: 1px solid $blue
+          radius: 50%
+        background: #bde8fa
+        margin: 0 0 4px 15px
+        pointer-events: none
+  &__footer
+    $xLarge: 75px
+    $large: 50px
+    margin:
+      top: 50px
+    @include Xl_Screen
+      padding: 50px $xLarge 5px
+    @include L_Screen
+      padding: 50px $large 5px
+    @include Md_Screen
+      padding:
+        top: 25px
+    &::before
+      content: " "
+      position: absolute
+      top: 0
+      left: 50%
+      height: 2px
+      background: radial-gradient(circle at 50% 0, #5bc6f3, #ffffff 100%)
+      transform: translateX(-50%)
+      @include Xl_Screen
+        width: calc(100% + #{( $xLarge * .64 )})
+      @include L_Screen
+        width: calc(100% + #{( $large * .64 )})
+      @include Md_Screen
+        width: 100%
+  .inner-box
+    margin:
+      top: 45px
+  .m
+    &-b
+      &-10
+        margin:
+          bottom: 10px
+      &-20
+        margin:
+          bottom: 20px
+  @include L_Screen
+    .l\:
+      &m
+        &-r
+          &-20
+            margin:
+              right: 20px
+  @include Md_Screen
+    .md\:
+      &m
+        &-b
+          &-20
+            margin:
+              bottom: 20px
+

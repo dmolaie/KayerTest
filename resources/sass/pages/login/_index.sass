@@ -1,0 +1,156 @@
+$skyBlue: #44c8f5
+$navy: #6c698d
+$XlScreenImageHeight: 64px
+$LScreenImageHeight: 48px
+$padding: 23px
+$XlScreenHeight: ( 60px - 6 )
+$LScreenHeight: ( 54px - 6 )
+$border: 3px solid $skyBlue
+
+.p-login
+  background: #ecf8fd
+  @include Md_Screen
+    padding: 0
+  .sign-in__cover
+    top: 62px
+    left: 50%
+    transform: translateX(-50%)
+    @include Xs_Screen
+      top: 36px
+    &_image
+      @include L_Screen
+        height: $LScreenImageHeight
+      @include Xl_Screen
+        height: $XlScreenImageHeight
+      @include Md_Screen
+        height: $XlScreenImageHeight
+      @include Sm_Screen
+        width: 80%
+        height: auto
+  .sign-in__form
+    @include L_Screen
+      padding: $LScreenImageHeight 120px 0 90px
+    @include Md_Screen
+      border:
+        radius: 6px
+      padding: $XlScreenImageHeight 60px 0
+    @include Sm_Screen
+      width: 85%
+      padding: 0
+      margin: 0 auto
+    @include Xs_Screen
+      padding:
+        top: 40px
+    &_label
+      color: #8f8f8f
+      top: 50%
+      right: ($padding - 8)
+      padding: 0 8px
+      letter-spacing: -.18px
+      transform: translateY(-50%)
+      transition: top .1s ease-in-out
+      @include L_Screen
+        font:
+          size: 16px
+      @include Xl_Screen
+        font:
+          size: 18px
+    &_input
+      caret-color: #59585a
+      color: $navy
+      padding: 0 $padding
+      letter-spacing: -.2px
+      @include L_Screen
+        font:
+          size: 18px
+        height: $LScreenHeight
+        line-height: $LScreenHeight
+      @include Xl_Screen
+        font:
+          size: 20px
+        height: $XlScreenHeight
+        line-height: $XlScreenHeight
+      @include Md_Screen
+        height: $XlScreenHeight
+        line-height: $XlScreenHeight
+      @include Sm_Screen
+        height: $LScreenHeight
+        line-height: $LScreenHeight
+    &_submit
+      background: $skyBlue
+      box-shadow: 0 1px 3px 0 transparentize(#000, ( 1 - .2 )), 0 2px 1px -1px transparentize(#000, ( 1 - .12 )), 0 1px 1px 0 transparentize(#000, ( 1 - .14 ))
+      border: $border
+      margin:
+        bottom: 20px
+      transition: color $duration, background-color $duration
+      @include Xl_Screen
+        line-height: $XlScreenHeight
+      @include L_Screen
+        line-height: $LScreenHeight
+        &:hover
+          color: $skyBlue
+          background: $white
+      @include Md_Screen
+        margin:
+          bottom: 30px
+        line-height: $XlScreenHeight
+      @include Sm_Screen
+        margin: 0 0 22px
+        line-height: $LScreenHeight
+    &_input-wrapper
+      padding: 3px
+      &:not(:last-of-type)
+        @include L_Screen
+          margin:
+            bottom: 42px
+        @include Xl_Screen
+          margin:
+            bottom: 56px
+        @include Md_Screen
+          margin:
+            bottom: 40px
+      &:last-of-type
+        @include Xl_Screen
+          margin:
+            bottom: 46px
+        @include L_Screen
+          margin:
+            bottom: 38px
+        @include Md_Screen
+          margin:
+            bottom: 32px
+      &::before
+        content: ' '
+        position: absolute
+        top: 0
+        right: 0
+        width: 100%
+        height: 100%
+        border: $border
+          radius: inherit
+        pointer-events: none
+        transition: border $duration
+      &--focus
+        .sign-in__form
+          &_label
+            top: 0
+            color: $skyBlue
+        &::before
+          border:
+            width: 2px
+  .has-error
+    &::before
+      border-color: $red
+    .error_message
+      position: absolute
+      color: $red
+      font:
+        size: 14px
+        weight: bold
+      top: 60px + 6
+      right: 0
+  .l\:
+    @include L_Screen
+      &w
+        &-5\/12
+          width: (5.45 / 12) * 100%

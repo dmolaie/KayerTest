@@ -4,6 +4,7 @@ namespace App;
 
 use App\Domains\Roles\Entities\Roles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,16 +40,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return bool
+     */
     public function isSuperAdmin()
     {
-        return auth()->user()->role_id ? 1 : 0;
+        return auth()->user()->role_id == config('roles.super_admin.id') ? true : false;
     }
 
     /**
-     * @return HasOne
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if(is_string($role)) {
+            return $this->role->contains('name' , $role);
+        }
+
+        return !! $role->intersect($this->roles)->count();
+    }
+
+
+    /**
+     * @return BelongsTo
      */
     public function role()
     {
-        return $this->hasOne(Roles::class,'role_id');
+        return $this->belongsTo(Roles::class);
     }
 }
