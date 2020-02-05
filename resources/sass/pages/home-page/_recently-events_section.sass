@@ -1,28 +1,23 @@
 $imageWidth: 260px
+$imageMargin: 38px
 
 .r-events__section
   padding: 42px 0 52px
+  .carousel__container
+    height: 320px
   .section__title
     margin:
       bottom: 35px
+  .swiper-wrapper
+    flex-direction: column
   .r-events__item
-    &_container
-      &::before
-        content: ""
-        position: absolute
-        width: 2px
-        height: calc(100% + 45px)
-        top: 5px
-        right: 27px
-        background: linear-gradient(to bottom, #5bc6f3, #ffffff 109%)
-        pointer-events: none
     padding: 6px 15px
     border:
       color: transparentize(#d2e3f4, ( 1 - .79 ))
     line-height: 38px
     background: #f7fcfe
     box-shadow: 0 2px 4px 0 #f2f2f5
-    transition: border $duration, font-weight $duration
+    transition: border $duration, text-shadow $duration
     &:not(:last-of-type)
       margin:
         bottom: 38px
@@ -49,11 +44,13 @@ $imageWidth: 260px
       &::after
         background: $blue
         transform: translate(-50%, -50%) scale(0)
-        transition: transform $duration
+        transition: transform $duration .1s
         pointer-events: none
     &_title
+      max-width: 68%
       font:
         weight: inherit
+      text-overflow: ellipsis
     &_link
       padding:
         right: 15px
@@ -61,24 +58,38 @@ $imageWidth: 260px
         right: 15px
       border:
         right: 2px dashed $blue-100
-    &_active
-      border:
-        color: $blue-100
-      font:
-        weight: bold
-      .r-events__item_checkbox
-        &::after
-          transform: translate(-50%, -50%) scale(1)
+    &_container
+      width: calc(100% - #{$imageWidth} - #{$imageMargin})
+      &::before
+        content: ""
+        position: absolute
+        width: 2px
+        height: calc(100% + 45px)
+        top: 5px
+        right: 27px
+        background: linear-gradient(to bottom, #5bc6f3, #ffffff 109%)
+        pointer-events: none
+      .swiper-slide-thumb-active
+        .r-events__item
+          border:
+            color: $blue-100
+          text-shadow: 0 0 1px currentColor
+          &_checkbox
+            &::after
+              transform: translate(-50%, -50%) scale(1)
     @include L_Screen
       &:hover
         border:
           color: $blue-100
-        font:
-          weight: bold
+        text-shadow: 0 0 1px currentColor
   .r-events__image
     &_container
       margin:
         right: 33px
-      height: 320px
     &_wrapper
       width: $imageWidth
+  .r-events__thumbs
+    .swiper-slide
+      height: 50px
+      margin:
+        bottom: #{$imageMargin}

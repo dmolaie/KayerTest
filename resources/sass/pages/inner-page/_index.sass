@@ -11,8 +11,16 @@
     top: -50px
     &--right
       right: -47px
+      @include Md_Screen
+        right: -30px
+      @include Sm_Screen
+        right: -22px
     &--left
       left: -47px
+      @include Md_Screen
+        left: -30px
+      @include Sm_Screen
+        left: -22px
   &__box
     min-height: 34px
     padding: 4px 14px
@@ -22,6 +30,10 @@
   &__title
     cursor: default
     margin: -6px 50px 0
+    @include Md_Screen
+      margin: -6px 35px 0
+    @include Sm_Screen
+      margin: -6px 25px 0
   &__text
     cursor: default
     line-height: 1.94
@@ -37,6 +49,7 @@
           bottom: 20px
       &::before
         content: ''
+        flex-shrink: 0
         @include Size( 10px )
         border: 1px solid $blue
           radius: 50%
@@ -49,9 +62,12 @@
     margin:
       top: 50px
     @include Xl_Screen
-    padding: 50px $xLarge 5px
+      padding: 50px $xLarge 5px
     @include L_Screen
       padding: 50px $large 5px
+    @include Md_Screen
+      padding:
+        top: 25px
     &::before
       content: " "
       position: absolute
@@ -64,6 +80,8 @@
         width: calc(100% + #{( $xLarge * .64 )})
       @include L_Screen
         width: calc(100% + #{( $large * .64 )})
+      @include Md_Screen
+        width: 100%
   .inner-box
     margin:
       top: 45px
@@ -76,12 +94,17 @@
         margin:
           bottom: 20px
   @include L_Screen
-
     .l\:
       &m
         &-r
           &-20
             margin:
               right: 20px
-
+  @include Md_Screen
+    .md\:
+      &m
+        &-b
+          &-20
+            margin:
+              bottom: 20px
 

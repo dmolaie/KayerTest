@@ -6,6 +6,7 @@ const ImageLazyLoading = elements => {
             imageElement.src = imageElement.getAttribute('data-src');
             imageElement.removeAttribute('data-src');
         } catch (e) {
+            console.log(e);
             //
         }
     };

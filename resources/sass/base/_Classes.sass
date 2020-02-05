@@ -21,6 +21,8 @@
     border-color: transparent
   &-solid
     border-style: solid
+  &-#{3}
+    border-width: 3px
   @each $b in $border
     $i: index($border, $b)
     &-#{$i}
@@ -404,6 +406,8 @@
 
 .transition
   transition: all $duration
+  &-color
+    transition: color $duration
   &-bg
     transition: background $duration
   &-opacity
@@ -529,6 +533,10 @@
   border: 1px solid
     radius: 10px
   padding: 46px 47px 44px
+  @include Md_Screen
+    padding: 38px 30px 34px
+  @include Sm_Screen
+    padding: 30px 22px 26px
   &--white
     border:
       color: transparentize(#d2e3f4, ( 1 - .79 ))
@@ -586,7 +594,63 @@
     opacity: 0
   &-#{80}
     opacity: .8
+  &-1
+    opacity: 1
 
-
+.counter
+  counter-reset: counter
+  &-increment
+    counter-increment: counter
+  &-item
+    &:before
+      content: counter(counter)"-"
+      display: inline-block
+      margin:
+        left: 8px
 .container
   padding: 0 150px
+  @include Md_Screen
+    padding: 0 30px
+  @include Sm_Screen
+    padding: 0 12px
+
+.swiper
+  &-button
+    &-disabled
+      filter: brightness(0.95) grayscale(1)
+      opacity: .6
+      pointer-events: none
+
+.direction
+  &-rtl
+    direction: rtl
+  &-ltr
+    direction: ltr
+
+.clipboard
+  &__message
+    $c: #33C192
+    color: $c
+    top: 0
+    right: 0
+    border:
+      radius: inherit
+    background: lighten($c, 38%)
+    padding:
+      right: 14px
+    &::before, &::after
+      content: ''
+      position: absolute
+    &::before
+      top: 0
+      right: 0
+      width: 100%
+      height: 100%
+    &::after
+      $size: 17px
+      top: 50%
+      left: 13px
+      @include Size( $size )
+      background: url("/../images/ic_verified--green.svg") no-repeat center
+        size: $size
+      transform: translateY(-50%)
