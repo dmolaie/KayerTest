@@ -5,8 +5,8 @@
             <h1 class="flex text-blue font-24 md:font-22 text-center">
                 <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
                 <span class="i-page__title">
-                         تاریخچه انجمن
-                    </span>
+                     تاریخچه انجمن
+                </span>
                 <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
             </h1>
             <div class="inner-box inner-box--white">
@@ -96,13 +96,13 @@
                             انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
                         </p>
                         <div class="inline-flex items-center l:m-r-auto md:m-b-20">
-                                <span class="text-bayoux font-sm-bold cursor-default">
-                                    لینک کوتاه:
+                            <span class="text-bayoux font-sm-bold cursor-default">
+                                لینک کوتاه:
+                            </span>
+                            <div class="clipboard relative cursor-pointer text-blue-800 font-sm border border-solid i-page__box rounded-1/2 m-r-10">
+                                <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
+                                    کپی شد
                                 </span>
-                            <div class="clipboard relative cursor-pointer text-blue-800 font-sm border border-solid i-page__box rounded-1/2 m-r-10 l:hover:font-weight-bold">
-                                    <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
-                                        کپی شد
-                                    </span>
                                 https://ehda.center/PNWVzX
                             </div>
                         </div>
