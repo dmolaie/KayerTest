@@ -1,0 +1,56 @@
+.news
+  &__section
+    $border: 3px solid #a2a4bb
+    padding: 20px 0 5px
+    border:
+      top: $border
+      bottom: $border
+    background:
+      attachment: fixed
+    &::before
+      content: ""
+      position: absolute
+      top: 0
+      right: 0
+      width: 100%
+      height: 100%
+      background: transparentize($blue-800, (1 - .42))
+      pointer-events: none
+  &__container
+    @include L_Screen
+      padding: 0 83px
+  &__cart
+    border:
+      color: #d2e3f4
+    padding: 14px 14px 13px
+    &::before
+      box-shadow: 0 2px 15px 0 #00141c
+    &::after
+      box-shadow: 0 2px 6px 0 transparentize(#2f5397, ( 1 - .1 ))
+      opacity: 0
+    @include L_Screen
+      $gap: 15px
+      width: calc(50% - #{$gap})
+      margin:
+        bottom: ($gap * 2) - 3
+      &:nth-child(odd)
+        margin:
+          left: $gap
+      &:nth-child(even)
+        margin:
+          right: $gap
+      &:hover
+        &::before
+          opacity: 0
+        &::after
+          opacity: 1
+    &_cover
+      width: 165px
+      height: 124px
+    &_body
+      padding: 4px 18px 6px
+    &_caption
+      letter-spacing: -.09px
+    &_release
+      align-self: flex-end
+      letter-spacing: -.07px

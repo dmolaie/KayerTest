@@ -1,0 +1,647 @@
+@import "Mixins"
+@import "Variables"
+
+.border
+  border-width: 1px
+  &-transparent
+    border-color: transparent
+  &-solid
+    border-style: solid
+  &-#{3}
+    border-width: 3px
+  @each $b in $border
+    $i: index($border, $b)
+    &-#{$i}
+      border-width: $b
+  &-blue
+    border-color: $blue
+    @include Border( $blue )
+    &-#{100}
+      border-color: $blue-100
+      @include Border( $blue-100 )
+    &-#{200}
+      border-color: $blue-200
+      @include Border( $blue-200 )
+  &-green
+    border-color: $green
+    @include Border( $green )
+    &-#{200}
+      border-color: $green-200
+      @include Border( $green-200 )
+  &-none
+    border: none
+  &-t-0
+    border-top: none
+  &-r-0
+    border-right: none
+  &-b-0
+    border-bottom: none
+  &-l-0
+    border-left: none
+
+.rounded
+  border-radius: $radius
+  &-none
+    border-radius: 0
+  &-1\/2
+    border-radius: ($radius / 2)
+  &-2
+    border-radius: ($radius * 2)
+  &-3
+    border-radius: 3px
+  &-50
+    border-radius: 50%
+  &-tl-none
+    border-top-left-radius: 0
+  &-tr-none
+    border-top-right-radius: 0
+  &-br-none
+    border-bottom-right-radius: 0
+  &-bl-none
+    border-bottom-left-radius: 0
+  &-r-none
+    border-top-right-radius: 0
+    border-bottom-right-radius: 0
+  &-l-none
+    border-top-left-radius: 0
+    border-bottom-left-radius: 0
+
+.z
+  @each $item in $zIndex
+    &-#{$item}
+      z-index: $item
+  &-auto
+    z-index: auto
+
+.font
+  &-thin
+    font:
+      weight: 200
+  &-light
+    font:
+      weight: 300
+  &-normal
+    font:
+      weight: 400
+  &-medium
+    font:
+      weight: 500
+  &-semibold
+    font:
+      weight: 600
+  &-bold
+    font:
+      weight: 700
+  &-extrabold
+    font:
+      weight: 800
+  &-black
+    font:
+      weight: 900
+  &-2xs
+    @include fontSize( 8px )
+  &-1xs
+    @include fontSize( 10px )
+    &-medium
+      @extend .font-1xs
+      font:
+        weight: 500
+    &-bold
+      @extend .font-1xs
+      font:
+        weight: bold
+  &-xs
+    @include fontSize( 12px )
+    &-medium
+      @extend .font-xs
+      font:
+        weight: 500
+    &-bold
+      @extend .font-xs
+      font:
+        weight: bold
+  &-sm
+    @include fontSize( 14px )
+    &-medium
+      @extend .font-sm
+      font:
+        weight: 500
+    &-bold
+      @extend .font-sm
+      font:
+        weight: bold
+  &-base
+    @include fontSize( 16px )
+    &-medium
+      @extend .font-base
+      font:
+        weight: 500
+    &-bold
+      @extend .font-base
+      font:
+        weight: bold
+  &-lg
+    @include fontSize( 18px )
+    &-bold
+      @extend .font-lg
+      font:
+        weight: bold
+  &-#{20}
+    @include fontSize( 20px )
+    &-bold
+      @extend .font-20
+      font:
+        weight: bold
+  &-#{22}
+    @include fontSize( 22px )
+  &-#{24}
+    @include fontSize( 24px )
+
+.object
+  &-contain
+    object-fit: contain
+  &-cover
+    object-fit: cover
+
+.h
+  &-#{0}
+    height: 0
+  &-full
+    height: 100%
+  &-screen
+    height: 100vh
+
+.w
+  &-#{0}
+    width: 0
+  &-#{1}\/#{6}
+    width: 16.666667%
+  &-#{1}\/#{3}
+    width: 33.333333%
+  &-#{1}\/#{4}
+    width: 25%
+  &-#{1}\/#{2}
+    width: 50%
+  &-#{2}\/#{3}
+    width: 66.666667%
+  &-#{3}\/#{4}
+    width: 75%
+  &-full
+    width: 100%
+  &-screen
+    width: 100vw
+
+.max-w
+  &-#{0}
+    max-width: 0
+  &-full
+    max-width: 100%
+
+.block
+  display: block
+
+.none
+  display: none
+
+.inline
+  &-block
+    display: inline-block
+  &-flex
+    display: inline-flex
+
+.flex
+  display: flex
+  &-grow
+    flex-grow: 1
+    &-#{0}
+      flex-grow: 0
+  &-shrink
+    flex-shrink: 1
+    &-#{0}
+      flex-shrink: 0
+  &-initial
+    flex: 0 1 auto
+  &-#{1}
+    flex: 1 1 0
+  &-auto
+    flex: 1 1 auto
+  &-none
+    flex: none
+  &-row
+    flex-direction: row
+    &-reverse
+      flex-direction: row-reverse
+  &-col
+    flex-direction: column
+    &-reverse
+      flex-direction: column-reverse
+  &-no-wrap
+    flex-wrap: nowrap
+  &-wrap
+    flex-wrap: wrap
+    &-reverse
+      flex-wrap: wrap-reverse
+
+.justify
+  &-start
+    justify-content: flex-start
+  &-end
+    justify-content: flex-end
+  &-center
+    justify-content: center
+  &-between
+    justify-content: space-between
+  &-around
+    justify-content: space-around
+
+.items
+  &-stretch
+    align-items: stretch
+  &-center
+    align-items: center
+  &-start
+    align-items: flex-start
+  &-end
+    align-items: flex-end
+
+
+.static
+  position: static
+.fixed
+  position: fixed
+.absolute
+  position: absolute
+.relative
+  position: relative
+
+.overflow
+  &-auto
+    overflow: auto
+  &-hidden
+    overflow: hidden
+  &-visible
+    overflow: visible
+  &-scroll
+    overflow: scroll
+  &-x-auto
+    overflow-x: auto
+  &-y-auto
+    overflow-y: auto
+  &-x-hidden
+    overflow-x: hidden
+  &-y-hidden
+    overflow-y: hidden
+  &-x-visible
+    overflow-x: visible
+  &-visible
+    overflow-y: visible
+  &-x-scroll
+    overflow-x: scroll
+  &-y-scroll
+    overflow-y: scroll
+
+.m
+  &-#{0}.m-0
+    margin: 0
+  &-auto
+    margin: auto
+  &-t-auto
+    margin:
+      top: auto
+  &-r-auto
+    margin:
+      right: auto
+  &-b-auto
+    margin:
+      bottom: auto
+  &-l-auto
+    margin:
+      left: auto
+  &-#{0}-auto
+    margin: 0 auto
+  &-auto-#{0}
+    margin: auto 0
+  &-left-#{16}
+    margin:
+      left: 16px
+
+.text
+  &-black
+    color: $black
+  &-white
+    color: $white
+  &-blue
+    color: $blue
+    &-#{100}
+      color: $blue-100
+    &-#{200}
+      color: $blue-200
+    &-#{800}
+      color: $blue-800
+  &-red
+    color: $red
+  &-bayoux
+    color: $bayoux
+  &-gray
+    color: $gray
+    &-#{200}
+      color: $gray-200
+  &-green
+    &-#{300}
+      color: $green-300
+  &-waterloo
+    color: $waterloo
+  &-nowrap
+    white-space: nowrap
+  &-uppercase
+    text-transform: uppercase
+  &-right
+    text-align: right
+  &-center
+    text-align: center
+  &-left
+    text-align: left
+
+.bg
+  &-white
+    background-color: $white
+  &-black
+    &-#{100}
+      background-color: $black-100
+    &-#{200}
+      background-color: $black-200
+  &-blue
+    background-color: $blue
+    &-#{100}
+      background-color: $blue-100
+    &-#{200}
+      background-color: $blue-200
+  &-green
+    background-color: $green
+    &-#{200}
+      background-color: $green-200
+  &-size
+    &-contain
+      background-size: contain !important
+    &-cover
+      background-size: cover !important
+  &-no-repeat
+    background-repeat: no-repeat
+  &-center
+    background-position: center
+
+.transition
+  transition: all $duration
+  &-color
+    transition: color $duration
+  &-bg
+    transition: background $duration
+  &-opacity
+    transition: opacity $duration
+
+.cursor
+  &-pointer
+    cursor: pointer
+  &-default
+    cursor: default
+
+.pointer-event
+  &-none
+    pointer-events: none
+
+.line-height
+  &-#{1}
+    line-height: 1
+
+.user-select
+  &-none
+    @include UserSelect( none )
+
+.opacity
+  &-#{0}
+    opacity: 0
+  &-#{80}
+    opacity: .8
+  &-1
+    opacity: 1
+
+.direction
+  &-rtl
+    direction: rtl
+  &-ltr
+    direction: ltr
+
+/* ----------> Global Class <---------- */
+
+.container
+  padding: 0 150px
+  @include Md_Screen
+    padding: 0 30px
+  @include Sm_Screen
+    padding: 0 12px
+
+.has-skeleton
+  background: #eaeaea
+  animation: skeleton 1.2s linear infinite
+  img
+    opacity: 0
+
+.inner-box
+  border: 1px solid
+    radius: 10px
+  padding: 46px 47px 44px
+  @include Md_Screen
+    padding: 38px 30px 34px
+  @include Sm_Screen
+    padding: 30px 22px 26px
+  &--white
+    border:
+      color: transparentize(#d2e3f4, ( 1 - .79 ))
+    background: $white
+    box-shadow: 0 2px 4px 0 #f2f2f5
+
+.heartbeat-animation
+  animation: heartbeat 1.4s cubic-bezier(.455, .03, .515, .955) infinite
+
+.has-shadow
+  &::before, &::after
+    content: ""
+    position: absolute
+    top: 0
+    right: 0
+    width: 100%
+    height: 100%
+    border:
+      radius: inherit
+    pointer-events: none
+    transition: opacity $duration
+
+.carousel-btn
+  $c: #bde8fa
+  @include Size( 34px )
+  position: relative
+  border: 1px solid transparentize($c, ( 1 - .31 ))
+    radius: 50%
+  background:
+    color: $white
+  box-shadow: 0 0 4px 0 $c
+  transition: background-color $duration
+  &::before
+    content: ""
+    position: absolute
+    width: 10px
+    height: 16px
+    top: 50%
+    left: 50%
+    background: url("/../images/ic_angle--blue.svg") no-repeat center
+      size: contain
+  &--up
+    &::before
+      transform: translate(-50%, -50%) rotate(90deg)
+  &--right
+    &::before
+      transform: translate(-50%, -50%)
+  &--down
+    &::before
+      transform: translate(-50%, -50%) rotate(-90deg)
+  &--left
+    &::before
+      transform: translate(-50%, -50%) rotate(180deg)
+  @include L_Screen
+    &:hover
+      background:
+        color: #5bc6f3
+      &::before
+        background: url("/../images/ic_angle--white.svg") no-repeat center
+          size: contain
+
+.has_notebook--gray
+  &::before
+    content: ""
+    display: inline-block
+    @include Size( 14px )
+    background: url("/../images/ic_note--gray.svg") no-repeat center
+      size: contain
+    margin:
+      left: 5px
+    vertical-align: middle
+
+.router-link
+  color: transparent
+  padding: 2px 8px
+  transition: color $duration
+  &::before
+    content: ""
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 34px
+    height: 19px
+    background: url("/../images/ic_left-arrow--blue.svg") no-repeat center
+      size: contain
+    transform: translate(-50%, -50%)
+    transition: transform $duration
+    pointer-events: none
+  &:hover
+    color: $blue
+    &::before
+      transform: translate(60%, -50%)
+
+.flower_line
+  height: 20px
+  margin: 0 15px
+    bottom: 10px
+  &::before
+    content: ""
+    width: calc(100% - 12px)
+    height: 3.6px
+    margin:
+      bottom: .7px
+    pointer-events: none
+  &--white
+    background: url("/../images/ic_flower--white.svg") no-repeat center right
+      size: auto 100%
+    &::before
+      background: $white
+  &--blue
+    background: url("/../images/ic_flower--blue.svg") no-repeat center right
+      size: auto 100%
+    &::before
+      background: #D1F2FE
+    &--200
+      background: url("/../images/ic_flower--blue--200.svg") no-repeat center right
+        size: auto 100%
+      &::before
+        background: #bee9ff
+
+.counter
+  counter-reset: counter
+  &-increment
+    counter-increment: counter
+  &-item
+    &:before
+      content: counter(counter)"-"
+      display: inline-block
+      margin:
+        left: 8px
+
+.swiper
+  &-button
+    &-disabled
+      filter: brightness(0.95) grayscale(1)
+      opacity: .6
+      pointer-events: none
+
+.reverse-item
+  transform: scaleX(-1)
+
+.clipboard
+  &__message
+    $c: #33C192
+    color: $c
+    top: 0
+    right: 0
+    border:
+      radius: inherit
+    background: lighten($c, 38%)
+    padding:
+      right: 14px
+    &::before, &::after
+      content: ''
+      position: absolute
+    &::before
+      top: 0
+      right: 0
+      width: 100%
+      height: 100%
+    &::after
+      $size: 17px
+      top: 50%
+      left: 13px
+      @include Size( $size )
+      background: url("/../images/ic_verified--green.svg") no-repeat center
+        size: $size
+      transform: translateY(-50%)
+
+.ic
+  &--gmail
+    background: url("/../images/ic_gmail.svg") no-repeat center
+      size: contain
+  &--facebook
+    background: url("/../images/ic_facebook.svg") no-repeat center
+      size: auto 100%
+  &--telegram
+    background: url("/../images/ic_telegram.svg") no-repeat center
+      size: auto 100%
+  &--telegram
+    background: url("/../images/ic_telegram.svg") no-repeat center
+      size: auto 100%
+  &--twitter
+    background: url("/../images/ic_twitter.svg") no-repeat center
+      size: auto 100%
+  &--twitter
+    background: url("/../images/ic_twitter.svg") no-repeat center
+      size: auto 100%
+  &--pinterest
+    background: url("/../images/ic_pinterest.svg") no-repeat center
+      size: auto 100%

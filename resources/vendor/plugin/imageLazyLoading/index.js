@@ -42,7 +42,7 @@ const ImageLazyLoading = elements => {
         }, {
             root: null,
             threshold: .25,
-            rootMargin: "0px 0px -150px"
+            rootMargin: "0px 0px -200px 0px"
         });
 
         elements.forEach( el => Observer.observe( el ) );
