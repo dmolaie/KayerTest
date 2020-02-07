@@ -140,8 +140,8 @@ try {
                 observer: true,
                 observeParents: true,
                 navigation: {
-                    nextEl: '.r-events__section .carousel-btn--up',
-                    prevEl: '.r-events__section .carousel-btn--down',
+                    nextEl: '.r-events__section .carousel-btn--down',
+                    prevEl: '.r-events__section .carousel-btn--up',
                 },
                 thumbs: {
                     swiper: recentlyEventsCarousel,
