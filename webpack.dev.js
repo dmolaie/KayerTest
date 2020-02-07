@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const getJSEntries = () => (
     fs.readdirSync('./resources/js/Site/')
@@ -26,22 +28,30 @@ module.exports = {
         ...getJSEntries(),
         ...{
             'style': './resources/sass/style.sass'
+        },
+        ...{
+            'app': './resources/BackOffice/app.js'
         }
     }),
     output: {
         filename: 'js/[name].js',
-        chunkFilename: 'js/vendor.js',
-        path: path.resolve(__dirname, './public')
+        chunkFilename: 'js/[name].js',
+        path: path.resolve(__dirname, './public'),
+        publicPath: '/'
     },
     resolve: {
         alias: {
+            'vue$': 'vue/dist/vue.runtime.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
+            '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
             '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
             '@components': path.resolve(__dirname, './resources/BackOffice/components'),
         },
+        extensions: ["*", ".js", ".vue", ".json"]
     },
     devtool: "cheap-module-eval-source-map",
     optimization: {
+        runtimeChunk: 'single',
         splitChunks: {
             chunks: 'all',
         },
@@ -75,13 +85,20 @@ module.exports = {
                 ]
             },
             {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         presets: [
-                            "@babel/preset-env",
+                            "@babel/preset-env"
+                        ],
+                        plugins: [
+                            "@babel/plugin-syntax-dynamic-import"
                         ]
                     }
                 }
@@ -96,5 +113,13 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [
+                '!*',
+                'css',
+                'js'
+            ]
+        }),
+        new VueLoaderPlugin(),
     ]
 };

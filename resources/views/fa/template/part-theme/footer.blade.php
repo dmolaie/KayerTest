@@ -114,4 +114,3 @@
         </div>
     </div>
 </footer>
-@yield('scripts')

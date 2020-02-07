@@ -11,9 +11,4 @@ mix.webpackConfig({
 mix
     .js('resources/js/Site/master.js', 'public/js')
     .js('resources/js/Site/home.js', 'public/js')
-    .sass('resources/sass/style.sass', 'public/css')
-        .options({
-            postCss: [
-                require("css-mqpacker")
-            ]
-        });
+    .sass('resources/sass/style.sass', 'public/css');

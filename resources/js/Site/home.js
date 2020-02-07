@@ -394,7 +394,7 @@ try {
                     let Hour = GetTime12HourFormat( new Date() );
                     SetValueOnSvg(
                         document.querySelector('.p-home .c-progress-12'),
-                        ( ( Hour * 8.34 ) <= 100 ) ? ( Hour * 8.34 ) : 0
+                        ( ( Hour * 8.34 ) <= 100 ) ? ( Hour * 8.34 ) : (( Hour * 8.34 ) - 100)
                     );
                 } catch (e) {
                     //

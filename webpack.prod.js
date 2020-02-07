@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MediaQueryPlugin = require('media-query-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const getJSEntries = () => (
     fs.readdirSync('./resources/js/Site/')
@@ -28,21 +30,29 @@ module.exports = {
         ...getJSEntries(),
         ...{
             'style': './resources/sass/style.sass'
+        },
+        ...{
+            'app': './resources/BackOffice/app.js'
         }
     }),
     output: {
+        publicPath: '/',
         filename: 'js/[name].js',
-        chunkFilename: 'js/vendor.js',
+        chunkFilename: 'js/[name].js',
         path: path.resolve(__dirname, './public')
     },
     resolve: {
         alias: {
+            'vue$': 'vue/dist/vue.runtime.min.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
+            '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
             '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
             '@components': path.resolve(__dirname, './resources/BackOffice/components'),
         },
+        extensions: ["*", ".js", ".vue", ".json"]
     },
     optimization: {
+        runtimeChunk: 'single',
         splitChunks: {
             chunks: 'all',
         },
@@ -87,13 +97,20 @@ module.exports = {
                 ]
             },
             {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         presets: [
-                            "@babel/preset-env",
+                            "@babel/preset-env"
+                        ],
+                        plugins: [
+                            "@babel/plugin-syntax-dynamic-import"
                         ]
                     }
                 }
@@ -108,6 +125,14 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [
+                '!*',
+                'css',
+                'js'
+            ]
+        }),
+        new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),

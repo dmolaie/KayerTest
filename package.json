@@ -3,17 +3,19 @@
   "scripts": {
     "dev": "npm run development",
     "development": "webpack --config webpack.dev.js",
-    "watch": "npm run development -- --watch",
+    "watch": "webpack --watch --config webpack.dev.js",
     "wizard": "npm i & npm run production",
     "prod": "npm run production",
-    "production": "webpack --config webpack.prod.js"
+    "production": "webpack --progress -p --hide-modules --config webpack.prod.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^5.2.1",
     "css-loader": "^3.4.0",
     "extract-loader": "^3.1.0",
@@ -26,7 +28,10 @@
     "sass": "^1.20.1",
     "sass-loader": "7.*",
     "swiper": "^5.3.0",
+    "terser-webpack-plugin": "^2.3.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue": "^2.6.11",
+    "vue-loader": "^15.8.3",
     "vue-router": "^3.1.5",
     "vue-template-compiler": "^2.6.11",
     "webpack-cli": "^3.3.10"
@@ -36,7 +41,8 @@
   },
   "browserslist": [
     "> 1%",
-    "ie >= 10",
+    "not ie <= 8",
+    "ie >= 11",
     "edge >= 15",
     "ie_mob >= 10",
     "ff >= 45",

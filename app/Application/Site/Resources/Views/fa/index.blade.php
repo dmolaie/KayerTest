@@ -596,7 +596,7 @@
                                 <a href=""
                                    class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="v-cart__cover w-full has-skeleton rounded">
-                                        <img src="https://images.unsplash.com/photo-1580408745615-1f0592484c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                        <img src=""
                                              data-src="https://images.unsplash.com/photo-1580408745615-1f0592484c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                                              alt=""
                                              class="v-cart__cover_img w-full h-full rounded object-cover"
@@ -614,7 +614,7 @@
                                 <a href=""
                                    class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="v-cart__cover w-full has-skeleton rounded">
-                                        <img src="https://images.unsplash.com/photo-1580408745615-1f0592484c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                        <img src=""
                                              data-src="https://images.unsplash.com/photo-1580408745615-1f0592484c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                                              alt=""
                                              class="v-cart__cover_img w-full h-full rounded object-cover"
@@ -868,6 +868,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/vendor.js')}}" defer></script>
+    <script src="{{asset('js/vendors~home.js')}}" defer></script>
     <script src="{{asset('js/home.js')}}" defer></script>
 @endsection
