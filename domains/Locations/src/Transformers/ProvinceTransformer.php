@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domains\Locations\Transformers;
+namespace Domains\Locations\Transformers;
 
-use App\Domains\Locations\Entities\Province;
-use App\Domains\Locations\ValueObjects\ProvinceValueObject;
+use Domains\Locations\Entities\Province;
+use Domains\Locations\Services\Contracts\LocationDTOs\ProvinceDTO;
 
 class ProvinceTransformer
 {
@@ -14,9 +14,9 @@ class ProvinceTransformer
         })->toArray();
     }
 
-    public function transform(Province $province): ProvinceValueObject
+    public function transform(Province $province): ProvinceDTO
     {
-        $provinceObject = new ProvinceValueObject();
+        $provinceObject = new ProvinceDTO();
         $provinceObject->setId($province->id);
         $provinceObject->setName($province->name);
         $provinceObject->setSlug($province->slug);

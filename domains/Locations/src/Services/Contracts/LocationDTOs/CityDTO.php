@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domains\Locations\ValueObjects;
+namespace Domains\Locations\Services\Contracts\LocationDTOs;
 
 /**
  * Class CityValueObject
  */
-class CityValueObject
+class CityDTO
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ class CityValueObject
      */
     protected $Id;
     /**
-     * @var ProvinceValueObject
+     * @var ProvinceDTO
      */
     protected $province;
 
@@ -34,9 +34,9 @@ class CityValueObject
 
     /**
      * @param string $name
-     * @return CityValueObject
+     * @return CityDTO
      */
-    public function setName(string $name): CityValueObject
+    public function setName(string $name): CityDTO
     {
         $this->name = $name;
         return $this;
@@ -52,9 +52,9 @@ class CityValueObject
 
     /**
      * @param string $slug
-     * @return CityValueObject
+     * @return CityDTO
      */
-    public function setSlug(string $slug): CityValueObject
+    public function setSlug(string $slug): CityDTO
     {
         $this->slug = $slug;
         return $this;
@@ -70,27 +70,27 @@ class CityValueObject
 
     /**
      * @param int $Id
-     * @return CityValueObject
+     * @return CityDTO
      */
-    public function setId(int $Id): CityValueObject
+    public function setId(int $Id): CityDTO
     {
         $this->Id = $Id;
         return $this;
     }
 
     /**
-     * @return ProvinceValueObject
+     * @return ProvinceDTO
      */
-    public function getProvince(): ProvinceValueObject
+    public function getProvince(): ProvinceDTO
     {
         return $this->province;
     }
 
     /**
-     * @param ProvinceValueObject $province
-     * @return CityValueObject
+     * @param ProvinceDTO $province
+     * @return CityDTO
      */
-    public function setProvince(ProvinceValueObject $province): CityValueObject
+    public function setProvince(ProvinceDTO $province): CityDTO
     {
         $this->province = $province;
         return $this;

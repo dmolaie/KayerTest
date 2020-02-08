@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domains\Locations\Transformers;
+namespace Domains\Locations\Transformers;
 
-use App\Domains\Locations\Entities\City;
-use App\Domains\Locations\ValueObjects\CityValueObject;
+use  Domains\Locations\Entities\City;
+use Domains\Locations\Services\Contracts\LocationDTOs\CityDTO;
 
 class CityTransformer
 {
@@ -34,11 +34,11 @@ class CityTransformer
 
     /**
      * @param City $city
-     * @return CityValueObject
+     * @return CityDTO
      */
-    public function transform(City $city): CityValueObject
+    public function transform(City $city): CityDTO
     {
-        $cityObject = new CityValueObject();
+        $cityObject = new CityDTO();
         $cityObject->setId($city->id);
         $cityObject->setName($city->name);
         $cityObject->setSlug($city->slug);

@@ -178,6 +178,7 @@ return [
          */
         \App\Application\Site\SiteServiceProvider::class,
         \App\Application\Admin\AdminServiceProvider::class,
+        \Domains\src\LocationServiceProvider::class
 
     ],
 

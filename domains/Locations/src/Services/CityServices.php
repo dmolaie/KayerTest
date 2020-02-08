@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Domains\Locations\Services;
+namespace Domains\Locations\Services;
 
 
-use App\Domains\Locations\Repositories\CityRepository;
-use App\Domains\Locations\Transformers\CityTransformer;
+use Domains\Locations\Http\Resources\CityCollection;
+use Domains\Locations\Repositories\CityRepository;
+use Domains\Locations\Transformers\CityTransformer;
 
 class CityServices
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Domains\Locations\ValueObjects;
+namespace Domains\Locations\Services\Contracts\LocationDTOs;
 
 
 /**
  * Class ProvinceValueObject
  */
-class ProvinceValueObject
+class ProvinceDTO
 {
     /**
      * @var string
@@ -31,9 +31,9 @@ class ProvinceValueObject
 
     /**
      * @param string $name
-     * @return ProvinceValueObject
+     * @return ProvinceDTO
      */
-    public function setName(string $name): ProvinceValueObject
+    public function setName(string $name): ProvinceDTO
     {
         $this->name = $name;
         return $this;
@@ -49,9 +49,9 @@ class ProvinceValueObject
 
     /**
      * @param string $slug
-     * @return ProvinceValueObject
+     * @return ProvinceDTO
      */
-    public function setSlug(string $slug): ProvinceValueObject
+    public function setSlug(string $slug): ProvinceDTO
     {
         $this->slug = $slug;
         return $this;
@@ -67,9 +67,9 @@ class ProvinceValueObject
 
     /**
      * @param int $id
-     * @return ProvinceValueObject
+     * @return ProvinceDTO
      */
-    public function setId(int $id): ProvinceValueObject
+    public function setId(int $id): ProvinceDTO
     {
         $this->id = $id;
         return $this;
