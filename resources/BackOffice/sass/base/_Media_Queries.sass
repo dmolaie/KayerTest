@@ -2,52 +2,6 @@
 
 .l\:
   @include L_Screen
-    &w
-      &-#{750}
-        width: 750px
-    &h
-      &-full
-        height: 100%
-    &hover\:
-      &bg
-        &-white
-          &:hover
-            background-color: $white
-        &-blue
-          &:hover
-            background-color: $blue
-          &-#{100}
-            &:hover
-              background-color: $blue-100
-          &-#{200}
-            &:hover
-              background-color: $blue-200
-        &-green
-          &:hover
-            background-color: $green
-          &-#{200}
-            &:hover
-              background-color: $green-200
-      &opacity
-        &-#{1}
-          &:hover
-            opacity: 1
-      &color
-        &-blue
-          &-#{100}
-            &:hover
-              color: $blue-100
-          &-#{200}
-            &:hover
-              color: $blue-200
-          &-#{800}
-            &:hover
-              color: $blue-800
-      &font
-        &-weight
-          &-bold
-            &:hover
-              font-weight: bold
     &transition
       transition: all $duration
       &-color

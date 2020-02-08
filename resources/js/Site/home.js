@@ -3,102 +3,11 @@ import {
     Length,
     ChildIndex,
     GetNumberInString
-} from '../vendor/plugin/helper/index';
+} from '@vendor/plugin/helper';
 
 const SpaceBetweenItem = 32;
 
 try {
-
-    const HeartBeatAnimation = () => {
-        try {
-            const RequestAnimationFrame = callback => {
-                const RequestAnimation = (
-                    window.requestAnimationFrame ||
-                    window.webkitRequestAnimationFrame ||
-                    window.mozRequestAnimationFrame
-                );
-                ( !!RequestAnimation ) ? (
-                    RequestAnimation( callback )
-                ) : (
-                    setTimeout( callback, 100 )
-                )
-            };
-
-            const Canvas = document.querySelector('.heartbeat__canvas'),
-                  CTX =  Canvas.getContext("2d"),
-                  WindowsWidth = window.innerWidth,
-                  CanvasWidth  = 115;
-
-            Canvas.width = WindowsWidth;
-            Canvas.height = 80;
-
-            let beat = [
-                40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
-                38, 36, 34, 32, 30, 32, 34, 36, 38, 40,
-                42, 44, 46, 48, 50, 52, 50, 48, 46, 44, 42, 40,
-                40, 40, 40, 40, 40, 40, 40,
-                38, 36, 34, 36, 38, 40,
-                40, 40, 40, 40, 40, 40, 40, 40, 40,
-                37, 34, 31, 28, 25, 22, 19, 16, 13, 10, 7,
-                17, 21, 28, 35, 42, 49, 56, 63, 70, 77,
-                72, 65, 58, 51, 44, 42,
-                40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
-                38, 36, 34, 32, 34, 36, 38, 40,
-                40, 40, 40, 40, 40, 40,
-                38, 36, 34, 32, 30, 32, 34, 36, 38, 40, 40,
-            ],
-                X = 1;
-
-            let points = [];
-
-            for ( let i = 0; i < Math.ceil( WindowsWidth / CanvasWidth ); i++ ) {
-                points = points.concat( beat );
-            }
-
-            const Animate = () => {
-                setTimeout(() => {
-                    CTX.lineWidth = 1.2;
-                    CTX.strokeStyle = 'rgba(169, 208, 225, .9)';
-                    ( X < Length( points ) ) ? (
-                        X += 1
-                    ) : (
-                        X = 1
-                    );
-                    CTX.beginPath();
-                    CTX.moveTo(( X - 1 ), points[X - 1]);
-                    CTX.lineTo(X, points[X]);
-                    CTX.stroke();
-                    CTX.clearRect(( X + 1 ), 0, 1, Canvas.height);
-
-                    RequestAnimationFrame( Animate );
-                }, 35)
-            };
-
-            if ( "IntersectionObserver" in window ) {
-                const Observer = new IntersectionObserver( entries => {
-                    entries.forEach( entry => {
-                        if ( entry.isIntersecting ) {
-                            Animate( entry.target );
-                            Observer.unobserve( entry.target )
-                        }
-                    })
-                }, {
-                    root: null,
-                    threshold: 0.25,
-                    rootMargin: '0px 0px -200px'
-                });
-
-                Observer.observe( Canvas );
-
-            } else Animate();
-
-            Animate();
-        } catch ( exception ) {
-            //
-        }
-    };
-
-    HeartBeatAnimation();
 
     const MountSliderCarousel = () => {
         try {
@@ -159,7 +68,6 @@ try {
                     })
             }
         } catch (e) {
-            console.log(e);
             //
         }
     };
@@ -232,15 +140,14 @@ try {
                 observer: true,
                 observeParents: true,
                 navigation: {
-                    nextEl: '.r-events__section .carousel-btn--up',
-                    prevEl: '.r-events__section .carousel-btn--down',
+                    nextEl: '.r-events__section .carousel-btn--down',
+                    prevEl: '.r-events__section .carousel-btn--up',
                 },
                 thumbs: {
                     swiper: recentlyEventsCarousel,
                 },
             });
         } catch ( e ) {
-            console.log(e);
             //
         }
     };
@@ -311,6 +218,99 @@ try {
                 }
             });
         } catch ( e ) {
+            //
+        }
+    };
+
+    const HeartBeatAnimation = () => {
+        try {
+            const RequestAnimationFrame = callback => {
+                const RequestAnimation = (
+                    window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame
+                );
+                ( !!RequestAnimation ) ? (
+                    RequestAnimation( callback )
+                ) : (
+                    setTimeout( callback, 100 )
+                )
+            };
+
+            const Canvas = document.querySelector('.heartbeat__canvas'),
+                CTX =  Canvas.getContext("2d"),
+                WindowsWidth = window.innerWidth,
+                CanvasWidth  = 115;
+
+            Canvas.width = WindowsWidth;
+            Canvas.height = 80;
+
+            let beat = [
+                    40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
+                    38, 36, 34, 32, 30, 32, 34, 36, 38, 40,
+                    42, 44, 46, 48, 50, 52, 50, 48, 46, 44, 42, 40,
+                    40, 40, 40, 40, 40, 40, 40,
+                    38, 36, 34, 36, 38, 40,
+                    40, 40, 40, 40, 40, 40, 40, 40, 40,
+                    37, 34, 31, 28, 25, 22, 19, 16, 13, 10, 7,
+                    17, 21, 28, 35, 42, 49, 56, 63, 70, 77,
+                    72, 65, 58, 51, 44, 42,
+                    40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
+                    38, 36, 34, 32, 34, 36, 38, 40,
+                    40, 40, 40, 40, 40, 40,
+                    38, 36, 34, 32, 30, 32, 34, 36, 38, 40, 40,
+                ],
+                X = 1;
+
+            let points = [];
+
+            for ( let i = 0; i < Math.ceil( WindowsWidth / CanvasWidth ); i++ ) {
+                points = points.concat( beat );
+            }
+
+            const Animate = () => {
+                setTimeout(() => {
+                    CTX.lineWidth = 1.2;
+                    CTX.strokeStyle = 'rgba(169, 208, 225, .9)';
+
+                    if ( !X < Length(points) )
+                        CTX.clearRect(( X + 1 ), 0, Canvas.width, Canvas.height);
+
+                    ( X < Length( points ) ) ? (
+                        X += 1
+                    ) : (
+                        X = 1
+                    );
+
+                    CTX.beginPath();
+                    CTX.moveTo(( X - 1 ), points[X - 1]);
+                    CTX.lineTo(X, points[X]);
+                    CTX.stroke();
+
+                    RequestAnimationFrame( Animate );
+                }, 35)
+            };
+
+            if ( "IntersectionObserver" in window ) {
+                const Observer = new IntersectionObserver( entries => {
+                    entries.forEach( entry => {
+                        if ( entry.isIntersecting ) {
+                            Animate( entry.target );
+                            Observer.unobserve( entry.target )
+                        }
+                    })
+                }, {
+                    root: null,
+                    threshold: 0.25,
+                    rootMargin: '0px 0px 10px 0px'
+                });
+
+                Observer.observe( Canvas );
+
+            } else Animate();
+
+            Animate();
+        } catch ( exception ) {
             //
         }
     };
@@ -392,10 +392,9 @@ try {
             const ProgressEvery12Hour = () => {
                 try {
                     let Hour = GetTime12HourFormat( new Date() );
-                    console.log(Hour, (Hour * 8.34));
                     SetValueOnSvg(
                         document.querySelector('.p-home .c-progress-12'),
-                        ( ( Hour * 8.34 ) <= 100 ) ? ( Hour * 8.34 ) : 0
+                        ( ( Hour * 8.34 ) <= 100 ) ? ( Hour * 8.34 ) : (( Hour * 8.34 ) - 100)
                     );
                 } catch (e) {
                     //
@@ -405,26 +404,6 @@ try {
             ProgressEvery10Min();
             ProgressEvery2Hour();
             ProgressEvery12Hour();
-
-            // const FallBack = () => {};
-            // if ( "IntersectionObserver" in window ) {
-            //     const Observer = new IntersectionObserver( entries => {
-            //         entries.forEach( entry => {
-            //             if ( entry.isIntersecting ) {
-            //                 SetValueOnSvg( entry.target );
-            //                 Observer.unobserve( entry.target )
-            //             }
-            //         })
-            //     }, {
-            //         root: null,
-            //         threshold: 0.25,
-            //         rootMargin: '0px 0px -200px'
-            //     });
-            //
-            //     document.querySelectorAll('.p-home .progress_bar__item_icon')
-            //         .forEach( item => Observer.observe( item ) )
-            //
-            // } else FallBack();
 
             setInterval( () => {
                 ProgressEvery10Min();
@@ -441,6 +420,7 @@ try {
     document.addEventListener(
         'DOMContentLoaded',
         () => {
+            HeartBeatAnimation();
             ProgressBarAnimate();
         }
     );
@@ -456,6 +436,5 @@ try {
         }
     );
 } catch (e) {
-    console.log(e);
     //
 }

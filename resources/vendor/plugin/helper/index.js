@@ -8,8 +8,8 @@ export const ChildIndex = child => {
 export const Flatten = ( array = [] ) => {
     return (
         array.reduce((_, item) =>
-            Array.isArray( item ) ? Flatten( item ) : item
-        , [])
+                Array.isArray( item ) ? Flatten( item ) : item
+            , [])
     )
 };
 
