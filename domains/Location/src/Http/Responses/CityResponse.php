@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\Locations\src\Http\Responses;
+namespace Domains\Location\src\Http\Responses;
 
 
 

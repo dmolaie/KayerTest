@@ -1,9 +1,9 @@
 <?php
 
-namespace Domains\Locations\Transformers;
+namespace Domains\Location\Transformers;
 
-use  Domains\Locations\Entities\City;
-use Domains\Locations\Services\Contracts\LocationDTOs\CityDTO;
+use  Domains\Location\Entities\City;
+use Domains\Location\Services\Contracts\LocationDTOs\CityDTO;
 
 class CityTransformer
 {

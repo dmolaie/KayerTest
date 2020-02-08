@@ -1,8 +1,8 @@
 <?php
 
-namespace Domains\Locations\Repositories;
+namespace Domains\Location\Repositories;
 
-use Domains\Locations\Entities\City;
+use Domains\Location\Entities\City;
 use App\Infrastructure\Repositories\BaseEloquentRepository;
 
 class CityRepository extends BaseEloquentRepository

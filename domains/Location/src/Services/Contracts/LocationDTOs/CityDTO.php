@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Locations\Services\Contracts\LocationDTOs;
+namespace Domains\Location\Services\Contracts\LocationDTOs;
 
 /**
  * Class CityValueObject

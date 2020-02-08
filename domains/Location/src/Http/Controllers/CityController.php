@@ -1,10 +1,10 @@
 <?php
 
-namespace Domains\Locations\Http\Controllers;
+namespace Domains\Location\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Domains\Locations\Http\Resources\CityCollection;
-use Domains\Locations\Services\CityServices;
+use Domains\Location\Http\Resources\CityCollection;
+use Domains\Location\Services\CityServices;
 
 class CityController extends Controller
 {

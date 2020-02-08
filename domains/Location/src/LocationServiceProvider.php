@@ -32,7 +32,7 @@ class LocationServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace' => 'Domains\Locations\Http\Controllers',
+            'namespace' => 'Domains\Location\Http\Controllers',
             'prefix'    => 'location',
         ];
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Domains\Locations\Transformers;
+namespace Domains\Location\Transformers;
 
-use Domains\Locations\Entities\Province;
-use Domains\Locations\Services\Contracts\LocationDTOs\ProvinceDTO;
+use Domains\Location\Entities\Province;
+use Domains\Location\Services\Contracts\LocationDTOs\ProvinceDTO;
 
 class ProvinceTransformer
 {
