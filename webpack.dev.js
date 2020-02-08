@@ -30,7 +30,8 @@ module.exports = {
             'style': './resources/sass/style.sass'
         },
         ...{
-            'app': './resources/BackOffice/app.js'
+            'app': './resources/BackOffice/app.js',
+            'app-style': './resources/BackOffice/sass/app.sass'
         }
     }),
     output: {
@@ -98,6 +99,7 @@ module.exports = {
                             "@babel/preset-env"
                         ],
                         plugins: [
+                            "@babel/transform-runtime",
                             "@babel/plugin-syntax-dynamic-import"
                         ]
                     }
