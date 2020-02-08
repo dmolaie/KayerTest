@@ -2,47 +2,47 @@
     <div class="footer__middle bg-black-100">
         <div class="container flex items-start">
             <nav class="footer__nav flex flex-col">
-                <p class="footer__nav_title font-xs-bold text-blue-100">
+                <p class="footer__nav_title font-xs-bold text-blue-100 cursor-default">
                     لینک ها
                 </p>
                 <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color"
+                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     خانه
                 </a>
                 <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color"
+                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     حمایت مالی
                 </a>
                 <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color"
+                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     گالری
                 </a>
             </nav>
             <nav class="footer__nav flex flex-col l:m-0-auto">
-                <p class="footer__nav_item footer__nav_title font-xs-bold text-blue-100">
+                <p class="footer__nav_item footer__nav_title font-xs-bold text-blue-100 cursor-default">
                     لینک ها
                 </p>
                 <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color"
+                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     کارت اهدای عضو
                 </a>
                 <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color"
+                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     سفیران اهدای عضو
                 </a>
                 <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color"
+                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     فرشتگان ماندگار
                 </a>
             </nav>
             <nav class="footer__nav flex flex-col l:m-r-auto">
-                <p class="footer__nav_title font-xs-bold text-blue-100">
+                <p class="footer__nav_title font-xs-bold text-blue-100 cursor-default">
                     اطلاعات تماس
                 </p>
                 <p class="footer__nav_item text-gray font-1xs-bold">
@@ -51,12 +51,12 @@
                     ساختمان ۷۹۰، واحد ۱۲
                 </p>
                 <p class="footer__nav_item text-gray font-1xs-bold">
-                        <span class="footer__nav_tel">
-                            تلفن:  ۹۸۲۱۵۷۷۵۰+
-                        </span>
+                    <span class="footer__nav_tel">
+                        تلفن:  ۹۸۲۱۵۷۷۵۰+
+                    </span>
                     <span class="footer__nav_email">
-                            پست الکترونیکی:  info@ehda.center
-                        </span>
+                        پست الکترونیکی:  info@ehda.center
+                    </span>
                 </p>
             </nav>
             <div class="footer__map l:m-r-auto rounded-3 overflow-hidden">
@@ -98,7 +98,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"
                              class="footer__social_item_icon block w-full"
                         >
-                            <path d="M15 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15C0 6.716 6.716 0 15 0zm4.299 11.818c-1.507 0-2.22.862-2.625 1.517l-.06.097v-1.384h-2.978c.038.859.005 8.694 0 9.67v.1h2.979V16.36c0-.293.02-.583.098-.792.216-.584.705-1.187 1.528-1.187 1.03 0 1.468.816 1.505 2.032l.003.177v5.227h2.978v-5.603c0-3-1.469-4.397-3.428-4.397zm-8.39 0H8.182v9.091h2.727v-9.09zm5.706 1.614v.032h-.02c.005-.01.014-.02.02-.032zm-6.604-6.16c-1.106 0-1.83.786-1.83 1.819 0 1.01.703 1.818 1.788 1.818h.02c1.128 0 1.83-.808 1.83-1.818-.022-1.033-.702-1.818-1.808-1.818z"/>
+                            <path d="M15 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15C0 6.716 6.716 0 15 0zm1.924 10.393c-1.29.477-2.106 1.706-2.013 3.051l.031.519-.516-.064c-1.878-.243-3.519-1.07-4.912-2.457l-.681-.689-.176.509c-.371 1.133-.134 2.33.64 3.135.413.445.32.509-.392.244-.248-.085-.464-.148-.485-.117-.072.075.175 1.038.371 1.42.269.53.816 1.048 1.414 1.356l.506.243-.599.01c-.577 0-.598.011-.536.234.206.688 1.021 1.42 1.93 1.737l.64.223-.558.339a5.738 5.738 0 0 1-2.766.783c-.464.01-.846.053-.846.085 0 .106 1.26.7 1.992.932 2.198.689 4.81.392 6.77-.784 1.393-.836 2.786-2.5 3.437-4.11.35-.858.701-2.425.701-3.177 0-.488.031-.551.61-1.134.34-.339.66-.71.722-.815.103-.202.093-.202-.434-.021-.877.317-1 .275-.567-.202.32-.339.701-.953.701-1.133 0-.032-.154.021-.33.116-.186.106-.598.265-.908.36l-.557.18-.506-.349c-.279-.19-.67-.402-.877-.466-.527-.148-1.332-.127-1.806.042z"/>
                         </svg>
                     </a>
                     <a href=""
@@ -114,4 +114,3 @@
         </div>
     </div>
 </footer>
-@yield('scripts')
