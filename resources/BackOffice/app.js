@@ -5,7 +5,8 @@ import App from '@components/App.vue';
 import General from '@vendor/plugin/general';
 import Notification from '@vendor/components/notification';
 
-Vue.config.devtools = true;
+Vue.config.devtools = false;
+Vue.config.productionTip = false;
 
 Vue.use( General );
 Vue.use( VueRouter );
