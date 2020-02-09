@@ -81,13 +81,13 @@
                             انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
                         </p>
                         <div class="inline-flex items-center l:m-r-auto md:m-b-20">
-                                <span class="text-bayoux font-sm-bold cursor-default">
-                                    لینک کوتاه:
+                            <span class="text-bayoux font-sm-bold cursor-default">
+                                لینک کوتاه:
+                            </span>
+                            <div class="clipboard relative cursor-pointer text-blue-800 font-sm border border-solid i-page__box rounded-1/2 m-r-10">
+                                <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
+                                    کپی شد
                                 </span>
-                            <div class="clipboard relative cursor-pointer text-blue-800 font-sm border border-solid i-page__box rounded-1/2 m-r-10 l:hover:font-weight-bold">
-                                    <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
-                                        کپی شد
-                                    </span>
                                 https://ehda.center/PNWVzX
                             </div>
                         </div>
