@@ -7,6 +7,7 @@ use App\Domains\Roles\Enitites\Permissions;
 use App\Domains\Roles\Entities\Roles as RolesAdmin;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        RolesAdmin::class => RolePolicy::class,
+        //RolesAdmin::class => RolePolicy::class,
     ];
 
     /**
@@ -28,5 +29,4 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
     }
-
 }
