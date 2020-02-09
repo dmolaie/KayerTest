@@ -49,7 +49,7 @@
                     <h4 class="font-24 text-blue-800 text-nowrap line-height-1">
                         اخبار ویژه
                     </h4>
-                    <span class="flower_line flower_line--white relative flex items-end justify-end block w-full"></span>
+                    <span class="flower_line flower_line--blue--300 relative flex items-end justify-end block w-full"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30"></button>
                 </div>
@@ -771,7 +771,7 @@
                     <h4 class="font-24 text-blue-800 cursor-default text-nowrap line-height-1">
                         اخبار اهدا
                     </h4>
-                    <span class="flower_line flower_line--white relative flex items-end justify-end block w-full"></span>
+                    <span class="flower_line flower_line--blue--300 relative flex items-end justify-end block w-full"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30"></button>
                 </div>
