@@ -26,6 +26,10 @@ try {
                     1300: {
                         slidesPerView: 4,
                         spaceBetween: SpaceBetweenItem,
+                    },
+                    2000: {
+                        slidesPerView: 5,
+                        spaceBetween: SpaceBetweenItem,
                     }
                 }
             });
