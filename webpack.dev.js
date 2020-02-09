@@ -31,7 +31,7 @@ module.exports = {
         },
         ...{
             'app': './resources/BackOffice/app.js',
-            'app-style': './resources/BackOffice/sass/app.sass'
+            'appStyle': './resources/BackOffice/sass/app.sass'
         }
     }),
     output: {
