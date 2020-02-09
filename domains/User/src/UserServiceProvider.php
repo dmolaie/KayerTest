@@ -1,12 +1,13 @@
 <?php
 
-namespace Domains\Location;
+
+namespace Domains\User;
+
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-
-class LocationServiceProvider extends ServiceProvider
+class UserServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
@@ -29,11 +30,14 @@ class LocationServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return array
+     */
     private function routeConfiguration()
     {
         return [
-            'namespace' => 'Domains\Location\Http\Controllers',
-            'prefix'    => 'location',
+            'namespace' => 'Domains\User\Http\Controllers',
+            'prefix'    => 'user',
         ];
     }
 
@@ -43,8 +47,10 @@ class LocationServiceProvider extends ServiceProvider
     protected function loadAssetsFrom(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'location');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'Location');
+
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'user');
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'user');
     }
 
     /**
@@ -55,11 +61,11 @@ class LocationServiceProvider extends ServiceProvider
     protected function registerPublishing(): void
     {
         $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/Location'),
-        ], 'lang');
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/user'),
+        ]);
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/location'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/user'),
         ]);
 
         $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'migrations');
@@ -74,5 +80,4 @@ class LocationServiceProvider extends ServiceProvider
     {
         return __DIR__ . '/../config/config.php';
     }
-
 }
