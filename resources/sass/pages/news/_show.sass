@@ -1,0 +1,79 @@
+.n-show-page
+  .color-black
+    color: #444444
+  .n-show
+    &__details
+      padding:
+        top: 18px
+      .i-page__flower_line
+        top: auto
+        bottom: 20px
+        @include Md_Screen
+          bottom: 0
+    &__description
+      margin: 22px 0 24px
+      padding: 22px 22px 12px
+      background: #eff3f7
+    &__release
+      @include L_Screen
+        margin:
+          bottom: 55px
+      @include Md_Screen
+        margin: 20px 0 30px
+    &__title
+      align-self: flex-start
+      @include Truncate( 2 )
+    &__cover
+      width: 394px
+      height: 210px
+      margin:
+        left: 26px
+      background: #eaeaea
+  .relative-news
+    margin:
+      top: 35px
+    &__title
+      margin:
+        top: 65px
+    &__cart
+      border:
+        color: transparentize(#d2e3f4, ( 1 - .79 ))
+      &::before
+        box-shadow: 0 2px 4px 0 #f2f2f5
+      &::after
+        box-shadow: 0 2px 17px 0 transparentize(#8dd8f8, (1 - .51))
+        opacity: 0
+      @include L_Screen
+        &:hover
+          &::before
+            opacity: 0
+          &::after
+            opacity: 1
+      &_cover
+        height: 170px
+      &_body
+        padding: 16px 18px
+      &_link
+        margin:
+          top: 8px
+        &::before
+          content: " "
+          display: inline-block
+          width: 30px
+          height: 19px
+          background: url('/../images/ic_left-arrow--blue.svg') no-repeat center
+            size: contain
+          margin:
+            left: 10px
+          pointer-events: none
+          vertical-align: middle
+  .swiper-slide
+    padding: 10px 0
+    @include L_Screen
+      width: calc(34.222% - #{$SpaceBetweenItem})
+      margin:
+        left: ($SpaceBetweenItem + 3)
+    @include Xl_Screen
+      width: calc(25.5% - #{$SpaceBetweenItem})
+      margin:
+        left: $SpaceBetweenItem
