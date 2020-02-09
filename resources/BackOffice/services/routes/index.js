@@ -25,7 +25,7 @@ export default {
         },
         {
             name: 'NOT_FOUND',
-            path: '/*',
+            path: GetRoutes( '*' ),
             component: GetViews('NotFound' )
         }
     ]
