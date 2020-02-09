@@ -176,9 +176,9 @@ return [
         /*
          * Package Service Providers...
          */
-//        \App\Application\Site\SiteServiceProvider::class,
-//        \App\Application\Admin\AdminServiceProvider::class,
         \Domains\Location\LocationServiceProvider::class,
+        \Domains\Site\SiteServiceProvider::class,
+        \Domains\Admin\AdminServiceProvider::class,
         \Domains\User\UserServiceProvider::class,
 
 
