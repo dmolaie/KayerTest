@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 class EhdaBaseController extends Controller
 {
-    public function Response(array $data = [], int $code, $message = "")
+    public function response(array $data = [], int $code, $message = "")
     {
         return response()->json([
             'data' => $data,
