@@ -99,6 +99,10 @@ try {
                     1300: {
                         slidesPerView: 4,
                         spaceBetween: SpaceBetweenItem,
+                    },
+                    2000: {
+                        slidesPerView: 5,
+                        spaceBetween: SpaceBetweenItem,
                     }
                 }
             });
@@ -179,6 +183,10 @@ try {
                     1300: {
                         slidesPerView: 4,
                         spaceBetween: SpaceBetweenItem,
+                    },
+                    2000: {
+                        slidesPerView: 5,
+                        spaceBetween: SpaceBetweenItem,
                     }
                 }
             });
@@ -213,6 +221,10 @@ try {
                     },
                     1300: {
                         slidesPerView: 3,
+                        spaceBetween: SpaceBetweenItem,
+                    },
+                    2000: {
+                        slidesPerView: 4,
                         spaceBetween: SpaceBetweenItem,
                     }
                 }

@@ -33,7 +33,7 @@ module.exports = {
         },
         ...{
             'app': './resources/BackOffice/app.js',
-            'app-style': './resources/BackOffice/sass/app.sass'
+            'appStyle': './resources/BackOffice/sass/appStyle.sass'
         }
     }),
     output: {
@@ -46,9 +46,11 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.runtime.min.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
-            '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
-            '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
             '@components': path.resolve(__dirname, './resources/BackOffice/components'),
+            '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
+            '@endpoints': path.resolve(__dirname, './resources/BackOffice/services/endpoints'),
+            '@sub_components': path.resolve(__dirname, './resources/BackOffice/sub_components'),
+            '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
         },
         extensions: ["*", ".js", ".vue", ".json"]
     },

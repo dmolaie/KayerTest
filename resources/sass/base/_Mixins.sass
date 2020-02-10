@@ -9,11 +9,11 @@
     @content
 
 @mixin L_Screen
-  @media (min-width: 900px)
+  @media (min-width: 1000px)
     @content
 
 @mixin Md_Screen
-  @media (max-width: 900px)
+  @media (max-width: 1000px)
     @content
 
 @mixin Sm_Screen
@@ -62,3 +62,31 @@
   -moz-user-select: $select
   -ms-user-select: $select
   user-select: $select
+
+@mixin SpinnerLoading($size, $width, $color)
+  position: relative
+  &::before, &::after
+    content: ''
+    position: absolute
+    top: 50%
+    left: 50%
+    border: $width solid
+      radius: 50%
+    opacity: 0
+    @include Size( $size )
+    transition: opacity $duration
+  &::before
+    border:
+      color: transparentize($color, .55)
+    transform: translate(-50%, -50%)
+  &::after
+    border:
+      color: transparent
+      top-color: $color
+    animation: spinner_loading .8s linear infinite
+  &.spinner-loading
+    cursor: default
+    color: transparent
+    pointer-events: none
+    &:before, &::after
+      opacity: 1

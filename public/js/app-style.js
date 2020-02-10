@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{12:function(s,p,c){"use strict";c.r(p),p.default=c.p+"css/app.css"}},[[12,0]]]);

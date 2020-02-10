@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import VueRouter from "vue-router";
-import App from '@components/App.vue';
 import routes from "./services/routes";
-// import "core-js/modules/es6.promise";
-// import "core-js/modules/es6.array.iterator";
+import App from '@components/App.vue';
+import General from '@vendor/plugin/general';
+import Notification from '@vendor/components/notification';
 
-Vue.config.devtools = true;
+Vue.config.devtools = false;
+Vue.config.productionTip = false;
 
+Vue.use( General );
 Vue.use( VueRouter );
+Vue.use( Notification );
 
 const Routes = new VueRouter( routes );
 

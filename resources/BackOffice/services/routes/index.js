@@ -1,8 +1,9 @@
-const PATH_NAME = '/admin';
+const PATH_NAME = '';
 
-const GetRoutes = ( path = '' ) => (
-    ( !!path ) ? ( PATH_NAME + '/' + path ) : ( PATH_NAME )
-);
+// const GetRoutes = ( path = '' ) => (
+//     // ( !!path ) ? ( PATH_NAME + '/' + path ) : ( PATH_NAME )
+//     '/' + path
+// );
 
 const GetViews = component => () =>
     import(
@@ -11,16 +12,17 @@ const GetViews = component => () =>
     );
 
 export default {
-    mode: 'history',
+    mode: "hash",
+    base: '/admin/panel',
     routes: [
         {
             name: 'DASHBOARD',
-            path: GetRoutes('dashboard'),
+            path: '/dashboard',
             component: GetViews('Dashboard' )
         },
         {
             name: 'LOGIN',
-            path: GetRoutes( 'login' ),
+            path: '/login',
             component: GetViews( 'Login')
         },
         {

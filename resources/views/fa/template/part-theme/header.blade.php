@@ -1,7 +1,7 @@
 <header class="header bg-white">
     <div class="container">
         <div class="header__brand flex items-center justify-between">
-            <a href=""
+            <a href="/"
                class="header__logo block m-l-auto"
             >
                 <img src="/images/ic_ehda-center.png"
@@ -25,8 +25,8 @@
         <div class="header__nav_container container flex items-center">
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 درباره‌ی انجمن
-                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-2">
-                    <a href=""
+                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
+                    <a href="{{route('page.ngo-history',config('app.locale'))}}"
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         تاریخچه
@@ -75,7 +75,7 @@
             </div>
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 دانستنی ها
-                <div class="header__nav_sub-menu absolute flex bg-white cursor-default line-height-1 z-2">
+                <div class="header__nav_sub-menu absolute flex bg-white cursor-default line-height-1 z-10">
                     <div class="header__nav_sub-menu_col">
                             <span class="header__nav_sub-menu_title block font-sm text-blue-200">
                                 اطلاعات عمومی
@@ -130,7 +130,7 @@
             </div>
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 اخبار و رویدادها
-                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-2">
+                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a href=""
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
@@ -150,7 +150,7 @@
             </div>
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 هنر اهدا
-                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-2">
+                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a href=""
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
@@ -170,7 +170,7 @@
             </div>
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 مشارکت
-                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-2">
+                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a href=""
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
@@ -200,7 +200,7 @@
             </div>
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 خدمات تخصصی علمی
-                <div class="header__nav_sub-menu absolute flex bg-white cursor-default line-height-1 z-2">
+                <div class="header__nav_sub-menu absolute flex bg-white cursor-default line-height-1 z-10">
                     <div class="header__nav_sub-menu_col">
                             <span class="header__nav_sub-menu_title block font-sm text-blue-200">
                                 آموزش
@@ -251,8 +251,8 @@
             </div>
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 مددکاری
-                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-2">
-                    <a href=""
+                <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
+                    <a href="{{route('page.structure-and-organization',config('app.locale'))}}"
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ساختار و تشکیلات
