@@ -13,3 +13,7 @@ docker-compose/mongo-report/*
 composer.lock
 node_modules
 
+
+storage/oauth-private.key
+
+storage/oauth-public.key
