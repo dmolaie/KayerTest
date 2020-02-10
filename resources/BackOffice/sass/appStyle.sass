@@ -1,4 +1,5 @@
-@import "base/Reset", "base/Classes", "base/Function", "base/Mixins", "base/Media_Queries", "base/Variables", "base/Animation"
+@import "resources/sass/base/Reset", "resources/sass/base/Function", "resources/sass/base/Mixins"
+@import "base/Classes", "base/Media_Queries", "base/Variables", "base/Animation"
 
 @font-face
   font-family: IranSans
@@ -15,4 +16,8 @@ body
     size: 16px
     family: IranSans
   background: $white
+
+@import "resources/sass/pages/login/index"
+@import "./components/aside"
+@import "./components/notification"
 

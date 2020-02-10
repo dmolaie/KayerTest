@@ -1,0 +1,41 @@
+.n-list-page
+  padding:
+    top: 0
+  .n-list__header
+    padding: 30px 0 14px
+    .flower_line
+      margin:
+        left: 0
+    &_sub-title
+      margin: 12px 30px 5px
+    &_cover
+      width: 245px
+  .bg-sky-blue
+    background: #bde8fa
+  .s-cart
+    &__cover
+      height: 200px
+    &__caption
+      padding: 6px 8px 7px
+      right: 0
+      bottom: 0
+      height: 60px
+      background: linear-gradient(to bottom, transparentize(black, ( 1 - .25 )) 5%, black)
+      &_text
+        @include Truncate( 2 )
+  .n-list
+    &__aside
+      width: 260px
+      flex-shrink: 0
+      margin:
+        left: 28px
+  .swiper-slide
+    width: 260px
+    &:not(:last-of-type)
+      .s-cart
+        border:
+          left: 1px solid #bde8fa
+  .h-cart
+    &:not(:last-of-type)
+      margin:
+        bottom: 32px

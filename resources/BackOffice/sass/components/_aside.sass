@@ -1,0 +1,25 @@
+.aside
+  width: 350px
+  &__header
+    padding: 0 16px
+    min-height: 80px
+    background: #bde8fa
+    box-shadow: 0 8px 30px 0 transparentize(#1e87f0, ( 1 - .2 ))
+    &_logo
+      height: 30px
+    &_button
+      width: 32px
+      height: 24px
+      &--line
+        right: 0
+        height: 4px
+        &--#{1}
+          top: 0
+          width: 100%
+        &--#{2}
+          top: 50%
+          width: 100%
+          transform: translateY(-50%)
+        &--#{3}
+          bottom: 0
+          width: 60%

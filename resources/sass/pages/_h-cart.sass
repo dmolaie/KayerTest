@@ -1,0 +1,35 @@
+.h-cart
+  border:
+    color: #d2e3f4
+  min-height: 190px
+  &::before
+    box-shadow: 0 2px 4px 0 #f2f2f5
+  &::after
+    box-shadow: 0 2px 17px 0 transparentize(#8dd8f8, (1 - .51))
+    opacity: 0
+  @include L_Screen
+    &:hover
+      &::before
+        opacity: 0
+      &::after
+        opacity: 1
+  @include Xl_Screen
+    min-height: 136px
+  &::before
+    box-shadow: 0 2px 4px 0 transparentize(#cff1ff, (1 - .65))
+  &__cover
+    width: 200px
+  &__title
+    @include Truncate( 2 )
+    @include Xl_Screen
+      @include Truncate( 1 )
+  &__title, &__release
+    color: #444
+  &__details
+    padding: 18px 30px 15px 22px
+  &__release
+    margin: 2px 0 8px
+  &__caption
+    @include Truncate( 4 )
+    @include Xl_Screen
+      @include Truncate( 2 )

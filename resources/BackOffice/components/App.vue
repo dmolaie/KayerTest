@@ -1,8 +1,7 @@
 <template>
     <div class="app w-full h-full">
-        hgjjgfj
-        {{ name }}
         <router-view />
+        <notification-cm />
     </div>
 </template>
 
