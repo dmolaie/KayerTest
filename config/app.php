@@ -82,6 +82,8 @@ return [
 
     'locale' => 'fa',
 
+    'languages' => '(fa|en)',
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -180,6 +182,7 @@ return [
         \Domains\Site\SiteServiceProvider::class,
         \Domains\Admin\AdminServiceProvider::class,
         \Domains\User\UserServiceProvider::class,
+        \Domains\Role\RoleServiceProvider::class,
 
 
     ],
