@@ -15,7 +15,10 @@ class UserServiceProvider extends ServiceProvider
 
         $this->loadAssetsFrom();
 
+        $this->setConfig();
+
         $this->registerPublishing();
+
     }
 
     /**
@@ -76,8 +79,10 @@ class UserServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function getConfig(): string
+    protected function setConfig()
     {
-        return __DIR__ . '/../config/config.php';
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'user');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('user.php')], 'config');
+
     }
 }
