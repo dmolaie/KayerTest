@@ -70,7 +70,8 @@
                     </ul>
                 </div>
                 <figure class="m-b-20 l:w-750 md:max-w-100 h-245 m-0-auto rounded has-skeleton">
-                    <img src="https://images.unsplash.com/photo-1580490390526-9fe5df5e68a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                    <img src=""
+                         data-src="https://images.unsplash.com/photo-1580490390526-9fe5df5e68a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
                          alt=""
                          class="w-full h-full block rounded object-cover"
                     />
