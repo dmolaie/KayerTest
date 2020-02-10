@@ -2,11 +2,10 @@
 
 namespace Domains\User\Http\Requests;
 
-use Domains\User\Entities\User;
+use App\Http\Request\EhdaBaseRequest;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
-use Illuminate\Foundation\Http\FormRequest;
 
-class UserRegisterRequest extends FormRequest
+class UserRegisterRequest extends EhdaBaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
