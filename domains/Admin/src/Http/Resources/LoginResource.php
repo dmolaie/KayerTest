@@ -14,7 +14,6 @@ class LoginResource extends Resource
      */
     public function toArray($request)
     {
-        dd($this);
         return [
             'name' => (\Auth::user()->id) ? \Auth::user()->name : false,
             'national_code' =>  (\Auth::user()->id) ? \Auth::user()->national_code : false,
