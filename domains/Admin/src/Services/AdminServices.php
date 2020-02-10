@@ -3,26 +3,21 @@
 namespace Domains\Admin\Services;
 
 
-use Domains\Locations\Repositories\CityRepository;
-use Domains\Locations\Transformers\CityTransformer;
+use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
+use Domains\User\Services\UserService;
 
 class AdminServices
 {
-    /**
-     */
-    private $cityRepository;
-    /**
-     */
-    private $cityTransformer;
+    protected $userService;
+    protected $loginTransformer;
 
-    public function __construct()
+    public function __construct(UserService $userService)
     {
-    }
-    public function getAll()
-    {
+        $this->userService = $userService;
     }
 
-    public function find(int $id)
+    public function login(LoginDTO $loginDTO): LoginDTO
     {
+        return $this->userService->loginWithApi($loginDTO);
     }
 }

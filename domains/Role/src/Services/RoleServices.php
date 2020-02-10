@@ -1,16 +1,23 @@
 <?php
 
-namespace Domains\Site\Services;
+namespace Domains\Role\Services;
 
 
 use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
 
-class SiteServices
+class RoleServices
 {
+
     public function __construct()
     {
     }
+
+    public function getRoleIdWithRoleName(string $roleName) :int
+    {
+       return config('role.roles.'.$roleName.'.id');
+    }
+
     public function getAll()
     {
     }

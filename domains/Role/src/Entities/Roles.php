@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Domains\Roles\Entities ;
+namespace Domains\Role\Entities ;
 
 use App\Domains\Roles\Enitites\Permissions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Roles extends Model
+class Role extends Model
 {
     protected $table = 'roles';
 
