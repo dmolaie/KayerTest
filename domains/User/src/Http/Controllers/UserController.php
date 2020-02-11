@@ -5,11 +5,11 @@ namespace Domains\User\Http\Controllers;
 
 
 use Exception;
+use Illuminate\Http\Response;
+use Domains\User\Services\UserService;
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Http\Requests\UserRegisterRequest;
-use Domains\User\Services\UserService;
 use Domains\User\src\Http\Presenters\UserRegisterPresenter;
-use Illuminate\Http\Response;
 
 class UserController extends EhdaBaseController
 {

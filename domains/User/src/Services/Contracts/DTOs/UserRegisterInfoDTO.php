@@ -6,7 +6,6 @@ namespace Domains\User\Services\Contracts\DTOs;
 
 /**
  * Class UserRegisterInfoDTO
- * @author <nimaebrazi@gmail.com> Nima Ebrazi
  */
 class UserRegisterInfoDTO
 {

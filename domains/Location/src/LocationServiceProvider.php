@@ -14,6 +14,8 @@ class LocationServiceProvider extends ServiceProvider
 
         $this->loadAssetsFrom();
 
+        $this->loadConfig();
+
         $this->registerPublishing();
     }
 
@@ -44,7 +46,7 @@ class LocationServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'location');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'Location');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'location');
     }
 
     /**
@@ -55,7 +57,7 @@ class LocationServiceProvider extends ServiceProvider
     protected function registerPublishing(): void
     {
         $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/Location'),
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/location'),
         ], 'lang');
 
         $this->publishes([
@@ -70,9 +72,12 @@ class LocationServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function getConfig(): string
+    protected function loadConfig()
     {
-        return __DIR__ . '/../config/config.php';
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'location');
+
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('location.php')], 'location');
+
     }
 
 }
