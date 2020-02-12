@@ -2,11 +2,14 @@
 
 namespace Domains\Location\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Domains\Location\Http\Resources\CityCollection;
+use Illuminate\Http\Response;
 use Domains\Location\Services\CityServices;
+use App\Http\Controllers\EhdaBaseController;
+use Domains\Location\Http\Presenters\CityPresenter;
+use Domains\Location\Http\Resources\CityCollection;
+use Domains\Location\Http\Requests\CityWithProvinceIdRequest;
 
-class CityController extends Controller
+class CityController extends EhdaBaseController
 {
     /**
      * @var CityServices
@@ -23,12 +26,29 @@ class CityController extends Controller
     }
 
     /**
+     * @param CityPresenter $cityPresenter
      * @return array
      */
-    public function getAllCity()
+    public function getAllCities(CityPresenter $cityPresenter)
     {
         $cities = $this->cityServices->getAll();
-        $cityTransform = new CityCollection($cities);
-        return $cityTransform;
+
+        return $this->response(
+            $cityPresenter->transformMany($cities),
+            Response::HTTP_OK
+        );
+    }
+
+    public function getCitiesByProvinceId(
+        CityWithProvinceIdRequest $request,
+        CityPresenter $cityPresenter
+    ) {
+        $cities = $this->cityServices
+            ->getCitiesByProvinceId($request['province_id']);
+
+        return $this->response(
+            $cityPresenter->transformMany($cities),
+            Response::HTTP_OK
+        );
     }
 }

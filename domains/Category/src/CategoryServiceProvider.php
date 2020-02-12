@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Domains\User;
+namespace Domains\Category;
 
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class UserServiceProvider extends ServiceProvider
+class CategoryServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
@@ -15,7 +15,7 @@ class UserServiceProvider extends ServiceProvider
 
         $this->loadAssetsFrom();
 
-        $this->setConfig();
+        $this->loadConfig();
 
         $this->registerPublishing();
 
@@ -39,8 +39,8 @@ class UserServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace' => 'Domains\User\Http\Controllers',
-            'prefix'    => 'user',
+            'namespace' => 'Domains\Category\Http\Controllers',
+            'prefix'    => 'category',
         ];
     }
 
@@ -51,9 +51,9 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'user');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'category');
 
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'user');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'category');
     }
 
     /**
@@ -64,11 +64,11 @@ class UserServiceProvider extends ServiceProvider
     protected function registerPublishing(): void
     {
         $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/user'),
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/category'),
         ]);
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/user'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/category'),
         ]);
 
         $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'migrations');
@@ -79,10 +79,10 @@ class UserServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function setConfig()
+    protected function loadConfig()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'user');
-        $this->publishes([__DIR__ . '/../config/config.php' => config_path('user.php')], 'config');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'category');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('category.php')], 'config');
 
     }
 }

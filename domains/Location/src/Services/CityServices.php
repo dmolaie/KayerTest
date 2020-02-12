@@ -3,10 +3,15 @@
 namespace Domains\Location\Services;
 
 
-use Domains\Location\Http\Resources\CityCollection;
+use Domains\Location\Contracts\DTOs\DTOMakers\CityDTOMaker;
 use Domains\Location\Repositories\CityRepository;
 use Domains\Location\Transformers\CityTransformer;
+use Domains\Location\Services\Contracts\DTOs\CityDTO;
+use Domains\Location\Contracts\DTOs\Converters\CityConverter;
 
+/**
+ * Class CityServices
+ */
 class CityServices
 {
     /**
@@ -14,25 +19,47 @@ class CityServices
      */
     private $cityRepository;
     /**
-     * @var CityTransformer
+     * @var CityDTOMaker
      */
-    private $cityTransformer;
+    private $cityDTOMaker;
 
-    public function __construct(CityRepository $cityRepository,CityTransformer $cityTransformer)
+    /**
+     * CityServices constructor.
+     * @param CityRepository $cityRepository
+     * @param CityDTOMaker $cityDTOMaker
+     */
+    public function __construct(CityRepository $cityRepository, CityDTOMaker $cityDTOMaker)
     {
-
         $this->cityRepository = $cityRepository;
-        $this->cityTransformer = $cityTransformer;
-    }
-    public function getAll()
-    {
-       $cities = $this->cityRepository->getAll();
-       return $this->cityTransformer->transformMany($cities);
+        $this->cityDTOMaker = $cityDTOMaker;
     }
 
-    public function find(int $id)
+    /**
+     * @return array
+     */
+    public function getAll(): array
+    {
+        $cities = $this->cityRepository->getAll();
+        return $this->cityDTOMaker->convertMany($cities);
+    }
+
+    /**
+     * @param int $id
+     * @return Contracts\DTOs\CityDTO
+     */
+    public function find(int $id): CityDTO
     {
         $city = $this->cityRepository->find($id);
-        return $this->cityTransformer->transform($city);
+        return $this->cityDTOMaker->convert($city);
+    }
+
+    /**
+     * @param $province_id
+     * @return array
+     */
+    public function getCitiesByProvinceId($province_id)
+    {
+        $cities = $this->cityRepository->findWithProvinceId($province_id);
+        return $this->cityDTOMaker->convertMany($cities);
     }
 }

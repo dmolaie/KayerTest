@@ -1,20 +1,20 @@
 <?php
 
-namespace Domains\Location\Transformers;
+namespace Domains\Location\Contracts\DTOs\DTOMakers;
 
 use Domains\Location\Entities\Province;
-use Domains\Location\Services\Contracts\LocationDTOs\ProvinceDTO;
+use Domains\Location\Services\Contracts\DTOs\ProvinceDTO;
 
-class ProvinceTransformer
+class ProvinceDTOMaker
 {
-    public function transformMany($provinces)
+    public function convertMany($provinces)
     {
         return $provinces->map(function ($province){
-            return $this->transform($province);
+            return $this->convert($province);
         })->toArray();
     }
 
-    public function transform(Province $province): ProvinceDTO
+    public function convert(Province $province): ProvinceDTO
     {
         $provinceObject = new ProvinceDTO();
         $provinceObject->setId($province->id);

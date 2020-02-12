@@ -83,24 +83,6 @@ return array(
     'chracter_in_not_valid' => "کاراکتر های وارد شده معتبر نمیباشد.",
     'error_code_national'   => 'کد وارد شده صحیح نیست',
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom'     => [
-        'national_code' => [
-            'national_code_unique' => 'کد ملی وارد شده صحیح نمیباشد.کدملی 10رقمی و در عین حال ثبت شده در سیستم ثبت احوال باشد. '
-        ]
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -111,32 +93,11 @@ return array(
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-    'attributes' => array(
-        "name"                        => "نام",
-        "username"                    => "نام کاربری",
-        "email"                       => "پست الکترونیکی",
-        "first_name"                  => "نام",
-        "last_name"                   => "نام خانوادگی",
-        "password"                    => "رمز عبور",
-        "password_confirmation"       => "تاییدیه ی رمز عبور",
-        "current_province_id"         => "استان محل سکونت",
-        "current_city_id"             => "شهر محل سکونت",
-        "current_address"             => "نشانی محل سکونت",
-        "phone"                       => "تلفن ثابت محل سکونت",
-        "mobile"                      => "تلفن همراه",
-        "gender"                      => "جنسیت",
-        "date_of_birth"               => "تاریخ تولد",
-        "province_of_work"            => "استان محل کار",
-        "city_of_work"                => "شهر محل کار",
-        "essential_mobile"            => "تلفن همراه ضروری",
-        "province_of_birth"           => "استان محل تولد",
-        "city_of_birth"               => "شهر محل تولد",
-        "identity_number"             => "شماره شناسنامه",
-        "marital_status"              => "وضعیت تاهل",
-        "job_title"                   => "شغل فعلی",
-        "educational_field"           => "رشته و گرایش تحصیلی",
-        "last_education_degree"       => "آخرین مدرک تحصیلی",
-        "address_of_obtaining_degree" => "محل اخذ مدرک",
-        "national_code"               => "کد ملی"
-    ),
+    'attributes'            => [
+        "category_type" => "نوع دسته‌بندی",
+        "name_en"       => "نام دسته‌بندی",
+        "name_fa"       => "نام فارسی دسته‌بندی",
+        "type"          => "نوع دسته‌بندی",
+        "parent_id"     => "دسته‌بندی اصلی",
+    ],
 );

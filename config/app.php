@@ -183,6 +183,7 @@ return [
         \Domains\Admin\AdminServiceProvider::class,
         \Domains\User\UserServiceProvider::class,
         \Domains\Role\RoleServiceProvider::class,
+        \Domains\Category\CategoryServiceProvider::class,
 
 
     ],
