@@ -5,6 +5,8 @@ namespace Domains\Category\Services;
 
 
 use Domains\Category\Repositories\CategoryRepository;
+use Domains\Category\Services\Contracts\DTOs\CategoryCreateDTO;
+use Domains\Category\Services\Contracts\DTOs\CategoryDTO;
 use Domains\Category\Services\Contracts\DTOs\DTOMakers\CategoryDTOMaker;
 
 class CategoryService
@@ -28,5 +30,11 @@ class CategoryService
     {
         $categories = $this->categoryRepository->findCategoryWithType($categoryType);
         return $this->categoryDTOMaker->convertMany($categories);
+    }
+
+    public function createCategory(CategoryCreateDTO $createCategoryCreateDTO): CategoryDTO
+    {
+        $category = $this->categoryRepository->createCategory($createCategoryCreateDTO);
+        return $this->categoryDTOMaker->convert($category);
     }
 }

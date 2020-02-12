@@ -18,7 +18,8 @@ class CategoryListPresenter
     public function transform(CategoryDTO $categoryDTO)
     {
         return [
-            'name'     => $categoryDTO->getName(),
+            'id'       => $categoryDTO->getId(),
+            'name_en'  => $categoryDTO->getNameEn(),
             'name_fa'  => $categoryDTO->getNameFa(),
             'type'     => $categoryDTO->getType(),
             'children' => $this->transformMany(

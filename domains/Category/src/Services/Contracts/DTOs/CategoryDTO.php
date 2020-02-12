@@ -9,11 +9,14 @@ namespace Domains\Category\Services\Contracts\DTOs;
  */
 class CategoryDTO
 {
-
+    /**
+     * @var integer
+     */
+    protected $id;
     /**
      * @var string
      */
-    protected $name;
+    protected $nameEn;
     /**
      * @var string
      */
@@ -31,18 +34,18 @@ class CategoryDTO
     /**
      * @return string
      */
-    public function getName(): string
+    public function getNameEn(): string
     {
-        return $this->name;
+        return $this->nameEn;
     }
 
     /**
-     * @param string $name
+     * @param string $nameEn
      * @return CategoryDTO
      */
-    public function setName(string $name): CategoryDTO
+    public function setNameEn(string $nameEn): CategoryDTO
     {
-        $this->name = $name;
+        $this->nameEn = $nameEn;
         return $this;
     }
 
@@ -97,6 +100,24 @@ class CategoryDTO
     public function setChildren($children)
     {
         $this->children = $children;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return CategoryDTO
+     */
+    public function setId(int $id): CategoryDTO
+    {
+        $this->id = $id;
         return $this;
     }
 

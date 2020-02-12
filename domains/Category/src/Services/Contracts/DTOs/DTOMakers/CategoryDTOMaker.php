@@ -19,9 +19,10 @@ class CategoryDTOMaker
     public function convert(Category $category)
     {
         $categoryDTO = new CategoryDTO();
-        $categoryDTO->setName($category->name)
+        $categoryDTO->setNameEn($category->name_en)
             ->setNameFa($category->name_fa)
             ->setType($category->type)
+            ->setId($category->id)
             ->setChildren(
                 $this->getCategoryChildren($category)
             );

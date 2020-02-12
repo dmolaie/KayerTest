@@ -15,10 +15,10 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->integerIncrements('id');
-            $table->string('name');
+            $table->string('name_en');
             $table->string('name_fa');
             $table->enum('type',['event','news']);
-            $table->integer('parent_id')->nullable();
+            $table->integer('parent_id')->nullable()->unsigned();
             $table->timestamps();
         });
     }

@@ -1,3 +1,9 @@
 <?php
 
-return [];
+return [
+    'categoryType' =>
+        [
+            'news',
+            'event'
+        ]
+];
