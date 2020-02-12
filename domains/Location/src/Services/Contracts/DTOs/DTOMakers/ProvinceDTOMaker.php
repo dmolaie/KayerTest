@@ -1,11 +1,11 @@
 <?php
 
-namespace Domains\Location\Contracts\DTOs\Converters;
+namespace Domains\Location\Contracts\DTOs\DTOMakers;
 
 use Domains\Location\Entities\Province;
 use Domains\Location\Services\Contracts\DTOs\ProvinceDTO;
 
-class ProvinceConverter
+class ProvinceDTOMaker
 {
     public function convertMany($provinces)
     {

@@ -3,6 +3,7 @@
 namespace Domains\Location\Services;
 
 
+use Domains\Location\Contracts\DTOs\DTOMakers\CityDTOMaker;
 use Domains\Location\Repositories\CityRepository;
 use Domains\Location\Transformers\CityTransformer;
 use Domains\Location\Services\Contracts\DTOs\CityDTO;
@@ -18,19 +19,19 @@ class CityServices
      */
     private $cityRepository;
     /**
-     * @var CityConverter
+     * @var CityDTOMaker
      */
-    private $cityConverter;
+    private $cityDTOMaker;
 
     /**
      * CityServices constructor.
      * @param CityRepository $cityRepository
-     * @param CityConverter $cityConverter
+     * @param CityDTOMaker $cityDTOMaker
      */
-    public function __construct(CityRepository $cityRepository, CityConverter $cityConverter)
+    public function __construct(CityRepository $cityRepository, CityDTOMaker $cityDTOMaker)
     {
         $this->cityRepository = $cityRepository;
-        $this->cityConverter = $cityConverter;
+        $this->cityDTOMaker = $cityDTOMaker;
     }
 
     /**
@@ -39,7 +40,7 @@ class CityServices
     public function getAll(): array
     {
         $cities = $this->cityRepository->getAll();
-        return $this->cityConverter->convertMany($cities);
+        return $this->cityDTOMaker->convertMany($cities);
     }
 
     /**
@@ -49,7 +50,7 @@ class CityServices
     public function find(int $id): CityDTO
     {
         $city = $this->cityRepository->find($id);
-        return $this->cityConverter->convert($city);
+        return $this->cityDTOMaker->convert($city);
     }
 
     /**
@@ -59,6 +60,6 @@ class CityServices
     public function getCitiesByProvinceId($province_id)
     {
         $cities = $this->cityRepository->findWithProvinceId($province_id);
-        return $this->cityConverter->convertMany($cities);
+        return $this->cityDTOMaker->convertMany($cities);
     }
 }

@@ -31,7 +31,7 @@ class CityPresenter
             'id'       => $cityDTO->getId(),
             'name'     => $cityDTO->getName(),
             'slug'     => $cityDTO->getSlug(),
-            'Province' => [
+            'province' => [
                 'id'   => $cityDTO->getProvince()->getId(),
                 'name' => $cityDTO->getProvince()->getName(),
                 'slug' => $cityDTO->getProvince()->getSlug()

@@ -1,21 +1,22 @@
 <?php
 
-namespace Domains\Location\Contracts\DTOs\Converters;
+namespace Domains\Location\Contracts\DTOs\DTOMakers;
 
 
 use Domains\Location\Entities\City;
 use Domains\Location\Services\Contracts\DTOs\CityDTO;
 
-class CityConverter
+class CityDTOMaker
 {
-    /**
-     * @var ProvinceConverter
-     */
-    private $provinceConverter;
 
-    public function __construct(ProvinceConverter $provinceConverter)
+    /**
+     * @var ProvinceDTOMaker
+     */
+    private $provinceDTOMaker;
+
+    public function __construct(ProvinceDTOMaker $provinceDTOMaker)
     {
-        $this->provinceConverter = $provinceConverter;
+        $this->provinceDTOMaker = $provinceDTOMaker;
     }
 
     /**
@@ -40,7 +41,7 @@ class CityConverter
         $cityObject->setName($city->name);
         $cityObject->setSlug($city->slug);
         $cityObject->setProvince(
-            $this->provinceConverter->convert($city->province)
+            $this->provinceDTOMaker->convert($city->province)
         );
         return $cityObject;
     }
