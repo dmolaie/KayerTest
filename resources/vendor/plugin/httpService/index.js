@@ -2,100 +2,140 @@ import {
     HasLength
 } from '@vendor/plugin/helper';
 
+import Routes, {
+    DASHBOARD
+} from "@routes";
+
+const DEFAULT_ERROR_MESSAGE = 'متاسفانه مشکلی پیش آمده است.';
+const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود وارد شوید.';
+
 export default class HTTPService {
 
-    static QueryString( obj ) {
-        let queryString = [];
-        for ( const [key, val] of Object.entries( obj ) ) {
-            queryString.push( `${key}=${val}` )
-        }
-        return queryString.join('&')
-    }
-
-    static GetHeaders() {
+    static headers() {
         return new Headers({
+            'Accept': 'application/json',
+            'Accept-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json',
         });
     }
 
-    static async getRequest( path, query= {} ) {
-        if ( HasLength( query ) )
-            path += ( path.includes('?') ? '&' : '?' ) + this.QueryString( query );
+    static onUnauthorizedUser() {
+        Routes.push( { name: DASHBOARD } );
+        throw ({
+            status: 401,
+            message: UNAUTHORIZED_ERROR_MESSAGE
+        })
+    }
 
-        return await new Promise(
+    static onBeforeRequest( requestInit ) {
+        // ["Authorization"] = `Bearer ${TokenService.getToken()}`
+        requestInit.mode = 'cors';
+        requestInit.headers = this.headers();
+        return requestInit;
+    }
+
+    static async onRequestFailed( exception ) {
+        try {
+
+            const EXCEPTION = await exception;
+
+            if ( EXCEPTION?.status_code === 401 || EXCEPTION?.status_code === 403 )
+                this.onUnauthorizedUser();
+            else throw ({
+                status: ( EXCEPTION?.status_code ?? '' ),
+                message: ( EXCEPTION?.message ?? DEFAULT_ERROR_MESSAGE )
+            });
+
+        } catch ( except ) {
+            throw except;
+        }
+    }
+
+    static Request( requestInfo = '' , requestInit = {} ) {
+        return new Promise(
             ( resolve, reject ) => {
-                fetch(path, {
-                    method: 'GET',
-                    headers: this.GetHeaders(),
-                    mode: 'cors'
-                })
-                    .then( response => response.json() )
-                    .then( payload => resolve( payload ) )
+                let init = this.onBeforeRequest( requestInit );
+                fetch( requestInfo, init )
+                    .then( response =>
+                        ( response.ok ) ? (
+                            resolve( response.json() )
+                        ) : (
+                            reject( response.json() )
+                        )
+                    )
                     .catch( except => reject( except ) )
             }
         )
+        .then( response => response )
+        .catch( async exception => await this.onRequestFailed( exception ) )
     }
 
-    static async postRequest( path, payload = {}, query= {} ) {
-        if ( HasLength( query ) )
-            path += ( path.includes('?') ? '&' : '?' ) + this.QueryString( query );
+    static _QueryString( route, obj ) {
+        let queryString = [];
 
-        return await new Promise(
-            ( resolve, reject ) => {
-                fetch(path, {
-                    method: 'POST',
-                    headers: this.GetHeaders(),
-                    mode: 'cors',
-                    body: JSON.stringify( payload )
-                })
-                    .then( response => response.json() )
-                    .then( payload => resolve( payload ) )
-                    .catch( except => reject( except ) )
-            }
+        for ( const [key, val] of Object.entries( obj ) ) {
+            queryString.push( `${key}=${val}` )
+        }
+
+        return (
+            route += ( path.includes('?') ? '&' : '?' ) + queryString.join('&')
         )
     }
 
-    static async putRequest( path, payload = {}, query= {} ) {
+    static async getRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
-            path += ( path.includes('?') ? '&' : '?' ) + this.QueryString( query );
-
-        return await new Promise(
-            ( resolve, reject ) => {
-                fetch(path, {
-                    method: 'PUT',
-                    headers: this.GetHeaders(),
-                    mode: 'cors',
-                    body: JSON.stringify( payload )
-                })
-                    .then( response => response.json() )
-                    .then( payload => resolve( payload ) )
-                    .catch( except => reject( except ) )
-            }
-        )
-    }
-
-    static async deleteRequest( path, payload = {}, query= {} ) {
-        if ( HasLength( query ) )
-            path += ( path.includes('?') ? '&' : '?' ) + this.QueryString( query );
+            route = this._QueryString( route, query );
 
         let init = {
-            method: 'DELETE',
-            headers: this.GetHeaders(),
-            mode: 'cors',
+            method: 'GET',
         };
 
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        return await new Promise(
-            ( resolve, reject ) => {
-                fetch(path, init)
-                    .then( response => response.json() )
-                    .then( payload => resolve( payload ) )
-                    .catch( except => reject( except ) )
-            }
-        )
+        return await this.Request( route, init );
     }
 
+    static async postRequest( route, payload = {}, query= {} ) {
+        if ( HasLength( query ) )
+            route = this._QueryString( route, query );
+
+        let init = {
+            method: 'POST',
+        };
+
+        if ( HasLength( payload ) )
+            init.body = JSON.stringify( payload );
+
+        return await this.Request( route, init );
+    }
+
+    static async putRequest( route, payload = {}, query= {} ) {
+        if ( HasLength( query ) )
+            route = this._QueryString( route, query );
+
+        let init = {
+            method: 'PUT',
+        };
+
+        if ( HasLength( payload ) )
+            init.body = JSON.stringify( payload );
+
+        return await this.Request( route, init );
+    }
+
+    static async deleteRequest( route, payload = {}, query= {} ) {
+        if ( HasLength( query ) )
+            route = this._QueryString( route, query );
+
+        let init = {
+            method: 'DELETE',
+        };
+
+        if ( HasLength( payload ) )
+            init.body = JSON.stringify( payload );
+
+        return await this.Request( route, init );
+    }
 }

@@ -1,9 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
 const MediaQueryPlugin = require('media-query-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const ENV = fs.readFileSync('./.env', 'utf8').split('\n');
 
 const getJSEntries = () => (
     fs.readdirSync('./resources/js/Site/')
@@ -114,7 +117,16 @@ module.exports = {
                         ],
                         plugins: [
                             "@babel/transform-runtime",
-                            "@babel/plugin-syntax-dynamic-import"
+                            "@babel/plugin-transform-spread",
+                            "@babel/plugin-syntax-dynamic-import",
+                            "@babel/plugin-transform-destructuring",
+                            "@babel/plugin-proposal-private-methods",
+                            "@babel/plugin-transform-arrow-functions",
+                            "@babel/plugin-proposal-optional-chaining",
+                            "@babel/plugin-transform-template-literals",
+                            "@babel/plugin-proposal-nullish-coalescing-operator",
+                            ["@babel/plugin-proposal-private-methods", { "loose": true }],
+                            ["@babel/plugin-proposal-class-properties", { "loose": true }]
                         ]
                     }
                 }
@@ -129,6 +141,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'API_DOMAIN': ENV.find(item => item.includes('API_DOMAIN')).replace(/API_DOMAIN\s*=/, ''),
+        }),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 '!*',
