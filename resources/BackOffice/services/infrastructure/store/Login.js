@@ -29,7 +29,6 @@ const UserStore = {
         },
         [SET_LOGOUT] ( state ) {
             Object.assign(state, GetDefaultState());
-            console.log(state);
         }
     },
     getters: {
