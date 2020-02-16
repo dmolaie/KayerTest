@@ -4,8 +4,6 @@
 namespace Domains\User\Services;
 
 use Illuminate\Support\Facades\Auth;
-use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
-use Domains\Admin\Services\Contracts\DTOs\AdminLoginDTO;
 use Domains\Role\Services\RoleServices;
 use Domains\User\Repositories\UserRepository;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
