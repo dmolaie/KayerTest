@@ -121,7 +121,6 @@ module.exports = {
                             "@babel/plugin-transform-spread",
                             "@babel/plugin-syntax-dynamic-import",
                             "@babel/plugin-transform-destructuring",
-                            "@babel/plugin-proposal-private-methods",
                             "@babel/plugin-transform-arrow-functions",
                             "@babel/plugin-proposal-optional-chaining",
                             "@babel/plugin-transform-template-literals",
