@@ -1,10 +1,11 @@
 <template>
-    <div class="">
-        Dashboard Dashboard
+    <div class="text-center">
+        Dashboard
+        <br>
         <router-link
-            :to="{ name: 'LOGIN' }"
+            :to="{ name: 'LOGOUT' }"
         >
-            LOGIN
+            LOGOUT
         </router-link>
     </div>
 </template>
