@@ -3,13 +3,13 @@
 
 namespace Domains\User\Services;
 
-
 use Illuminate\Support\Facades\Auth;
+use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
+use Domains\Admin\Services\Contracts\DTOs\AdminLoginDTO;
 use Domains\Role\Services\RoleServices;
 use Domains\User\Repositories\UserRepository;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Exceptions\UserUnAuthorizedException;
-use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 
 class UserService
@@ -37,11 +37,11 @@ class UserService
     }
 
     /**
-     * @param LoginDTO $loginDTO
-     * @return LoginDTO
+     * @param UserLoginDTO $loginDTO
+     * @return UserLoginDTO
      * @throws UserUnAuthorizedException
      */
-    public function loginWithApi(LoginDTO $loginDTO): LoginDTO
+    public function loginWithApi(UserLoginDTO $loginDTO): UserLoginDTO
     {
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
@@ -52,19 +52,4 @@ class UserService
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
     }
 
-    /**
-     * @param UserRegisterInfoDTO $userRegisterInfoDTO
-     * @return UserLoginDTO
-     */
-    public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
-    {
-        $user = $this->userRepository->createNewUser($userRegisterInfoDTO);
-        \auth()->loginUsingId($user->id);
-        $userLoginDTO = new UserLoginDTO();
-        $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
-            ->setRole($user->role)
-            ->setToken($user->createToken('ehda')->accessToken)
-            ->setName($user->name);
-        return $userLoginDTO;
-    }
 }
