@@ -2,21 +2,11 @@
 
 namespace Domains\Admin\Http\Presenters;
 
-use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
+
+use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 
 class LoginPresenter
 {
-    protected $loginDTO;
-
-    /**
-     * LoginPresenter constructor.
-     * @param LoginDTO $loginDTO
-     */
-    public function __construct(LoginDTO $loginDTO)
-    {
-        $this->loginDTO = $loginDTO;
-    }
-
     /**
      * @return array
      */
@@ -25,16 +15,16 @@ class LoginPresenter
     }
 
     /**
-     * @param LoginDTO $loginDTO
-     * @return LoginDTO
+     * @param UserLoginDTO $userLoginDTO
+     * @return array
      */
-    public function transform(LoginDTO $loginDTO)
+    public function transform(UserLoginDTO $userLoginDTO)
     {
         return [
             'name' => \Auth::user()->name,
             'national_code' => \Auth::user()->national_code,
-            'role' => ['name' => $loginDTO->getRole()->name, 'id' => $loginDTO->getRole()->id],
-            'token' => $loginDTO->getToken()
+            'role' => ['name' => $userLoginDTO->getRole()->name, 'id' => $userLoginDTO->getRole()->id],
+            'token' => $userLoginDTO->getToken()
         ];
     }
 }

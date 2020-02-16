@@ -3,7 +3,7 @@
 namespace Domains\Admin\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
-use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
+use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -32,13 +32,13 @@ class UserLoginRequest extends EhdaBaseRequest
         ];
     }
 
-    public function createLoginDTO() : LoginDTO
+    public function createLoginDTO() : UserLoginDTO
     {
-        $loginDTO = new LoginDTO();
+        $loginDTO = new UserLoginDTO();
         $loginDTO->setNationalCode($this['national_code']);
         $loginDTO->setPassword($this['password']);
         return $loginDTO;
-        
+
     }
 
     public function messages()
