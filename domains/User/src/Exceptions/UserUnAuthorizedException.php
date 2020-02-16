@@ -9,7 +9,7 @@ class UserUnAuthorizedException extends Exception
 {
     public function __construct($message)
     {
-        parent::__construct($message, Response::HTTP_OK);
+        parent::__construct($message, Response::HTTP_UNAUTHORIZED);
     }
 
 }

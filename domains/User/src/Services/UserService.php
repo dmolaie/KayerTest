@@ -3,13 +3,11 @@
 
 namespace Domains\User\Services;
 
-
 use Illuminate\Support\Facades\Auth;
 use Domains\Role\Services\RoleServices;
 use Domains\User\Repositories\UserRepository;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Exceptions\UserUnAuthorizedException;
-use Domains\Admin\Services\Contracts\LoginDTOs\LoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 
 class UserService
@@ -37,11 +35,11 @@ class UserService
     }
 
     /**
-     * @param LoginDTO $loginDTO
-     * @return LoginDTO
+     * @param UserLoginDTO $loginDTO
+     * @return UserLoginDTO
      * @throws UserUnAuthorizedException
      */
-    public function loginWithApi(LoginDTO $loginDTO): LoginDTO
+    public function loginWithApi(UserLoginDTO $loginDTO): UserLoginDTO
     {
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
