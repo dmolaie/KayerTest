@@ -6,11 +6,11 @@ let endpoints = {};
 
 const SIGN_IN = "SIGN_IN";
 
-endpoints[SIGN_IN] = '/';
+endpoints[SIGN_IN] = '/admin/login';
 
 export default class Endpoint {
     static get API_DOMAIN() {
-        return ''
+        return API_DOMAIN
     }
 
     static get SIGN_IN() {
@@ -21,6 +21,8 @@ export default class Endpoint {
         if ( !!HasLength( params ) ) {
             endpoint = endpoint.split('/').map( pathname => pathname.includes(':') ? params[pathname.slice(1)] : pathname ).join('/')
         }
-        return endpoint
+        return (
+            this.API_DOMAIN + endpoint
+        )
     }
 }
