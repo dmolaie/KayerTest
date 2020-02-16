@@ -52,4 +52,19 @@ class UserService
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
     }
 
+    /**
+     * @param UserRegisterInfoDTO $userRegisterInfoDTO
+     * @return UserLoginDTO
+     */
+    public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
+    {
+        $user = $this->userRepository->createNewUser($userRegisterInfoDTO);
+        \auth()->loginUsingId($user->id);
+        $userLoginDTO = new UserLoginDTO();
+        $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
+            ->setRole($user->role)
+            ->setToken($user->createToken('ehda')->accessToken)
+            ->setName($user->name);
+        return $userLoginDTO;
+    }
 }
