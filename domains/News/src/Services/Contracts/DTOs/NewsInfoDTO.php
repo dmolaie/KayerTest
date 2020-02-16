@@ -60,6 +60,28 @@ class NewsInfoDTO
      * @var null|integer
      */
     protected $relationNewsId;
+    /**
+     * @var null|array
+     */
+    protected $attachmentFiles;
+
+    /**
+     * @return array|null
+     */
+    public function getAttachmentFiles(): ?array
+    {
+        return $this->attachmentFiles;
+    }
+
+    /**
+     * @param array|null $attachmentFiles
+     * @return NewsInfoDTO
+     */
+    public function setAttachmentFiles(?array $attachmentFiles): NewsInfoDTO
+    {
+        $this->attachmentFiles = $attachmentFiles;
+        return $this;
+    }
 
     /**
      * @return int|null

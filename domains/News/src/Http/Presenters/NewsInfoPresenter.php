@@ -39,7 +39,8 @@ class NewsInfoPresenter
             ],
             'editor'       => ['name' => $newsInfoDTO->getEditor()->name],
             'language'     => $newsInfoDTO->getLanguage(),
-            'relation_id'  => $newsInfoDTO->getRelationNewsId()
+            'relation_id'  => $newsInfoDTO->getRelationNewsId(),
+            'image_path'   => $newsInfoDTO->getAttachmentFiles()
         ];
     }
 }

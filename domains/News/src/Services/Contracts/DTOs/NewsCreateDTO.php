@@ -4,6 +4,7 @@
 namespace Domains\News\Services\Contracts\DTOs;
 
 
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\User\Entities\User;
 
 
@@ -60,7 +61,28 @@ class NewsCreateDTO
      * @var null|integer
      */
     protected $parentId;
+    /**
+     * @var null|array
+     */
+    protected $attachmentFiles;
 
+    /**
+     * @return array|null
+     */
+    public function getAttachmentFiles(): ?array
+    {
+        return $this->attachmentFiles;
+    }
+
+    /**
+     * @param array|null $attachmentFiles
+     * @return NewsCreateDTO
+     */
+    public function setAttachmentFiles(?array $attachmentFiles): NewsCreateDTO
+    {
+        $this->attachmentFiles = $attachmentFiles;
+        return $this;
+    }
     /**
      * @return int|null
      */

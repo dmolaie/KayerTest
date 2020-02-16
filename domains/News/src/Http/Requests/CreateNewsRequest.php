@@ -28,6 +28,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             'province_id'  => 'required|integer|exists:provinces,id',
             'parent_id'    => 'integer|exists:news,id|unique:news',
             'language'     => ['required', Rule::in(config('news.news_language'))],
+            'images.*'     => 'image'
         ];
     }
 
@@ -54,6 +55,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setSecondTitle($this['second_title'])
             ->setParentId($this['parent_id'])
+            ->setAttachmentFiles($this['images'])
             ->setSourceLink($this['source_link']);
 
         return $newsCreateDTO;
