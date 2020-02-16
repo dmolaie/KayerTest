@@ -29,9 +29,6 @@ class AttachmentServices
 
     public function uploadImages(AttachmentDTO $attachmentDTO): AttachmentInfoDTO
     {
-        /*get setEntity from AttachmentDTO*/
-        $attachmentDTO->setEntityName('News');
-        $attachmentDTO->setEntityId(1);
         if (!$attachmentDTO->getFiles()) {
             throw new AttachmentFileErrorException(trans('attachment::response.attachment_file_not_exist'));
         }
