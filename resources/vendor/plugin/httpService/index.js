@@ -20,11 +20,12 @@ export default class HTTPService {
         });
     }
 
-    static onUnauthorizedUser() {
-        Routes.push( { name: LOGIN } );
+    static onUnauthorizedUser( exception ) {
+        if ( Routes?.currentRoute?.name !== 'LOGIN' ) Routes.push( { name: LOGIN } );
+
         throw ({
-            status: 401,
-            message: UNAUTHORIZED_ERROR_MESSAGE
+            status: ( exception?.status_code ?? 401 ),
+            message: ( exception?.message ?? UNAUTHORIZED_ERROR_MESSAGE )
         })
     }
 
@@ -43,11 +44,10 @@ export default class HTTPService {
 
     static async onRequestFailed( exception ) {
         try {
-
             const EXCEPTION = await exception;
 
             if ( EXCEPTION?.status_code === 401 || EXCEPTION?.status_code === 403 )
-                this.onUnauthorizedUser();
+                this.onUnauthorizedUser( EXCEPTION );
             else throw ({
                 status: ( EXCEPTION?.status_code ?? '' ),
                 message: ( EXCEPTION?.message ?? DEFAULT_ERROR_MESSAGE )
