@@ -25,7 +25,6 @@ const UserStore = {
     mutations: {
         [SET_USER]( state, payload ) {
             Object.assign( state, new LoginPresenter( payload ) );
-            console.log(state);
         },
         [SET_LOGOUT] ( state ) {
             Object.assign(state, GetDefaultState());
