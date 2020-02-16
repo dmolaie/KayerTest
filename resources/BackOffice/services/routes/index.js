@@ -84,7 +84,7 @@ Routes.beforeEach(
             }
         } else {
             if ( Store?.getters['GET_USER_HAS_ACCESS'] && to.name === LOGIN ) {
-                next({ name: LOGIN });
+                next({ name: DASHBOARD });
                 SetPageTitle( DASHBOARD_PAGE_TITLE );
             } else {
                 next()
