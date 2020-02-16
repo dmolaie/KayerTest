@@ -1,10 +1,10 @@
 import {
     HasLength
 } from '@vendor/plugin/helper';
-
 import Routes, {
-    DASHBOARD
+    LOGIN
 } from "@routes";
+import TokenService from '@services/service/Token';
 
 const DEFAULT_ERROR_MESSAGE = 'متاسفانه مشکلی پیش آمده است.';
 const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود وارد شوید.';
@@ -21,7 +21,7 @@ export default class HTTPService {
     }
 
     static onUnauthorizedUser() {
-        Routes.push( { name: DASHBOARD } );
+        Routes.push( { name: LOGIN } );
         throw ({
             status: 401,
             message: UNAUTHORIZED_ERROR_MESSAGE
@@ -29,9 +29,15 @@ export default class HTTPService {
     }
 
     static onBeforeRequest( requestInit ) {
-        // ["Authorization"] = `Bearer ${TokenService.getToken()}`
+        const TOKEN = TokenService._GetToken;
+        let headers = this.headers();
+
+        if ( !!TOKEN ) {
+            headers.append('Authorization', `Bearer ${TOKEN}`);
+        }
+
         requestInit.mode = 'cors';
-        requestInit.headers = this.headers();
+        requestInit.headers = headers;
         return requestInit;
     }
 
