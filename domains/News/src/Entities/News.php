@@ -43,4 +43,15 @@ class News extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(News::class);
+
+    }
+
+    public function child()
+    {
+        return $this->hasOne(News::class, 'parent_id', 'id');
+    }
 }

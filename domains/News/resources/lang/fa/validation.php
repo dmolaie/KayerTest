@@ -103,5 +103,6 @@ return array(
         "source_link"  => "منبع",
         "province_id"  => "دامنه",
         "language"     => "زبان",
+        "parent_id"    => "خبر مرتبط",
     ],
 );

@@ -1,16 +1,16 @@
 <?php
 
 
-namespace Domains\News\Services\Contracts\DTOs;
+namespace Domains\News\src\Services\Contracts\DTOs;
 
 
+use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 
-
 /**
- * Class NewsCreateDTO
+ * Class NewsInfoDTO
  */
-class NewsCreateDTO
+class NewsInfoDTO
 {
     /**
      * @var string
@@ -29,11 +29,11 @@ class NewsCreateDTO
      */
     protected $description;
     /**
-     * @var null|integer
+     * @var null|string
      */
-    protected $categoryId;
+    protected $category;
     /**
-     * @var  string
+     * @var string
      */
     protected $publishDate;
     /**
@@ -41,41 +41,41 @@ class NewsCreateDTO
      */
     protected $sourceLink;
     /**
-     * @var null|integer
-     */
-    protected $provinceId;
-    /**
      * @var string
      */
-    protected $language;
-    /**
-     * @var null|string
-     */
     protected $status;
+    /**
+     * @var Province
+     */
+    protected $province;
     /**
      * @var User
      */
     protected $editor;
     /**
+     * @var string
+     */
+    protected $language;
+    /**
      * @var null|integer
      */
-    protected $parentId;
+    protected $relationNewsId;
 
     /**
      * @return int|null
      */
-    public function getParentId(): ?int
+    public function getRelationNewsId(): ?int
     {
-        return $this->parentId;
+        return $this->relationNewsId;
     }
 
     /**
-     * @param int|null $parentId
-     * @return NewsCreateDTO
+     * @param int|null $relationNewsId
+     * @return NewsInfoDTO
      */
-    public function setParentId(?int $parentId): NewsCreateDTO
+    public function setRelationNewsId(?int $relationNewsId): NewsInfoDTO
     {
-        $this->parentId = $parentId;
+        $this->relationNewsId = $relationNewsId;
         return $this;
     }
 
@@ -89,9 +89,9 @@ class NewsCreateDTO
 
     /**
      * @param string $firstTitle
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setFirstTitle(string $firstTitle): NewsCreateDTO
+    public function setFirstTitle(string $firstTitle): NewsInfoDTO
     {
         $this->firstTitle = $firstTitle;
         return $this;
@@ -107,9 +107,9 @@ class NewsCreateDTO
 
     /**
      * @param string|null $secondTitle
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setSecondTitle(?string $secondTitle): NewsCreateDTO
+    public function setSecondTitle(?string $secondTitle): NewsInfoDTO
     {
         $this->secondTitle = $secondTitle;
         return $this;
@@ -125,9 +125,9 @@ class NewsCreateDTO
 
     /**
      * @param string|null $abstract
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setAbstract(?string $abstract): NewsCreateDTO
+    public function setAbstract(?string $abstract): NewsInfoDTO
     {
         $this->abstract = $abstract;
         return $this;
@@ -143,29 +143,29 @@ class NewsCreateDTO
 
     /**
      * @param string|null $description
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setDescription(?string $description): NewsCreateDTO
+    public function setDescription(?string $description): NewsInfoDTO
     {
         $this->description = $description;
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getCategoryId(): ?int
+    public function getCategory(): ?string
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
     /**
-     * @param int|null $categoryId
-     * @return NewsCreateDTO
+     * @param string|null $category
+     * @return NewsInfoDTO
      */
-    public function setCategoryId(?int $categoryId): NewsCreateDTO
+    public function setCategory(?string $category): NewsInfoDTO
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
         return $this;
     }
 
@@ -179,9 +179,9 @@ class NewsCreateDTO
 
     /**
      * @param string $publishDate
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setPublishDate(string $publishDate): NewsCreateDTO
+    public function setPublishDate(string $publishDate): NewsInfoDTO
     {
         $this->publishDate = $publishDate;
         return $this;
@@ -197,65 +197,47 @@ class NewsCreateDTO
 
     /**
      * @param string|null $sourceLink
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setSourceLink(?string $sourceLink): NewsCreateDTO
+    public function setSourceLink(?string $sourceLink): NewsInfoDTO
     {
         $this->sourceLink = $sourceLink;
         return $this;
     }
 
     /**
-     * @return int|null
-     */
-    public function getProvinceId(): ?int
-    {
-        return $this->provinceId;
-    }
-
-    /**
-     * @param int|null $provinceId
-     * @return NewsCreateDTO
-     */
-    public function setProvinceId(?int $provinceId): NewsCreateDTO
-    {
-        $this->provinceId = $provinceId;
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    /**
-     * @param string $language
-     * @return NewsCreateDTO
-     */
-    public function setLanguage(string $language): NewsCreateDTO
-    {
-        $this->language = $language;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * @param string|null $status
-     * @return NewsCreateDTO
+     * @param string $status
+     * @return NewsInfoDTO
      */
-    public function setStatus(?string $status): NewsCreateDTO
+    public function setStatus(string $status): NewsInfoDTO
     {
         $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return Province
+     */
+    public function getProvince(): Province
+    {
+        return $this->province;
+    }
+
+    /**
+     * @param Province $province
+     * @return NewsInfoDTO
+     */
+    public function setProvince(Province $province): NewsInfoDTO
+    {
+        $this->province = $province;
         return $this;
     }
 
@@ -269,13 +251,29 @@ class NewsCreateDTO
 
     /**
      * @param User $editor
-     * @return NewsCreateDTO
+     * @return NewsInfoDTO
      */
-    public function setEditor(User $editor): NewsCreateDTO
+    public function setEditor(User $editor): NewsInfoDTO
     {
         $this->editor = $editor;
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
 
+    /**
+     * @param string $language
+     * @return NewsInfoDTO
+     */
+    public function setLanguage(string $language): NewsInfoDTO
+    {
+        $this->language = $language;
+        return $this;
+    }
 }

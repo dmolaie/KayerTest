@@ -26,6 +26,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             'publish_date' => 'required|date_format:Y-m-d H:i:s',
             'source_link'  => 'url',
             'province_id'  => 'required|integer|exists:provinces,id',
+            'parent_id'  => 'integer|exists:news,id|unique:news',
             'language'     => ['required', Rule::in(config('news.news_language'))],
         ];
     }
@@ -52,6 +53,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             ->setFirstTitle($this['first_title'])
             ->setPublishDate($this['publish_date'])
             ->setSecondTitle($this['second_title'])
+            ->setParentId($this['parent_id'])
             ->setSourceLink($this['source_link']);
 
         return $newsCreateDTO;
