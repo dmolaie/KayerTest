@@ -49,6 +49,7 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.runtime.min.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
+            '@BackOffice': path.resolve(__dirname, './resources/BackOffice'),
             '@components': path.resolve(__dirname, './resources/BackOffice/components'),
             '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
             '@endpoints': path.resolve(__dirname, './resources/BackOffice/services/endpoints'),
