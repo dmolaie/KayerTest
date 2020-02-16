@@ -176,6 +176,12 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
+         * Package Add in Project
+         */
+        Intervention\Image\ImageServiceProvider::class,
+
+
+        /*
          * Package Service Providers...
          */
         \Domains\Location\LocationServiceProvider::class,
@@ -184,6 +190,7 @@ return [
         \Domains\User\UserServiceProvider::class,
         \Domains\Role\RoleServiceProvider::class,
         \Domains\Category\CategoryServiceProvider::class,
+        \Domains\Attachment\AttachmentServiceProvider::class,
         \Domains\News\NewsServiceProvider::class,
 
 
@@ -237,6 +244,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+
 
     ],
 

@@ -4,7 +4,6 @@ namespace Domains\News\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
 use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
-use Domains\User\Entities\User;
 use Illuminate\Validation\Rule;
 
 class CreateNewsRequest extends EhdaBaseRequest
@@ -26,7 +25,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             'publish_date' => 'required|date_format:Y-m-d H:i:s',
             'source_link'  => 'url',
             'province_id'  => 'required|integer|exists:provinces,id',
-            'parent_id'  => 'integer|exists:news,id|unique:news',
+            'parent_id'    => 'integer|exists:news,id|unique:news',
             'language'     => ['required', Rule::in(config('news.news_language'))],
         ];
     }

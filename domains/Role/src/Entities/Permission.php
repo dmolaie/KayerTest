@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Domains\Roles\Enitites;
+namespace App\Domains\Role\Enitites;
 
-use App\Domains\Roles\Entities\Roles;
+use Domains\Role\Entities\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Permissions extends Model
+class Permission extends Model
 {
     protected $table = "permissions";
 
@@ -15,6 +15,6 @@ class Permissions extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany(Roles::class,'permission_role','permission_id','role_id');
+        return $this->belongsToMany(Role::class,'permission_role','permission_id','role_id');
     }
 }
