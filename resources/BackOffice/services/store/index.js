@@ -1,28 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-const state = {
-
-};
-
-const getters = {
-
-};
-
-const mutations = {
-
-};
+import UserStore from "@services/store/Login";
 
 const modules = {
-
+    UserStore
 };
 
 Vue.use( Vuex );
 
 const Store = new Vuex.Store({
-    state,
-    getters,
-    mutations,
     modules
 });
 
