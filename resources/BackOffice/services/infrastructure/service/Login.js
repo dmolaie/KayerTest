@@ -1,46 +1,47 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
+import TokenService from '@services/service/Token';
 import {
-    LoginPresenter,
     LoginNotificationPresenter
 } from '@services/presenter/Login';
+import {
+    SET_USER
+} from '@services/store/Login';
+import BaseService from '@vendor/infrastructure/service/BaseService'
+
 import {
     Length,
     NationalCodeValidator,
     toEnglishDigits
 } from '@vendor/plugin/helper';
 
-export default class LoginService {
+export default class LoginService extends BaseService {
     constructor( layout ) {
+        super();
         this.$vm = layout;
+        this.$store = layout.$store;
     }
 
     async SignInRequest( payload ) {
         try {
             this.$vm.$set( this.$vm, 'shouldBeShowSpinnerLoading', true );
-            // let response = await HTTPService.postRequest( Endpoint.get( Endpoint.SIGN_IN ), payload );
-            let response = {
-                "data": {
-                    "name": "dariush",
-                    "national_code": 4940040641,
-                    "role": {
-                        "name": "super-admin",
-                        "id": 1
-                    },
-                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNDc0ZmY0ZGIzMTMxMDE3ZjkzYzk5N2E4MTk1MjU4NTEyMDcwMzE2MDU2NjRiOWYwYzUwMjMyN2RiOGEzNDYyNGExN2E4ZGVkZWNiNzJiNzAiLCJpYXQiOjE1ODEzMzY1NDcsIm5iZiI6MTU4MTMzNjU0NywiZXhwIjoxNjEyOTU4OTQ3LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.nP0QmHUNI2ZDkBiR5cW9FwXB6iumhJXRj5pvYkF1k5UX2947hv85AwFkuDehmoW7GXMBtMuBAEc2dLF6tQdzwx4irbI5H9NttSuRNTcgtpn38NfhWjsmvnMjt1hX7ZDDwOmuNYkG7tiWnGWY-CS2w5IPUT9DcL29G7QaqzE2-uVrAFbwAs9VlcJVsUKMgAPMSg_jiCIc8twEWeEEWcLanSN-Pail_P_R0phkl-VfKvrniHqtly9H0r11xKEeb-LWBRoKo7LAhFNOWpI-uOwQcB0lvEIdqJRjGWKqzYryK6wgvHqlrOffSSNm-4fhBLnPsTzawqG8q4Dr6NN9wkUT6v5Zy3-FUAKHijCF3ccekZsJPQKVxzMIucVBWAis1DpioCSqthceLx-gJ6NOwOy_pA6aSQxLnuGosPHfrZ0mH_pnMtbtZROfzt0weCrKi1eUlGdq9-FrccLTFBjWy7AH1K30yDegNwwYUFs6I78pH0277fVs36HD3VGbDoMN3v7IeqiyVmvWiawkCR56wDFtxyJiuBuELKARHvE9JP4dFeUA1hpMRlyuerFDuRvgEYqJFcLyQHsmreQ6LDbelO8bWHVBbkFtxDio-TiabOyiRmI4RUVeK0YvvkDoFxOu1ttUgVFpbxdwtZvbaaGruGe7rUFINV9tXM2eutPYdkY4d-0"
-                },
-                "status_code": 200,
-                "message": "ورود با موفقیت انجام شد."
-            };
+            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.SIGN_IN ), payload );
 
-            console.log(new LoginPresenter(response));
+            const TOKEN_SERVICE = new TokenService( response );
+            const USER_HAS_ACCESS = TOKEN_SERVICE._HandelToken();
 
-            response = new LoginNotificationPresenter( response );
+            if ( USER_HAS_ACCESS ) {
+                BaseService.commitToStore( this.$store, SET_USER, response );
 
-            this.$vm.displayNotification( response['welcomeMessage'], {
-                type: 'success',
-                duration: 4000
-            });
+                response = new LoginNotificationPresenter( response );
+
+                this.$vm.displayNotification( response['welcomeMessage'], {
+                    type: 'success',
+                    duration: 4000
+                });
+
+                this.$vm.pushRouter( { name: 'DASHBOARD' } );
+            }
         } catch ( { message } ) {
             this.$vm.displayNotification( message, {
                 type: 'error',
