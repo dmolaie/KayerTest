@@ -1,3 +1,5 @@
+import Routes from '@BackOffice/services/routes'
+
 let isInstalled = false;
 
 const General = {
@@ -11,6 +13,15 @@ const General = {
                     return (
                         '/images/' + src
                     )
+                },
+                goBack() {
+                    Routes.go(-1)
+                },
+                pushRouter( location = { name: '/' } ) {
+                    Routes.push( location )
+                },
+                pushReplace( location = { name: '/' } ) {
+                    Routes.replace( location )
                 }
             }
         })

@@ -14,6 +14,7 @@ export const Flatten = ( array = [] ) => {
 };
 
 export const Length = payload => {
+    if ( Array.isArray( payload ) ) return payload.length;
     if ( typeof payload === "object" ) return Object.keys( payload ).length;
     if ( typeof payload === "number" ) return ( payload + "" ).length;
     return payload.length;
@@ -44,4 +45,10 @@ export const NationalCodeValidator = payload => {
             .map((_, i) => +input[i] * (10 - i))
             .reduce((x, y) => x + y) % 11;
     return (sum < 2 && check === sum) || (sum >= 2 && check + sum === 11)
+};
+
+export const RedirectRoute = route => {
+    try {
+        window.location.replace( route );
+    } catch (e) {}
 };
