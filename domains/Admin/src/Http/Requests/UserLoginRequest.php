@@ -27,7 +27,7 @@ class UserLoginRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'national_code' => 'required|integer',
+            'national_code' => 'required|string',
             'password' => 'required|string'
         ];
     }
