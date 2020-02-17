@@ -19,6 +19,7 @@ class Attachment extends Migration
             $table->integer('reference_id')->unsigned();
             $table->string('file_name');
             $table->text('path');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

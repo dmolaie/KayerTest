@@ -19,4 +19,9 @@ class PagesController extends Controller
         return view('site::'.$request->language.'.pages.structure-and-organization');
     }
 
+    public function newsList(Request $request)
+    {
+        return view('site::'.$request->language.'.pages.news-list');
+    }
+
 }

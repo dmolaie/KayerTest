@@ -8,4 +8,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/ngo-history', 'PagesController@history')->name('ngo-history');
         Route::get('/structure-and-organization', 'PagesController@structureAndOrganization')->name('structure-and-organization');
     });
+    Route::prefix('archive')->name('archive.')->group(function () {
+        Route::get('/news', 'PagesController@newsList')->name('news-list');
+    });
 });

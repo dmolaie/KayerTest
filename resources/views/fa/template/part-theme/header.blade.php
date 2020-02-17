@@ -131,7 +131,7 @@
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 اخبار و رویدادها
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
-                    <a href=""
+                    <a href="{{route('archive.news-list',config('app.locale'))}}"
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         اخبار ایران
