@@ -5,38 +5,17 @@ namespace Domains\Attachment\Services\Contracts\DTOs;
 /**
  * Class AttachmentInfoDTO
  */
-class AttachmentInfoDTO
+class AttachmentInfoDTO extends AttachmentBaseDTO
 {
-    /**
-     * @var string
-     */
-    protected $entityName;
-
     /**
      * @var array
      */
     protected $paths;
 
-    /**
-     * @var string
-     */
-    protected $entityId;
 
-    /**
-     * @return string
-     */
-    public function getEntityName(): string
+    public function addToPaths(int $id,string $path): AttachmentInfoDTO
     {
-        return $this->entityName;
-    }
-
-    /**
-     * @param string $entityName
-     * @return AttachmentInfoDTO
-     */
-    public function setEntityName(string $entityName): AttachmentInfoDTO
-    {
-        $this->entityName = $entityName;
+        $this->paths[] = ['image_id' => $id, 'path' => $path];
         return $this;
     }
 
@@ -50,36 +29,10 @@ class AttachmentInfoDTO
 
     /**
      * @param array $paths
-     * @return AttachmentInfoDTO
      */
-    public function setPaths(array $paths): AttachmentInfoDTO
+    public function setPaths(array $paths): void
     {
         $this->paths = $paths;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEntityId(): string
-    {
-        return $this->entityId;
-    }
-
-    /**
-     * @param string $entityId
-     * @return AttachmentInfoDTO
-     */
-    public function setEntityId(string $entityId): AttachmentInfoDTO
-    {
-        $this->entityId = $entityId;
-        return $this;
-    }
-
-    public function addToPaths(int $id,string $path): AttachmentInfoDTO
-    {
-        $this->paths[$id] = $path;
-        return $this;
     }
 
 }

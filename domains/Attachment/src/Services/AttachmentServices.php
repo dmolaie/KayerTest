@@ -3,13 +3,12 @@
 namespace Domains\Attachment\Services;
 
 
-use Carbon\Carbon;
 use Domains\Attachment\Repositories\AttachmentRepository;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentBaseDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
-use Domains\User\Entities\User;
 use Domains\User\Exceptions\AttachmentFileErrorException;
-use Illuminate\Support\Facades\Config;
+use Domains\User\Exceptions\ImageNotFoundErrorException;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -35,20 +34,42 @@ class AttachmentServices
         $attachmentInfoDTO = new AttachmentInfoDTO();
         $attachmentInfoDTO->setEntityName($attachmentDTO->getEntityName());
         $attachmentInfoDTO->setEntityId($attachmentDTO->getEntityId());
-
         $basePath = config('attachment.base_path');
-        $imagePath = public_path($basePath . $attachmentDTO->getEntityName());
+        $imagePath = $basePath . $attachmentDTO->getEntityName();
         $sizeEntity = config('attachment.image_sizes')[$attachmentDTO->getEntityName()];
         if (!File::isDirectory($imagePath)) {
-            mkdir($imagePath);
+            File::makeDirectory($imagePath);
         }
         foreach ($attachmentDTO->getFiles() as $item) {
             $fileName = date('mdYHis') . uniqid() . '-' . $item->getClientOriginalName();
             Image::make($item)->resize($sizeEntity['normal_size']['width'], $sizeEntity['normal_size']['height'])->save($imagePath . $this->separator . $fileName);
             $imagePathFinal = $imagePath . $this->separator . $fileName;
-            $attachmentEntity = $this->attachmentRepository->create($attachmentDTO,$imagePathFinal,$fileName);
-            $attachmentInfoDTO->addToPaths($attachmentEntity->id , $imagePathFinal);
+            $attachmentEntity = $this->attachmentRepository->create($attachmentDTO, $imagePathFinal, $fileName);
+            $attachmentInfoDTO->addToPaths($attachmentEntity->id, $imagePathFinal);
         }
         return $attachmentInfoDTO;
+    }
+
+    public function getAllImages(AttachmentBaseDTO $attachmentBaseDTO): AttachmentInfoDTO
+    {
+        $attachmentInfoDTO = new AttachmentInfoDTO();
+        $attachmentInfoDTO->setEntityName($attachmentBaseDTO->getEntityName());
+        $attachmentInfoDTO->setEntityId($attachmentBaseDTO->getEntityId());
+        $attachmentEntity = $this->attachmentRepository->getAllImages($attachmentBaseDTO);
+        if ($attachmentEntity) {
+            foreach ($attachmentEntity as $item) {
+                $attachmentInfoDTO->addToPaths($item->id, $item->path);
+            }
+        }
+        return $attachmentInfoDTO;
+    }
+
+    public function destroyImages(int $imageId)
+    {
+        $resualt = $this->attachmentRepository->destroyImage($imageId);
+        if (!$resualt) {
+            throw new ImageNotFoundErrorException(trans('attachment::response.image_not_found'));
+        }
+        return $resualt;
     }
 }

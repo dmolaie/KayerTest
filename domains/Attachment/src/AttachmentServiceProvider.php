@@ -34,6 +34,8 @@ class AttachmentServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
+            'prefix' => 'attachment',
+            'name' => 'attachment.',
             'namespace' => 'Domains\Attachment\Http\Controllers',
         ];
     }
