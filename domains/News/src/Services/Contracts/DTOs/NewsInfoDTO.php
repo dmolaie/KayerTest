@@ -64,6 +64,28 @@ class NewsInfoDTO
      * @var null|array
      */
     protected $attachmentFiles;
+    /**
+     * @var null|User
+     */
+    protected $editor;
+
+    /**
+     * @return User|null
+     */
+    public function getEditor(): ?User
+    {
+        return $this->editor;
+    }
+
+    /**
+     * @param User|null $editor
+     * @return NewsInfoDTO
+     */
+    public function setEditor(?User $editor): NewsInfoDTO
+    {
+        $this->editor = $editor;
+        return $this;
+    }
 
     /**
      * @return array|null

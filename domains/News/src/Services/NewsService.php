@@ -9,7 +9,9 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\News\Entities\News;
 use Domains\News\Repositories\NewsRepository;
 use Domains\News\Services\Contracts\DTOs\DTOMakers\NewsInfoDTOMaker;
+use Domains\News\Services\Contracts\DTOs\NewsBaseSaveDTO;
 use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
+use Domains\News\Services\Contracts\DTOs\NewsEditDTO;
 use Domains\Role\Services\RoleServices;
 use Domains\User\Entities\User;
 
@@ -37,8 +39,7 @@ class NewsService
         RoleServices $roleServices,
         NewsInfoDTOMaker $newsInfoDTOMaker,
         AttachmentServices $attachmentServices
-)
-    {
+    ) {
 
         $this->newsRepository = $newsRepository;
         $this->roleServices = $roleServices;
@@ -52,7 +53,7 @@ class NewsService
             $this->getNewsStatus($newsCreateDTO->getPublisher())
         );
         $news = $this->newsRepository->create($newsCreateDTO);
-        $attachmentInfoDto = $this->addAttachmentForNews($news,$newsCreateDTO);
+        $attachmentInfoDto = $this->addAttachmentForNews($news, $newsCreateDTO);
         return $this->newsInfoDTOMaker->convert($news, $attachmentInfoDto);
 
     }
@@ -65,15 +66,25 @@ class NewsService
         return config('news.news_pending_status');
     }
 
-    private function addAttachmentForNews(News $news, NewsCreateDTO $newsCreateDTO): ?AttachmentInfoDTO
+    private function addAttachmentForNews(News $news, NewsBaseSaveDTO $newsBaseSaveDTO): ?AttachmentInfoDTO
     {
-        if(!$newsCreateDTO->getAttachmentFiles()){
+        if (!$newsBaseSaveDTO->getAttachmentFiles()) {
             return null;
         }
         $attachmentDTO = new AttachmentDTO();
         $attachmentDTO->setEntityId($news->id)
             ->setEntityName(class_basename(News::class))
-            ->setFile($newsCreateDTO->getAttachmentFiles());
+            ->setFile($newsBaseSaveDTO->getAttachmentFiles());
         return $this->attachmentServices->uploadImages($attachmentDTO);
+    }
+
+    public function editNews(NewsEditDTO $newsEditDTO)
+    {
+        $newsEditDTO->setStatus(
+            $this->getNewsStatus($newsEditDTO->getEditor())
+        );
+        $news = $this->newsRepository->editNews($newsEditDTO);
+        $attachmentInfoDto = $this->addAttachmentForNews($news, $newsEditDTO);
+        return $this->newsInfoDTOMaker->convert($news, $attachmentInfoDto);
     }
 }

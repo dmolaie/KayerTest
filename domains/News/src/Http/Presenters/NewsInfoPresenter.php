@@ -26,7 +26,7 @@ class NewsInfoPresenter
                 [
                     'name' => $newsInfoDTO->getCategory()->name_en,
                     'id'   => $newsInfoDTO->getCategory()->id
-                ] : [],
+                ] : null,
             'publish_date' => strtotime($newsInfoDTO->getPublishDate()),
             'source_link'  => $newsInfoDTO->getSourceLink(),
             'status'       => [
@@ -41,6 +41,10 @@ class NewsInfoPresenter
                 'name'      => $newsInfoDTO->getPublisher()->name,
                 'last_name' => $newsInfoDTO->getPublisher()->last_name
             ],
+            'editor'       => $newsInfoDTO->getEditor() ? [
+                'name'      => $newsInfoDTO->getEditor()->name,
+                'last_name' => $newsInfoDTO->getEditor()->last_name
+            ] : null,
             'language'     => $newsInfoDTO->getLanguage(),
             'relation_id'  => $newsInfoDTO->getRelationNewsId(),
             'image_path'   => $newsInfoDTO->getAttachmentFiles()

@@ -8,18 +8,18 @@ use Domains\User\Entities\User;
 
 
 /**
- * Class NewsCreateDTO
+ * Class NewsEditDTO
  */
-class NewsCreateDTO extends NewsBaseSaveDTO
+class NewsEditDTO extends NewsBaseSaveDTO
 {
+    /**
+     * @var integer
+     */
+    protected $newsId;
     /**
      * @var User
      */
-    protected $publisher;
-    /**
-     * @var null|integer
-     */
-    protected $parentId;
+    protected $editor;
 
     /**
      * @return mixed
@@ -31,7 +31,7 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param mixed $firstTitle
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
     public function setFirstTitle($firstTitle)
     {
@@ -49,9 +49,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string|null $secondTitle
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setSecondTitle(?string $secondTitle): NewsCreateDTO
+    public function setSecondTitle(?string $secondTitle): NewsEditDTO
     {
         $this->secondTitle = $secondTitle;
         return $this;
@@ -67,9 +67,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string|null $abstract
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setAbstract(?string $abstract): NewsCreateDTO
+    public function setAbstract(?string $abstract): NewsEditDTO
     {
         $this->abstract = $abstract;
         return $this;
@@ -85,9 +85,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string|null $description
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setDescription(?string $description): NewsCreateDTO
+    public function setDescription(?string $description): NewsEditDTO
     {
         $this->description = $description;
         return $this;
@@ -103,9 +103,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param int|null $categoryId
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setCategoryId(?int $categoryId): NewsCreateDTO
+    public function setCategoryId(?int $categoryId): NewsEditDTO
     {
         $this->categoryId = $categoryId;
         return $this;
@@ -121,9 +121,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string $publishDate
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setPublishDate(string $publishDate): NewsCreateDTO
+    public function setPublishDate(string $publishDate): NewsEditDTO
     {
         $this->publishDate = $publishDate;
         return $this;
@@ -139,9 +139,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string|null $sourceLink
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setSourceLink(?string $sourceLink): NewsCreateDTO
+    public function setSourceLink(?string $sourceLink): NewsEditDTO
     {
         $this->sourceLink = $sourceLink;
         return $this;
@@ -157,9 +157,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param int|null $provinceId
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setProvinceId(?int $provinceId): NewsCreateDTO
+    public function setProvinceId(?int $provinceId): NewsEditDTO
     {
         $this->provinceId = $provinceId;
         return $this;
@@ -175,9 +175,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string $language
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setLanguage(string $language): NewsCreateDTO
+    public function setLanguage(string $language): NewsEditDTO
     {
         $this->language = $language;
         return $this;
@@ -193,9 +193,9 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param string|null $status
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setStatus(?string $status): NewsCreateDTO
+    public function setStatus(?string $status): NewsEditDTO
     {
         $this->status = $status;
         return $this;
@@ -211,47 +211,47 @@ class NewsCreateDTO extends NewsBaseSaveDTO
 
     /**
      * @param array|null $attachmentFiles
-     * @return NewsCreateDTO
+     * @return NewsEditDTO
      */
-    public function setAttachmentFiles(?array $attachmentFiles): NewsCreateDTO
+    public function setAttachmentFiles(?array $attachmentFiles): NewsEditDTO
     {
         $this->attachmentFiles = $attachmentFiles;
         return $this;
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getPublisher(): User
+    public function getNewsId(): int
     {
-        return $this->publisher;
+        return $this->newsId;
     }
 
     /**
-     * @param User $publisher
-     * @return NewsCreateDTO
+     * @param int $newsId
+     * @return NewsEditDTO
      */
-    public function setPublisher(User $publisher): NewsCreateDTO
+    public function setNewsId(int $newsId): NewsEditDTO
     {
-        $this->publisher = $publisher;
+        $this->newsId = $newsId;
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return User
      */
-    public function getParentId(): ?int
+    public function getEditor(): User
     {
-        return $this->parentId;
+        return $this->editor;
     }
 
     /**
-     * @param int|null $parentId
-     * @return NewsCreateDTO
+     * @param User $editor
+     * @return NewsEditDTO
      */
-    public function setParentId(?int $parentId): NewsCreateDTO
+    public function setEditor(User $editor): NewsEditDTO
     {
-        $this->parentId = $parentId;
+        $this->editor = $editor;
         return $this;
     }
 

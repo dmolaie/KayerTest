@@ -4,12 +4,12 @@
 namespace Domains\News\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
-use Domains\News\Entities\News;
+use Auth;
 use Domains\News\Http\Requests\CreateNewsRequest;
+use Domains\News\Http\Requests\EditNewsRequest;
 use Domains\News\Services\NewsService;
 use Domains\News\src\Http\Presenters\NewsInfoPresenter;
 use Illuminate\Http\Response;
-use \Auth;
 
 class NewsController extends EhdaBaseController
 {
@@ -24,6 +24,7 @@ class NewsController extends EhdaBaseController
 
         $this->newsService = $newsService;
     }
+
     public function createNews(CreateNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
     {
 
@@ -33,6 +34,19 @@ class NewsController extends EhdaBaseController
             $newsInfoPresenter->transform($newsInfoDTO),
             Response::HTTP_CREATED,
             trans('news::response.create_successful')
+        );
+
+    }
+
+    public function editNews(EditNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
+    {
+
+        $newsEditDTO = $request->createNewsEditDTO();
+        $newsInfoDTO = $this->newsService->editNews($newsEditDTO);
+        return $this->response(
+            $newsInfoPresenter->transform($newsInfoDTO),
+            Response::HTTP_OK,
+            trans('news::response.edit_successful')
         );
 
     }

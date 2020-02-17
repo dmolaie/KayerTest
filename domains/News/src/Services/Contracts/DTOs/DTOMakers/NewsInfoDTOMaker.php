@@ -17,7 +17,7 @@ class NewsInfoDTOMaker
         })->toArray();
     }
 
-    public function convert(News $news,?AttachmentInfoDTO $attachment): NewsInfoDTO
+    public function convert(News $news, ?AttachmentInfoDTO $attachment): NewsInfoDTO
     {
         $newsInfoDTO = new NewsInfoDTO();
         $newsInfoDTO->setFirstTitle($news->first_title)
@@ -30,8 +30,9 @@ class NewsInfoDTOMaker
             ->setAbstract($news->abstraction)
             ->setDescription($news->description)
             ->setPublisher($news->publisher)
+            ->setEditor($news->editor)
             ->setRelationNewsId($this->getRelationNewsId($news))
-            ->setAttachmentFiles($attachment?$attachment->getPaths():[])
+            ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
             ->setProvince($news->province);
 
         return $newsInfoDTO;

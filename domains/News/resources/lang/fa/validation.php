@@ -95,8 +95,9 @@ return array(
     */
     'attributes'            => [
         "category_id"  => "نوع دسته‌بندی",
-        "first_title"   => "عنوان اول",
-        "second_title"  => "عنوان دوم",
+        "news_id"      => "شماره خبر",
+        "first_title"  => "عنوان اول",
+        "second_title" => "عنوان دوم",
         "abstract"     => "چکیده",
         "description"  => "توضیحات",
         "publish_date" => "تاریخ انتشار",
