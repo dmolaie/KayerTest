@@ -1,10 +1,10 @@
 <?php
 return [
     'roles' => [
-        'super_admin' => [
+        'admin' => [
             'id' => 1,
-            'name' => 'super_admin',
-            'label' => 'مدیرکل'
+            'name' => 'admin',
+            'label' => 'ادمین'
         ]
     ]
 ];

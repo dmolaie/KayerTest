@@ -63,14 +63,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return bool
-     */
-    public function isSuperAdmin()
-    {
-        return auth()->user()->role_id == config('roles.super_admin.id') ? true : false;
-    }
-
-    /**
      * @return BelongsTo
      */
     public function role()

@@ -191,6 +191,7 @@ return [
         \Domains\Role\RoleServiceProvider::class,
         \Domains\Category\CategoryServiceProvider::class,
         \Domains\Attachment\AttachmentServiceProvider::class,
+        \Domains\News\NewsServiceProvider::class,
 
 
     ],

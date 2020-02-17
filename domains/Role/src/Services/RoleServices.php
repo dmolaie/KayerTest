@@ -13,9 +13,9 @@ class RoleServices
     {
     }
 
-    public function getRoleIdWithRoleName(string $roleName) :int
+    public function getRoleIdWithRoleName(string $roleName): int
     {
-       return config('role.roles.'.$roleName.'.id');
+        return config('role.roles.' . $roleName . '.id');
     }
 
     public function getAll()
@@ -24,5 +24,13 @@ class RoleServices
 
     public function find(int $id)
     {
+    }
+
+    public function isAdminRole(int $roleId): bool
+    {
+        if ($roleId == config('role.roles.admin.id')) {
+            return true;
+        }
+        return false;
     }
 }
