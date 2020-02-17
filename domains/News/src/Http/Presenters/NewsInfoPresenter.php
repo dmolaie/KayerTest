@@ -37,7 +37,10 @@ class NewsInfoPresenter
                 'id'   => $newsInfoDTO->getProvince()->id,
                 'name' => $newsInfoDTO->getProvince()->name,
             ],
-            'editor'       => ['name' => $newsInfoDTO->getEditor()->name],
+            'publisher'    => [
+                'name'      => $newsInfoDTO->getPublisher()->name,
+                'last_name' => $newsInfoDTO->getPublisher()->last_name
+            ],
             'language'     => $newsInfoDTO->getLanguage(),
             'relation_id'  => $newsInfoDTO->getRelationNewsId(),
             'image_path'   => $newsInfoDTO->getAttachmentFiles()

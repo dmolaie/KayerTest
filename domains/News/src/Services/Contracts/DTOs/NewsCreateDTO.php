@@ -56,7 +56,7 @@ class NewsCreateDTO
     /**
      * @var User
      */
-    protected $editor;
+    protected $publisher;
     /**
      * @var null|integer
      */
@@ -284,18 +284,18 @@ class NewsCreateDTO
     /**
      * @return User
      */
-    public function getEditor(): User
+    public function getPublisher(): User
     {
-        return $this->editor;
+        return $this->publisher;
     }
 
     /**
-     * @param User $editor
+     * @param User $publisher
      * @return NewsCreateDTO
      */
-    public function setEditor(User $editor): NewsCreateDTO
+    public function setPublisher(User $publisher): NewsCreateDTO
     {
-        $this->editor = $editor;
+        $this->publisher = $publisher;
         return $this;
     }
 

@@ -37,7 +37,7 @@ class NewsRepository
         $news->source_link = $newsCreateDTO->getSourceLink();
         $news->status = $newsCreateDTO->getStatus();
         $news->province_id = $newsCreateDTO->getProvinceId();
-        $news->editor_id = $newsCreateDTO->getEditor()->id;
+        $news->publisher_id = $newsCreateDTO->getPublisher()->id;
         $news->language = $newsCreateDTO->getLanguage();
         $news->parent_id = $newsCreateDTO->getParentId();
         $news->save();

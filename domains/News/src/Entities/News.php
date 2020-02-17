@@ -26,14 +26,19 @@ class News extends Model
         'status',
         'province_id',
         'editor_id',
+        'publisher_id',
         'language'
     ];
 
     public function editor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'editor_id','id');
     }
 
+    public function publisher()
+    {
+        return $this->belongsTo(User::class, 'publisher_id', 'id');
+    }
     public function province()
     {
         return $this->belongsTo(Province::class);

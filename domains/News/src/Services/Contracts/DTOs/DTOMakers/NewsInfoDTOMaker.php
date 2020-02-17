@@ -29,7 +29,7 @@ class NewsInfoDTOMaker
             ->setDescription($news->description)
             ->setAbstract($news->abstraction)
             ->setDescription($news->description)
-            ->setEditor($news->editor)
+            ->setPublisher($news->publisher)
             ->setRelationNewsId($this->getRelationNewsId($news))
             ->setAttachmentFiles($attachment?$attachment->getPaths():[])
             ->setProvince($news->province);

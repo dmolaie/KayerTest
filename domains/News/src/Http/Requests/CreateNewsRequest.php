@@ -49,7 +49,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             ->setAbstract($this['abstract'])
             ->setCategoryId($this['category_id'])
             ->setDescription($this['description'])
-            ->setEditor(\Auth::user())
+            ->setPublisher(\Auth::user())
             ->setLanguage($this['language'])
             ->setFirstTitle($this['first_title'])
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())

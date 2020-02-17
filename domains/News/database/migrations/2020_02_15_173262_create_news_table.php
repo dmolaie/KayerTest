@@ -25,7 +25,8 @@ class CreateNewsTable extends Migration
             $table->enum('status', config('news.news_statue'));
             $table->integer('province_id')->unsigned();
             $table->enum('language', config('news.news_language'));
-            $table->bigInteger('editor_id')->unsigned();
+            $table->bigInteger('editor_id')->unsigned()->nullable();
+            $table->bigInteger('publisher_id')->unsigned();
             $table->integer('parent_id')->nullable()->unsigned();
             $table->timestamps();
 
@@ -41,6 +42,9 @@ class CreateNewsTable extends Migration
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('parent_id')->on('news')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('publisher_id')->on('users')
+                ->references('id')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

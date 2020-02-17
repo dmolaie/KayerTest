@@ -49,7 +49,7 @@ class NewsService
     public function createNews(NewsCreateDTO $newsCreateDTO)
     {
         $newsCreateDTO->setStatus(
-            $this->getNewsStatus($newsCreateDTO->getEditor())
+            $this->getNewsStatus($newsCreateDTO->getPublisher())
         );
         $news = $this->newsRepository->create($newsCreateDTO);
         $attachmentInfoDto = $this->addAttachmentForNews($news,$newsCreateDTO);
@@ -57,9 +57,9 @@ class NewsService
 
     }
 
-    private function getNewsStatus(User $editor)
+    private function getNewsStatus(User $publisher)
     {
-        if ($this->roleServices->isAdminRole($editor->role_id)) {
+        if ($this->roleServices->isAdminRole($publisher->role_id)) {
             return config('news.news_accept_status');
         }
         return config('news.news_pending_status');
