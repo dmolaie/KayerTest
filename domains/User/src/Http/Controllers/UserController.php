@@ -4,13 +4,15 @@
 namespace Domains\User\Http\Controllers;
 
 
-use Exception;
-use Illuminate\Http\Response;
-use Domains\User\Services\UserService;
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Http\Requests\UserRegisterRequest;
+use Domains\User\Services\UserService;
 use Domains\User\src\Http\Presenters\UserRegisterPresenter;
+use Illuminate\Http\Response;
 
+/**
+ * Class UserController
+ */
 class UserController extends EhdaBaseController
 {
     /**
@@ -27,20 +29,20 @@ class UserController extends EhdaBaseController
         $this->userService = $userService;
     }
 
+    /**
+     * @param UserRegisterRequest $request
+     * @param UserRegisterPresenter $userRegisterPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(UserRegisterRequest $request, UserRegisterPresenter $userRegisterPresenter)
     {
-        try {
-            $userRegisterDto = $request->createUserRegisterDTO();
-            $userRegisterResult = $this->userService->register($userRegisterDto);
-            return $this->response(
-                $userRegisterPresenter->transform($userRegisterResult),
-                Response::HTTP_OK,
-                trans('user::response.success_register')
-            );
-        } catch (Exception $exception) {
-            return $this->response([], $exception->getCode(), $exception->getMessage());
-
-        }
+        $userRegisterDto = $request->createUserRegisterDTO();
+        $userRegisterResult = $this->userService->register($userRegisterDto);
+        return $this->response(
+            $userRegisterPresenter->transform($userRegisterResult),
+            Response::HTTP_OK,
+            trans('user::response.success_register')
+        );
 
     }
 }

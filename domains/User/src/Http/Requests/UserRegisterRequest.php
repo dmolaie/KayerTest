@@ -3,6 +3,7 @@
 namespace Domains\User\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
+use Carbon\Carbon;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 
 class UserRegisterRequest extends EhdaBaseRequest
@@ -29,7 +30,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             'name'                        => 'required|alpha|max:20|min:3',
             'last_name'                   => 'required|alpha|max:20|min:3',
             'gender'                      => 'required|in:male,female,other',
-            'date_of_birth'               => 'required|date',
+            'date_of_birth'               => 'required|numeric',
             'mobile'                      => 'required|regex:/(09)[0-9]{9}/',
             'current_province_id'         => 'required|integer',
             'current_city_id'             => 'required|integer',
@@ -78,7 +79,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             ->setCurrentAddress($this['current_address'])
             ->setCurrentCityId($this['current_city_id'])
             ->setCurrentProvinceId($this['current_province_id'])
-            ->setDateOfBirth($this['date_of_birth'])
+            ->setDateOfBirth(Carbon::createFromTimestamp($this['date_of_birth'])->toDateString())
             ->setEducationalField($this['educational_field'])
             ->setEmail($this['email'])
             ->setEssentialMobile($this['essential_mobile'])
@@ -88,7 +89,6 @@ class UserRegisterRequest extends EhdaBaseRequest
             ->setPassword($this['password'])
             ->setRoleId(config('user.client_role_id'))
             ->setLastEducationalDegree($this['last_educational_degree']);
-
 
         return $userRegisterDTO;
     }

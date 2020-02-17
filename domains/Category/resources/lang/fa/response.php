@@ -2,5 +2,5 @@
 
 
 return [
-    'successful_create'=>'پسته‌بندی ایجاد شد.'
+    'successful_create'=>'دسته‌بندی ایجاد شد.'
 ];
