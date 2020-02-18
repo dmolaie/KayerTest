@@ -9,6 +9,7 @@ import {
 export const SET_USER = "LOGIN_SET_USER";
 export const SET_LOGOUT = "SET_LOGOUT";
 export const GET_USER_HAS_ACCESS = "GET_USER_HAS_ACCESS";
+export const GET_IS_USER_LOGGED_IN = "GET_IS_USER_LOGGED_IN";
 
 const GetDefaultState = () => ({
     token: null,
@@ -34,7 +35,8 @@ const UserStore = {
         GET_USER_HAS_ACCESS: state => (
             !!state.token &&
             parseInt( state.roleId ) !== USER_ROLE_ID
-        )
+        ),
+        GET_IS_USER_LOGGED_IN: state => ( !!state.token )
     }
 };
 
