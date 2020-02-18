@@ -676,7 +676,7 @@
             </div>
         </section>
         <section class="news__section relative bg-size-cover bg-no-repeat bg-center"
-                 style="background-image: url('https://images.unsplash.com/photo-1520299607509-dcd935f9a839?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80')"
+                 style="background-image: url('{{ asset('images/photo-1520299607509-dcd935f9a839.jpg') }}')"
         >
             <div class="container relative">
                 <div class="flex items-center justify-between m-b-17">
