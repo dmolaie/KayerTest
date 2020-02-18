@@ -43,21 +43,21 @@
                     <div class="l:w-280 l:m-r-45 md:w-100 md:m-b-20">
                         <figure class="block w-full m-b-10 has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1580688503346-8514fcdf6a6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
+                                 data-src="{{ asset('images/3W6A0137.jpg') }}"
                                  alt=""
                                  class="history-page__cover block w-full h-full rounded-3 object-cover"
                             />
                         </figure>
                         <figure class="block w-full m-b-10 has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1580736022600-5544df25a3e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
+                                 data-src="{{ asset('images/اکی-ساختمان.jpg') }}"
                                  alt=""
                                  class="history-page__cover block w-full h-full rounded-3 object-cover"
                             />
                         </figure>
                         <figure class="block w-full has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1562887189-4b6edf71d847?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
+                                 data-src="{{ asset('images/3W6A0155.jpg') }}"
                                  alt=""
                                  class="history-page__cover block w-full h-full rounded-3 object-cover"
                             />
@@ -70,8 +70,8 @@
                         <p class="cursor-default text-bayoux text-right font-20-bold counter-item md:m-b-20">
                             اهداف اصلی:
                         </p>
-                        <figure class="block">
-                            <img src="/images/img_history--1.svg"
+                        <figure class="block max-w-full m-0-auto xl:w-1/3 l:w-1/2">
+                            <img src="/images/img_history--1.png"
                                  alt="اهداف اصلی"
                                  class="block object-contain md:max-w-100 m-0-auto"
                             />
@@ -82,8 +82,8 @@
                         <p class="cursor-default text-bayoux text-right font-20-bold counter-item md:m-b-20">
                             اهداف فرعی:
                         </p>
-                        <figure class="block">
-                            <img src="/images/img_history--2.svg"
+                        <figure class="block max-w-full m-0-auto xl:w-1/3 l:w-1/2">
+                            <img src="/images/img_history--2.png"
                                  alt="اهداف فرعی"
                                  class="block object-contain md:max-w-100 m-0-auto"
                             />

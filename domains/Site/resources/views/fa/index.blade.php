@@ -7,8 +7,8 @@
                     <div class="swiper-slide">
                         <div class="slider__item w-full h-full has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1580750704927-85f625192654?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                 alt=""
+                                 data-src="{{ asset('images/slider/HOME0001.jpg') }}"
+                                 alt="انجمن اهدای اعضای ایرانیان"
                                  class="block w-full h-full object-cover"
                             />
                         </div>
@@ -16,8 +16,8 @@
                     <div class="swiper-slide">
                         <div class="slider__item w-full h-full has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1580628646350-4f8bd2868e1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                 alt=""
+                                 data-src="{{ asset('images/slider/HOME0002.jpg') }}"
+                                 alt="انجمن اهدای اعضای ایرانیان"
                                  class="block w-full h-full object-cover"
                             />
                         </div>
@@ -25,8 +25,8 @@
                     <div class="swiper-slide">
                         <div class="slider__item w-full h-full has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1580639006552-b8d337e9ab10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80"
-                                 alt=""
+                                 data-src="{{ asset('images/slider/HOME0003.jpg') }}"
+                                 alt="انجمن اهدای اعضای ایرانیان"
                                  class="block w-full h-full object-cover"
                             />
                         </div>

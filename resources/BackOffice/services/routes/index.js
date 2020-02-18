@@ -9,6 +9,7 @@ const APP_NAME = 'اهدا | ';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
+export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -38,6 +39,15 @@ const Routes = new VueRouter({
             component: GetViews( 'Login'),
             meta: {
                 title: LOGIN_PAGE_TITLE,
+                guess: true
+            }
+        },
+        {
+            name: PROFILE,
+            path: '/profile',
+            component: GetViews( 'Profile'),
+            meta: {
+                title: 'پروفایل',
                 guess: true
             }
         },
@@ -80,7 +90,7 @@ Routes.beforeEach(
                 next()
             } else {
                 ( Store?.getters['GET_IS_USER_LOGGED_IN'] ) ? (
-                    next({ name: LOGOUT })
+                    next({ name: PROFILE })
                 ) : (
                     next({ name: LOGIN })
                 );
