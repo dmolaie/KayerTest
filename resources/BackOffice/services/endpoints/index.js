@@ -6,7 +6,7 @@ let endpoints = {};
 
 const SIGN_IN = "SIGN_IN";
 
-endpoints[SIGN_IN] = '/admin/login';
+endpoints[SIGN_IN] = '/user/login';
 
 export default class Endpoint {
     static get API_DOMAIN() {
