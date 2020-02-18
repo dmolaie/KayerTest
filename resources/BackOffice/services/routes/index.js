@@ -79,7 +79,11 @@ Routes.beforeEach(
             if ( Store?.getters['GET_USER_HAS_ACCESS'] ) {
                 next()
             } else {
-                next({ name: LOGIN });
+                ( Store?.getters['GET_IS_USER_LOGGED_IN'] ) ? (
+                    next({ name: LOGOUT })
+                ) : (
+                    next({ name: LOGIN })
+                );
                 SetPageTitle( LOGIN_PAGE_TITLE );
             }
         } else {
