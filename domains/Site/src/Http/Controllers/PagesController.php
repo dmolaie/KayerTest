@@ -24,4 +24,19 @@ class PagesController extends Controller
         return view('site::'.$request->language.'.pages.news-list');
     }
 
+    public function interactions(Request $request)
+    {
+        return view('site::'.$request->language.'.pages.interactions-list');
+    }
+
+    public function foundations(Request $request)
+    {
+        return view('site::'.$request->language.'.pages.foundations');
+    }
+
+    public function missionAndVision(Request $request)
+    {
+        return view('site::'.$request->language.'.pages.mission-and-vision');
+    }
+
 }

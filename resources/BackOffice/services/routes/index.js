@@ -23,7 +23,7 @@ const GetViews = component => () =>
 
 const Routes = new VueRouter({
     mode: "hash",
-    base: '/admin',
+    base: '/user',
     routes: [
         {
             name: DASHBOARD,
