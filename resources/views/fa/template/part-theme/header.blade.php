@@ -31,17 +31,17 @@
                     >
                         تاریخچه
                     </a>
-                    <a href=""
+                    <a href="{{route('page.interactions',config('app.locale'))}}"
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         تعاملات
                     </a>
-                    <a href=""
+                    <a href="{{route('page.foundations',config('app.locale'))}}"
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ارکان انجمن
                     </a>
-                    <a href=""
+                    <a href="{{route('page.mission-and-vision',config('app.locale'))}}"
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ماموریت و چشم انداز
@@ -286,7 +286,7 @@
             </div>
             <button class="header__nav_btn header__nav_btn--search bg-size-contain m-r-auto"></button>
             <a href="{{route('admin.login')}}" class="header__nav_btn header__nav_btn--user bg-size-contain"></a>
-            <button class="header__nav_btn header__nav_btn--home"></button>
+            <a href="{{route('index',config('app.locale'))}}" class="header__nav_btn header__nav_btn--home"></a>
             <div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">
                 <a href="{{route('index','en')}}"
                    class="header__nav_lang--en text-uppercase text-black font-xs-bold flex-1 l:transition"
