@@ -535,7 +535,7 @@
                                  class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
                             />
                         </figure>
-                        <div class="h-cart__details">
+                        <div class="h-cart__details flex-1">
                             <p class="h-cart__title font-sm-bold">
                                 تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
                             </p>
@@ -557,7 +557,7 @@
                                  class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
                             />
                         </figure>
-                        <div class="h-cart__details">
+                        <div class="h-cart__details flex-1">
                             <p class="h-cart__title font-sm-bold">
                                 تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
                             </p>
@@ -579,7 +579,7 @@
                                  class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
                             />
                         </figure>
-                        <div class="h-cart__details">
+                        <div class="h-cart__details flex-1">
                             <p class="h-cart__title font-sm-bold">
                                 تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
                             </p>
@@ -601,7 +601,7 @@
                                  class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
                             />
                         </figure>
-                        <div class="h-cart__details">
+                        <div class="h-cart__details flex-1">
                             <p class="h-cart__title font-sm-bold">
                                 تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
                             </p>
@@ -623,7 +623,7 @@
                                  class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
                             />
                         </figure>
-                        <div class="h-cart__details">
+                        <div class="h-cart__details flex-1">
                             <p class="h-cart__title font-sm-bold">
                                 تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
                             </p>

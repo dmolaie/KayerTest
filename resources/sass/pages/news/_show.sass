@@ -24,11 +24,15 @@
       align-self: flex-start
       @include Truncate( 2 )
     &__cover
-      width: 394px
+      width: 45%
       height: 210px
       margin:
         left: 26px
       background: #eaeaea
+      @include Xl_Screen
+        width: 33.3333%
+      @include Md_Screen
+        width: 100%
   .relative-news
     margin:
       top: 35px

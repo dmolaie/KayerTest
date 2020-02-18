@@ -280,12 +280,12 @@
                     <a href=""
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
-                        ارتباط با واحد ممدکاری
+                        ارتباط با واحد مددکاری
                     </a>
                 </div>
             </div>
             <button class="header__nav_btn header__nav_btn--search bg-size-contain m-r-auto"></button>
-            <button class="header__nav_btn header__nav_btn--user bg-size-contain"></button>
+            <a href="{{route('admin.login')}}" class="header__nav_btn header__nav_btn--user bg-size-contain"></a>
             <button class="header__nav_btn header__nav_btn--home"></button>
             <div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">
                 <a href="{{route('index','en')}}"
