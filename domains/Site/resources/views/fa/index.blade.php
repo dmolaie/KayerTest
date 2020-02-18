@@ -25,7 +25,7 @@
                     <div class="swiper-slide">
                         <div class="slider__item w-full h-full has-skeleton">
                             <img src=""
-                                 data-src="{{ asset('images/slider/HOME0003.jpg') }}"
+                                 data-src="{{ asset('images/slider/Home003.jpg') }}"
                                  alt="انجمن اهدای اعضای ایرانیان"
                                  class="block w-full h-full object-cover"
                             />
