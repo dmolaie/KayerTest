@@ -5,7 +5,7 @@
                 <h1 class="flex text-blue font-24 md:font-22 text-center">
                     <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
                     <span class="i-page__title">
-                         تعاملات
+                         ارکان انجمن
                     </span>
                     <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
                 </h1>
@@ -98,11 +98,70 @@
                                     <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
                                 </p>
                                 <div class="fou-page__volunteers__list flex flex-wrap items-start justify-between">
-                                    <a href=""
-                                       class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
+                                    <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                 data-src="{{ asset('images/members/1571823208.jpg') }}"
+                                                 alt="نفیسه روشن"
+                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
+                                            />
+                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
+                                                نفیسه روشن
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
+                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
+                                            <img src=""
+                                                 data-src="{{ asset('images/members/1529305726_vj9i8Q3lsn93.jpg') }}"
+                                                 alt="مهراوه شریفی‌نیا"
+                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
+                                            />
+                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
+                                                مهراوه شریفی‌نیا
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
+                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
+                                            <img src=""
+                                                 data-src="{{ asset('images/members/HSNvtKX6rsFpgT.jpg') }}"
+                                                 alt="ثریا قاسمی"
+                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
+                                            />
+                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
+                                                ثریا قاسمی
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
+                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
+                                            <img src=""
+                                                 data-src="{{ asset('images/members/v8YhNJEmbpTYEQKMux3RAWFc.jpg') }}"
+                                                 alt="داریوش ارجمند"
+                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
+                                            />
+                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
+                                                داریوش ارجمند
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
+                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
+                                            <img src=""
+                                                 data-src="{{ asset('images/members/152931q1d4xGRaBk38nTH.jpg') }}"
+                                                 alt="دکتر محمد نظری"
+                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
+                                            />
+                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
+                                                دکتر محمد نظری
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
+                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
+                                            <img src=""
+                                                 data-src="{{ asset('images/members/1529315796_w2J1JkgH2e.jpg') }}"
                                                  alt="محمد سلوکی"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -110,72 +169,7 @@
                                                 محمد سلوکی
                                             </figcaption>
                                         </figure>
-                                    </a>
-                                    <a href=""
-                                       class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
-                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
-                                            <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                 alt=""
-                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
-                                            />
-                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
-                                                محمد سلوکی
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <a href=""
-                                       class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
-                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
-                                            <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581864778324-38dcd2c9d082?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                 alt=""
-                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
-                                            />
-                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
-                                                محمد سلوکی
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <a href=""
-                                       class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
-                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
-                                            <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1522609946836-c85cba8eb943?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                 alt=""
-                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
-                                            />
-                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
-                                                محمد سلوکی
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <a href=""
-                                       class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
-                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
-                                            <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581824043592-e104b7f71a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                 alt=""
-                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
-                                            />
-                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
-                                                محمد سلوکی
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <a href=""
-                                       class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
-                                        <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
-                                            <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581864778188-450db0c9f0e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                 alt=""
-                                                 class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
-                                            />
-                                            <figcaption class="fou-page__volunteers__list_item_caption absolute w-full text-center font-sm font-medium pointer-event-none opacity-0 z-2">
-                                                محمد سلوکی
-                                            </figcaption>
-                                        </figure>
-                                    </a>
+                                    </div>
                                 </div>
                                 <a href=""
                                    class="fou-page__volunteers__link block bg-blue border border-solid rounded-2 text-white font-base-bold text-center transition-bg l:hover:bg-blue-200"
@@ -292,8 +286,20 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر ایرج فاضل.jpg') }}"
+                                                     alt="دکتر ایرج فاضل"
+                                                     class="w-full h-full block rounded-inherit object-cover"
+                                                />
+                                            </figure>
+                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
+                                                دکتر ایرج فاضل
+                                            </p>
+                                        </div>
+                                        <div class="fou-page__members_member">
+                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
+                                                     alt="دکتر علی نوبخت حقیقی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
@@ -307,46 +313,31 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
+                                                     alt="دکتر کتایون نجفی‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
+                                                دکتر کتایون نجفی‌زاده
                                             </p>
                                             <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                مدیرعامل
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1496360166961-10a51d5f367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر امید قبادی.jpg') }}"
+                                                     alt="دکتر امید قبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
+                                                دکتر امید قبادی
                                             </p>
                                             <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
-                                            </p>
-                                        </div>
-                                        <div class="fou-page__members_member">
-                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
-                                                <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
-                                                     class="w-full h-full block rounded-inherit object-cover"
-                                                />
-                                            </figure>
-                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                نایب رئیس هیأت مدیره
                                             </p>
                                         </div>
                                     </div>
@@ -354,91 +345,76 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر فریدون نوحی بزنجانی.jpg') }}"
+                                                     alt="دکتر فریدون نوحی بزنجانی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر فریدون نوحی بزنجانی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر بهروز برومند.jpg') }}"
+                                                     alt="دکتر بهروز برومند"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر بهروز برومند
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1496360166961-10a51d5f367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                     data-src="{{ asset('images/members/جواد نوروزبیگی.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                جواد نوروزبیگی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
+                                                     alt="دکتر علی‌اصغر پورمحمدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر علی‌اصغر پورمحمدی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/مهندس عباس مهدوی‌مهر.jpg') }}"
+                                                     alt="مهندس عباس مهدوی‌مهر"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                مهندس عباس مهدوی‌مهر
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر-کنزی.jpg') }}"
+                                                     alt="دکتر مسعود کنزی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
+                                                دکتر مسعود کنزی
                                             </p>
                                             <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                خزانه‌دار
                                             </p>
                                         </div>
                                     </div>
@@ -451,46 +427,40 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
+                                                     alt="دکتر علی نوبخت حقیقی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
                                                 دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر ایرج فاضل.jpg') }}"
+                                                     alt="دکتر ایرج فاضل"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
+                                                دکتر ایرج فاضل
                                             </p>
                                             <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                رئیس هیأت امنا
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
+                                                     alt="دکتر کتایون نجفی‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر کتایون نجفی‌زاده
                                             </p>
                                         </div>
                                     </div>
@@ -498,286 +468,265 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر مجید قاسمی.jpg') }}"
+                                                     alt="دکتر مجید قاسمی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر مجید قاسمی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر سعید نمکی.jpg') }}"
+                                                     alt="دکتر سعید نمکی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر سعید نمکی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1496360166961-10a51d5f367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر محمدحسین ماندگار.jpg') }}"
+                                                     alt="دکتر محمدحسین ماندگار"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر محمدحسین ماندگار
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر سیدعلی ملک‌حسینی.jpg') }}"
+                                                     alt="دکتر سیدعلی ملک‌حسینی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر سیدعلی ملک‌حسینی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر سیدرضا ملک‌زاده.jpg') }}"
+                                                     alt="دکتر سیدرضا ملک‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر سیدرضا ملک‌زاده
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                     data-src="{{ asset('images/members/ثریا قاسمی.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                ثریا قاسمی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/پرویز پرستویی.jpg') }}"
+                                                     alt="پرویز پرستویی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                پرویز پرستویی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر فریدون نوحی بزنجانی.jpg') }}"
+                                                     alt="دکتر فریدون نوحی بزنجانی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر فریدون نوحی بزنجانی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1496360166961-10a51d5f367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر فضل‌اله شریعت‌پناهی.jpg') }}"
+                                                     alt="دکتر فضل‌اله شریعت‌پناهی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر فضل‌اله شریعت‌پناهی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر مسعود کنزی.jpg') }}"
+                                                     alt="دکتر مسعود کنزی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر مسعود کنزی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر امید قبادی.jpg') }}"
+                                                     alt="دکتر امید قبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر امید قبادی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/حاج علی حاجی سید سلیمان.jpg') }}"
+                                                     alt="حاج علی حاجی سید سلیمان"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                حاج علی حاجی سید سلیمان
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر سیدرضا مجتهد سعیدی فیروزآبادی.jpg') }}"
+                                                     alt="دکتر سیدرضا مجتهد سعیدی فیروزآبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر سیدرضا مجتهد سعیدی فیروزآبادی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/مجید-مجیدی.jpg') }}"
+                                                     alt="مجید-مجیدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                مجید مجیدی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1496360166961-10a51d5f367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/عباس شاکری.jpg') }}"
+                                                     alt="عباس شاکری"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                حاج عباس شاکری
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/ابراهیم عسگریان.jpg') }}"
+                                                     alt="ابراهیم عسگریان"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                ابراهیم عسگریان
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر بهروز برومند.jpg') }}"
+                                                     alt="دکتر بهروز برومند"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر بهروز برومند
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/جواد نوروزبیگی.jpg') }}"
+                                                     alt="جواد نوروزبیگی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                جواد نوروزبیگی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/اکبر تشکری‌نیا.jpg') }}"
+                                                     alt="اکبر تشکری‌نیا"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
+                                                اکبر تشکری‌نیا
                                             </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                        </div>
+                                        <div class="fou-page__members_member">
+                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ asset('images/members/مهندس عباس مهدوی‌مهر.jpg') }}"
+                                                     alt="مهندس عباس مهدوی‌مهر"
+                                                     class="w-full h-full block rounded-inherit object-cover"
+                                                />
+                                            </figure>
+                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
+                                                مهندس عباس مهدوی‌مهر
+                                            </p>
+                                        </div>
+                                        <div class="fou-page__members_member">
+                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
+                                                     alt="دکتر علی‌اصغر پورمحمدی"
+                                                     class="w-full h-full block rounded-inherit object-cover"
+                                                />
+                                            </figure>
+                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
+                                                دکتر علی‌اصغر پورمحمدی
+                                            </p>
+                                        </div>
+                                        <div class="fou-page__members_member">
+                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ asset('images/members/حجت‌الاسلام والمسلمین مصطفی مرسلی.jpg') }}"
+                                                     alt="حجت‌الاسلام والمسلمین مصطفی مرسلی"
+                                                     class="w-full h-full block rounded-inherit object-cover"
+                                                />
+                                            </figure>
+                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
+                                                حجت‌الاسلام والمسلمین مصطفی مرسلی
                                             </p>
                                         </div>
                                     </div>
@@ -790,46 +739,37 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
+                                                     alt="دکتر علی نوبخت حقیقی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
                                                 دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر ایرج فاضل.jpg') }}"
+                                                     alt="دکتر ایرج فاضل"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر ایرج فاضل
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
+                                                     alt="دکتر کتایون نجفی‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر کتایون نجفی‌زاده
                                             </p>
                                         </div>
                                     </div>
@@ -837,91 +777,97 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                     data-src="{{ asset('images/members/دکتر محمدحسین ماندگار.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر محمدحسین ماندگار
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر سیدعلی ملک‌حسینی.jpg') }}"
+                                                     alt="دکتر سیدعلی ملک‌حسینی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر سیدعلی ملک‌حسینی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1496360166961-10a51d5f367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                     data-src="{{ asset('images/members/دکتر سیدرضا ملک‌زاده.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر سیدرضا ملک‌زاده
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1488371934083-edb7857977df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر امید قبادی.jpg') }}"
+                                                     alt="دکتر امید قبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر امید قبادی
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1505734169265-a86113baa6c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/عباس-زارع-نژاد---هیأت-موسس.jpg') }}"
+                                                     alt="دکتر عباس زارع‌نژاد"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
-                                            </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                                دکتر عباس زارع‌نژاد
                                             </p>
                                         </div>
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="https://images.unsplash.com/photo-1474313438662-85ce389c174a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                     alt=""
+                                                     data-src="{{ asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
+                                                     alt="دکتر علی‌اصغر پورمحمدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
                                             </figure>
                                             <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
-                                                دکتر علی نوبخت حقیقی
+                                                دکتر علی‌اصغر پورمحمدی
                                             </p>
-                                            <p class="fou-page__members_member_position text-gray-200 font-sm-medium text-center">
-                                                رئیس هیأت مدیره
+                                        </div>
+                                        <div class="fou-page__members_member">
+                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ asset('images/members/مرحوم دکتر منصور قمشه.jpg') }}"
+                                                     alt="مرحوم دکتر منصور قمشه"
+                                                     class="w-full h-full block rounded-inherit object-cover"
+                                                />
+                                            </figure>
+                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
+                                                مرحوم دکتر منصور قمشه
+                                            </p>
+                                        </div>
+                                        <div class="fou-page__members_member">
+                                            <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ asset('images/members/حجت‌الاسلام والمسلمین مصطفی مرسلی.jpg') }}"
+                                                     alt="حجت‌الاسلام والمسلمین مصطفی مرسلی"
+                                                     class="w-full h-full block rounded-inherit object-cover"
+                                                />
+                                            </figure>
+                                            <p class="fou-page__members_member_name text-blue-800 font-sm-bold text-center">
+                                                حجت‌الاسلام والمسلمین مصطفی مرسلی
                                             </p>
                                         </div>
                                     </div>
