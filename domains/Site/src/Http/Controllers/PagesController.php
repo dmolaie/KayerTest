@@ -26,7 +26,7 @@ class PagesController extends Controller
 
     public function interactions(Request $request)
     {
-        return view('site::'.$request->language.'.pages.interactions-list');
+        return view('site::'.$request->language.'.pages.interactions-show');
     }
 
     public function foundations(Request $request)
