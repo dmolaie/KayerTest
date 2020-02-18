@@ -46,27 +46,27 @@
                     >
                         ماموریت و چشم انداز
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         فعالیت ها
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         گزارش سالانه
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         تماس با ما
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         اساسنامه
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         چارت سازمانی
@@ -80,32 +80,32 @@
                             <span class="header__nav_sub-menu_title block font-sm text-blue-200">
                                 اطلاعات عمومی
                             </span>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             تاریخچه‌ي اهدا و پیوند
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             فرآیند مرگ مغزی
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             مرور بر اهدای عضو
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             تخصیص عضو
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اهدای عضو و مذهب
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اهدای عضو در سایر کشورها
@@ -115,12 +115,12 @@
                             <span class="header__nav_sub-menu_title block font-sm text-blue-200">
                                 بیشتر بدانیم
                             </span>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             آمار
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             پرسش‌های متداول
@@ -136,12 +136,12 @@
                     >
                         اخبار ایران
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         رویدادها
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         در گوشه و کنار جهان
@@ -151,17 +151,17 @@
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 هنر اهدا
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         صوتی
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         تصویری
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         نوشتاری
@@ -171,27 +171,27 @@
             <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
                 مشارکت
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         سفیر اهدای عضو
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ارسال آثار
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         حمایت از فرهنگ اهدای عضو
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         انتشار محصولات فرهنگی
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         حمایت مالی
@@ -205,17 +205,17 @@
                             <span class="header__nav_sub-menu_title block font-sm text-blue-200">
                                 آموزش
                             </span>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اطلاع رسانی دوره‌ها
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             منابع آموزشی
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             ارتباط با واحد آموزش
@@ -225,23 +225,23 @@
                             <span class="header__nav_sub-menu_title block font-sm text-blue-200">
                                 پژوهش
                             </span>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اطلاع رسانی کنگره ها
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             منابع پژوهشی
                         </a>
 
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             طرح‌های تحقیقاتی
                         </a>
-                        <a href=""
+                        <a
                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             ارتباط با واحد پژوهش
@@ -257,27 +257,27 @@
                     >
                         ساختار و تشکیلات
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         برنامه‌ی ویژه‌ی خانواده‌ها
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         مراکز حمایتی همراه
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         گزارش سالانه
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ثبت نام خانواده‌های اهداکننده
                     </a>
-                    <a href=""
+                    <a
                        class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ارتباط با واحد مددکاری
