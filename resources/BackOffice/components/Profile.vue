@@ -1,8 +1,12 @@
 <template>
-    <div class="">
-        <h3>
-            Profile
-        </h3>
+    <div class="text-center">
+        Profile
+        <br>
+        <router-link
+                :to="{ name: 'LOGOUT' }"
+        >
+            LOGOUT
+        </router-link>
     </div>
 </template>
 
