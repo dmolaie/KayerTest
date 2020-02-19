@@ -1,15 +1,16 @@
 <?php
 
-
 namespace Domains\Category;
 
-
+use Domains\Category\Entities\Category;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CategoryServiceProvider extends ServiceProvider
 {
-    public function boot(): void
+    public function boot(Router $router): void
     {
         $this->registerRoutes();
 
@@ -18,6 +19,8 @@ class CategoryServiceProvider extends ServiceProvider
         $this->loadConfig();
 
         $this->registerPublishing();
+
+        $this->registerPolicies();
 
     }
 
@@ -40,7 +43,7 @@ class CategoryServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Category\Http\Controllers',
-            'prefix'    => 'category',
+            'prefix' => 'category',
         ];
     }
 
@@ -54,6 +57,18 @@ class CategoryServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'category');
 
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'category');
+    }
+
+    /**
+     * Get the config file path.
+     *
+     * @return string
+     */
+    protected function loadConfig()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'category');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('category.php')], 'config');
+
     }
 
     /**
@@ -75,14 +90,27 @@ class CategoryServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the config file path.
+     * Register the application's policies.
      *
-     * @return string
+     * @return void
      */
-    protected function loadConfig()
+    public function registerPolicies()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'category');
-        $this->publishes([__DIR__ . '/../config/config.php' => config_path('category.php')], 'config');
+        foreach ($this->policies() as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
 
+    /**
+     * Get the policies defined on the provider.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+
+        return [
+            Category::class => \Domains\Category\Policies\CategoryPolicy::class,
+        ];
     }
 }
