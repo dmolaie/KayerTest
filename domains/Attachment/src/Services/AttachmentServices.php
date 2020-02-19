@@ -4,9 +4,9 @@ namespace Domains\Attachment\Services;
 
 
 use Domains\Attachment\Repositories\AttachmentRepository;
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentBaseDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
 use Domains\User\Exceptions\AttachmentFileErrorException;
 use Domains\User\Exceptions\ImageNotFoundErrorException;
 use Illuminate\Support\Facades\File;
@@ -50,12 +50,12 @@ class AttachmentServices
         return $attachmentInfoDTO;
     }
 
-    public function getAllImages(AttachmentBaseDTO $attachmentBaseDTO): AttachmentInfoDTO
+    public function getAllImages(string $entityName, int $entityId): AttachmentInfoDTO
     {
         $attachmentInfoDTO = new AttachmentInfoDTO();
-        $attachmentInfoDTO->setEntityName($attachmentBaseDTO->getEntityName());
-        $attachmentInfoDTO->setEntityId($attachmentBaseDTO->getEntityId());
-        $attachmentEntity = $this->attachmentRepository->getAllImages($attachmentBaseDTO);
+        $attachmentInfoDTO->setEntityName($entityName);
+        $attachmentInfoDTO->setEntityId($entityId);
+        $attachmentEntity = $this->attachmentRepository->getAllImages($entityName, $entityId);
         if ($attachmentEntity) {
             foreach ($attachmentEntity as $item) {
                 $attachmentInfoDTO->addToPaths($item->id, $item->path);
@@ -66,10 +66,20 @@ class AttachmentServices
 
     public function destroyImages(int $imageId)
     {
-        $resualt = $this->attachmentRepository->destroyImage($imageId);
-        if (!$resualt) {
+        $result = $this->attachmentRepository->destroyImage($imageId);
+        if (!$result) {
             throw new ImageNotFoundErrorException(trans('attachment::response.image_not_found'));
         }
-        return $resualt;
+        return $result;
+    }
+
+    public function getImagesByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
+    {
+        foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
+            $attachmentGetInfoDTO->addImages(
+                $this->getAllImages($attachmentGetInfoDTO->getEntityName(), $entityId),
+                $entityId);
+        }
+        return $attachmentGetInfoDTO;
     }
 }
