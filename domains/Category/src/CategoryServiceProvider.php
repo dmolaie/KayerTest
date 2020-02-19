@@ -3,14 +3,13 @@
 namespace Domains\Category;
 
 use Domains\Category\Entities\Category;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CategoryServiceProvider extends ServiceProvider
 {
-    public function boot(Router $router): void
+    public function boot(): void
     {
         $this->registerRoutes();
 
