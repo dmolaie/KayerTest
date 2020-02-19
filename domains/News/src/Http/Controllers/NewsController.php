@@ -5,10 +5,13 @@ namespace Domains\News\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Auth;
+use Domains\News\Entities\News;
+use Domains\News\Http\Presenters\NewsPaginateInfoPresenter;
 use Domains\News\Http\Requests\CreateNewsRequest;
 use Domains\News\Http\Requests\EditNewsRequest;
+use Domains\News\Http\Requests\NewsListForAdminRequest;
 use Domains\News\Services\NewsService;
-use Domains\News\src\Http\Presenters\NewsInfoPresenter;
+use Domains\News\Http\Presenters\NewsInfoPresenter;
 use Illuminate\Http\Response;
 
 class NewsController extends EhdaBaseController
@@ -49,5 +52,17 @@ class NewsController extends EhdaBaseController
             trans('news::response.edit_successful')
         );
 
+    }
+
+    public function getListForAdmin(
+        NewsListForAdminRequest $request,
+        NewsPaginateInfoPresenter $newsPaginateInfoPresenter
+    ) {
+        $newsPaginateInfoDTO = $this->newsService->filterNews($request->createNewsFilterDTO());
+        return $this->response(
+            $newsPaginateInfoPresenter->transform($newsPaginateInfoDTO),
+            Response::HTTP_OK,
+            trans('news::response.edit_successful')
+        );
     }
 }

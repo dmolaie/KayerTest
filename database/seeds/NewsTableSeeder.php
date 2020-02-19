@@ -18,8 +18,7 @@ class NewsTableSeeder extends Seeder
         $statuses = [
             'accept',
             'reject',
-            'pending',
-            'inactive'
+            'pending'
         ];
         foreach ($statuses as $status){
             $this->makeNews($status);
