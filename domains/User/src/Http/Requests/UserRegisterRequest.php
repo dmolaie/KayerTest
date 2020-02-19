@@ -44,7 +44,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             'essential_mobile'            => 'integer',
             'province_of_birth'           => 'integer',
             'city_of_birth'               => 'integer',
-            'identity_number'             => 'integer|max:20|min:3',
+            'identity_number'             => 'numeric|max:20|min:1',
             'job_title'                   => 'alpha|max:30|min:3',
             'educational_field'           => 'alpha|max:30|min:3',
             'last_educational_degree'     => 'alpha|max:30|min:3',

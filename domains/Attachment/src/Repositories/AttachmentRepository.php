@@ -23,11 +23,11 @@ class AttachmentRepository
         return $attachment;
     }
 
-    public function getAllImages(AttachmentDTO $attachmentDTO)
+    public function getAllImages(string $entityName, int $entityId)
     {
         return $attachment = $this->entityName::where([
-            ['reference_id', '=', $attachmentDTO->getEntityId()],
-            ['class', '=', $attachmentDTO->getEntityName()]
+            ['reference_id', '=', $entityId],
+            ['class', '=', $entityName]
         ])->get();
     }
 
