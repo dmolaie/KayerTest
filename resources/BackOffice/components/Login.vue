@@ -2,12 +2,13 @@
     <main class="h-full">
         <div class="p-login flex items-stretch w-full h-full">
             <div class="p-login__content relative h-full flex items-start justify-center flex-wrap bg-white l:w-5/12 md:w-full">
-                <figure class="ehda-logo w-full">
+                <a href="/"
+                   class="ehda-logo block w-full">
                     <img src="/images/ic_ehda-center.png"
                          alt="انجمن اهدای عضو ایرانیان"
                          class="ehda-logo__image block w-full h-full m-0-auto object-contain"
                     />
-                </figure>
+                </a>
                 <div class="c-form w-full text-center">
                     <label class="c-form__wrapper block w-full relative text-right"
                            :class="{

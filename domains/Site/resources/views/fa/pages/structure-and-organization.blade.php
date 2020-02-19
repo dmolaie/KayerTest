@@ -45,7 +45,7 @@
                     <div class="l:w-260 md:m-b-20">
                         <figure class="block w-full h-full l:m-r-28 rounded has-skeleton">
                             <img src=""
-                                 data-src="https://images.unsplash.com/photo-1576766125535-b04e15fd0273?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                 data-src="{{ asset('images/1570868165_GXXG8eFBc1SHej421ztX3mYP0QGA92_original.jpg') }}"
                                  alt=""
                                  class="block w-full h-full rounded-3 object-cover"
                             />
@@ -69,9 +69,9 @@
                         </li>
                     </ul>
                 </div>
-                <figure class="m-b-20 l:w-750 md:max-w-100 h-245 m-0-auto rounded has-skeleton">
+                <figure class="m-b-20 l:w-750 md:max-w-100 m-0-auto rounded has-skeleton">
                     <img src=""
-                         data-src="https://images.unsplash.com/photo-1580490390526-9fe5df5e68a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                         data-src="{{ asset('images/1539008345_u2bb1jl2PnkeE86StqGg7veLthFSRo_original.jpg') }}"
                          alt=""
                          class="w-full h-full block rounded object-cover"
                     />

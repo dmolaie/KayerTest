@@ -193,7 +193,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581920464975-b0ad21e35a16?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                 data-src="https://ehda.center/uploads/default/image/1528646951_6mO5ZpmzwWGuxDZeHqChta2YbkKeNl_original.jpg"
                                                  alt=""
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -211,7 +211,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581910779657-54ddc839def2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                 data-src="https://ehda.center/uploads/default/image/1528809832_HtJwkv5rtncnEjMleIqJAoOuOiQvnm_original.jpg"
                                                  alt=""
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -229,7 +229,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581865186769-a8f277598885?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                 data-src="https://ehda.center/uploads/default/image/1528646757_anNJoZflqD1aBDgdGg8hkwC11WZpXR_original.jpg"
                                                  alt=""
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -254,7 +254,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="https://images.unsplash.com/photo-1581910779657-54ddc839def2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                                 data-src="https://ehda.center/uploads/default/image/1530019067_aVAgH7EMzu5kmIrrUoxsxLy1n85maN_original.jpg"
                                                  alt=""
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -986,19 +986,25 @@
                                     </li>
                                 </ul>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="https://images.unsplash.com/photo-1581827114934-aa471ac2fec5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                    <img src="{{ asset('images/1527950001_fPaMI2VneVOFcAWpQtJaX05whkhisW_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
                                 </figure>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="https://images.unsplash.com/photo-1581827114934-aa471ac2fec5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                    <img src="{{ asset('images/1527950943_46lhdWa9tLj8Kw6CLHtYsG5P1aodLd_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
                                 </figure>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="https://images.unsplash.com/photo-1581827114934-aa471ac2fec5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                    <img src="{{ asset('images/1527951018_kwEJutsQBfEkbNPqV8kVIkaNWZEHfx_original.jpg') }}"
+                                         alt=""
+                                         class="block w-full h-full rounded-inherit"
+                                    />
+                                </figure>
+                                <figure class="fou-page__committees__image rounded-2 m-0-auto">
+                                    <img src="{{ asset('images/1527951122_bI4vYRdXVcje9lTqcQtbt0z7gQ9hdC_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
