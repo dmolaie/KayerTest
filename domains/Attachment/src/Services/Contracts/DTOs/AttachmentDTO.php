@@ -15,7 +15,7 @@ class AttachmentDTO extends AttachmentBaseDTO
     /**
      * @return array
      */
-    public function getFile(): array
+    public function getFiles(): array
     {
         return $this->file;
     }
@@ -24,7 +24,7 @@ class AttachmentDTO extends AttachmentBaseDTO
      * @param array $file
      * @return AttachmentDTO
      */
-    public function setFile(array $file): AttachmentDTO
+    public function setFiles(array $file): AttachmentDTO
     {
         $this->file = $file;
         return $this;

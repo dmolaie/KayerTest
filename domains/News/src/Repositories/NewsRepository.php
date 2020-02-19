@@ -6,6 +6,7 @@ namespace Domains\News\Repositories;
 use Domains\News\Entities\News;
 use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
 use Domains\News\Services\Contracts\DTOs\NewsEditDTO;
+use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 
 class NewsRepository
 {
@@ -61,6 +62,33 @@ class NewsRepository
     public function findOrFail(int $id)
     {
         return $this->entityName::findOrFail($id);
+    }
+
+    function filter(NewsFilterDTO $newsFilterDTO)
+    {
+
+        $baseQuery = $this->entityName::where('status', $newsFilterDTO->getNewsRealStatus())
+            ->when($newsFilterDTO->getPublisherId(), function ($query) use ($newsFilterDTO) {
+                return $query->where('publisher_id', $newsFilterDTO->getPublisherId());
+            })
+            ->when($newsFilterDTO->getFirstTitle(), function ($query) use ($newsFilterDTO) {
+                return $query->where('first_title', 'like', '%' . $newsFilterDTO->getFirstTitle() . '%');
+            })
+            ->when($newsFilterDTO->getCreateDateEnd(), function ($query) use ($newsFilterDTO) {
+                return $query->where('created_at', '<=', $newsFilterDTO->getCreateDateEnd());
+            })
+            ->when($newsFilterDTO->getCreateDateStart(), function ($query) use ($newsFilterDTO) {
+                return $query->where('created_at', '>=', $newsFilterDTO->getCreateDateStart());
+            })
+            ->when($newsFilterDTO->getMaxPublishDate(), function ($query) use ($newsFilterDTO) {
+                return $query->where('publish_date', '<=', $newsFilterDTO->getMaxPublishDate());
+            })
+            ->when($newsFilterDTO->getMinPublishDate(), function ($query) use ($newsFilterDTO) {
+                return $query->where('publish_date', '>=', $newsFilterDTO->getMinPublishDate());
+            })
+            ->paginate(config('news.news_paginate_count'));
+
+        return $baseQuery;
     }
 
 }
