@@ -1,0 +1,47 @@
+.dnt-page
+  .p-t-35
+    padding-top: 35px
+  .m
+    &-end-30
+      margin-left: 30px
+    &-b-4
+      margin-bottom: 4px
+  &__box
+    margin-top: 0 !important
+    padding: 32px 40px 70px 35px
+  &__caption
+    line-height: 1.88
+  &__text
+    &--flower
+      margin-top: 40px
+      .flower_line
+        top: -40px
+  &__panel
+    border-color: transparentize(#d2e3f4, (1 - .79))
+    box-shadow: 0 2px 4px 0 #f2f2f5
+    &_header
+      padding: 16px 10px 15px
+    &_body
+      padding: 28px 20px 35px
+  &__input
+    &:not(:last-child)
+      margin-bottom: 14px
+  &__label
+    padding: 0 7px 2px
+  &__btn
+    padding: 7px 10px 3px
+    &:first-of-type
+      margin-top: 44px
+    &:not(:last-child)
+      margin-bottom: 10px
+  &__radio
+    &_label
+      padding: 10px
+      transition: background-color $duration, color $duration
+    &:checked
+      & + .dnt-page__radio_label
+        color: $white
+        background: $blue-100
+  .input
+    &::placeholder
+      text-align: right

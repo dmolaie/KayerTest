@@ -336,6 +336,10 @@
     margin:
       left: 16px
 
+.p
+  &-0.p-0
+    padding: 0
+
 .text
   &-black
     color: $black
@@ -360,6 +364,7 @@
     &-#{200}
       color: $gray-200
   &-green
+    color: $green
     &-#{300}
       color: $green-300
   &-waterloo
@@ -374,6 +379,14 @@
     text-align: center
   &-left
     text-align: left
+  &-required
+    &::after
+      content: "*"
+      color: $red
+      display: inline-block
+      font:
+        size: 14px
+        weight: bold
 
 .bg
   &-white
@@ -722,3 +735,18 @@
       color: $blue-100
       &::before
         opacity: 1
+
+.input
+  padding: 10px
+  font:
+    size: 14px
+    weight: bold
+  &::placeholder
+    font-weight: normal
+  &--blue
+    $c: #bde8fa
+    color: $blue-100
+    border-color: $c
+    background: transparentize($c, (1 - .2))
+    &::placeholder
+      color: #9ba9ab
