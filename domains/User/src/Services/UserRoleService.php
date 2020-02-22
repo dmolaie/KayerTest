@@ -37,10 +37,15 @@ class UserRoleService
         return $this->userRoleDTOMaker->convertMany($allUserRoles);
     }
 
-    public function getUserActiveRoles(int $userId):array
+    public function getUserActiveRoles(int $userId): array
     {
         $allUserRoles = $this->userRoleRepository
             ->allActiveRoleByUserId($userId);
         return $this->userRoleDTOMaker->convertMany($allUserRoles);
+    }
+
+    public function hasActiveAdminRole(int $userId): bool
+    {
+        return $this->userRoleRepository->hasActiveAdminRole($userId);
     }
 }

@@ -16,8 +16,8 @@ use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
 use Domains\News\Services\Contracts\DTOs\NewsEditDTO;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
-use Domains\Role\Services\RoleServices;
 use Domains\User\Entities\User;
+use Domains\User\Services\UserRoleService;
 
 /**
  * Class NewsService
@@ -29,9 +29,9 @@ class NewsService
      */
     private $newsRepository;
     /**
-     * @var RoleServices
+     * @var UserRoleService
      */
-    private $roleServices;
+    private $userRoleService;
     /**
      * @var NewsInfoDTOMaker
      */
@@ -49,21 +49,21 @@ class NewsService
     /**
      * NewsService constructor.
      * @param NewsRepository $newsRepository
-     * @param RoleServices $roleServices
+     * @param UserRoleService $userRoleService
      * @param NewsInfoDTOMaker $newsInfoDTOMaker
      * @param AttachmentServices $attachmentServices
      * @param PaginationDTOMaker $paginationDTOMaker
      */
     public function __construct(
         NewsRepository $newsRepository,
-        RoleServices $roleServices,
+        UserRoleService $userRoleService,
         NewsInfoDTOMaker $newsInfoDTOMaker,
         AttachmentServices $attachmentServices,
         PaginationDTOMaker $paginationDTOMaker
     ) {
 
         $this->newsRepository = $newsRepository;
-        $this->roleServices = $roleServices;
+        $this->userRoleService = $userRoleService;
         $this->newsInfoDTOMaker = $newsInfoDTOMaker;
         $this->attachmentServices = $attachmentServices;
         $this->paginationDTOMaker = $paginationDTOMaker;
@@ -91,7 +91,7 @@ class NewsService
      */
     private function getNewsStatus(User $publisher)
     {
-        if ($this->roleServices->isAdminRole($publisher->role_id)) {
+        if ($this->userRoleService->hasActiveAdminRole($publisher->id)) {
             return config('news.news_accept_status');
         }
         return config('news.news_pending_status');
