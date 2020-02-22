@@ -28,6 +28,28 @@ class UserLoginDTO
      * @var string
      */
     protected $name;
+    /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return UserLoginDTO
+     */
+    public function setId(int $id): UserLoginDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return mixed

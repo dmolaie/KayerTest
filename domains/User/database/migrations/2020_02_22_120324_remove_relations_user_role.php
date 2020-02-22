@@ -27,12 +27,6 @@ class RemoveRelationsUserRole extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id')->index();
-            $table->foreign('role_id')->unsignedInteger()
-                ->references('id')
-                ->on('roles')
-                ->onUpdate('cascade');
-        });
+
     }
 }

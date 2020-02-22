@@ -22,8 +22,9 @@ class LoginPresenter
     {
         return [
             'name' => \Auth::user()->name,
+            'id' => $userLoginDTO->getId(),
             'national_code' => \Auth::user()->national_code,
-            'role' => ['name' => $userLoginDTO->getRole()->getRoleName(), 'id' => $userLoginDTO->getRole()->getRoleId()],
+            'role' => ['name' => $userLoginDTO->getRole()->name, 'id' => $userLoginDTO->getRole()->id],
             'token' => $userLoginDTO->getToken()
         ];
     }

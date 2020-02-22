@@ -12,10 +12,11 @@ class UserRegisterPresenter
     {
         return [
             'name'          => $userLoginDTO->getName(),
+            'id'          => $userLoginDTO->getId(),
             'national_code' => $userLoginDTO->getNationalCode(),
             'role'          => [
-                'name' => $userLoginDTO->getRole()->getRoleName(),
-                'id'   => $userLoginDTO->getRole()->getRoleId()
+                'name' => $userLoginDTO->getRole()->name,
+                'id'   => $userLoginDTO->getRole()->id
             ],
             'token'         => $userLoginDTO->getToken()
         ];

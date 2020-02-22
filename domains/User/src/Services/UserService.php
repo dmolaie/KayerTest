@@ -3,7 +3,9 @@
 
 namespace Domains\User\Services;
 
+use Domains\Role\Entities\Role;
 use Domains\Role\Services\RoleServices;
+use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
@@ -22,26 +24,19 @@ class UserService
      * @var RoleServices
      */
     private $roleServices;
-    /**
-     * @var UserRoleService
-     */
-    private $userRoleService;
 
     /**
      * UserService constructor.
      * @param RoleServices $roleServices
      * @param UserRepository $userRepository
-     * @param UserRoleService $userRoleService
      */
     public function __construct(
         RoleServices $roleServices,
-        UserRepository $userRepository,
-        UserRoleService $userRoleService
+        UserRepository $userRepository
     ) {
 
         $this->roleServices = $roleServices;
         $this->userRepository = $userRepository;
-        $this->userRoleService = $userRoleService;
     }
 
     /**
@@ -54,12 +49,11 @@ class UserService
     {
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
-            $userRoles =$this->userRoleService->getUserActiveRoles(Auth::user()->id);
-            if(!$userRoles){
-                throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
-            }
+            $role = $this->getUserImportantActiveRole($user->id);
+
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
-            $loginDTO->setRole($userRoles[0]);
+            $loginDTO->setRole($role);
+            $loginDTO->setId($user->id);
             return $loginDTO;
         }
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
@@ -73,20 +67,33 @@ class UserService
     public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
     {
         $user = $this->userRepository->createNewUser($userRegisterInfoDTO);
-        $userRoles = $this->userRoleService->createOrUpdateUserRole(
-            $user->id,
-            $userRegisterInfoDTO->getRoleId(),
-            $userRegisterInfoDTO->getRoleStatus()
-        );
-        if (!$userRoles){
-            throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
-        }
+        $role = $this->getUserImportantActiveRole($user->id);
         \auth()->loginUsingId($user->id);
         $userLoginDTO = new UserLoginDTO();
         $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
-            ->setRole($userRoles[0])
+            ->setRole($role)
             ->setToken($user->createToken('ehda')->accessToken)
+            ->setId($user->id)
             ->setName($user->name);
         return $userLoginDTO;
+    }
+
+    /**
+     * @param int $userId
+     * @return Role
+     * @throws UserDoseNotHaveActiveRole
+     */
+    protected function getUserImportantActiveRole(int $userId): Role
+    {
+        $role = $this->userRepository->getActiveRoles($userId);
+        if(!$role){
+            throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
+        }
+        return $role;
+    }
+
+    public function isUserAdmin(int $userId): bool
+    {
+        return $this->userRepository->isUserAdmin($userId);
     }
 }

@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
     {
         $identityNumber = rand(1111111111, 9999999999);
         $city = City::first();
-
+        $status =['active','inactive','pending'];
         $user = new User();
         $user->name = 'ehda_'.$role->name;
         $user->email = 'ehda.'. $role->name.'.test.'.rand(0,1000).'.@gmail.com';
@@ -47,5 +47,8 @@ class UsersTableSeeder extends Seeder
         $user->last_name = 'plus';
         $user->national_code = $identityNumber;
         $user->save();
+        $user->roles()->attach(
+            $role->id,
+            ['status' => $status[rand(0, 2)]]);
     }
 }
