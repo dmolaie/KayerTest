@@ -88,6 +88,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             ->setJobTitle($this['job_title'])
             ->setPassword($this['password'])
             ->setRoleId(config('user.client_role_id'))
+            ->setRoleStatus(config('user.user_role_active_status'))
             ->setLastEducationalDegree($this['last_educational_degree']);
 
         return $userRegisterDTO;

@@ -17,7 +17,6 @@ class UserRepository
         $user->name = $userRegisterInfoDTO->getName();
         $user->email = $userRegisterInfoDTO->getEmail();
         $user->password = Hash::make($userRegisterInfoDTO->getPassword());
-        $user->role_id = $userRegisterInfoDTO->getRoleId();
         $user->address_of_obtaining_degree = $userRegisterInfoDTO->getAddressOfObtainingDegree();
         $user->last_education_degree = $userRegisterInfoDTO->getLastEducationalDegree();
         $user->educational_field = $userRegisterInfoDTO->getEducationalField();

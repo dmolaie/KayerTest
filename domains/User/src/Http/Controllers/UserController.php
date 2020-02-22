@@ -5,9 +5,12 @@ namespace Domains\User\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
+use Domains\User\Entities\User;
+use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
+use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\UserRegisterRequest;
+use Domains\User\Services\UserRoleService;
 use Domains\User\Services\UserService;
-use Domains\User\src\Http\Presenters\UserRegisterPresenter;
 use Illuminate\Http\Response;
 
 /**
@@ -36,13 +39,18 @@ class UserController extends EhdaBaseController
      */
     public function register(UserRegisterRequest $request, UserRegisterPresenter $userRegisterPresenter)
     {
-        $userRegisterDto = $request->createUserRegisterDTO();
-        $userRegisterResult = $this->userService->register($userRegisterDto);
-        return $this->response(
-            $userRegisterPresenter->transform($userRegisterResult),
-            Response::HTTP_OK,
-            trans('user::response.success_register')
-        );
+        try {
+            $userRegisterDto = $request->createUserRegisterDTO();
+            $userRegisterResult = $this->userService->register($userRegisterDto);
+            return $this->response(
+                $userRegisterPresenter->transform($userRegisterResult),
+                Response::HTTP_OK,
+                trans('user::response.success_register')
+            );
+        } catch (UserDoseNotHaveActiveRole $exception) {
+            $this->response([], $exception->getCode(), $exception->getMessage());
+        }
+    }
 
     }
 }

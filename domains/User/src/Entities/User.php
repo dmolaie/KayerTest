@@ -21,7 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',
         'address_of_obtaining_degree',
         'last_education_degree',
         'educational_field',
@@ -63,10 +62,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(UserRole::class);
     }
 }
