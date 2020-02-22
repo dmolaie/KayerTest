@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Application\Admin\Policies\RolePolicy;
+use Domains\Category\Entities\Category;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -12,9 +12,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
-        //RolesAdmin::class => RolePolicy::class,
-    ];
+    protected $policies = [];
 
     /**
      * Register any authentication / authorization services.
