@@ -5,7 +5,6 @@ namespace Domains\User\Services;
 
 use Domains\Role\Entities\Role;
 use Domains\Role\Services\RoleServices;
-use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
@@ -60,6 +59,20 @@ class UserService
     }
 
     /**
+     * @param int $userId
+     * @return Role
+     * @throws UserDoseNotHaveActiveRole
+     */
+    protected function getUserImportantActiveRole(int $userId): Role
+    {
+        $role = $this->userRepository->getActiveRoles($userId);
+        if (!$role) {
+            throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
+        }
+        return $role;
+    }
+
+    /**
      * @param UserRegisterInfoDTO $userRegisterInfoDTO
      * @return UserLoginDTO
      * @throws UserDoseNotHaveActiveRole
@@ -76,20 +89,7 @@ class UserService
             ->setId($user->id)
             ->setName($user->name);
         return $userLoginDTO;
-    }
 
-    /**
-     * @param int $userId
-     * @return Role
-     * @throws UserDoseNotHaveActiveRole
-     */
-    protected function getUserImportantActiveRole(int $userId): Role
-    {
-        $role = $this->userRepository->getActiveRoles($userId);
-        if(!$role){
-            throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
-        }
-        return $role;
     }
 
     public function isUserAdmin(int $userId): bool

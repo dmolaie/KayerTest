@@ -36,6 +36,12 @@ class UserRepository
         $user->gender = $userRegisterInfoDTO->getGender();
         $user->last_name = $userRegisterInfoDTO->getLastName();
         $user->national_code = $userRegisterInfoDTO->getNationalCode();
+        $user->day_of_cooperation =$userRegisterInfoDTO->getDayOfCooperation() ;
+        $user->know_community_by = $userRegisterInfoDTO->getKnowCommunityBy();
+        $user->motivation_for_cooperation = $userRegisterInfoDTO->getMotivationForCooperation();
+        $user->field_of_activities = $userRegisterInfoDTO->getFieldOfActivities();
+        $user->address_of_work = $userRegisterInfoDTO->getAddressOfWork();
+        $user->work_phone = $userRegisterInfoDTO->getWorkPhone();
 
         $user->save();
         $user->roles()->attach(

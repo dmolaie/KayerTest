@@ -72,6 +72,7 @@ return array(
     ),
     "timezone"              => "The :attribute must be a valid zone.",
     "unique"                => ":attribute قبلا انتخاب شده است.",
+    "distinct"              => "شامل مقدار تکراری است.",
     "url"                   => "فرمت آدرس :attribute اشتباه است.",
     "exists_code"           => "کد ارسالی در سیستم وجود ندارد",
     "expire_code"           => "اعتبار کد ارسالی به پایان رسیده است",
@@ -81,7 +82,7 @@ return array(
     'uploaded'              => 'فیلد :attribute بیش از 2 مگابایت میباشد.',
     'national_code'         => " :attribute وارد شده نامعتر میباشد",
     'chracter_in_not_valid' => "کاراکتر های وارد شده معتبر نمیباشد.",
-    'error_code_national'   => 'کد وارد شده صحیح نیست',
+    'error_code_national'   => 'کد ملی وارد شده صحیح نیست',
 
 
     /*
@@ -137,6 +138,13 @@ return array(
         "educational_field"           => "رشته و گرایش تحصیلی",
         "last_education_degree"       => "آخرین مدرک تحصیلی",
         "address_of_obtaining_degree" => "محل اخذ مدرک",
-        "national_code"               => "کد ملی"
+        "national_code"               => "کد ملی",
+        "field_of_activities"         => "زمینه‌های فعالیت",
+        "field_of_activities.*"       => "زمینه‌ی فعالیت",
+        "motivation_for_cooperation"  => "انگیزه همکاری",
+        "know_community_by"           => "نحوه آشنایی با انجمن",
+        "day_of_cooperation"          => "روزهای همکاری",
+        "last_educational_degree"     => "آخرین مدرک تحصیلی",
+        "work_phone"                  => "تلفن ثابت محل کار",
     ),
 );
