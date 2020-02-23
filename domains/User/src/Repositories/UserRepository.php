@@ -36,7 +36,7 @@ class UserRepository
         $user->gender = $userRegisterInfoDTO->getGender();
         $user->last_name = $userRegisterInfoDTO->getLastName();
         $user->national_code = $userRegisterInfoDTO->getNationalCode();
-        $user->day_of_cooperation =$userRegisterInfoDTO->getDayOfCooperation() ;
+        $user->day_of_cooperation = $userRegisterInfoDTO->getDayOfCooperation();
         $user->know_community_by = $userRegisterInfoDTO->getKnowCommunityBy();
         $user->motivation_for_cooperation = $userRegisterInfoDTO->getMotivationForCooperation();
         $user->field_of_activities = $userRegisterInfoDTO->getFieldOfActivities();
@@ -77,7 +77,12 @@ class UserRepository
     public function getActiveRoles(int $userId)
     {
         return $this->entityName::findOrFail($userId)
-            ->roles()->where('status', config('user.user_role_active_status'))
+            ->roles()->whereIn(
+                'status',
+                [
+                    config('user.user_role_active_status'),
+                    config('user.user_role_pending_status')
+                ])
             ->orderBy('role_id')->first();
     }
 }
