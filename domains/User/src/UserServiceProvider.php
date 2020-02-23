@@ -40,7 +40,7 @@ class UserServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\User\Http\Controllers',
-            'prefix'    => 'user',
+            'prefix'    => 'user/v1',
         ];
     }
 
