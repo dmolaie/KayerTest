@@ -61,8 +61,7 @@ class NewsController extends EhdaBaseController
         $newsPaginateInfoDTO = $this->newsService->filterNews($request->createNewsFilterDTO());
         return $this->response(
             $newsPaginateInfoPresenter->transform($newsPaginateInfoDTO),
-            Response::HTTP_OK,
-            trans('news::response.edit_successful')
+            Response::HTTP_OK
         );
     }
 }

@@ -26,11 +26,4 @@ class RoleServices
     {
     }
 
-    public function isAdminRole(int $roleId): bool
-    {
-        if ($roleId == config('role.roles.admin.id')) {
-            return true;
-        }
-        return false;
-    }
 }

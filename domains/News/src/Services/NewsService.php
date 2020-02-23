@@ -16,8 +16,8 @@ use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
 use Domains\News\Services\Contracts\DTOs\NewsEditDTO;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
-use Domains\Role\Services\RoleServices;
 use Domains\User\Entities\User;
+use Domains\User\Services\UserService;
 
 /**
  * Class NewsService
@@ -28,10 +28,6 @@ class NewsService
      * @var NewsRepository
      */
     private $newsRepository;
-    /**
-     * @var RoleServices
-     */
-    private $roleServices;
     /**
      * @var NewsInfoDTOMaker
      */
@@ -44,29 +40,33 @@ class NewsService
      * @var PaginationDTOMaker
      */
     private $paginationDTOMaker;
+    /**
+     * @var UserService
+     */
+    private $userService;
 
 
     /**
      * NewsService constructor.
      * @param NewsRepository $newsRepository
-     * @param RoleServices $roleServices
      * @param NewsInfoDTOMaker $newsInfoDTOMaker
      * @param AttachmentServices $attachmentServices
      * @param PaginationDTOMaker $paginationDTOMaker
+     * @param UserService $userService
      */
     public function __construct(
         NewsRepository $newsRepository,
-        RoleServices $roleServices,
         NewsInfoDTOMaker $newsInfoDTOMaker,
         AttachmentServices $attachmentServices,
-        PaginationDTOMaker $paginationDTOMaker
+        PaginationDTOMaker $paginationDTOMaker,
+        UserService $userService
     ) {
 
         $this->newsRepository = $newsRepository;
-        $this->roleServices = $roleServices;
         $this->newsInfoDTOMaker = $newsInfoDTOMaker;
         $this->attachmentServices = $attachmentServices;
         $this->paginationDTOMaker = $paginationDTOMaker;
+        $this->userService = $userService;
     }
 
     /**
@@ -91,7 +91,7 @@ class NewsService
      */
     private function getNewsStatus(User $publisher)
     {
-        if ($this->roleServices->isAdminRole($publisher->role_id)) {
+        if ($this->userService->isUserAdmin($publisher->id)) {
             return config('news.news_accept_status');
         }
         return config('news.news_pending_status');

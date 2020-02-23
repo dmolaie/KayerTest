@@ -48,6 +48,10 @@ class UserRegisterInfoDTO
     /**
      * @var string
      */
+    protected $roleStatus;
+    /**
+     * @var string
+     */
     protected $maritalStatus;
     /**
      * @var string
@@ -535,6 +539,24 @@ class UserRegisterInfoDTO
     public function setAddressOfObtainingDegree($addressOfObtainingDegree)
     {
         $this->addressOfObtainingDegree = $addressOfObtainingDegree;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoleStatus(): string
+    {
+        return $this->roleStatus;
+    }
+
+    /**
+     * @param string $roleStatus
+     * @return UserRegisterInfoDTO
+     */
+    public function setRoleStatus(string $roleStatus): UserRegisterInfoDTO
+    {
+        $this->roleStatus = $roleStatus;
         return $this;
     }
 
