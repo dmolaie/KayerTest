@@ -8,18 +8,19 @@ use Domains\User\Entities\User;
 
 
 /**
- * Class NewsCreateDTO
+ * Class NewsEditDTO
  */
-class EventsCreateDTO extends EventsBaseSaveDTO
+class EventsEditDTO extends EventsBaseSaveDTO
 {
+    /**
+     * @var integer
+     */
+    protected $eventId;
+
     /**
      * @var User
      */
-    protected $publisher;
-    /**
-     * @var null|integer
-     */
-    protected $parentId;
+    protected $editor;
 
     /**
      * @return mixed
@@ -31,7 +32,7 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param mixed $title
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
     public function setTitle($title)
     {
@@ -50,9 +51,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string|null $abstract
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setAbstract(?string $abstract): EventsCreateDTO
+    public function setAbstract(?string $abstract): EventsEditDTO
     {
         $this->abstract = $abstract;
         return $this;
@@ -68,9 +69,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string|null $description
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setDescription(?string $description): EventsCreateDTO
+    public function setDescription(?string $description): EventsEditDTO
     {
         $this->description = $description;
         return $this;
@@ -86,9 +87,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param int|null $categoryId
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setCategoryId(?int $categoryId): EventsCreateDTO
+    public function setCategoryId(?int $categoryId): EventsEditDTO
     {
         $this->categoryId = $categoryId;
         return $this;
@@ -104,9 +105,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string $publishDate
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setPublishDate(string $publishDate): EventsCreateDTO
+    public function setPublishDate(string $publishDate): EventsEditDTO
     {
         $this->publishDate = $publishDate;
         return $this;
@@ -123,9 +124,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string $eventStartDate
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setEventStartDate(string $eventStartDate): EventsCreateDTO
+    public function setEventStartDate(string $eventStartDate): EventsEditDTO
     {
         $this->eventStartDate = $eventStartDate;
         return $this;
@@ -141,9 +142,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string $eventEndDate
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setEventEndDate(string $eventEndDate): EventsCreateDTO
+    public function setEventEndDate(string $eventEndDate): EventsEditDTO
     {
         $this->eventEndDate = $eventEndDate;
         return $this;
@@ -159,9 +160,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string $eventStartRegisterDate
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setEventStartRegisterDate(string $eventStartRegisterDate): EventsCreateDTO
+    public function setEventStartRegisterDate(string $eventStartRegisterDate): EventsEditDTO
     {
         $this->eventStartRegisterDate = $eventStartRegisterDate;
         return $this;
@@ -177,9 +178,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string $eventEndRegisterDate
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setEventEndRegisterDate(string $eventEndRegisterDate): EventsCreateDTO
+    public function setEventEndRegisterDate(string $eventEndRegisterDate): EventsEditDTO
     {
         $this->eventEndRegisterDate = $eventEndRegisterDate;
         return $this;
@@ -188,16 +189,16 @@ class EventsCreateDTO extends EventsBaseSaveDTO
     /**
      * @return mixed
      */
-    public function getLocation(): ?string
+    public function getLocation()
     {
         return $this->location;
     }
 
     /**
      * @param $location
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setLocation($location) : EventsCreateDTO
+    public function setLocation($location): EventsEditDTO
     {
         $this->location = $location;
         return $this;
@@ -214,9 +215,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string|null $sourceLinkText
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setSourceLinkText(?string $sourceLinkText): EventsCreateDTO
+    public function setSourceLinkText(?string $sourceLinkText): EventsEditDTO
     {
         $this->sourceLinkText = $sourceLinkText;
         return $this;
@@ -232,9 +233,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string|null $sourceLinkImage
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setSourceLinkImage(?string $sourceLinkImage): EventsCreateDTO
+    public function setSourceLinkImage(?string $sourceLinkImage): EventsEditDTO
     {
         $this->sourceLinkImage = $sourceLinkImage;
         return $this;
@@ -250,9 +251,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string|null $sourceLinkVideo
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setSourceLinkVideo(?string $sourceLinkVideo): EventsCreateDTO
+    public function setSourceLinkVideo(?string $sourceLinkVideo): EventsEditDTO
     {
         $this->sourceLinkVideo = $sourceLinkVideo;
         return $this;
@@ -268,9 +269,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param int|null $provinceId
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setProvinceId(?int $provinceId): EventsCreateDTO
+    public function setProvinceId(?int $provinceId): EventsEditDTO
     {
         $this->provinceId = $provinceId;
         return $this;
@@ -286,9 +287,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string $language
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setLanguage(string $language): EventsCreateDTO
+    public function setLanguage(string $language): EventsEditDTO
     {
         $this->language = $language;
         return $this;
@@ -304,9 +305,9 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param string|null $status
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setStatus(?string $status): EventsCreateDTO
+    public function setStatus(?string $status): EventsEditDTO
     {
         $this->status = $status;
         return $this;
@@ -322,48 +323,49 @@ class EventsCreateDTO extends EventsBaseSaveDTO
 
     /**
      * @param array|null $attachmentFiles
-     * @return EventsCreateDTO
+     * @return EventsEditDTO
      */
-    public function setAttachmentFiles(?array $attachmentFiles): EventsCreateDTO
+    public function setAttachmentFiles(?array $attachmentFiles): EventsEditDTO
     {
         $this->attachmentFiles = $attachmentFiles;
         return $this;
     }
 
     /**
+     * @return int
+     */
+    public function getEventsId(): int
+    {
+        return $this->eventId;
+    }
+
+    /**
+     * @param int $eventId
+     * @return EventsEditDTO
+     */
+    public function setEventsId(int $eventId): EventsEditDTO
+    {
+        $this->eventId = $eventId;
+        return $this;
+    }
+
+    /**
      * @return User
      */
-    public function getPublisher(): User
+    public function getEditor(): User
     {
-        return $this->publisher;
+        return $this->editor;
     }
 
     /**
-     * @param User $publisher
-     * @return EventsCreateDTO
+     * @param User $editor
+     * @return EventsEditDTO
      */
-    public function setPublisher(User $publisher): EventsCreateDTO
+    public function setEditor(User $editor): EventsEditDTO
     {
-        $this->publisher = $publisher;
+        $this->editor = $editor;
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getParentId(): ?int
-    {
-        return $this->parentId;
-    }
-
-    /**
-     * @param int|null $parentId
-     * @return EventsCreateDTO
-     */
-    public function setParentId(?int $parentId): EventsCreateDTO
-    {
-        $this->parentId = $parentId;
-        return $this;
-    }
 
 }
