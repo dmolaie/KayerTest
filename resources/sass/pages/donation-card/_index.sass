@@ -6,6 +6,8 @@
       margin-left: 30px
     &-b-4
       margin-bottom: 4px
+    &-t-8
+      margin-top: 8px
   &__box
     margin-top: 0 !important
     padding: 32px 40px 70px 35px
@@ -16,6 +18,12 @@
       margin-top: 40px
       .flower_line
         top: -40px
+        left: -35px
+      &-reverse
+        margin-top: 60px
+        .flower_line
+          top: -40px
+          right: -40px
   &__panel
     border-color: transparentize(#d2e3f4, (1 - .79))
     box-shadow: 0 2px 4px 0 #f2f2f5
@@ -34,6 +42,10 @@
       margin-top: 44px
     &:not(:last-child)
       margin-bottom: 10px
+    &--submit
+      @include SpinnerLoading(22px, 3px, $white)
+    &--cancel
+      //@include SpinnerLoading(22px, 3px, $green)
   &__radio
     &_label
       padding: 10px
@@ -42,6 +54,18 @@
       & + .dnt-page__radio_label
         color: $white
         background: $blue-100
+  .dropdown
+    &.unselected
+      .dropdown__input
+        color: #9ba9ab
   .input
     &::placeholder
       text-align: right
+  .has-error
+    .error-message
+      right: 10px
+      bottom: 10px
+    .input
+      color: transparent
+      &::placeholder
+        color: inherit

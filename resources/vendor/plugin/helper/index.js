@@ -52,3 +52,11 @@ export const RedirectRoute = route => {
         window.location.replace( route );
     } catch (e) {}
 };
+
+export const Debounce = ( callback, delay ) => {
+    let timer = null;
+    return function () {
+        clearTimeout( timer );
+        timer = setTimeout(() => callback.call( null, ...arguments ), delay)
+    }
+};

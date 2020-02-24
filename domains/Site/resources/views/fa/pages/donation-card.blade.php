@@ -5,12 +5,12 @@
                 <h1 class="flex text-blue font-24 md:font-22 text-center">
                     <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
                     <span class="i-page__title">
-                             کارت اهدای عضو
-                        </span>
+                         کارت اهدای عضو
+                    </span>
                     <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
                 </h1>
                 <div class="p-t-35 w-full flex items-start">
-                    <aside class="w-1/3 flex-shrink-0 m-end-30">
+                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="dnt-page__panel border border-solid rounded-2">
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
                                 اطلاعات فردی
@@ -21,7 +21,7 @@
                                 <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                     اطلاعات فردی
                                 </p>
-                                <label class="dnt-page__input w-full block">
+                                <label class="dnt-page__input w-full block has-error">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
                                         نام
                                     </span>
@@ -30,6 +30,9 @@
                                            class="input input--blue block w-full border border-solid rounded"
                                            autocomplete="off" required
                                     />
+                                    <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none">
+                                        نام را با حروف فارسی وارد نمایید.
+                                    </span>
                                 </label>
                                 <label class="dnt-page__input w-full block">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
@@ -62,7 +65,7 @@
                                                        name="gender"
                                                        class="dnt-page__radio none"
                                                 />
-                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux">
+                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                     خانم
                                                 </span>
                                             </label>
@@ -71,7 +74,7 @@
                                                        name="gender"
                                                        class="dnt-page__radio none"
                                                 />
-                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux">
+                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                     آقا
                                                 </span>
                                             </label>
@@ -80,7 +83,7 @@
                                                        name="gender"
                                                        class="dnt-page__radio none"
                                                 />
-                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux">
+                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                     سایر
                                                 </span>
                                             </label>
@@ -101,8 +104,8 @@
                                             تاریخ تولد
                                         </span>
                                         <div class="w-full flex items-stretch text-center user-select-none">
-                                            <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
-                                                <select>
+                                            <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                                <select class="dnt-page__select dnt-page__select--day">
                                                     <option value="">
                                                         روز
                                                     </option>
@@ -119,9 +122,9 @@
                                                         4
                                                     </option>
                                                 </select>
-                                            </label>
-                                            <label class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
-                                                <select>
+                                            </div>
+                                            <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
+                                                <select class="dnt-page__select dnt-page__select--month">
                                                     <option value="">
                                                         ماه
                                                     </option>
@@ -137,10 +140,34 @@
                                                     <option value="4">
                                                         تیر
                                                     </option>
+                                                    <option value="5">
+                                                        مرداد
+                                                    </option>
+                                                    <option value="6">
+                                                        شهریور
+                                                    </option>
+                                                    <option value="7">
+                                                        مهر
+                                                    </option>
+                                                    <option value="8">
+                                                        آبان
+                                                    </option>
+                                                    <option value="9">
+                                                        آذر
+                                                    </option>
+                                                    <option value="10">
+                                                        دی
+                                                    </option>
+                                                    <option value="11">
+                                                        بهمن
+                                                    </option>
+                                                    <option value="12">
+                                                        اسفند
+                                                    </option>
                                                 </select>
-                                            </label>
-                                            <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
-                                                <select>
+                                            </div>
+                                            <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                                <select class="dnt-page__select dnt-page__select--year">
                                                     <option value="">
                                                         سال
                                                     </option>
@@ -169,14 +196,14 @@
                                                         1390
                                                     </option>
                                                 </select>
-                                            </label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <label class="dnt-page__input w-full block">
+                                    <div class="dnt-page__input w-full block">
                                         <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                             محل تولد
                                         </span>
-                                        <select>
+                                        <select class="dnt-page__select dnt-page__select--birth">
                                             <option value="">
                                                 انتخاب کنید...
                                             </option>
@@ -190,7 +217,7 @@
                                                 خارجه
                                             </option>
                                         </select>
-                                    </label>
+                                    </div>
                                     <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                         اطلاعات تماس
                                     </p>
@@ -214,11 +241,11 @@
                                                autocomplete="off"
                                         />
                                     </label>
-                                    <label class="dnt-page__input w-full block">
+                                    <div class="dnt-page__input w-full block">
                                         <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                             محل سکونت
                                         </span>
-                                        <select>
+                                        <select class="dnt-page__select dnt-page__select--city">
                                             <option value="">
                                                 محل سکونت را انتخاب نمایید
                                             </option>
@@ -232,7 +259,7 @@
                                                 خارجه
                                             </option>
                                         </select>
-                                    </label>
+                                    </div>
                                     <label class="dnt-page__input w-full block">
                                         <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
                                             ایمیل
@@ -267,10 +294,13 @@
                                         />
                                     </label>
                                 </div>
-                                <button class="dnt-page__btn block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
+                                <p class="text-green font-sm font-bold cursor-default m-t-8">
+                                    اندکی صبر
+                                </p>
+                                <button class="dnt-page__btn dnt-page__btn--submit spinner-loading block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
                                     ارسال اطلاعات
                                 </button>
-                                <button class="dnt-page__btn block w-full text-green font-lg font-bold bg-white border-green-2 rounded l:transition-bg l:hover:text-white l:hover:bg-green">
+                                <button class="dnt-page__btn dnt-page__btn--cancel block w-full text-green spinner-loading font-lg font-bold bg-white border-green-2 rounded l:transition-bg l:hover:text-white l:hover:bg-green">
                                     انصراف
                                 </button>
                             </form>
@@ -297,7 +327,8 @@
                                     اطلاعات داوطلبین دریافت کارت بلافاصله وارد سامانه کشوری کارت اهدای عضو شده و در آن ذخیره می گردد. لازم به ذکر است این سامانه از طریق کلیه بیمارستانهای کشور قابل دسترسی بوده و امکان جستجوی نام افراد مرگ مغزی بستری در این بیمارستانها وجود دارد.
                                     امید است با راه اندازی این سامانه قدمی هرچند کوچک برای ارتقای فرهنگ مقدس اهدی عضو و نجات جان بیماران نیازمند به پیوند اعضا برداریم...
                                 </p>
-                                <p class="font-bold">
+                                <p class="dnt-page__text--flower-reverse relative font-bold">
+                                    <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
                                     لطفا به نکات زیر توجه داشته باشید:
                                 </p>
                                 <p>
@@ -317,4 +348,8 @@
                 </div>
             </div>
         </div>
+    @endsection
+
+    @section('scripts')
+        <script src="{{asset('js/donation-card.js')}}" defer></script>
     @endsection

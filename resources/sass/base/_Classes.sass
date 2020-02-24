@@ -275,7 +275,6 @@
   &-end
     align-items: flex-end
 
-
 .static
   position: static
 .fixed
@@ -458,6 +457,10 @@
     direction: rtl
   &-ltr
     direction: ltr
+
+.visibility
+  &-hidden
+    visibility: hidden
 
 /* ----------> Global Class <---------- */
 
@@ -740,13 +743,76 @@
   padding: 10px
   font:
     size: 14px
-    weight: bold
   &::placeholder
     font-weight: normal
   &--blue
     $c: #bde8fa
-    color: $blue-100
+    color: $bayoux
     border-color: $c
     background: transparentize($c, (1 - .2))
     &::placeholder
       color: #9ba9ab
+
+.has-error
+  position: relative
+  .input
+    border:
+      color: $red
+    background: transparentize($red, ( 1 - 0.05 ))
+
+.dropdown
+  &__body
+    background: $white
+    border-radius: $radius
+    box-shadow: 0 2px 2px 0 transparentize($black, ( 1 - .14 )), 0 3px 1px -2px transparentize($black, ( 1 - .12 )), 0 1px 5px 0 transparentize($black, ( 1 - .2 ))
+    z-index: 5
+  &__filter
+    padding: 10px 10px 5px
+    &_input
+      color: inherit
+      padding: 8px 10px 10px 32px
+      font-size: inherit
+      border: 1px solid $mischka
+        radius: ($radius / 2)
+      &::placeholder
+        color: #9ba9ab
+    &_btn
+      cursor: pointer
+      @include Size( 15px )
+      top: calc(50% + 2px)
+      left: 20px
+      transform: translateY(-50%)
+      &::before, &::after
+        content: " "
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 100%
+        height: 2px
+        background: darken($mischka, 8%)
+        pointer-events: none
+      &::before
+        transform: translate(-50%, -50%) rotate(45deg)
+      &::after
+        transform: translate(-50%, -50%) rotate(-45deg)
+  &__options
+    overflow: auto
+    max-height: 180px
+    padding: 5px 0
+  &__option
+    padding: 5px 10px
+    transition: background-color .10s ease-in-out
+    word-break: break-all
+    &--selected
+      background: transparentize($black, ( 1 - .04 ))
+    &:hover
+      background: transparentize($black, ( 1 - .08 ))
+  &__input
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+  &--active
+    .dropdown__body
+      opacity: 1
+      visibility: visible
+      pointer-events: all
