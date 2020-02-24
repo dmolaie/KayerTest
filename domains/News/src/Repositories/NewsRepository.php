@@ -55,7 +55,10 @@ class NewsRepository
         $news->province_id = $newsEditDTO->getProvinceId();
         $news->editor_id = $newsEditDTO->getEditor()->id;
         $news->language = $newsEditDTO->getLanguage();
-        $news->save();
+        $getDirty = $news->getDirty();
+        if (!empty($getDirty)) {
+            $news->save();
+        }
         return $news;
     }
 
