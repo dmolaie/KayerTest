@@ -1,0 +1,18 @@
+.vol-page
+  .p-0-5
+    padding: 0 5px
+  .i-page
+    &__list
+      margin: 10px 0 20px
+      &_item
+        &:not(:last-of-type)
+          margin-bottom: 6px
+  &__cover
+    margin: 10px 0
+    height: 300px
+    &:first-of-type
+      margin-top: 20px
+    @include Xl_Screen
+      height: 400px
+  .dnt-page__btn
+    margin-bottom: 0
