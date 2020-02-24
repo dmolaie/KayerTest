@@ -4,12 +4,11 @@ namespace Domains\Events\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
-use Domains\Events\Services\Contracts\DTOs\EventsCreateDTO;
+use Domains\Events\Services\Contracts\DTOs\EventsEditDTO;
 use Illuminate\Validation\Rule;
 
-class CreateEventsRequest extends EhdaBaseRequest
+class EditEventsRequest extends EhdaBaseRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -18,21 +17,21 @@ class CreateEventsRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
+            'event_id' => 'required|integer|exists:events,id',
             'title' => 'required|string',
             'abstract' => 'string',
             'description' => 'string',
-            'event_start_date' => 'required|numeric',
-            'event_end_date' => 'required|numeric',
-            'event_start_register_date' => 'required|numeric',
-            'event_end_register_date' => 'required|numeric',
+            'event_start_date' => 'numeric',
+            'event_end_date' => 'numeric',
+            'event_start_register_date' => 'numeric',
+            'event_end_register_date' => 'numeric',
             'category_id' => 'integer|exists:categories,id',
-            'publish_date' => 'required|numeric',
+            'publish_date' => 'numeric',
             'source_link_text' => 'url',
             'source_link_image' => 'url',
             'source_link_video' => 'url',
             'location' => 'string',
             'province_id' => 'required|integer|exists:provinces,id',
-            'parent_id'    => 'integer|exists:events,id|unique:events',
             'language' => ['required', Rule::in(config('events.event_language'))],
             'images.*' => 'image'
         ];
@@ -48,17 +47,18 @@ class CreateEventsRequest extends EhdaBaseRequest
         return trans('events::validation.attributes');
     }
 
-    public function createEventsCreateDTO()
+    public function createEventsEditDTO()
     {
-        $evetsCreateDTO = new EventsCreateDTO();
-        $evetsCreateDTO->setProvinceId($this['province_id'])
+        $newsEditDTO = new EventsEditDTO();
+        $newsEditDTO->setEventsId($this['event_id'])
+            ->setProvinceId($this['province_id'])
             ->setAbstract($this['abstract'])
             ->setCategoryId($this['category_id'])
             ->setDescription($this['description'])
-            ->setPublisher(\Auth::user())
             ->setLanguage($this['language'])
             ->setTitle($this['title'])
             ->setLocation($this['location'])
+            ->setEditor(\Auth::user())
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setEventStartDate(Carbon::createFromTimestamp($this['event_start_date'])->toDateTimeString())
             ->setEventEndDate(Carbon::createFromTimestamp($this['event_end_date'])->toDateTimeString())
@@ -67,8 +67,8 @@ class CreateEventsRequest extends EhdaBaseRequest
             ->setAttachmentFiles($this['images'])
             ->setSourceLinkText($this['source_link_text'])
             ->setSourceLinkImage($this['source_link_image'])
-            ->setSourceLinkVideo($this['source_link_video'])
-            ->setParentId($this['parent_id']);
-        return $evetsCreateDTO;
+            ->setSourceLinkVideo($this['source_link_video']);
+
+        return $newsEditDTO;
     }
 }
