@@ -82,3 +82,9 @@ export const Debounce = ( callback, delay ) => {
         timer = setTimeout(() => callback.call( null, ...arguments ), delay)
     }
 };
+
+export const ScrollToEl = el => {
+    try {
+        el.scrollIntoView();
+    } catch (e) {}
+};

@@ -402,5 +402,6 @@
     @endsection
 
     @section('scripts')
+        <script src="{{asset('js/donation-card~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/donation-card.js')}}" defer></script>
     @endsection

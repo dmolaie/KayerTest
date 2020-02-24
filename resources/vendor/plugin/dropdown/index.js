@@ -209,7 +209,10 @@ const ADD_EVENT_LISTENER = ( parentElement, UUID, onSelected, hasFilterItem ) =>
 
 function MountDropdown( options ) {
     const ELEMENT = this,
-          OPTIONS = Object.assign( DEFAULT_OPTIONS, options );
+          OPTIONS = {
+              ...DEFAULT_OPTIONS,
+              ...options
+          };
 
     let {
         inputClass,

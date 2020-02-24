@@ -16,3 +16,25 @@
       height: 400px
   .dnt-page__btn
     margin-bottom: 0
+
+
+.vnt-page
+  .p-0-10
+    padding: 0 10px
+  .m-0-15
+    margin-bottom: 25px
+  &__box
+    margin-top: 0 !important
+    padding: 32px 30px 70px 25px
+  &__btn
+    margin: 30px auto -20px
+    padding: 9px 20px 5px
+    @include L_Screen
+      min-width: 300px
+  .field__gender
+    &.has-error
+      .error-message
+        top: auto
+        bottom: -26px
+        transform: translateY(0)
+        text-align: right
