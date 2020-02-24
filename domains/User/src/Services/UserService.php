@@ -3,11 +3,19 @@
 
 namespace Domains\User\Services;
 
+use Domains\Location\Services\CityServices;
+use Domains\Location\Services\Contracts\DTOs\SearchCityDTO;
+use Domains\Location\Services\Contracts\DTOs\SearchProvinceDTO;
+use Domains\Location\Services\ProvinceService;
 use Domains\Role\Entities\Role;
 use Domains\Role\Services\RoleServices;
+use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
+use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
+use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Illuminate\Support\Facades\Auth;
@@ -23,19 +31,40 @@ class UserService
      * @var RoleServices
      */
     private $roleServices;
+    /**
+     * @var UserFullInfoDTOMaker
+     */
+    private $userFullInfoDTOMaker;
+    /**
+     * @var CityServices
+     */
+    private $cityServices;
+    /**
+     * @var ProvinceService
+     */
+    private $provinceService;
 
     /**
      * UserService constructor.
      * @param RoleServices $roleServices
      * @param UserRepository $userRepository
+     * @param UserFullInfoDTOMaker $userFullInfoDTOMaker
+     * @param CityServices $cityServices
+     * @param ProvinceService $provinceService
      */
     public function __construct(
         RoleServices $roleServices,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        UserFullInfoDTOMaker $userFullInfoDTOMaker,
+        CityServices $cityServices,
+        ProvinceService $provinceService
     ) {
 
         $this->roleServices = $roleServices;
         $this->userRepository = $userRepository;
+        $this->userFullInfoDTOMaker = $userFullInfoDTOMaker;
+        $this->cityServices = $cityServices;
+        $this->provinceService = $provinceService;
     }
 
     /**
@@ -95,5 +124,35 @@ class UserService
     public function isUserAdmin(int $userId): bool
     {
         return $this->userRepository->isUserAdmin($userId);
+    }
+
+    public function getUserFullInfo(int $userId): UserFullInfoDTO
+    {
+        $user = $this->userRepository->findOrFail($userId);
+        $userAdditionalInfo = new UserAdditionalInfoDTO();
+        $userAdditionalInfo->setCities($this->getCitiesInfo($user))
+            ->setProvinces($this->getProvincesInfo($user));
+        $userFullInfoDTO = $this->userFullInfoDTOMaker
+            ->convert($user, $userAdditionalInfo);
+        return $userFullInfoDTO;
+    }
+
+    private function getCitiesInfo(User $user)
+    {
+        $citySearchDTO = new SearchCityDTO();
+        $citySearchDTO = $user->city_of_work ? $citySearchDTO->addCityId($user->city_of_birth) : $citySearchDTO;
+        $citySearchDTO = $user->city_of_birth ? $citySearchDTO->addCityId($user->city_of_birth) : $citySearchDTO;
+        $citySearchDTO = $user->current_city_id ? $citySearchDTO->addCityId($user->current_city_id) : $citySearchDTO;
+        $cities = $this->cityServices->searchCities($citySearchDTO);
+        return $cities;
+    }
+
+    private function getProvincesInfo(User $user)
+    {
+        $provinceSearchDTO = new SearchProvinceDTO();
+        $provinceSearchDTO = $user->province_of_work ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
+        $provinceSearchDTO = $user->province_of_birth ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
+        $provinceSearchDTO = $user->current_province_id ? $provinceSearchDTO->addProvinceId($user->current_province_id) : $provinceSearchDTO;
+        return $this->provinceService->searchProvinces($provinceSearchDTO);
     }
 }

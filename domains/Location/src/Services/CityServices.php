@@ -5,6 +5,7 @@ namespace Domains\Location\Services;
 
 use Domains\Location\Contracts\DTOs\DTOMakers\CityDTOMaker;
 use Domains\Location\Repositories\CityRepository;
+use Domains\Location\Services\Contracts\DTOs\SearchCityDTO;
 use Domains\Location\Transformers\CityTransformer;
 use Domains\Location\Services\Contracts\DTOs\CityDTO;
 use Domains\Location\Contracts\DTOs\Converters\CityConverter;
@@ -60,6 +61,12 @@ class CityServices
     public function getCitiesByProvinceId($province_id)
     {
         $cities = $this->cityRepository->findWithProvinceId($province_id);
+        return $this->cityDTOMaker->convertMany($cities);
+    }
+
+    public function searchCities(SearchCityDTO $citySearchDTO)
+    {
+        $cities = $this->cityRepository->searchCities($citySearchDTO->getCityIds());
         return $this->cityDTOMaker->convertMany($cities);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Domains\Location\Repositories;
 
-use Domains\Location\Entities\City;
+use Domains\Location\Entities\Province;
 
-class CityRepository
+class ProvinceRepository
 {
-    protected $entityName = City::class;
+    protected $entityName = Province::class;
 
     public function getAll()
     {
@@ -29,9 +29,9 @@ class CityRepository
             ->get();
     }
 
-    public function searchCities(array $cityIds)
+    public function searchProvinces(array $provinceIds)
     {
-        return $this->entityName::whereIn('id', $cityIds)
+        return $this->entityName::whereIn('id', $provinceIds)
             ->get();
     }
 }

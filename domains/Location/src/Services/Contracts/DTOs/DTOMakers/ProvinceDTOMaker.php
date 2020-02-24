@@ -9,9 +9,11 @@ class ProvinceDTOMaker
 {
     public function convertMany($provinces)
     {
-        return $provinces->map(function ($province){
-            return $this->convert($province);
-        })->toArray();
+        $provincesInfo = [];
+        foreach ($provinces as $province) {
+            $provincesInfo[$province->id] = $this->convert($province);
+        }
+        return $provincesInfo;
     }
 
     public function convert(Province $province): ProvinceDTO
