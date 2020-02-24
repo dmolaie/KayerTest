@@ -29,7 +29,7 @@ class ModifyUserTable extends Migration
             $table->string('essential_mobile')->nullable();
             $table->integer('province_of_birth')->unsigned()->nullable();
             $table->integer('city_of_birth')->unsigned()->nullable();
-            $table->integer('identity_number')->nullable();
+            $table->string('identity_number')->nullable();
             $table->enum('marital_status',config('user.user_marital_statuses'));
             $table->text('job_title')->nullable();
             $table->string('educational_field')->nullable();

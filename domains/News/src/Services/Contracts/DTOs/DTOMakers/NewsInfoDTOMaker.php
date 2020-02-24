@@ -5,29 +5,32 @@ namespace Domains\News\Services\Contracts\DTOs\DTOMakers;
 
 
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
 use Domains\News\Entities\News;
-use Domains\News\src\Services\Contracts\DTOs\NewsInfoDTO;
+use Domains\News\Services\Contracts\DTOs\NewsInfoDTO;
 
 class NewsInfoDTOMaker
 {
-    public function convertMany($newsCollection)
+    public function convertMany($newsCollection, ?AttachmentGetInfoDTO $attachments = null)
     {
-        return $newsCollection->map(function ($news) {
-            return $this->convert($news);
+        return $newsCollection->map(function ($news) use($attachments){
+            return $this->convert($news,$attachments->getImages()[$news->id]??null);
         })->toArray();
     }
 
-    public function convert(News $news, ?AttachmentInfoDTO $attachment): NewsInfoDTO
+    public function convert(News $news, ?AttachmentInfoDTO $attachment = null): NewsInfoDTO
     {
         $newsInfoDTO = new NewsInfoDTO();
         $newsInfoDTO->setFirstTitle($news->first_title)
             ->setStatus($news->status)
+            ->setId($news->id)
+            ->setCategory($news->category)
             ->setSourceLink($news->source_link)
-            ->setSecondTitle($news->seconde_title)
+            ->setSecondTitle($news->second_title)
             ->setPublishDate($news->publish_date)
             ->setLanguage($news->language)
             ->setDescription($news->description)
-            ->setAbstract($news->abstraction)
+            ->setAbstract($news->abstract)
             ->setDescription($news->description)
             ->setPublisher($news->publisher)
             ->setEditor($news->editor)

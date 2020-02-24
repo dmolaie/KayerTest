@@ -4,7 +4,6 @@
 namespace Domains\User\Repositories;
 
 use Domains\User\Entities\User;
-use Illuminate\Support\Facades\Hash;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 
 class UserRepository
@@ -16,8 +15,7 @@ class UserRepository
         $user = new $this->entityName;
         $user->name = $userRegisterInfoDTO->getName();
         $user->email = $userRegisterInfoDTO->getEmail();
-        $user->password = Hash::make($userRegisterInfoDTO->getPassword());
-        $user->role_id = $userRegisterInfoDTO->getRoleId();
+        $user->password = bcrypt($userRegisterInfoDTO->getPassword());
         $user->address_of_obtaining_degree = $userRegisterInfoDTO->getAddressOfObtainingDegree();
         $user->last_education_degree = $userRegisterInfoDTO->getLastEducationalDegree();
         $user->educational_field = $userRegisterInfoDTO->getEducationalField();
@@ -38,9 +36,21 @@ class UserRepository
         $user->gender = $userRegisterInfoDTO->getGender();
         $user->last_name = $userRegisterInfoDTO->getLastName();
         $user->national_code = $userRegisterInfoDTO->getNationalCode();
+        $user->day_of_cooperation = $userRegisterInfoDTO->getDayOfCooperation();
+        $user->know_community_by = $userRegisterInfoDTO->getKnowCommunityBy();
+        $user->motivation_for_cooperation = $userRegisterInfoDTO->getMotivationForCooperation();
+        $user->field_of_activities = $userRegisterInfoDTO->getFieldOfActivities();
+        $user->address_of_work = $userRegisterInfoDTO->getAddressOfWork();
+        $user->work_phone = $userRegisterInfoDTO->getWorkPhone();
+
         $user->save();
+        $user->roles()->attach(
+            $userRegisterInfoDTO->getRoleId(),
+            ['status' => $userRegisterInfoDTO->getRoleStatus()]);
+
         return $user;
     }
+
     public function getAll()
     {
         return $this->entityName::all();
@@ -54,5 +64,26 @@ class UserRepository
     public function findOrFail(int $id)
     {
         return $this->entityName::findOrFail($id);
+    }
+
+    public function isUserAdmin(int $userId): bool
+    {
+        return $this->entityName::findOrFail($userId)
+            ->roles()->where('status', config('user.user_role_active_status'))
+            ->where('role_id', config('user.admin_role_id'))
+            ->orderBy('role_id')
+            ->exists();
+    }
+
+    public function getActiveRoles(int $userId)
+    {
+        return $this->entityName::findOrFail($userId)
+            ->roles()->whereIn(
+                'status',
+                [
+                    config('user.user_role_active_status'),
+                    config('user.user_role_pending_status')
+                ])
+            ->orderBy('role_id')->first();
     }
 }

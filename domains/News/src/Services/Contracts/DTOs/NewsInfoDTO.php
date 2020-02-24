@@ -1,9 +1,10 @@
 <?php
 
 
-namespace Domains\News\src\Services\Contracts\DTOs;
+namespace Domains\News\Services\Contracts\DTOs;
 
 
+use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 
@@ -12,6 +13,10 @@ use Domains\User\Entities\User;
  */
 class NewsInfoDTO
 {
+    /**
+     * @var integer
+     */
+    protected $id;
     /**
      * @var string
      */
@@ -29,7 +34,7 @@ class NewsInfoDTO
      */
     protected $description;
     /**
-     * @var null|string
+     * @var null|Category
      */
     protected $category;
     /**
@@ -84,6 +89,24 @@ class NewsInfoDTO
     public function setEditor(?User $editor): NewsInfoDTO
     {
         $this->editor = $editor;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return NewsInfoDTO
+     */
+    public function setId(int $id): NewsInfoDTO
+    {
+        $this->id = $id;
         return $this;
     }
 
@@ -196,18 +219,18 @@ class NewsInfoDTO
     }
 
     /**
-     * @return string|null
+     * @return Category|null
      */
-    public function getCategory(): ?string
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
     /**
-     * @param string|null $category
+     * @param Category|null $category
      * @return NewsInfoDTO
      */
-    public function setCategory(?string $category): NewsInfoDTO
+    public function setCategory(?Category $category): NewsInfoDTO
     {
         $this->category = $category;
         return $this;

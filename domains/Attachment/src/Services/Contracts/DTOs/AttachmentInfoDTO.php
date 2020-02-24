@@ -22,7 +22,7 @@ class AttachmentInfoDTO extends AttachmentBaseDTO
     /**
      * @return array
      */
-    public function getPaths(): array
+    public function getPaths(): ?array
     {
         return $this->paths;
     }

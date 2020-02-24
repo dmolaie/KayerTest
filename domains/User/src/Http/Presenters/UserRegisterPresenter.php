@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\User\src\Http\Presenters;
+namespace Domains\User\Http\Presenters;
 
 
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
@@ -12,6 +12,7 @@ class UserRegisterPresenter
     {
         return [
             'name'          => $userLoginDTO->getName(),
+            'id'          => $userLoginDTO->getId(),
             'national_code' => $userLoginDTO->getNationalCode(),
             'role'          => [
                 'name' => $userLoginDTO->getRole()->name,

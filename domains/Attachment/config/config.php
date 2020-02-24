@@ -18,6 +18,13 @@ return [
                 'size' => 200
             ]
         ],
+        'Events' => [
+            'normal_size' => [
+                'width' => 200,
+                'height' => 200,
+                'size' => 200
+            ]
+        ],
     ]
 
 ];

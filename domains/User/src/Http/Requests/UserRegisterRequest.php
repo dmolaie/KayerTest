@@ -5,6 +5,7 @@ namespace Domains\User\Http\Requests;
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
+use Illuminate\Validation\Rule;
 
 class UserRegisterRequest extends EhdaBaseRequest
 {
@@ -27,8 +28,8 @@ class UserRegisterRequest extends EhdaBaseRequest
     {
         return [
             'national_code'               => ['required', 'numeric','unique:users', new NationalCodeRequest],
-            'name'                        => 'required|alpha|max:20|min:3',
-            'last_name'                   => 'required|alpha|max:20|min:3',
+            'name'                        => 'required|string|max:30|min:3',
+            'last_name'                   => 'required|string|max:30|min:3',
             'gender'                      => 'required|in:male,female,other',
             'date_of_birth'               => 'required|numeric',
             'mobile'                      => 'required|regex:/(09)[0-9]{9}/',
@@ -37,18 +38,23 @@ class UserRegisterRequest extends EhdaBaseRequest
             'marital_status'              => 'required|string|in:married,single,other',
             'password'                    => 'required|confirmed|min:6',
             'current_address'             => 'string|min:3|max:100',
-            'phone'                       => 'regex:/(0)[0-9]{12}/',
+            'phone'                       => 'regex:/^0\d{2,3}\d{8}$/',
             'province_of_work'            => 'integer',
             'city_of_work'                => 'integer',
             'email'                       => 'string|email|max:255|unique:users',
-            'essential_mobile'            => 'integer',
+            'essential_mobile'            => 'regex:/(09)[0-9]{9}/',
             'province_of_birth'           => 'integer',
             'city_of_birth'               => 'integer',
-            'identity_number'             => 'integer|max:20|min:3',
-            'job_title'                   => 'alpha|max:30|min:3',
-            'educational_field'           => 'alpha|max:30|min:3',
-            'last_educational_degree'     => 'alpha|max:30|min:3',
-            'address_of_obtaining_degree' => 'alpha|max:30|min:3',
+            'identity_number'             => 'numeric|min:1',
+            'job_title'                   => 'string|max:50|min:3',
+            'educational_field'           => 'string|max:50|min:3',
+            'last_educational_degree'     => [
+                'string',
+                'max:50',
+                'min:3',
+                Rule::in(config('user.educational_degree'))
+            ],
+            'address_of_obtaining_degree' => 'string|max:100|min:3',
         ];
     }
 
@@ -88,6 +94,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             ->setJobTitle($this['job_title'])
             ->setPassword($this['password'])
             ->setRoleId(config('user.client_role_id'))
+            ->setRoleStatus(config('user.user_role_active_status'))
             ->setLastEducationalDegree($this['last_educational_degree']);
 
         return $userRegisterDTO;

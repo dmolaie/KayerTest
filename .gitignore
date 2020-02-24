@@ -19,3 +19,6 @@ storage/oauth-private.key
 storage/oauth-public.key
 
 package-lock.json
+
+public/upload/images/*
+
