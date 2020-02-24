@@ -16,291 +16,342 @@
                                 اطلاعات فردی
                             </div>
                             <form method="post"
-                                  class="dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none"
+                                  class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none"
                             >
                                 <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                     اطلاعات فردی
                                 </p>
-                                <label class="dnt-page__input w-full block has-error">
+                                <div class="dnt-page__input w-full block">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
                                         نام
                                     </span>
-                                    <input type="text"
-                                           placeholder="حروف فارسی"
-                                           class="input input--blue block w-full border border-solid rounded"
-                                           autocomplete="off" required
-                                    />
-                                    <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none">
-                                        نام را با حروف فارسی وارد نمایید.
-                                    </span>
-                                </label>
-                                <label class="dnt-page__input w-full block">
+                                    <label class="dnt-page__name w-full block">
+                                        <input type="text"
+                                               placeholder="حروف فارسی"
+                                               class="input input--blue block w-full border border-solid rounded"
+                                               autocomplete="off" required
+                                               name="name"
+                                        />
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </label>
+                                </div>
+                                <div class="dnt-page__input w-full block">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
                                         نام خانوادگی
                                     </span>
-                                    <input type="text"
-                                           placeholder="حروف فارسی"
-                                           class="input input--blue block w-full border border-solid rounded"
-                                           autocomplete="off" required
-                                    />
-                                </label>
+                                    <label class="dnt-page__full-name w-full block">
+                                        <input type="text"
+                                               placeholder="حروف فارسی"
+                                               class="input input--blue block w-full border border-solid rounded"
+                                               autocomplete="off" required
+                                               name="full_name"
+                                        />
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </label>
+                                </div>
                                 <label class="dnt-page__input w-full block">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
                                         کد ملی
                                     </span>
-                                    <input type="text"
-                                           placeholder="۱۰ رقم بدون خط تیره"
-                                           class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                           autocomplete="off" required
-                                    />
+                                    <label class="dnt-page__national-code w-full block">
+                                        <input type="text"
+                                               placeholder="۱۰ رقم بدون خط تیره"
+                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                               autocomplete="off" required
+                                               name="national_code"
+                                        />
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </label>
                                 </label>
-                                <div class="w-full">
-                                    <div class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                            جنسیت
-                                        </span>
-                                        <div class="w-full flex items-stretch text-center user-select-none">
-                                            <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
-                                                <input type="radio"
-                                                       name="gender"
-                                                       class="dnt-page__radio none"
+                                <div class="dnt-page__from_step-two w-full h-0 overflow-hidden">
+                                    <div class="w-full">
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                                جنسیت
+                                            </span>
+                                            <div class="w-full flex items-stretch text-center user-select-none">
+                                                <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                                    <input type="radio"
+                                                           name="gender"
+                                                           disabled="disabled"
+                                                           class="dnt-page__radio none"
+                                                    />
+                                                    <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
+                                                        خانم
+                                                    </span>
+                                                </label>
+                                                <label class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
+                                                    <input type="radio"
+                                                           name="gender"
+                                                           class="dnt-page__radio none"
+                                                           disabled="disabled"
+                                                    />
+                                                    <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
+                                                        آقا
+                                                    </span>
+                                                </label>
+                                                <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                                    <input type="radio"
+                                                           name="gender"
+                                                           class="dnt-page__radio none"
+                                                           disabled="disabled"
+                                                           checked
+                                                    />
+                                                    <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
+                                                        سایر
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
+                                                نام پدر
+                                            </span>
+                                            <label class="dnt-page__parent-name w-full block">
+                                                <input type="text"
+                                                       placeholder="حروف فارسی"
+                                                       class="input input--blue block w-full border border-solid rounded"
+                                                       required disabled="disabled"
+                                                       name="parent_name"
                                                 />
-                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
-                                                    خانم
-                                                </span>
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
-                                            <label class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
-                                                <input type="radio"
-                                                       name="gender"
-                                                       class="dnt-page__radio none"
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                                تاریخ تولد
+                                            </span>
+                                            <div class="w-full flex items-stretch text-center user-select-none">
+                                                <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                                    <select class="dnt-page__select dnt-page__select--day"
+                                                            disabled="disabled"
+                                                    >
+                                                        <option value="">
+                                                            روز
+                                                        </option>
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2">
+                                                            2
+                                                        </option>
+                                                        <option value="3">
+                                                            3
+                                                        </option>
+                                                        <option value="4">
+                                                            4
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
+                                                    <select class="dnt-page__select dnt-page__select--month"
+                                                            disabled="disabled"
+                                                    >
+                                                        <option value="">
+                                                            ماه
+                                                        </option>
+                                                        <option value="1">
+                                                            فروردین
+                                                        </option>
+                                                        <option value="2">
+                                                            اردیبهشت
+                                                        </option>
+                                                        <option value="3">
+                                                            خرداد
+                                                        </option>
+                                                        <option value="4">
+                                                            تیر
+                                                        </option>
+                                                        <option value="5">
+                                                            مرداد
+                                                        </option>
+                                                        <option value="6">
+                                                            شهریور
+                                                        </option>
+                                                        <option value="7">
+                                                            مهر
+                                                        </option>
+                                                        <option value="8">
+                                                            آبان
+                                                        </option>
+                                                        <option value="9">
+                                                            آذر
+                                                        </option>
+                                                        <option value="10">
+                                                            دی
+                                                        </option>
+                                                        <option value="11">
+                                                            بهمن
+                                                        </option>
+                                                        <option value="12">
+                                                            اسفند
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                                    <select class="dnt-page__select dnt-page__select--year"
+                                                            disabled="disabled"
+                                                    >
+                                                        <option value="">
+                                                            سال
+                                                        </option>
+                                                        <option value="1397">
+                                                            1397
+                                                        </option>
+                                                        <option value="1396">
+                                                            1396
+                                                        </option>
+                                                        <option value="1395">
+                                                            1395
+                                                        </option>
+                                                        <option value="1394">
+                                                            1394
+                                                        </option>
+                                                        <option value="1393">
+                                                            1393
+                                                        </option>
+                                                        <option value="1392">
+                                                            1392
+                                                        </option>
+                                                        <option value="1391">
+                                                            1391
+                                                        </option>
+                                                        <option value="1390">
+                                                            1390
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                                محل تولد
+                                            </span>
+                                            <select class="dnt-page__select dnt-page__select--birth"
+                                                    disabled="disabled"
+                                            >
+                                                <option value="">
+                                                    انتخاب کنید...
+                                                </option>
+                                                <option value="1">
+                                                    تهران
+                                                </option>
+                                                <option value="2">
+                                                    فناپ
+                                                </option>
+                                                <option value="3">
+                                                    خارجه
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                            اطلاعات تماس
+                                        </p>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
+                                                تلفن همراه
+                                            </span>
+                                            <label class="dnt-page__phone w-full block">
+                                                <input type="text"
+                                                       placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
+                                                       class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                                       autocomplete="off" required disabled="disabled"
+                                                       name="phone"
                                                 />
-                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
-                                                    آقا
-                                                </span>
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
-                                            <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
-                                                <input type="radio"
-                                                       name="gender"
-                                                       class="dnt-page__radio none"
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
+                                                تلفن منزل
+                                            </span>
+                                            <div class="dnt-page__tel w-full-block">
+                                                <input type="text"
+                                                       placeholder="تلفن منزل ۱۱ رقمی خود را وارد نمایید"
+                                                       class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                                       autocomplete="off" disabled="disabled"
+                                                       name="tel"
                                                 />
-                                                <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
-                                                    سایر
-                                                </span>
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                            </div>
+                                        </div>
+                                        <div class="dnt-page__home dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                                محل سکونت
+                                            </span>
+                                            <select class="dnt-page__select dnt-page__select--city"
+                                                    name="home"
+                                                    disabled="disabled"
+                                            >
+                                                <option value="">
+                                                    محل سکونت را انتخاب نمایید
+                                                </option>
+                                                <option value="1">
+                                                    تهران
+                                                </option>
+                                                <option value="2">
+                                                    فناپ
+                                                </option>
+                                                <option value="3">
+                                                    خارجه
+                                                </option>
+                                            </select>
+                                            <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
+                                                ایمیل
+                                            </span>
+                                            <label class="dnt-page__email w-full block">
+                                                <input type="text"
+                                                       placeholder="حروف انگلیسی"
+                                                       class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                                       autocomplete="off" disabled="disabled"
+                                                       name="email"
+                                                />
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                            </label>
+                                        </div>
+                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                            اطلاعات ورود به سامانه
+                                        </p>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
+                                                گذرواژه
+                                            </span>
+                                            <label class="dnt-page__password w-full block">
+                                                <input type="password"
+                                                       placeholder="گذرواژه را حداقل هشت کاراکتر وارد نمایید"
+                                                       class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                                       autocomplete="off" required disabled="disabled"
+                                                       name="password"
+                                                />
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                            </label>
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
+                                                تکرار گذرواژه
+                                            </span>
+                                            <label class="dnt-page__rpt-password w-full block">
+                                                <input type="password"
+                                                       placeholder="تکرار گذرواژه"
+                                                       class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                                       autocomplete="off" required disabled="disabled"
+                                                       name="repeat_password"
+                                                />
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <label class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
-                                            نام پدر
-                                        </span>
-                                        <input type="text"
-                                               placeholder="حروف فارسی"
-                                               class="input input--blue block w-full border border-solid rounded"
-                                               required
-                                        />
-                                    </label>
-                                    <div class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
-                                            تاریخ تولد
-                                        </span>
-                                        <div class="w-full flex items-stretch text-center user-select-none">
-                                            <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
-                                                <select class="dnt-page__select dnt-page__select--day">
-                                                    <option value="">
-                                                        روز
-                                                    </option>
-                                                    <option value="1">
-                                                        1
-                                                    </option>
-                                                    <option value="2">
-                                                        2
-                                                    </option>
-                                                    <option value="3">
-                                                        3
-                                                    </option>
-                                                    <option value="4">
-                                                        4
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
-                                                <select class="dnt-page__select dnt-page__select--month">
-                                                    <option value="">
-                                                        ماه
-                                                    </option>
-                                                    <option value="1">
-                                                        فروردین
-                                                    </option>
-                                                    <option value="2">
-                                                        اردیبهشت
-                                                    </option>
-                                                    <option value="3">
-                                                        خرداد
-                                                    </option>
-                                                    <option value="4">
-                                                        تیر
-                                                    </option>
-                                                    <option value="5">
-                                                        مرداد
-                                                    </option>
-                                                    <option value="6">
-                                                        شهریور
-                                                    </option>
-                                                    <option value="7">
-                                                        مهر
-                                                    </option>
-                                                    <option value="8">
-                                                        آبان
-                                                    </option>
-                                                    <option value="9">
-                                                        آذر
-                                                    </option>
-                                                    <option value="10">
-                                                        دی
-                                                    </option>
-                                                    <option value="11">
-                                                        بهمن
-                                                    </option>
-                                                    <option value="12">
-                                                        اسفند
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
-                                                <select class="dnt-page__select dnt-page__select--year">
-                                                    <option value="">
-                                                        سال
-                                                    </option>
-                                                    <option value="1397">
-                                                        1397
-                                                    </option>
-                                                    <option value="1396">
-                                                        1396
-                                                    </option>
-                                                    <option value="1395">
-                                                        1395
-                                                    </option>
-                                                    <option value="1394">
-                                                        1394
-                                                    </option>
-                                                    <option value="1393">
-                                                        1393
-                                                    </option>
-                                                    <option value="1392">
-                                                        1392
-                                                    </option>
-                                                    <option value="1391">
-                                                        1391
-                                                    </option>
-                                                    <option value="1390">
-                                                        1390
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
-                                            محل تولد
-                                        </span>
-                                        <select class="dnt-page__select dnt-page__select--birth">
-                                            <option value="">
-                                                انتخاب کنید...
-                                            </option>
-                                            <option value="1">
-                                                تهران
-                                            </option>
-                                            <option value="2">
-                                                فناپ
-                                            </option>
-                                            <option value="3">
-                                                خارجه
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <p class="text-blue font-base font-bold m-b-4 cursor-default">
-                                        اطلاعات تماس
-                                    </p>
-                                    <label class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
-                                            تلفن همراه
-                                        </span>
-                                        <input type="text"
-                                               placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                        />
-                                    </label>
-                                    <label class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
-                                            تلفن منزل
-                                        </span>
-                                        <input type="text"
-                                               placeholder="تلفن منزل ۱۱ رقمی خود را وارد نمایید"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off"
-                                        />
-                                    </label>
-                                    <div class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                            محل سکونت
-                                        </span>
-                                        <select class="dnt-page__select dnt-page__select--city">
-                                            <option value="">
-                                                محل سکونت را انتخاب نمایید
-                                            </option>
-                                            <option value="1">
-                                                تهران
-                                            </option>
-                                            <option value="2">
-                                                فناپ
-                                            </option>
-                                            <option value="3">
-                                                خارجه
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <label class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
-                                            ایمیل
-                                        </span>
-                                        <input type="text"
-                                               placeholder="حروف انگلیسی"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off"
-                                        />
-                                    </label>
-                                    <p class="text-blue font-base font-bold m-b-4 cursor-default">
-                                        اطلاعات ورود به سامانه
-                                    </p>
-                                    <label class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
-                                            گذرواژه
-                                        </span>
-                                        <input type="password"
-                                               placeholder="گذرواژه را حداقل هشت کاراکتر وارد نمایید"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                        />
-                                    </label>
-                                    <label class="dnt-page__input w-full block">
-                                        <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
-                                            تکرار گذرواژه
-                                        </span>
-                                        <input type="password"
-                                               placeholder="تکرار گذرواژه"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                        />
-                                    </label>
                                 </div>
-                                <p class="text-green font-sm font-bold cursor-default m-t-8">
+                                <p class="none text-green font-sm font-bold cursor-default m-t-8">
                                     اندکی صبر
                                 </p>
-                                <button class="dnt-page__btn dnt-page__btn--submit spinner-loading block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
+                                <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
                                     ارسال اطلاعات
                                 </button>
-                                <button class="dnt-page__btn dnt-page__btn--cancel block w-full text-green spinner-loading font-lg font-bold bg-white border-green-2 rounded l:transition-bg l:hover:text-white l:hover:bg-green">
+                                <button class="dnt-page__btn dnt-page__btn--cancel none w-full text-green spinner-loading font-lg font-bold bg-white border-green-2 rounded l:transition-bg l:hover:text-white l:hover:bg-green">
                                     انصراف
                                 </button>
                             </form>

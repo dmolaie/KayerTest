@@ -752,6 +752,12 @@
     background: transparentize($c, (1 - .2))
     &::placeholder
       color: #9ba9ab
+  &:disabled
+    opacity: .6
+    pointer-events: none
+
+.error-message
+  display: none
 
 .has-error
   position: relative
@@ -759,6 +765,8 @@
     border:
       color: $red
     background: transparentize($red, ( 1 - 0.05 ))
+  .error-message
+    display: block
 
 .dropdown
   &__body

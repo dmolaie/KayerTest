@@ -30,7 +30,7 @@
     &_header
       padding: 16px 10px 15px
     &_body
-      padding: 28px 20px 35px
+      padding: 28px 20px (35px - 10)
   &__input
     &:not(:last-child)
       margin-bottom: 14px
@@ -38,10 +38,9 @@
     padding: 0 7px 2px
   &__btn
     padding: 7px 10px 3px
+    margin-bottom: 10px
     &:first-of-type
       margin-top: 44px
-    &:not(:last-child)
-      margin-bottom: 10px
     &--submit
       @include SpinnerLoading(22px, 3px, $white)
     &--cancel
@@ -54,6 +53,10 @@
       & + .dnt-page__radio_label
         color: $white
         background: $blue-100
+  &__from
+    &_step-two
+      will-change: height
+      transition: height .22s ease-in-out
   .dropdown
     &.unselected
       .dropdown__input
@@ -64,8 +67,15 @@
   .has-error
     .error-message
       right: 10px
-      bottom: 10px
+      top: 50%
+      transform: translateY(-50%)
     .input
       color: transparent
       &::placeholder
         color: inherit
+  .dnt-page__home
+    .error-message
+      top: 68%
+    &.has-error
+      .dropdown__input
+        color: transparent
