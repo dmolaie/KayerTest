@@ -77,3 +77,4 @@ class UserController extends EhdaBaseController
         );
         return $this->response($data, 200);
     }
+}
