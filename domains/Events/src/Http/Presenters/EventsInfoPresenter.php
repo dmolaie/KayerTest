@@ -22,11 +22,7 @@ class EventsInfoPresenter
             'title' => $eventsInfoDTO->getTitle(),
             'abstract' => $eventsInfoDTO->getAbstract(),
             'description' => $eventsInfoDTO->getDescription(),
-            'category' => $eventsInfoDTO->getCategory() ?
-                [
-                    'name' => $eventsInfoDTO->getCategory()->name_en,
-                    'id' => $eventsInfoDTO->getCategory()->id
-                ] : null,
+            'category' => $eventsInfoDTO->getCategory() ? $eventsInfoDTO->getCategory() : null,
             'publish_date' => strtotime($eventsInfoDTO->getPublishDate()),
             'event_start_date' => strtotime($eventsInfoDTO->getEventStartDate()),
             'event_end_date' => strtotime($eventsInfoDTO->getEventEndDate()),

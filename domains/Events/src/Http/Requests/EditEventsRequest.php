@@ -25,7 +25,8 @@ class EditEventsRequest extends EhdaBaseRequest
             'event_end_date' => 'numeric',
             'event_start_register_date' => 'numeric',
             'event_end_register_date' => 'numeric',
-            'category_id' => 'integer|exists:categories,id',
+            'category_id' => 'array|exists:categories,id',
+            'main_category_id' => 'integer|exists:categories,id',
             'publish_date' => 'numeric',
             'source_link_text' => 'url',
             'source_link_image' => 'url',
@@ -54,6 +55,7 @@ class EditEventsRequest extends EhdaBaseRequest
             ->setProvinceId($this['province_id'])
             ->setAbstract($this['abstract'])
             ->setCategoryId($this['category_id'])
+            ->setCategoryIsMain($this['main_category_id'])
             ->setDescription($this['description'])
             ->setLanguage($this['language'])
             ->setTitle($this['title'])

@@ -32,21 +32,22 @@ class News extends Model
 
     public function editor()
     {
-        return $this->belongsTo(User::class, 'editor_id','id');
+        return $this->belongsTo(User::class, 'editor_id', 'id');
     }
 
     public function publisher()
     {
         return $this->belongsTo(User::class, 'publisher_id', 'id');
     }
+
     public function province()
     {
         return $this->belongsTo(Province::class);
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->morphToMany(Category::class, 'categorible')->withPivot('is_main')->withTimestamps();
     }
 
     public function parent()

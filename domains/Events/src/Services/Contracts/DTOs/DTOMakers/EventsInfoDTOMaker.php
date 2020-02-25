@@ -24,7 +24,7 @@ class EventsInfoDTOMaker
         $EventsInfoDTO->setTitle($events->title)
             ->setStatus($events->status)
             ->setId($events->id)
-            ->setCategory($events->category)
+            ->setCategory($this->categories($events->categories))
             ->setSourceLinkText($events->source_link_text)
             ->setSourceLinkImage($events->source_link_image)
             ->setSourceLinkVideo($events->source_link_video)
@@ -45,5 +45,13 @@ class EventsInfoDTOMaker
         return $EventsInfoDTO;
     }
 
-
+    private function categories($categories)
+    {
+        return $categories->map(function ($category) {
+            $data['name_en'] = $category->name_en;
+            $data['id'] = $category->id;
+            $data['is_main'] = $category->pivot->is_main ? true : false;
+            return $data;
+        })->toArray();
+    }
 }

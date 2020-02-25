@@ -221,7 +221,7 @@ class NewsInfoDTO
     /**
      * @return Category|null
      */
-    public function getCategory(): ?Category
+    public function getCategory()
     {
         return $this->category;
     }
@@ -230,7 +230,7 @@ class NewsInfoDTO
      * @param Category|null $category
      * @return NewsInfoDTO
      */
-    public function setCategory(?Category $category): NewsInfoDTO
+    public function setCategory($category): NewsInfoDTO
     {
         $this->category = $category;
         return $this;

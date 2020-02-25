@@ -80,7 +80,7 @@ class EventsEditDTO extends EventsBaseSaveDTO
     /**
      * @return int|null
      */
-    public function getCategoryId(): ?int
+    public function getCategoryId()
     {
         return $this->categoryId;
     }
@@ -89,9 +89,27 @@ class EventsEditDTO extends EventsBaseSaveDTO
      * @param int|null $categoryId
      * @return EventsEditDTO
      */
-    public function setCategoryId(?int $categoryId): EventsEditDTO
+    public function setCategoryId($categoryId): EventsEditDTO
     {
         $this->categoryId = $categoryId;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryIsMain()
+    {
+        return $this->categoryIsMain;
+    }
+
+    /**
+     * @param mixed $categoryIsMain
+     * @return EventsEditDTO
+     */
+    public function setCategoryIsMain($categoryIsMain): EventsEditDTO
+    {
+        $this->categoryIsMain = $categoryIsMain;
         return $this;
     }
 

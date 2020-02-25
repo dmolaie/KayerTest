@@ -52,6 +52,11 @@ class EventsBaseSaveDTO
     protected $categoryId;
 
     /**
+     * @var null|integer
+     */
+    protected $categoryIsMain;
+
+    /**
      * @var  string
      */
     protected $publishDate;

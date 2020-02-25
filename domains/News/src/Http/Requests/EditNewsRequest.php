@@ -18,17 +18,18 @@ class EditNewsRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'news_id'      => 'required|integer|exists:news,id',
-            'first_title'  => 'required|string',
+            'news_id' => 'required|integer|exists:news,id',
+            'first_title' => 'required|string',
             'second_title' => 'string',
-            'abstract'     => 'string',
-            'description'  => 'string',
-            'category_id'  => 'integer|exists:categories,id',
+            'abstract' => 'string',
+            'description' => 'string',
+            'category_id' => 'array|exists:categories,id',
+            'main_category_id' => 'integer|exists:categories,id',
             'publish_date' => 'required|numeric',
-            'source_link'  => 'url',
-            'province_id'  => 'required|integer|exists:provinces,id',
-            'language'     => ['required', Rule::in(config('news.news_language'))],
-            'images.*'     => 'image'
+            'source_link' => 'url',
+            'province_id' => 'required|integer|exists:provinces,id',
+            'language' => ['required', Rule::in(config('news.news_language'))],
+            'images.*' => 'image'
         ];
     }
 
@@ -49,6 +50,7 @@ class EditNewsRequest extends EhdaBaseRequest
             ->setProvinceId($this['province_id'])
             ->setAbstract($this['abstract'])
             ->setCategoryId($this['category_id'])
+            ->setCategoryIsMain($this['main_category_id'])
             ->setDescription($this['description'])
             ->setEditor(\Auth::user())
             ->setLanguage($this['language'])
