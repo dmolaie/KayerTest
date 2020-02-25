@@ -146,5 +146,7 @@ return array(
         "day_of_cooperation"          => "روزهای همکاری",
         "last_educational_degree"     => "آخرین مدرک تحصیلی",
         "work_phone"                  => "تلفن ثابت محل کار",
+        'id'                          => 'شناسه',
+        'role_id'                     => 'نوع نقش کاربری'
     ),
 );

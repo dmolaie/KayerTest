@@ -39,11 +39,11 @@ class UserBriefInfoDTO
      */
     protected $nationalCode;
     /**
-     * @var CityDTO
+     * @var array
      */
     protected $currentCity;
     /**
-     * @var ProvinceDTO
+     * @var array
      */
     protected $currentProvince;
 
@@ -174,38 +174,40 @@ class UserBriefInfoDTO
     }
 
     /**
-     * @return CityDTO
+     * @return array
      */
-    public function getCurrentCity(): CityDTO
+    public function getCurrentCity(): array
     {
         return $this->currentCity;
     }
 
     /**
-     * @param CityDTO $currentCity
+     * @param array $currentCity
      * @return UserBriefInfoDTO
      */
-    public function setCurrentCity(CityDTO $currentCity): UserBriefInfoDTO
+    public function setCurrentCity(array $currentCity): UserBriefInfoDTO
     {
         $this->currentCity = $currentCity;
         return $this;
     }
 
     /**
-     * @return ProvinceDTO
+     * @return array
      */
-    public function getCurrentProvince(): ProvinceDTO
+    public function getCurrentProvince(): array
     {
         return $this->currentProvince;
     }
 
     /**
-     * @param ProvinceDTO $currentProvince
+     * @param array $currentProvince
      * @return UserBriefInfoDTO
      */
-    public function setCurrentProvince(ProvinceDTO $currentProvince): UserBriefInfoDTO
+    public function setCurrentProvince(array $currentProvince): UserBriefInfoDTO
     {
         $this->currentProvince = $currentProvince;
         return $this;
     }
+
+
 }

@@ -12,5 +12,5 @@ return [
     'user_admin_role_id'      => '1',
     'educational_degree'      => trans('user::baseLang.educational_degree'),
     'field_of_activities'     => trans('user::baseLang.field_of_activities'),
-
+    'user_paginate_count'     => 10,
 ];

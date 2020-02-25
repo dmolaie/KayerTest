@@ -7,6 +7,7 @@ use Domains\Location\Services\CityServices;
 use Domains\Location\Services\Contracts\DTOs\SearchCityDTO;
 use Domains\Location\Services\Contracts\DTOs\SearchProvinceDTO;
 use Domains\Location\Services\ProvinceService;
+use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\Role\Entities\Role;
 use Domains\Role\Services\RoleServices;
 use Domains\User\Entities\User;
@@ -19,6 +20,7 @@ use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 use Illuminate\Support\Facades\Auth;
 
 class UserService
@@ -48,6 +50,10 @@ class UserService
      * @var UserBriefInfoDTOMaker
      */
     private $userBriefInfoDTOMaker;
+    /**
+     * @var PaginationDTOMaker
+     */
+    private $paginationDTOMaker;
 
     /**
      * UserService constructor.
@@ -57,6 +63,7 @@ class UserService
      * @param CityServices $cityServices
      * @param ProvinceService $provinceService
      * @param UserBriefInfoDTOMaker $userBriefInfoDTOMaker
+     * @param PaginationDTOMaker $paginationDTOMaker
      */
     public function __construct(
         RoleServices $roleServices,
@@ -64,7 +71,8 @@ class UserService
         UserFullInfoDTOMaker $userFullInfoDTOMaker,
         CityServices $cityServices,
         ProvinceService $provinceService,
-        UserBriefInfoDTOMaker $userBriefInfoDTOMaker
+        UserBriefInfoDTOMaker $userBriefInfoDTOMaker,
+        PaginationDTOMaker $paginationDTOMaker
     ) {
 
         $this->roleServices = $roleServices;
@@ -73,6 +81,7 @@ class UserService
         $this->cityServices = $cityServices;
         $this->provinceService = $provinceService;
         $this->userBriefInfoDTOMaker = $userBriefInfoDTOMaker;
+        $this->paginationDTOMaker = $paginationDTOMaker;
     }
 
     /**
@@ -169,9 +178,15 @@ class UserService
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
     {
         $user = $this->userRepository->editUserInfo($userId, $userEditDTO);
-        $userAdditionalInfo = new UserAdditionalInfoDTO();
-        $userAdditionalInfo->setCities($this->getCitiesInfo($user))
-            ->setProvinces($this->getProvincesInfo($user));
-        return $this->userBriefInfoDTOMaker->convert($user, $userAdditionalInfo);
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function filterUsers(UserSearchDTO $userSearchDTO): PaginationDTOMaker
+    {
+        $users = $this->userRepository->searchUser($userSearchDTO);
+        return $this->paginationDTOMaker->perform(
+            $users,
+            UserBriefInfoDTOMaker::class
+        );
     }
 }

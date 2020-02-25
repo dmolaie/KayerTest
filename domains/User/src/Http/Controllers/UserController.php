@@ -8,9 +8,11 @@ use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
+use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
+use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
 use Domains\User\Services\UserService;
 use Illuminate\Http\Response;
@@ -84,5 +86,16 @@ class UserController extends EhdaBaseController
         $userId = Auth::id();
         $data = $this->userService->editUserInfo($userId, $request->createUserEditDTO());
         return $this->response($briefInfoPresenter->transform($data), Response::HTTP_OK);
+    }
+
+    public function getListForAdmin(
+        UserListForAdminRequest $request,
+        UserPaginateInfoPresenter $paginateInfoPresenter
+    )  {
+        $usersPaginateInfoDTOs = $this->userService->filterUsers($request->createUserSearchDTO());
+        return $this->response(
+            $paginateInfoPresenter->transform($usersPaginateInfoDTOs),
+            Response::HTTP_OK
+        );
     }
 }

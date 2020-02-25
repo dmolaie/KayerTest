@@ -5,6 +5,7 @@ namespace Domains\User\Repositories;
 
 use Domains\User\Entities\User;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 
 class UserRepository
 {
@@ -92,7 +93,7 @@ class UserRepository
         $user = $this->entityName::findOrFail($userId);
         $user->name = $userEditDTO->getName();
         $user->email = $userEditDTO->getEmail();
-        if($userEditDTO->getPassword()){
+        if ($userEditDTO->getPassword()) {
             $user->password = bcrypt($userEditDTO->getPassword());
         }
         $user->address_of_obtaining_degree = $userEditDTO->getAddressOfObtainingDegree();
@@ -120,9 +121,31 @@ class UserRepository
         $user->field_of_activities = $userEditDTO->getFieldOfActivities();
         $user->address_of_work = $userEditDTO->getAddressOfWork();
         $user->work_phone = $userEditDTO->getWorkPhone();
-        if(!empty($user->getDirty())){
+        if (!empty($user->getDirty())) {
             $user->save();
         }
         return $user;
+    }
+
+    public function searchUser(UserSearchDTO $userSearchDTO)
+    {
+        return $this->entityName
+            ::when($userSearchDTO->getId(), function ($query) use ($userSearchDTO) {
+                return $query->where('id', $userSearchDTO->getId());
+            })->when($userSearchDTO->getName(), function ($query) use ($userSearchDTO) {
+                return $query->where('name', 'like', '%' . $userSearchDTO->getName() . '%')
+                    ->orWhere('last_name', 'like', '%' . $userSearchDTO->getName() . '%');
+            })
+            ->when($userSearchDTO->getNationalCode(), function ($query) use ($userSearchDTO) {
+
+                return $query->where('national_code', $userSearchDTO->getNationalCode());
+            })
+            ->when($userSearchDTO->getRoleId(), function ($query) use ($userSearchDTO) {
+                return $query->whereHas(
+                    'roles', function ($query) use ($userSearchDTO) {
+                    $query->where('roles.id', $userSearchDTO->getRoleId());
+                });
+            })
+            ->paginate(config('user.user_paginate_count'));
     }
 }
