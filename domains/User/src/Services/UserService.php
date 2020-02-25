@@ -75,13 +75,14 @@ class UserService
      */
     public function loginWithApi(UserLoginDTO $loginDTO): UserLoginDTO
     {
+
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
-            $role = $this->getUserImportantActiveRole($user->id);
-
+            $role = $this->getUserImportantActiveOrPendingRole($user->id);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
             $loginDTO->setRole($role);
             $loginDTO->setId($user->id);
+            Auth::login($user, true);
             return $loginDTO;
         }
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
@@ -92,9 +93,10 @@ class UserService
      * @return Role
      * @throws UserDoseNotHaveActiveRole
      */
-    protected function getUserImportantActiveRole(int $userId): Role
+    protected function getUserImportantActiveOrPendingRole(int $userId): Role
     {
-        $role = $this->userRepository->getActiveRoles($userId);
+        $role = $this->userRepository->getActiveAndPendingRoles($userId);
+
         if (!$role) {
             throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
         }
@@ -109,8 +111,8 @@ class UserService
     public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
     {
         $user = $this->userRepository->createNewUser($userRegisterInfoDTO);
-        $role = $this->getUserImportantActiveRole($user->id);
-        \auth()->loginUsingId($user->id);
+        $role = $this->getUserImportantActiveOrPendingRole($user->id);
+        Auth::login($user, true);
         $userLoginDTO = new UserLoginDTO();
         $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
             ->setRole($role)
@@ -154,5 +156,10 @@ class UserService
         $provinceSearchDTO = $user->province_of_birth ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
         $provinceSearchDTO = $user->current_province_id ? $provinceSearchDTO->addProvinceId($user->current_province_id) : $provinceSearchDTO;
         return $this->provinceService->searchProvinces($provinceSearchDTO);
+    }
+
+    public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
+    {
+        $user = $this->userRepository->editUserInfo($userId,$userEditDTO);
     }
 }

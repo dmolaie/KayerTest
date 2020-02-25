@@ -20,6 +20,7 @@ class ModifyUserAddFeildsTable extends Migration
             $table->string('field_of_activities')->nullable();
             $table->string('address_of_work')->nullable();
             $table->string('work_phone')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

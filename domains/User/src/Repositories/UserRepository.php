@@ -75,7 +75,7 @@ class UserRepository
             ->exists();
     }
 
-    public function getActiveRoles(int $userId)
+    public function getActiveAndPendingRoles(int $userId)
     {
         return $this->entityName::findOrFail($userId)
             ->roles()->whereIn(
@@ -85,5 +85,44 @@ class UserRepository
                     config('user.user_role_pending_status')
                 ])
             ->orderBy('role_id')->first();
+    }
+
+    public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
+    {
+        $user = $this->entityName::findOrFail($userId);
+        $user->name = $userEditDTO->getName();
+        $user->email = $userEditDTO->getEmail();
+        if($userEditDTO->getPassword()){
+            $user->password = bcrypt($userEditDTO->getPassword());
+        }
+        $user->address_of_obtaining_degree = $userEditDTO->getAddressOfObtainingDegree();
+        $user->last_education_degree = $userEditDTO->getLastEducationalDegree();
+        $user->educational_field = $userEditDTO->getEducationalField();
+        $user->job_title = $userEditDTO->getJobTitle();
+        $user->marital_status = $userEditDTO->getMaritalStatus();
+        $user->identity_number = $userEditDTO->getIdentityNumber();
+        $user->city_of_birth = $userEditDTO->getCityOfBirth();
+        $user->province_of_birth = $userEditDTO->getProvinceOfBirth();
+        $user->essential_mobile = $userEditDTO->getEssentialMobile();
+        $user->city_of_work = $userEditDTO->getCityOfWork();
+        $user->province_of_work = $userEditDTO->getProvinceOfWork();
+        $user->phone = $userEditDTO->getPhone();
+        $user->current_address = $userEditDTO->getCurrentAddress();
+        $user->current_city_id = $userEditDTO->getCurrentCityId();
+        $user->current_province_id = $userEditDTO->getCurrentProvinceId();
+        $user->mobile = $userEditDTO->getMobile();
+        $user->date_of_birth = $userEditDTO->getDateOfBirth();
+        $user->gender = $userEditDTO->getGender();
+        $user->last_name = $userEditDTO->getLastName();
+        $user->day_of_cooperation = $userEditDTO->getDayOfCooperation();
+        $user->know_community_by = $userEditDTO->getKnowCommunityBy();
+        $user->motivation_for_cooperation = $userEditDTO->getMotivationForCooperation();
+        $user->field_of_activities = $userEditDTO->getFieldOfActivities();
+        $user->address_of_work = $userEditDTO->getAddressOfWork();
+        $user->work_phone = $userEditDTO->getWorkPhone();
+        if(!empty($user->getDirty())){
+            $user->save();
+        }
+        return $user;
     }
 }
