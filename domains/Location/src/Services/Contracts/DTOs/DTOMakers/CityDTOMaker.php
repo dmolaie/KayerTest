@@ -25,9 +25,12 @@ class CityDTOMaker
      */
     public function convertMany($cities): array
     {
-        return $cities->map(function ($city) {
-            return $this->convert($city);
-        })->toArray();
+        $citiesInfo = [];
+        foreach ($cities as $city) {
+            $citiesInfo[$city->id] = $this->convert($city);
+        }
+        return $citiesInfo;
+
     }
 
     /**
