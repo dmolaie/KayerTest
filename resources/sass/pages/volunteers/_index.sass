@@ -1,0 +1,40 @@
+.vol-page
+  .p-0-5
+    padding: 0 5px
+  .i-page
+    &__list
+      margin: 10px 0 20px
+      &_item
+        &:not(:last-of-type)
+          margin-bottom: 6px
+  &__cover
+    margin: 10px 0
+    height: 300px
+    &:first-of-type
+      margin-top: 20px
+    @include Xl_Screen
+      height: 400px
+  .dnt-page__btn
+    margin-bottom: 0
+
+
+.vnt-page
+  .p-0-10
+    padding: 0 10px
+  .m-0-15
+    margin-bottom: 25px
+  &__box
+    margin-top: 0 !important
+    padding: 32px 30px 70px 25px
+  &__btn
+    margin: 30px auto -20px
+    padding: 9px 20px 5px
+    @include L_Screen
+      min-width: 300px
+  .field__gender
+    &.has-error
+      .error-message
+        top: auto
+        bottom: -26px
+        transform: translateY(0)
+        text-align: right
