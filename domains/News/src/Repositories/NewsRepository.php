@@ -28,8 +28,6 @@ class NewsRepository
         $news->first_title = $newsCreateDTO->getFirstTitle();
         $news->second_title = $newsCreateDTO->getSecondTitle();
         $news->abstract = $newsCreateDTO->getAbstract();
-        $news->description = $newsCreateDTO->getDescription();
-        $news->category_id = $newsCreateDTO->getCategoryId();
         $news->publish_date = $newsCreateDTO->getPublishDate();
         $news->source_link = $newsCreateDTO->getSourceLink();
         $news->status = $newsCreateDTO->getStatus();
@@ -38,6 +36,9 @@ class NewsRepository
         $news->language = $newsCreateDTO->getLanguage();
         $news->parent_id = $newsCreateDTO->getParentId();
         $news->save();
+        $secondaryCategoryId = array_diff($newsCreateDTO->getCategoryId(), [$newsCreateDTO->getCategoryIsMain()]);
+        $news->categories()->attach($secondaryCategoryId, ['is_main' => false]);
+        $news->categories()->attach([$newsCreateDTO->getCategoryIsMain()], ['is_main' => true]);
         return $news;
     }
 
@@ -48,7 +49,6 @@ class NewsRepository
         $news->second_title = $newsEditDTO->getSecondTitle();
         $news->abstract = $newsEditDTO->getAbstract();
         $news->description = $newsEditDTO->getDescription();
-        $news->category_id = $newsEditDTO->getCategoryId();
         $news->publish_date = $newsEditDTO->getPublishDate();
         $news->source_link = $newsEditDTO->getSourceLink();
         $news->status = $newsEditDTO->getStatus();
@@ -58,6 +58,12 @@ class NewsRepository
         $getDirty = $news->getDirty();
         if (!empty($getDirty)) {
             $news->save();
+        }
+        if($newsEditDTO->getCategoryIsMain()){
+            $secondaryCategoryId = array_diff($newsEditDTO->getCategoryId(), [$newsEditDTO->getCategoryIsMain()]);
+            $news->categories()->sync([$newsEditDTO->getCategoryIsMain() => ['is_main' => true]]);
+            $news->categories()->detach($secondaryCategoryId);
+            $news->categories()->attach($secondaryCategoryId, ['is_main' => false]);
         }
         return $news;
     }

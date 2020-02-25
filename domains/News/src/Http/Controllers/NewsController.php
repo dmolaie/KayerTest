@@ -43,7 +43,6 @@ class NewsController extends EhdaBaseController
 
     public function editNews(EditNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
     {
-
         $newsEditDTO = $request->createNewsEditDTO();
         $newsInfoDTO = $this->newsService->editNews($newsEditDTO);
         return $this->response(
@@ -51,7 +50,6 @@ class NewsController extends EhdaBaseController
             Response::HTTP_OK,
             trans('news::response.edit_successful')
         );
-
     }
 
     public function getListForAdmin(

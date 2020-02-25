@@ -17,12 +17,10 @@ class CategoriesTableSeeder extends Seeder
                 [
                     'name_en' => 'scientific test'. $rand,
                     'name_fa' => ' تست علمی'. $rand,
-                    'type'    => 'news',
                 ],
                 [
                     'name_en' => 'sport test'. $rand,
                     'name_fa' => ' تست ورزشی'. $rand,
-                    'type'    => 'event',
                 ]
             ]
         );
@@ -31,7 +29,6 @@ class CategoriesTableSeeder extends Seeder
             [
                 'name_en'   => 'medical test'. $rand,
                 'name_fa'   => 'پزشکی تست'. $rand,
-                'type'      => 'news',
                 'parent_id' => Category::first()->id
             ]
         ]);
@@ -39,7 +36,6 @@ class CategoriesTableSeeder extends Seeder
             [
                 'name_en'   => 'Cardiovascular test'. $rand,
                 'name_fa'   => 'قلب و عروق تست'. $rand,
-                'type'      => 'news',
                 'parent_id' => Category::latest('id')->first()->id
             ]
         ]);
