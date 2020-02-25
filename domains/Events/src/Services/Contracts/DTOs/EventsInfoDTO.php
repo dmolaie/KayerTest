@@ -252,7 +252,7 @@ class EventsInfoDTO
     /**
      * @return Category|null
      */
-    public function getCategory(): ?Category
+    public function getCategory()
     {
         return $this->category;
     }
@@ -261,7 +261,7 @@ class EventsInfoDTO
      * @param Category|null $category
      * @return EventsInfoDTO
      */
-    public function setCategory(?Category $category): EventsInfoDTO
+    public function setCategory($category): EventsInfoDTO
     {
         $this->category = $category;
         return $this;

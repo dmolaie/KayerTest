@@ -2,6 +2,8 @@
 
 namespace Domains\Category\Entities;
 
+use Domains\Events\Entities\Events;
+use Domains\News\Entities\News;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -29,4 +31,16 @@ class Category extends Model
         return $this->belongsTo(self::class, 'parent_id');
 
     }
+
+    public function news()
+    {
+        return $this->morphedByMany(News::class, 'categorible');
+    }
+
+    public function events()
+    {
+        return $this->morphedByMany(Events::class, 'categorible');
+    }
+
+
 }

@@ -4,8 +4,8 @@
 namespace Domains\News\Services\Contracts\DTOs\DTOMakers;
 
 
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\News\Entities\News;
 use Domains\News\Services\Contracts\DTOs\NewsInfoDTO;
 
@@ -13,8 +13,8 @@ class NewsInfoDTOMaker
 {
     public function convertMany($newsCollection, ?AttachmentGetInfoDTO $attachments = null)
     {
-        return $newsCollection->map(function ($news) use($attachments){
-            return $this->convert($news,$attachments->getImages()[$news->id]??null);
+        return $newsCollection->map(function ($news) use ($attachments) {
+            return $this->convert($news, $attachments->getImages()[$news->id] ?? null);
         })->toArray();
     }
 
@@ -24,7 +24,7 @@ class NewsInfoDTOMaker
         $newsInfoDTO->setFirstTitle($news->first_title)
             ->setStatus($news->status)
             ->setId($news->id)
-            ->setCategory($news->category)
+            ->setCategory($this->categories($news->categories))
             ->setSourceLink($news->source_link)
             ->setSecondTitle($news->second_title)
             ->setPublishDate($news->publish_date)
@@ -39,6 +39,16 @@ class NewsInfoDTOMaker
             ->setProvince($news->province);
 
         return $newsInfoDTO;
+    }
+
+    private function categories($categories)
+    {
+        return $categories->map(function ($category) {
+            $data['name_en'] = $category->name_en;
+            $data['id'] = $category->id;
+            $data['is_main'] = $category->pivot->is_main ? true : false;
+            return $data;
+        })->toArray();
     }
 
     private function getRelationNewsId(News $news)

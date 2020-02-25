@@ -18,7 +18,6 @@ class Events extends Migration
             $table->string('title');
             $table->text('abstract')->nullable();
             $table->text('description')->nullable();
-            $table->integer('category_id')->nullable()->unsigned();
             $table->dateTime('publish_date');
             $table->dateTime('event_start_date');
             $table->dateTime('event_end_date');

@@ -96,7 +96,7 @@ class NewsEditDTO extends NewsBaseSaveDTO
     /**
      * @return int|null
      */
-    public function getCategoryId(): ?int
+    public function getCategoryId(): ?array
     {
         return $this->categoryId;
     }
@@ -105,9 +105,27 @@ class NewsEditDTO extends NewsBaseSaveDTO
      * @param int|null $categoryId
      * @return NewsEditDTO
      */
-    public function setCategoryId(?int $categoryId): NewsEditDTO
+    public function setCategoryId(?array $categoryId): NewsEditDTO
     {
         $this->categoryId = $categoryId;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryIsMain()
+    {
+        return $this->categoryIsMain;
+    }
+
+    /**
+     * @param mixed $categoryIsMain
+     * @return NewsEditDTO
+     */
+    public function setCategoryIsMain($categoryIsMain): NewsEditDTO
+    {
+        $this->categoryIsMain = $categoryIsMain;
         return $this;
     }
 
