@@ -13,6 +13,7 @@ use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
+use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
@@ -43,6 +44,10 @@ class UserService
      * @var ProvinceService
      */
     private $provinceService;
+    /**
+     * @var UserBriefInfoDTOMaker
+     */
+    private $userBriefInfoDTOMaker;
 
     /**
      * UserService constructor.
@@ -51,13 +56,15 @@ class UserService
      * @param UserFullInfoDTOMaker $userFullInfoDTOMaker
      * @param CityServices $cityServices
      * @param ProvinceService $provinceService
+     * @param UserBriefInfoDTOMaker $userBriefInfoDTOMaker
      */
     public function __construct(
         RoleServices $roleServices,
         UserRepository $userRepository,
         UserFullInfoDTOMaker $userFullInfoDTOMaker,
         CityServices $cityServices,
-        ProvinceService $provinceService
+        ProvinceService $provinceService,
+        UserBriefInfoDTOMaker $userBriefInfoDTOMaker
     ) {
 
         $this->roleServices = $roleServices;
@@ -65,6 +72,7 @@ class UserService
         $this->userFullInfoDTOMaker = $userFullInfoDTOMaker;
         $this->cityServices = $cityServices;
         $this->provinceService = $provinceService;
+        $this->userBriefInfoDTOMaker = $userBriefInfoDTOMaker;
     }
 
     /**
@@ -160,6 +168,10 @@ class UserService
 
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
     {
-        $user = $this->userRepository->editUserInfo($userId,$userEditDTO);
+        $user = $this->userRepository->editUserInfo($userId, $userEditDTO);
+        $userAdditionalInfo = new UserAdditionalInfoDTO();
+        $userAdditionalInfo->setCities($this->getCitiesInfo($user))
+            ->setProvinces($this->getProvincesInfo($user));
+        return $this->userBriefInfoDTOMaker->convert($user, $userAdditionalInfo);
     }
 }

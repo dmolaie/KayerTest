@@ -6,6 +6,7 @@ namespace Domains\User\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
+use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\LegateRegisterRequest;
@@ -76,5 +77,12 @@ class UserController extends EhdaBaseController
             $this->userService->getUserFullInfo($userId)
         );
         return $this->response($data, 200);
+    }
+
+    public function updateUserInfo(UpdateUserInfoRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
+    {
+        $userId = Auth::id();
+        $data = $this->userService->editUserInfo($userId, $request->createUserEditDTO());
+        return $this->response($briefInfoPresenter->transform($data), Response::HTTP_OK);
     }
 }
