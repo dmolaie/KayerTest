@@ -398,6 +398,4 @@ try {
         )
     }
 
-} catch (e) {
-    console.log(e);
-}
+} catch (e) {}

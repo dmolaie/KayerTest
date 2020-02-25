@@ -752,9 +752,10 @@
     background: transparentize($c, (1 - .2))
     &::placeholder
       color: #9ba9ab
-  &:disabled
-    opacity: .6
+  &:disabled, &[readonly="readonly"]
+    opacity: .7
     pointer-events: none
+    filter: grayscale(.9)
 
 .error-message
   display: none

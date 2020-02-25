@@ -83,8 +83,32 @@ export const Debounce = ( callback, delay ) => {
     }
 };
 
-export const ScrollToEl = el => {
+export const RequestAnimation = (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame
+);
+
+export const SmoothScroll = offsetTop => {
     try {
-        el.scrollIntoView();
+        let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > offsetTop) {
+            window.scrollTo (0,currentScroll - ( currentScroll / 12 ));
+            ( !!RequestAnimation ) ? (
+                RequestAnimation(() => {
+                    SmoothScroll( offsetTop )
+                })
+            ) : (
+                setTimeout(() => {
+                    SmoothScroll( offsetTop )
+                }, 100 )
+            )
+        } else {
+            window.scrollTo (0,  ( offsetTop - 40 ) );
+        }
     } catch (e) {}
 };
+
+export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
+export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
+export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;

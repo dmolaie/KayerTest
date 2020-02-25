@@ -31,10 +31,16 @@
     padding: 9px 20px 5px
     @include L_Screen
       min-width: 300px
-  .field__gender
-    &.has-error
-      .error-message
-        top: auto
-        bottom: -26px
-        transform: translateY(0)
-        text-align: right
+  .field
+    &__gender
+      &.has-error
+        .error-message
+          top: auto
+          bottom: -26px
+          transform: translateY(0)
+          text-align: right
+    &__activity
+      &.has-error
+        .error-message
+          padding: 0 10px
+          transform: translateY(0)
