@@ -37,7 +37,7 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
-        if ( HasLength( requestInit.headers ) ) {
+        if ( !!requestInit.headers && HasLength( requestInit.headers ) ) {
             for ( let [key, value] of Object.entries( requestInit.headers ) ) {
                 headers.append( key, value );
             }

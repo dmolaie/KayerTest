@@ -10,7 +10,7 @@
              ]"
              @click.prevent="onClickNotificationItem( item )"
         >
-            <p class="notification__label font-base-bold user-select-none"
+            <p class="notification__label font-base font-bold user-select-none"
                :class="{ 'cursor-pointer': ( item.option.closeWithClick ) }"
             >
                 {{ item.text }}

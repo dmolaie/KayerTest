@@ -98,60 +98,22 @@
   &-black
     font:
       weight: 900
+  &-0
+    font-size: 0
   &-2xs
     @include fontSize( 8px )
   &-1xs
     @include fontSize( 10px )
-    &-medium
-      @extend .font-1xs
-      font:
-        weight: 500
-    &-bold
-      @extend .font-1xs
-      font:
-        weight: bold
   &-xs
     @include fontSize( 12px )
-    &-medium
-      @extend .font-xs
-      font:
-        weight: 500
-    &-bold
-      @extend .font-xs
-      font:
-        weight: bold
   &-sm
     @include fontSize( 14px )
-    &-medium
-      @extend .font-sm
-      font:
-        weight: 500
-    &-bold
-      @extend .font-sm
-      font:
-        weight: bold
   &-base
     @include fontSize( 16px )
-    &-medium
-      @extend .font-base
-      font:
-        weight: 500
-    &-bold
-      @extend .font-base
-      font:
-        weight: bold
   &-lg
     @include fontSize( 18px )
-    &-bold
-      @extend .font-lg
-      font:
-        weight: bold
   &-#{20}
     @include fontSize( 20px )
-    &-bold
-      @extend .font-20
-      font:
-        weight: bold
   &-#{22}
     @include fontSize( 22px )
   &-#{24}
@@ -365,6 +327,8 @@
 .bg
   &-white
     background-color: $white
+  &-snow
+    background: #f0f3f8
   &-black
     &-#{100}
       background-color: $black-100
@@ -432,3 +396,6 @@
     direction: ltr
 
 /* ----------> Global Class <---------- */
+
+.router-view
+  padding: 14px 30px 100px 35px

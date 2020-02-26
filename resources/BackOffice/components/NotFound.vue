@@ -7,7 +7,15 @@
 </template>
 
 <script>
+    import NotFoundService from '@services/service/NotFound';
+
+    let Service = null;
+
     export default {
-        name: 'NotFound'
+        name: 'NotFound',
+        mounted() {
+            Service = new NotFoundService( this );
+            Service.processViewPort();
+        }
     }
 </script>

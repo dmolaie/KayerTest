@@ -13,7 +13,8 @@
         name: "Logout",
         mounted() {
             Service = new LogoutService( this );
-            Service.logoutProcess()
+            Service.viewPortProcess();
+            Service.logoutProcess();
         }
     }
 </script>
