@@ -29,12 +29,6 @@ class CreateNewsTable extends Migration
             $table->integer('parent_id')->nullable()->unsigned();
             $table->timestamps();
 
-            $table->foreign('category_id')
-                ->on('categories')
-                ->references('id')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->foreign('province_id')->on('provinces')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('editor_id')->on('users')

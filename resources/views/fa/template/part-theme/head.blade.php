@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#004883">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon/apple-icon-180x180.png">-->
     <!--    <link rel="apple-touch-icon" sizes="152x152" href="/image/favicon/apple-icon-152x152.png">-->
     <!--    <link rel="apple-touch-icon" sizes="144x144" href="/image/favicon/apple-icon-144x144.png">-->

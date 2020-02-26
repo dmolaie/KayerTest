@@ -23,6 +23,7 @@ services:
       volumes:
           - '/etc/localtime:/etc/localtime:ro'
           - ./docker-compose/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+          - ./docker-compose/nginx/main.conf:/etc/nginx/nginx.conf
           - '.:/var/www/'
       networks:
           - ehda-network

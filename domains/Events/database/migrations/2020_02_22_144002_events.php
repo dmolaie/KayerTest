@@ -36,11 +36,6 @@ class Events extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('category_id')->on('categories')
-                ->references('id')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->foreign('province_id')->on('provinces')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
 
