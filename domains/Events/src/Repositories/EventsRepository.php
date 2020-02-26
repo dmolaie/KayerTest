@@ -18,7 +18,6 @@ class EventsRepository
         $events->title = $eventsCreateDTO->getTitle();
         $events->abstract = $eventsCreateDTO->getAbstract();
         $events->description = $eventsCreateDTO->getDescription();
-        $events->category_id = $eventsCreateDTO->getCategoryId();
         $events->publish_date = $eventsCreateDTO->getPublishDate();
         $events->event_start_date = $eventsCreateDTO->getEventStartDate();
         $events->event_end_date = $eventsCreateDTO->getEventEndDate();
@@ -33,6 +32,9 @@ class EventsRepository
         $events->publisher_id = $eventsCreateDTO->getPublisher()->id;
         $events->language = $eventsCreateDTO->getLanguage();
         $events->save();
+        $secondaryCategoryId = array_diff($eventsCreateDTO->getCategoryId(), [$eventsCreateDTO->getCategoryIsMain()]);
+        $events->categories()->attach($secondaryCategoryId, ['is_main' => false]);
+        $events->categories()->attach([$eventsCreateDTO->getCategoryIsMain()], ['is_main' => true]);
         return $events;
     }
 
@@ -42,7 +44,6 @@ class EventsRepository
         $events->title = $eventsEditDTO->getTitle();
         $events->abstract = $eventsEditDTO->getAbstract();
         $events->description = $eventsEditDTO->getDescription();
-        $events->category_id = $eventsEditDTO->getCategoryId();
         $events->publish_date = $eventsEditDTO->getPublishDate();
         $events->event_start_date = $eventsEditDTO->getEventStartDate();
         $events->event_end_date = $eventsEditDTO->getEventEndDate();
@@ -58,6 +59,12 @@ class EventsRepository
         $getDirty = $events->getDirty();
         if (!empty($getDirty)) {
             $events->save();
+        }
+        if($eventsEditDTO->getCategoryIsMain()){
+            $secondaryCategoryId = array_diff($eventsEditDTO->getCategoryId(), [$eventsEditDTO->getCategoryIsMain()]);
+            $events->categories()->sync([$eventsEditDTO->getCategoryIsMain() => ['is_main' => true]]);
+            $events->categories()->detach($secondaryCategoryId);
+            $events->categories()->attach($secondaryCategoryId, ['is_main' => false]);
         }
         return $events;
     }

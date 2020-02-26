@@ -6,11 +6,14 @@ namespace Domains\User\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
+use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\LegateRegisterRequest;
+use Domains\User\Http\Requests\UpdateUserInfoRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
 use Domains\User\Services\UserService;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UserController
@@ -64,5 +67,14 @@ class UserController extends EhdaBaseController
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function getFullUserInfo(UserFullInfoPresenter $userFullInfoPresenter)
+    {
+        $userId = Auth::id();
+        $data = $userFullInfoPresenter->transform(
+            $this->userService->getUserFullInfo($userId)
+        );
+        return $this->response($data, 200);
     }
 }

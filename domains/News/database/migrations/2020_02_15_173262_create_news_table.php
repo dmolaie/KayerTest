@@ -19,7 +19,6 @@ class CreateNewsTable extends Migration
             $table->string('second_title')->nullable();
             $table->text('abstract')->nullable();
             $table->text('description')->nullable();
-            $table->integer('category_id')->nullable()->unsigned();
             $table->dateTime('publish_date');
             $table->string('source_link')->nullable();
             $table->enum('status', config('news.news_statue'));
@@ -29,12 +28,6 @@ class CreateNewsTable extends Migration
             $table->bigInteger('publisher_id')->unsigned();
             $table->integer('parent_id')->nullable()->unsigned();
             $table->timestamps();
-
-            $table->foreign('category_id')
-                ->on('categories')
-                ->references('id')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
 
             $table->foreign('province_id')->on('provinces')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');

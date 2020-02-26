@@ -54,8 +54,8 @@ class Events extends Model
         return $this->belongsTo(Province::class);
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->morphToMany(Category::class, 'categorible')->withPivot('is_main')->withTimestamps();
     }
 }

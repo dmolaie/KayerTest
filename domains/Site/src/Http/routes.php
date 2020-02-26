@@ -10,6 +10,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/interactions','PagesController@interactions')->name('interactions');
         Route::get('/foundations','PagesController@foundations')->name('foundations');
         Route::get('/mission-and-vision','PagesController@missionAndVision')->name('mission-and-vision');
+        Route::get('/donation-card','PagesController@donationAndCard')->name('donation-card')->middleware('web');
     });
 
     Route::prefix('archive')->name('archive.')->group(function () {

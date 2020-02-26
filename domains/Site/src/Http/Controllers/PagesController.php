@@ -39,4 +39,8 @@ class PagesController extends Controller
         return view('site::'.$request->language.'.pages.mission-and-vision');
     }
 
+    public function donationAndCard(Request $request)
+    {
+        return view('site::' . $request->language . '.pages.donation-card');
+    }
 }

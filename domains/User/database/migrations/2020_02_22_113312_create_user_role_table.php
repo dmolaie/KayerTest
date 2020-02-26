@@ -19,6 +19,7 @@ class CreateUserRoleTable extends Migration
             $table->bigInteger('role_id')->unsigned();
             $table->enum('status', config('user.user_role_status'));
             $table->timestamps();
+            $table->unique(['role_id', 'user_id']);
 
             $table->foreign('role_id')
                 ->references('id')

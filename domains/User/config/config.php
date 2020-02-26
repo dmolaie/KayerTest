@@ -5,6 +5,7 @@ return [
     'user_marital_statuses'   => ['single', 'married', 'other'],
     'client_role_id'          => 4,
     'legate_role_id'          => 3,
+    'admin_role_id'           => 1,
     'user_role_status'        => ['active', 'pending', 'inactive'],
     'user_role_active_status' => 'active',
     'user_role_pending_status'=> 'pending',
