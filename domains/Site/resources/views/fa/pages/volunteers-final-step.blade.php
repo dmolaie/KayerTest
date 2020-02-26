@@ -125,9 +125,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         تاریخ تولد
                                     </span>
-                                    <div class="w-full flex items-stretch text-center user-select-none">
+                                    <div class="field__date_birth w-full flex items-stretch text-center user-select-none">
                                         <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
-                                            <select class="vnt-page__select vnt-page__select--day">
+                                            <select class="vnt-page__select vnt-page__select--day"
+                                                    name="birth_day"
+                                            >
                                                 <option value="">
                                                     روز
                                                 </option>
@@ -146,7 +148,9 @@
                                             </select>
                                         </div>
                                         <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
-                                            <select class="vnt-page__select vnt-page__select--month">
+                                            <select class="vnt-page__select vnt-page__select--month"
+                                                    name="birth_month"
+                                            >
                                                 <option value="">
                                                     ماه
                                                 </option>
@@ -189,7 +193,9 @@
                                             </select>
                                         </div>
                                         <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
-                                            <select class="vnt-page__select vnt-page__select--year">
+                                            <select class="vnt-page__select vnt-page__select--year"
+                                                    name="birth_year"
+                                            >
                                                 <option value="">
                                                     سال
                                                 </option>
@@ -223,11 +229,12 @@
                                     </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
-                                    <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
-                                        محل تولد
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        استان محل تولد
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--birth"
-                                            name="birth_city"
+                                    <div class="field__birth_province w-full">
+                                        <select class="vnt-page__select vnt-page__select--birth-province"
+                                            name="birth_province"
                                     >
                                         <option value="">
                                             انتخاب کنید...
@@ -242,28 +249,56 @@
                                             خارجه
                                         </option>
                                     </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                        وضعیت تاهل
+                                        شهر محل تولد
                                     </span>
-                                    <div class="field__marital w-full">
-                                        <select class="vnt-page__select vnt-page__select--marital"
-                                                name="marital"
+                                    <div class="field__birth_city w-full">
+                                        <select class="vnt-page__select vnt-page__select--birth-city"
+                                                name="birth_city"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
                                             </option>
                                             <option value="1">
-                                                مجرد
+                                                تهران
                                             </option>
                                             <option value="2">
-                                                متاهل
+                                                فناپ
                                             </option>
                                             <option value="3">
-                                                سایر
+                                                خارجه
                                             </option>
                                         </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        وضعیت تاهل
+                                    </span>
+                                    <div class="field__marital w-full flex items-stretch text-center user-select-none">
+                                        <label class="w-1/2 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                            <input type="radio"
+                                                   class="dnt-page__radio none"
+                                                   name="marital" required="required" autocomplete="off"
+                                            />
+                                            <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
+                                                مجرد
+                                            </span>
+                                        </label>
+                                        <label class="w-1/2 input input--blue p-0 border border-r-0 border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                            <input type="radio"
+                                                   class="dnt-page__radio none"
+                                                   name="marital" required="required" autocomplete="off"
+                                            />
+                                            <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
+                                                متاهل
+                                            </span>
+                                        </label>
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </div>
                                 </div>
@@ -318,7 +353,31 @@
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                        محل تحصیل
+                                        استان محل تحصیل
+                                    </span>
+                                    <div class="field__edu-province w-full">
+                                        <select class="vnt-page__select vnt-page__select--edu-province"
+                                                name="edu_province"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        شهر محل تحصیل
                                     </span>
                                     <div class="field__edu-city w-full">
                                         <select class="vnt-page__select vnt-page__select--edu-city"
@@ -395,7 +454,31 @@
                             <div class="flex flex-wrap">
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                        محل سکونت
+                                        استان محل سکونت
+                                    </span>
+                                    <div class="field__home-province w-full">
+                                        <select class="vnt-page__select vnt-page__select--home-province"
+                                                name="home_province"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        شهر محل سکونت
                                     </span>
                                     <div class="field__home-city w-full">
                                         <select class="vnt-page__select vnt-page__select--home-city"
@@ -447,7 +530,7 @@
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         کدپستی منزل
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__home-postal w-full block">
                                         <input type="text"
                                                placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
@@ -477,9 +560,30 @@
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
-                                        محل کار
+                                        استان محل کار
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--work-city"
+                                    <select class="vnt-page__select vnt-page__select--job-province"
+                                            name="job_province"
+                                    >
+                                        <option value="">
+                                            انتخاب کنید...
+                                        </option>
+                                        <option value="1">
+                                            تهران
+                                        </option>
+                                        <option value="2">
+                                            فناپ
+                                        </option>
+                                        <option value="3">
+                                            خارجه
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                        شهر محل کار
+                                    </span>
+                                    <select class="vnt-page__select vnt-page__select--job-city"
                                             name="job_city"
                                     >
                                         <option value="">
@@ -526,7 +630,7 @@
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         کد پستی محل کار
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__job-postal w-full block">
                                         <input type="text"
                                                placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"

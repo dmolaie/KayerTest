@@ -29,11 +29,21 @@
   &__btn
     margin: 30px auto -20px
     padding: 9px 20px 5px
+    @include SpinnerLoading(22px, 3px, $white)
     @include L_Screen
       min-width: 300px
   .field
-    &__gender
+    &__gender, &__marital
       &.has-error
+        .error-message
+          top: auto
+          bottom: -26px
+          transform: translateY(0)
+          text-align: right
+    &__date_birth
+      &.has-error
+        .dropdown__input.dropdown__input
+          color: #9ba9ab
         .error-message
           top: auto
           bottom: -26px
