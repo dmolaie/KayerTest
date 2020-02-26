@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 Route::group(['middleware' => ['web']], function () {
 
     Route::post('/register', 'UserController@register')->name('register-ehda');
