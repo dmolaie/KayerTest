@@ -42,9 +42,27 @@ try {
         }
     };
 
-    document.querySelector('.dnt-page__select--day').MountDropdown( CONFIG );
-    document.querySelector('.dnt-page__select--month').MountDropdown( CONFIG );
-    document.querySelector('.dnt-page__select--year').MountDropdown( CONFIG );
+    document.querySelector('.dnt-page__select--day').MountDropdown({
+        ...CONFIG,
+        onSelected( dropdown ) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.parentElement.classList.remove('has-error');
+        }
+    });
+    document.querySelector('.dnt-page__select--month').MountDropdown({
+        ...CONFIG,
+        onSelected( dropdown ) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.parentElement.classList.remove('has-error');
+        }
+    });
+    document.querySelector('.dnt-page__select--year').MountDropdown({
+        ...CONFIG,
+        onSelected( dropdown ) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.parentElement.classList.remove('has-error');
+        }
+    });
     document.querySelector('.dnt-page__select--birth').MountDropdown( FILTER_CONFIG );
     document.querySelector('.dnt-page__select--birth-city').MountDropdown( FILTER_CONFIG );
     document.querySelector('.dnt-page__select--province').MountDropdown( FILTER_CONFIG );
@@ -180,6 +198,9 @@ try {
             get val() {
                 return !!HasLength( this.el.querySelectorAll('input[name="gender"]:checked') );
             },
+            get checkbox() {
+                return this.el.querySelectorAll('input[name="gender"]')
+            },
             validate() {
                 this.isValid = !!this.val;
                 HANDEL_ERROR_MESSAGE( this.el,
@@ -208,6 +229,21 @@ try {
                     this.isValid = false;
                     HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام پدر' ) );
                 }
+            }
+        },
+        date_birth: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__date_birth'),
+            validate() {
+                let day = this.el.querySelector('select[name="birth_day"]').value;
+                let month = this.el.querySelector('select[name="birth_month"]').value;
+                let year = this.el.querySelector('select[name="birth_year"]').value;
+                this.isValid = ( !!day && !!month && !!year );
+                ( this.isValid ) ? (
+                    HANDEL_ERROR_MESSAGE( this.el )
+                ) : (
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تاریخ تولد' ) )
+                );
             }
         },
         phone: {
@@ -422,7 +458,8 @@ try {
     const SET_FOCUS_EVENT_SECOND_STEP = () => {
         for ( let field in STEP_SECOND_ELEMENT ) {
             let fieldProperty = STEP_SECOND_ELEMENT[field],
-                input = fieldProperty['input'];
+                input = fieldProperty['input'],
+                checkboxes = fieldProperty['checkbox'];
             if ( !!input ) {
                 fieldProperty['input'].addEventListener(
                     'focus',
@@ -431,6 +468,10 @@ try {
                         target.parentElement.classList.remove( INPUT_ERROR_CLASSNAME );
                     }
                 )
+            } else if ( !!checkboxes ) {
+                fieldProperty['checkbox'].forEach(item => {
+                    item.addEventListener('change', ONBLUR_INPUT_FIELD);
+                })
             }
         }
     };

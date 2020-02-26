@@ -128,7 +128,7 @@
                                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                                 تاریخ تولد
                                             </span>
-                                            <div class="w-full flex items-stretch text-center user-select-none">
+                                            <div class="dnt-page__date_birth w-full flex items-stretch text-center user-select-none">
                                                 <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
                                                     <select class="dnt-page__select dnt-page__select--day"
                                                             name="birth_day" disabled="disabled"
@@ -228,6 +228,7 @@
                                                         </option>
                                                     </select>
                                                 </div>
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
                                         </div>
                                         <div class="dnt-page__input w-full block">
