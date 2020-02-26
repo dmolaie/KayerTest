@@ -6,12 +6,12 @@ import {
     toEnglishDigits,
     InvalidErrorMessage,
     RequiredErrorMessage,
+    PersianInvalidErrorMessage,
     OnlyNumber,
     EmailValidator,
     OnlyPersianAlphabet,
     PhoneNumberValidator,
     NationalCodeValidator,
-    PersianInvalidErrorMessage,
 } from '@vendor/plugin/helper';
 
 try {
@@ -654,6 +654,4 @@ try {
             }
         )
     }
-} catch (e) {
-    console.log(e);
-}
+} catch (e) {}

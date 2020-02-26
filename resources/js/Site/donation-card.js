@@ -1,11 +1,17 @@
 import Dropdown from '@vendor/plugin/dropdown';
 import {
     Length,
+    HasLength,
+    SmoothScroll,
     OnlyNumber,
+    EmailValidator,
     OnlyPersianAlphabet,
-    NationalCodeValidator,
+    PostalCodeValidator,
     PhoneNumberValidator,
-    EmailValidator
+    NationalCodeValidator,
+    InvalidErrorMessage,
+    RequiredErrorMessage,
+    PersianInvalidErrorMessage,
 } from '@vendor/plugin/helper';
 
 try {
@@ -19,18 +25,35 @@ try {
         }
     };
 
-    const FILTER_CONFIG = Object.assign({}, CONFIG, {
-        hasFilterItem: true,
-        filterPlaceholder: 'جستجو...',
-        filterClass: 'font-xs text-bayoux',
-        inputClass: 'input input--blue border border-solid rounded',
-    });
+    const FILTER_CONFIG = {
+        ...CONFIG,
+        ...{
+            hasFilterItem: true,
+            filterPlaceholder: 'جستجو...',
+            filterClass: 'font-xs text-bayoux',
+            inputClass: 'input input--blue border border-solid rounded',
+        }
+    };
+
+    const WITHOUT_FILTER_CONFIG = {
+        ...CONFIG,
+        ...{
+            inputClass: 'input input--blue border border-solid rounded',
+        }
+    };
 
     document.querySelector('.dnt-page__select--day').MountDropdown( CONFIG );
     document.querySelector('.dnt-page__select--month').MountDropdown( CONFIG );
     document.querySelector('.dnt-page__select--year').MountDropdown( CONFIG );
     document.querySelector('.dnt-page__select--birth').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--city').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--birth-city').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--province').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--home-city').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--edu_province').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--edu_city').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select_edu-level').MountDropdown( WITHOUT_FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--job-province').MountDropdown( FILTER_CONFIG );
+    document.querySelector('.dnt-page__select--job-city').MountDropdown( FILTER_CONFIG );
 } catch (e) {}
 
 try {
@@ -67,16 +90,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( OnlyPersianAlphabet( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `نام را با حروف فارسی وارد نمایید.` );
-                    }
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد نام ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام' ) );
                 }
             }
         },
@@ -91,16 +113,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( OnlyPersianAlphabet( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `نام خانوادگی را با حروف فارسی وارد نمایید.` );
-                    }
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام خانوادگی' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد نام خانوادگی ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام خانوادگی' ) );
                 }
             }
         },
@@ -115,22 +136,57 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( NationalCodeValidator( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `فرمت کد ملی نامعتبر است.` );
-                    }
+                    this.isValid = NationalCodeValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'کد ملی' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد کد ملی ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'کد ملی' ) );
                 }
             }
         }
     };
-
+    // ->.
     const STEP_SECOND_ELEMENT = {
+        birth_certificate: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__certificate'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyNumber( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'شماره شناسنامه' ) )
+                    );
+                } else {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                }
+            }
+        },
+        gender: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__gender'),
+            get val() {
+                return !!HasLength( this.el.querySelectorAll('input[name="gender"]:checked') );
+            },
+            validate() {
+                this.isValid = !!this.val;
+                HANDEL_ERROR_MESSAGE( this.el,
+                    !this.val ? RequiredErrorMessage( 'جنسیت' ) : ''
+                );
+            }
+        },
         parent_name: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__parent-name'),
@@ -142,16 +198,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( OnlyPersianAlphabet( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `نام پدر را با حروف فارسی وارد نمایید.` );
-                    }
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام پدر' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد نام پدر ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام پدر' ) );
                 }
             }
         },
@@ -166,40 +221,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( PhoneNumberValidator( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, 'فرمت تلفن همراه نامعتبر است.' );
-                    }
+                    this.isValid = PhoneNumberValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'تلفن همراه' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد تلفن همراه ضروری است.` );
-                }
-            }
-        },
-        tel: {
-            isValid: true,
-            el: GET_ELEMENT('dnt-page__tel'),
-            get input() {
-                return this.el.querySelector('.input')
-            },
-            get val() {
-                return this.input.value;
-            },
-            validate() {
-                if ( !!this.val ) {
-                    if ( OnlyNumber( this.val ) && Length(this.val) === 11 ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `فرمت تلفن منزل نامعتبر است.` );
-                    }
-                } else {
-                    this.isValid = true;
-                    HANDEL_ERROR_MESSAGE( this.el );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تلفن همراه' ) );
                 }
             }
         },
@@ -219,7 +249,7 @@ try {
                         HANDEL_ERROR_MESSAGE( this.el );
                     } else {
                         this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `فرمت ایمیل نامعتبر است.` );
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'ایمیل' ) );
                     }
                 } else {
                     this.isValid = true;
@@ -227,9 +257,9 @@ try {
                 }
             }
         },
-        home: {
+        home_province: {
             isValid: false,
-            el: GET_ELEMENT('dnt-page__home'),
+            el: GET_ELEMENT('dnt-page__home-province'),
             get input() {
                 return this.el.querySelector('select')
             },
@@ -242,8 +272,85 @@ try {
                     HANDEL_ERROR_MESSAGE( this.el );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد محل سکونت ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'محل سکونت' ) );
                 }
+            }
+        },
+        home_city: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__home-city'),
+            get input() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'محل سکونت' ) );
+                }
+            }
+        },
+        tel: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__tel'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = ( OnlyNumber( this.val ) && Length(this.val) === 11 );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'تلفن منزل' ) )
+                    );
+                } else this.isValid = true;
+            }
+        },
+        home_postal_code: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__postal_code'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = PostalCodeValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'کدپستی منزل' ) )
+                    );
+                } else this.isValid = true;
+            }
+        },
+        edu_level: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__edu-level'),
+            get input() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                this.isValid = !!this.val;
+                ( !!this.val ) ? (
+                    HANDEL_ERROR_MESSAGE( this.el )
+                ) : (
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'میزان تحصیلات' ) )
+                );
             }
         },
         password: {
@@ -257,16 +364,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( Length( this.val ) >= 8 ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, 'گذرواژه نباید کمتر از 8 کاراکتر باشد.' );
-                    }
+                    this.isValid = ( Length( this.val ) >= 8 );
+                    ( Length( this.val ) >= 8 ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, 'گذرواژه نباید کمتر از 8 کاراکتر باشد.' )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد گذرواژه ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'گذرواژه' ) );
                 }
             }
         },
@@ -281,16 +387,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( this.val === GET_ELEMENT('dnt-page__password input').value ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, 'گذرواژه‌ تطابق ندارد.' );
-                    }
+                    this.isValid = ( this.val === GET_ELEMENT('dnt-page__password input').value );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE(this.el)
+                    ) : (
+                        HANDEL_ERROR_MESSAGE(this.el, 'گذرواژه‌ تطابق ندارد.')
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد تکرار گذرواژه ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تکرار گذرواژه' ) );
                 }
             }
         },
@@ -316,14 +421,17 @@ try {
 
     const SET_FOCUS_EVENT_SECOND_STEP = () => {
         for ( let field in STEP_SECOND_ELEMENT ) {
-            let fieldProperty = STEP_SECOND_ELEMENT[field];
-            fieldProperty['input'].addEventListener(
-                'focus',
-                ( { target } ) => {
-                    target.addEventListener('blur', ONBLUR_INPUT_FIELD);
-                    target.parentElement.classList.remove( INPUT_ERROR_CLASSNAME );
-                }
-            )
+            let fieldProperty = STEP_SECOND_ELEMENT[field],
+                input = fieldProperty['input'];
+            if ( !!input ) {
+                fieldProperty['input'].addEventListener(
+                    'focus',
+                    ( { target } ) => {
+                        target.addEventListener('blur', ONBLUR_INPUT_FIELD);
+                        target.parentElement.classList.remove( INPUT_ERROR_CLASSNAME );
+                    }
+                )
+            }
         }
     };
 
@@ -335,7 +443,7 @@ try {
                 item.disabled = true;
             });
         DISCARD_BUTTON.classList.add('none');
-        Object.values( STEP_FIRST_ELEMENT ).forEach(field => field.input.disabled = false);
+        Object.values( STEP_FIRST_ELEMENT ).forEach(field => field.input.readOnly = false);
     };
 
     const OPEN_SECOND_STEP = () => {
@@ -352,14 +460,15 @@ try {
         event.preventDefault();
         let fields = Object.values( STEP_FIRST_ELEMENT );
         let isValid = fields.every(field => {
-            if ( !field.isValid ) field.validate();
+            field.validate();
+            if ( !field.isValid ) SmoothScroll( field.el.offsetTop );
             return field.isValid;
         });
         if ( isValid ) {
             SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
             setTimeout(() => {
                 currentStep = 2;
-                fields.forEach(field => field.input.disabled = true);
+                fields.forEach(field => field.input.readOnly = true);
                 SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
                 OPEN_SECOND_STEP();
             }, 500);
@@ -369,7 +478,9 @@ try {
     const HANDEL_SECOND_STEP = ( event ) => {
         let fields = Object.values( STEP_SECOND_ELEMENT );
         let isValid = fields.every(field => {
-            if ( !field.isValid ) field.validate();
+            field.validate();
+            console.log(field.el);
+            if ( !field.isValid ) SmoothScroll( field.el.offsetTop );
             return field.isValid;
         });
         if ( !isValid ) {

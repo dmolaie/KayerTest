@@ -47,6 +47,11 @@ export const NationalCodeValidator = payload => {
     return (sum < 2 && check === sum) || (sum >= 2 && check + sum === 11)
 };
 
+export const PostalCodeValidator = payload => {
+    const REGEX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
+    return REGEX.test( toEnglishDigits( payload ) );
+};
+
 export const OnlyPersianAlphabet = string => {
     const REGEX = /^[\u0600-\u06FF\u0698\u067E\u0686\u06AF]+$/;
     return REGEX.test( string );
