@@ -40,7 +40,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="full_name" autocomplete="off" required="required" readonly="readonly"
+                                               name="last_name" autocomplete="off" required="required" readonly="readonly"
                                                value="سلیمانیان"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -55,6 +55,7 @@
                                             <input type="radio"
                                                    class="dnt-page__radio none"
                                                    name="gender" required="required" autocomplete="off"
+                                                   value="0"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 خانم
@@ -64,6 +65,7 @@
                                             <input type="radio"
                                                    class="dnt-page__radio none"
                                                    name="gender" required="required" autocomplete="off"
+                                                   value="1"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 آقا
@@ -73,6 +75,7 @@
                                             <input type="radio"
                                                    class="dnt-page__radio none"
                                                    name="gender" required="required" autocomplete="off"
+                                                   value="3"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 سایر
@@ -95,14 +98,14 @@
                                     </label>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
-                                    <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         شماره شناسنامه
                                     </span>
                                     <label class="field__cert w-full block">
                                         <input type="text"
                                                placeholder="فقط عدد"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="birth_certificate" autocomplete="off"
+                                               name="identity_number" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -234,7 +237,7 @@
                                     </span>
                                     <div class="field__birth_province w-full">
                                         <select class="vnt-page__select vnt-page__select--birth-province"
-                                            name="birth_province"
+                                            name="province_of_birth"
                                     >
                                         <option value="">
                                             انتخاب کنید...
@@ -258,7 +261,7 @@
                                     </span>
                                     <div class="field__birth_city w-full">
                                         <select class="vnt-page__select vnt-page__select--birth-city"
-                                                name="birth_city"
+                                                name="city_of_birth"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -284,7 +287,8 @@
                                         <label class="w-1/2 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
                                             <input type="radio"
                                                    class="dnt-page__radio none"
-                                                   name="marital" required="required" autocomplete="off"
+                                                   name="marital_status" required="required" autocomplete="off"
+                                                   value="0"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 مجرد
@@ -293,7 +297,8 @@
                                         <label class="w-1/2 input input--blue p-0 border border-r-0 border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
                                             <input type="radio"
                                                    class="dnt-page__radio none"
-                                                   name="marital" required="required" autocomplete="off"
+                                                   name="marital_status" required="required" autocomplete="off"
+                                                   value="1"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 متاهل
@@ -314,7 +319,7 @@
                                     </span>
                                     <div class="field__edu-level w-full">
                                         <select class="vnt-page__select vnt-page__select--edu-level"
-                                                name="edu_level"
+                                                name="last_education_degree"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -346,7 +351,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="edu_field" autocomplete="off" required="required"
+                                               name="education_field" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -357,7 +362,7 @@
                                     </span>
                                     <div class="field__edu-province w-full">
                                         <select class="vnt-page__select vnt-page__select--edu-province"
-                                                name="edu_province"
+                                                name="education_province_id"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -381,7 +386,7 @@
                                     </span>
                                     <div class="field__edu-city w-full">
                                         <select class="vnt-page__select vnt-page__select--edu-city"
-                                                name="edu_city"
+                                                name="education_city_id"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -427,7 +432,7 @@
                                         <input type="text"
                                                placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="phone" autocomplete="off" required="required" readonly="readonly"
+                                               name="mobile" autocomplete="off" required="required" readonly="readonly"
                                                value="09013040663"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -441,7 +446,7 @@
                                         <input type="text"
                                                placeholder="تلفن اضطراری ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="tel_emergency" autocomplete="off" required="required"
+                                               name="essential_mobile" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -458,7 +463,7 @@
                                     </span>
                                     <div class="field__home-province w-full">
                                         <select class="vnt-page__select vnt-page__select--home-province"
-                                                name="home_province"
+                                                name="current_province_id"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -482,7 +487,7 @@
                                     </span>
                                     <div class="field__home-city w-full">
                                         <select class="vnt-page__select vnt-page__select--home-city"
-                                                name="home_city"
+                                                name="current_city_id"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -508,7 +513,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="home_address" autocomplete="off" required="required"
+                                               name="current_address" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -521,7 +526,7 @@
                                         <input type="text"
                                                placeholder="تلفن منزل ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="home_tel" autocomplete="off" required="required"
+                                               name="phone" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -553,7 +558,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="job" autocomplete="off" required="required"
+                                               name="job_title" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -563,7 +568,7 @@
                                         استان محل کار
                                     </span>
                                     <select class="vnt-page__select vnt-page__select--job-province"
-                                            name="job_province"
+                                            name="province_of_work"
                                     >
                                         <option value="">
                                             انتخاب کنید...
@@ -584,7 +589,7 @@
                                         شهر محل کار
                                     </span>
                                     <select class="vnt-page__select vnt-page__select--job-city"
-                                            name="job_city"
+                                            name="city_of_work"
                                     >
                                         <option value="">
                                             انتخاب کنید...
@@ -608,7 +613,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="job_address" autocomplete="off"
+                                               name="address_of_work" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -621,7 +626,7 @@
                                         <input type="text"
                                                placeholder="تلفن محل کار ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="job_tel" autocomplete="off"
+                                               name="work_phone" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -634,7 +639,7 @@
                                         <input type="text"
                                                placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="job_postal_code" autocomplete="off"
+                                               name="work_postal_code" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -651,7 +656,7 @@
                                     </span>
                                     <div class="field__familiarization w-full">
                                         <select class="vnt-page__select vnt-page__select--familiarization"
-                                                name="familiarization"
+                                                name="know_community_by"
                                         >
                                             <option value="">
                                                 انتخاب کنید...
@@ -683,7 +688,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="motivation" autocomplete="off" required="required"
+                                               name="motivation_for_cooperation" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -696,7 +701,7 @@
                                         <input type="text"
                                                placeholder="تعداد روز در ماه"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="alloc_time" autocomplete="off" required="required"
+                                               name="day_of_cooperation" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -728,7 +733,7 @@
                                         <input type="password"
                                                placeholder="تکرار گذرواژه"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="repeat_password" autocomplete="off" required="required"
+                                               name="password_confirmation" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -743,7 +748,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="0"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -753,7 +759,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="1"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -763,7 +770,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="2"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -773,7 +781,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="3"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -783,7 +792,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="4"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -793,7 +803,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="5"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -803,7 +814,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="6"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -813,7 +825,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="7"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -823,7 +836,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="7"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -833,7 +847,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="8"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -843,7 +858,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="9"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -853,7 +869,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="10"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -863,7 +880,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="11"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -871,10 +889,11 @@
                                     </span>
                                 </label>
                             </div>
-
                             <button class="vnt-page__btn vnt-page__btn--submit block m-0-auto text-white font-lg font-bold bg-green border-green-200-2 rounded text-center l:transition-bg l:hover:bg-green-200">
                                 ارسال اطلاعات
                             </button>
+                            <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8 text-center"
+                            ></p>
                         </form>
                     </div>
                 </div>
@@ -883,5 +902,7 @@
     @endsection
 
     @section('scripts')
+        <script src="{{asset('js/site/vendors~donation-card~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/donation-card~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/site/volunteers-final.js')}}" defer></script>
     @endsection

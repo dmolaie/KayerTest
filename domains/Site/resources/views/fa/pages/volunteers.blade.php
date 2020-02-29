@@ -91,7 +91,7 @@
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
                                 </div>
-                                <p class="vol-page__res none text-green font-sm font-bold cursor-default m-t-8">
+                                <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8">
                                     اندکی صبر
                                 </p>
                                 <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
@@ -261,5 +261,6 @@
     @endsection
 
     @section('scripts')
+        <script src="{{asset('js/site/vendors~donation-card~volunteers.js')}}" defer></script>
         <script src="{{asset('js/site/volunteers.js')}}" defer></script>
     @endsection

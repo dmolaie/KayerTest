@@ -1,3 +1,6 @@
+import Endpoint from '@endpoints';
+import TokenService from '@services/service/Token';
+import HTTPService from './service/HttpService';
 import {
     SmoothScroll,
     EmailValidator,
@@ -16,6 +19,7 @@ try {
 
     const SUBMIT_BUTTON  = document.querySelector('.dnt-page__btn--submit');
     const RESPONSE_MESSAGE  = document.querySelector('.vol-page__res');
+    console.log(RESPONSE_MESSAGE);Z
 
     const GET_ELEMENT = classname => document.querySelector(`.vol-page__from .${classname}`);
     const HANDEL_ERROR_MESSAGE = ( element, text = '' ) => {

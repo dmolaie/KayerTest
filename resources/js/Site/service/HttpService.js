@@ -33,18 +33,21 @@ export default class HTTPService {
             ( resolve, reject ) => {
                 let init = this.onBeforeRequest( requestInit );
                 fetch( requestInfo, init )
-                    .then( response =>
-                        ( response.ok ) ? (
-                            resolve( response.json() )
-                        ) : (
-                            reject( response.json() )
-                        )
+                    .then( response => {
+                            ( response.ok ) ? (
+                                resolve( response.json() )
+                            ) : (
+                                reject( response.json() )
+                            )
+                        }
                     )
-                    .catch( except => reject( except ) )
+                    .catch( except => reject( except ))
             }
         )
         .then( response => response )
-        .catch( exception => exception )
+        .catch( async exception => {
+            throw await exception;
+        })
     }
 
     static _QueryString( route, obj ) {

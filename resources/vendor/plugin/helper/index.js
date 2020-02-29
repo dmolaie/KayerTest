@@ -53,7 +53,7 @@ export const PostalCodeValidator = payload => {
 };
 
 export const OnlyPersianAlphabet = string => {
-    const REGEX = /^[\u0600-\u06FF\u0698\u067E\u0686\u06AF]+$/;
+    const REGEX = /^[\u0600-\u06FF\u0698\u067E\u0686\u06AF\u0020]+$/;
     return REGEX.test( string );
 };
 

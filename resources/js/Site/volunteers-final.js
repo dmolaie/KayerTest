@@ -1,4 +1,8 @@
 import Dropdown from '@vendor/plugin/dropdown';
+import DateService from '@vendor/plugin/date';
+import Endpoint from '@endpoints';
+import TokenService from '@services/service/Token';
+import HTTPService from './service/HttpService';
 import {
     Length,
     HasLength,
@@ -13,6 +17,7 @@ import {
     OnlyPersianAlphabet,
     PhoneNumberValidator,
     NationalCodeValidator,
+    RedirectRoute
 } from '@vendor/plugin/helper';
 
 try {
@@ -82,6 +87,7 @@ try {
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
     const FROM_SUBMIT_BUTTON = document.querySelector('.vnt-page__btn');
+    const FROM_MESSAGE = document.querySelector('.vol-page__res');
 
     const GET_ELEMENT = classname => document.querySelector(`.vnt-page__form .${classname}`);
     const HANDEL_ERROR_MESSAGE = ( element, text = '' ) => {
@@ -119,7 +125,7 @@ try {
                 }
             }
         },
-        full_name: {
+        last_name: {
             isValid: false,
             el: GET_ELEMENT('field__full-name'),
             get input() {
@@ -181,8 +187,8 @@ try {
                 }
             }
         },
-        birth_certificate: {
-            isValid: true,
+        identity_number: {
+            isValid: false,
             el: GET_ELEMENT('field__cert'),
             get input() {
                 return this.el.querySelector('.input')
@@ -199,8 +205,8 @@ try {
                         HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'شماره شناسنامه' ) )
                     );
                 } else {
-                    this.isValid = true;
-                    HANDEL_ERROR_MESSAGE( this.el );
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'شماره شناسنامه' ) );
                 }
             }
         },
@@ -227,7 +233,7 @@ try {
                 }
             }
         },
-        date_birth: {
+        date_of_birth: {
             isValid: false,
             el: GET_ELEMENT('field__date_birth'),
             validate() {
@@ -242,7 +248,7 @@ try {
                 );
             }
         },
-        birth_province: {
+        province_of_birth: {
             isValid: false,
             el: GET_ELEMENT('field__birth_province'),
             get input() {
@@ -260,7 +266,7 @@ try {
                 );
             }
         },
-        birth_city: {
+        city_of_birth: {
             isValid: false,
             el: GET_ELEMENT('field__birth_city'),
             get input() {
@@ -278,14 +284,14 @@ try {
                 );
             }
         },
-        marital: {
+        marital_status: {
             isValid: false,
             el: GET_ELEMENT('field__marital'),
             get val() {
-                return !!HasLength( this.el.querySelectorAll('input[name="marital"]:checked') );
+                return !!HasLength( this.el.querySelectorAll('input[name="marital_status"]:checked') );
             },
             get checkbox() {
-                return this.el.querySelectorAll('input[name="marital"]')
+                return this.el.querySelectorAll('input[name="marital_status"]')
             },
             validate() {
                 this.isValid = !!this.val;
@@ -294,7 +300,7 @@ try {
                 );
             }
         },
-        edu_level: {
+        last_education_degree: {
             isValid: false,
             el: GET_ELEMENT('field__edu-level'),
             get input() {
@@ -312,7 +318,7 @@ try {
                 );
             }
         },
-        edu_field: {
+        education_field: {
             isValid: false,
             el: GET_ELEMENT('field__edu-field'),
             get input() {
@@ -335,7 +341,7 @@ try {
                 }
             }
         },
-        edu_province: {
+        education_province_id: {
             isValid: false,
             el: GET_ELEMENT('field__edu-province'),
             get input() {
@@ -353,7 +359,7 @@ try {
                 );
             }
         },
-        edu_city: {
+        education_city_id: {
             isValid: false,
             el: GET_ELEMENT('field__edu-city'),
             get input() {
@@ -394,7 +400,7 @@ try {
                 }
             }
         },
-        phone: {
+        mobile: {
             isValid: false,
             el: GET_ELEMENT('field__phone'),
             get input() {
@@ -417,7 +423,7 @@ try {
                 }
             }
         },
-        tel_emergency: {
+        essential_mobile: {
             isValid: false,
             el: GET_ELEMENT('field__tel-emergency'),
             get input() {
@@ -440,7 +446,7 @@ try {
                 }
             }
         },
-        home_province: {
+        current_province_id: {
             isValid: false,
             el: GET_ELEMENT('field__home-province'),
             get input() {
@@ -458,7 +464,7 @@ try {
                 );
             }
         },
-        home_city: {
+        current_city_id: {
             isValid: false,
             el: GET_ELEMENT('field__home-city'),
             get input() {
@@ -476,7 +482,7 @@ try {
                 );
             }
         },
-        home_address: {
+        current_address: {
             isValid: false,
             el: GET_ELEMENT('field__home-address'),
             get input() {
@@ -499,7 +505,7 @@ try {
                 }
             }
         },
-        home_tel: {
+        phone: {
             isValid: true,
             el: GET_ELEMENT('field__home-tel'),
             get input() {
@@ -542,7 +548,7 @@ try {
                 } else this.isValid = true;
             }
         },
-        job: {
+        job_title: {
             isValid: false,
             el: GET_ELEMENT('field__job'),
             get input() {
@@ -565,7 +571,7 @@ try {
                 }
             }
         },
-        job_address: {
+        address_of_work: {
             isValid: true,
             el: GET_ELEMENT('field__job-address'),
             get input() {
@@ -588,7 +594,7 @@ try {
                 }
             }
         },
-        job_tel: {
+        work_phone: {
             isValid: true,
             el: GET_ELEMENT('field__job-tel'),
             get input() {
@@ -611,7 +617,7 @@ try {
                 }
             }
         },
-        job_postal_code: {
+        work_postal_code: {
             isValid: false,
             el: GET_ELEMENT('field__job-postal'),
             get input() {
@@ -631,7 +637,7 @@ try {
                 } else this.isValid = true;
             }
         },
-        familiarization: {
+        know_community_by: {
             isValid: false,
             el: GET_ELEMENT('field__familiarization'),
             get input() {
@@ -649,7 +655,7 @@ try {
                 );
             }
         },
-        motivation: {
+        motivation_for_cooperation: {
             isValid: false,
             el: GET_ELEMENT('field__motivation'),
             get input() {
@@ -672,7 +678,7 @@ try {
                 }
             }
         },
-        alloc_time: {
+        day_of_cooperation: {
             isValid: false,
             el: GET_ELEMENT('field__alloc-time'),
             get input() {
@@ -724,7 +730,7 @@ try {
                 } else this.isValid = true;
             }
         },
-        repeat_password: {
+        password_confirmation: {
             isValid: false,
             el: GET_ELEMENT('field__rpt-password'),
             get input() {
@@ -753,14 +759,14 @@ try {
                 } else this.isValid = true;
             }
         },
-        activity: {
+        field_of_activities: {
             isValid: false,
             el: GET_ELEMENT('field__activity'),
             get val() {
-                return !!HasLength( this.el.querySelectorAll('input[name="activity"]:checked') );
+                return !!HasLength( this.el.querySelectorAll('input[name="field_of_activities"]:checked') );
             },
             get checkbox() {
-                return this.el.querySelectorAll('input[name="activity"]')
+                return this.el.querySelectorAll('input[name="field_of_activities"]')
             },
             validate() {
                 this.isValid = !!this.val;
@@ -796,36 +802,117 @@ try {
         }
     }
 
-    const HANDEL_FORM_SUBMIT = ( event ) => {
+    const CREATE_REQUEST_PAYLOAD = () => {
+        const DATE_OF_BIRTH = () => {
+            let jd = parseInt( document.querySelector('select[name="birth_day"]').value ),
+                jm = parseInt( document.querySelector('select[name="birth_month"]').value ),
+                jy = parseInt( document.querySelector('select[name="birth_year"]').value );
+            return (
+                DateService.jalaaliToTimestamp( jy, jm, jd )
+            )
+        };
+
+        const GENDER_FIELD = document.querySelector('input[name="gender"]:checked')?.value,
+              MARITAL_FIELD = FIELD_ELEMENT['marital_status'].el.querySelector('input[name="marital_status"]:checked')?.value,
+              PROVINCE_OF_JOB_FIELD = document.querySelector('select[name="province_of_work"]')?.value,
+              CITY_OF_JOB_FIELD = document.querySelector('select[name="city_of_work"]')?.value,
+              ACTIVITIES_FIELD = FIELD_ELEMENT['field_of_activities'].el.querySelectorAll('input[name="field_of_activities"]:checked');
+
+        let payload = {
+            'national_code': ( toEnglishDigits( FIELD_ELEMENT['national_code'].val ) ),
+            'gender': ( parseInt( GENDER_FIELD ) ),
+            'name': ( FIELD_ELEMENT['name'].val ),
+            'last_name': ( FIELD_ELEMENT['last_name'].val ),
+            'father_name': ( FIELD_ELEMENT['father_name'].val ),
+            'identity_number': ( parseInt( toEnglishDigits( FIELD_ELEMENT['identity_number'].val ) ) ),
+            'province_of_birth': ( parseInt( FIELD_ELEMENT['province_of_birth'].val ) ),
+            'city_of_birth': ( parseInt( FIELD_ELEMENT['city_of_birth'].val ) ),
+            'date_of_birth': ( DATE_OF_BIRTH() ),
+            'job_title': ( FIELD_ELEMENT['job_title'].val ),
+            'last_education_degree': ( parseInt( FIELD_ELEMENT['last_education_degree'].val ) ),
+            'mobile': ( toEnglishDigits( FIELD_ELEMENT['mobile'].val ) ),
+            'phone': ( toEnglishDigits( FIELD_ELEMENT['phone'].val ) ),
+            'essential_mobile': ( toEnglishDigits( FIELD_ELEMENT['essential_mobile'].val ) ),
+            'current_province_id': ( parseInt( FIELD_ELEMENT['current_province_id'].val ) ),
+            'current_city_id': ( parseInt( FIELD_ELEMENT['current_city_id'].val ) ),
+            'email': ( toEnglishDigits( FIELD_ELEMENT['email'].val ) ),
+            'marital_status': ( parseInt( MARITAL_FIELD ) ),
+            'education_field': ( FIELD_ELEMENT['education_field'].val ),
+            'education_province_id': ( parseInt( FIELD_ELEMENT['education_province_id'].val ) ),
+            'education_city_id': ( parseInt( FIELD_ELEMENT['education_city_id'].val ) ),
+            'current_address': ( toEnglishDigits( FIELD_ELEMENT['current_address'].val ) ),
+            'home_postal_code': ( FIELD_ELEMENT['home_postal_code'].val ? parseInt( toEnglishDigits( FIELD_ELEMENT['home_postal_code'].val ) ) : '' ),
+            'province_of_work': ( PROVINCE_OF_JOB_FIELD ? parseInt( PROVINCE_OF_JOB_FIELD ) : '' ),
+            'city_of_work': ( CITY_OF_JOB_FIELD ? parseInt( CITY_OF_JOB_FIELD ) : '' ),
+            'know_community_by': ( parseInt( toEnglishDigits( FIELD_ELEMENT['know_community_by'].val ) ) ),
+            'motivation_for_cooperation': ( FIELD_ELEMENT['motivation_for_cooperation'].val ),
+            'day_of_cooperation': ( parseInt( toEnglishDigits( FIELD_ELEMENT['day_of_cooperation'].val ) ) ),
+            'password': ( toEnglishDigits( FIELD_ELEMENT['password'].val ) ),
+            'password_confirmation': ( toEnglishDigits( FIELD_ELEMENT['password_confirmation'].val ) ),
+            'address_of_work': ( FIELD_ELEMENT['address_of_work'].val ),
+            'work_phone': ( toEnglishDigits( FIELD_ELEMENT['work_phone'].val ) ),
+            'work_postal_code': ( FIELD_ELEMENT['work_postal_code'].val ? parseInt( toEnglishDigits( FIELD_ELEMENT['work_postal_code'].val ) ) : '' ),
+            'field_of_activities': ( [...ACTIVITIES_FIELD].map( int => int.value ) ),
+        };
+
+        Object.keys( payload )
+            .forEach( key => {
+                if ( !payload[key] && typeof payload[key] === 'string' )
+                    delete payload[key]
+            });
+
+        return payload;
+    };
+
+    const HANDEL_FORM_SUBMIT = async () => {
         let fields = Object.values( FIELD_ELEMENT );
         let fieldsIsValid = fields.every(field => {
             field.validate();
             if ( !field.isValid ) SmoothScroll( field.el.offsetTop );
             return field.isValid;
         });
-        ( !fieldsIsValid ) ? (
-            event.preventDefault()
-        ) : (
-            FROM_SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME )
-        );
-        // if ( fieldsIsValid ) {
-        //     FROM_SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
-        //     setTimeout(() => {
-        //         FROM_SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
-        //     }, 500);
-        // } else {
-        //     event.preventDefault();
-        // }
+        if ( fieldsIsValid ) {
+            try {
+                FROM_MESSAGE.classList.add('none');
+                FROM_SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
+                let payload = CREATE_REQUEST_PAYLOAD();
+                let response = await HTTPService.postRequest(Endpoint.get( Endpoint.REGISTER_LEGATE ), payload);
+                const TOKEN_SERVICE = new TokenService( response );
+                const USER_HAS_ACCESS = TOKEN_SERVICE._HandelToken();
+                if ( USER_HAS_ACCESS ) {
+                    // RedirectRoute();
+                }
+            }
+            catch ( exception ) {
+                let errors = exception?.errors;
+                if ( errors ) {
+                    Object.entries( errors )
+                        .forEach( ([key, val], index) => {
+                            let item = FIELD_ELEMENT[key];
+                            if ( !!item ) {
+                                HANDEL_ERROR_MESSAGE( item.el, val[0] );
+                                if ( index === 0 ) SmoothScroll( item.el.offsetTop );
+                            }
+                        });
+                }
+                else {
+                    FROM_MESSAGE.textContent = ( exception?.message || 'متاسفانه مشکلی پیش‌آمده است.' );
+                    FROM_MESSAGE.classList.remove('none');
+                }
+            }
+            finally {
+                FROM_SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
+            }
+        }
     };
 
     if ( !!FROM_SUBMIT_BUTTON ) {
         FROM_SUBMIT_BUTTON.addEventListener(
             'click',
-            event => {
-                HANDEL_FORM_SUBMIT( event );
+            async event => {
+                event.preventDefault();
+                await HANDEL_FORM_SUBMIT( event );
             }
         )
     }
-} catch (e) {
-    console.log(e);
-}
+} catch (e) {}
