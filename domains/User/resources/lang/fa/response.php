@@ -9,4 +9,6 @@ return array(
     'success_login' => 'لاگین با موفقیت انجام شد.',
     'success_register' => 'ثبت‌نام با موفقیت انجام شد.',
     'user_dose_not_have_active_role' => 'شما امکان ورود به سیستم را ندارید.',
+    'user_can_register' => 'کاربر میتواند ثبت نام نماید.',
+    'role_have_this_role' => 'کاربر قبلا برای این ثبت نام اقدام کرده است.'
 );

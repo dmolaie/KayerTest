@@ -6,11 +6,17 @@ namespace Domains\User\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
+use Domains\User\Exceptions\UserValidateDataUserException;
+use Domains\User\Exceptions\UserUnAuthorizedException;
+use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
+use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
+use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
+use Domains\User\Http\Requests\ValidateDataUserRequest;
 use Domains\User\Services\UserService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -51,9 +57,16 @@ class UserController extends EhdaBaseController
             );
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
+        } catch (UserUnAuthorizedException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
         }
     }
 
+    /**
+     * @param LegateRegisterRequest $request
+     * @param UserRegisterPresenter $userRegisterPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function legateRegister(LegateRegisterRequest $request, UserRegisterPresenter $userRegisterPresenter)
     {
         try {
@@ -66,9 +79,15 @@ class UserController extends EhdaBaseController
             );
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
+        } catch (UserUnAuthorizedException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
         }
     }
 
+    /**
+     * @param UserFullInfoPresenter $userFullInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getFullUserInfo(UserFullInfoPresenter $userFullInfoPresenter)
     {
         $userId = Auth::id();
@@ -76,5 +95,83 @@ class UserController extends EhdaBaseController
             $this->userService->getUserFullInfo($userId)
         );
         return $this->response($data, 200);
+    }
+
+    /**
+     * @param UpdateUserInfoRequest $request
+     * @param UserBriefInfoPresenter $briefInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateUserInfo(UpdateUserInfoRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
+    {
+        $userId = Auth::id();
+        $data = $this->userService->editUserInfo($userId, $request->createUserEditDTO());
+        return $this->response($briefInfoPresenter->transform($data), Response::HTTP_OK);
+    }
+
+    /**
+     * @param UserListForAdminRequest $request
+     * @param UserPaginateInfoPresenter $paginateInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getListForAdmin(
+        UserListForAdminRequest $request,
+        UserPaginateInfoPresenter $paginateInfoPresenter
+    ) {
+        $usersPaginateInfoDTOs = $this->userService->filterUsers($request->createUserSearchDTO());
+        return $this->response(
+            $paginateInfoPresenter->transform($usersPaginateInfoDTOs),
+            Response::HTTP_OK
+        );
+    }
+
+    public function ValidateDataUserClient(ValidateDataUserRequest $request)
+    {
+        try {
+            $validateDataUserDto = $request->validationDataUserDTO();
+            $validateUserResualt = $this->userService->ValidateDataUserClient($validateDataUserDto);
+
+            if (!$validateUserResualt) {
+                return $this->response(
+                    [],
+                    Response::HTTP_OK,
+                    trans('user::response.user_can_register')
+                );
+            }
+            return $this->response(
+                [],
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                trans('user::response.role_have_this_role')
+            );
+
+        } catch (UserValidateDataUserException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
+        }
+
+    }
+
+    public function ValidateDataUserLegate(ValidateDataUserRequest $request)
+    {
+        try {
+            $validateDataUserDto = $request->validationDataUserDTO();
+            $validateUserResualt = $this->userService->ValidateDataUserLegate($validateDataUserDto);
+
+            if (!$validateUserResualt) {
+                return $this->response(
+                    [],
+                    Response::HTTP_OK,
+                    trans('user::response.user_can_register')
+                );
+            }
+            return $this->response(
+                [],
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                trans('user::response.role_have_this_role')
+            );
+
+        } catch (UserValidateDataUserException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
+        }
+
     }
 }

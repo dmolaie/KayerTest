@@ -7,17 +7,21 @@ use Domains\Location\Services\CityServices;
 use Domains\Location\Services\Contracts\DTOs\SearchCityDTO;
 use Domains\Location\Services\Contracts\DTOs\SearchProvinceDTO;
 use Domains\Location\Services\ProvinceService;
+use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\Role\Entities\Role;
 use Domains\Role\Services\RoleServices;
 use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
+use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
+use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
+use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 use Illuminate\Support\Facades\Auth;
 
 class UserService
@@ -43,6 +47,14 @@ class UserService
      * @var ProvinceService
      */
     private $provinceService;
+    /**
+     * @var UserBriefInfoDTOMaker
+     */
+    private $userBriefInfoDTOMaker;
+    /**
+     * @var PaginationDTOMaker
+     */
+    private $paginationDTOMaker;
 
     /**
      * UserService constructor.
@@ -51,13 +63,17 @@ class UserService
      * @param UserFullInfoDTOMaker $userFullInfoDTOMaker
      * @param CityServices $cityServices
      * @param ProvinceService $provinceService
+     * @param UserBriefInfoDTOMaker $userBriefInfoDTOMaker
+     * @param PaginationDTOMaker $paginationDTOMaker
      */
     public function __construct(
         RoleServices $roleServices,
         UserRepository $userRepository,
         UserFullInfoDTOMaker $userFullInfoDTOMaker,
         CityServices $cityServices,
-        ProvinceService $provinceService
+        ProvinceService $provinceService,
+        UserBriefInfoDTOMaker $userBriefInfoDTOMaker,
+        PaginationDTOMaker $paginationDTOMaker
     ) {
 
         $this->roleServices = $roleServices;
@@ -65,6 +81,8 @@ class UserService
         $this->userFullInfoDTOMaker = $userFullInfoDTOMaker;
         $this->cityServices = $cityServices;
         $this->provinceService = $provinceService;
+        $this->userBriefInfoDTOMaker = $userBriefInfoDTOMaker;
+        $this->paginationDTOMaker = $paginationDTOMaker;
     }
 
     /**
@@ -78,10 +96,11 @@ class UserService
 
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
-            $role = $this->getUserImportantActiveOrPendingRole($user->id);
+            $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
             $loginDTO->setRole($role);
             $loginDTO->setId($user->id);
+            $loginDTO->setCardId($user->card_id);
             Auth::login($user, true);
             return $loginDTO;
         }
@@ -89,13 +108,13 @@ class UserService
     }
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return Role
      * @throws UserDoseNotHaveActiveRole
      */
-    protected function getUserImportantActiveOrPendingRole(int $userId): Role
+    protected function getUserImportantActiveOrPendingRole($user): Role
     {
-        $role = $this->userRepository->getActiveAndPendingRoles($userId);
+        $role = $this->userRepository->getActiveAndPendingRoles($user);
 
         if (!$role) {
             throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
@@ -107,19 +126,37 @@ class UserService
      * @param UserRegisterInfoDTO $userRegisterInfoDTO
      * @return UserLoginDTO
      * @throws UserDoseNotHaveActiveRole
+     * @throws UserUnAuthorizedException
      */
     public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
     {
-        $user = $this->userRepository->createNewUser($userRegisterInfoDTO);
-        $role = $this->getUserImportantActiveOrPendingRole($user->id);
+
+        $user = $this->userRepository->createOrUpdateUser(
+            $userRegisterInfoDTO,
+            $this->getUser($userRegisterInfoDTO));
+        $role = $this->getUserImportantActiveOrPendingRole($user);
         Auth::login($user, true);
         $userLoginDTO = new UserLoginDTO();
         $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
             ->setRole($role)
             ->setToken($user->createToken('ehda')->accessToken)
             ->setId($user->id)
+            ->setCardId($user->card_id)
             ->setName($user->name);
         return $userLoginDTO;
+
+    }
+
+    private function getUser(UserRegisterInfoDTO $userRegisterInfoDTO)
+    {
+        $user = $this->userRepository->findByNationalCode($userRegisterInfoDTO->getNationalCode());
+        if (!$user || Auth::attempt([
+                'national_code' => $userRegisterInfoDTO->getNationalCode(),
+                'password'      => $userRegisterInfoDTO->getPassword()
+            ])) {
+            return $user;
+        }
+        throw new UserUnAuthorizedException(trans('user::response.authenticate.error_username_password'));
 
     }
 
@@ -160,6 +197,26 @@ class UserService
 
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
     {
-        $user = $this->userRepository->editUserInfo($userId,$userEditDTO);
+        $user = $this->userRepository->editUserInfo($userId, $userEditDTO);
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function filterUsers(UserSearchDTO $userSearchDTO): PaginationDTOMaker
+    {
+        $users = $this->userRepository->searchUser($userSearchDTO);
+        return $this->paginationDTOMaker->perform(
+            $users,
+            UserBriefInfoDTOMaker::class
+        );
+    }
+
+    public function ValidateDataUserClient(ValidationDataUserDTO $validationDataUserDTO)
+    {
+        return $this->userRepository->checkHasRoleClient($validationDataUserDTO->getNationalCode());
+    }
+
+    public function ValidateDataUserLegate(ValidationDataUserDTO $validationDataUserDTO)
+    {
+        return $this->userRepository->checkHasRoleLegate($validationDataUserDTO->getNationalCode());
     }
 }
