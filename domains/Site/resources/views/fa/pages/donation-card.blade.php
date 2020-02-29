@@ -18,7 +18,7 @@
 
                             <form method="post" action=""
                                   class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none" >
-                            <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                     اطلاعات فردی
                                 </p>
                                 <div class="dnt-page__input w-full block">
@@ -84,6 +84,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
+                                                           value="0"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         خانم
@@ -93,6 +94,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
+                                                           value="1"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         آقا
@@ -102,6 +104,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
+                                                           value="2"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         سایر
@@ -361,7 +364,7 @@
                                             <label class="dnt-page__phone w-full block">
                                                 <input type="text"
                                                        placeholder="حروف فارسی"
-                                                       class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                                       class="input input--blue block w-full border border-solid rounded"
                                                        name="home_address" autocomplete="off" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -425,6 +428,19 @@
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
+                                        </div>
+                                        <div class="dnt-page__input w-full block">
+                                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                                رشته تحصیلی
+                                            </span>
+                                            <label class="dnt-page__job w-full block">
+                                                <input type="text"
+                                                       placeholder="حروف فارسی"
+                                                       class="input input--blue block w-full border border-solid rounded"
+                                                       name="edu_field" autocomplete="off" disabled="disabled"
+                                                />
+                                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                            </label>
                                         </div>
                                         <div class="dnt-page__input w-full block">
                                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
@@ -580,6 +596,9 @@
     @endsection
 
     @section('scripts')
+        <script src="{{asset('js/vendors~app~donation-card.js')}}" defer></script>
+        <script src="{{asset('js/app~donation-card.js')}}" defer></script>
+        <script src="{{asset('js/Login-vue~donation-card.js')}}" defer></script>
         <script src="{{asset('js/donation-card~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/donation-card.js')}}" defer></script>
     @endsection

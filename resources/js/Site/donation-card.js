@@ -1,8 +1,12 @@
 import Dropdown from '@vendor/plugin/dropdown';
+import DateService from '@vendor/plugin/date';
+import Endpoint from '@endpoints';
+import HTTPService from '@vendor/plugin/httpService';
 import {
     Length,
     HasLength,
     SmoothScroll,
+    toEnglishDigits,
     OnlyNumber,
     EmailValidator,
     OnlyPersianAlphabet,
@@ -497,8 +501,7 @@ try {
         DISCARD_BUTTON.classList.remove('none')
     };
     
-    const HANDEL_FIRST_STEP = ( event ) => {
-        event.preventDefault();
+    const HANDEL_FIRST_STEP = () => {
         let fields = Object.values( STEP_FIRST_ELEMENT );
         let isValid = fields.every(field => {
             field.validate();
@@ -516,16 +519,71 @@ try {
         }
     };
 
-    const HANDEL_SECOND_STEP = ( event ) => {
+    const FETCH_SECOND_STEP = async () => {
+        try {
+            const DATE_OF_BIRTH = () => {
+                let jd = parseInt( document.querySelector('select[name="birth_day"]').value ),
+                    jm = parseInt( document.querySelector('select[name="birth_month"]').value ),
+                    jy = parseInt( document.querySelector('select[name="birth_year"]').value );
+                return (
+                    DateService.jalaaliToTimestamp( jy, jm, jd )
+                )
+            };
+
+            let identity_number = STEP_SECOND_ELEMENT['birth_certificate'].val,
+                province_of_birth = document.querySelector('select[name="birth_province"]').value,
+                city_of_birth = document.querySelector('select[name="birth_city"]').value,
+                current_province_id = document.querySelector('select[name="home_province"]').value,
+                current_city_id = document.querySelector('select[name="home_city"]').value,
+                education_province_id = document.querySelector('select[name="edu_province"]').value,
+                education_city_id = document.querySelector('select[name="edu_city"]').value,
+                home_postal_code = STEP_SECOND_ELEMENT['home_postal_code'].val;
+
+            let payload = {
+                'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code']?.val ) ),
+                'gender': ( parseInt(toEnglishDigits( document.querySelector('input[name="gender"]:checked').value )) ),
+                'name': ( STEP_FIRST_ELEMENT['name'].val ),
+                'last_name': ( STEP_FIRST_ELEMENT['full_name'].val ),
+                'father_name': ( STEP_SECOND_ELEMENT['parent_name'].val ),
+                'identity_number': ( !!identity_number ? parseInt(toEnglishDigits( identity_number )) : '' ),
+                'province_of_birth': ( !!province_of_birth ? parseInt(toEnglishDigits(province_of_birth)) : '' ),
+                'city_of_birth': ( !!city_of_birth ? parseInt(toEnglishDigits(city_of_birth)) : '' ),
+                'date_of_birth': ( DATE_OF_BIRTH() ),
+                'job_title': ( document.querySelector('input[name="job"]').value ),
+                'last_education_degree': ( parseInt(toEnglishDigits( STEP_SECOND_ELEMENT['edu_level'].val )) ),
+                'phone': ( toEnglishDigits(STEP_SECOND_ELEMENT['tel'].val) ),
+                'mobile': ( toEnglishDigits(STEP_SECOND_ELEMENT['phone'].val) ),
+                'current_province_id': ( !!current_province_id ? parseInt(toEnglishDigits( current_province_id )) : '' ),
+                'current_city_id': ( !!current_city_id ? parseInt(toEnglishDigits( current_city_id )) : '' ),
+                'email': ( toEnglishDigits(STEP_SECOND_ELEMENT['email'].val) ),
+                'education_field': ( document.querySelector('input[name="edu_field"]').value ),
+                'education_province_id': ( !!education_province_id ? parseInt(toEnglishDigits( education_province_id )) : '' ),
+                'education_city_id': ( !!education_city_id ? parseInt(toEnglishDigits( education_city_id )) : '' ),
+                'current_address': ( toEnglishDigits(document.querySelector('input[name="home_address"]').value) ),
+                'home_postal_code': ( !!home_postal_code ? parseInt(toEnglishDigits( home_postal_code )) : '' ),
+                'password': ( toEnglishDigits(STEP_SECOND_ELEMENT['password'].val) ),
+            };
+
+            let headers = {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            };
+
+            let response = await HTTPService.postRequest('https://jsonplaceholder.typicode.com/posts', payload, {}, headers);
+            console.log('payload: ', response, payload);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const HANDEL_SECOND_STEP = async () => {
         let fields = Object.values( STEP_SECOND_ELEMENT );
         let isValid = fields.every(field => {
             field.validate();
-            console.log(field.el);
             if ( !field.isValid ) SmoothScroll( field.el.offsetTop );
             return field.isValid;
         });
-        if ( !isValid ) {
-            event.preventDefault();
+        if ( isValid ) {
+            await FETCH_SECOND_STEP()
         }
     };
 
@@ -540,14 +598,18 @@ try {
     if ( !!SUBMIT_BUTTON ) {
         SUBMIT_BUTTON.addEventListener(
             'click',
-            event => {
+            async ( event ) => {
+                event.preventDefault();
+                console.log('sdf');
                 ( currentStep === 1 ) ? (
-                    HANDEL_FIRST_STEP( event )
+                    HANDEL_FIRST_STEP()
                 ) : (
-                    HANDEL_SECOND_STEP( event )
+                    await HANDEL_SECOND_STEP()
                 );
             }
         )
     }
 
-} catch (e) {}
+} catch (e) {
+    console.log(e);
+}
