@@ -175,4 +175,28 @@ class UserRepository
         return $this->entityName::where('national_code',$nationalCode)
             ->first();
     }
+
+    public function checkHasRoleClient(int $nationalCode)
+    {
+        return $this->entityName::where('national_code', '=', $nationalCode)->firstOrFail()
+            ->roles()->whereIn(
+                'status',
+                [
+                    config('user.user_role_active_status'),
+                    config('user.user_role_pending_status')
+                ])->where('role_id','=', config('user.client_role_id')
+            )->exists();
+    }
+
+    public function checkHasRoleLegate(int $nationalCode)
+    {
+        return $this->entityName::where('national_code', '=', $nationalCode)->firstOrFail()
+            ->roles()->whereIn(
+                'status',
+                [
+                    config('user.user_role_active_status'),
+                    config('user.user_role_pending_status')
+                ])->where('role_id','=', config('user.legate_role_id')
+            )->exists();
+    }
 }

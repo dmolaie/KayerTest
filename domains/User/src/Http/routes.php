@@ -8,3 +8,5 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('/user-search', 'UserController@getListForAdmin')->middleware('auth:api')->name('user-search');
 Route::post('/register', 'UserController@register')->name('register-ehda');
 Route::post('/register-legate', 'UserController@legateRegister')->name('register-legate');
+
+

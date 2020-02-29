@@ -20,6 +20,7 @@ use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
+use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 use Illuminate\Support\Facades\Auth;
 
@@ -207,5 +208,15 @@ class UserService
             $users,
             UserBriefInfoDTOMaker::class
         );
+    }
+
+    public function ValidateDataUserClient(ValidationDataUserDTO $validationDataUserDTO)
+    {
+        return $this->userRepository->checkHasRoleClient($validationDataUserDTO->getNationalCode());
+    }
+
+    public function ValidateDataUserLegate(ValidationDataUserDTO $validationDataUserDTO)
+    {
+        return $this->userRepository->checkHasRoleLegate($validationDataUserDTO->getNationalCode());
     }
 }
