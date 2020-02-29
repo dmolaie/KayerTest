@@ -1,7 +1,8 @@
 import Dropdown from '@vendor/plugin/dropdown';
 import DateService from '@vendor/plugin/date';
 import Endpoint from '@endpoints';
-import HTTPService from '@vendor/plugin/httpService';
+import TokenService from '@services/service/Token';
+import HTTPService from './service/HttpService';
 import {
     Length,
     HasLength,
@@ -17,6 +18,12 @@ import {
     RequiredErrorMessage,
     PersianInvalidErrorMessage,
 } from '@vendor/plugin/helper';
+
+
+
+let headers = {
+    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
 
 try {
     const CONFIG = {
@@ -85,6 +92,7 @@ try {
     const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
+    const FORM_MESSAGE = document.querySelector('.form__msg');
     const SECOND_STEP = document.querySelector('.dnt-page__from_step-two');
     const SUBMIT_BUTTON = document.querySelector('.dnt-page__btn--submit');
     const DISCARD_BUTTON = document.querySelector('.dnt-page__btn--cancel');
@@ -501,7 +509,7 @@ try {
         DISCARD_BUTTON.classList.remove('none')
     };
     
-    const HANDEL_FIRST_STEP = () => {
+    const HANDEL_FIRST_STEP = async () => {
         let fields = Object.values( STEP_FIRST_ELEMENT );
         let isValid = fields.every(field => {
             field.validate();
@@ -510,12 +518,22 @@ try {
         });
         if ( isValid ) {
             SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
-            setTimeout(() => {
-                currentStep = 2;
-                fields.forEach(field => field.input.readOnly = true);
+            try {
+                let payload = {
+                    'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code'].val ) ),
+                };
+                let response = await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_USER ), payload, {}, headers);
+                console.log(response);
+                // FORM_MESSAGE.classList.add('none');
+                // currentStep = 2;
+                // fields.forEach(field => field.input.readOnly = true);
+                // OPEN_SECOND_STEP();
+            } catch (e) {
+                FORM_MESSAGE.classList.remove('none');
+                FORM_MESSAGE.textContent = e?.message || 'متاسفانه مشکلی پیش آمده است.';
+            } finally {
                 SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
-                OPEN_SECOND_STEP();
-            }, 500);
+            }
         }
     };
 
@@ -532,11 +550,16 @@ try {
 
             let identity_number = STEP_SECOND_ELEMENT['birth_certificate'].val,
                 province_of_birth = document.querySelector('select[name="birth_province"]').value,
+                job_title = document.querySelector('input[name="job"]').value,
                 city_of_birth = document.querySelector('select[name="birth_city"]').value,
+                phone = STEP_SECOND_ELEMENT['tel'].val,
+                email = STEP_SECOND_ELEMENT['email'].val,
                 current_province_id = document.querySelector('select[name="home_province"]').value,
                 current_city_id = document.querySelector('select[name="home_city"]').value,
+                education_field = document.querySelector('input[name="edu_field"]').value,
                 education_province_id = document.querySelector('select[name="edu_province"]').value,
                 education_city_id = document.querySelector('select[name="edu_city"]').value,
+                current_address = document.querySelector('input[name="home_address"]').value,
                 home_postal_code = STEP_SECOND_ELEMENT['home_postal_code'].val;
 
             let payload = {
@@ -545,33 +568,78 @@ try {
                 'name': ( STEP_FIRST_ELEMENT['name'].val ),
                 'last_name': ( STEP_FIRST_ELEMENT['full_name'].val ),
                 'father_name': ( STEP_SECOND_ELEMENT['parent_name'].val ),
-                'identity_number': ( !!identity_number ? parseInt(toEnglishDigits( identity_number )) : '' ),
-                'province_of_birth': ( !!province_of_birth ? parseInt(toEnglishDigits(province_of_birth)) : '' ),
-                'city_of_birth': ( !!city_of_birth ? parseInt(toEnglishDigits(city_of_birth)) : '' ),
                 'date_of_birth': ( DATE_OF_BIRTH() ),
-                'job_title': ( document.querySelector('input[name="job"]').value ),
                 'last_education_degree': ( parseInt(toEnglishDigits( STEP_SECOND_ELEMENT['edu_level'].val )) ),
-                'phone': ( toEnglishDigits(STEP_SECOND_ELEMENT['tel'].val) ),
                 'mobile': ( toEnglishDigits(STEP_SECOND_ELEMENT['phone'].val) ),
-                'current_province_id': ( !!current_province_id ? parseInt(toEnglishDigits( current_province_id )) : '' ),
-                'current_city_id': ( !!current_city_id ? parseInt(toEnglishDigits( current_city_id )) : '' ),
-                'email': ( toEnglishDigits(STEP_SECOND_ELEMENT['email'].val) ),
-                'education_field': ( document.querySelector('input[name="edu_field"]').value ),
-                'education_province_id': ( !!education_province_id ? parseInt(toEnglishDigits( education_province_id )) : '' ),
-                'education_city_id': ( !!education_city_id ? parseInt(toEnglishDigits( education_city_id )) : '' ),
-                'current_address': ( toEnglishDigits(document.querySelector('input[name="home_address"]').value) ),
-                'home_postal_code': ( !!home_postal_code ? parseInt(toEnglishDigits( home_postal_code )) : '' ),
                 'password': ( toEnglishDigits(STEP_SECOND_ELEMENT['password'].val) ),
+                'password_confirmation': ( toEnglishDigits(STEP_SECOND_ELEMENT['repeat_password'].val) ),
             };
 
-            let headers = {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            };
+            if ( !!identity_number ) {
+                payload['identity_number'] = parseInt(toEnglishDigits( identity_number ))
+            }
 
-            let response = await HTTPService.postRequest('https://jsonplaceholder.typicode.com/posts', payload, {}, headers);
-            console.log('payload: ', response, payload);
+            if ( !!province_of_birth ) {
+                payload['identity_number'] = parseInt(toEnglishDigits(province_of_birth))
+            }
+
+            if ( !!identity_number ) {
+                payload['identity_number'] = parseInt(toEnglishDigits( identity_number ))
+            }
+
+            if ( !!city_of_birth ) {
+                payload['city_of_birth'] = parseInt(toEnglishDigits(city_of_birth))
+            }
+
+            if ( !!job_title ) {
+                payload['identity_number'] = job_title
+            }
+
+            if ( !!phone ) {
+                payload['phone'] = toEnglishDigits( phone )
+            }
+
+            if ( !!current_province_id ) {
+                payload['current_province_id'] = parseInt(toEnglishDigits( current_province_id ))
+            }
+
+            if ( !!current_city_id ) {
+                payload['current_city_id'] = parseInt(toEnglishDigits( current_city_id ))
+            }
+
+            if ( !!email ) {
+                payload['email'] = toEnglishDigits( email )
+            }
+
+            if ( !!education_field ) {
+                payload['education_field'] = education_field
+            }
+
+            if ( !!education_province_id ) {
+                payload['education_province_id'] = parseInt(toEnglishDigits( education_province_id ))
+            }
+
+            if ( !!education_city_id ) {
+                payload['education_city_id'] = parseInt(toEnglishDigits( education_city_id ))
+            }
+
+            if ( !!current_address ) {
+                payload['current_address'] = toEnglishDigits(current_address)
+            }
+
+            if ( !!home_postal_code ) {
+                payload['home_postal_code'] = parseInt(toEnglishDigits( home_postal_code ))
+            }
+
+            SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
+            let response = await HTTPService.postRequest(Endpoint.get( Endpoint.REGISTER ), payload, {}, headers);
+            const TOKEN_SERVICE = new TokenService( response );
+            TOKEN_SERVICE._HandelToken();
         } catch (e) {
-            console.log(e);
+            FORM_MESSAGE.classList.remove('none');
+            FORM_MESSAGE.textContent = e?.message || 'متاسفانه مشکلی پیش آمده است.';
+        } finally {
+            SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
         }
     };
 
@@ -602,7 +670,7 @@ try {
                 event.preventDefault();
                 console.log('sdf');
                 ( currentStep === 1 ) ? (
-                    HANDEL_FIRST_STEP()
+                    await HANDEL_FIRST_STEP()
                 ) : (
                     await HANDEL_SECOND_STEP()
                 );

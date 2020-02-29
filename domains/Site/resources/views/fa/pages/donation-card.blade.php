@@ -539,9 +539,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="none text-green font-sm font-bold cursor-default m-t-8">
-                                    اندکی صبر
-                                </p>
+                                <p class="form__msg none text-red font-sm font-bold cursor-default m-t-8"></p>
                                 <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
                                     ارسال اطلاعات
                                 </button>
@@ -598,7 +596,6 @@
     @section('scripts')
         <script src="{{asset('js/vendors~app~donation-card.js')}}" defer></script>
         <script src="{{asset('js/app~donation-card.js')}}" defer></script>
-        <script src="{{asset('js/Login-vue~donation-card.js')}}" defer></script>
         <script src="{{asset('js/donation-card~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/donation-card.js')}}" defer></script>
     @endsection
