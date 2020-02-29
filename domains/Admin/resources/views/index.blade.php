@@ -17,7 +17,7 @@
 <body class="h-full overflow-x-hidden">
     <div id="app"></div>
     <script src="{{ asset('js/runtime.js') }}" defer></script>
-    <script src="{{ asset('js/vendors~app.js') }}" defer></script>
+    <script src="{{ asset('js/vendors~app~donation-card.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
