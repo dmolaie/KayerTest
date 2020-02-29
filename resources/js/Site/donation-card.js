@@ -523,11 +523,10 @@ try {
                     'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code'].val ) ),
                 };
                 let response = await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_USER ), payload, {}, headers);
-                console.log(response);
-                // FORM_MESSAGE.classList.add('none');
-                // currentStep = 2;
-                // fields.forEach(field => field.input.readOnly = true);
-                // OPEN_SECOND_STEP();
+                FORM_MESSAGE.classList.add('none');
+                currentStep = 2;
+                fields.forEach(field => field.input.readOnly = true);
+                OPEN_SECOND_STEP();
             } catch (e) {
                 FORM_MESSAGE.classList.remove('none');
                 FORM_MESSAGE.textContent = e?.message || 'متاسفانه مشکلی پیش آمده است.';
