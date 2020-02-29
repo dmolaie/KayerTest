@@ -883,6 +883,5 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/donation-card~volunteers-final.js')}}" defer></script>
-        <script src="{{asset('js/volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/volunteers-final.js')}}" defer></script>
     @endsection

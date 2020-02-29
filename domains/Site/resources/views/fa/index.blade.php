@@ -868,6 +868,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/vendors~home~news_list~news_show.js')}}" defer></script>
-    <script src="{{asset('js/home.js')}}" defer></script>
+    <script src="{{asset('js/site/vendors~home~news_list~news_show.js')}}" defer></script>
+    <script src="{{asset('js/site/home.js')}}" defer></script>
 @endsection
