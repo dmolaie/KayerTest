@@ -574,8 +574,8 @@ try {
                 'password_confirmation': ( toEnglishDigits(STEP_SECOND_ELEMENT['repeat_password'].val) ),
             };
 
-            if ( !!identity_number ) {
-                payload['identity_number'] = parseInt(toEnglishDigits( identity_number ))
+            if ( !!job_title ) {
+                payload['job_title'] = job_title
             }
 
             if ( !!province_of_birth ) {

@@ -84,7 +84,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
-                                                           value="0"
+                                                           value="{{$data['gender'][0]}}"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         خانم
@@ -94,7 +94,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
-                                                           value="1"
+                                                           value="{{$data['gender'][1]}}"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         آقا
@@ -104,7 +104,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
-                                                           value="2"
+                                                           value="{{$data['gender'][2]}}"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         سایر
@@ -139,18 +139,12 @@
                                                         <option value="">
                                                             روز
                                                         </option>
-                                                        <option value="1">
-                                                            1
+                                                        @foreach($data['day'] as $day)
+                                                        <option value="{{$day}}">
+                                                            {{$day}}
                                                         </option>
+                                                        @endforeach
                                                         <option value="2">
-                                                            2
-                                                        </option>
-                                                        <option value="3">
-                                                            3
-                                                        </option>
-                                                        <option value="4">
-                                                            4
-                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
@@ -160,42 +154,11 @@
                                                         <option value="">
                                                             ماه
                                                         </option>
-                                                        <option value="1">
-                                                            فروردین
-                                                        </option>
-                                                        <option value="2">
-                                                            اردیبهشت
-                                                        </option>
-                                                        <option value="3">
-                                                            خرداد
-                                                        </option>
-                                                        <option value="4">
-                                                            تیر
-                                                        </option>
-                                                        <option value="5">
-                                                            مرداد
-                                                        </option>
-                                                        <option value="6">
-                                                            شهریور
-                                                        </option>
-                                                        <option value="7">
-                                                            مهر
-                                                        </option>
-                                                        <option value="8">
-                                                            آبان
-                                                        </option>
-                                                        <option value="9">
-                                                            آذر
-                                                        </option>
-                                                        <option value="10">
-                                                            دی
-                                                        </option>
-                                                        <option value="11">
-                                                            بهمن
-                                                        </option>
-                                                        <option value="12">
-                                                            اسفند
-                                                        </option>
+                                                        @foreach($data['month'] as $key => $month)
+                                                            <option value="{{$key}}">
+                                                                {{$month}}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
@@ -205,30 +168,11 @@
                                                         <option value="">
                                                             سال
                                                         </option>
-                                                        <option value="1397">
-                                                            1397
-                                                        </option>
-                                                        <option value="1396">
-                                                            1396
-                                                        </option>
-                                                        <option value="1395">
-                                                            1395
-                                                        </option>
-                                                        <option value="1394">
-                                                            1394
-                                                        </option>
-                                                        <option value="1393">
-                                                            1393
-                                                        </option>
-                                                        <option value="1392">
-                                                            1392
-                                                        </option>
-                                                        <option value="1391">
-                                                            1391
-                                                        </option>
-                                                        <option value="1390">
-                                                            1390
-                                                        </option>
+                                                        @foreach($data['year'] as $year)
+                                                            <option value="{{$year}}">
+                                                                {{$year}}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -244,15 +188,11 @@
                                                 <option value="">
                                                     انتخاب کنید...
                                                 </option>
-                                                <option value="1">
-                                                    تهران
-                                                </option>
-                                                <option value="2">
-                                                    فناپ
-                                                </option>
-                                                <option value="3">
-                                                    خارجه
-                                                </option>
+                                                @foreach($data['state'] as $state)
+                                                    <option value="{{$state['id']}}">
+                                                        {{$state['name']}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="dnt-page__input w-full block">
@@ -265,15 +205,11 @@
                                                 <option value="">
                                                     انتخاب کنید...
                                                 </option>
-                                                <option value="1">
-                                                    تهران
-                                                </option>
-                                                <option value="2">
-                                                    فناپ
-                                                </option>
-                                                <option value="3">
-                                                    خارجه
-                                                </option>
+                                                @foreach($data['city'] as $city)
+                                                    <option value="{{$city['id']}}">
+                                                        {{$city['name']}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <p class="text-blue font-base font-bold m-b-4 cursor-default">
@@ -320,15 +256,11 @@
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
-                                                    <option value="1">
-                                                        تهران
-                                                    </option>
-                                                    <option value="2">
-                                                        فناپ
-                                                    </option>
-                                                    <option value="3">
-                                                        خارجه
-                                                    </option>
+                                                    @foreach($data['state'] as $state)
+                                                        <option value="{{$state['id']}}">
+                                                            {{$state['name']}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
@@ -344,15 +276,11 @@
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
-                                                    <option value="1">
-                                                        تهران
-                                                    </option>
-                                                    <option value="2">
-                                                        فناپ
-                                                    </option>
-                                                    <option value="3">
-                                                        خارجه
-                                                    </option>
+                                                    @foreach($data['city'] as $city)
+                                                        <option value="{{$city['id']}}">
+                                                            {{$city['name']}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
@@ -410,21 +338,11 @@
                                                     <option value="">
                                                         انتخاب کنید...
                                                     </option>
-                                                    <option value="1">
-                                                        بی سواد
-                                                    </option>
-                                                    <option value="2">
-                                                        کمتر از دیپلم
-                                                    </option>
-                                                    <option value="3">
-                                                        دیپلم
-                                                    </option>
-                                                    <option value="4">
-                                                        کاردانی
-                                                    </option>
-                                                    <option value="5">
-                                                        کارشناسی
-                                                    </option>
+                                                    @foreach($data['education_degree'] as $key => $education_degree)
+                                                        <option value="{{$key}}">
+                                                            {{$education_degree}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
@@ -453,15 +371,11 @@
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
-                                                    <option value="1">
-                                                        تهران
-                                                    </option>
-                                                    <option value="2">
-                                                        فناپ
-                                                    </option>
-                                                    <option value="3">
-                                                        خارجه
-                                                    </option>
+                                                    @foreach($data['state'] as $state)
+                                                        <option value="{{$state['id']}}">
+                                                            {{$state['name']}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
@@ -477,15 +391,11 @@
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
-                                                    <option value="1">
-                                                        تهران
-                                                    </option>
-                                                    <option value="2">
-                                                        فناپ
-                                                    </option>
-                                                    <option value="3">
-                                                        خارجه
-                                                    </option>
+                                                    @foreach($data['city'] as $city)
+                                                        <option value="{{$city['id']}}">
+                                                            {{$city['name']}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>

@@ -25,7 +25,7 @@ class ValidateDataUserRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'national_code' => ['required', 'numeric','exists:users', new NationalCodeRequest],
+            'national_code' => ['required', 'numeric', new NationalCodeRequest],
         ];
     }
 
