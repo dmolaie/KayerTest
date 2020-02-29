@@ -1,12 +1,15 @@
 {
   "private": true,
   "scripts": {
-    "dev": "npm run development",
-    "development": "webpack --config webpack.dev.js",
-    "watch": "webpack --watch --config webpack.dev.js",
-    "wizard": "npm i & npm run production",
-    "prod": "npm run production",
-    "production": "webpack --progress -p --hide-modules --config webpack.prod.js"
+    "dev": "concurrently \"npm run dev:site\" \"npm run dev:panel\"",
+    "dev:site": "webpack --config webpack.dev.js",
+    "dev:panel": "webpack --config webpack.office.dev.js",
+    "watch": "concurrently \"npm run watch:site\" \"npm run watch:panel\"",
+    "watch:site": "webpack --watch --config webpack.dev.js",
+    "watch:panel": "webpack --watch --config webpack.office.dev.js",
+    "prod": "concurrently \"npm run prod:site\" \"npm run prod:panel\"",
+    "prod:site": "webpack --progress -p --hide-modules --config webpack.prod.js",
+    "prod:panel": "webpack --progress -p --hide-modules --config webpack.office.prod.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -26,6 +29,7 @@
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.1.0",
     "cross-env": "^5.2.1",
     "css-loader": "^3.4.0",
     "extract-loader": "^3.1.0",

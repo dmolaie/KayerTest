@@ -8,37 +8,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const ENV = fs.readFileSync('./.env', 'utf8').split('\n');
 
-const getJSEntries = () => (
-    fs.readdirSync('./resources/js/Site/')
-        .filter(
-            file => file.match(/.*\.js$/)
-        )
-        .map(file => {
-            return {
-                name: file.substring(0, file.length - 3),
-                path: './resources/js/Site/' + file
-            }
-        })
-        .reduce(
-            ( entry, file ) => {
-                entry[file.name] = file.path;
-                return entry;
-            }, {}
-        )
-);
-
 module.exports = {
     mode: "production",
     entry: ({
-        ...getJSEntries(),
-        ...{
-            'style': './resources/sass/style.sass'
-        }
+        'app': './resources/BackOffice/app.js',
+        'appStyle': './resources/BackOffice/sass/appStyle.sass'
     }),
     output: {
         publicPath: '/',
-        filename: 'js/site/[name].js',
-        chunkFilename: 'js/site/[name].js',
+        filename: 'js/office/[name].js',
+        chunkFilename: 'js/office/[name].js',
         path: path.resolve(__dirname, './public')
     },
     resolve: {
@@ -68,7 +47,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'css/site/[name].css',
+                            name: 'css/office/[name].css',
                         }
                     },
                     {
@@ -143,8 +122,8 @@ module.exports = {
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 '!*',
-                'js/site',
-                'css/site'
+                'js/office',
+                'css/office'
             ]
         }),
         new VueLoaderPlugin(),

@@ -261,5 +261,5 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/volunteers.js')}}" defer></script>
+        <script src="{{asset('js/site/volunteers.js')}}" defer></script>
     @endsection
