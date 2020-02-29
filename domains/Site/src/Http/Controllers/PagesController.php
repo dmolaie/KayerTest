@@ -5,6 +5,8 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Domains\Location\Entities\City;
+use Domains\Location\Entities\Province;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -41,6 +43,18 @@ class PagesController extends Controller
 
     public function donationAndCard(Request $request)
     {
-        return view('site::' . $request->language . '.pages.donation-card');
+        $data['gender'] = array_keys(config('user.user_genders'));
+        $data['day'] = range(1,30);
+        $data['month'] = config('user.month');
+        $data['year'] = range(1330,1381);
+        $data['state'] = Province::get(['id','name'])->toArray();
+        $data['city'] = City::get(['id','name'])->toArray();
+        $data['education_degree'] = config('user.education_degree');
+        return view('site::' . $request->language . '.pages.donation-card',compact('data'));
+    }
+
+    public function legaterVolunteers(Request $request)
+    {
+        return view('site::' . $request->language . '.pages.volunteers');
     }
 }
