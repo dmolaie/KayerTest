@@ -12,6 +12,7 @@ class UserRegisterPresenter
     {
         return [
             'name'          => $userLoginDTO->getName(),
+            'card_id'          => $userLoginDTO->getCardId(),
             'id'          => $userLoginDTO->getId(),
             'national_code' => $userLoginDTO->getNationalCode(),
             'role'          => [

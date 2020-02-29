@@ -5,7 +5,6 @@ namespace Domains\User\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
-use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
@@ -56,8 +55,7 @@ class UserController extends EhdaBaseController
             );
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
-        }catch (UserUnAuthorizedException $exception)
-        {
+        } catch (UserUnAuthorizedException $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
         }
     }
@@ -117,7 +115,7 @@ class UserController extends EhdaBaseController
     public function getListForAdmin(
         UserListForAdminRequest $request,
         UserPaginateInfoPresenter $paginateInfoPresenter
-    )  {
+    ) {
         $usersPaginateInfoDTOs = $this->userService->filterUsers($request->createUserSearchDTO());
         return $this->response(
             $paginateInfoPresenter->transform($usersPaginateInfoDTOs),

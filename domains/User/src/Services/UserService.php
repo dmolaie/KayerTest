@@ -99,6 +99,7 @@ class UserService
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
             $loginDTO->setRole($role);
             $loginDTO->setId($user->id);
+            $loginDTO->setCardId($user->card_id);
             Auth::login($user, true);
             return $loginDTO;
         }
@@ -139,6 +140,7 @@ class UserService
             ->setRole($role)
             ->setToken($user->createToken('ehda')->accessToken)
             ->setId($user->id)
+            ->setCardId($user->card_id)
             ->setName($user->name);
         return $userLoginDTO;
 
