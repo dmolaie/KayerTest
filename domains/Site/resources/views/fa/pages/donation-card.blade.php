@@ -597,4 +597,3 @@
         <script src="{{asset('js/site/vendors~donation-card.js')}}" defer></script>
         <script src="{{asset('js/site/donation-card.js')}}" defer></script>
     @endsection
-

@@ -19,12 +19,6 @@ import {
     PersianInvalidErrorMessage,
 } from '@vendor/plugin/helper';
 
-
-
-let headers = {
-    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-};
-
 try {
     const CONFIG = {
         inputClass: 'input',
@@ -522,7 +516,7 @@ try {
                 let payload = {
                     'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code'].val ) ),
                 };
-                let response = await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_USER ), payload, {}, headers);
+                let response = await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_USER ), payload);
                 FORM_MESSAGE.classList.add('none');
                 currentStep = 2;
                 fields.forEach(field => field.input.readOnly = true);
@@ -631,7 +625,7 @@ try {
             }
 
             SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
-            let response = await HTTPService.postRequest(Endpoint.get( Endpoint.REGISTER ), payload, {}, headers);
+            let response = await HTTPService.postRequest(Endpoint.get( Endpoint.REGISTER ), payload);
             const TOKEN_SERVICE = new TokenService( response );
             TOKEN_SERVICE._HandelToken();
         } catch (e) {
@@ -667,7 +661,6 @@ try {
             'click',
             async ( event ) => {
                 event.preventDefault();
-                console.log('sdf');
                 ( currentStep === 1 ) ? (
                     await HANDEL_FIRST_STEP()
                 ) : (
@@ -677,6 +670,4 @@ try {
         )
     }
 
-} catch (e) {
-    console.log(e);
-}
+} catch (e) {}

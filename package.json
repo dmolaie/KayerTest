@@ -2,11 +2,11 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev:site\" \"npm run dev:panel\"",
-    "dev:site": "webpack --config webpack.dev.js",
-    "dev:panel": "webpack --config webpack.office.dev.js",
+    "dev:site": "webpack -p --hide-modules --config webpack.dev.js",
+    "dev:panel": "webpack -p --hide-modules --config webpack.office.dev.js",
     "watch": "concurrently \"npm run watch:site\" \"npm run watch:panel\"",
-    "watch:site": "webpack --watch --config webpack.dev.js",
-    "watch:panel": "webpack --watch --config webpack.office.dev.js",
+    "watch:site": "webpack --watch -p --hide-modules --config webpack.dev.js",
+    "watch:panel": "webpack --watch -p --hide-modules --config webpack.office.dev.js",
     "prod": "concurrently \"npm run prod:site\" \"npm run prod:panel\"",
     "prod:site": "webpack --progress -p --hide-modules --config webpack.prod.js",
     "prod:panel": "webpack --progress -p --hide-modules --config webpack.office.prod.js"
