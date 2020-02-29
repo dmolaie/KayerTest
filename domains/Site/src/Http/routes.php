@@ -17,4 +17,5 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
     Route::prefix('archive')->name('archive.')->group(function () {
         Route::get('/news', 'PagesController@newsList')->name('news-list');
     });
+    
 });

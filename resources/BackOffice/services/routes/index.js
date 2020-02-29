@@ -72,7 +72,7 @@ const Routes = new VueRouter({
             component: GetViews( 'Profile'),
             meta: {
                 title: 'پروفایل',
-                guess: true,
+                guess: true
             }
         },
         {

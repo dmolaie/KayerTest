@@ -1018,5 +1018,5 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/foundations.js')}}" defer></script>
+        <script src="{{asset('js/site/foundations.js')}}" defer></script>
     @endsection
