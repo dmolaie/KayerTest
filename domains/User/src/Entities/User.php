@@ -23,9 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'address_of_obtaining_degree',
         'last_education_degree',
-        'educational_field',
+        'education_field',
         'job_title',
         'marital_status',
         'identity_number',
@@ -43,6 +42,11 @@ class User extends Authenticatable
         'gender',
         'last_name',
         'national_code',
+        'card_id',
+        'home_postal_code',
+        'work_postal_code',
+        'education_province_id',
+        'education_city_id'
     ];
 
     /**

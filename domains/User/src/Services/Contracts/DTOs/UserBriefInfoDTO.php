@@ -13,6 +13,10 @@ class UserBriefInfoDTO
     /**
      * @var string
      */
+    protected $cardId;
+    /**
+     * @var string
+     */
     protected $name;
     /**
      * @var string
@@ -46,6 +50,24 @@ class UserBriefInfoDTO
      * @var array
      */
     protected $currentProvince;
+
+    /**
+     * @return string
+     */
+    public function getCardId(): string
+    {
+        return $this->cardId;
+    }
+
+    /**
+     * @param string $cardId
+     * @return UserBriefInfoDTO
+     */
+    public function setCardId(string $cardId): UserBriefInfoDTO
+    {
+        $this->cardId = $cardId;
+        return $this;
+    }
 
     /**
      * @return string

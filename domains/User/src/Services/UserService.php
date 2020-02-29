@@ -95,7 +95,7 @@ class UserService
 
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
-            $role = $this->getUserImportantActiveOrPendingRole($user->id);
+            $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
             $loginDTO->setRole($role);
             $loginDTO->setId($user->id);
@@ -106,13 +106,13 @@ class UserService
     }
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return Role
      * @throws UserDoseNotHaveActiveRole
      */
-    protected function getUserImportantActiveOrPendingRole(int $userId): Role
+    protected function getUserImportantActiveOrPendingRole($user): Role
     {
-        $role = $this->userRepository->getActiveAndPendingRoles($userId);
+        $role = $this->userRepository->getActiveAndPendingRoles($user);
 
         if (!$role) {
             throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
@@ -124,11 +124,15 @@ class UserService
      * @param UserRegisterInfoDTO $userRegisterInfoDTO
      * @return UserLoginDTO
      * @throws UserDoseNotHaveActiveRole
+     * @throws UserUnAuthorizedException
      */
     public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
     {
-        $user = $this->userRepository->createNewUser($userRegisterInfoDTO);
-        $role = $this->getUserImportantActiveOrPendingRole($user->id);
+
+        $user = $this->userRepository->createOrUpdateUser(
+            $userRegisterInfoDTO,
+            $this->getUser($userRegisterInfoDTO));
+        $role = $this->getUserImportantActiveOrPendingRole($user);
         Auth::login($user, true);
         $userLoginDTO = new UserLoginDTO();
         $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
@@ -137,6 +141,19 @@ class UserService
             ->setId($user->id)
             ->setName($user->name);
         return $userLoginDTO;
+
+    }
+
+    private function getUser(UserRegisterInfoDTO $userRegisterInfoDTO)
+    {
+        $user = $this->userRepository->findByNationalCode($userRegisterInfoDTO->getNationalCode());
+        if (!$user || Auth::attempt([
+                'national_code' => $userRegisterInfoDTO->getNationalCode(),
+                'password'      => $userRegisterInfoDTO->getPassword()
+            ])) {
+            return $user;
+        }
+        throw new UserUnAuthorizedException(trans('user::response.authenticate.error_username_password'));
 
     }
 

@@ -6,7 +6,6 @@ use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
 use Domains\User\Services\Contracts\DTOs\LegateRegisterDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
-use Illuminate\Validation\Rule;
 
 class LegateRegisterRequest extends EhdaBaseRequest
 {
@@ -28,42 +27,40 @@ class LegateRegisterRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'national_code'               => ['required', 'numeric', 'unique:users', new NationalCodeRequest],
-            'name'                        => 'required|string|max:30|min:3',
-            'last_name'                   => 'required|string|max:30|min:3',
-            'gender'                      => 'required|in:male,female,other',
-            'date_of_birth'               => 'required|numeric',
-            'mobile'                      => 'required|regex:/(09)[0-9]{9}/',
-            'current_province_id'         => 'required|integer',
-            'current_city_id'             => 'required|integer',
-            'marital_status'              => 'required|string|in:married,single,other',
-            'password'                    => 'required|confirmed|min:6',
-            'current_address'             => 'required|string|min:3|max:100',
-            'phone'                       => 'required|regex:/^0\d{2,3}\d{8}$/',
-            'email'                       => 'required|string|email|max:255|unique:users',
-            'essential_mobile'            => 'required|regex:/(09)[0-9]{9}/',
-            'job_title'                   => 'required|string|max:50|min:3',
-            'educational_field'           => 'required|string|max:50|min:3',
-            'last_educational_degree'     => [
-                'required',
-                'string',
-                'max:50',
-                'min:3',
-                Rule::in(config('user.educational_degree'))
-            ],
-            'address_of_obtaining_degree' => 'required|string|max:100|min:3',
-            'day_of_cooperation'          => 'required|integer|min:1|max:30',
-            'know_community_by'           => 'required|string',
-            'motivation_for_cooperation'  => 'required|string|max:100|min:3',
-            'field_of_activities'         => 'required|array|min:1',
-            'field_of_activities.*'       => 'required|integer|distinct|min:0|max:12',
-            'address_of_work'             => 'string|min:3|max:100',
-            'work_phone'                  => 'regex:/^0\d{2,3}\d{8}$/',
-            'province_of_birth'           => 'integer',
-            'city_of_birth'               => 'integer',
-            'province_of_work'            => 'integer',
-            'city_of_work'                => 'integer',
-            'identity_number'             => 'numeric|min:1',
+            'national_code'              => ['required', 'numeric', new NationalCodeRequest],
+            'gender'                     => 'required|integer|max:2|min:0',
+            'name'                       => 'required|string|max:30|min:3',
+            'last_name'                  => 'required|string|max:30|min:3',
+            'father_name'                => 'required|string|max:30|min:3',
+            'identity_number'            => 'required|numeric|min:1',
+            'province_of_birth'          => 'required|integer',
+            'city_of_birth'              => 'required|integer',
+            'date_of_birth'              => 'required|numeric',
+            'job_title'                  => 'required|string|max:50|min:3',
+            'last_education_degree'    => 'required|integer|max:8|min:0',
+            'phone'                      => 'required|regex:/^0\d{2,3}\d{8}$/',
+            'mobile'                     => 'required|regex:/(09)[0-9]{9}/',
+            'essential_mobile'           => 'required|regex:/(09)[0-9]{9}/',
+            'current_province_id'        => 'required|integer',
+            'current_city_id'            => 'required|integer',
+            'email'                      => 'required|string|email|max:255',
+            'marital_status'             => 'required|integer|min:0|max:1',
+            'education_field'          => 'required|string|max:50|min:3',
+            'education_province_id'      => 'required|integer',
+            'education_city_id'          => 'required|integer',
+            'current_address'            => 'required|string|min:3|max:150',
+            'home_postal_code'           => 'regex:/\d{10}/',
+            'province_of_work'           => 'integer',
+            'city_of_work'               => 'integer',
+            'address_of_work'            => 'string|min:3|max:100',
+            'work_phone'                 => 'regex:/^0\d{2,3}\d{8}$/',
+            'work_postal_code'           => 'regex:/\d{10}/',
+            'know_community_by'          => 'required|integer|min:0|max:3',
+            'motivation_for_cooperation' => 'required|string|max:100|min:3',
+            'day_of_cooperation'         => 'required|integer|min:1|max:30',
+            'field_of_activities'        => 'required|array|min:1',
+            'field_of_activities.*'      => 'required|integer|distinct|min:0|max:12',
+            'password'                   => 'required|confirmed|min:6',
         ];
     }
 
@@ -80,38 +77,41 @@ class LegateRegisterRequest extends EhdaBaseRequest
     public function createUserRegisterDTO(): UserRegisterInfoDTO
     {
         $userRegisterInfoDTO = new UserRegisterInfoDTO();
-        $userRegisterInfoDTO->setName($this['name'])
+        $userRegisterInfoDTO->setNationalCode($this['national_code'])
+            ->setGender(config('user.user_genders')[$this['gender']])
+            ->setName($this['name'])
             ->setLastName($this['last_name'])
-            ->setPhone($this['phone'])
-            ->setProvinceOfWork($this['province_of_work'])
+            ->setFatherName($this['father_name'])
+            ->setIdentityNumber($this['identity_number'])
             ->setProvinceOfBirth($this['province_of_birth'])
-            ->setNationalCode($this['national_code'])
-            ->setMaritalStatus($this['marital_status'])
-            ->setMobile($this['mobile'])
-            ->setAddressOfObtainingDegree($this['address_of_obtaining_degree'])
             ->setCityOfBirth($this['city_of_birth'])
-            ->setCityOfWork($this['city_of_work'])
-            ->setCurrentAddress($this['current_address'])
+            ->setDateOfBirth(Carbon::createFromTimestamp($this['date_of_birth'])->toDateString())
+            ->setJobTitle($this['job_title'])
+            ->setLastEducationDegree(config('user.education_degree')[$this['last_education_degree']])
+            ->setPhone($this['phone'])
+            ->setMobile($this['mobile'])
+            ->setEssentialMobile($this['essential_mobile'])
             ->setCurrentCityId($this['current_city_id'])
             ->setCurrentProvinceId($this['current_province_id'])
-            ->setDateOfBirth(Carbon::createFromTimestamp($this['date_of_birth'])->toDateString())
-            ->setEducationalField($this['educational_field'])
             ->setEmail($this['email'])
-            ->setEssentialMobile($this['essential_mobile'])
-            ->setGender($this['gender'])
-            ->setIdentityNumber($this['identity_number'])
-            ->setJobTitle($this['job_title'])
+            ->setMaritalStatus(config('user.user_marital_statuses')[$this['marital_status']])
+            ->setEducationField($this['education_field'])
+            ->setEducationProvinceId($this['education_province_id'])
+            ->setEducationCityId($this['education_city_id'])
+            ->setCurrentAddress($this['current_address'])
+            ->setHomePostalCode($this['home_postal_code'])
+            ->setProvinceOfWork($this['province_of_work'])
+            ->setCityOfWork($this['city_of_work'])
+            ->setAddressOfWork($this['address_of_work'])
+            ->setWorkPhone($this['work_phone'])
+            ->setWorkPostalCode($this['work_postal_code'])
+            ->setKnowCommunityBy(config('user.know_community_by')[$this['know_community_by']])
+            ->setMotivationForCooperation($this['motivation_for_cooperation'])
+            ->setDayOfCooperation($this['day_of_cooperation'])
+            ->setFieldOfActivities(implode(',',$this['field_of_activities']))
             ->setPassword($this['password'])
             ->setRoleId(config('user.legate_role_id'))
-            ->setRoleStatus(config('user.user_role_pending_status'))
-            ->setLastEducationalDegree($this['last_educational_degree'])
-            ->setMotivationForCooperation($this['motivation_for_cooperation'])
-            ->setFieldOfActivities(implode(',', $this['field_of_activities']))
-            ->setDayOfCooperation($this['day_of_cooperation'])
-            ->setKnowCommunityBy($this['know_community_by'])
-            ->setWorkPhone($this['work_phone'])
-            ->setAddressOfWork($this['address_of_work'])
-        ;
+            ->setRoleStatus(config('user.user_role_pending_status'));
 
         return $userRegisterInfoDTO;
     }

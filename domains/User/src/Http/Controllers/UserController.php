@@ -5,7 +5,9 @@ namespace Domains\User\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
+use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
+use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
@@ -54,9 +56,17 @@ class UserController extends EhdaBaseController
             );
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
+        }catch (UserUnAuthorizedException $exception)
+        {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
         }
     }
 
+    /**
+     * @param LegateRegisterRequest $request
+     * @param UserRegisterPresenter $userRegisterPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function legateRegister(LegateRegisterRequest $request, UserRegisterPresenter $userRegisterPresenter)
     {
         try {
@@ -69,9 +79,15 @@ class UserController extends EhdaBaseController
             );
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
+        } catch (UserUnAuthorizedException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
         }
     }
 
+    /**
+     * @param UserFullInfoPresenter $userFullInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getFullUserInfo(UserFullInfoPresenter $userFullInfoPresenter)
     {
         $userId = Auth::id();
@@ -81,6 +97,11 @@ class UserController extends EhdaBaseController
         return $this->response($data, 200);
     }
 
+    /**
+     * @param UpdateUserInfoRequest $request
+     * @param UserBriefInfoPresenter $briefInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateUserInfo(UpdateUserInfoRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
     {
         $userId = Auth::id();
@@ -88,6 +109,11 @@ class UserController extends EhdaBaseController
         return $this->response($briefInfoPresenter->transform($data), Response::HTTP_OK);
     }
 
+    /**
+     * @param UserListForAdminRequest $request
+     * @param UserPaginateInfoPresenter $paginateInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getListForAdmin(
         UserListForAdminRequest $request,
         UserPaginateInfoPresenter $paginateInfoPresenter

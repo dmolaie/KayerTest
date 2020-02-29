@@ -24,6 +24,7 @@ class UserBriefInfoDTOMaker
         $userBriefInfoDTO = new UserBriefInfoDTO();
         $userBriefInfoDTO->setId($user->id)
             ->setName($user->name)
+            ->setCardId($user->card_id)
             ->setLastName($user->last_name)
             ->setNationalCode($user->national_code)
             ->setIdentityNumber($user->identity_number)
