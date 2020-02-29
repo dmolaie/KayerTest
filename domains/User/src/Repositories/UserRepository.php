@@ -92,7 +92,7 @@ class UserRepository
         $user = $this->entityName::findOrFail($userId);
         $user->name = $userEditDTO->getName();
         $user->email = $userEditDTO->getEmail();
-        if($userEditDTO->getPassword()){
+        if ($userEditDTO->getPassword()) {
             $user->password = bcrypt($userEditDTO->getPassword());
         }
         $user->address_of_obtaining_degree = $userEditDTO->getAddressOfObtainingDegree();
@@ -120,9 +120,33 @@ class UserRepository
         $user->field_of_activities = $userEditDTO->getFieldOfActivities();
         $user->address_of_work = $userEditDTO->getAddressOfWork();
         $user->work_phone = $userEditDTO->getWorkPhone();
-        if(!empty($user->getDirty())){
+        if (!empty($user->getDirty())) {
             $user->save();
         }
         return $user;
+    }
+
+    public function checkHasRoleClient(int $nationalCode)
+    {
+        return $this->entityName::where('national_code', '=', $nationalCode)->firstOrFail()
+            ->roles()->whereIn(
+                'status',
+                [
+                    config('user.user_role_active_status'),
+                    config('user.user_role_pending_status')
+                ])->where('role_id','=', config('user.client_role_id')
+            )->exists();
+    }
+
+    public function checkHasRoleLegate(int $nationalCode)
+    {
+        return $this->entityName::where('national_code', '=', $nationalCode)->firstOrFail()
+            ->roles()->whereIn(
+                'status',
+                [
+                    config('user.user_role_active_status'),
+                    config('user.user_role_pending_status')
+                ])->where('role_id','=', config('user.legate_role_id')
+            )->exists();
     }
 }

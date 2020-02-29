@@ -18,6 +18,7 @@ use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
+use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Illuminate\Support\Facades\Auth;
 
 class UserService
@@ -58,7 +59,8 @@ class UserService
         UserFullInfoDTOMaker $userFullInfoDTOMaker,
         CityServices $cityServices,
         ProvinceService $provinceService
-    ) {
+    )
+    {
 
         $this->roleServices = $roleServices;
         $this->userRepository = $userRepository;
@@ -160,6 +162,16 @@ class UserService
 
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
     {
-        $user = $this->userRepository->editUserInfo($userId,$userEditDTO);
+        $user = $this->userRepository->editUserInfo($userId, $userEditDTO);
+    }
+
+    public function ValidateDataUserClient(ValidationDataUserDTO $validationDataUserDTO)
+    {
+        return $this->userRepository->checkHasRoleClient($validationDataUserDTO->getNationalCode());
+    }
+
+    public function ValidateDataUserLegate(ValidationDataUserDTO $validationDataUserDTO)
+    {
+        return $this->userRepository->checkHasRoleLegate($validationDataUserDTO->getNationalCode());
     }
 }
