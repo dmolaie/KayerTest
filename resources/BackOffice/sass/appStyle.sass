@@ -1,5 +1,5 @@
 @import "resources/sass/base/Reset", "resources/sass/base/Function", "resources/sass/base/Mixins"
-@import "base/Classes", "base/Media_Queries", "base/Variables", "base/Animation"
+@import "base/Classes", "base/Media_Queries", "base/Focus", "base/Variables", "base/Transition", "base/Animation"
 
 @font-face
   font-family: IranSans
@@ -17,11 +17,25 @@ body
     family: IranSans
   background: $white
 
+// start --> views
 @import "resources/sass/pages/login/index"
 @import "page/Logout/index"
 @import "page/Dashboard/index"
+@import "page/create/index"
+@import "page/news/create"
+// end   --> views
 
+// start --> components
+@import "components/panel"
 @import "components/aside"
 @import "components/toolbar"
+@import "components/progress"
+@import "components/language"
+@import "components/domains"
+@import "components/image-panel"
+@import "components/dropdown"
+@import "components/publish"
+@import "components/breadcrumb"
 @import "components/notification"
+// end   --> components
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="notification fixed pointer-event-none">
+    <div class="notification fixed pointer-event-none z-10">
         <div v-for="(item, index) in items"
              :key="index"
              class="notification__item w-full h-full border border-solid rounded-1/2 overflow-hidden opacity-0"
@@ -37,19 +37,26 @@
     export default {
         name: "Index",
         data: () => ({
-            items: []
+            items: [],
+            timeOut: 600
         }),
         methods: {
             NewNotification( item ) {
                 if ( !HasLength( this.items ) )
                     this.items.push( item );
+                else {
+                    this.onAnimationEnd( this.items[0] );
+                    setTimeout(() => {
+                        this.NewNotification( item );
+                    }, (this.timeOut + 100))
+                }
             },
             onAnimationEnd( item ) {
                 try {
                     this.$set( item.option, 'visibility', false );
                     setTimeout(() => {
                         this.$set( this, 'items', [] );
-                    }, 600)
+                    }, this.timeOut)
                 } catch (e) {
                     this.$set( this, 'items', [] );
                 }
@@ -65,9 +72,7 @@
                     'displayNotification',
                     this.NewNotification
                 )
-            } catch (e) {
-                //
-            }
+            } catch (e) {}
         }
     }
 </script>

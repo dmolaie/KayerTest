@@ -5,16 +5,20 @@ import VueRouter from "vue-router";
 import Store from "./services/store";
 import Routes from "./services/routes";
 
-import App from '@components/App.vue';
+import App from '@views/App.vue';
 import General from '@vendor/plugin/general';
+import Progress from '@vendor/components/progress';
+import Breadcrumb from '@vendor/components/breadcrumb';
 import Notification from '@vendor/components/notification';
 
-Vue.config.devtools = false;
+Vue.config.devtools = true;
 Vue.config.productionTip = false;
 
 // Vue.use( Vuex );
 Vue.use( General );
+Vue.use( Progress );
 Vue.use( VueRouter );
+Vue.use( Breadcrumb );
 Vue.use( Notification );
 
 new Vue({

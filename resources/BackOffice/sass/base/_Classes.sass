@@ -41,6 +41,8 @@
 
 .rounded
   border-radius: $radius
+  &-inherit
+    border-radius: inherit
   &-none
     border-radius: 0
   &-1\/2
@@ -313,6 +315,8 @@
       color: $green-300
   &-waterloo
     color: $waterloo
+  &-rum
+    color: $rum
   &-nowrap
     white-space: nowrap
   &-uppercase
@@ -323,10 +327,15 @@
     text-align: center
   &-left
     text-align: left
+  &-decoration
+    &-underline
+      text-decoration-line: underline
 
 .bg
   &-white
     background-color: $white
+  &-zircon
+    background-color: $zircon
   &-snow
     background: #f0f3f8
   &-black
@@ -399,3 +408,42 @@
 
 .router-view
   padding: 14px 30px 100px 35px
+
+.has-skeleton
+  background: #eaeaea
+  animation: skeleton 1.2s linear infinite
+  img
+    opacity: 0
+
+.input
+  padding: 10px
+  &--white
+    color: $rum
+    background: #fafcff
+    &::placeholder
+      color: #b2b4b4
+      font:
+        size: 10px
+        weight: 300
+      opacity: 1
+      text-align: right
+
+.textarea
+  padding: 10px
+  &--white
+    background: #fafcff
+    &::placeholder
+      color: #b2b4b4
+      font:
+        size: 10px
+        weight: 300
+      opacity: 1
+      text-align: right
+
+.inner-box
+  &--white
+    background: $white
+    box-shadow: 0 1px 0 0 transparentize(#e5e5e5, .5)
+  &--blue
+    background: transparentize(#bde8fa, ( 1 - .34 ))
+    box-shadow: 0 1px 0 0 transparentize(#e5e5e5, .5)

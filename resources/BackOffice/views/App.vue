@@ -1,8 +1,9 @@
 <template>
     <div class="app w-full h-full flex items-start overflow-hidden">
+<!--        <Progress-cm />-->
         <Aside v-if="shouldBeShowAside"
         />
-        <div class="flex-1 h-full bg-snow"
+        <div class="flex-1 h-full bg-snow overflow-auto"
              role="main"
         >
             <Toolbar v-if="shouldBeShowAside"
@@ -10,6 +11,8 @@
             <div class="w-full"
                  :class="[ shouldBeShowAside ? 'router-view' : 'h-full' ]"
             >
+                <Breadcrumb-cm :items="breadcrumb"
+                />
                 <router-view class="w-full" />
             </div>
         </div>
@@ -21,21 +24,26 @@
     import {
         mapState
     } from 'vuex';
-    import Aside from '@sub_components/Aside.vue';
-    import Toolbar from '@sub_components/Toolbar.vue';
+    import Aside from '@components/Aside.vue';
+    import Toolbar from '@components/Toolbar.vue';
 
     export default {
         name: 'App',
         data: () => ({
-            name: 'fu'
+            breadcrumb: []
         }),
+        components: {
+            Aside, Toolbar
+        },
+        watch: {
+            '$route' ( route ) {
+                this.$set( this, 'breadcrumb', route?.meta?.breadcrumb || [] );
+            },
+        },
         computed: {
             ...mapState({
                 shouldBeShowAside: state => state.LayoutState.shouldBeShowAside
             })
         },
-        components: {
-            Aside, Toolbar
-        }
     }
 </script>

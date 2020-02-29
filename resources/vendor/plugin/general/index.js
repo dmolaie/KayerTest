@@ -7,6 +7,19 @@ const General = {
         if ( isInstalled ) return;
         isInstalled = true;
 
+        Vue.directive('clickOutside', {
+            bind: ( el, { value } ) => {
+                el.clickOutside = ( { target } ) => {
+                    if ( !el.contains( target ) ) value( target )
+                };
+                document.addEventListener('click', el?.clickOutside);
+            },
+            unbind: ( el ) => {
+                document.removeEventListener('click', el?.clickOutside);
+                el.clickOutside = null;
+            },
+        });
+
         Vue.mixin({
             methods: {
                 $asset( src ) {

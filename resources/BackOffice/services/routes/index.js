@@ -20,12 +20,13 @@ export const LOGIN_PAGE_TITLE = 'ورود به حساب کاربری';
 const GetViews = component => () =>
     import(
         /* webpackChunkName: "[request]" */
-        `@components/${component}.vue`
+        `@views/${component}.vue`
     );
 
 const Routes = new VueRouter({
     mode: "hash",
     base: '/user',
+    scrollBehavior: () => ({ y: 0 }),
     routes: [
         {
             name: DASHBOARD,
@@ -41,6 +42,19 @@ const Routes = new VueRouter({
             component: GetViews('CreateNews' ),
             meta: {
                 title: 'ایجاد خبر',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: DASHBOARD,
+                        name: 'اخبار'
+                    },
+                    {
+                        name: 'افزودن'
+                    }
+                ]
             }
         },
         {

@@ -8,7 +8,7 @@ const LayoutState = {
     },
     mutations: {
         [HANDEL_FULL_PAGE]: ( state, payload ) => {
-            Vue.set(state, 'shouldBeShowAside', payload);
+            Vue.set(state, 'shouldBeShowAside', !payload);
         }
     }
 };

@@ -6,7 +6,7 @@
       transition: all $duration
       &-color
         transition: color $duration
-      &-background
+      &-bg
         transition: background $duration
     &m
       &-auto
@@ -46,6 +46,19 @@
         width: 100%
       &-screen
         width: 100vw
+    &hover\:
+      &text
+        &-blue
+          &--200
+            &:hover
+              color: $blue-200
+      &bg
+        &-white
+          &:hover
+            background-color: $white
+        &-blue
+          &:hover
+            background-color: $blue
 
 .xl\:
   @include Xl_Screen

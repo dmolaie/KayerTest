@@ -1,0 +1,46 @@
+.c-post
+  .min
+    &-height
+      &-42
+        min-height: 42px
+  .m
+    &-t
+      &-5
+        margin-top: 5px
+      &-8
+        margin-top: 8px
+      &-15
+        margin-top: 15px
+      &-25
+        margin-top: 25px
+    &-b
+      &-8
+        margin-bottom: 8px
+    &-l
+      &-20
+        margin-left: 20px
+  .main
+    padding: 34px 20px 25px 28px
+  .textarea
+    min-height: 93px
+    max-height: 200px
+    resize: vertical
+  &__panel
+    & > *
+      &:not(:last-child)
+        margin-bottom: 16px
+  &__second-title
+    margin: 6px 0 0
+    padding-bottom: 5px
+  .l\:
+    @include L_Screen
+      &m
+        &-l
+          &-25
+            margin-left: 25px
+  .xl\:
+    @include Xl_Screen
+      &m
+        &-l
+          &-35
+            margin-left: 35px

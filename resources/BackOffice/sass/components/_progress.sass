@@ -1,0 +1,15 @@
+.progress
+  top: 0
+  right: 0
+  height: 3px
+  background: white
+  &__bar
+    width: 0
+    top: 0
+    left: 50%
+    transform: translateX(-50%)
+    animation:
+      name: progress
+      timing-function: cubic-bezier(0.79, 0.07, 0.38, 0.54)
+      iteration-count: infinite
+    //animation: progress 1.4s cubic-bezier(0.79, 0.07, 0.38, 0.54) infinite

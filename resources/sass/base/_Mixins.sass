@@ -90,3 +90,11 @@
     pointer-events: none
     &:before, &::after
       opacity: 1
+
+@mixin HiddenScrollbar
+  -ms-overflow-style: none
+  scrollbar-width: none
+  &::-webkit-scrollbar
+    width: 0
+    height: 0
+    display: none

@@ -15,6 +15,6 @@ export default class BaseService {
     }
 
     static ViewPortProcess( store, isFullPage ) {
-        BaseService.commitToStore( store, HANDEL_FULL_PAGE, !isFullPage);
+        BaseService.commitToStore( store, HANDEL_FULL_PAGE, isFullPage);
     }
 }

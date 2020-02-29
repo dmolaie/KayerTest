@@ -17,9 +17,10 @@
             </button>
         </div>
         <div class="aside__menu">
-            <div class="aside__menu_item relative flex items-center text-blue-800 cursor-pointer"
+            <button class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
                  v-for="(item, index) in menu"
                  :key="index"
+                 @click.prevent="onClickMenuItem( item.route )"
             >
                 <image-cm
                     class="aside__menu_item_icon"
@@ -31,7 +32,7 @@
                 <span class="aside__menu_item_title font-sm font-medium">
                     {{ item.title }}
                 </span>
-            </div>
+            </button>
         </div>
     </aside>
 </template>
@@ -48,6 +49,7 @@
                     icon: 'ic_event--blue.svg'
                 },
                 {
+                    route: 'CREATE_NEWS',
                     title: 'اخبار',
                     icon: 'ic_newspaper--blue.svg'
                 }
@@ -55,6 +57,12 @@
         }),
         components: {
             ImageCm
+        },
+        methods: {
+            onClickMenuItem( location ) {
+                if ( !!location )
+                    this.pushRouter( { name: location } );
+            }
         }
     }
 </script>
