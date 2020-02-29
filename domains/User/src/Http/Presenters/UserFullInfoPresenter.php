@@ -41,7 +41,7 @@ class UserFullInfoPresenter
             'work_phone'                 => $userFullInfoDTO->getWorkPhone(),
             'work_postal_code'           => $userFullInfoDTO->getWorkPostalCode(),
             'day_of_cooperation'         => $userFullInfoDTO->getDayOfCooperation(),
-            'know_community_by'          => $userFullInfoDTO->getKnowCommunityBy(),
+            'know_community_by'          => $userFullInfoDTO->getKnowCommunityBy()?array_flip(config('user.know_community_by'))[$userFullInfoDTO->getKnowCommunityBy()]:null,
             'motivation_for_cooperation' => $userFullInfoDTO->getMotivationForCooperation(),
             'field_of_activities'        => $userFullInfoDTO->getFieldOfActivities()?array_map('intval', explode(',', $userFullInfoDTO->getFieldOfActivities())):[],
             'current_address'            => $userFullInfoDTO->getCurrentAddress(),
