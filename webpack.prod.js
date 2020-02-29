@@ -50,10 +50,10 @@ module.exports = {
             'vue$': 'vue/dist/vue.runtime.min.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
             '@BackOffice': path.resolve(__dirname, './resources/BackOffice'),
-            '@components': path.resolve(__dirname, './resources/BackOffice/components'),
+            '@views': path.resolve(__dirname, './resources/BackOffice/views'),
             '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
             '@endpoints': path.resolve(__dirname, './resources/BackOffice/services/endpoints'),
-            '@sub_components': path.resolve(__dirname, './resources/BackOffice/sub_components'),
+            '@components': path.resolve(__dirname, './resources/BackOffice/components'),
             '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
         },
         extensions: ["*", ".js", ".vue", ".json"]

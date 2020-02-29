@@ -1,8 +1,12 @@
 import {
+    SmoothScroll,
     EmailValidator,
     OnlyPersianAlphabet,
     NationalCodeValidator,
     PhoneNumberValidator,
+    InvalidErrorMessage,
+    RequiredErrorMessage,
+    PersianInvalidErrorMessage,
 } from '@vendor/plugin/helper';
 
 try {
@@ -36,16 +40,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( OnlyPersianAlphabet( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `نام را با حروف فارسی وارد نمایید.` );
-                    }
+                    this.isValid = OnlyPersianAlphabet(this.val);
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد نام ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام' ) );
                 }
             }
         },
@@ -60,16 +63,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( OnlyPersianAlphabet( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `نام خانوادگی را با حروف فارسی وارد نمایید.` );
-                    }
+                    this.isValid = OnlyPersianAlphabet(this.val);
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام خانوادگی' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد نام خانوادگی ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام خانوادگی' ) );
                 }
             }
         },
@@ -84,16 +86,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( NationalCodeValidator( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `فرمت کد ملی نامعتبر است.` );
-                    }
+                    this.isValid = NationalCodeValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'کد ملی' ) )
+                    )
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد کد ملی ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'کد ملی' ) );
                 }
             }
         },
@@ -108,16 +109,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( PhoneNumberValidator( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, 'فرمت تلفن همراه نامعتبر است.' );
-                    }
+                    this.isValid = PhoneNumberValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'تلفن همراه' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد تلفن همراه ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تلفن همراه' ) );
                 }
             }
         },
@@ -132,16 +132,15 @@ try {
             },
             validate() {
                 if ( !!this.val ) {
-                    if ( EmailValidator( this.val ) ) {
-                        this.isValid = true;
-                        HANDEL_ERROR_MESSAGE( this.el );
-                    } else {
-                        this.isValid = false;
-                        HANDEL_ERROR_MESSAGE( this.el, `فرمت ایمیل نامعتبر است.` );
-                    }
+                    this.isValid = EmailValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'ایمیل' ) )
+                    );
                 } else {
                     this.isValid = false;
-                    HANDEL_ERROR_MESSAGE( this.el, `فیلد ایمیل ضروری است.` );
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'ایمیل' ) );
                 }
             }
         }
@@ -168,7 +167,8 @@ try {
     const HANDEL_FORM_ACTION = () => {
         let fields = Object.values( FIELD_ELEMENT );
         let fieldsIsValid = fields.every(field => {
-            if ( !field.isValid ) field.validate();
+            field.validate();
+            if ( !field.isValid ) SmoothScroll( field.el.offsetTop );
             return field.isValid;
         });
         if ( fieldsIsValid ) {
@@ -188,4 +188,5 @@ try {
             }
         )
     }
-} catch (e) {}
+} catch (e) {
+}

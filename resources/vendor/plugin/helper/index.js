@@ -47,6 +47,11 @@ export const NationalCodeValidator = payload => {
     return (sum < 2 && check === sum) || (sum >= 2 && check + sum === 11)
 };
 
+export const PostalCodeValidator = payload => {
+    const REGEX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
+    return REGEX.test( toEnglishDigits( payload ) );
+};
+
 export const OnlyPersianAlphabet = string => {
     const REGEX = /^[\u0600-\u06FF\u0698\u067E\u0686\u06AF]+$/;
     return REGEX.test( string );
@@ -83,8 +88,32 @@ export const Debounce = ( callback, delay ) => {
     }
 };
 
-export const ScrollToEl = el => {
+export const RequestAnimation = (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame
+);
+
+export const SmoothScroll = offsetTop => {
     try {
-        el.scrollIntoView();
+        let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > offsetTop) {
+            window.scrollTo (0,currentScroll - ( currentScroll / 12 ));
+            ( !!RequestAnimation ) ? (
+                RequestAnimation(() => {
+                    SmoothScroll( offsetTop )
+                })
+            ) : (
+                setTimeout(() => {
+                    SmoothScroll( offsetTop )
+                }, 100 )
+            )
+        } else {
+            window.scrollTo (0,  ( offsetTop - 40 ) );
+        }
     } catch (e) {}
 };
+
+export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
+export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
+export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;

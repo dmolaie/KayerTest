@@ -69,7 +69,7 @@
       right: 10px
       top: 50%
       transform: translateY(-50%)
-    .input
+    .input.input
       color: transparent
       &::placeholder
         color: inherit
@@ -79,3 +79,15 @@
     &.has-error
       .dropdown__input
         color: transparent
+  &__gender, &__marital, &__date_birth
+    &.has-error
+      .error-message
+        top: auto
+        right: 6px
+        bottom: -22px
+        transform: translateY(0)
+        text-align: right
+  &__date_birth
+    &.has-error
+      .dropdown__input.dropdown__input
+        color: #9ba9ab

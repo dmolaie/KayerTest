@@ -22,6 +22,10 @@ export default class LoginService extends BaseService {
         this.$store = layout.$store;
     }
 
+    processViewPort() {
+        BaseService.ViewPortProcess(this.$store , true);
+    }
+
     async SignInRequest( payload ) {
         try {
             this.$vm.$set( this.$vm, 'shouldBeShowSpinnerLoading', true );
