@@ -46,6 +46,7 @@ class UsersTableSeeder extends Seeder
         $user->gender = 'male';
         $user->last_name = 'plus';
         $user->national_code = $identityNumber;
+        $user->card_id= rand(1,100000);
         $user->save();
         $user->roles()->attach(
             $role->id,

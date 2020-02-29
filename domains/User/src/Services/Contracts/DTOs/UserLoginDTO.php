@@ -32,6 +32,28 @@ class UserLoginDTO
      * @var int
      */
     protected $id;
+    /**
+     * @var string
+     */
+    protected $cardId;
+
+    /**
+     * @return string
+     */
+    public function getCardId(): string
+    {
+        return $this->cardId;
+    }
+
+    /**
+     * @param string $cardId
+     * @return UserLoginDTO
+     */
+    public function setCardId(string $cardId): UserLoginDTO
+    {
+        $this->cardId = $cardId;
+        return $this;
+    }
 
     /**
      * @return int

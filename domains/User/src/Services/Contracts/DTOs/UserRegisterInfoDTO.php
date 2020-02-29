@@ -12,14 +12,6 @@ class UserRegisterInfoDTO
     /**
      * @var string
      */
-    protected $name;
-    /**
-     * @var string
-     */
-    protected $lastName;
-    /**
-     * @var string
-     */
     protected $nationalCode;
     /**
      * @var string
@@ -28,11 +20,51 @@ class UserRegisterInfoDTO
     /**
      * @var string
      */
+    protected $name;
+    /**
+     * @var string
+     */
+    protected $lastName;
+    /**
+     * @var string|null
+     */
+    protected $fatherName;
+    /**
+     * @var null|string
+     */
+    protected $identityNumber;
+    /**
+     * @var null|int
+     */
+    protected $provinceOfBirth;
+    /**
+     * @var null|int
+     */
+    protected $cityOfBirth;
+    /**
+     * @var string
+     */
     protected $dateOfBirth;
+    /**
+     * @var null|string
+     */
+    protected $jobTitle;
+    /**
+     * @var null|string
+     */
+    protected $lastEducationDegree;
+    /**
+     * @var null|string
+     */
+    protected $phone;
     /**
      * @var string
      */
     protected $mobile;
+    /**
+     * @var null|string
+     */
+    protected $essentialMobile;
     /**
      * @var int
      */
@@ -42,29 +74,29 @@ class UserRegisterInfoDTO
      */
     protected $currentCityId;
     /**
-     * @var integer
+     * @var null|string
      */
-    protected $roleId;
+    protected $email;
     /**
-     * @var string
-     */
-    protected $roleStatus;
-    /**
-     * @var string
+     * @var null|string
      */
     protected $maritalStatus;
     /**
-     * @var string
+     * @var null|string
      */
-    protected $password;
+    protected $educationField;
+    /**
+     * @var null|int
+     */
+    protected $educationProvinceId;
+    /**
+     * @var null|int
+     */
+    protected $educationCityId;
     /**
      * @var null|string
      */
-    protected $currentAddress;
-    /**
-     * @var null|string
-     */
-    protected $phone;
+    protected $homePostalCode;
     /**
      * @var null|integer
      */
@@ -76,39 +108,15 @@ class UserRegisterInfoDTO
     /**
      * @var null|string
      */
-    protected $email;
+    protected $addressOfWork;
     /**
      * @var null|string
      */
-    protected $essentialMobile;
-    /**
-     * @var null|int
-     */
-    protected $provinceOfBirth;
-    /**
-     * @var null|int
-     */
-    protected $cityOfBirth;
+    protected $workPhone;
     /**
      * @var null|string
      */
-    protected $identityNumber;
-    /**
-     * @var null|string
-     */
-    protected $jobTitle;
-    /**
-     * @var null|string
-     */
-    protected $educationalField;
-    /**
-     * @var null|string
-     */
-    protected $lastEducationalDegree;
-    /**
-     * @var null|string
-     */
-    protected $addressOfObtainingDegree;
+    protected $workPostalCode;
     /**
      * @var null|int
      */
@@ -126,49 +134,37 @@ class UserRegisterInfoDTO
      */
     protected $fieldOfActivities;
     /**
-     * @var null|string
+     * @var null|integer
      */
-    protected $addressOfWork;
+    protected $createdBy;
+    /**
+     * @var null|integer
+     */
+    protected $eventId;
+    /**
+     * @var null|boolean
+     */
+    protected $receiveEmail;
     /**
      * @var null|string
      */
-    protected $workPhone;
-
+    protected $currentAddress;
     /**
-     * @return string
+     * @var string
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
+    protected $cardId;
     /**
-     * @param string $name
-     * @return UserRegisterInfoDTO
+     * @var string
      */
-    public function setName(string $name): UserRegisterInfoDTO
-    {
-        $this->name = $name;
-        return $this;
-    }
-
+    protected $password;
     /**
-     * @return string
+     * @var integer
      */
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
+    protected $roleId;
     /**
-     * @param string $lastName
-     * @return UserRegisterInfoDTO
+     * @var string
      */
-    public function setLastName(string $lastName): UserRegisterInfoDTO
-    {
-        $this->lastName = $lastName;
-        return $this;
-    }
+    protected $roleStatus;
 
     /**
      * @return string
@@ -209,6 +205,114 @@ class UserRegisterInfoDTO
     /**
      * @return string
      */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return UserRegisterInfoDTO
+     */
+    public function setName(string $name): UserRegisterInfoDTO
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return UserRegisterInfoDTO
+     */
+    public function setLastName(string $lastName): UserRegisterInfoDTO
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFatherName(): ?string
+    {
+        return $this->fatherName;
+    }
+
+    /**
+     * @param string|null $fatherName
+     * @return UserRegisterInfoDTO
+     */
+    public function setFatherName(?string $fatherName): UserRegisterInfoDTO
+    {
+        $this->fatherName = $fatherName;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIdentityNumber(): ?string
+    {
+        return $this->identityNumber;
+    }
+
+    /**
+     * @param string|null $identityNumber
+     * @return UserRegisterInfoDTO
+     */
+    public function setIdentityNumber(?string $identityNumber): UserRegisterInfoDTO
+    {
+        $this->identityNumber = $identityNumber;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProvinceOfBirth(): ?int
+    {
+        return $this->provinceOfBirth;
+    }
+
+    /**
+     * @param int|null $provinceOfBirth
+     * @return UserRegisterInfoDTO
+     */
+    public function setProvinceOfBirth(?int $provinceOfBirth): UserRegisterInfoDTO
+    {
+        $this->provinceOfBirth = $provinceOfBirth;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCityOfBirth(): ?int
+    {
+        return $this->cityOfBirth;
+    }
+
+    /**
+     * @param int|null $cityOfBirth
+     * @return UserRegisterInfoDTO
+     */
+    public function setCityOfBirth(?int $cityOfBirth): UserRegisterInfoDTO
+    {
+        $this->cityOfBirth = $cityOfBirth;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getDateOfBirth(): string
     {
         return $this->dateOfBirth;
@@ -221,6 +325,60 @@ class UserRegisterInfoDTO
     public function setDateOfBirth(string $dateOfBirth): UserRegisterInfoDTO
     {
         $this->dateOfBirth = $dateOfBirth;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getJobTitle(): ?string
+    {
+        return $this->jobTitle;
+    }
+
+    /**
+     * @param string|null $jobTitle
+     * @return UserRegisterInfoDTO
+     */
+    public function setJobTitle(?string $jobTitle): UserRegisterInfoDTO
+    {
+        $this->jobTitle = $jobTitle;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastEducationDegree(): ?string
+    {
+        return $this->lastEducationDegree;
+    }
+
+    /**
+     * @param string|null $lastEducationDegree
+     * @return UserRegisterInfoDTO
+     */
+    public function setLastEducationDegree(?string $lastEducationDegree): UserRegisterInfoDTO
+    {
+        $this->lastEducationDegree = $lastEducationDegree;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string|null $phone
+     * @return UserRegisterInfoDTO
+     */
+    public function setPhone(?string $phone): UserRegisterInfoDTO
+    {
+        $this->phone = $phone;
         return $this;
     }
 
@@ -239,6 +397,24 @@ class UserRegisterInfoDTO
     public function setMobile(string $mobile): UserRegisterInfoDTO
     {
         $this->mobile = $mobile;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEssentialMobile(): ?string
+    {
+        return $this->essentialMobile;
+    }
+
+    /**
+     * @param string|null $essentialMobile
+     * @return UserRegisterInfoDTO
+     */
+    public function setEssentialMobile(?string $essentialMobile): UserRegisterInfoDTO
+    {
+        $this->essentialMobile = $essentialMobile;
         return $this;
     }
 
@@ -279,110 +455,110 @@ class UserRegisterInfoDTO
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getRoleId(): int
+    public function getEmail(): ?string
     {
-        return $this->roleId;
+        return $this->email;
     }
 
     /**
-     * @param int $roleId
+     * @param string|null $email
      * @return UserRegisterInfoDTO
      */
-    public function setRoleId(int $roleId): UserRegisterInfoDTO
+    public function setEmail(?string $email): UserRegisterInfoDTO
     {
-        $this->roleId = $roleId;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRoleStatus(): string
-    {
-        return $this->roleStatus;
-    }
-
-    /**
-     * @param string $roleStatus
-     * @return UserRegisterInfoDTO
-     */
-    public function setRoleStatus(string $roleStatus): UserRegisterInfoDTO
-    {
-        $this->roleStatus = $roleStatus;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMaritalStatus(): string
-    {
-        return $this->maritalStatus;
-    }
-
-    /**
-     * @param string $maritalStatus
-     * @return UserRegisterInfoDTO
-     */
-    public function setMaritalStatus(string $maritalStatus): UserRegisterInfoDTO
-    {
-        $this->maritalStatus = $maritalStatus;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     * @return UserRegisterInfoDTO
-     */
-    public function setPassword(string $password): UserRegisterInfoDTO
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getCurrentAddress(): ?string
-    {
-        return $this->currentAddress;
-    }
-
-    /**
-     * @param string $currentAddress
-     * @return UserRegisterInfoDTO
-     */
-    public function setCurrentAddress(?string $currentAddress): UserRegisterInfoDTO
-    {
-        $this->currentAddress = $currentAddress;
+        $this->email = $email;
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getMaritalStatus(): ?string
     {
-        return $this->phone;
+        return $this->maritalStatus;
     }
 
     /**
-     * @param string|null $phone
+     * @param string|null $maritalStatus
      * @return UserRegisterInfoDTO
      */
-    public function setPhone(?string $phone): UserRegisterInfoDTO
+    public function setMaritalStatus(?string $maritalStatus): UserRegisterInfoDTO
     {
-        $this->phone = $phone;
+        $this->maritalStatus = $maritalStatus;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEducationField(): ?string
+    {
+        return $this->educationField;
+    }
+
+    /**
+     * @param string|null $educationField
+     * @return UserRegisterInfoDTO
+     */
+    public function setEducationField(?string $educationField): UserRegisterInfoDTO
+    {
+        $this->educationField = $educationField;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEducationProvinceId(): ?int
+    {
+        return $this->educationProvinceId;
+    }
+
+    /**
+     * @param int|null $educationProvinceId
+     * @return UserRegisterInfoDTO
+     */
+    public function setEducationProvinceId(?int $educationProvinceId): UserRegisterInfoDTO
+    {
+        $this->educationProvinceId = $educationProvinceId;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEducationCityId(): ?int
+    {
+        return $this->educationCityId;
+    }
+
+    /**
+     * @param int|null $educationCityId
+     * @return UserRegisterInfoDTO
+     */
+    public function setEducationCityId(?int $educationCityId): UserRegisterInfoDTO
+    {
+        $this->educationCityId = $educationCityId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHomePostalCode(): ?string
+    {
+        return $this->homePostalCode;
+    }
+
+    /**
+     * @param string|null $homePostalCode
+     * @return UserRegisterInfoDTO
+     */
+    public function setHomePostalCode(?string $homePostalCode): UserRegisterInfoDTO
+    {
+        $this->homePostalCode = $homePostalCode;
         return $this;
     }
 
@@ -425,162 +601,54 @@ class UserRegisterInfoDTO
     /**
      * @return string|null
      */
-    public function getEmail(): ?string
+    public function getAddressOfWork(): ?string
     {
-        return $this->email;
+        return $this->addressOfWork;
     }
 
     /**
-     * @param string|null $email
+     * @param string|null $addressOfWork
      * @return UserRegisterInfoDTO
      */
-    public function setEmail(?string $email): UserRegisterInfoDTO
+    public function setAddressOfWork(?string $addressOfWork): UserRegisterInfoDTO
     {
-        $this->email = $email;
+        $this->addressOfWork = $addressOfWork;
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getEssentialMobile(): ?string
+    public function getWorkPhone(): ?string
     {
-        return $this->essentialMobile;
+        return $this->workPhone;
     }
 
     /**
-     * @param string|null $essentialMobile
+     * @param string|null $workPhone
      * @return UserRegisterInfoDTO
      */
-    public function setEssentialMobile(?string $essentialMobile): UserRegisterInfoDTO
+    public function setWorkPhone(?string $workPhone): UserRegisterInfoDTO
     {
-        $this->essentialMobile = $essentialMobile;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getProvinceOfBirth(): ?int
-    {
-        return $this->provinceOfBirth;
-    }
-
-    /**
-     * @param int|null $provinceOfBirth
-     * @return UserRegisterInfoDTO
-     */
-    public function setProvinceOfBirth(?int $provinceOfBirth): UserRegisterInfoDTO
-    {
-        $this->provinceOfBirth = $provinceOfBirth;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getCityOfBirth(): ?int
-    {
-        return $this->cityOfBirth;
-    }
-
-    /**
-     * @param int|null $cityOfBirth
-     * @return UserRegisterInfoDTO
-     */
-    public function setCityOfBirth(?int $cityOfBirth): UserRegisterInfoDTO
-    {
-        $this->cityOfBirth = $cityOfBirth;
+        $this->workPhone = $workPhone;
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getIdentityNumber(): ?string
+    public function getWorkPostalCode(): ?string
     {
-        return $this->identityNumber;
+        return $this->workPostalCode;
     }
 
     /**
-     * @param string|null $identityNumber
+     * @param string|null $workPostalCode
      * @return UserRegisterInfoDTO
      */
-    public function setIdentityNumber(?string $identityNumber): UserRegisterInfoDTO
+    public function setWorkPostalCode(?string $workPostalCode): UserRegisterInfoDTO
     {
-        $this->identityNumber = $identityNumber;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getJobTitle(): ?string
-    {
-        return $this->jobTitle;
-    }
-
-    /**
-     * @param string|null $jobTitle
-     * @return UserRegisterInfoDTO
-     */
-    public function setJobTitle(?string $jobTitle): UserRegisterInfoDTO
-    {
-        $this->jobTitle = $jobTitle;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getEducationalField(): ?string
-    {
-        return $this->educationalField;
-    }
-
-    /**
-     * @param string|null $educationalField
-     * @return UserRegisterInfoDTO
-     */
-    public function setEducationalField(?string $educationalField): UserRegisterInfoDTO
-    {
-        $this->educationalField = $educationalField;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getLastEducationalDegree(): ?string
-    {
-        return $this->lastEducationalDegree;
-    }
-
-    /**
-     * @param string|null $lastEducationalDegree
-     * @return UserRegisterInfoDTO
-     */
-    public function setLastEducationalDegree(?string $lastEducationalDegree): UserRegisterInfoDTO
-    {
-        $this->lastEducationalDegree = $lastEducationalDegree;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAddressOfObtainingDegree(): ?string
-    {
-        return $this->addressOfObtainingDegree;
-    }
-
-    /**
-     * @param string|null $addressOfObtainingDegree
-     * @return UserRegisterInfoDTO
-     */
-    public function setAddressOfObtainingDegree(?string $addressOfObtainingDegree): UserRegisterInfoDTO
-    {
-        $this->addressOfObtainingDegree = $addressOfObtainingDegree;
+        $this->workPostalCode = $workPostalCode;
         return $this;
     }
 
@@ -657,38 +725,146 @@ class UserRegisterInfoDTO
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getAddressOfWork(): ?string
+    public function getCreatedBy(): ?int
     {
-        return $this->addressOfWork;
+        return $this->createdBy;
     }
 
     /**
-     * @param string|null $addressOfWork
+     * @param int|null $createdBy
      * @return UserRegisterInfoDTO
      */
-    public function setAddressOfWork(?string $addressOfWork): UserRegisterInfoDTO
+    public function setCreatedBy(?int $createdBy): UserRegisterInfoDTO
     {
-        $this->addressOfWork = $addressOfWork;
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEventId(): ?int
+    {
+        return $this->eventId;
+    }
+
+    /**
+     * @param int|null $eventId
+     * @return UserRegisterInfoDTO
+     */
+    public function setEventId(?int $eventId): UserRegisterInfoDTO
+    {
+        $this->eventId = $eventId;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getReceiveEmail(): ?bool
+    {
+        return $this->receiveEmail;
+    }
+
+    /**
+     * @param bool|null $receiveEmail
+     * @return UserRegisterInfoDTO
+     */
+    public function setReceiveEmail(?bool $receiveEmail): UserRegisterInfoDTO
+    {
+        $this->receiveEmail = $receiveEmail;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCardId(): string
+    {
+        return $this->cardId;
+    }
+
+    /**
+     * @param string $cardId
+     * @return UserRegisterInfoDTO
+     */
+    public function setCardId(string $cardId): UserRegisterInfoDTO
+    {
+        $this->cardId = $cardId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return UserRegisterInfoDTO
+     */
+    public function setPassword(string $password): UserRegisterInfoDTO
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRoleId(): int
+    {
+        return $this->roleId;
+    }
+
+    /**
+     * @param int $roleId
+     * @return UserRegisterInfoDTO
+     */
+    public function setRoleId(int $roleId): UserRegisterInfoDTO
+    {
+        $this->roleId = $roleId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoleStatus(): string
+    {
+        return $this->roleStatus;
+    }
+
+    /**
+     * @param string $roleStatus
+     * @return UserRegisterInfoDTO
+     */
+    public function setRoleStatus(string $roleStatus): UserRegisterInfoDTO
+    {
+        $this->roleStatus = $roleStatus;
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getWorkPhone(): ?string
+    public function getCurrentAddress(): ?string
     {
-        return $this->workPhone;
+        return $this->currentAddress;
     }
 
     /**
-     * @param string|null $workPhone
+     * @param string|null $currentAddress
      * @return UserRegisterInfoDTO
      */
-    public function setWorkPhone(?string $workPhone): UserRegisterInfoDTO
+    public function setCurrentAddress(?string $currentAddress): UserRegisterInfoDTO
     {
-        $this->workPhone = $workPhone;
+        $this->currentAddress = $currentAddress;
         return $this;
     }
 

@@ -2,6 +2,8 @@
 
 namespace Domains\User\Entities;
 
+use Domains\Location\Entities\City;
+use Domains\Location\Entities\Province;
 use Domains\Role\Entities\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +12,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,9 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'address_of_obtaining_degree',
         'last_education_degree',
-        'educational_field',
+        'education_field',
         'job_title',
         'marital_status',
         'identity_number',
@@ -41,6 +42,11 @@ class User extends Authenticatable
         'gender',
         'last_name',
         'national_code',
+        'card_id',
+        'home_postal_code',
+        'work_postal_code',
+        'education_province_id',
+        'education_city_id'
     ];
 
     /**
@@ -49,7 +55,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -67,6 +74,22 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')
-            ->withPivot('status','created_at', 'updated_at');
+            ->withPivot('status', 'created_at', 'updated_at');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function currentCity()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function currentProvince()
+    {
+        return $this->belongsTo(Province::class);
     }
 }
