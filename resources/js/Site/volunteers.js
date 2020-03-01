@@ -198,11 +198,11 @@ try {
                 FROM_MESSAGE.classList.remove('none');
                 setTimeout(() => {
                     RedirectRoute('/')
-                }, 350)
+                }, 450)
             }
             catch ( exception ) {
                 let errors = exception?.errors;
-                if ( HasLength( errors ) ) {
+                if ( errors ) {
                     Object.entries( errors )
                         .forEach( ([key, val], index) => {
                             let item = FIELD_ELEMENT[key];

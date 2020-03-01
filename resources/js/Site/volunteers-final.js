@@ -886,11 +886,11 @@ try {
                     if ( USER_HAS_ACCESS ) {
                         RedirectRoute('/user');
                     }
-                }, 380)
+                }, 450)
             }
             catch ( exception ) {
                 let errors = exception?.errors;
-                if ( HasLength( errors ) ) {
+                if ( errors ) {
                     Object.entries( errors )
                         .forEach( ([key, val], index) => {
                             let item = FIELD_ELEMENT[key];

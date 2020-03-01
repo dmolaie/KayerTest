@@ -7,6 +7,7 @@ import {
     Length,
     HasLength,
     SmoothScroll,
+    RedirectRoute,
     toEnglishDigits,
     OnlyNumber,
     EmailValidator,
@@ -86,7 +87,7 @@ try {
     const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
-    const FORM_MESSAGE = document.querySelector('.form__msg');
+    const FORM_MESSAGE = document.querySelector('.dnt-page__msg');
     const SECOND_STEP = document.querySelector('.dnt-page__from_step-two');
     const SUBMIT_BUTTON = document.querySelector('.dnt-page__btn--submit');
     const DISCARD_BUTTON = document.querySelector('.dnt-page__btn--cancel');
@@ -126,7 +127,7 @@ try {
                 }
             }
         },
-        full_name: {
+        last_name: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__full-name'),
             get input() {
@@ -173,9 +174,9 @@ try {
             }
         }
     };
-    // ->.
+
     const STEP_SECOND_ELEMENT = {
-        birth_certificate: {
+        identity_number: {
             isValid: true,
             el: GET_ELEMENT('dnt-page__certificate'),
             get input() {
@@ -214,7 +215,7 @@ try {
                 );
             }
         },
-        parent_name: {
+        father_name: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__parent-name'),
             get input() {
@@ -252,7 +253,7 @@ try {
                 );
             }
         },
-        phone: {
+        mobile: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__phone'),
             get input() {
@@ -299,7 +300,7 @@ try {
                 }
             }
         },
-        home_province: {
+        current_province_id: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__home-province'),
             get input() {
@@ -318,7 +319,7 @@ try {
                 }
             }
         },
-        home_city: {
+        current_city_id: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__home-city'),
             get input() {
@@ -337,7 +338,20 @@ try {
                 }
             }
         },
-        tel: {
+        current_address: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__current_address'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                this.isValid = true;
+            }
+        },
+        phone: {
             isValid: true,
             el: GET_ELEMENT('dnt-page__tel'),
             get input() {
@@ -377,7 +391,7 @@ try {
                 } else this.isValid = true;
             }
         },
-        edu_level: {
+        last_education_degree: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__edu-level'),
             get input() {
@@ -393,6 +407,32 @@ try {
                 ) : (
                     HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'میزان تحصیلات' ) )
                 );
+            }
+        },
+        education_field: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__education_field'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                this.isValid = true;
+            }
+        },
+        job_title: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__job_title'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                this.isValid = true;
             }
         },
         password: {
@@ -418,7 +458,7 @@ try {
                 }
             }
         },
-        repeat_password: {
+        password_confirmation: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__rpt-password'),
             get input() {
@@ -511,127 +551,126 @@ try {
             return field.isValid;
         });
         if ( isValid ) {
-            SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
             try {
+                FORM_MESSAGE.classList.add('none');
+                SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
                 let payload = {
                     'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code'].val ) ),
                 };
-                let response = await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_USER ), payload);
-                FORM_MESSAGE.classList.add('none');
+                await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_USER ), payload);
                 currentStep = 2;
                 fields.forEach(field => field.input.readOnly = true);
                 OPEN_SECOND_STEP();
-            } catch (e) {
-                FORM_MESSAGE.classList.remove('none');
-                FORM_MESSAGE.textContent = e?.message || 'متاسفانه مشکلی پیش آمده است.';
+            } catch ( exception ) {
+                let errors = exception?.errors;
+                if ( errors ) {
+                    Object.entries( errors )
+                        .forEach( ([key, val], index) => {
+                            let item = STEP_FIRST_ELEMENT[key];
+                            if ( !!item ) {
+                                HANDEL_ERROR_MESSAGE( item.el, val[0] );
+                                if ( index === 0 ) SmoothScroll( item.el.offsetTop );
+                            }
+                        });
+                }
+                else {
+                    FORM_MESSAGE.textContent = ( exception?.message || 'متاسفانه مشکلی پیش‌آمده است.' );
+                    FORM_MESSAGE.classList.remove('text-green');
+                    FORM_MESSAGE.classList.remove('none');
+                }
             } finally {
                 SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
             }
         }
     };
 
+    const CREATE_REQUEST_PAYLOAD = () => {
+        const DATE_OF_BIRTH = () => {
+            let jd = parseInt( document.querySelector('select[name="birth_day"]').value ),
+                jm = parseInt( document.querySelector('select[name="birth_month"]').value ),
+                jy = parseInt( document.querySelector('select[name="birth_year"]').value );
+            return (
+                DateService.jalaaliToTimestamp( jy, jm, jd )
+            )
+        };
+
+        const GENDER_FIELD = document.querySelector('input[name="gender"]:checked')?.value,
+            PROVINCE_OF_BIRTH_FIELD = document.querySelector('select[name="birth_province"]').value,
+            CITY_OF_BIRTH_FIELD = document.querySelector('select[name="birth_city"]').value,
+            PROVINCE_OF_EDUCATION_FIELD = document.querySelector('select[name="edu_province"]').value,
+            CITY_OF_EDUCATION_FIELD = document.querySelector('select[name="edu_city"]').value;
+
+        let payload = {
+            'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code'].val ) ),
+            'gender': ( parseInt( GENDER_FIELD ) ),
+            'name': ( STEP_FIRST_ELEMENT['name'].val ),
+            'last_name': ( STEP_FIRST_ELEMENT['last_name'].val ),
+            'father_name': ( STEP_SECOND_ELEMENT['father_name'].val ),
+            'identity_number': ( !!STEP_SECOND_ELEMENT['identity_number'].val ? parseInt(toEnglishDigits( STEP_SECOND_ELEMENT['identity_number'].val )) : '' ),
+            'province_of_birth': ( !!PROVINCE_OF_BIRTH_FIELD ? parseInt(toEnglishDigits( PROVINCE_OF_BIRTH_FIELD )) : '' ),
+            'city_of_birth': ( !!CITY_OF_BIRTH_FIELD ? parseInt(toEnglishDigits( CITY_OF_BIRTH_FIELD )) : '' ),
+            'date_of_birth': ( DATE_OF_BIRTH() ),
+            'job_title': ( STEP_SECOND_ELEMENT['job_title'].val ),
+            'last_education_degree': ( parseInt( STEP_SECOND_ELEMENT['last_education_degree'].val ) ),
+            'phone': ( toEnglishDigits( STEP_SECOND_ELEMENT['phone'].val ) ),
+            'mobile': ( toEnglishDigits( STEP_SECOND_ELEMENT['mobile'].val ) ),
+            'current_province_id': ( parseInt( STEP_SECOND_ELEMENT['current_province_id'].val ) ),
+            'current_city_id': ( parseInt( STEP_SECOND_ELEMENT['current_city_id'].val ) ),
+            'email': ( toEnglishDigits( STEP_SECOND_ELEMENT['email'].val ) ),
+            'education_field': ( toEnglishDigits( STEP_SECOND_ELEMENT['education_field'].val ) ),
+            'education_province_id': ( !!PROVINCE_OF_EDUCATION_FIELD ? parseInt( PROVINCE_OF_EDUCATION_FIELD ) : '' ),
+            'education_city_id': ( !!CITY_OF_EDUCATION_FIELD ? parseInt( CITY_OF_EDUCATION_FIELD ) : '' ),
+            'current_address': ( toEnglishDigits( STEP_SECOND_ELEMENT['current_address'].val ) ),
+            'home_postal_code': ( !!STEP_SECOND_ELEMENT['home_postal_code'].val ? parseInt(toEnglishDigits( STEP_SECOND_ELEMENT['home_postal_code'].val )) : '' ),
+            'password': ( toEnglishDigits( STEP_SECOND_ELEMENT['password'].val ) ),
+            'password_confirmation': ( toEnglishDigits( STEP_SECOND_ELEMENT['password_confirmation'].val ) ),
+        };
+
+        Object.keys( payload )
+            .forEach( key => {
+                if ( !payload[key] && typeof payload[key] === 'string' )
+                    delete payload[key]
+            });
+
+        return payload;
+    };
+
     const FETCH_SECOND_STEP = async () => {
         try {
-            const DATE_OF_BIRTH = () => {
-                let jd = parseInt( document.querySelector('select[name="birth_day"]').value ),
-                    jm = parseInt( document.querySelector('select[name="birth_month"]').value ),
-                    jy = parseInt( document.querySelector('select[name="birth_year"]').value );
-                return (
-                    DateService.jalaaliToTimestamp( jy, jm, jd )
-                )
-            };
-
-            let identity_number = STEP_SECOND_ELEMENT['birth_certificate'].val,
-                province_of_birth = document.querySelector('select[name="birth_province"]').value,
-                job_title = document.querySelector('input[name="job"]').value,
-                city_of_birth = document.querySelector('select[name="birth_city"]').value,
-                phone = STEP_SECOND_ELEMENT['tel'].val,
-                email = STEP_SECOND_ELEMENT['email'].val,
-                current_province_id = document.querySelector('select[name="home_province"]').value,
-                current_city_id = document.querySelector('select[name="home_city"]').value,
-                education_field = document.querySelector('input[name="edu_field"]').value,
-                education_province_id = document.querySelector('select[name="edu_province"]').value,
-                education_city_id = document.querySelector('select[name="edu_city"]').value,
-                current_address = document.querySelector('input[name="home_address"]').value,
-                home_postal_code = STEP_SECOND_ELEMENT['home_postal_code'].val;
-
-            let payload = {
-                'national_code': ( toEnglishDigits( STEP_FIRST_ELEMENT['national_code']?.val ) ),
-                'gender': ( parseInt(toEnglishDigits( document.querySelector('input[name="gender"]:checked').value )) ),
-                'name': ( STEP_FIRST_ELEMENT['name'].val ),
-                'last_name': ( STEP_FIRST_ELEMENT['full_name'].val ),
-                'father_name': ( STEP_SECOND_ELEMENT['parent_name'].val ),
-                'date_of_birth': ( DATE_OF_BIRTH() ),
-                'last_education_degree': ( parseInt(toEnglishDigits( STEP_SECOND_ELEMENT['edu_level'].val )) ),
-                'mobile': ( toEnglishDigits(STEP_SECOND_ELEMENT['phone'].val) ),
-                'password': ( toEnglishDigits(STEP_SECOND_ELEMENT['password'].val) ),
-                'password_confirmation': ( toEnglishDigits(STEP_SECOND_ELEMENT['repeat_password'].val) ),
-            };
-
-            if ( !!job_title ) {
-                payload['job_title'] = job_title
-            }
-
-            if ( !!province_of_birth ) {
-                payload['identity_number'] = parseInt(toEnglishDigits(province_of_birth))
-            }
-
-            if ( !!identity_number ) {
-                payload['identity_number'] = parseInt(toEnglishDigits( identity_number ))
-            }
-
-            if ( !!city_of_birth ) {
-                payload['city_of_birth'] = parseInt(toEnglishDigits(city_of_birth))
-            }
-
-            if ( !!job_title ) {
-                payload['job_title'] = job_title
-            }
-
-            if ( !!phone ) {
-                payload['phone'] = toEnglishDigits( phone )
-            }
-
-            if ( !!current_province_id ) {
-                payload['current_province_id'] = parseInt(toEnglishDigits( current_province_id ))
-            }
-
-            if ( !!current_city_id ) {
-                payload['current_city_id'] = parseInt(toEnglishDigits( current_city_id ))
-            }
-
-            if ( !!email ) {
-                payload['email'] = toEnglishDigits( email )
-            }
-
-            if ( !!education_field ) {
-                payload['education_field'] = education_field
-            }
-
-            if ( !!education_province_id ) {
-                payload['education_province_id'] = parseInt(toEnglishDigits( education_province_id ))
-            }
-
-            if ( !!education_city_id ) {
-                payload['education_city_id'] = parseInt(toEnglishDigits( education_city_id ))
-            }
-
-            if ( !!current_address ) {
-                payload['current_address'] = toEnglishDigits(current_address)
-            }
-
-            if ( !!home_postal_code ) {
-                payload['home_postal_code'] = parseInt(toEnglishDigits( home_postal_code ))
-            }
-
+            FORM_MESSAGE.classList.add('none');
             SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
+            let payload = CREATE_REQUEST_PAYLOAD();
             let response = await HTTPService.postRequest(Endpoint.get( Endpoint.REGISTER ), payload);
             const TOKEN_SERVICE = new TokenService( response );
-            TOKEN_SERVICE._HandelToken();
-        } catch (e) {
+            FORM_MESSAGE.classList.add('text-green');
+            FORM_MESSAGE.textContent = response?.message;
             FORM_MESSAGE.classList.remove('none');
-            FORM_MESSAGE.textContent = e?.message || 'متاسفانه مشکلی پیش آمده است.';
-        } finally {
+            setTimeout(() => {
+                const USER_HAS_ACCESS = TOKEN_SERVICE._HandelToken();
+                if ( USER_HAS_ACCESS ) {
+                    RedirectRoute('/user');
+                }
+            }, 450)
+        }
+        catch ( exception ) {
+            let errors = exception?.errors;
+            if ( errors ) {
+                Object.entries( errors )
+                    .forEach( ([key, val], index) => {
+                        let item = STEP_SECOND_ELEMENT[key] || STEP_FIRST_ELEMENT[key];
+                        if ( !!item ) {
+                            HANDEL_ERROR_MESSAGE( item.el, val[0] );
+                            if ( index === 0 ) SmoothScroll( item.el.offsetTop );
+                        }
+                    });
+            }
+            else {
+                FORM_MESSAGE.textContent = ( exception?.message || 'متاسفانه مشکلی پیش‌آمده است.' );
+                FORM_MESSAGE.classList.remove('text-green');
+                FORM_MESSAGE.classList.remove('none');
+            }
+        }
+        finally {
             SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
         }
     };

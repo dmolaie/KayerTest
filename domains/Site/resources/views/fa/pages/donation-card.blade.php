@@ -42,7 +42,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="full_name" autocomplete="off" required="required"
+                                               name="last_name" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -70,7 +70,7 @@
                                                 <input type="text"
                                                        placeholder="فقط عدد"
                                                        class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                                       name="birth_certificate" autocomplete="off" disabled="disabled"
+                                                       name="identity_number" autocomplete="off" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
@@ -121,7 +121,7 @@
                                                 <input type="text"
                                                        placeholder="حروف فارسی"
                                                        class="input input--blue block w-full border border-solid rounded"
-                                                       name="parent_name" autocomplete="off" required="required" disabled="disabled"
+                                                       name="father_name" autocomplete="off" required="required" disabled="disabled"
 
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -223,7 +223,7 @@
                                                 <input type="text"
                                                        placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                                        class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                                       name="phone" autocomplete="off" required="required" disabled="disabled"
+                                                       name="mobile" autocomplete="off" required="required" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
@@ -251,7 +251,7 @@
                                             </span>
                                             <div class="relative dnt-page__home-province w-full">
                                                 <select class="dnt-page__select dnt-page__select--province"
-                                                        name="home_province" disabled="disabled"
+                                                        name="current_province_id" disabled="disabled"
                                                 >
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
@@ -271,7 +271,7 @@
                                             </span>
                                             <div class="relative dnt-page__home-city w-full">
                                                 <select class="dnt-page__select dnt-page__select--home-city"
-                                                        name="home_city" disabled="disabled"
+                                                        name="current_city_id" disabled="disabled"
                                                 >
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
@@ -289,11 +289,11 @@
                                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
                                                 آدرس محل سکونت
                                             </span>
-                                            <label class="dnt-page__phone w-full block">
+                                            <label class="dnt-page__current_address w-full block">
                                                 <input type="text"
                                                        placeholder="حروف فارسی"
                                                        class="input input--blue block w-full border border-solid rounded"
-                                                       name="home_address" autocomplete="off" disabled="disabled"
+                                                       name="current_address" autocomplete="off" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
@@ -306,7 +306,7 @@
                                                 <input type="text"
                                                        placeholder="تلفن منزل ۱۱ رقمی خود را وارد نمایید"
                                                        class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                                       name="tel" autocomplete="off" disabled="disabled"
+                                                       name="phone" autocomplete="off" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
@@ -333,7 +333,7 @@
                                             </span>
                                             <div class="dnt-page__edu-level w-full">
                                                 <select class="dnt-page__select dnt-page__select_edu-level"
-                                                        name="edu_level"
+                                                        name="last_education_degree"
                                                 >
                                                     <option value="">
                                                         انتخاب کنید...
@@ -351,11 +351,11 @@
                                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                                 رشته تحصیلی
                                             </span>
-                                            <label class="dnt-page__job w-full block">
+                                            <label class="dnt-page__education_field w-full block">
                                                 <input type="text"
                                                        placeholder="حروف فارسی"
                                                        class="input input--blue block w-full border border-solid rounded"
-                                                       name="edu_field" autocomplete="off" disabled="disabled"
+                                                       name="education_field" autocomplete="off" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
@@ -407,11 +407,11 @@
                                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                                 شغل
                                             </span>
-                                            <label class="dnt-page__job w-full block">
+                                            <label class="dnt-page__job_title w-full block">
                                                 <input type="text"
                                                        placeholder="حروف فارسی"
                                                        class="input input--blue block w-full border border-solid rounded"
-                                                       name="job" autocomplete="off" disabled="disabled"
+                                                       name="job_title" autocomplete="off" disabled="disabled"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
@@ -442,14 +442,15 @@
                                                        placeholder="تکرار گذرواژه"
                                                        class="input input--blue block w-full border border-solid rounded direction-ltr"
                                                        autocomplete="off" required disabled="disabled"
-                                                       name="repeat_password"
+                                                       name="password_confirmation"
                                                 />
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <p class="form__msg none text-red font-sm font-bold cursor-default m-t-8"></p>
+                                <p class="dnt-page__msg none text-red font-sm font-bold cursor-default m-t-8"
+                                ></p>
                                 <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
                                     ارسال اطلاعات
                                 </button>
@@ -504,6 +505,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/vendors~donation-card~volunteers.js')}}" defer></script>
+        <script src="{{asset('js/site/vendors~donation-card~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/donation-card~volunteers-final.js ')}}" defer></script>
         <script src="{{asset('js/site/donation-card.js')}}" defer></script>
     @endsection
