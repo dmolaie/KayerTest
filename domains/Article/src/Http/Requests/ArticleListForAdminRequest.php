@@ -3,6 +3,7 @@
 namespace Domains\Article\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
+use Carbon\Carbon;
 use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Illuminate\Validation\Rule;
 
@@ -38,11 +39,18 @@ class ArticleListForAdminRequest extends EhdaBaseRequest
     public function createArticleFilterDTO(): ArticleFilterDTO
     {
         $articleFilterDTO = new ArticleFilterDTO();
-        $articleFilterDTO->setCreateDateEnd($this['create_date_end'])
-            ->setCreateDateStart($this['create_date_start'])
+        $articleFilterDTO->setCreateDateEnd($this['create_date_end'] ?
+            Carbon::createFromTimestamp(
+                $this['create_date_end'])->toDateTimeString() : null
+        )
+            ->setCreateDateStart($this['create_date_start'] ?
+                Carbon::createFromTimestamp(
+                    $this['create_date_start'])->toDateTimeString() : null
+            )
             ->setPublisherId($this['publisher_id'])
-            ->setArticleInputStatus($this['status']??config('article.article_publish_status'))
+            ->setArticleInputStatus($this['status'])
             ->setFirstTitle($this['first_title']);
+
         return $articleFilterDTO;
     }
 }

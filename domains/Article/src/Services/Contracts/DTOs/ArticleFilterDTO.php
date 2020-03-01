@@ -28,11 +28,11 @@ class ArticleFilterDTO
      */
     protected $publisherId;
     /**
-     * @var string
+     * @var string|null
      */
     protected $articleInputStatus;
     /**
-     * @var string
+     * @var null|string
      */
     protected $articleRealStatus;
     /**
@@ -117,19 +117,22 @@ class ArticleFilterDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getArticleInputStatus(): string
+    public function getArticleInputStatus(): ?string
     {
         return $this->articleInputStatus;
     }
 
     /**
-     * @param string $articleInputStatus
+     * @param null|string $articleInputStatus
      * @return ArticleFilterDTO
      */
-    public function setArticleInputStatus(string $articleInputStatus): ArticleFilterDTO
+    public function setArticleInputStatus(?string $articleInputStatus): ArticleFilterDTO
     {
+        if(!$articleInputStatus){
+            return $this;
+        }
         $this->articleInputStatus = $articleInputStatus;
         $this->articleRealStatus = config('article.article_convert_to_real_status.' . $articleInputStatus);
 
@@ -142,9 +145,9 @@ class ArticleFilterDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getArticleRealStatus(): string
+    public function getArticleRealStatus(): ?string
     {
         return $this->articleRealStatus;
     }

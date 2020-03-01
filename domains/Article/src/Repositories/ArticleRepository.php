@@ -86,7 +86,10 @@ class ArticleRepository
     function filter(ArticleFilterDTO $articleFilterDTO)
     {
 
-        $baseQuery = $this->entityName::where('status', $articleFilterDTO->getArticleRealStatus())
+        $baseQuery = $this->entityName::
+        when($articleFilterDTO->getArticleRealStatus(), function ($query) use ($articleFilterDTO) {
+            return $query->where('status', $articleFilterDTO->getArticleRealStatus());
+        })
             ->when($articleFilterDTO->getPublisherId(), function ($query) use ($articleFilterDTO) {
                 return $query->where('publisher_id', $articleFilterDTO->getPublisherId());
             })
@@ -108,6 +111,11 @@ class ArticleRepository
             ->paginate(config('article.article_paginate_count'));
 
         return $baseQuery;
+    }
+
+    public function destroyArticle(int $articleId)
+    {
+        return $this->entityName::where('id', $articleId)->delete();
     }
 
 }

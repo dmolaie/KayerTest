@@ -62,7 +62,7 @@ class ArticleEditDTO extends ArticleBaseSaveDTO
      */
     public function getThirdTitle(): ?string
     {
-        return $this->ThirdTitle;
+        return $this->thirdTitle;
     }
 
     /**

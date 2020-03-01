@@ -57,7 +57,7 @@ class ArticleInfoPresenter
         ];
         if ($articleInfoDTO->getStatus() == 'accept' && $articleInfoDTO->getPublishDate() <= Carbon::now()) {
             $status = [
-                'fa' => trans('article::article.article_statuses.publish'),
+                'fa' => trans('article::article.article_statuses.published'),
                 'en' => 'published'
             ];
 

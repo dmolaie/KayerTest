@@ -3,6 +3,7 @@
 
 namespace Domains\Article\Services;
 
+use Domains\Article\Exceptions\ArticleNotFoundException;
 use Domains\Attachment\Services\AttachmentServices;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
@@ -148,8 +149,6 @@ class ArticleService
             return $this->attachmentServices->getImagesByIds($attachmentGetInfoDTO);
         }
         return $attachmentGetInfoDTO;
-
-
     }
 
     /**
@@ -166,6 +165,16 @@ class ArticleService
             ArticleInfoDTOMaker::class,
             $attachmentInfoDto
         );
+
+    }
+
+    public function destroyArticle($articleId)
+    {
+        $result = $this->articleRepository->destroyArticle($articleId);
+        if (!$result) {
+            throw new ArticleNotFoundException(trans('article::response.article_not_found'));
+        }
+        return $result;
 
     }
 }

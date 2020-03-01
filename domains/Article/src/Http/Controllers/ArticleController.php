@@ -6,8 +6,10 @@ namespace Domains\Article\Http\Controllers;
 use App\Http\Controllers\EhdaBaseController;
 use Auth;
 use Domains\Article\Entities\Article;
+use Domains\Article\Exceptions\ArticleNotFoundException;
 use Domains\Article\Http\Presenters\ArticlePaginateInfoPresenter;
 use Domains\Article\Http\Requests\CreateArticleRequest;
+use Domains\Article\Http\Requests\DestroyArticleRequest;
 use Domains\Article\Http\Requests\EditArticleRequest;
 use Domains\Article\Http\Requests\ArticleListForAdminRequest;
 use Domains\Article\Services\ArticleService;
@@ -61,5 +63,15 @@ class ArticleController extends EhdaBaseController
             $articlePaginateInfoPresenter->transform($articlePaginateInfoDTO),
             Response::HTTP_OK
         );
+    }
+
+    public function deleteArticle(int $articleId)
+    {
+        try {
+            $this->articleService->destroyArticle($articleId);
+            return $this->response([], Response::HTTP_OK, trans('article::response.success_delete_article'));
+        } catch (ArticleNotFoundException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
+        }
     }
 }

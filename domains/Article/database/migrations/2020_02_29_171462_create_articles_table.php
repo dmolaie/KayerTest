@@ -28,6 +28,7 @@ class CreateArticlesTable extends Migration
             $table->bigInteger('editor_id')->unsigned()->nullable();
             $table->bigInteger('publisher_id')->unsigned();
             $table->integer('parent_id')->nullable()->unsigned();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('province_id')->on('provinces')
