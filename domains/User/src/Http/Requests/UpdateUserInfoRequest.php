@@ -47,7 +47,7 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
             'day_of_cooperation'         => 'integer|min:1|max:30',
             'field_of_activities'        => 'array|min:1',
             'field_of_activities.*'      => 'integer|distinct|min:0|max:12',
-            'password'                   => 'confirmed|min:6',
+            'password'                   => 'confirmed|min:8',
         ];
     }
 
