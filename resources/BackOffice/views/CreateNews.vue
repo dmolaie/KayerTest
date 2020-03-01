@@ -49,7 +49,7 @@
                             عکس دوم
                         </p>
                         <div class="flex items-start">
-                            <button class="c-news__second-image w-1/4 xl:w-1/5 flex-shrink-0 bg-zircon text-blue border-blue-100-1 rounded font-sm font-medium text-center m-l-20 l:hover:bg-white l:transition-bg">
+                            <button class="c-news__second-image w-1/4 xl:w-1/5 flex-shrink-0 bg-zircon text-blue border-blue-100-1 rounded font-sm font-medium text-center m-l-20 l:hover:bg-white l:transition-bg user-select-none">
                                 انتخاب عکس
                             </button>
                             <div class="flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded">

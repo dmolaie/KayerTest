@@ -8,6 +8,8 @@
         </p>
         <div class="panel__title">
             <select-cm :options="options"
+                       placeholder="دامنه مورد نظر خود را انتخاب کنیددامنه مورد نظر خود را انتخاب کنید"
+                       :multiple="false"
             />
         </div>
         <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
@@ -26,10 +28,6 @@
         name: "DomainsPanel",
         data: () => ({
             options: [
-                {
-                    text: 'دامنه مورد نظر خود را انتخاب کنید',
-                    value: ''
-                },
                 {
                     text: 'salam',
                     value: '213'
