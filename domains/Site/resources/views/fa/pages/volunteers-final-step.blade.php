@@ -889,11 +889,11 @@
                                     </span>
                                 </label>
                             </div>
+                            <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8 m-b-0 text-center justify-center"
+                            ></p>
                             <button class="vnt-page__btn vnt-page__btn--submit block m-0-auto text-white font-lg font-bold bg-green border-green-200-2 rounded text-center l:transition-bg l:hover:bg-green-200">
                                 ارسال اطلاعات
                             </button>
-                            <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8 text-center"
-                            ></p>
                         </form>
                     </div>
                 </div>

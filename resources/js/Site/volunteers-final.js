@@ -878,14 +878,19 @@ try {
                 let payload = CREATE_REQUEST_PAYLOAD();
                 let response = await HTTPService.postRequest(Endpoint.get( Endpoint.REGISTER_LEGATE ), payload);
                 const TOKEN_SERVICE = new TokenService( response );
-                const USER_HAS_ACCESS = TOKEN_SERVICE._HandelToken();
-                if ( USER_HAS_ACCESS ) {
-                    // RedirectRoute();
-                }
+                FROM_MESSAGE.classList.add('text-green');
+                FROM_MESSAGE.textContent = response?.message;
+                FROM_MESSAGE.classList.remove('none');
+                setTimeout(() => {
+                    const USER_HAS_ACCESS = TOKEN_SERVICE._HandelToken();
+                    if ( USER_HAS_ACCESS ) {
+                        RedirectRoute('/user');
+                    }
+                }, 380)
             }
             catch ( exception ) {
                 let errors = exception?.errors;
-                if ( errors ) {
+                if ( HasLength( errors ) ) {
                     Object.entries( errors )
                         .forEach( ([key, val], index) => {
                             let item = FIELD_ELEMENT[key];
@@ -897,6 +902,7 @@ try {
                 }
                 else {
                     FROM_MESSAGE.textContent = ( exception?.message || 'متاسفانه مشکلی پیش‌آمده است.' );
+                    FROM_MESSAGE.classList.remove('text-green');
                     FROM_MESSAGE.classList.remove('none');
                 }
             }
