@@ -5,7 +5,7 @@ namespace Domains\User\Http\Requests;
 use App\Http\Request\EhdaBaseRequest;
 use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 
-class ValidateDataUserRequest extends EhdaBaseRequest
+class ValidateDataUserRequestClient extends EhdaBaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

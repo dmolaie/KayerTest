@@ -11,11 +11,12 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/foundations','PagesController@foundations')->name('foundations');
         Route::get('/mission-and-vision','PagesController@missionAndVision')->name('mission-and-vision');
         Route::get('/donation-card','PagesController@donationAndCard')->name('donation-card')->middleware('web');
-            Route::get('/volunteers','PagesController@legaterVolunteers')->name('volunteers')->middleware('web');
+        Route::get('/volunteers','PagesController@legaterVolunteers')->name('volunteers')->middleware('web');
+        Route::get('/volunteers-final-step','PagesController@legaterVolunteersFinalStep')->name('volunteers.finalstep')->middleware('web');
     });
 
     Route::prefix('archive')->name('archive.')->group(function () {
         Route::get('/news', 'PagesController@newsList')->name('news-list');
     });
-    
+
 });
