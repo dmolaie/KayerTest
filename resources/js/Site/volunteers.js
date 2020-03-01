@@ -197,7 +197,7 @@ try {
                 FROM_MESSAGE.textContent = response?.message;
                 FROM_MESSAGE.classList.remove('none');
                 setTimeout(() => {
-                    RedirectRoute('/')
+                    RedirectRoute( response?.data?.redirection )
                 }, 450)
             }
             catch ( exception ) {

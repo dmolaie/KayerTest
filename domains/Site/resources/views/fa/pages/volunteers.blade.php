@@ -31,6 +31,7 @@
                                                class="input input--blue block w-full border border-solid rounded"
                                                autocomplete="off" required="required"
                                                name="name"
+                                               value=""
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
