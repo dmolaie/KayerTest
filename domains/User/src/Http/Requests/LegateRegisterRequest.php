@@ -60,7 +60,7 @@ class LegateRegisterRequest extends EhdaBaseRequest
             'day_of_cooperation'         => 'required|integer|min:1|max:30',
             'field_of_activities'        => 'required|array|min:1',
             'field_of_activities.*'      => 'required|integer|distinct|min:0|max:12',
-            'password'                   => 'required|confirmed|min:6',
+            'password'                   => 'required|confirmed|min:8',
         ];
     }
 

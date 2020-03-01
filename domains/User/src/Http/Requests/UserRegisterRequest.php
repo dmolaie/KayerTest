@@ -47,7 +47,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             'education_city_id'       => 'integer',
             'current_address'         => 'string|min:3|max:150',
             'home_postal_code'        => 'regex:/\d{10}/',
-            'password'                => 'required|confirmed|min:6',
+            'password'                => 'required|confirmed|min:8',
         ];
     }
 
