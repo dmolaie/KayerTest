@@ -9,12 +9,12 @@
                      class="header__logo_image block object-contain"
                 />
             </a>
-            <a href=""
+            <a href="{{route('page.donation-card',config('app.locale'))}}"
                class="header__link header__link--blue inline-flex items-center border-blue-200-2 rounded-2 bg-blue text-white font-1xs-bold m-left-16 l:transition l:hover:bg-blue-200"
             >
                 کارت اهدای عضو
             </a>
-            <a href=""
+            <a href="{{route('page.volunteers',config('app.locale'))}}"
                class="header__link header__link--green inline-flex items-center border-green-200-2 rounded-2 bg-green text-white font-1xs-bold l:transition l:hover:bg-green-200"
             >
                 سفیر اهدای عضو
