@@ -6,7 +6,6 @@ namespace Domains\User\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
-use Domains\User\Exceptions\UserValidateDataUserException;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
@@ -18,6 +17,7 @@ use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
 use Domains\User\Http\Requests\ValidateDataUserRequest;
 use Domains\User\Services\UserService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -131,6 +131,7 @@ class UserController extends EhdaBaseController
             $validateDataUserDto = $request->validationDataUserDTO();
             $validateUserResualt = $this->userService->ValidateDataUserClient($validateDataUserDto);
 
+
             if (!$validateUserResualt) {
                 return $this->response(
                     [],
@@ -144,8 +145,8 @@ class UserController extends EhdaBaseController
                 trans('user::response.role_have_this_role')
             );
 
-        } catch (UserValidateDataUserException $exception) {
-            return $this->response([], $exception->getCode(), $exception->getMessage());
+        } catch (ModelNotFoundException $exception) {
+            return $this->response([], Response::HTTP_OK, trans('user::response.user_can_register'));
         }
 
     }
@@ -169,8 +170,8 @@ class UserController extends EhdaBaseController
                 trans('user::response.role_have_this_role')
             );
 
-        } catch (UserValidateDataUserException $exception) {
-            return $this->response([], $exception->getCode(), $exception->getMessage());
+        } catch (ModelNotFoundException $exception) {
+            return $this->response([], Response::HTTP_OK, trans('user::response.user_can_register'));
         }
 
     }

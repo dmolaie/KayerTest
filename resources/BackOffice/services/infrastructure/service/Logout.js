@@ -12,6 +12,10 @@ export default class LogoutService extends BaseService {
         this.$store = layout.$store;
     }
 
+    viewPortProcess() {
+        BaseService.ViewPortProcess(this.$store , true);
+    }
+
     logoutProcess() {
         try {
             TokenService._ClearToken();

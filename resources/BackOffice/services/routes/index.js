@@ -1,7 +1,8 @@
 import VueRouter from "vue-router";
 import Store from './../store';
 import {
-    GET_USER_HAS_ACCESS
+    GET_USER_HAS_ACCESS,
+    GET_IS_USER_LOGGED_IN
 } from '@services/store/Login';
 
 const APP_NAME = 'اهدا | ';
@@ -9,6 +10,7 @@ const APP_NAME = 'اهدا | ';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
+export const CREATE_NEWS = 'CREATE_NEWS';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -18,12 +20,13 @@ export const LOGIN_PAGE_TITLE = 'ورود به حساب کاربری';
 const GetViews = component => () =>
     import(
         /* webpackChunkName: "[request]" */
-        `@components/${component}.vue`
+        `@views/${component}.vue`
     );
 
 const Routes = new VueRouter({
     mode: "hash",
     base: '/user',
+    scrollBehavior: () => ({ y: 0 }),
     routes: [
         {
             name: DASHBOARD,
@@ -34,12 +37,33 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: CREATE_NEWS,
+            path: '/manage/news/create',
+            component: GetViews('CreateNews' ),
+            meta: {
+                title: 'ایجاد خبر',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: DASHBOARD,
+                        name: 'اخبار'
+                    },
+                    {
+                        name: 'افزودن'
+                    }
+                ]
+            }
+        },
+        {
             name: LOGIN,
             path: '/login',
             component: GetViews( 'Login'),
             meta: {
-                title: LOGIN_PAGE_TITLE,
-                guess: true
+                guess: true,
+                title: LOGIN_PAGE_TITLE
             }
         },
         {
@@ -56,8 +80,8 @@ const Routes = new VueRouter({
             path: '/logout',
             component: GetViews( 'Logout'),
             meta: {
-                guess: true,
                 title: 'خروج از حساب کاربری',
+                guess: true,
             }
         },
         {
@@ -65,7 +89,6 @@ const Routes = new VueRouter({
             path: '/*',
             component: GetViews('NotFound' ),
             meta: {
-                guess: true,
                 title: 'صفحه مورد نظر پیدا نشد',
             }
         }
@@ -84,12 +107,11 @@ Routes.beforeEach(
             isGuessRoute = to.meta?.guess;
 
         SetPageTitle( routeTitle );
-
         if ( !isGuessRoute ) {
-            if ( Store?.getters['GET_USER_HAS_ACCESS'] ) {
+            if ( Store?.getters[GET_USER_HAS_ACCESS] ) {
                 next()
             } else {
-                ( Store?.getters['GET_IS_USER_LOGGED_IN'] ) ? (
+                ( Store?.getters[GET_IS_USER_LOGGED_IN] ) ? (
                     next({ name: PROFILE })
                 ) : (
                     next({ name: LOGIN })
@@ -97,7 +119,7 @@ Routes.beforeEach(
                 SetPageTitle( LOGIN_PAGE_TITLE );
             }
         } else {
-            if ( Store?.getters['GET_USER_HAS_ACCESS'] && to.name === LOGIN ) {
+            if ( Store?.getters[GET_USER_HAS_ACCESS] && to.name === LOGIN ) {
                 next({ name: DASHBOARD });
                 SetPageTitle( DASHBOARD_PAGE_TITLE );
             } else {

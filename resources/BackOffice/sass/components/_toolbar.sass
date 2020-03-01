@@ -1,0 +1,14 @@
+.toolbar
+  padding: 10px 30px 10px 40px
+  min-height: $minHeight
+  &__avatar
+    @include Size( 26px )
+    margin-left: 12px
+  &__btn
+    @include Size( 26px )
+    &:not(:last-child)
+      margin-left: 42px
+    &--menu
+      background-image: url("/../images/ic_plus--gray.svg")
+    &--expand
+      background-image: url("/../images/ic_expand--gray.svg")

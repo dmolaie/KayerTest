@@ -1,0 +1,33 @@
+.publish
+  padding: 25px 13px 15px 14px
+  &__status
+    margin-bottom: 24px
+    &--published, &--not-published
+      padding-top: 3px
+      line-height: 41px
+    &--published
+      $c: #417505
+      color: $c
+      border:
+        color: $c
+      background: #cfebd7
+    &--not-published
+      color: $red
+      border:
+        color: $red
+      background: #f3e2e3
+  &__submit
+    margin-bottom: 7px
+    line-height: 44px
+    &::after
+      content: ' '
+      display: inline-block
+      width: 22px
+      height: 11px
+      border:
+        left: 10px solid transparent
+        right: 10px solid transparent
+        top: 10px solid $white
+      vertical-align: middle
+      margin: 4px 10px 0 0
+      pointer-events: none

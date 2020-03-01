@@ -3,7 +3,8 @@
             :class="{ 'relative has-skeleton': lazyLoading }"
             ref="image"
     >
-        <img :src="src"
+        <img :src="lazyLoading ? '' : src"
+             :data-src="lazyLoading ? src : ''"
              :alt="alt"
              :title="alt"
              class="image-cm__image h-full"
@@ -40,7 +41,7 @@
         },
         mounted() {
             if ( this.lazyLoading )
-                ImageLazyLoading( this.$refs['image'] );
+                ImageLazyLoading( [this.$refs['image']] );
         }
     }
 </script>

@@ -19,12 +19,12 @@
                         <input type="text"
                                @blur="onBlurUsernameField( form.username.value )"
                                v-model="form.username.value"
-                               class="c-form__input block w-full height rounded text-cornflower font-20-bold direction-ltr text-left"
+                               class="c-form__input block w-full height rounded text-cornflower font-20 font-bold direction-ltr text-left"
                         />
-                        <span class="c-form__label absolute text-gra font-lg-bold bg-white pointer-event-none user-select-none z-2">
+                        <span class="c-form__label absolute text-gra font-lg font-bold bg-white pointer-event-none user-select-none z-2">
                             کدملی
                         </span>
-                        <span class="c-form__error block text-red font-sm-bold pointer-event-none">
+                        <span class="c-form__error block text-red font-sm font-bold pointer-event-none">
                             {{ form.username.errorMessage }}
                         </span>
                     </label>
@@ -37,16 +37,16 @@
                         <input type="password"
                                @blur="onBlurPasswordField( form.password.value )"
                                v-model="form.password.value"
-                               class="c-form__input block w-full height rounded text-cornflower font-20-bold direction-ltr text-left"
+                               class="c-form__input block w-full height rounded text-cornflower font-20 font-bold direction-ltr text-left"
                         />
-                        <span class="c-form__label absolute text-gra font-lg-bold bg-white pointer-event-none user-select-none z-2">
+                        <span class="c-form__label absolute text-gra font-lg font-bold bg-white pointer-event-none user-select-none z-2">
                             گذرواژه
                         </span>
-                        <span class="c-form__error block text-red font-sm-bold pointer-event-none">
+                        <span class="c-form__error block text-red font-sm font-bold pointer-event-none">
                             {{ form.password.errorMessage }}
                         </span>
                     </label>
-                    <button class="c-form__submit block w-full height font-lg-bold text-white rounded bg-sky user-select-none"
+                    <button class="c-form__submit block w-full height font-lg font-bold text-white rounded bg-sky user-select-none"
                             :class="{ 'spinner-loading': shouldBeShowSpinnerLoading }"
                             @click.prevent="onClickSubmitButton"
                     >
@@ -97,6 +97,7 @@
         },
         mounted() {
             Service = new LoginService( this );
+            Service.processViewPort();
         }
     }
 </script>

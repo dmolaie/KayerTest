@@ -26,7 +26,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="name" autocomplete="off" disabled="disabled" required="required"
+                                               name="name" autocomplete="off" required="required" readonly="readonly"
                                                value="محمد"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -40,7 +40,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               name="full_name" autocomplete="off" disabled="disabled" required="required"
+                                               name="last_name" autocomplete="off" required="required" readonly="readonly"
                                                value="سلیمانیان"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -55,6 +55,7 @@
                                             <input type="radio"
                                                    class="dnt-page__radio none"
                                                    name="gender" required="required" autocomplete="off"
+                                                   value="0"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 خانم
@@ -64,6 +65,7 @@
                                             <input type="radio"
                                                    class="dnt-page__radio none"
                                                    name="gender" required="required" autocomplete="off"
+                                                   value="1"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 آقا
@@ -73,6 +75,7 @@
                                             <input type="radio"
                                                    class="dnt-page__radio none"
                                                    name="gender" required="required" autocomplete="off"
+                                                   value="3"
                                             />
                                             <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 سایر
@@ -95,14 +98,14 @@
                                     </label>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
-                                    <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         شماره شناسنامه
                                     </span>
                                     <label class="field__cert w-full block">
                                         <input type="text"
                                                placeholder="فقط عدد"
-                                               class="input input--blue block w-full border border-solid rounded"
-                                               name="birth_certificate" autocomplete="off"
+                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
+                                               name="identity_number" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -115,7 +118,7 @@
                                         <input type="text"
                                                placeholder="۱۰ رقم بدون خط تیره"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="national_code" autocomplete="off" disabled="disabled" required="required"
+                                               name="national_code" autocomplete="off" required="required" readonly="readonly"
                                                value="۰۵۲۱۱۴۱۹۶۶"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -125,9 +128,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         تاریخ تولد
                                     </span>
-                                    <div class="w-full flex items-stretch text-center user-select-none">
+                                    <div class="field__date_birth w-full flex items-stretch text-center user-select-none">
                                         <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
-                                            <select class="vnt-page__select vnt-page__select--day">
+                                            <select class="vnt-page__select vnt-page__select--day"
+                                                    name="birth_day"
+                                            >
                                                 <option value="">
                                                     روز
                                                 </option>
@@ -146,7 +151,9 @@
                                             </select>
                                         </div>
                                         <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
-                                            <select class="vnt-page__select vnt-page__select--month">
+                                            <select class="vnt-page__select vnt-page__select--month"
+                                                    name="birth_month"
+                                            >
                                                 <option value="">
                                                     ماه
                                                 </option>
@@ -189,7 +196,9 @@
                                             </select>
                                         </div>
                                         <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
-                                            <select class="vnt-page__select vnt-page__select--year">
+                                            <select class="vnt-page__select vnt-page__select--year"
+                                                    name="birth_year"
+                                            >
                                                 <option value="">
                                                     سال
                                                 </option>
@@ -219,13 +228,17 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
-                                    <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
-                                        محل تولد
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        استان محل تولد
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--birth">
+                                    <div class="field__birth_province w-full">
+                                        <select class="vnt-page__select vnt-page__select--birth-province"
+                                            name="province_of_birth"
+                                    >
                                         <option value="">
                                             انتخاب کنید...
                                         </option>
@@ -239,26 +252,59 @@
                                             خارجه
                                         </option>
                                     </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        شهر محل تولد
+                                    </span>
+                                    <div class="field__birth_city w-full">
+                                        <select class="vnt-page__select vnt-page__select--birth-city"
+                                                name="city_of_birth"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         وضعیت تاهل
                                     </span>
-                                    <div class="w-full field__marital">
-                                        <select class="vnt-page__select vnt-page__select--marital">
-                                            <option value="">
-                                                انتخاب کنید...
-                                            </option>
-                                            <option value="1">
+                                    <div class="field__marital w-full flex items-stretch text-center user-select-none">
+                                        <label class="w-1/2 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                            <input type="radio"
+                                                   class="dnt-page__radio none"
+                                                   name="marital_status" required="required" autocomplete="off"
+                                                   value="0"
+                                            />
+                                            <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 مجرد
-                                            </option>
-                                            <option value="2">
+                                            </span>
+                                        </label>
+                                        <label class="w-1/2 input input--blue p-0 border border-r-0 border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                            <input type="radio"
+                                                   class="dnt-page__radio none"
+                                                   name="marital_status" required="required" autocomplete="off"
+                                                   value="1"
+                                            />
+                                            <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 متاهل
-                                            </option>
-                                            <option value="3">
-                                                سایر
-                                            </option>
-                                        </select>
+                                            </span>
+                                        </label>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </div>
                                 </div>
                             </div>
@@ -271,62 +317,92 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         میزان تحصیلات
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--edu-level"
-                                            name="edu_level"
-                                    >
-                                        <option value="">
-                                            انتخاب کنید...
-                                        </option>
-                                        <option value="1">
-                                            بی سواد
-                                        </option>
-                                        <option value="2">
-                                            کمتر از دیپلم
-                                        </option>
-                                        <option value="3">
-                                            دیپلم
-                                        </option>
-                                        <option value="4">
-                                            کاردانی
-                                        </option>
-                                        <option value="5">
-                                            کارشناسی
-                                        </option>
-                                    </select>
+                                    <div class="field__edu-level w-full">
+                                        <select class="vnt-page__select vnt-page__select--edu-level"
+                                                name="last_education_degree"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                بی سواد
+                                            </option>
+                                            <option value="2">
+                                                کمتر از دیپلم
+                                            </option>
+                                            <option value="3">
+                                                دیپلم
+                                            </option>
+                                            <option value="4">
+                                                کاردانی
+                                            </option>
+                                            <option value="5">
+                                                کارشناسی
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         رشته‌ی تحصیلی
                                     </span>
-                                    <label class="dnt-page__national-code w-full block">
+                                    <label class="field__edu-field w-full block">
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               autocomplete="off" required
+                                               name="education_field" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                        محل تحصیل
+                                        استان محل تحصیل
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--edu-city"
-                                            name="edu_city"
-                                    >
-                                        <option value="">
-                                            انتخاب کنید...
-                                        </option>
-                                        <option value="1">
-                                            تهران
-                                        </option>
-                                        <option value="2">
-                                            فناپ
-                                        </option>
-                                        <option value="3">
-                                            خارجه
-                                        </option>
-                                    </select>
+                                    <div class="field__edu-province w-full">
+                                        <select class="vnt-page__select vnt-page__select--edu-province"
+                                                name="education_province_id"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        شهر محل تحصیل
+                                    </span>
+                                    <div class="field__edu-city w-full">
+                                        <select class="vnt-page__select vnt-page__select--edu-city"
+                                                name="education_city_id"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -338,12 +414,12 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         ایمیل
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__email w-full block">
                                         <input type="text"
                                                placeholder="حروف انگلیسی"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="email"
+                                               name="email" autocomplete="off" required="required" readonly="readonly"
+                                               value="m_soleimanian@yahoo.com"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -352,12 +428,12 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         تلفن همراه
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__phone w-full block">
                                         <input type="text"
                                                placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="phone"
+                                               name="mobile" autocomplete="off" required="required" readonly="readonly"
+                                               value="09013040663"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -366,12 +442,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         تلفن اضطراری
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__tel-emergency w-full block">
                                         <input type="text"
                                                placeholder="تلفن اضطراری ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               name="essential_mobile" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -384,35 +459,61 @@
                             <div class="flex flex-wrap">
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
-                                        محل سکونت
+                                        استان محل سکونت
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--home-city"
-                                            name="edu_city"
-                                    >
-                                        <option value="">
-                                            انتخاب کنید...
-                                        </option>
-                                        <option value="1">
-                                            تهران
-                                        </option>
-                                        <option value="2">
-                                            فناپ
-                                        </option>
-                                        <option value="3">
-                                            خارجه
-                                        </option>
-                                    </select>
+                                    <div class="field__home-province w-full">
+                                        <select class="vnt-page__select vnt-page__select--home-province"
+                                                name="current_province_id"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                                        شهر محل سکونت
+                                    </span>
+                                    <div class="field__home-city w-full">
+                                        <select class="vnt-page__select vnt-page__select--home-city"
+                                                name="current_city_id"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                تهران
+                                            </option>
+                                            <option value="2">
+                                                فناپ
+                                            </option>
+                                            <option value="3">
+                                                خارجه
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         نشانی منزل
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__home-address w-full block">
                                         <input type="text"
                                                placeholder="حروف فارسی"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               class="input input--blue block w-full border border-solid rounded"
+                                               name="current_address" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -421,12 +522,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         تلفن منزل
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__home-tel w-full block">
                                         <input type="text"
                                                placeholder="تلفن منزل ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               name="phone" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -435,12 +535,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         کدپستی منزل
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__home-postal w-full block">
                                         <input type="text"
                                                placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               name="home_postal_code" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -455,22 +554,42 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         شغل
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__job w-full block">
                                         <input type="text"
                                                placeholder="حروف فارسی"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               class="input input--blue block w-full border border-solid rounded"
+                                               name="job_title" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
-                                        محل کار
+                                        استان محل کار
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--work-city"
-                                            name="edu_city"
+                                    <select class="vnt-page__select vnt-page__select--job-province"
+                                            name="province_of_work"
+                                    >
+                                        <option value="">
+                                            انتخاب کنید...
+                                        </option>
+                                        <option value="1">
+                                            تهران
+                                        </option>
+                                        <option value="2">
+                                            فناپ
+                                        </option>
+                                        <option value="3">
+                                            خارجه
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                                    <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
+                                        شهر محل کار
+                                    </span>
+                                    <select class="vnt-page__select vnt-page__select--job-city"
+                                            name="city_of_work"
                                     >
                                         <option value="">
                                             انتخاب کنید...
@@ -490,12 +609,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         نشانی محل کار
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__job-address w-full block">
                                         <input type="text"
                                                placeholder="حروف فارسی"
-                                               class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               class="input input--blue block w-full border border-solid rounded"
+                                               name="address_of_work" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -504,12 +622,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         تلفن محل کار
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__job-tel w-full block">
                                         <input type="text"
                                                placeholder="تلفن محل کار ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               name="work_phone" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -518,12 +635,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         کد پستی محل کار
                                     </span>
-                                    <label class="dnt-page__email w-full block">
+                                    <label class="field__job-postal w-full block">
                                         <input type="text"
                                                placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="tel"
+                                               name="work_postal_code" autocomplete="off"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -538,39 +654,41 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         نحوه آشنایی
                                     </span>
-                                    <select class="vnt-page__select vnt-page__select--familiarization"
-                                            name="familiarization"
-                                    >
-                                        <option value="">
-                                            انتخاب کنید...
-                                        </option>
-                                        <option value="1">
-                                            نامشخص
-                                        </option>
-                                        <option value="2">
-                                            دوست‌ها و آشنایان
-                                        </option>
-                                        <option value="3">
-                                            رسانه‌ها
-                                        </option>
-                                        <option value="4">
-                                            سایت
-                                        </option>
-                                        <option value="5">
-                                            سایر
-                                        </option>
-                                    </select>
+                                    <div class="field__familiarization w-full">
+                                        <select class="vnt-page__select vnt-page__select--familiarization"
+                                                name="know_community_by"
+                                        >
+                                            <option value="">
+                                                انتخاب کنید...
+                                            </option>
+                                            <option value="1">
+                                                نامشخص
+                                            </option>
+                                            <option value="2">
+                                                دوست‌ها و آشنایان
+                                            </option>
+                                            <option value="3">
+                                                رسانه‌ها
+                                            </option>
+                                            <option value="4">
+                                                سایت
+                                            </option>
+                                            <option value="5">
+                                                سایر
+                                            </option>
+                                        </select>
+                                        <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                                    </div>
                                 </div>
                                 <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         انگیزه‌ی همکاری
                                     </span>
-                                    <label class="dnt-page__parent-name w-full block">
+                                    <label class="field__motivation w-full block">
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               autocomplete="off" required
-                                               name="parent_name"
+                                               name="motivation_for_cooperation" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -579,12 +697,11 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         فرصت همکاری
                                     </span>
-                                    <label class="dnt-page__parent-name w-full block">
+                                    <label class="field__alloc-time w-full block">
                                         <input type="text"
                                                placeholder="تعداد روز در ماه"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="parent_name"
+                                               name="day_of_cooperation" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -616,7 +733,7 @@
                                         <input type="password"
                                                placeholder="تکرار گذرواژه"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               name="repeat_password" autocomplete="off" required="required"
+                                               name="password_confirmation" autocomplete="off" required="required"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -626,11 +743,13 @@
                             <p class="text-blue font-base font-bold m-b-10 cursor-default p-0-10 m-t-8">
                                 درچه زمینه ای می توانید فعالیت کنید؟
                             </p>
-                            <div class="w-full">
+                            <div class="field__activity w-full">
+                                <span class="error-message w-full text-red font-sm-bold pointer-event-none"></span>
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="0"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -640,7 +759,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="1"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -650,7 +770,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="2"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -660,7 +781,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="3"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -670,7 +792,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="4"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -680,7 +803,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="5"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -690,7 +814,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="6"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -700,7 +825,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="7"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -710,7 +836,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="7"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -720,7 +847,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="8"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -730,7 +858,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="9"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -740,7 +869,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="10"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -750,7 +880,8 @@
                                 <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                                     <input type="checkbox"
                                            class="checkbox-square__input"
-                                           name="activity"
+                                           name="field_of_activities"
+                                           value="11"
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
@@ -758,7 +889,8 @@
                                     </span>
                                 </label>
                             </div>
-
+                            <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8 m-b-0 text-center justify-center"
+                            ></p>
                             <button class="vnt-page__btn vnt-page__btn--submit block m-0-auto text-white font-lg font-bold bg-green border-green-200-2 rounded text-center l:transition-bg l:hover:bg-green-200">
                                 ارسال اطلاعات
                             </button>
@@ -770,6 +902,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/donation-card~volunteers-final.js')}}" defer></script>
-        <script src="{{asset('js/volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/vendors~donation-card~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/donation-card~volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/volunteers-final.js')}}" defer></script>
     @endsection

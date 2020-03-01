@@ -31,16 +31,12 @@ module.exports = {
         ...getJSEntries(),
         ...{
             'style': './resources/sass/style.sass'
-        },
-        ...{
-            'app': './resources/BackOffice/app.js',
-            'appStyle': './resources/BackOffice/sass/appStyle.sass'
         }
     }),
     output: {
         publicPath: '/',
-        filename: 'js/[name].js',
-        chunkFilename: 'js/[name].js',
+        filename: 'js/site/[name].js',
+        chunkFilename: 'js/site/[name].js',
         path: path.resolve(__dirname, './public')
     },
     resolve: {
@@ -48,10 +44,10 @@ module.exports = {
             'vue$': 'vue/dist/vue.runtime.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
             '@BackOffice': path.resolve(__dirname, './resources/BackOffice'),
-            '@components': path.resolve(__dirname, './resources/BackOffice/components'),
+            '@views': path.resolve(__dirname, './resources/BackOffice/views'),
             '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
             '@endpoints': path.resolve(__dirname, './resources/BackOffice/services/endpoints'),
-            '@sub_components': path.resolve(__dirname, './resources/BackOffice/sub_components'),
+            '@components': path.resolve(__dirname, './resources/BackOffice/components'),
             '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
         },
         extensions: ["*", ".js", ".vue", ".json"]
@@ -71,7 +67,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'css/[name].css',
+                            name: 'css/site/[name].css',
                         }
                     },
                     {
@@ -135,8 +131,8 @@ module.exports = {
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 '!*',
-                'css',
-                'js'
+                'js/site',
+                'css/site'
             ]
         }),
         new VueLoaderPlugin(),

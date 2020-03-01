@@ -41,6 +41,8 @@
 
 .rounded
   border-radius: $radius
+  &-inherit
+    border-radius: inherit
   &-none
     border-radius: 0
   &-1\/2
@@ -98,60 +100,22 @@
   &-black
     font:
       weight: 900
+  &-0
+    font-size: 0
   &-2xs
     @include fontSize( 8px )
   &-1xs
     @include fontSize( 10px )
-    &-medium
-      @extend .font-1xs
-      font:
-        weight: 500
-    &-bold
-      @extend .font-1xs
-      font:
-        weight: bold
   &-xs
     @include fontSize( 12px )
-    &-medium
-      @extend .font-xs
-      font:
-        weight: 500
-    &-bold
-      @extend .font-xs
-      font:
-        weight: bold
   &-sm
     @include fontSize( 14px )
-    &-medium
-      @extend .font-sm
-      font:
-        weight: 500
-    &-bold
-      @extend .font-sm
-      font:
-        weight: bold
   &-base
     @include fontSize( 16px )
-    &-medium
-      @extend .font-base
-      font:
-        weight: 500
-    &-bold
-      @extend .font-base
-      font:
-        weight: bold
   &-lg
     @include fontSize( 18px )
-    &-bold
-      @extend .font-lg
-      font:
-        weight: bold
   &-#{20}
     @include fontSize( 20px )
-    &-bold
-      @extend .font-20
-      font:
-        weight: bold
   &-#{22}
     @include fontSize( 22px )
   &-#{24}
@@ -351,6 +315,8 @@
       color: $green-300
   &-waterloo
     color: $waterloo
+  &-rum
+    color: $rum
   &-nowrap
     white-space: nowrap
   &-uppercase
@@ -361,10 +327,17 @@
     text-align: center
   &-left
     text-align: left
+  &-decoration
+    &-underline
+      text-decoration-line: underline
 
 .bg
   &-white
     background-color: $white
+  &-zircon
+    background-color: $zircon
+  &-snow
+    background: #f0f3f8
   &-black
     &-#{100}
       background-color: $black-100
@@ -432,3 +405,45 @@
     direction: ltr
 
 /* ----------> Global Class <---------- */
+
+.router-view
+  padding: 14px 30px 100px 35px
+
+.has-skeleton
+  background: #eaeaea
+  animation: skeleton 1.2s linear infinite
+  img
+    opacity: 0
+
+.input
+  padding: 10px
+  &--white
+    color: $rum
+    background: #fafcff
+    &::placeholder
+      color: #b2b4b4
+      font:
+        size: 10px
+        weight: 300
+      opacity: 1
+      text-align: right
+
+.textarea
+  padding: 10px
+  &--white
+    background: #fafcff
+    &::placeholder
+      color: #b2b4b4
+      font:
+        size: 10px
+        weight: 300
+      opacity: 1
+      text-align: right
+
+.inner-box
+  &--white
+    background: $white
+    box-shadow: 0 1px 0 0 transparentize(#e5e5e5, .5)
+  &--blue
+    background: transparentize(#bde8fa, ( 1 - .34 ))
+    box-shadow: 0 1px 0 0 transparentize(#e5e5e5, .5)
