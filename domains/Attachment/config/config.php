@@ -11,18 +11,11 @@ return [
                 'size' => 400
             ]
         ],
-        'News' => [
+        'default' => [
             'normal_size' => [
-                'width' => 200,
+                'width'  => 200,
                 'height' => 200,
-                'size' => 200
-            ]
-        ],
-        'Events' => [
-            'normal_size' => [
-                'width' => 200,
-                'height' => 200,
-                'size' => 200
+                'size'   => 200
             ]
         ],
     ]
