@@ -1,6 +1,11 @@
+import Endpoint from '@endpoints';
+import HTTPService from './service/HttpService';
 import {
+    HasLength,
     SmoothScroll,
+    RedirectRoute,
     EmailValidator,
+    toEnglishDigits,
     OnlyPersianAlphabet,
     NationalCodeValidator,
     PhoneNumberValidator,
@@ -15,7 +20,8 @@ try {
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
     const SUBMIT_BUTTON  = document.querySelector('.dnt-page__btn--submit');
-    const RESPONSE_MESSAGE  = document.querySelector('.vol-page__res');
+    const FROM_MESSAGE  = document.querySelector('.vol-page__res');
+    console.log(FROM_MESSAGE);
 
     const GET_ELEMENT = classname => document.querySelector(`.vol-page__from .${classname}`);
     const HANDEL_ERROR_MESSAGE = ( element, text = '' ) => {
@@ -52,7 +58,7 @@ try {
                 }
             }
         },
-        full_name: {
+        last_name: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__full-name'),
             get input() {
@@ -98,7 +104,7 @@ try {
                 }
             }
         },
-        phone: {
+        mobile: {
             isValid: false,
             el: GET_ELEMENT('dnt-page__phone'),
             get input() {
@@ -164,7 +170,17 @@ try {
         )
     }
 
-    const HANDEL_FORM_ACTION = () => {
+    const CREATE_REQUEST_PAYLOAD = () => {
+        return ({
+            'national_code': ( toEnglishDigits( FIELD_ELEMENT['national_code'].val ) ),
+            'name': ( FIELD_ELEMENT['name'].val ),
+            'last_name': ( FIELD_ELEMENT['last_name'].val ),
+            'mobile': ( toEnglishDigits( FIELD_ELEMENT['mobile'].val ) ),
+            'email': ( toEnglishDigits( FIELD_ELEMENT['email'].val ) ),
+        })
+    };
+
+    const HANDEL_FORM_ACTION = async () => {
         let fields = Object.values( FIELD_ELEMENT );
         let fieldsIsValid = fields.every(field => {
             field.validate();
@@ -172,19 +188,48 @@ try {
             return field.isValid;
         });
         if ( fieldsIsValid ) {
-            SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
-            setTimeout(() => {
+            try {
+                FROM_MESSAGE.classList.add('none');
+                SUBMIT_BUTTON.classList.add( SPINNER_LOADING_CLASSNAME );
+                let payload = CREATE_REQUEST_PAYLOAD();
+                let response = await HTTPService.postRequest(Endpoint.get( Endpoint.VALIDATE_LEGATE ), payload);
+                FROM_MESSAGE.classList.add('text-green');
+                FROM_MESSAGE.textContent = response?.message;
+                FROM_MESSAGE.classList.remove('none');
+                setTimeout(() => {
+                    RedirectRoute('/')
+                }, 450)
+            }
+            catch ( exception ) {
+                let errors = exception?.errors;
+                if ( errors ) {
+                    Object.entries( errors )
+                        .forEach( ([key, val], index) => {
+                            let item = FIELD_ELEMENT[key];
+                            if ( !!item ) {
+                                HANDEL_ERROR_MESSAGE( item.el, val[0] );
+                                if ( index === 0 ) SmoothScroll( item.el.offsetTop );
+                            }
+                        });
+                }
+                else {
+                    FROM_MESSAGE.textContent = ( exception?.message || 'متاسفانه مشکلی پیش‌آمده است.' );
+                    FROM_MESSAGE.classList.remove('text-green');
+                    FROM_MESSAGE.classList.remove('none');
+                }
+            }
+            finally {
                 SUBMIT_BUTTON.classList.remove( SPINNER_LOADING_CLASSNAME );
-            }, 500);
+            }
         }
     };
 
     if ( !!SUBMIT_BUTTON ) {
         SUBMIT_BUTTON.addEventListener(
             'click',
-            event => {
+            async event => {
                 event.preventDefault();
-                HANDEL_FORM_ACTION();
+                await HANDEL_FORM_ACTION();
             }
         )
     }

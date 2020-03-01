@@ -1,13 +1,7 @@
 import {
     HasLength
 } from '@vendor/plugin/helper';
-import Routes, {
-    LOGIN
-} from "@routes";
 import TokenService from '@services/service/Token';
-
-const DEFAULT_ERROR_MESSAGE = 'متاسفانه مشکلی پیش آمده است.';
-const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود وارد شوید.';
 
 export default class HTTPService {
 
@@ -17,16 +11,8 @@ export default class HTTPService {
             'Accept-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
         });
-    }
-
-    static onUnauthorizedUser( exception ) {
-        if ( Routes?.currentRoute?.name !== 'LOGIN' ) Routes.push( { name: LOGIN } );
-
-        throw ({
-            status: ( exception?.status_code ?? 401 ),
-            message: ( exception?.message ?? UNAUTHORIZED_ERROR_MESSAGE )
-        })
     }
 
     static onBeforeRequest( requestInit ) {
@@ -37,31 +23,9 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
-        if ( !!requestInit.headers && HasLength( requestInit.headers ) ) {
-            for ( let [key, value] of Object.entries( requestInit.headers ) ) {
-                headers.append( key, value );
-            }
-        }
-
         requestInit.mode = 'cors';
         requestInit.headers = headers;
         return requestInit;
-    }
-
-    static async onRequestFailed( exception ) {
-        try {
-            const EXCEPTION = await exception;
-
-            if ( EXCEPTION?.status_code === 401 || EXCEPTION?.status_code === 403 )
-                this.onUnauthorizedUser( EXCEPTION );
-            else throw ({
-                status: ( EXCEPTION?.status_code ?? '' ),
-                message: ( EXCEPTION?.message ?? DEFAULT_ERROR_MESSAGE )
-            });
-
-        } catch ( except ) {
-            throw except;
-        }
     }
 
     static Request( requestInfo = '' , requestInit = {} ) {
@@ -69,18 +33,21 @@ export default class HTTPService {
             ( resolve, reject ) => {
                 let init = this.onBeforeRequest( requestInit );
                 fetch( requestInfo, init )
-                    .then( response =>
-                        ( response.ok ) ? (
-                            resolve( response.json() )
-                        ) : (
-                            reject( response.json() )
-                        )
+                    .then( response => {
+                            ( response.ok ) ? (
+                                resolve( response.json() )
+                            ) : (
+                                reject( response.json() )
+                            )
+                        }
                     )
-                    .catch( except => reject( except ) )
+                    .catch( except => reject( except ))
             }
         )
         .then( response => response )
-        .catch( async exception => await this.onRequestFailed( exception ) )
+        .catch( async exception => {
+            throw await exception;
+        })
     }
 
     static _QueryString( route, obj ) {
@@ -95,7 +62,7 @@ export default class HTTPService {
         )
     }
 
-    static async getRequest( route, payload = {}, query= {}, headers ) {
+    static async getRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -106,13 +73,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async postRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async postRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -123,13 +87,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async putRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async putRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -140,13 +101,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async deleteRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async deleteRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -156,9 +114,6 @@ export default class HTTPService {
 
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
-
-        if ( HasLength( headers ) )
-            init.headers = headers;
 
         return await this.Request( route, init );
     }

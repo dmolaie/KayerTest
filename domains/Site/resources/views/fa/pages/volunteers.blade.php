@@ -29,7 +29,7 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               autocomplete="off" required
+                                               autocomplete="off" required="required"
                                                name="name"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -43,8 +43,8 @@
                                         <input type="text"
                                                placeholder="حروف فارسی"
                                                class="input input--blue block w-full border border-solid rounded"
-                                               autocomplete="off" required
-                                               name="full_name"
+                                               autocomplete="off" required="required"
+                                               name="last_name"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -57,7 +57,7 @@
                                         <input type="text"
                                                placeholder="۱۰ رقم بدون خط تیره"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
+                                               autocomplete="off" required="required"
                                                name="national_code"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -71,8 +71,8 @@
                                         <input type="text"
                                                placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
-                                               name="phone"
+                                               autocomplete="off" required="required"
+                                               name="mobile"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
@@ -85,15 +85,14 @@
                                         <input type="text"
                                                placeholder="حروف انگلیسی"
                                                class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                               autocomplete="off" required
+                                               autocomplete="off" required="required"
                                                name="email"
                                         />
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
                                 </div>
-                                <p class="vol-page__res none text-green font-sm font-bold cursor-default m-t-8">
-                                    اندکی صبر
-                                </p>
+                                <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8"
+                                ></p>
                                 <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
                                     ارسال اطلاعات
                                 </button>
@@ -261,5 +260,6 @@
     @endsection
 
     @section('scripts')
+        <script src="{{asset('js/site/vendors~donation-card~volunteers~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/site/volunteers.js')}}" defer></script>
     @endsection

@@ -81,6 +81,7 @@ const Routes = new VueRouter({
             component: GetViews( 'Logout'),
             meta: {
                 title: 'خروج از حساب کاربری',
+                guess: true,
             }
         },
         {

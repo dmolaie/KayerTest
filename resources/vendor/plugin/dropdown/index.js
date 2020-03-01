@@ -109,7 +109,6 @@ const ADD_EVENT_LISTENER = ( parentElement, UUID, onSelected, hasFilterItem ) =>
     };
 
     const CLICK_OUTSIDE_EVENT = ( { target } ) => {
-        console.log('inja', !DROPDOWN_ELEMENT.contains(target));
         if ( !DROPDOWN_ELEMENT.contains(target) )
             TOGGLE_DROPDOWN.close();
     };
