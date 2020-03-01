@@ -1,24 +1,28 @@
-.dropdown
+.select
   &__input
-    color: $bayoux
-    padding: 0 15px 0 40px
-    background: #fafcff
+    min-height: 45px
     line-height: 44px
+    background: #fafcff
+    padding: 0 15px 0 40px
     text-overflow: ellipsis
-    &::after
-      content: ' '
-      position: absolute
-      top: 50%
-      left: 13px
-      width: 0
-      height: 0
-      border:
-        left: 9px solid transparent
-        right: 9px solid transparent
-        top: 11px solid $blue-100
-      vertical-align: middle
-      pointer-events: none
-      transform: translateY(-50%)
+    &:empty
+      &::before
+        content: attr(aria-placeholder)
+    &:not(.multiple)
+      &::after
+        content: ' '
+        position: absolute
+        top: 50%
+        left: 13px
+        width: 0
+        height: 0
+        border:
+          left: 9px solid transparent
+          right: 9px solid transparent
+          top: 11px solid $blue-100
+        vertical-align: middle
+        pointer-events: none
+        transform: translateY(-50%)
   &__body
     box-shadow: 0 2px 2px 0 transparentize(black, (1 - .14)), 0 3px 1px -2px transparentize(black, (1 - .12)), 0 1px 5px 0 transparentize(black, (1 - .2))
   &__option
@@ -32,5 +36,12 @@
       background-color: transparentize(black, (1 - .05))
     &:hover
       background-color: transparentize(black, (1 - .08))
-  &__wrapper
-
+  &--disabled
+    opacity: .6
+    pointer-events: none
+    filter: grayscale(1)
+  &--visible
+    .select__body
+      opacity: 1
+      visibility: visible
+      pointer-events: all
