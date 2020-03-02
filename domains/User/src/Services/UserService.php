@@ -182,6 +182,7 @@ class UserService
         $citySearchDTO = $user->city_of_work ? $citySearchDTO->addCityId($user->city_of_birth) : $citySearchDTO;
         $citySearchDTO = $user->city_of_birth ? $citySearchDTO->addCityId($user->city_of_birth) : $citySearchDTO;
         $citySearchDTO = $user->current_city_id ? $citySearchDTO->addCityId($user->current_city_id) : $citySearchDTO;
+        $citySearchDTO = $user->education_city_id ? $citySearchDTO->addCityId($user->education_city_id) : $citySearchDTO;
         $cities = $this->cityServices->searchCities($citySearchDTO);
         return $cities;
     }
@@ -192,6 +193,7 @@ class UserService
         $provinceSearchDTO = $user->province_of_work ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
         $provinceSearchDTO = $user->province_of_birth ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
         $provinceSearchDTO = $user->current_province_id ? $provinceSearchDTO->addProvinceId($user->current_province_id) : $provinceSearchDTO;
+        $provinceSearchDTO = $user->education_province_id ? $provinceSearchDTO->addProvinceId($user->education_province_id) : $provinceSearchDTO;
         return $this->provinceService->searchProvinces($provinceSearchDTO);
     }
 
@@ -210,13 +212,8 @@ class UserService
         );
     }
 
-    public function ValidateDataUserClient(ValidationDataUserDTO $validationDataUserDTO)
+    public function ValidateUserWithRole(ValidationDataUserDTO $validationDataUserDTO)
     {
-        return $this->userRepository->checkHasRoleClient($validationDataUserDTO->getNationalCode());
-    }
-
-    public function ValidateDataUserLegate(ValidationDataUserDTO $validationDataUserDTO)
-    {
-        return $this->userRepository->checkHasRoleLegate($validationDataUserDTO->getNationalCode());
+        return $this->userRepository->checkUserHasSpecialRole($validationDataUserDTO);
     }
 }
