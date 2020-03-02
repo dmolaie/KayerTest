@@ -1,5 +1,7 @@
 <?php
 
-
-Route::get('/get_category_by_type','CategoryController@getCategoryByType')->middleware(['auth:api','can:list,Domains\Category\Entities\Category']);
-Route::post('/create','CategoryController@createCategory');
+Route::group(['prefix' => 'admin', 'name' => '.admin.', 'middleware' => 'auth:api'],
+    function () {
+        Route::get('/get_category_by_type', 'CategoryController@getCategoryByType');
+        Route::post('/create', 'CategoryController@createCategory');
+    });

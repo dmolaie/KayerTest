@@ -6,6 +6,7 @@ namespace Domains\User\Repositories;
 use Domains\User\Entities\User;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
+use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 
 class UserRepository
 {
@@ -33,24 +34,24 @@ class UserRepository
         $user->email = $userRegisterInfoDTO->getEmail() ?? $user->email;
         $user->marital_status = $userRegisterInfoDTO->getMaritalStatus() ?? $user->marital_status;
         $user->education_field = $userRegisterInfoDTO->getEducationField() ?? $user->education_field;
-        $user->education_province_id = $userRegisterInfoDTO->getEducationProvinceId()?? $user->education_province_id;
-        $user->education_city_id = $userRegisterInfoDTO->getEducationCityId()?? $user->education_city_id;
+        $user->education_province_id = $userRegisterInfoDTO->getEducationProvinceId() ?? $user->education_province_id;
+        $user->education_city_id = $userRegisterInfoDTO->getEducationCityId() ?? $user->education_city_id;
         $user->current_address = $userRegisterInfoDTO->getCurrentAddress() ?? $user->current_address;
-        $user->home_postal_code = $userRegisterInfoDTO->getHomePostalCode()??$user->home_postal_code;
+        $user->home_postal_code = $userRegisterInfoDTO->getHomePostalCode() ?? $user->home_postal_code;
         $user->city_of_work = $userRegisterInfoDTO->getCityOfWork() ?? $user->city_of_work;
         $user->province_of_work = $userRegisterInfoDTO->getProvinceOfWork() ?? $user->province_of_work;
         $user->address_of_work = $userRegisterInfoDTO->getAddressOfWork() ?? $user->address_of_work;
         $user->work_phone = $userRegisterInfoDTO->getWorkPhone() ?? $user->work_phone;
-        $user->work_postal_code = $userRegisterInfoDTO->getWorkPostalCode()??$user->work_postal_code;
+        $user->work_postal_code = $userRegisterInfoDTO->getWorkPostalCode() ?? $user->work_postal_code;
         $user->know_community_by = $userRegisterInfoDTO->getKnowCommunityBy() ?? $user->know_community_by;
         $user->motivation_for_cooperation = $userRegisterInfoDTO->getMotivationForCooperation() ?? $user->motivation_for_cooperation;
         $user->day_of_cooperation = $userRegisterInfoDTO->getDayOfCooperation() ?? $user->day_of_cooperation;
         $user->field_of_activities = $userRegisterInfoDTO->getFieldOfActivities() ?? $user->field_of_activities;
-        $user->event_id = $userRegisterInfoDTO->getEventId()??$user->event_id;
-        $user->receive_email = $userRegisterInfoDTO->getReceiveEmail()??$user->receive_email;
-        $user->creator_id = $userRegisterInfoDTO->getCreatedBy()??$user->creator_id;
-        $cardId = $this->entityName::latest('id')->first()? $this->entityName::latest('id')->first()->id+1:1;
-        $user->card_id = $user->card_id??$cardId;
+        $user->event_id = $userRegisterInfoDTO->getEventId() ?? $user->event_id;
+        $user->receive_email = $userRegisterInfoDTO->getReceiveEmail() ?? $user->receive_email;
+        $user->creator_id = $userRegisterInfoDTO->getCreatedBy() ?? $user->creator_id;
+        $cardId = $this->entityName::latest('id')->first() ? $this->entityName::latest('id')->first()->id + 1 : 1;
+        $user->card_id = $user->card_id ?? $cardId;
 
         if ($userRegisterInfoDTO->getPassword()) {
             $user->password = bcrypt($userRegisterInfoDTO->getPassword());
@@ -93,11 +94,11 @@ class UserRepository
     public function getActiveAndPendingRoles(User $user)
     {
         return $user->roles()->whereIn(
-                'status',
-                [
-                    config('user.user_role_active_status'),
-                    config('user.user_role_pending_status')
-                ])
+            'status',
+            [
+                config('user.user_role_active_status'),
+                config('user.user_role_pending_status')
+            ])
             ->orderBy('role_id')->first();
     }
 
@@ -170,33 +171,17 @@ class UserRepository
             ->paginate(config('user.user_paginate_count'));
     }
 
-    public function findByNationalCode(string $nationalCode):?User
+    public function findByNationalCode(string $nationalCode): ?User
     {
-        return $this->entityName::where('national_code',$nationalCode)
+        return $this->entityName::where('national_code', $nationalCode)
             ->first();
     }
 
-    public function checkHasRoleClient(int $nationalCode)
+    public function checkUserHasSpecialRole(ValidationDataUserDTO $validationDataUserDTO)
     {
-        return $this->entityName::where('national_code', '=', $nationalCode)->firstOrFail()
-            ->roles()->whereIn(
-                'status',
-                [
-                    config('user.user_role_active_status'),
-                    config('user.user_role_pending_status')
-                ])->where('role_id','=', config('user.client_role_id')
-            )->exists();
-    }
-
-    public function checkHasRoleLegate(int $nationalCode)
-    {
-        return $this->entityName::where('national_code', '=', $nationalCode)->firstOrFail()
-            ->roles()->whereIn(
-                'status',
-                [
-                    config('user.user_role_active_status'),
-                    config('user.user_role_pending_status')
-                ])->where('role_id','=', config('user.legate_role_id')
+        return $this->entityName::where(
+            'national_code', '=', $validationDataUserDTO->getNationalCode())->firstOrFail()
+            ->roles()->where('role_id', $validationDataUserDTO->getRoleId()
             )->exists();
     }
 }
