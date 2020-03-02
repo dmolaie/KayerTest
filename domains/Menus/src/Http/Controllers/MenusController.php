@@ -13,6 +13,7 @@ use Domains\Events\Http\Requests\DestroyEventsRequest;
 use Domains\Events\Http\Requests\EditEventsRequest;
 use Domains\Events\Http\Requests\EventsListForAdminRequest;
 use Domains\Events\Services\EventsService;
+use Domains\Menus\Http\Presenters\MenusInfoPresenter;
 use Domains\Menus\Http\Requests\CreateMenuRequest;
 use Domains\Menus\Services\MenusService;
 use Illuminate\Http\Response;
@@ -24,13 +25,21 @@ class MenusController extends EhdaBaseController
      */
     private $menusService;
 
+
     public function __construct(MenusService $menusService)
     {
         $this->menusService = $menusService;
     }
 
-    public function createMenu(CreateMenuRequest $createMenuRequest)
+    public function createMenu(CreateMenuRequest $request,MenusInfoPresenter $menusInfoPresenter)
     {
+        $createMenuDTO = $request->createMenusDTO();
+        $menuInfoDTO = $this->menusService->createMenu($createMenuDTO);
+        return $this->response(
+            $menusInfoPresenter->transform($menuInfoDTO),
+            Response::HTTP_OK,
+            trans('menus::response.create_success')
+        );
 
     }
 }

@@ -39,7 +39,7 @@ class CreateMenuRequest extends EhdaBaseRequest
         return trans('menus::validation.attributes');
     }
 
-    public function createMenusCreateDTO()
+    public function createMenusDTO()
     {
         $menusCreateDTO = new MenusCreateDTO();
         $menusCreateDTO->setName($this['name'])

@@ -8,7 +8,7 @@ use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 
 /**
- * Class NewsInfoDTO
+ * Class EventsInfoDTO
  */
 class EventsInfoDTO
 {

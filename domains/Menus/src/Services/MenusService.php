@@ -4,6 +4,7 @@ namespace Domains\Menus\Services;
 
 
 use Domains\Menus\Repositories\MenusRepository;
+use Domains\Menus\Services\Contracts\DTOs\DTOMakers\MenusInfoDTOMaker;
 use Domains\Menus\Services\Contracts\DTOs\MenusCreateDTO;
 
 /**
@@ -14,20 +15,31 @@ class MenusService
     /**
      * @var MenusRepository
      */
-    private $menus;
+    private $menusRepository;
+
+    /**
+     * @var MenusInfoDTOMaker
+     */
+    private $menusInfoDTOMaker;
 
 
     /**
      * NewsService constructor.
-     * @param MenusRepository $menus
+     * @param MenusRepository $menusRepository
+     * @param MenusInfoDTOMaker $menusInfoDTOMaker
      */
-    public function __construct(MenusRepository $menus)
+    public function __construct(
+        MenusRepository $menusRepository,
+        MenusInfoDTOMaker $menusInfoDTOMaker
+    )
     {
-        $this->menus = $menus;
+        $this->menusRepository = $menusRepository;
+        $this->menusInfoDTOMaker = $menusInfoDTOMaker;
     }
 
     public function createMenu(MenusCreateDTO $createDTO)
     {
-
+        $createMenuData = $this->menusRepository->createMenu($createDTO);
+        return $this->menusInfoDTOMaker->convert($createMenuData);
     }
 }

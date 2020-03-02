@@ -93,7 +93,14 @@ return array(
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-    'attributes'                    => [
-
+    'attributes' => [
+        'name' => 'نام',
+        'title' => 'عنوان',
+        'alias' => 'نام آدرس',
+        'publish_date' => 'تاریخ انتشار',
+        'link' => 'لینک',
+        'parent_id' => 'شناسه پدر',
+        'language' => 'زبان',
+        'type' => 'نوع منو',
     ],
 );

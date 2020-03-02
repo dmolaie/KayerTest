@@ -87,10 +87,10 @@ class MenusCreateDTO extends MenusBaseSaveDTO
     }
 
     /**
-     * @param array|null $type
+     * @param string|null $type
      * @return MenusCreateDTO
      */
-    public function setType(?array $type): MenusCreateDTO
+    public function setType(?string $type): MenusCreateDTO
     {
         $this->type = $type;
         return $this;
@@ -117,7 +117,7 @@ class MenusCreateDTO extends MenusBaseSaveDTO
     /**
      * @return mixed
      */
-    public function getLanguage(): int
+    public function getLanguage(): string
     {
         return $this->language;
     }
@@ -126,7 +126,7 @@ class MenusCreateDTO extends MenusBaseSaveDTO
      * @param mixed $language
      * @return MenusCreateDTO
      */
-    public function setLanguage($language): MenusCreateDTO
+    public function setLanguage(?string $language): MenusCreateDTO
     {
         $this->language = $language;
         return $this;

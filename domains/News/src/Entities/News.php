@@ -6,6 +6,7 @@ use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
+use Menu;
 
 class News extends Model
 {
@@ -48,6 +49,11 @@ class News extends Model
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorible')->withPivot('is_main')->withTimestamps();
+    }
+
+    public function menus()
+    {
+        return $this->morphToMany(Menu::class, 'menuble')->withTimestamps();
     }
 
     public function parent()
