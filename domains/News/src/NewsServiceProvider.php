@@ -40,7 +40,7 @@ class NewsServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\News\Http\Controllers',
-            'prefix'    => 'news',
+            'prefix'    => 'news/v1',
         ];
     }
 
