@@ -1,0 +1,31 @@
+.link
+  padding-top: 8px
+  background-color: #d3f6ff
+  &__item
+    width: 390px
+    line-height: 71px
+    letter-spacing: -.13px
+    &--blue
+      $c: #44bce7
+      background-color: $c
+      border-top-left-radius: 10px
+      &::before
+        content: " "
+        position: absolute
+        right: -23px
+        bottom: 0
+        width: 46px
+        height: 59px
+        background: url("/../images/ic__flower.svg") no-repeat center
+          size: contain
+        pointer-events: none
+      @include L_Screen
+        &:hover
+          background-color: darken($c, 8%)
+    &--green
+      $c: #b9d948
+      background-color: $c
+      border-top-right-radius: 10px
+      @include L_Screen
+        &:hover
+          background-color: darken($c, 8%)

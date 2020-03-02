@@ -3,7 +3,7 @@
         <div class="panel__title font-sm font-bold text-blue cursor-default">
             تصویر شاخص
         </div>
-        <button class="image-p__submit block w-3/4 text-white font-sm font-bold bg-blue-100 border-blue-1 rounded text-center l:transition-bg l:hover:bg-blue m-0-auto"
+        <button class="image-p__submit block w-3/4 text-white font-sm font-bold bg-blue-100 border-blue-1 rounded text-center l:transition-bg l:hover:bg-blue m-0-auto user-select-none"
 
         >
             انتخاب عکس
@@ -17,7 +17,7 @@
                     :lazyLoading="true"
                 />
             </template>
-            <button class="block m-0-auto text-red font-sm font-bold"
+            <button class="block m-0-auto text-red font-sm font-bold user-select-none"
                     v-text="'تخلیه‌ی عکس'"
             > </button>
         </div>

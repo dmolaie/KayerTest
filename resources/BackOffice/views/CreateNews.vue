@@ -49,7 +49,7 @@
                             عکس دوم
                         </p>
                         <div class="flex items-start">
-                            <button class="c-news__second-image w-1/4 xl:w-1/5 flex-shrink-0 bg-zircon text-blue border-blue-100-1 rounded font-sm font-medium text-center m-l-20 l:hover:bg-white l:transition-bg">
+                            <button class="c-news__second-image w-1/4 xl:w-1/5 flex-shrink-0 bg-zircon text-blue border-blue-100-1 rounded font-sm font-medium text-center m-l-20 l:hover:bg-white l:transition-bg user-select-none">
                                 انتخاب عکس
                             </button>
                             <div class="flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded">
@@ -71,9 +71,7 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <domains-cm
-                />
-                <publish-cm :published="false"
+                <Publish-cm :published="false"
                 >
                     <template #published="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right">
@@ -98,12 +96,14 @@
                             انتقال به زباله‌دان
                         </button>
                     </template>
-                </publish-cm>
-                <location-cm lang="fa"
+                </Publish-cm>
+                <Location-cm lang="fa"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
                 />
-                <image-panel-cm
+                <Image-panel-cm
+                />
+                <Domains-cm @onChange="onChangeDomainsField"
                 />
             </div>
         </div>
@@ -124,8 +124,9 @@
         name: 'CreateNews',
         data: () => ({
             form: {
+                abstract: '',
+                province_id: '',
                 second_title: '',
-                abstract: ''
             },
             shouldBeShowSecondTitle: false,
         }),
@@ -156,6 +157,9 @@
             onClickRemoveButton() {
                 console.log('onClickRemoveButton');
             },
+            onChangeDomainsField( id ) {
+                this.$set( this.form, 'province_id', id )
+            }
         },
         mounted() {
             Service = new CreateNewsService( this );
@@ -163,3 +167,16 @@
         }
     }
 </script>
+
+<!--'first_title'  => 'required|string',-->
+<!--'second_title' => 'string',-->
+<!--'abstract'     => 'string',-->
+<!--'description'  => 'string',-->
+<!--'category_id'  => 'array|exists:categories,id',-->
+<!--'main_category_id'  => 'integer|exists:categories,id',-->
+<!--'publish_date' => 'required|numeric',-->
+<!--'source_link'  => 'url',-->
+<!--'province_id'  => 'required|integer|exists:provinces,id',-->
+<!--'parent_id'    => 'integer|exists:news,id|unique:news',-->
+<!--'language'     => ['required', Rule::in(config('news.news_language'))],-->
+<!--'images.*'     => 'image'-->

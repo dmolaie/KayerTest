@@ -27,13 +27,25 @@
     border:
       color: #bde8fa
     background: #eff3f7
+  &__head
+    &::before, &::after
+      content: " "
+      flex: 1
+      height: 2px
+      border:
+        radius: 2px
+      background: #c1ecfc
+      pointer-events: none
   &__title
-    cursor: default
-    margin: -6px 50px 0
-    @include Md_Screen
-      margin: -6px 35px 0
-    @include Sm_Screen
-      margin: -6px 25px 0
+    min-width: 40%
+    @include Xl_Screen
+      min-width: 45%
+    //cursor: default
+    //margin: -6px 50px 0
+    //@include Md_Screen
+    //  margin: -6px 35px 0
+    //@include Sm_Screen
+    //  margin: -6px 25px 0
   &__text
     cursor: default
     line-height: 1.94
@@ -151,6 +163,8 @@
       &:hover
         text-shadow: 0 0 1px currentColor
   .m
+    &-l-4
+      margin-left: 4px
     &-b
       &-10
         margin:
