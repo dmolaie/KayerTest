@@ -131,14 +131,13 @@ class UserController extends EhdaBaseController
     {
         try {
             $validateDataUserDto = $request->validationDataUserDTO();
-            $validateUserResualt = $this->userService->ValidateDataUserClient($validateDataUserDto);
+            $validateUserResult = $this->userService->ValidateUserWithRole($validateDataUserDto);
 
-
-            if (!$validateUserResualt) {
+            if (!$validateUserResult) {
                 return $this->response(
                     [],
-                    Response::HTTP_OK,
-                    trans('user::response.user_can_register')
+                    Response::HTTP_UNPROCESSABLE_ENTITY,
+                    trans('user::response.user_has_profile_register_client')
                 );
             }
             return $this->response(
@@ -157,21 +156,14 @@ class UserController extends EhdaBaseController
     {
         try {
             $validateDataUserDto = $request->validationDataUserDTO();
-            $validateUserResualt = $this->userService->ValidateDataUserLegate($validateDataUserDto);
+            $validateUserResult = $this->userService->ValidateUserWithRole($validateDataUserDto);
 
 
-            if (!$validateUserResualt) {
-                $request->session()->put('national_code', $request->national_code);
-                $request->session()->put('name', $request->name);
-                $request->session()->put('last_name', $request->last_name);
-                $request->session()->put('mobile', $request->mobile);
-                $request->session()->put('email', $request->email);
+            if (!$validateUserResult) {
                 return $this->response(
-                    [
-                        'redirection' => route('page.volunteers.finalstep', config('app.locale'))
-                    ],
-                    Response::HTTP_OK,
-                    trans('user::response.user_can_register')
+                    [],
+                    Response::HTTP_UNPROCESSABLE_ENTITY,
+                    trans('user::response.user_has_role_register_legate')
                 );
             }
             return $this->response(

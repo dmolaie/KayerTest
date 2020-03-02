@@ -13,7 +13,10 @@ class ValidationDataUserDTO
      * @var string
      */
     protected $nationalCode;
-
+    /**
+     * @var integer
+     */
+    protected $roleId;
 
     /**
      * @return string
@@ -32,4 +35,23 @@ class ValidationDataUserDTO
         $this->nationalCode = $nationalCode;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getRoleId(): int
+    {
+        return $this->roleId;
+    }
+
+    /**
+     * @param int $roleId
+     * @return ValidationDataUserDTO
+     */
+    public function setRoleId(int $roleId): ValidationDataUserDTO
+    {
+        $this->roleId = $roleId;
+        return $this;
+    }
+
 }

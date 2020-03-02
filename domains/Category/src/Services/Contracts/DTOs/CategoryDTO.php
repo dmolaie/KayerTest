@@ -30,6 +30,28 @@ class CategoryDTO
      * @var mixed
      */
     protected $children;
+    /**
+     * @var boolean
+     */
+    protected $status;
+
+    /**
+     * @return bool
+     */
+    public function isStatus(): bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     * @return CategoryDTO
+     */
+    public function setStatus(bool $status): CategoryDTO
+    {
+        $this->status = $status;
+        return $this;
+    }
 
     /**
      * @return string
