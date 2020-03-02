@@ -2,15 +2,13 @@
 @section('content')
     <div class="org-page i-page">
         <div class="container">
-            <h1 class="flex text-blue font-24 md:font-22 text-center">
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                <span class="i-page__title">
-                        ساختار و تشکیلات
-                    </span>
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
+            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                <span class="i-page__title text-center cursor-default">
+                    ساختار و تشکیلات
+                </span>
             </h1>
             <div class="inner-box inner-box--white">
-                <h2 class="font-lg-bold md:font-base text-blue-800 text-right cursor-default l:m-b-30 md:m-b-20">
+                <h2 class="i-page__sub-title font-lg-bold md:font-base text-blue-800 text-right cursor-default l:m-b-30 md:m-b-20">
                     کمیته علمی مددکاری اجتماعی :
                 </h2>
                 <p class="i-page__text md:font-sm text-bayoux font-base text-right m-b-20">
@@ -33,8 +31,7 @@
                         نسرین ایزدیار - عضو اصلی
                     </li>
                 </ul>
-                <div class="relative flex items-stretch m-b-105 l:k3bvEft8 md:flex-col-reverse">
-                    <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
+                <div class="relative flex items-stretch m-b-50 l:k3bvEft8 md:flex-col-reverse">
                     <div class="flex-1">
                         <p class="i-page__text md:font-sm text-bayoux font-base text-right">
                             دکتر زهرا السادات ترابی متولد 19 مرداد 1367 شهرستان خمین از استان مرکزی، دانش‌آموخته رشته مددکاری اجتماعی دانشگاه علوم بهزیستی و توانبخشی، عضو کمیته علمی مددکاری اجتماعی انجمن اهدای عضو ایرانیان از سال 1396 بودند. ایشان یکی از طراحان دستورالعمل خدمات تخصصی روانی اجتماعی به خانواده‌های اهداکننده عضو می بودند. همچنین سال‌ها به عنوان مددکار اجتماعی در بیمارستان روانپزشکی رازی خدمت نموده و عضو تیم طراحی دستورالعمل‌های پایه‌ای مددکاری اجتماعی در مراکز بهداشتی درمانی، مدرس دانشگاه و... بودند که متاسفانه در صانحه رانندگی در 27 مرداد 98 جان به جان آفرین تسلیم نموده و به لقاءالله پیوستند.
@@ -53,7 +50,6 @@
                     </div>
                 </div>
                 <div class="relative w-full m-b-30">
-                    <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
                     <p class="i-page__text md:font-sm text-bayoux font-sm font-light text-right m-b-30">
                         در طی فعالیت این کمیته اقدامات زیر صورت پذیرفته است:
                     </p>

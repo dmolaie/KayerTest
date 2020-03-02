@@ -2,12 +2,10 @@
     @section('content')
         <div class="vol-page dnt-page i-page">
             <div class="container">
-                <h1 class="flex text-blue font-24 md:font-22 text-center">
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                    <span class="i-page__title">
-                         سفیران اهدای عضو
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                    <span class="i-page__title text-center cursor-default">
+                        سفیران اهدای عضو
                     </span>
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
                 </h1>
                 <div class="p-t-35 w-full flex items-start">
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
@@ -102,7 +100,7 @@
                     </aside>
                     <div class="flex-1">
                         <div class="dnt-page__box inner-box inner-box--white">
-                            <h2 class="text-blue-800 font-24 font-bold cursor-default m-b-20">
+                            <h2 class="i-page__sub-title text-blue-800 font-24 font-bold cursor-default m-b-20">
                                 طرح سفیران اهدای عضو
                             </h2>
                             <div class="dnt-page__caption text-bayoux cursor-default font-base">
@@ -112,9 +110,8 @@
                                 <p>
                                     طرح سفیران اهدای عضو نیز نخستین بار در ایران در سال ۱۳۸۴ توسط سرکار خانم دکتر نجفی‌زاده و جناب آقای دکتر مسعود شیعه‌مرتضی برنامه‌ریزی و اجرا شده و در سال‌های بعد توسط جناب آقای دکتر قبادی طی چند مرحله ارتقا داده شد.
                                 </p>
-                                <p class="dnt-page__text--flower w-full relative">
-                                    <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
-                                    <span class="w-full block font-bold">
+                                <p class=" w-full relative">
+                                    <span class="w-full block font-bold m-t-15">
                                         اهم فعالیت سفیران اهدای عضو، در زمینه های زیر است:
                                     </span>
                                 </p>
@@ -194,8 +191,7 @@
                                         تعیین گستره فعالیت‌های مورد نظر بر اساس قابلیت‌ها و زمانی را که می‌توانند به این فعالیت اختصاص دهند.
                                     </li>
                                 </ul>
-                                <p class="dnt-page__text--flower-reverse relative font-bold">
-                                    <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
+                                <p class="relative font-bold m-b-8">
                                     از جمله فعالیت‌های سفیران می‌توان از عضویت در گروه سفیران سخنران نام برد که در این مورد بیشتر توضیح داده خواهد شد:
                                 </p>
                                 <p>
