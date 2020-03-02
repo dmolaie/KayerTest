@@ -85,7 +85,6 @@ class ArticleRepository
 
     function filter(ArticleFilterDTO $articleFilterDTO)
     {
-
         $baseQuery = $this->entityName::
         when($articleFilterDTO->getArticleRealStatus(), function ($query) use ($articleFilterDTO) {
             return $query->where('status', $articleFilterDTO->getArticleRealStatus());
@@ -108,8 +107,21 @@ class ArticleRepository
             ->when($articleFilterDTO->getMinPublishDate(), function ($query) use ($articleFilterDTO) {
                 return $query->where('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
             })
+            ->when($articleFilterDTO->getLanguage(), function ($query) use ($articleFilterDTO) {
+                return $query->where('language', $articleFilterDTO->getLanguage());
+            })
+            ->when($articleFilterDTO->getCategoryIds(), function ($query) use ($articleFilterDTO) {
+                return $query->whereHas('categories', function ($query) use ($articleFilterDTO) {
+                    $query->whereIn('categories.id', $articleFilterDTO->getCategoryIds());
+                });
+            })
+            ->when($articleFilterDTO->getProvinceId(), function ($query) use ($articleFilterDTO) {
+                return $query->where(function ($query) use ($articleFilterDTO) {
+                    $query->where('province_id', $articleFilterDTO->getProvinceId())
+                        ->orWhereNull('province_id');
+                });
+            })
             ->paginate(config('article.article_paginate_count'));
-
         return $baseQuery;
     }
 

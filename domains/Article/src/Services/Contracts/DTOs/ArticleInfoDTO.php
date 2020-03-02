@@ -54,7 +54,7 @@ class ArticleInfoDTO
      */
     protected $status;
     /**
-     * @var Province
+     * @var null|Province
      */
     protected $province;
     /**
@@ -259,18 +259,18 @@ class ArticleInfoDTO
     }
 
     /**
-     * @return Province
+     * @return null|Province
      */
-    public function getProvince(): Province
+    public function getProvince(): ?Province
     {
         return $this->province;
     }
 
     /**
-     * @param Province $province
+     * @param null|Province $province
      * @return ArticleInfoDTO
      */
-    public function setProvince(Province $province): ArticleInfoDTO
+    public function setProvince(?Province $province): ArticleInfoDTO
     {
         $this->province = $province;
         return $this;

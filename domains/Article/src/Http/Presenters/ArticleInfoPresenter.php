@@ -29,10 +29,10 @@ class ArticleInfoPresenter
             'publish_date' => strtotime($articleInfoDTO->getPublishDate()),
             'slug'         => $articleInfoDTO->getSlug(),
             'status'       => $this->getStatus($articleInfoDTO),
-            'province'     => [
+            'province'     => $articleInfoDTO->getProvince()?[
                 'id'   => $articleInfoDTO->getProvince()->id,
                 'name' => $articleInfoDTO->getProvince()->name,
-            ],
+            ]:null,
             'publisher'    => [
                 'id'        => $articleInfoDTO->getPublisher()->id,
                 'name'      => $articleInfoDTO->getPublisher()->name,

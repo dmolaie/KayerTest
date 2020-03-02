@@ -43,6 +43,18 @@ class ArticleFilterDTO
      * @var string|null
      */
     protected $maxPublishDate;
+    /**
+     * @var array|null
+     */
+    protected $categoryIds;
+    /**
+     * @var int|null
+     */
+    protected $provinceId;
+    /**
+     * @var string|null
+     */
+    protected $language;
 
     /**
      * @return string|null
@@ -167,4 +179,59 @@ class ArticleFilterDTO
     {
         return $this->maxPublishDate;
     }
+
+    /**
+     * @return array|null
+     */
+    public function getCategoryIds(): ?array
+    {
+        return $this->categoryIds;
+    }
+
+    /**
+     * @param array|null $categoryIds
+     * @return ArticleFilterDTO
+     */
+    public function setCategoryIds(?array $categoryIds): ArticleFilterDTO
+    {
+        $this->categoryIds = $categoryIds;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProvinceId(): ?int
+    {
+        return $this->provinceId;
+    }
+
+    /**
+     * @param int|null $provinceId
+     * @return ArticleFilterDTO
+     */
+    public function setProvinceId(?int $provinceId): ArticleFilterDTO
+    {
+        $this->provinceId = $provinceId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string|null $language
+     * @return ArticleFilterDTO
+     */
+    public function setLanguage(?string $language): ArticleFilterDTO
+    {
+        $this->language = $language;
+        return $this;
+    }
+
 }
