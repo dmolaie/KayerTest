@@ -94,36 +94,36 @@ class NewsCreateDTO extends NewsBaseSaveDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getCategoryId(): ?array
+    public function getCategoryIds(): ?array
     {
-        return $this->categoryId;
+        return $this->categoryIds;
     }
 
     /**
-     * @param array|null $categoryId
+     * @param array|null $categoryIds
      * @return NewsCreateDTO
      */
-    public function setCategoryId(?array $categoryId): NewsCreateDTO
+    public function setCategoryIds(?array $categoryIds): NewsCreateDTO
     {
-        $this->categoryId = $categoryId;
+        $this->categoryIds = $categoryIds;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getCategoryIsMain(): int
+    public function getCategoryIsMain(): ?int
     {
         return $this->categoryIsMain;
     }
 
     /**
-     * @param mixed $categoryIsMain
-     * @return NewsBaseSaveDTO
+     * @param null|int $categoryIsMain
+     * @return NewsCreateDTO
      */
-    public function setCategoryIsMain($categoryIsMain): NewsCreateDTO
+    public function setCategoryIsMain(?int $categoryIsMain): NewsCreateDTO
     {
         $this->categoryIsMain = $categoryIsMain;
         return $this;

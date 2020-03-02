@@ -34,7 +34,7 @@ class NewsInfoDTO
      */
     protected $description;
     /**
-     * @var null|Category
+     * @var null|array
      */
     protected $category;
     /**
@@ -219,18 +219,18 @@ class NewsInfoDTO
     }
 
     /**
-     * @return Category|null
+     * @return array|null
      */
-    public function getCategory()
+    public function getCategory():?array
     {
         return $this->category;
     }
 
     /**
-     * @param Category|null $category
+     * @param array|null $category
      * @return NewsInfoDTO
      */
-    public function setCategory($category): NewsInfoDTO
+    public function setCategory(?array $category): NewsInfoDTO
     {
         $this->category = $category;
         return $this;

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'news_statue'                 => [
+    'news_statuses'                 => [
         'accept',
         'reject',
         'pending',

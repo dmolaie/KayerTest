@@ -28,7 +28,7 @@ class NewsFilterDTO
      */
     protected $publisherId;
     /**
-     * @var string
+     * @var null|string
      */
     protected $newsInputStatus;
     /**
@@ -43,6 +43,18 @@ class NewsFilterDTO
      * @var string|null
      */
     protected $maxPublishDate;
+    /**
+     * @var array|null
+     */
+    protected $categoryIds;
+    /**
+     * @var int|null
+     */
+    protected $provinceId;
+    /**
+     * @var string|null
+     */
+    protected $language;
 
     /**
      * @return string|null
@@ -117,19 +129,22 @@ class NewsFilterDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getNewsInputStatus(): string
+    public function getNewsInputStatus(): ?string
     {
         return $this->newsInputStatus;
     }
 
     /**
-     * @param string $newsInputStatus
+     * @param null|string $newsInputStatus
      * @return NewsFilterDTO
      */
-    public function setNewsInputStatus(string $newsInputStatus): NewsFilterDTO
+    public function setNewsInputStatus(?string $newsInputStatus): NewsFilterDTO
     {
+        if(!$newsInputStatus){
+            return $this;
+        }
         $this->newsInputStatus = $newsInputStatus;
         $this->newsRealStatus = config('news.news_convert_to_real_status.' . $newsInputStatus);
 
@@ -142,9 +157,9 @@ class NewsFilterDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getNewsRealStatus(): string
+    public function getNewsRealStatus(): ?string
     {
         return $this->newsRealStatus;
     }
@@ -163,5 +178,59 @@ class NewsFilterDTO
     public function getMaxPublishDate(): ?string
     {
         return $this->maxPublishDate;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCategoryIds(): ?array
+    {
+        return $this->categoryIds;
+    }
+
+    /**
+     * @param array|null $categoryIds
+     * @return NewsFilterDTO
+     */
+    public function setCategoryIds(?array $categoryIds): NewsFilterDTO
+    {
+        $this->categoryIds = $categoryIds;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProvinceId(): ?int
+    {
+        return $this->provinceId;
+    }
+
+    /**
+     * @param int|null $provinceId
+     * @return NewsFilterDTO
+     */
+    public function setProvinceId(?int $provinceId): NewsFilterDTO
+    {
+        $this->provinceId = $provinceId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string|null $language
+     * @return NewsFilterDTO
+     */
+    public function setLanguage(?string $language): NewsFilterDTO
+    {
+        $this->language = $language;
+        return $this;
     }
 }
