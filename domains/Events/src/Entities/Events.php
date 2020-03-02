@@ -58,4 +58,15 @@ class Events extends Model
     {
         return $this->morphToMany(Category::class, 'categorible')->withPivot('is_main')->withTimestamps();
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Events::class);
+
+    }
+
+    public function child()
+    {
+        return $this->hasOne(Events::class, 'parent_id', 'id');
+    }
 }

@@ -78,36 +78,36 @@ class EventsEditDTO extends EventsBaseSaveDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getCategoryId()
+    public function getCategoryIds(): ?array
     {
-        return $this->categoryId;
+        return $this->categoryIds;
     }
 
     /**
-     * @param int|null $categoryId
+     * @param array|null $categoryIds
      * @return EventsEditDTO
      */
-    public function setCategoryId($categoryId): EventsEditDTO
+    public function setCategoryIds(?array $categoryIds): EventsEditDTO
     {
-        $this->categoryId = $categoryId;
+        $this->categoryIds = $categoryIds;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return null|int
      */
-    public function getCategoryIsMain()
+    public function getCategoryIsMain():?int
     {
         return $this->categoryIsMain;
     }
 
     /**
-     * @param mixed $categoryIsMain
+     * @param null|int $categoryIsMain
      * @return EventsEditDTO
      */
-    public function setCategoryIsMain($categoryIsMain): EventsEditDTO
+    public function setCategoryIsMain(?int $categoryIsMain): EventsEditDTO
     {
         $this->categoryIsMain = $categoryIsMain;
         return $this;

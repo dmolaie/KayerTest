@@ -38,11 +38,17 @@ class EventsListForAdminRequest extends EhdaBaseRequest
     public function createEventsFilterDTO(): EventsFilterDTO
     {
         $eventsFilterDTO = new EventsFilterDTO();
-        $eventsFilterDTO->setCreateDateEnd($this['create_date_end'])
-            ->setCreateDateStart($this['create_date_start'])
+        $eventsFilterDTO->setCreateDateEnd(
+            $this['create_date_end'] ?
+                Carbon::createFromTimestamp(
+                    $this['create_date_end'])->toDateTimeString() : null)
+            ->setCreateDateStart($this['create_date_start'] ?
+                Carbon::createFromTimestamp(
+                    $this['create_date_start'])->toDateTimeString() : null)
             ->setPublisherId($this['publisher_id'])
-            ->setEventsInputStatus($this['status'] ?? config('events.events_publish_status'))
+            ->setEventsInputStatus($this['status'])
             ->setTitle($this['first_title']);
+
         return $eventsFilterDTO;
     }
 }

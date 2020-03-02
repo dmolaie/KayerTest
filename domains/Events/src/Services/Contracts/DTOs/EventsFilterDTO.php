@@ -28,11 +28,11 @@ class EventsFilterDTO
      */
     protected $publisherId;
     /**
-     * @var string
+     * @var null|string
      */
     protected $eventsInputStatus;
     /**
-     * @var string
+     * @var null|string
      */
     protected $eventsRealStatus;
     /**
@@ -43,6 +43,18 @@ class EventsFilterDTO
      * @var string|null
      */
     protected $maxPublishDate;
+    /**
+     * @var array|null
+     */
+    protected $categoryIds;
+    /**
+     * @var int|null
+     */
+    protected $provinceId;
+    /**
+     * @var string|null
+     */
+    protected $language;
 
     /**
      * @return string|null
@@ -125,11 +137,14 @@ class EventsFilterDTO
     }
 
     /**
-     * @param string $eventsInputStatus
+     * @param null|string $eventsInputStatus
      * @return EventsFilterDTO
      */
-    public function setEventsInputStatus(string $eventsInputStatus): EventsFilterDTO
+    public function setEventsInputStatus(?string $eventsInputStatus): EventsFilterDTO
     {
+        if (!$eventsInputStatus) {
+            return $this;
+        }
         $this->eventsInputStatus = $eventsInputStatus;
         $this->eventsRealStatus = config('events.events_convert_to_real_status.' . $eventsInputStatus);
 
@@ -142,9 +157,9 @@ class EventsFilterDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getEventsRealStatus(): string
+    public function getEventsRealStatus(): ?string
     {
         return $this->eventsRealStatus;
     }
@@ -164,4 +179,59 @@ class EventsFilterDTO
     {
         return $this->maxPublishDate;
     }
+
+    /**
+     * @return array|null
+     */
+    public function getCategoryIds(): ?array
+    {
+        return $this->categoryIds;
+    }
+
+    /**
+     * @param array|null $categoryIds
+     * @return EventsFilterDTO
+     */
+    public function setCategoryIds(?array $categoryIds): EventsFilterDTO
+    {
+        $this->categoryIds = $categoryIds;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProvinceId(): ?int
+    {
+        return $this->provinceId;
+    }
+
+    /**
+     * @param int|null $provinceId
+     * @return EventsFilterDTO
+     */
+    public function setProvinceId(?int $provinceId): EventsFilterDTO
+    {
+        $this->provinceId = $provinceId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string|null $language
+     * @return EventsFilterDTO
+     */
+    public function setLanguage(?string $language): EventsFilterDTO
+    {
+        $this->language = $language;
+        return $this;
+    }
+
 }

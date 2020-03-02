@@ -39,12 +39,18 @@ class EventsInfoDTOMaker
             ->setAbstract($events->abstract)
             ->setDescription($events->description)
             ->setPublisher($events->publisher)
+            ->setRelationEventId($this->getRelationEventId($events))
             ->setEditor($events->editor)
             ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
             ->setProvince($events->province);
         return $EventsInfoDTO;
     }
 
+    private function getRelationEventId(Events $events)
+    {
+        $relationEvent = $events->parent ?? $events->child;
+        return $relationEvent ? $relationEvent->id : null;
+    }
     private function categories($categories)
     {
         return $categories->map(function ($category) {
