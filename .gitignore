@@ -21,4 +21,6 @@ storage/oauth-public.key
 package-lock.json
 
 public/upload/images/*
+public/css/*
+public/js/*
 

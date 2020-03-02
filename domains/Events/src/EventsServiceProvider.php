@@ -40,7 +40,7 @@ class EventsServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Events\Http\Controllers',
-            'prefix' => 'events',
+            'prefix' => 'events/v1',
         ];
     }
 

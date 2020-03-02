@@ -193,6 +193,7 @@ return [
         \Domains\Attachment\AttachmentServiceProvider::class,
         \Domains\News\NewsServiceProvider::class,
         \Domains\Events\EventsServiceProvider::class,
+        \Domains\Article\ArticleServiceProvider::class,
 
 
     ],

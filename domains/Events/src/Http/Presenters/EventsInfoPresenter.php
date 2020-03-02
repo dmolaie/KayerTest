@@ -4,6 +4,7 @@
 namespace Domains\Events\Http\Presenters;
 
 
+use Carbon\Carbon;
 use Domains\Events\Services\Contracts\DTOs\EventsInfoDTO;
 
 class EventsInfoPresenter
@@ -32,10 +33,7 @@ class EventsInfoPresenter
             'source_link_image' => $eventsInfoDTO->getSourceLinkImage(),
             'source_link_video' => $eventsInfoDTO->getSourceLinkVideo(),
             'location' => $eventsInfoDTO->getLocation(),
-            'status' => [
-                'fa' => trans('events::events.events_statue.' . $eventsInfoDTO->getStatus()),
-                'en' => $eventsInfoDTO->getStatus()
-            ],
+            'status' => $this->getStatus($eventsInfoDTO),
             'province' => [
                 'id' => $eventsInfoDTO->getProvince()->id,
                 'name' => $eventsInfoDTO->getProvince()->name,
@@ -51,8 +49,24 @@ class EventsInfoPresenter
                 'last_name' => $eventsInfoDTO->getEditor()->last_name
             ] : null,
             'language' => $eventsInfoDTO->getLanguage(),
-            'relation_id' => $eventsInfoDTO->getRelationNewsId(),
+            'relation_id' => $eventsInfoDTO->getRelationEventId(),
             'image_paths' => $eventsInfoDTO->getAttachmentFiles() ?? []
         ];
+    }
+
+    private function getStatus(EventsInfoDTO $eventsInfoDTO)
+    {
+        $status = [
+            'fa' => trans('events::events.events_statuses.' . $eventsInfoDTO->getStatus()),
+            'en' => $eventsInfoDTO->getStatus()
+        ];
+        if ($eventsInfoDTO->getStatus() == 'accept' && $eventsInfoDTO->getPublishDate() <= Carbon::now()) {
+            $status = [
+                'fa' => trans('events::events.events_statuses.published'),
+                'en' => 'published'
+            ];
+
+        }
+        return $status;
     }
 }

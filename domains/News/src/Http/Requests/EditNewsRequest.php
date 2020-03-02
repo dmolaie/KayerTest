@@ -23,7 +23,7 @@ class EditNewsRequest extends EhdaBaseRequest
             'second_title' => 'string',
             'abstract' => 'string',
             'description' => 'string',
-            'category_id' => 'array|exists:categories,id',
+            'category_ids' => 'array|exists:categories,id',
             'main_category_id' => 'integer|exists:categories,id',
             'publish_date' => 'required|numeric',
             'source_link' => 'url',
@@ -49,7 +49,7 @@ class EditNewsRequest extends EhdaBaseRequest
         $newsEditDTO->setNewsId($this['news_id'])
             ->setProvinceId($this['province_id'])
             ->setAbstract($this['abstract'])
-            ->setCategoryId($this['category_id'])
+            ->setCategoryIds($this['category_ids'])
             ->setCategoryIsMain($this['main_category_id'])
             ->setDescription($this['description'])
             ->setEditor(\Auth::user())

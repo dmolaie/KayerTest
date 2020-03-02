@@ -36,9 +36,13 @@ class NewsRepository
         $news->language = $newsCreateDTO->getLanguage();
         $news->parent_id = $newsCreateDTO->getParentId();
         $news->save();
-        $secondaryCategoryId = array_diff($newsCreateDTO->getCategoryId(), [$newsCreateDTO->getCategoryIsMain()]);
-        $news->categories()->attach($secondaryCategoryId, ['is_main' => false]);
-        $news->categories()->attach([$newsCreateDTO->getCategoryIsMain()], ['is_main' => true]);
+        if ($newsCreateDTO->getCategoryIds() || $newsCreateDTO->getCategoryIsMain()) {
+            $mainCategory = $newsCreateDTO->getCategoryIsMain() ?? $newsCreateDTO->getCategoryIds()[0];
+            $secondaryCategoryId = array_diff($newsCreateDTO->getCategoryIds() ?? [],
+                [$mainCategory]);
+            $news->categories()->attach($secondaryCategoryId, ['is_main' => false]);
+            $news->categories()->attach([$mainCategory], ['is_main' => true]);
+        }
         return $news;
     }
 
@@ -59,11 +63,12 @@ class NewsRepository
         if (!empty($getDirty)) {
             $news->save();
         }
-        if($newsEditDTO->getCategoryIsMain()){
-            $secondaryCategoryId = array_diff($newsEditDTO->getCategoryId(), [$newsEditDTO->getCategoryIsMain()]);
-            $news->categories()->sync([$newsEditDTO->getCategoryIsMain() => ['is_main' => true]]);
-            $news->categories()->detach($secondaryCategoryId);
+        $news->categories()->sync([]);
+        if ($newsEditDTO->getCategoryIsMain() || $newsEditDTO->getCategoryIds()) {
+            $mainCategory = $newsEditDTO->getCategoryIsMain() ?? $newsEditDTO->getCategoryIds()[0];
+            $secondaryCategoryId = array_diff($newsEditDTO->getCategoryIds() ?? [], [$mainCategory]);
             $news->categories()->attach($secondaryCategoryId, ['is_main' => false]);
+            $news->categories()->attach([$mainCategory], ['is_main' => true]);
         }
         return $news;
     }
@@ -76,7 +81,10 @@ class NewsRepository
     function filter(NewsFilterDTO $newsFilterDTO)
     {
 
-        $baseQuery = $this->entityName::where('status', $newsFilterDTO->getNewsRealStatus())
+        $baseQuery = $this->entityName
+            ::when($newsFilterDTO->getNewsRealStatus(), function ($query) use ($newsFilterDTO) {
+                return $query->where('status', $newsFilterDTO->getNewsRealStatus());
+            })
             ->when($newsFilterDTO->getPublisherId(), function ($query) use ($newsFilterDTO) {
                 return $query->where('publisher_id', $newsFilterDTO->getPublisherId());
             })
@@ -94,6 +102,18 @@ class NewsRepository
             })
             ->when($newsFilterDTO->getMinPublishDate(), function ($query) use ($newsFilterDTO) {
                 return $query->where('publish_date', '>=', $newsFilterDTO->getMinPublishDate());
+            })
+            ->when($newsFilterDTO->getLanguage(), function ($query) use ($newsFilterDTO) {
+                return $query->where('language', $newsFilterDTO->getLanguage());
+            })
+            ->when($newsFilterDTO->getCategoryIds(), function ($query) use ($newsFilterDTO) {
+                return $query->whereHas('categories', function ($query) use ($newsFilterDTO) {
+                    $query->whereIn('categories.id', $newsFilterDTO->getCategoryIds());
+                });
+            })
+            ->when($newsFilterDTO->getProvinceId(), function ($query) use ($newsFilterDTO) {
+                return $query->where('province_id', $newsFilterDTO->getProvinceId());
+
             })
             ->paginate(config('news.news_paginate_count'));
 

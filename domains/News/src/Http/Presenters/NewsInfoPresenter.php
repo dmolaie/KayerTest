@@ -4,6 +4,7 @@
 namespace Domains\News\Http\Presenters;
 
 
+use Carbon\Carbon;
 use Domains\News\Services\Contracts\DTOs\NewsInfoDTO;
 
 class NewsInfoPresenter
@@ -26,10 +27,7 @@ class NewsInfoPresenter
             'category' => $newsInfoDTO->getCategory() ? $newsInfoDTO->getCategory() : null,
             'publish_date' => strtotime($newsInfoDTO->getPublishDate()),
             'source_link' => $newsInfoDTO->getSourceLink(),
-            'status' => [
-                'fa' => trans('news::news.news_statue.' . $newsInfoDTO->getStatus()),
-                'en' => $newsInfoDTO->getStatus()
-            ],
+            'status' => $this->getStatus($newsInfoDTO),
             'province' => [
                 'id' => $newsInfoDTO->getProvince()->id,
                 'name' => $newsInfoDTO->getProvince()->name,
@@ -48,5 +46,21 @@ class NewsInfoPresenter
             'relation_id' => $newsInfoDTO->getRelationNewsId(),
             'image_paths' => $newsInfoDTO->getAttachmentFiles() ?? []
         ];
+    }
+
+    private function getStatus(NewsInfoDTO $newsInfoDTO)
+    {
+        $status = [
+            'fa' => trans('news::news.news_statuses.' . $newsInfoDTO->getStatus()),
+            'en' => $newsInfoDTO->getStatus()
+        ];
+        if ($newsInfoDTO->getStatus() == 'accept' && $newsInfoDTO->getPublishDate() <= Carbon::now()) {
+            $status = [
+                'fa' => trans('news::news.news_statuses.published'),
+                'en' => 'published'
+            ];
+
+        }
+        return $status;
     }
 }

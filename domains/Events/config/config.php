@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'events_statue'                 => [
+    'events_statuses'                 => [
         'accept',
         'reject',
         'pending',

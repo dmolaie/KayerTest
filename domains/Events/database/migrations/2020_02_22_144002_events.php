@@ -27,7 +27,7 @@ class Events extends Migration
             $table->string('source_link_video')->nullable();
             $table->string('source_link_image')->nullable();
             $table->string('location')->nullable();
-            $table->enum('status', config('events.events_statue'));
+            $table->enum('status', config('events.events_statuses'));
             $table->integer('province_id')->unsigned();
             $table->enum('language', config('events.event_language'));
             $table->bigInteger('editor_id')->unsigned()->nullable();
