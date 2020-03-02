@@ -1,0 +1,42 @@
+.info
+  &__section
+    padding: 48px 0 36px
+    .section__title
+      margin:
+        bottom: 19px
+    .swiper-slide
+      padding: 10px 0
+      @include L_Screen
+        width: calc(33.33333% - #{$SpaceBetweenItem})
+        margin:
+          left: ($SpaceBetweenItem + 3)
+      @include Xl_Screen
+        width: calc(25% - #{$SpaceBetweenItem})
+        margin:
+          left: $SpaceBetweenItem
+      @include Xxl_Screen
+        width: calc(20% - #{$SpaceBetweenItem})
+        margin:
+          left: $SpaceBetweenItem
+  &__title
+    margin:
+      bottom: (29px - 4)
+  &__container
+    display: flex
+  &__cart
+    border-color: #d2e3f4
+    padding: 38px 15px 31px 15px
+    &::before
+      box-shadow: 0 2px 4px 0 #f2f2f5
+    &::after
+      box-shadow: 0 2px 17px 0 transparentize(#8dd8f8, (1 - .51))
+      opacity: 0
+    @include L_Screen
+      &:hover
+        &::before
+          opacity: 0
+        &::after
+          opacity: 1
+    &_image
+      @include Size( 94px )
+      margin-bottom: 29px

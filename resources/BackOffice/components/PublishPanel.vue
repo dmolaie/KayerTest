@@ -15,7 +15,7 @@
         <div class="w-3/4 relative m-0-auto"
              v-click-outside="onClickOutside"
         >
-            <button class="publish__submit block w-full text-white font-sm font-bold bg-blue-100 border-blue-1 rounded text-center l:transition-bg l:hover:bg-blue"
+            <button class="publish__submit block w-full text-white font-sm font-bold bg-blue-100 border-blue-1 rounded text-center l:transition-bg l:hover:bg-blue user-select-none"
                     @click.prevent="onClickPublishButton"
                     v-text="published ? 'به روز رسانی' : 'انتشار'"
             > </button>
@@ -35,7 +35,7 @@
                 </template>
             </dropdown-cm>
         </div>
-        <button class="block text-blue-100 font-sm font-bold m-0-auto l:transition-color l:hover:text-blue--200">
+        <button class="block text-blue-100 font-sm font-bold m-0-auto l:transition-color l:hover:text-blue--200 user-select-none">
             ذخیره پیش‌نویس
         </button>
     </div>

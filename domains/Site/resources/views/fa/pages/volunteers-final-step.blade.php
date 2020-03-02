@@ -2,12 +2,10 @@
 @section('content')
     <div class="vnt-page dnt-page i-page">
         <div class="container">
-            <h1 class="flex text-blue font-24 md:font-22 text-center">
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                <span class="i-page__title">
-                        ثبت نام سفیر
-                    </span>
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
+            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                <span class="i-page__title text-center cursor-default">
+                    ثبت نام سفیر
+                </span>
             </h1>
             <div class="p-t-35 w-full">
                 <div class="vnt-page__box inner-box inner-box--white">

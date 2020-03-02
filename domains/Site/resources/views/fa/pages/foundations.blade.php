@@ -2,12 +2,10 @@
     @section('content')
         <div class="fou-page i-page">
             <div class="container">
-                <h1 class="flex text-blue font-24 md:font-22 text-center">
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                    <span class="i-page__title">
-                         ارکان انجمن
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                    <span class="i-page__title text-center cursor-default">
+                        ارکان انجمن
                     </span>
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
                 </h1>
                 <div class="inner-box inner-box--white text-right">
                     <div class="fou-page__tab w-full flex items-stretch justify-between">
@@ -78,7 +76,7 @@
                              data-tab="volunteers"
                         >
                             <div class="fou-page__volunteers">
-                                <p class="text-blue-800 font-lg font-bold m-b-20">
+                                <p class="i-page__sub-title text-blue-800 font-lg font-bold m-b-20">
                                     سفیران اهدای عضو :
                                 </p>
                                 <p class="text-bayoux font-base">
@@ -86,16 +84,16 @@
                                     (<a href="" class="font-bold">سفیران اهدای عضو</a>)
                                 </p>
                                 <p class="relative text-bayoux font-base text-has-flower">
-                                    <span class="int-shw-page__title_flower i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                                     بسیاری از سفیران انجمن هنرمندان، ورزشکاران، روحانیون و مقاماتی هستند که بودنشان در کنار انجمن موجب تاثیر بسیار مثبت در ارتقای فرهنگ مقدس اهدای عضو و جلب مردم گشته و هر چه بیشتر موجب نهادینه شدن این نهال نوپا می‌گردد. این افراد همیشه بدون چشمداشت در فعالیت‌های مختلف در کنار ما حضور پیدا کرده و با تبلیغ اهدای عضو بخصوص در فضای مجازی مردم را با مسئله مرگ مغزی و اهدای عضو آشناتر می‌کنند.
                                 </p>
-                                <p class="fou-page__volunteers__title relative flex items-center justify-between text-blue-800 font-lg font-bold m-b-20">
-                                    سفیران مشاهیر :
+                                <p class="fou-page__volunteers__title relative flex items-center text-blue-800 font-lg font-bold m-b-20">
+                                    <span class="i-page__sub-title">
+                                        سفیران مشاهیر :
+                                    </span>
                                     <a href=""
-                                       class="router-link relative inline-block font-xs-bold">
+                                       class="router-link relative inline-block font-xs-bold m-r-auto">
                                         بیشتر
                                     </a>
-                                    <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
                                 </p>
                                 <div class="fou-page__volunteers__list flex flex-wrap items-start justify-between">
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
@@ -171,7 +169,7 @@
                                         </figure>
                                     </div>
                                 </div>
-                                <a href=""
+                                <a href="{{route('page.volunteers',config('app.locale'))}}"
                                    class="fou-page__volunteers__link block bg-blue border border-solid rounded-2 text-white font-base-bold text-center transition-bg l:hover:bg-blue-200"
                                 >
                                     می‌خواهید سفیر شوید ؟
@@ -182,7 +180,7 @@
                              data-tab="sponsors"
                         >
                             <div class="fou-page__sponsors">
-                                <p class="text-blue-800 font-20 font-bold m-b-17">
+                                <p class="i-page__sub-title text-blue-800 font-20 font-bold m-b-17">
                                     حامیان :
                                 </p>
                                 <p class="text-blue-800 font-lg font-bold">
@@ -275,7 +273,7 @@
                              data-tab="members"
                         >
                             <div class="fou-page__members">
-                                <p class="text-blue-800 font-20 font-bold m-b-20">
+                                <p class="i-page__sub-title text-blue-800 font-20 font-bold m-b-20">
                                     اعضا  :
                                 </p>
                                 <p class="font-20 font-bold text-blue-100 text-center m-b-22">
@@ -878,15 +876,13 @@
                              data-tab="committees"
                         >
                             <div class="fou-page__committees">
-                                <p class="fou-page__committees_title font-20 font-bold text-blue-800">
+                                <p class="i-page__sub-title fou-page__committees_title font-20 font-bold text-blue-800">
                                     کمیته‌ها  :
                                 </p>
                                 <p class="relative text-bayoux font-base">
-                                    <span class="fou-page__committees_title_flower i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                                     یکی از ارکان انجمن اهدای عضو ایرانیان کمیته‌های آن است. با توجه به اینکه این انجمن رسالات مختلفی از جمله فرهنگ سازی، مددکاری خانواده‌های اهداکننده عضو، آموزش تیم‌های فراهم‌آوری اعضا، حمایت از پژوهش‌های مربوطه، کمک به وزارت بهداشت در ثبت اطلاعات فراهم‌آوری و پیوند اعضای کشور و بسیاری دیگر را بر عهده دارد که هر کدام از آنها بالاخص رسالت فرهنگی شاخه‌های متنوع و گوناگونی را در بر می‌گیرد و هر کدام نیاز به تخصص خاص آن دارد، انجمن اهدای عضو ایرانیان با دعوت از متخصصین مختلف در زمینه‌های هنری، فرهنگی، علمی، پژوهشی و مددکاری کمیته‌های مختلفی را ایجاد کرده که در آن متخصصان هر رشته با تبادل نظر بهترین راهکار‌های ارتقای اهدای عضو و پیوند اعضا در حیطه خود را در اختیار انجمن می‌گذارند. تاکنون کمیته‌های مختلفی در انجمن تشکیل شده و کمیته‌های دیگری نیز به تدریج در حال اضافه شدن به ساختار آن هستند. در زیر اسامی کمیته‌های انجمن آورده شده است:
                                 </p>
                                 <div class="fou-page__committees_list relative w-full">
-                                    <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
                                     <ul class="fou-page__committees__list w-full">
                                         <li class="fou-page__committees__list_item i-page__text md:font-sm flex items-center text-bayoux font-base text-right">
                                             کمیته آموزش
