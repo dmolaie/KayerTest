@@ -4,8 +4,7 @@
 namespace Domains\Events\Services\Contracts\DTOs;
 
 
-use Domains\News\Services\Contracts\DTOs\NewsBaseSaveDTO;
-use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
+
 use Domains\User\Entities\User;
 
 
@@ -79,36 +78,36 @@ class EventsCreateDTO extends EventsBaseSaveDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getCategoryId(): ?array
+    public function getCategoryIds(): ?array
     {
-        return $this->categoryId;
+        return $this->categoryIds;
     }
 
     /**
-     * @param int|null $categoryId
+     * @param array|null $categoryIds
      * @return EventsCreateDTO
      */
-    public function setCategoryId(?array $categoryId): EventsCreateDTO
+    public function setCategoryIds(?array $categoryIds): EventsCreateDTO
     {
-        $this->categoryId = $categoryId;
+        $this->categoryIds = $categoryIds;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return null|int
      */
-    public function getCategoryIsMain(): int
+    public function getCategoryIsMain(): ?int
     {
         return $this->categoryIsMain;
     }
 
     /**
-     * @param mixed $categoryIsMain
+     * @param null|int $categoryIsMain
      * @return EventsCreateDTO
      */
-    public function setCategoryIsMain($categoryIsMain): EventsCreateDTO
+    public function setCategoryIsMain(?int $categoryIsMain): EventsCreateDTO
     {
         $this->categoryIsMain = $categoryIsMain;
         return $this;

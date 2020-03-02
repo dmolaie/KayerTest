@@ -47,9 +47,9 @@ class EventsBaseSaveDTO
     protected $location;
 
     /**
-     * @var null|integer
+     * @var null|array
      */
-    protected $categoryId;
+    protected $categoryIds;
 
     /**
      * @var null|integer

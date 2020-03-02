@@ -5,8 +5,8 @@ namespace Domains\Attachment\Services;
 
 use Domains\Attachment\Repositories\AttachmentRepository;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\User\Exceptions\AttachmentFileErrorException;
 use Domains\User\Exceptions\ImageNotFoundErrorException;
 use Illuminate\Support\Facades\File;
@@ -36,13 +36,14 @@ class AttachmentServices
         $attachmentInfoDTO->setEntityId($attachmentDTO->getEntityId());
         $basePath = config('attachment.base_path');
         $imagePath = $basePath . $attachmentDTO->getEntityName();
-        $sizeEntity = config('attachment.image_sizes')[$attachmentDTO->getEntityName()];
+        $sizeEntity = $this->getSizeEntity($attachmentDTO->getEntityName());
         if (!File::isDirectory($imagePath)) {
             File::makeDirectory($imagePath);
         }
         foreach ($attachmentDTO->getFiles() as $item) {
             $fileName = date('mdYHis') . uniqid() . '-' . $item->getClientOriginalName();
-            Image::make($item)->resize($sizeEntity['normal_size']['width'], $sizeEntity['normal_size']['height'])->save($imagePath . $this->separator . $fileName);
+            Image::make($item)->resize($sizeEntity['normal_size']['width'],
+                $sizeEntity['normal_size']['height'])->save($imagePath . $this->separator . $fileName);
             $imagePathFinal = $imagePath . $this->separator . $fileName;
             $attachmentEntity = $this->attachmentRepository->create($attachmentDTO, $imagePathFinal, $fileName);
             $attachmentInfoDTO->addToPaths($attachmentEntity->id, $imagePathFinal);
@@ -50,18 +51,9 @@ class AttachmentServices
         return $attachmentInfoDTO;
     }
 
-    public function getAllImages(string $entityName, int $entityId): AttachmentInfoDTO
+    private function getSizeEntity(string $entityName)
     {
-        $attachmentInfoDTO = new AttachmentInfoDTO();
-        $attachmentInfoDTO->setEntityName($entityName);
-        $attachmentInfoDTO->setEntityId($entityId);
-        $attachmentEntity = $this->attachmentRepository->getAllImages($entityName, $entityId);
-        if ($attachmentEntity) {
-            foreach ($attachmentEntity as $item) {
-                $attachmentInfoDTO->addToPaths($item->id, $item->path);
-            }
-        }
-        return $attachmentInfoDTO;
+        return config('attachment.image_sizes')[$entityName] ?? config('attachment.image_sizes.default');
     }
 
     public function destroyImages(int $imageId)
@@ -81,5 +73,19 @@ class AttachmentServices
                 $entityId);
         }
         return $attachmentGetInfoDTO;
+    }
+
+    public function getAllImages(string $entityName, int $entityId): AttachmentInfoDTO
+    {
+        $attachmentInfoDTO = new AttachmentInfoDTO();
+        $attachmentInfoDTO->setEntityName($entityName);
+        $attachmentInfoDTO->setEntityId($entityId);
+        $attachmentEntity = $this->attachmentRepository->getAllImages($entityName, $entityId);
+        if ($attachmentEntity) {
+            foreach ($attachmentEntity as $item) {
+                $attachmentInfoDTO->addToPaths($item->id, $item->path);
+            }
+        }
+        return $attachmentInfoDTO;
     }
 }

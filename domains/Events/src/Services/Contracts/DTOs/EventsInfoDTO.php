@@ -118,10 +118,6 @@ class EventsInfoDTO
      */
     protected $editor;
 
-    /**
-     * @var int|null
-     */
-    private $relationNewsId;
 
     /**
      * @return User|null
@@ -180,18 +176,18 @@ class EventsInfoDTO
     /**
      * @return int|null
      */
-    public function getRelationNewsId(): ?int
+    public function getRelationEventId(): ?int
     {
-        return $this->relationNewsId;
+        return $this->relationEventId;
     }
 
     /**
-     * @param int|null $relationNewsId
+     * @param int|null $relationEventId
      * @return EventsInfoDTO
      */
-    public function setRelationNewsId(?int $relationNewsId): EventsInfoDTO
+    public function setRelationEventId(?int $relationEventId): EventsInfoDTO
     {
-        $this->relationNewsId = $relationNewsId;
+        $this->relationEventId = $relationEventId;
         return $this;
     }
 

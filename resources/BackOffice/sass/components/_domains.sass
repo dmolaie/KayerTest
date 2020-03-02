@@ -1,1 +1,9 @@
 .domains
+  &--pending
+    filter: blur(.5px)
+  &__loading
+    @include SpinnerLoading( 30px, 3px, $blue-200 )
+    position: absolute
+    top: 0
+    right: 0
+    background: transparentize($white, (1 - .7))

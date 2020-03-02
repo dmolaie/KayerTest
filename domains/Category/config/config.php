@@ -4,6 +4,7 @@ return [
     'categoryType' =>
         [
             'news',
-            'event'
+            'event',
+            'article',
         ]
 ];

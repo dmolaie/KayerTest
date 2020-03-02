@@ -2,23 +2,19 @@
     @section('content')
         <div class="int-shw-page i-page">
             <div class="container">
-                <h1 class="flex text-blue font-24 md:font-22 text-center">
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                    <span class="i-page__title">
-                         تعاملات
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                    <span class="i-page__title text-center cursor-default">
+                        تعاملات
                     </span>
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
                 </h1>
                 <div class="inner-box inner-box--white text-right">
-                    <h1 class="int-shw-page__title relative block w-full font-20 sm:font-18 font-bold cursor-default">
+                    <h1 class="i-page__sub-title text-blue-800 relative block w-full font-20 sm:font-18 font-bold m-b-20 cursor-default">
                         تعامل انجمن اهدای عضو ایرانیان با سازمان‌ها و نهادها  :
-                        <span class="int-shw-page__title_flower i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                     </h1>
                     <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm">
                         در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد:
                     </p>
                     <div class="relative">
-                        <span class="int-shw-page__list_flower i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
                         <ul class="int-shw-page__list text-bayoux font-base font-medium">
                             <li class="int-shw-page__list_item cursor-default">
                                 ۱- وزارت بهداشت، درمان و آموزش پزشکی

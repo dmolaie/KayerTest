@@ -21,7 +21,7 @@ class CreateNewsTable extends Migration
             $table->text('description')->nullable();
             $table->dateTime('publish_date');
             $table->string('source_link')->nullable();
-            $table->enum('status', config('news.news_statue'));
+            $table->enum('status', config('news.news_statuses'));
             $table->integer('province_id')->unsigned();
             $table->enum('language', config('news.news_language'));
             $table->bigInteger('editor_id')->unsigned()->nullable();

@@ -29,7 +29,7 @@ class NewsBaseSaveDTO
     /**
      * @var null|array
      */
-    protected $categoryId;
+    protected $categoryIds;
 
     /**
      * @var null|array

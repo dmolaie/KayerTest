@@ -1,0 +1,94 @@
+$paddingRight: 68px
+$paddingLeft: 52px
+
+.faq-page
+  .m-b-25
+    margin-bottom: 25px
+  .form
+    padding: 30px $paddingRight 39px $paddingLeft
+    &__label
+      padding: 0 24px 0 30px
+      border-color: transparentize(#f8feff, (1 - .42))
+      background: transparentize(#ecf8fd, (1 - .42))
+      &::after
+        content: " "
+        @include Size( 23px )
+        margin-right: 20px
+        background: url("/../images/ic_loupe--blue.svg") no-repeat center
+          size: contain
+    &__input
+      line-height: 53px
+      &::placeholder
+        color: $white
+        opacity: 1
+  &__container
+    padding: 12px $paddingRight 92px $paddingLeft
+  &__header
+    padding: 10px 30px
+    color: #374567
+    min-height: 70px
+    border:
+      color: #f8feff
+    background: #ecf8fd
+    transition: border-color $duration, background-color $duration
+    &::before
+      content: ' '
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      border-radius: inherit
+      box-shadow: 0 0 9px 0 transparentize($blue, (1 - .4))
+      transition: opacity $duration
+      opacity: 0
+  &__plus
+    @include Size( 32px )
+    pointer-events: none
+    &::before, &::after
+      content: " "
+      position: absolute
+      top: 50%
+      left: 50%
+      width: 100%
+      height: 8px
+      border:
+        radius: 8px
+      background-color: $blue
+    &::before
+      transform: translate(-50%, -50%) rotate(0deg)
+      transition: opacity $duration
+    &::after
+      transform: translate(-50%, -50%) rotate(90deg)
+      transition: transform $duration .10s
+  &__body
+    transition: height $duration
+  &__content
+    color: #374567
+    padding: 23px 30px 25px
+    background: #ecf8fd
+  &__item
+    &:not(:last-of-type)
+      margin-bottom: 16px
+    &--active
+      .faq-page__header
+        background: #d8f2fd
+        border:
+          bottom: none
+          bottom-right-radius: 0
+          bottom-left-radius: 0
+      .faq-page__plus
+        &::before
+          opacity: 0
+          transition: opacity $duration .10s
+        &::after
+          transition: transform $duration
+          transform: translate(-50%, -50%) rotate(0deg)
+    &:not(.faq-page__item--active)
+      .faq-page__header
+        @include L_Screen
+          &:hover
+            border-color: $blue
+            &::before
+              opacity: 1
+

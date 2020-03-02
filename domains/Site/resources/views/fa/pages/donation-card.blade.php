@@ -2,12 +2,10 @@
     @section('content')
         <div class="dnt-page i-page">
             <div class="container">
-                <h1 class="flex text-blue font-24 md:font-22 text-center">
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                    <span class="i-page__title">
-                         کارت اهدای عضو
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                    <span class="i-page__title text-center cursor-default">
+                        کارت اهدای عضو
                     </span>
-                    <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
                 </h1>
                 <div class="p-t-35 w-full flex items-start">
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
@@ -15,7 +13,6 @@
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
                                 اطلاعات فردی
                             </div>
-
                             <form method="post" action=""
                                   class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none" >
                                 <p class="text-blue font-base font-bold m-b-4 cursor-default">
@@ -462,7 +459,7 @@
                     </aside>
                     <div class="flex-1">
                         <div class="dnt-page__box inner-box inner-box--white">
-                            <h1 class="text-blue-800 font-24 font-bold cursor-default m-b-20">
+                            <h1 class="i-page__sub-title text-blue-800 font-24 font-bold cursor-default m-b-20">
                                 تاریخچه و اهمیت کارت اهدای عضو
                             </h1>
                             <div class="dnt-page__caption text-bayoux cursor-default font-base">
@@ -481,8 +478,7 @@
                                     اطلاعات داوطلبین دریافت کارت بلافاصله وارد سامانه کشوری کارت اهدای عضو شده و در آن ذخیره می گردد. لازم به ذکر است این سامانه از طریق کلیه بیمارستانهای کشور قابل دسترسی بوده و امکان جستجوی نام افراد مرگ مغزی بستری در این بیمارستانها وجود دارد.
                                     امید است با راه اندازی این سامانه قدمی هرچند کوچک برای ارتقای فرهنگ مقدس اهدی عضو و نجات جان بیماران نیازمند به پیوند اعضا برداریم...
                                 </p>
-                                <p class="dnt-page__text--flower-reverse relative font-bold">
-                                    <span class="i-page__flower_line i-page__flower_line--right flower_line flower_line--blue--200 absolute flex items-end justify-end reverse-item pointer-event-none m-0"></span>
+                                <p class="relative font-bold m-b-8 m-t-15">
                                     لطفا به نکات زیر توجه داشته باشید:
                                 </p>
                                 <p>

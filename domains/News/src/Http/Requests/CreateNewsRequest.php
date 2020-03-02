@@ -22,7 +22,7 @@ class CreateNewsRequest extends EhdaBaseRequest
             'second_title' => 'string',
             'abstract'     => 'string',
             'description'  => 'string',
-            'category_id'  => 'array|exists:categories,id',
+            'category_ids'  => 'array|exists:categories,id',
             'main_category_id'  => 'integer|exists:categories,id',
             'publish_date' => 'required|numeric',
             'source_link'  => 'url',
@@ -48,7 +48,7 @@ class CreateNewsRequest extends EhdaBaseRequest
         $newsCreateDTO = new NewsCreateDTO();
         $newsCreateDTO->setProvinceId($this['province_id'])
             ->setAbstract($this['abstract'])
-            ->setCategoryId($this['category_id'])
+            ->setCategoryIds($this['category_ids'])
             ->setCategoryIsMain($this['main_category_id'])
             ->setDescription($this['description'])
             ->setPublisher(\Auth::user())

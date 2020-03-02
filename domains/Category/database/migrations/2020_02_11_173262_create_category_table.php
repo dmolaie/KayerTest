@@ -17,6 +17,7 @@ class CreateCategoryTable extends Migration
             $table->integerIncrements('id');
             $table->string('name_en');
             $table->string('name_fa');
+            $table->enum('type', config('category.categoryType'));
             $table->integer('parent_id')->nullable()->unsigned();
             $table->timestamps();
         });

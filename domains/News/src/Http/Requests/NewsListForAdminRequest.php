@@ -3,6 +3,7 @@
 namespace Domains\News\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
+use Carbon\Carbon;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Illuminate\Validation\Rule;
 
@@ -38,10 +39,15 @@ class NewsListForAdminRequest extends EhdaBaseRequest
     public function createNewsFilterDTO(): NewsFilterDTO
     {
         $newsFilterDTO = new NewsFilterDTO();
-        $newsFilterDTO->setCreateDateEnd($this['create_date_end'])
-            ->setCreateDateStart($this['create_date_start'])
+        $newsFilterDTO->setCreateDateEnd(
+            $this['create_date_end'] ?
+                Carbon::createFromTimestamp(
+                    $this['create_date_end'])->toDateTimeString() : null)
+            ->setCreateDateStart($this['create_date_start'] ?
+                Carbon::createFromTimestamp(
+                    $this['create_date_start'])->toDateTimeString() : null)
             ->setPublisherId($this['publisher_id'])
-            ->setNewsInputStatus($this['status']??config('news.news_publish_status'))
+            ->setNewsInputStatus($this['status'])
             ->setFirstTitle($this['first_title']);
         return $newsFilterDTO;
     }

@@ -30,11 +30,16 @@ class EventsRepository
         $events->status = $eventsCreateDTO->getStatus();
         $events->province_id = $eventsCreateDTO->getProvinceId();
         $events->publisher_id = $eventsCreateDTO->getPublisher()->id;
+        $events->parent_id = $eventsCreateDTO->getParentId();
         $events->language = $eventsCreateDTO->getLanguage();
         $events->save();
-        $secondaryCategoryId = array_diff($eventsCreateDTO->getCategoryId(), [$eventsCreateDTO->getCategoryIsMain()]);
-        $events->categories()->attach($secondaryCategoryId, ['is_main' => false]);
-        $events->categories()->attach([$eventsCreateDTO->getCategoryIsMain()], ['is_main' => true]);
+        if ($eventsCreateDTO->getCategoryIds() || $eventsCreateDTO->getCategoryIsMain()) {
+            $mainCategory = $eventsCreateDTO->getCategoryIsMain() ?? $eventsCreateDTO->getCategoryIds()[0];
+            $secondaryCategoryId = array_diff($eventsCreateDTO->getCategoryIds() ?? [],
+                [$mainCategory]);
+            $events->categories()->attach($secondaryCategoryId, ['is_main' => false]);
+            $events->categories()->attach([$mainCategory], ['is_main' => true]);
+        }
         return $events;
     }
 
@@ -60,11 +65,12 @@ class EventsRepository
         if (!empty($getDirty)) {
             $events->save();
         }
-        if($eventsEditDTO->getCategoryIsMain()){
-            $secondaryCategoryId = array_diff($eventsEditDTO->getCategoryId(), [$eventsEditDTO->getCategoryIsMain()]);
-            $events->categories()->sync([$eventsEditDTO->getCategoryIsMain() => ['is_main' => true]]);
-            $events->categories()->detach($secondaryCategoryId);
+        $events->categories()->sync([]);
+        if ($eventsEditDTO->getCategoryIsMain() || $eventsEditDTO->getCategoryIds()) {
+            $mainCategory = $eventsEditDTO->getCategoryIsMain() ?? $eventsEditDTO->getCategoryIds()[0];
+            $secondaryCategoryId = array_diff($eventsEditDTO->getCategoryIds() ?? [], [$mainCategory]);
             $events->categories()->attach($secondaryCategoryId, ['is_main' => false]);
+            $events->categories()->attach([$mainCategory], ['is_main' => true]);
         }
         return $events;
     }
@@ -76,7 +82,10 @@ class EventsRepository
 
     function filter(EventsFilterDTO $eventsFilterDTO)
     {
-        $baseQuery = $this->entityName::where('status', $eventsFilterDTO->getEventsRealStatus())
+        $baseQuery = $this->entityName
+            ::when($eventsFilterDTO->getEventsRealStatus(), function ($query) use ($eventsFilterDTO) {
+                return $query->where('status', $eventsFilterDTO->getEventsRealStatus());
+            })
             ->when($eventsFilterDTO->getPublisherId(), function ($query) use ($eventsFilterDTO) {
                 return $query->where('publisher_id', $eventsFilterDTO->getPublisherId());
             })
@@ -94,6 +103,18 @@ class EventsRepository
             })
             ->when($eventsFilterDTO->getMinPublishDate(), function ($query) use ($eventsFilterDTO) {
                 return $query->where('publish_date', '>=', $eventsFilterDTO->getMinPublishDate());
+            })
+            ->when($eventsFilterDTO->getLanguage(), function ($query) use ($eventsFilterDTO) {
+                return $query->where('language', $eventsFilterDTO->getLanguage());
+            })
+            ->when($eventsFilterDTO->getCategoryIds(), function ($query) use ($eventsFilterDTO) {
+                return $query->whereHas('categories', function ($query) use ($eventsFilterDTO) {
+                    $query->whereIn('categories.id', $eventsFilterDTO->getCategoryIds());
+                });
+            })
+            ->when($eventsFilterDTO->getProvinceId(), function ($query) use ($eventsFilterDTO) {
+                return $query->where('province_id', $eventsFilterDTO->getProvinceId());
+
             })
             ->paginate(config('events.events_paginate_count'));
 
