@@ -25,6 +25,10 @@ class CategoryCreateDTO
      * @var null
      */
     protected $parentId = null;
+    /**
+     * @var boolean
+     */
+    protected $status;
 
     /**
      * @return string
@@ -95,6 +99,24 @@ class CategoryCreateDTO
     public function setParentId($parentId): CategoryCreateDTO
     {
         $this->parentId = $parentId;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatus(): bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     * @return CategoryCreateDTO
+     */
+    public function setStatus(bool $status): CategoryCreateDTO
+    {
+        $this->status = $status;
         return $this;
     }
 

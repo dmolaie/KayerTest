@@ -42,7 +42,7 @@ class CategoryServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Category\Http\Controllers',
-            'prefix' => 'category',
+            'prefix' => 'category/v1',
         ];
     }
 

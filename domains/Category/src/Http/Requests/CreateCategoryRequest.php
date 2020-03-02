@@ -21,6 +21,7 @@ class CreateCategoryRequest extends EhdaBaseRequest
             'name_fa'   => 'required|string',
             'type'      => ['required', 'string', Rule::in(config('category.categoryType'))],
             'parent_id' => 'integer|exists:categories,id',
+            'status'    => 'boolean'
         ];
     }
 
@@ -40,6 +41,7 @@ class CreateCategoryRequest extends EhdaBaseRequest
         $categoryCreateDTO->setNameFa($this['name_fa'])
             ->setNameEn($this['name_en'])
             ->setType($this['type'])
+            ->setStatus($this['status'] ?? true)
             ->setParentId($this['parent_id']);
         return $categoryCreateDTO;
     }

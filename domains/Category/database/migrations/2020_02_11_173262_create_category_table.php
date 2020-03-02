@@ -18,6 +18,7 @@ class CreateCategoryTable extends Migration
             $table->string('name_en');
             $table->string('name_fa');
             $table->enum('type', config('category.categoryType'));
+            $table->boolean('is_active')->default(true);
             $table->integer('parent_id')->nullable()->unsigned();
             $table->timestamps();
         });
