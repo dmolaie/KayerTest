@@ -156,6 +156,43 @@ try {
         }
     };
 
+    const MountInformationCarousel = () => {
+        try {
+            let informationCarousel = new Swiper('.p-home .info__section .carousel__container', {
+                slidesPerView: 'auto',
+                spaceBetween: 16,
+                watchOverflow: true,
+                resistanceRatio: 0,
+                navigation: {
+                    nextEl: '.info__section .carousel-btn--right',
+                    prevEl: '.info__section .carousel-btn--left',
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 11,
+                    },
+                    520: {
+                        slidesPerView: 2,
+                        spaceBetween: SpaceBetweenItem,
+                    },
+                    900: {
+                        slidesPerView: 3,
+                        spaceBetween: SpaceBetweenItem,
+                    },
+                    1300: {
+                        slidesPerView: 4,
+                        spaceBetween: SpaceBetweenItem,
+                    },
+                    2000: {
+                        slidesPerView: 5,
+                        spaceBetween: SpaceBetweenItem,
+                    }
+                }
+            });
+        } catch ( e ) {}
+    };
+
     const MountEventsCarousel = () => {
         try {
             let eventsCarousel = new Swiper('.p-home .events__section .carousel__container', {
@@ -283,7 +320,7 @@ try {
             const Animate = () => {
                 setTimeout(() => {
                     CTX.lineWidth = 1.2;
-                    CTX.strokeStyle = 'rgba(169, 208, 225, .9)';
+                    CTX.strokeStyle = '#bbe4fd';
 
                     if ( !X < Length(points) )
                         CTX.clearRect(( X + 1 ), 0, Canvas.width, Canvas.height);
@@ -440,9 +477,10 @@ try {
     window.addEventListener(
         'load',
         () => {
-            MountSliderCarousel();
-            MountSpecialNewsCarousel();
-            MountRecentlyEventsCarousel();
+            // MountSliderCarousel();
+            // MountSpecialNewsCarousel();
+            // MountRecentlyEventsCarousel();
+            MountInformationCarousel();
             MountEventsCarousel();
             MountEhdaNewsCarousel();
         }
