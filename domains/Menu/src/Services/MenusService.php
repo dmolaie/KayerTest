@@ -46,6 +46,6 @@ class MenusService
     public function getList(bool $activeList = false): array
     {
         $menus = $this->menusRepository->getList($activeList);
-        return $this->menusInfoDTOMaker->convertMany($menus);
+        return $this->menusInfoDTOMaker->convertMany($menus, $activeList);
     }
 }
