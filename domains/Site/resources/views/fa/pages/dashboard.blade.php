@@ -22,7 +22,7 @@
                             >
                                 ویرایش پروفایل
                             </a>
-                            <a href=""
+                            <a href="{{route('page.volunteers',config('app.locale'))}}"
                                class="anchor__item text-white font-lg font-bold rounded-6 bg-green l:transition-background l:hover:bg-green-200 text-center"
                             >
                                 سفیران اهدای عضو
@@ -165,23 +165,9 @@
                                             </button>
                                         </div>
                                         <div class="share-box flex justify-end h-0 overflow-hidden transition-height">
-                                            <div class="inline-flex items-center border border-solid i-page__box rounded-1/2 user-select-none">
-                                                <a href=""
-                                                   target="_blank"
-                                                   class="i-page__social ic--gmail transition-opacity opacity-80 l:hover:opacity-1"></a>
-                                                <a href=""
-                                                   target="_blank"
-                                                   class="i-page__social ic--facebook transition-opacity opacity-80 l:hover:opacity-1"></a>
-                                                <a href=""
-                                                   target="_blank"
-                                                   class="i-page__social ic--telegram transition-opacity opacity-80 l:hover:opacity-1"></a>
-                                                <a href=""
-                                                   target="_blank"
-                                                   class="i-page__social ic--twitter transition-opacity opacity-80 l:hover:opacity-1"></a>
-                                                <a href=""
-                                                   target="_blank"
-                                                   class="i-page__social ic--pinterest transition-opacity opacity-80 l:hover:opacity-1"></a>
-                                            </div>
+                                            <div class="inline-flex items-center border border-solid i-page__box rounded-1/2 user-select-none"
+                                                 id="share-section"
+                                            > </div>
                                         </div>
                                     </div>
                                 </div>

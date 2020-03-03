@@ -1,3 +1,5 @@
+import Share from '@vendor/plugin/shareSocialMedia';
+
 try {
     const SHARE_TAB_INDEX = 2;
     const PRINT_TAB_INDEX = 3;
@@ -129,6 +131,35 @@ try {
             }
         )
     }
+
+    document.getElementById('share-section').Share({
+        via: 'ehda.center',
+        hashtags: 'ehdacenter,انجمن اهدا عضو ایرانیان',
+        url: 'http://localhost:8090/fa/page/dashboard',
+        content: 'کارت اهدا اینجانب در انجمن اهدا ایرانیان برای شما ارسال شده است',
+        share: [
+            {
+                name: 'email',
+                class: 'i-page__social ic--gmail transition-opacity opacity-80 l:hover:opacity-1',
+            },
+            {
+                name: 'facebook',
+                class: 'i-page__social ic--facebook transition-opacity opacity-80 l:hover:opacity-1',
+            },
+            {
+                name: 'telegram',
+                class: 'i-page__social ic--telegram transition-opacity opacity-80 l:hover:opacity-1',
+            },
+            {
+                name: 'twitter',
+                class: 'i-page__social ic--twitter transition-opacity opacity-80 l:hover:opacity-1',
+            },
+            {
+                name: 'pinterest',
+                class: 'i-page__social ic--pinterest transition-opacity opacity-80 l:hover:opacity-1',
+            },
+        ]
+    });
 } catch (e) {
     console.log(e);
 }
