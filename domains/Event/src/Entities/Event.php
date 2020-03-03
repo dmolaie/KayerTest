@@ -1,15 +1,19 @@
 <?php
 
-namespace Domains\News\Entities;
+namespace Domains\Event\Entities;
 
 use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Menu;
 
-class News extends Model
+class Event extends Model
 {
+    use SoftDeletes;
+
+    protected $softDelete = true;
 
     /**
      * The attributes that are mass assignable.
@@ -17,16 +21,21 @@ class News extends Model
      * @var array
      */
     protected $fillable = [
-        'first_title',
-        'second_title',
+        'title',
         'abstract',
         'description',
         'category_id',
         'publish_date',
-        'source_link',
+        'event_start_date',
+        'event_end_date',
+        'event_start_register_date',
+        'event_end_register_date',
+        'location',
+        'source_link_text',
+        'source_link_video',
+        'source_link_image',
         'status',
         'province_id',
-        'editor_id',
         'publisher_id',
         'language'
     ];
@@ -58,12 +67,12 @@ class News extends Model
 
     public function parent()
     {
-        return $this->belongsTo(News::class);
+        return $this->belongsTo(Event::class);
 
     }
 
     public function child()
     {
-        return $this->hasOne(News::class, 'parent_id', 'id');
+        return $this->hasOne(Event::class, 'parent_id', 'id');
     }
 }
