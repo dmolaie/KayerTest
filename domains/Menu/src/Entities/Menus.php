@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Menus\Entities;
+namespace Domains\Menu\Entities;
 
 use Domains\Article\Entities\Article;
 use Domains\News\Entities\News;
@@ -43,7 +43,7 @@ class Menus extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Menus::class);
+        return $this->belongsTo(Menus::class, 'parent_id', 'id');
 
     }
 

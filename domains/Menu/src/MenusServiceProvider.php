@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\Menus;
+namespace Domains\Menu;
 
 
 use Illuminate\Support\Facades\Route;
@@ -39,7 +39,7 @@ class MenusServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace' => 'Domains\Menus\Http\Controllers',
+            'namespace' => 'Domains\Menu\Http\Controllers',
             'prefix' => 'menus',
         ];
     }
