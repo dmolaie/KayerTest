@@ -194,6 +194,7 @@ return [
         \Domains\News\NewsServiceProvider::class,
         \Domains\Event\EventServiceProvider::class,
         \Domains\Article\ArticleServiceProvider::class,
+        \Domains\Menu\MenusServiceProvider::class,
 
 
     ],

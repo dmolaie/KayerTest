@@ -1,9 +1,9 @@
 <?php
 
-namespace Domains\Menus\Services\Contracts\DTOs\DTOMakers;
+namespace Domains\Menu\Services\Contracts\DTOs\DTOMakers;
 
-use Domains\Menus\Entities\Menus;
-use Domains\Menus\Services\Contracts\DTOs\MenusInfoDTO;
+use Domains\Menu\Entities\Menus;
+use Domains\Menu\Services\Contracts\DTOs\MenusInfoDTO;
 
 class MenusInfoDTOMaker
 {
@@ -22,11 +22,24 @@ class MenusInfoDTOMaker
             ->setName($menu->name)
             ->setType($menu->type)
             ->setLink($menu->link)
+            ->setParent($menu->parent)
+            ->setChilde(
+                $this->getMenuChildren($menu->child))
             ->setPublishDate($menu->publish_date)
             ->setLanguage($menu->language)
             ->setAlias($menu->alias)
             ->setPublisher($menu->publisher)
             ->setEditorId($menu->editor_id);
         return $menusInfoDTO;
+    }
+
+    private function getMenuChildren($child)
+    {
+        if(is_null($child)){
+            return [];
+        }
+        return $child->map(function ($child) {
+            return $this->convert($child);
+        });
     }
 }

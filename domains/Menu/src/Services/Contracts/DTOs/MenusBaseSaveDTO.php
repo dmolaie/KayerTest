@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\Menus\Services\Contracts\DTOs;
+namespace Domains\Menu\Services\Contracts\DTOs;
 
 
 class MenusBaseSaveDTO
@@ -49,7 +49,7 @@ class MenusBaseSaveDTO
     /**
      * @var null|integer
      */
-    protected $parentid;
+    protected $parentId;
 
     /**
      * @var null|string

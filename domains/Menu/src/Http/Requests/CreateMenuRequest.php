@@ -1,10 +1,10 @@
 <?php
 
-namespace Domains\Menus\Http\Requests;
+namespace Domains\Menu\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
-use Domains\Menus\Services\Contracts\DTOs\MenusCreateDTO;
+use Domains\Menu\Services\Contracts\DTOs\MenusCreateDTO;
 use Illuminate\Validation\Rule;
 
 class CreateMenuRequest extends EhdaBaseRequest
@@ -23,7 +23,7 @@ class CreateMenuRequest extends EhdaBaseRequest
             'alias' => 'required|string',
             'publish_date' => 'numeric',
             'link' => 'url',
-            'parent_id'    => 'integer|exists:menus,id|unique:menus',
+            'parent_id'    => 'integer|exists:menus,id',
             'language' => ['required', Rule::in(config('menus.menu_language'))],
             'type' => ['required', Rule::in(config('menus.menus_type'))],
         ];
