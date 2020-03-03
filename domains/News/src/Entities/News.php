@@ -53,7 +53,7 @@ class News extends Model
 
     public function menus()
     {
-        return $this->morphToMany(Menu::class, 'menuble')->withTimestamps();
+        return $this->morphToMany(Menu::class, 'menuable')->withTimestamps();
     }
 
     public function parent()

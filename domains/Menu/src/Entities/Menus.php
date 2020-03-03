@@ -28,7 +28,8 @@ class Menus extends Model
         'editor_id',
         'publisher_id',
         'parent_id',
-        'prority',
+        'priority',
+        'active'
     ];
 
     public function editor()
@@ -54,16 +55,16 @@ class Menus extends Model
 
     public function events()
     {
-        return $this->morphedByMany(Events::class, 'menuble');
+        return $this->morphedByMany(Events::class, 'menuable');
     }
 
     public function news()
     {
-        return $this->morphedByMany(News::class, 'menuble');
+        return $this->morphedByMany(News::class, 'menuable');
     }
 
     public function articles()
     {
-        return $this->morphedByMany(Article::class, 'menuble');
+        return $this->morphedByMany(Article::class, 'menuable');
     }
 }

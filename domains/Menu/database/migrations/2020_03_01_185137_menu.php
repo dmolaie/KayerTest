@@ -25,7 +25,8 @@ class Menu extends Migration
             $table->bigInteger('editor_id')->unsigned()->nullable();
             $table->bigInteger('publisher_id')->unsigned();
             $table->integer('parent_id')->nullable()->unsigned();
-            $table->integer('prority')->nullable()->unsigned();
+            $table->integer('priority')->nullable()->unsigned();
+            $table->boolean('active')->default(true);
             $table->timestamps();
 
             $table->foreign('editor_id')->on('users')
