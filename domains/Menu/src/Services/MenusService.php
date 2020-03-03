@@ -42,4 +42,10 @@ class MenusService
         $createMenuData = $this->menusRepository->createMenu($createDTO);
         return $this->menusInfoDTOMaker->convert($createMenuData);
     }
+
+    public function getList(bool $activeList = false): array
+    {
+        $menus = $this->menusRepository->getList($activeList);
+        return $this->menusInfoDTOMaker->convertMany($menus, $activeList);
+    }
 }

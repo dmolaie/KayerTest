@@ -9,7 +9,7 @@ class MenusRepository
 {
     protected $entityName = Menus::class;
 
-    public function createMenu(MenusCreateDTO $menusCreateDTO) :Menus
+    public function createMenu(MenusCreateDTO $menusCreateDTO): Menus
     {
         $menus = new $this->entityName;
         $menus->name = $menusCreateDTO->getName();
@@ -22,7 +22,15 @@ class MenusRepository
         $menus->publisher_id = $menusCreateDTO->getPublisher()->id;
         $menus->parent_id = $menusCreateDTO->getParentId();
         $menus->save();
-        return  $menus;
+        return $menus;
+    }
+
+    public function getList(bool $activeList)
+    {
+        return $this->entityName::whereNull('parent_id')
+            ->when($activeList, function ($query) {
+                return $query->where('active', true);
+            })->orderBy('priority')->get();
     }
 
 }

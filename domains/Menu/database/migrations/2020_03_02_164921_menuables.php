@@ -13,7 +13,8 @@ class Menuables extends Migration
      */
     public function up()
     {
-        Schema::create('menubles', function (Blueprint $table) {
+
+        Schema::create('menuables', function (Blueprint $table) {
             $table->integer('menu_id');
             $table->integer('menuable_id');
             $table->string('menuable_type');
@@ -27,6 +28,7 @@ class Menuables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('menuables');
         Schema::dropIfExists('menubles');
     }
 }

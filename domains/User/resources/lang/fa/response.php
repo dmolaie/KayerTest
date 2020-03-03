@@ -11,9 +11,9 @@ return array(
     'user_dose_not_have_active_role'   => 'شما امکان ورود به سیستم را ندارید.',
     'user_can_register'                => 'کاربر میتواند ثبت‌نام نماید.',
     'role_have_this_role'              => 'شما قبلا ثبت‌نام کرده‌اید.',
-    'user_has_profile_register_client' => 'شما هم‌اکنون دارای پرفایل هستید.
+    'user_has_profile_register_client' => 'شما هم‌اکنون دارای پروفایل هستید.
 جهت ثبت‌نام کارت اهدای عضو وارد شوید.',
-    'user_has_role_register_legate'    => 'شما هم‌اکنون دارای پرفایل هستید.
+    'user_has_role_register_legate'    => 'شما هم‌اکنون دارای پروفایل هستید.
 جهت ثبت‌نام سفیر وارد شوید.',
 
 );

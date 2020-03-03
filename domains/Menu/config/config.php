@@ -4,7 +4,7 @@ return [
     'menus_type'       => [
         'article',
         'link',
-        'seperator',
+        'separator',
         'list_news',
         'list_event'
     ],
