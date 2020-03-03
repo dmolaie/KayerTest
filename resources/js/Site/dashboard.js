@@ -132,10 +132,13 @@ try {
         )
     }
 
+    const SHARE_URL = SHARE_BUTTON.getAttribute('data-share');
+
     document.getElementById('share-section').Share({
         via: 'ehda.center',
-        hashtags: 'ehdacenter,انجمن اهدا عضو ایرانیان',
-        url: 'http://localhost:8090/fa/page/dashboard',
+        hashtags: 'ehdacenter,ehda,انجمن اهدا عضو ایرانیان',
+        url: SHARE_URL,
+        media: SHARE_URL,
         content: 'کارت اهدا اینجانب در انجمن اهدا ایرانیان برای شما ارسال شده است',
         share: [
             {
@@ -160,6 +163,4 @@ try {
             },
         ]
     });
-} catch (e) {
-    console.log(e);
-}
+} catch (e) {}

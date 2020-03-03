@@ -160,6 +160,7 @@
                                             </button>
                                             <button class="content__button content__button--share text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center"
                                                     id="share_button"
+                                                    data-share="{{ asset('/images/test/test-image-1.png') }}"
                                             >
                                                 اشتراک
                                             </button>
