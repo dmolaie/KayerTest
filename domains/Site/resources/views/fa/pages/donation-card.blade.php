@@ -501,7 +501,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/vendors~donation-card~volunteers~volunteers-final.js')}}" defer></script>
-        <script src="{{asset('js/site/donation-card~volunteers-final.js ')}}" defer></script>
+        <script src="{{asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/donation-card~edit-profile~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/site/donation-card.js')}}" defer></script>
     @endsection
