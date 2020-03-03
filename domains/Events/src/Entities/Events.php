@@ -7,6 +7,7 @@ use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Menu;
 
 class Events extends Model
 {
@@ -57,6 +58,11 @@ class Events extends Model
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorible')->withPivot('is_main')->withTimestamps();
+    }
+
+    public function menus()
+    {
+        return $this->morphToMany(Menu::class, 'menuble')->withTimestamps();
     }
 
     public function parent()
