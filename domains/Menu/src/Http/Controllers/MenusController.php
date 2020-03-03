@@ -1,21 +1,13 @@
 <?php
 
 
-namespace Domains\Menus\Http\Controllers;
+namespace Domains\Menu\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Auth;
-use Domains\Events\Exceptions\EventNotFoundErrorException;
-use Domains\Events\Http\Presenters\EventsInfoPresenter;
-use Domains\Events\Http\Presenters\EventsPaginateInfoPresenter;
-use Domains\Events\Http\Requests\CreateEventsRequest;
-use Domains\Events\Http\Requests\DestroyEventsRequest;
-use Domains\Events\Http\Requests\EditEventsRequest;
-use Domains\Events\Http\Requests\EventsListForAdminRequest;
-use Domains\Events\Services\EventsService;
-use Domains\Menus\Http\Presenters\MenusInfoPresenter;
-use Domains\Menus\Http\Requests\CreateMenuRequest;
-use Domains\Menus\Services\MenusService;
+use Domains\Menu\Http\Presenters\MenusInfoPresenter;
+use Domains\Menu\Http\Requests\CreateMenuRequest;
+use Domains\Menu\Services\MenusService;
 use Illuminate\Http\Response;
 
 class MenusController extends EhdaBaseController

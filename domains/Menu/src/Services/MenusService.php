@@ -1,11 +1,11 @@
 <?php
 
-namespace Domains\Menus\Services;
+namespace Domains\Menu\Services;
 
 
-use Domains\Menus\Repositories\MenusRepository;
-use Domains\Menus\Services\Contracts\DTOs\DTOMakers\MenusInfoDTOMaker;
-use Domains\Menus\Services\Contracts\DTOs\MenusCreateDTO;
+use Domains\Menu\Repositories\MenusRepository;
+use Domains\Menu\Services\Contracts\DTOs\DTOMakers\MenusInfoDTOMaker;
+use Domains\Menu\Services\Contracts\DTOs\MenusCreateDTO;
 
 /**
  * Class EventsService

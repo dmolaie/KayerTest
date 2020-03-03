@@ -1,9 +1,9 @@
 <?php
 
-namespace Domains\Menus\Repositories;
+namespace Domains\Menu\Repositories;
 
-use Domains\Menus\Entities\Menus;
-use Domains\Menus\Services\Contracts\DTOs\MenusCreateDTO;
+use Domains\Menu\Entities\Menus;
+use Domains\Menu\Services\Contracts\DTOs\MenusCreateDTO;
 
 class MenusRepository
 {

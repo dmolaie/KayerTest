@@ -1,12 +1,10 @@
 <?php
 
 
-namespace Domains\Menus\Http\Presenters;
+namespace Domains\Menu\Http\Presenters;
 
 
-use Carbon\Carbon;
-use Domains\Events\Services\Contracts\DTOs\EventsInfoDTO;
-use Domains\Menus\Services\Contracts\DTOs\MenusInfoDTO;
+use Domains\Menu\Services\Contracts\DTOs\MenusInfoDTO;
 
 class MenusInfoPresenter
 {
@@ -26,6 +24,9 @@ class MenusInfoPresenter
             'alias' => $menusInfoDTO->getAlias(),
             'type' => $menusInfoDTO->getType(),
             'link' => $menusInfoDTO->getLink() ? $menusInfoDTO->getLink() : null,
+            'parent' => $menusInfoDTO->getParent() ? $this->getParent($menusInfoDTO->getParent()) : null,
+            'children' => ($menusInfoDTO->getChilde()) ? $this->transformMany($menusInfoDTO->getChilde()) : null,
+
             'publisher' => [
                 'id' => $menusInfoDTO->getPublisher()->id,
                 'name' => $menusInfoDTO->getPublisher()->name,
@@ -39,6 +40,14 @@ class MenusInfoPresenter
             'language' => $menusInfoDTO->getLanguage(),
             'publish_date' => strtotime($menusInfoDTO->getPublishDate()),
 
+        ];
+    }
+
+    private function getParent($parent)
+    {
+        return [
+            'id' => $parent->id,
+            'name' => $parent->name
         ];
     }
 }

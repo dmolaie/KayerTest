@@ -1,11 +1,10 @@
 <?php
 
 
-namespace Domains\Menus\Services\Contracts\DTOs;
+namespace Domains\Menu\Services\Contracts\DTOs;
 
-use Domains\Category\Entities\Category;
-use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
+use Menu;
 
 /**
  * Class MenusInfoDTO
@@ -60,7 +59,13 @@ class MenusInfoDTO
     /**
      * @var null|integer
      */
-    protected $parentId;
+    protected $parent;
+
+    /**
+     * @var null|array
+     */
+    protected $childe;
+
 
     /**
      * @var null|string
@@ -253,20 +258,38 @@ class MenusInfoDTO
     }
 
     /**
-     * @return int|null
+     * @return object
      */
-    public function getParentId(): ?int
+    public function getParent(): ?object
     {
-        return $this->parentid;
+        return $this->parent;
     }
 
     /**
-     * @param int|null $parentId
+     * @param object|null $parent
      * @return MenusInfoDTO
      */
-    public function setParentId(?int $parentId): MenusInfoDTO
+    public function setParent(?object $parent): MenusInfoDTO
     {
-        $this->parentId = $parentId;
+        $this->parent = $parent;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getChilde(): ?array
+    {
+        return $this->childe;
+    }
+
+    /**
+     * @param array|null $childe
+     * @return MenusInfoDTO
+     */
+    public function setChilde(?array $childe): MenusInfoDTO
+    {
+        $this->childe = $childe;
         return $this;
     }
 

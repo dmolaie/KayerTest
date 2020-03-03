@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Domains\Menus\Services\Contracts\DTOs;
+namespace Domains\Menu\Services\Contracts\DTOs;
 
 
-use Domains\Menus\Entities\Menus;
+use Domains\Menu\Entities\Menus;
 use Domains\User\Entities\User;
 
 
