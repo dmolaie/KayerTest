@@ -40,7 +40,7 @@ class MenusServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Menu\Http\Controllers',
-            'prefix' => 'menus',
+            'prefix' => 'menu/v1',
         ];
     }
 

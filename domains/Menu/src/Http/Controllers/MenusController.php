@@ -23,7 +23,7 @@ class MenusController extends EhdaBaseController
         $this->menusService = $menusService;
     }
 
-    public function createMenu(CreateMenuRequest $request,MenusInfoPresenter $menusInfoPresenter)
+    public function createMenu(CreateMenuRequest $request, MenusInfoPresenter $menusInfoPresenter)
     {
         $createMenuDTO = $request->createMenusDTO();
         $menuInfoDTO = $this->menusService->createMenu($createMenuDTO);
@@ -32,6 +32,23 @@ class MenusController extends EhdaBaseController
             Response::HTTP_OK,
             trans('menus::response.create_success')
         );
+    }
 
+    public function adminList(MenusInfoPresenter $menusInfoPresenter)
+    {
+        $menus = $this->menusService->getList();
+        return $this->response(
+            $menusInfoPresenter->transformMany($menus),
+            Response::HTTP_OK
+        );
+    }
+
+    public function activeList(MenusInfoPresenter $menusInfoPresenter)
+    {
+        $menus = $this->menusService->getList(true);
+        return $this->response(
+            $menusInfoPresenter->transformMany($menus),
+            Response::HTTP_OK
+        );
     }
 }
