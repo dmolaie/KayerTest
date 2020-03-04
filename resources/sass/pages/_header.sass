@@ -1,3 +1,5 @@
+$navBg: #bde8fa
+
 .header
   &__brand
     padding: 20px 0
@@ -24,7 +26,8 @@
         background: url("/../images/ic_ribbon--white.svg") no-repeat center
           size: contain
   &__nav
-    background: $mischka
+    //background: $mischka
+    background: $navBg
     &_container
       min-height: 56px
     &_sub-menu
@@ -45,7 +48,8 @@
         height: 3px
       &::before
         top: 0
-        background: $mischka
+        //background: $mischka
+        background: $navBg
       &::after
         top: 3px
         background: $blue-200
@@ -70,7 +74,10 @@
       line-height: 56px
       &:not(:last-of-type)
         margin:
-          left: 23px
+          left: 19px
+        @include Xl_Screen
+          margin:
+            left: 23px
       &:hover
         .header__nav_sub-menu
           visibility: visible
@@ -81,7 +88,9 @@
       height: $size
       &:not(:last-child)
         margin:
-          left: 30px
+          left: 26px
+        @include Xl_Screen
+          margin-left: 30px
       &:last-child
         margin:
           left: 21px
@@ -106,3 +115,39 @@
           &:hover
             color: $black
             background: $white
+  &__user
+    &--active
+      .header__nav_btn--user
+        margin-right: 6px
+        background-image: url("/../images/ic_user--green.svg")
+  &__dropdown
+    top: 54px
+    left: -62px
+    border-color: $blue-200
+    box-shadow: 0 0 12px 2px transparentize(black, ( 1 - .18 ))
+    pointer-events: none
+    visibility: hidden
+    &::before
+      $size: 14px
+      content: " "
+      position: absolute
+      top: -8px
+      left: 50%
+      width: $size
+      height: $size
+      border:
+        top: 1px solid $blue-200
+        right: 1px solid $blue-200
+      background: $white
+      pointer-events: none
+      transform: translateX(-50%) rotate(-45deg) skew(6deg, 6deg)
+    &_item
+      padding: 12px 20px
+      &:not(:last-of-type)
+        border-bottom: 1px solid #efefef
+  &__user
+    min-height: 56px
+    &:hover
+      .header__dropdown
+        visibility: visible
+        pointer-events: all

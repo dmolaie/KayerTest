@@ -13,7 +13,7 @@
     </div>
     <nav class="header__nav">
         <div class="header__nav_container container flex items-center">
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 درباره‌ی انجمن
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a href="{{route('page.ngo-history',config('app.locale'))}}"
@@ -63,7 +63,7 @@
                     </a>
                 </div>
             </div>
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 دانستنی ها
                 <div class="header__nav_sub-menu absolute flex bg-white cursor-default line-height-1 z-10">
                     <div class="header__nav_sub-menu_col">
@@ -118,7 +118,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 اخبار و رویدادها
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a href="{{route('archive.news-list',config('app.locale'))}}"
@@ -138,7 +138,7 @@
                     </a>
                 </div>
             </div>
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 هنر اهدا
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a
@@ -158,7 +158,7 @@
                     </a>
                 </div>
             </div>
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 مشارکت
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a
@@ -188,7 +188,7 @@
                     </a>
                 </div>
             </div>
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 خدمات تخصصی علمی
                 <div class="header__nav_sub-menu absolute flex bg-white cursor-default line-height-1 z-10">
                     <div class="header__nav_sub-menu_col">
@@ -239,7 +239,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header__nav_menu relative cursor-pointer text-black font-xs-bold">
+            <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
                 مددکاری
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a href="{{route('page.structure-and-organization',config('app.locale'))}}"
@@ -274,9 +274,30 @@
                     </a>
                 </div>
             </div>
-            <button class="header__nav_btn header__nav_btn--search bg-size-contain m-r-auto"></button>
-            <a href="{{route('admin.login')}}" class="header__nav_btn header__nav_btn--user bg-size-contain"></a>
+            <div class="header__user header__user--active relative flex items-center m-r-auto">
+                <a href="{{route('admin.login')}}"
+                   class="flex items-center"
+                >
+                    <span class="text-green-300 font-sm font-bold text-nowrap">
+                     مهسا مسلمی خوش آمدید
+                    </span>
+                    <span class="block header__nav_btn header__nav_btn--user bg-size-contain"></span>
+                </a>
+                <div class="header__dropdown absolute bg-white border border-solid rounded-10">
+                    <a href=""
+                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200"
+                    >
+                        بخش سفیران اهدای عضو
+                    </a>
+                    <a href=""
+                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200"
+                    >
+                        خروج
+                    </a>
+                </div>
+            </div>
             <a href="{{route('index',config('app.locale'))}}" class="header__nav_btn header__nav_btn--home"></a>
+            <button class="header__nav_btn header__nav_btn--search bg-size-contain"></button>
             <div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">
                 <a href="{{route('index','en')}}"
                    class="header__nav_lang--en text-uppercase text-black font-xs-bold flex-1 l:transition"
