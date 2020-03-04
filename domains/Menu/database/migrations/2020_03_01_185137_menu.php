@@ -27,6 +27,7 @@ class Menu extends Migration
             $table->integer('parent_id')->nullable()->unsigned();
             $table->integer('priority')->nullable()->unsigned();
             $table->boolean('active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('editor_id')->on('users')

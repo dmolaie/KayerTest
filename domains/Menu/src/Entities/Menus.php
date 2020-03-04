@@ -8,11 +8,16 @@ use Domains\News\Entities\News;
 use Domains\User\Entities\User;
 use Events;
 use Illuminate\Database\Eloquent\Model;
-use Menu;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menus extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'menus';
+
+    protected $softDelete = true;
+
     /**
      * The attributes that are mass assignable.
      *
