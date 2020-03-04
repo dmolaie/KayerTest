@@ -60,11 +60,6 @@ class Events extends Model
         return $this->morphToMany(Category::class, 'categorible')->withPivot('is_main')->withTimestamps();
     }
 
-    public function menus()
-    {
-        return $this->morphToMany(Menu::class, 'menuble')->withTimestamps();
-    }
-
     public function parent()
     {
         return $this->belongsTo(Events::class);

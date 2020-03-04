@@ -11,6 +11,7 @@ class MenusRepository
 
     public function createMenu(MenusCreateDTO $menusCreateDTO) :Menus
     {
+        $type = config('menus.menus_type');
         $menus = new $this->entityName;
         $menus->name = $menusCreateDTO->getName();
         $menus->title = $menusCreateDTO->getTitle();
@@ -21,7 +22,13 @@ class MenusRepository
         $menus->publish_date = $menusCreateDTO->getPublishDate();
         $menus->publisher_id = $menusCreateDTO->getPublisher()->id;
         $menus->parent_id = $menusCreateDTO->getParentId();
+        $menus->priority = $menusCreateDTO->getPriority();
         $menus->save();
+        if(!in_array($menusCreateDTO->getType(),[$type[2],$type[3],$type[1]])){
+            $menus->categories()->attach($menusCreateDTO->getManuableId());
+        }elseif($menusCreateDTO->getType() == $type[1]){
+            $menus->articles()->attach($menusCreateDTO->getManuableId());
+        }
         return  $menus;
     }
 

@@ -78,6 +78,11 @@ class MenusInfoDTO
     protected $editor;
 
     /**
+     * @var null|integer
+     */
+    protected $priority;
+
+    /**
      * @return User|null
      */
     public function getEditor(): ?User
@@ -308,6 +313,24 @@ class MenusInfoDTO
     public function setLink(?string $link): MenusInfoDTO
     {
         $this->link = $link;
+        return $this;
+    }
+
+    /**
+    * @return int|null
+    */
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param int|null $priority
+     * @return MenusCreateDTO
+     */
+    public function setPriority(?int $priority): MenusInfoDTO
+    {
+        $this->priority = $priority;
         return $this;
     }
 

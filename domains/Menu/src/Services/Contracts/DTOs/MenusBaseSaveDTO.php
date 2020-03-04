@@ -56,5 +56,19 @@ class MenusBaseSaveDTO
      */
     protected $link;
 
+    /**
+     * @var null|string
+     */
+    protected $categoryId;
+
+    /**
+     * @var null|integer
+     */
+    protected $priority;
+
+    /**
+     * @var null|integer
+     */
+    protected $articleId;
 
 }

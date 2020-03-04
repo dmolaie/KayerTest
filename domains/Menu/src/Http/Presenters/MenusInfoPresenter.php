@@ -24,9 +24,9 @@ class MenusInfoPresenter
             'alias' => $menusInfoDTO->getAlias(),
             'type' => $menusInfoDTO->getType(),
             'link' => $menusInfoDTO->getLink() ? $menusInfoDTO->getLink() : null,
+            'Priority' => $menusInfoDTO->getPriority(),
             'parent' => $menusInfoDTO->getParent() ? $this->getParent($menusInfoDTO->getParent()) : null,
             'children' => ($menusInfoDTO->getChilde()) ? $this->transformMany($menusInfoDTO->getChilde()) : null,
-
             'publisher' => [
                 'id' => $menusInfoDTO->getPublisher()->id,
                 'name' => $menusInfoDTO->getPublisher()->name,
@@ -48,6 +48,14 @@ class MenusInfoPresenter
         return [
             'id' => $parent->id,
             'name' => $parent->name
+        ];
+    }
+
+    private function getArticle($article)
+    {
+        return [
+            'id' => $article->id,
+            'name' => $article->name
         ];
     }
 }
