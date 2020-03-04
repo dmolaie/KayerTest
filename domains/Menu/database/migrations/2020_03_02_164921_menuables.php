@@ -29,5 +29,6 @@ class Menuables extends Migration
     public function down()
     {
         Schema::dropIfExists('menuables');
+        Schema::dropIfExists('menubles');
     }
 }

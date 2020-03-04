@@ -9,7 +9,7 @@ class MenusRepository
 {
     protected $entityName = Menus::class;
 
-    public function createMenu(MenusCreateDTO $menusCreateDTO) :Menus
+    public function createMenu(MenusCreateDTO $menusCreateDTO): Menus
     {
         $type = config('menus.menus_type');
         $menus = new $this->entityName;
@@ -23,13 +23,22 @@ class MenusRepository
         $menus->publisher_id = $menusCreateDTO->getPublisher()->id;
         $menus->parent_id = $menusCreateDTO->getParentId();
         $menus->priority = $menusCreateDTO->getPriority();
+        $menus->active = true;
         $menus->save();
         if(!in_array($menusCreateDTO->getType(),[$type[2],$type[3],$type[1]])){
             $menus->categories()->attach($menusCreateDTO->getManuableId());
         }elseif($menusCreateDTO->getType() == $type[1]){
             $menus->articles()->attach($menusCreateDTO->getManuableId());
         }
-        return  $menus;
+        return $menus;
+    }
+
+    public function getList(bool $activeList)
+    {
+        return $this->entityName::whereNull('parent_id')
+            ->when($activeList, function ($query) {
+                return $query->where('active', true);
+            })->orderBy('priority')->get();
     }
 
 }

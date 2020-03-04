@@ -29,7 +29,8 @@ class Menus extends Model
         'editor_id',
         'publisher_id',
         'parent_id',
-        'prority',
+        'priority',
+        'active'
     ];
 
     public function editor()

@@ -2,7 +2,7 @@
 
 namespace Domains\Category\Entities;
 
-use Domains\Events\Entities\Events;
+use Domains\Event\Entities\Event;
 use Domains\News\Entities\News;
 use Illuminate\Database\Eloquent\Model;
 use Menu;
@@ -40,7 +40,7 @@ class Category extends Model
 
     public function events()
     {
-        return $this->morphedByMany(Events::class, 'categorible');
+        return $this->morphedByMany(Event::class, 'categorible');
     }
 
     public function menus()

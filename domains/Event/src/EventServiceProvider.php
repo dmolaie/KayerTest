@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Domains\Menu;
+namespace Domains\Event;
 
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class MenusServiceProvider extends ServiceProvider
+class EventServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
@@ -39,8 +39,8 @@ class MenusServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace' => 'Domains\Menu\Http\Controllers',
-            'prefix' => 'menu/v1',
+            'namespace' => 'Domains\Event\Http\Controllers',
+            'prefix' => 'event/v1',
         ];
     }
 
@@ -51,9 +51,9 @@ class MenusServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'menus');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'event');
 
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'menus');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'event');
     }
 
     /**
@@ -63,8 +63,8 @@ class MenusServiceProvider extends ServiceProvider
      */
     protected function loadConfig()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'menus');
-        $this->publishes([__DIR__ . '/../config/config.php' => config_path('menus.php')], 'menus');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'event');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('event.php')], 'event');
 
     }
 
@@ -76,11 +76,11 @@ class MenusServiceProvider extends ServiceProvider
     protected function registerPublishing(): void
     {
         $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/menus'),
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/event'),
         ]);
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/menus'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/event'),
         ]);
 
         $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'migrations');

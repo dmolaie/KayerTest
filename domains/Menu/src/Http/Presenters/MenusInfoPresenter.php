@@ -18,27 +18,28 @@ class MenusInfoPresenter
     public function transform(MenusInfoDTO $menusInfoDTO)
     {
         return [
-            'id' => $menusInfoDTO->getId(),
-            'title' => $menusInfoDTO->getTitle(),
-            'name' => $menusInfoDTO->getName(),
-            'alias' => $menusInfoDTO->getAlias(),
-            'type' => $menusInfoDTO->getType(),
-            'link' => $menusInfoDTO->getLink() ? $menusInfoDTO->getLink() : null,
-            'Priority' => $menusInfoDTO->getPriority(),
-            'parent' => $menusInfoDTO->getParent() ? $this->getParent($menusInfoDTO->getParent()) : null,
-            'children' => ($menusInfoDTO->getChilde()) ? $this->transformMany($menusInfoDTO->getChilde()) : null,
-            'publisher' => [
-                'id' => $menusInfoDTO->getPublisher()->id,
-                'name' => $menusInfoDTO->getPublisher()->name,
+            'id'       => $menusInfoDTO->getId(),
+            'title'    => $menusInfoDTO->getTitle(),
+            'name'     => $menusInfoDTO->getName(),
+            'alias'    => $menusInfoDTO->getAlias(),
+            'type'     => $menusInfoDTO->getType(),
+            'link'     => $menusInfoDTO->getLink() ? $menusInfoDTO->getLink() : null,
+            'parent'   => $menusInfoDTO->getParent() ? $this->getParent($menusInfoDTO->getParent()) : null,
+            'children' => $this->transformMany($menusInfoDTO->getChild()),
+            'publisher'     => [
+                'id'        => $menusInfoDTO->getPublisher()->id,
+                'name'      => $menusInfoDTO->getPublisher()->name,
                 'last_name' => $menusInfoDTO->getPublisher()->last_name
             ],
-            'editor' => $menusInfoDTO->getEditor() ? [
-                'id' => $menusInfoDTO->getEditor()->id,
-                'name' => $menusInfoDTO->getEditor()->name,
+            'editor'        => $menusInfoDTO->getEditor() ? [
+                'id'        => $menusInfoDTO->getEditor()->id,
+                'name'      => $menusInfoDTO->getEditor()->name,
                 'last_name' => $menusInfoDTO->getEditor()->last_name
             ] : null,
-            'language' => $menusInfoDTO->getLanguage(),
-            'publish_date' => strtotime($menusInfoDTO->getPublishDate()),
+            'language'      => $menusInfoDTO->getLanguage(),
+            'publish_date'  => strtotime($menusInfoDTO->getPublishDate()),
+            'status'        => $menusInfoDTO->isActive(),
+            'priority'      => $menusInfoDTO->getPriority(),
 
         ];
     }
@@ -46,7 +47,7 @@ class MenusInfoPresenter
     private function getParent($parent)
     {
         return [
-            'id' => $parent->id,
+            'id'   => $parent->id,
             'name' => $parent->name
         ];
     }

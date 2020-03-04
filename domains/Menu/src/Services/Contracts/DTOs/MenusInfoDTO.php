@@ -64,7 +64,7 @@ class MenusInfoDTO
     /**
      * @var null|array
      */
-    protected $childe;
+    protected $child;
 
 
     /**
@@ -78,7 +78,12 @@ class MenusInfoDTO
     protected $editor;
 
     /**
-     * @var null|integer
+     * @var boolean
+     */
+    protected $active;
+
+    /**
+     * @var int
      */
     protected $priority;
 
@@ -281,20 +286,20 @@ class MenusInfoDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getChilde(): ?array
+    public function getChild():array
     {
-        return $this->childe;
+        return $this->child;
     }
 
     /**
-     * @param array|null $childe
+     * @param array|null $child
      * @return MenusInfoDTO
      */
-    public function setChilde(?array $childe): MenusInfoDTO
+    public function setChild( $child): MenusInfoDTO
     {
-        $this->childe = $childe;
+        $this->child = $child;
         return $this;
     }
 
@@ -317,18 +322,36 @@ class MenusInfoDTO
     }
 
     /**
-    * @return int|null
-    */
-    public function getPriority(): ?int
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     * @return MenusInfoDTO
+     */
+    public function setActive(bool $active): MenusInfoDTO
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority(): int
     {
         return $this->priority;
     }
 
     /**
-     * @param int|null $priority
-     * @return MenusCreateDTO
+     * @param int $priority
+     * @return MenusInfoDTO
      */
-    public function setPriority(?int $priority): MenusInfoDTO
+    public function setPriority(int $priority): MenusInfoDTO
     {
         $this->priority = $priority;
         return $this;
