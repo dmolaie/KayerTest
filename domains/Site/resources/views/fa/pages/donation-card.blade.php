@@ -13,7 +13,7 @@
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
                                 اطلاعات فردی
                             </div>
-                            <form method="post" action=""
+                            <form method="post" action="#"
                                   class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none" >
                                 <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                     اطلاعات فردی

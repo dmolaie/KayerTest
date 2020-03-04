@@ -19,8 +19,9 @@ try {
     const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
-    const SUBMIT_BUTTON  = document.querySelector('.dnt-page__btn--submit');
+    const FORM  = document.querySelector('.vol-page__from');
     const FROM_MESSAGE  = document.querySelector('.vol-page__res');
+    const SUBMIT_BUTTON  = document.querySelector('.dnt-page__btn--submit');
     console.log(FROM_MESSAGE);
 
     const GET_ELEMENT = classname => document.querySelector(`.vol-page__from .${classname}`);
@@ -223,6 +224,14 @@ try {
             }
         }
     };
+
+    FORM.addEventListener(
+        'submit',
+        async event => {
+            event.preventDefault();
+            await HANDEL_FORM_ACTION();
+        }
+    );
 
     if ( !!SUBMIT_BUTTON ) {
         SUBMIT_BUTTON.addEventListener(
