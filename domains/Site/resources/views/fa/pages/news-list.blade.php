@@ -8,7 +8,7 @@
                         <h4 class="font-30 font-bold text-white text-nowrap line-height-1 cursor-default">
                             اخبار
                         </h4>
-                        <span class="flower_line flower_line--blue--300 relative flex items-end justify-end block w-full"></span>
+                        <span class="flower_line relative flex items-end justify-end block w-full"></span>
                     </div>
                     <p class="n-list__header_sub-title text-white font-20 font-bold cursor-default">
                         اخبار ایران

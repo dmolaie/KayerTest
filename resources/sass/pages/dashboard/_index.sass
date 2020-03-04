@@ -1,0 +1,101 @@
+$paddingRightDesktop: 39px
+$paddingLeftDesktop: 36px
+
+.profile-p
+  .m-b-30
+    margin-bottom: 30px
+  .p__container
+    padding: 30px $paddingRightDesktop 30px $paddingLeftDesktop
+  .anchor
+    margin: 28px 0 0
+    &__item
+      width: 300px
+      margin: 0 13px
+      line-height: 46px
+      @include Xl_Screen
+        width: 365px
+  .tab
+    background: transparentize(#e8f8ff, ( 1 - .66 ))
+    &__item
+      line-height: 56px
+      transition: color $duration, background-color $duration
+      &::before, &::after
+        content: " "
+        position: absolute
+        right: 0
+        width: 100%
+        height: 10px
+        pointer-events: none
+      &::before
+        top: 0
+        background: linear-gradient(180deg, transparentize(black, ( 1 - .03 )), transparent)
+      &::after
+        bottom: -10px
+        background: linear-gradient(180deg, transparentize(#f2f2f5, ( 1 - .81 )), transparent)
+      &--active
+        color: $white
+        background: $blue-100
+      &:hover
+        @include L_Screen
+          color: $white
+          background: $blue-100
+  .content
+    padding: 30px $paddingRightDesktop 107px $paddingLeftDesktop
+    &__item
+      display: none
+      &:focus, &:active
+        outline: none
+        box-shadow: none
+      &--active
+        display: block
+    &__container
+      padding: 0 #{76 - $paddingRightDesktop} 0 #{80 - $paddingRightDesktop}
+      @include Xl_Screen
+        padding: 0 #{96 - $paddingRightDesktop} 0 #{100 - $paddingRightDesktop}
+      &--0
+        .content__caption
+          padding-top: 50px
+      &--1
+        .content__caption
+          padding-top: 20px
+      &--2
+        .content__caption
+          padding-top: 22px
+      &--3
+        .content__caption
+          padding-top: 10px
+    &__image
+      border-color: #bde8fa
+      box-shadow: 0 2px 17px 0 #d2e3f4
+    &__caption
+      margin-right: 30px
+    &__button
+      line-height: 45px
+      border-color: #bde8fa
+      background-color: #eff3f7
+      transition: border-color $duration
+      &::before
+        content: " "
+        display: inline-block
+        @include Size( 20px )
+        vertical-align: middle
+        background:
+          repeat: no-repeat
+          size: contain
+          position: center
+        margin-left: 5px
+        pointer-events: none
+      &:not(:last-child)
+        margin-left: 30px
+      @include L_Screen
+        &:hover
+          border-color: $blue-100
+      &--download
+        &::before
+          background-image: url("/../images/ic_download--blue.svg")
+      &--print
+        &::before
+          background-image: url("/../images/ic_print--blue.svg")
+      &--share
+        &::before
+          background-image: url("/../images/ic_share--blue.svg")

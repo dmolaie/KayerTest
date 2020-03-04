@@ -13,7 +13,7 @@
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
                                 اطلاعات فردی
                             </div>
-                            <form method="post" action=""
+                            <form method="post" action="#"
                                   class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none" >
                                 <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                     اطلاعات فردی
@@ -469,8 +469,7 @@
                                 <p>
                                     از زمان راه اندازی واحدهای فراهم آوری اعضای پیوندی در کشورمان، مراکز مختلفی شروع به ثبت نام و صدور کارت اهدای عضو نمودند. در روزها و ماه‌های اول تعداد ثبت نام به بیش از 100 نفر در ماه نمیرسید، اما با شروع تبلیغات فرهنگی و برگزاری جشن نفس، تعداد بیشتری از مردم نیک اندیش سرزمینمان با این امر مقدس آشنا شدند و تعداد افراد متقاضی کارت اهدای عضو به بیش از 500 نفر در روز رسید...
                                 </p>
-                                <p class="dnt-page__text--flower w-full relative">
-                                    <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
+                                <p class="w-full relative">
                                     تقاضای دریافت کارت اهدای عضو روز به روز بیشتر شد، به اندازه ای که مدت زمان دریافت کارت اهدای عضو برای هر فرد به بیش از 5ماه رسید. باتوجه به اینکه کارت اهدای عضو صرفاً نشان دهنده رضایت قلبی هر شخص برای اهدای عضو در زمان مرگ میباشد و جنبه‌‌ی قانونی ندارد؛ لذا بر آن شدیم تا سامانه ای راه اندازی کنیم که مدت زمان دریافت کارت را به طرز چشمگیری کاهش دهد تا انتظار رسیدن این کارت، مردم ایثارگر میهن عزیزمان را آزرده خاطر نسازد.
                                     با توجه به مسائل فوق و همچنین پیرو تاکید مقام محترم وزارت بهداشت، درمان و آموزش پزشکی، ابداع روشی برای ثبت نام و صدور آنی کارت اهدای عضو در دستور کار این وزارت قرار گرفت و نتیجه تمامی بررسی ها، سامانه ای است که پیش روی شما می باشد. در این سامانه کد ملی هر فرد به صورت آنلاین کنترل شده و در صورتیکه اطلاعات مطابق کارت ملی وارد شده باشد، کارت اهدای عضو صادر شده و متقاضی میتواند همان لحظه کارت خود را ذخیره و چاپ نماید.
                                 </p>
@@ -501,7 +500,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/vendors~donation-card~volunteers~volunteers-final.js')}}" defer></script>
-        <script src="{{asset('js/site/donation-card~volunteers-final.js ')}}" defer></script>
+        <script src="{{asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{asset('js/site/donation-card~edit-profile~volunteers-final.js')}}" defer></script>
         <script src="{{asset('js/site/donation-card.js')}}" defer></script>
     @endsection

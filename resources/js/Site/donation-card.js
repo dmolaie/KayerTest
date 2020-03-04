@@ -87,6 +87,7 @@ try {
     const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
+    const FORM = document.querySelector('.dnt-page__from');
     const FORM_MESSAGE = document.querySelector('.dnt-page__msg');
     const SECOND_STEP = document.querySelector('.dnt-page__from_step-two');
     const SUBMIT_BUTTON = document.querySelector('.dnt-page__btn--submit');
@@ -692,6 +693,18 @@ try {
         event => {
             event.preventDefault();
             GO_TO_FIRST_STEP();
+        }
+    );
+
+    FORM.addEventListener(
+        'submit',
+        async ( event ) => {
+            event.preventDefault();
+            ( currentStep === 1 ) ? (
+                await HANDEL_FIRST_STEP()
+            ) : (
+                await HANDEL_SECOND_STEP()
+            );
         }
     );
 

@@ -86,6 +86,7 @@ try {
     const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 
+    const FORM = document.querySelector('.vnt-page__form');
     const FROM_SUBMIT_BUTTON = document.querySelector('.vnt-page__btn');
     const FROM_MESSAGE = document.querySelector('.vol-page__res');
 
@@ -911,6 +912,14 @@ try {
             }
         }
     };
+
+    FORM.addEventListener(
+        'submit',
+        async event => {
+            event.preventDefault();
+            await HANDEL_FORM_SUBMIT( event );
+        }
+    );
 
     if ( !!FROM_SUBMIT_BUTTON ) {
         FROM_SUBMIT_BUTTON.addEventListener(
