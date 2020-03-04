@@ -2,12 +2,10 @@
 @section('content')
     <div class="i-page n-show-page">
         <div class="container">
-            <h1 class="flex text-blue font-24 md:font-22 text-center">
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                <span class="i-page__title">
-                     اخبار
+            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                <span class="i-page__title text-center cursor-default">
+                    اخبار
                 </span>
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
             </h1>
             <div class="inner-box inner-box--white text-right">
                 <div class="n-show__header flex items-stretch md:flex-col">
