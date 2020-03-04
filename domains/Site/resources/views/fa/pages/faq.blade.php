@@ -8,13 +8,13 @@
                     </span>
                 </h1>
                 <div class="inner-box inner-box--white p-0">
-                    <form acltion=""
+                    <form action="#"
                           class="form w-full block bg-blue rounded-inherit rounded-br-none rounded-bl-none"
                     >
                         <label class="form__label w-full flex items-center border border-solid rounded-6">
                             <input type="text"
                                    class="form__input flex-1 text-white bg-transparent font-lg font-bold"
-                                   placeholder="جستجو"
+                                   name="search" placeholder="جستجو" autocomplete="off"
                             />
                         </label>
                     </form>
@@ -85,6 +85,9 @@
                                 </div>
                             </div>
                         </div>
+                        <p class="error-box none text-bayoux font-lg font-bold text-center cursor-default">
+                            نتیجه‌ای یافت نشد.
+                        </p>
                     </div>
                 </div>
             </div>
