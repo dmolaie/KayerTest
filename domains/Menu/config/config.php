@@ -2,12 +2,12 @@
 
 return [
     'menus_type'       => [
-        1 =>'article',
-        2 =>'link',
-        3 =>'separator',
-        4 =>'list_news',
-        5 =>'list_event',
-        6 =>'list_article'
+        'article_type' =>'article',
+        'link_type' =>'link',
+        'separator_type' =>'separator',
+        'list_news_type' =>'list_news',
+        'list_event_type' =>'list_event',
+        'list_article_type' =>'list_article'
     ],
     'menu_language'    => [
         'fa',

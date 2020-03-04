@@ -10,7 +10,9 @@ use Domains\Menu\Http\Presenters\MenusInfoPresenter;
 use Domains\Menu\Http\Requests\CreateMenuRequest;
 use Domains\Menu\Http\Requests\DestroyMenuRequest;
 use Domains\Menu\Http\Requests\EditMenuRequest;
+use Domains\Menu\Http\Requests\MenuPriorityRequest;
 use Domains\Menu\Services\MenusService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
 class MenusController extends EhdaBaseController
@@ -75,5 +77,25 @@ class MenusController extends EhdaBaseController
         } catch (MenuNotFoundErrorException $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function savePriority(MenuPriorityRequest $request, MenusInfoPresenter $menusInfoPresenter)
+    {
+        try {
+            $menus = $this->menusService->savePriority($request->createMenuPriorityDTOs());
+            return $this->response(
+                $menusInfoPresenter->transformMany($menus),
+                Response::HTTP_OK,
+                trans('menus::response.save_priority_success')
+
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('menus::response.save_priority_fall')
+            );
+        }
+
     }
 }

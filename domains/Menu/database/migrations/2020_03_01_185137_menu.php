@@ -18,7 +18,7 @@ class Menu extends Migration
             $table->string('name');
             $table->text('title')->nullable();
             $table->text('alias')->nullable();
-            $table->enum('type', config('menus.menus_type'));
+            $table->enum('type', array_values(config('menus.menus_type')));
             $table->string('link')->nullable();
             $table->enum('language', config('menus.menu_language'));
             $table->dateTime('publish_date');

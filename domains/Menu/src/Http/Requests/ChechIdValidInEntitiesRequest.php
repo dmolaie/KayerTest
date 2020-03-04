@@ -27,7 +27,7 @@ class ChechIdValidInEntitiesRequest implements Rule
     {
         $typeConfig = config('menus.menus_type');
         switch ($this->type) {
-            case $typeConfig[1] :
+            case $typeConfig['article_type'] :
                 return Article::whereId($id)->exists();
             default :
                 return Category::whereId($id)->exists();
