@@ -76,14 +76,17 @@ class MenusInfoDTO
      * @var null|User
      */
     protected $editor;
+
     /**
      * @var boolean
      */
     protected $active;
+
     /**
      * @var int
      */
     protected $priority;
+
     /**
      * @return User|null
      */

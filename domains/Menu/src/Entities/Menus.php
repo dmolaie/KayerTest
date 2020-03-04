@@ -3,6 +3,7 @@
 namespace Domains\Menu\Entities;
 
 use Domains\Article\Entities\Article;
+use Domains\Category\Entities\Category;
 use Domains\News\Entities\News;
 use Domains\User\Entities\User;
 use Events;
@@ -55,16 +56,21 @@ class Menus extends Model
 
     public function events()
     {
-        return $this->morphedByMany(Events::class, 'menuable');
+        return $this->morphedByMany(Events::class, 'menuable')->withTimestamps();
     }
 
     public function news()
     {
-        return $this->morphedByMany(News::class, 'menuable');
+        return $this->morphedByMany(News::class, 'menuable')->withTimestamps();
     }
 
     public function articles()
     {
-        return $this->morphedByMany(Article::class, 'menuable');
+        return $this->morphedByMany(Article::class, 'menuable')->withTimestamps();
+    }
+
+    public function categories()
+    {
+        return $this->morphedByMany(Category::class, 'menuable')->withTimestamps();
     }
 }

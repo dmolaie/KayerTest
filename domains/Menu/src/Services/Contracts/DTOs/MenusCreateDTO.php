@@ -187,6 +187,40 @@ class MenusCreateDTO extends MenusBaseSaveDTO
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
+    public function getManuableId(): ?int
+    {
+        return $this->categoryId;
+    }
 
+    /**
+     * @param int|null $categoryId
+     * @return MenusCreateDTO
+     */
+    public function setManuableId(?int $categoryId): MenusCreateDTO
+    {
+        $this->categoryId = $categoryId;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param int|null $priority
+     * @return MenusCreateDTO
+     */
+    public function setPriority(?int $priority): MenusCreateDTO
+    {
+        $this->priority = $priority;
+        return $this;
+    }
 
 }

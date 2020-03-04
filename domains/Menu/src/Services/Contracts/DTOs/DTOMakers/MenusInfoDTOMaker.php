@@ -23,6 +23,7 @@ class MenusInfoDTOMaker
             ->setName($menu->name)
             ->setType($menu->type)
             ->setLink($menu->link)
+            ->setPriority($menu->priority)
             ->setParent($menu->parent)
             ->setChild(
                 $this->getMenuChildren($menu, $activeList))

@@ -26,21 +26,20 @@ class MenusInfoPresenter
             'link'     => $menusInfoDTO->getLink() ? $menusInfoDTO->getLink() : null,
             'parent'   => $menusInfoDTO->getParent() ? $this->getParent($menusInfoDTO->getParent()) : null,
             'children' => $this->transformMany($menusInfoDTO->getChild()),
-
-            'publisher'    => [
+            'publisher'     => [
                 'id'        => $menusInfoDTO->getPublisher()->id,
                 'name'      => $menusInfoDTO->getPublisher()->name,
                 'last_name' => $menusInfoDTO->getPublisher()->last_name
             ],
-            'editor'       => $menusInfoDTO->getEditor() ? [
+            'editor'        => $menusInfoDTO->getEditor() ? [
                 'id'        => $menusInfoDTO->getEditor()->id,
                 'name'      => $menusInfoDTO->getEditor()->name,
                 'last_name' => $menusInfoDTO->getEditor()->last_name
             ] : null,
-            'language'     => $menusInfoDTO->getLanguage(),
-            'publish_date' => strtotime($menusInfoDTO->getPublishDate()),
-            'status'       => $menusInfoDTO->isActive(),
-            'priority'     => $menusInfoDTO->getPriority(),
+            'language'      => $menusInfoDTO->getLanguage(),
+            'publish_date'  => strtotime($menusInfoDTO->getPublishDate()),
+            'status'        => $menusInfoDTO->isActive(),
+            'priority'      => $menusInfoDTO->getPriority(),
 
         ];
     }
@@ -50,6 +49,14 @@ class MenusInfoPresenter
         return [
             'id'   => $parent->id,
             'name' => $parent->name
+        ];
+    }
+
+    private function getArticle($article)
+    {
+        return [
+            'id' => $article->id,
+            'name' => $article->name
         ];
     }
 }

@@ -24,8 +24,10 @@ class CreateMenuRequest extends EhdaBaseRequest
             'publish_date' => 'numeric',
             'link' => 'url',
             'parent_id'    => 'integer|exists:menus,id',
+            'menuable_id'    => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],
             'language' => ['required', Rule::in(config('menus.menu_language'))],
             'type' => ['required', Rule::in(config('menus.menus_type'))],
+            'priority' => 'required','integer',
         ];
     }
 
@@ -50,7 +52,9 @@ class CreateMenuRequest extends EhdaBaseRequest
             ->setPublisher(\Auth::user())
             ->setLanguage($this['language'])
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
-            ->setParentId($this['parent_id']);
+            ->setParentId($this['parent_id'])
+            ->setManuableId($this['menuable_id'])
+            ->setPriority($this['priority']);
         return $menusCreateDTO;
     }
 }

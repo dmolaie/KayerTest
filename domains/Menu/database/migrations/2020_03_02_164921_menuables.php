@@ -13,11 +13,11 @@ class Menuables extends Migration
      */
     public function up()
     {
-
         Schema::create('menuables', function (Blueprint $table) {
-            $table->integer('menu_id');
+            $table->integer('menus_id');
             $table->integer('menuable_id');
             $table->string('menuable_type');
+            $table->timestamps();
         });
     }
 
