@@ -31,8 +31,7 @@ class MenusService
     public function __construct(
         MenusRepository $menusRepository,
         MenusInfoDTOMaker $menusInfoDTOMaker
-    )
-    {
+    ) {
         $this->menusRepository = $menusRepository;
         $this->menusInfoDTOMaker = $menusInfoDTOMaker;
     }
@@ -47,5 +46,11 @@ class MenusService
     {
         $menus = $this->menusRepository->getList($activeList);
         return $this->menusInfoDTOMaker->convertMany($menus, $activeList);
+    }
+
+    public function savePriority(array $priorityDTOs): array
+    {
+        $menus = $this->menusRepository->savePriority($priorityDTOs);
+        return $this->menusInfoDTOMaker->convertMany($menus);
     }
 }

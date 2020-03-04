@@ -33,6 +33,20 @@ class MenusRepository
         return $menus;
     }
 
+    public function savePriority(array $priorityDTOs)
+    {
+        return \DB::transaction(function () use($priorityDTOs){
+            foreach ($priorityDTOs as $priorityDTO) {
+                $menu = $this->entityName::findOrFail($priorityDTO->getId());
+                $menu->priority = $priorityDTO->getPriority();
+                if ($menu->getDirty()) {
+                    $menu->save();
+                }
+            }
+            return $this->getList(false);
+        });
+    }
+
     public function getList(bool $activeList)
     {
         return $this->entityName::whereNull('parent_id')
