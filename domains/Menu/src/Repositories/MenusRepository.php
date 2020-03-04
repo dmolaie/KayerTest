@@ -26,9 +26,9 @@ class MenusRepository
         $menus->priority = $menusCreateDTO->getPriority();
         $menus->active = true;
         $menus->save();
-        if (!in_array($menusCreateDTO->getType(), [$type[2], $type[3], $type[1]])) {
+        if (!in_array($menusCreateDTO->getType(), [$type['link_type'], $type['separator_type'], $type['article_type']])) {
             $menus->categories()->attach($menusCreateDTO->getManuableId());
-        } elseif ($menusCreateDTO->getType() == $type[1]) {
+        } elseif ($menusCreateDTO->getType() == $type['article_type']) {
             $menus->articles()->attach($menusCreateDTO->getManuableId());
         }
         return $menus;
@@ -57,9 +57,9 @@ class MenusRepository
         $menus->categories()->sync([]);
         $menus->articles()->sync([]);
 
-        if (!in_array($menusEditDTO->getType(), [$type[2], $type[3], $type[1]])) {
+        if (!in_array($menusEditDTO->getType(), [$type['link_type'], $type['separator_type'], $type['article_type']])) {
             $menus->categories()->attach($menusEditDTO->getManuableId());
-        } elseif ($menusEditDTO->getType() == $type[1]) {
+        } elseif ($menusEditDTO->getType() == $type['article_type']) {
             $menus->articles()->attach($menusEditDTO->getManuableId());
         }
         return $menus;
