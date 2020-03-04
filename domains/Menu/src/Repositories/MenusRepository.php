@@ -4,6 +4,7 @@ namespace Domains\Menu\Repositories;
 
 use Domains\Menu\Entities\Menus;
 use Domains\Menu\Services\Contracts\DTOs\MenusCreateDTO;
+use Domains\Menu\Services\Contracts\DTOs\MenusEditDTO;
 
 class MenusRepository
 {
@@ -25,12 +26,49 @@ class MenusRepository
         $menus->priority = $menusCreateDTO->getPriority();
         $menus->active = true;
         $menus->save();
-        if(!in_array($menusCreateDTO->getType(),[$type[2],$type[3],$type[1]])){
+        if (!in_array($menusCreateDTO->getType(), [$type[2], $type[3], $type[1]])) {
             $menus->categories()->attach($menusCreateDTO->getManuableId());
-        }elseif($menusCreateDTO->getType() == $type[1]){
+        } elseif ($menusCreateDTO->getType() == $type[1]) {
             $menus->articles()->attach($menusCreateDTO->getManuableId());
         }
         return $menus;
+    }
+
+    public function editMenu(MenusEditDTO $menusEditDTO): Menus
+    {
+        $type = config('menus.menus_type');
+        $menus = new $this->entityName;
+        $menus = $menus->findOrFail($menusEditDTO->getMenuId());
+        $menus->name = $menusEditDTO->getName();
+        $menus->title = $menusEditDTO->getTitle();
+        $menus->alias = $menusEditDTO->getAlias();
+        $menus->type = $menusEditDTO->getType();
+        $menus->link = $menusEditDTO->getLink();
+        $menus->language = $menusEditDTO->getLanguage();
+        $menus->publish_date = $menusEditDTO->getPublishDate();
+        $menus->editor_id = $menusEditDTO->getEditor()->id;
+        $menus->parent_id = $menusEditDTO->getParentId();
+        $menus->priority = $menusEditDTO->getPriority();
+        $menus->active = true;
+        $getDirty = $menus->getDirty();
+        if (!empty($getDirty)) {
+            $menus->save();
+        }
+        $menus->categories()->sync([]);
+        $menus->articles()->sync([]);
+
+        if (!in_array($menusEditDTO->getType(), [$type[2], $type[3], $type[1]])) {
+            $menus->categories()->attach($menusEditDTO->getManuableId());
+        } elseif ($menusEditDTO->getType() == $type[1]) {
+            $menus->articles()->attach($menusEditDTO->getManuableId());
+        }
+        return $menus;
+    }
+
+    public function destroyMenu(int $menuId)
+    {
+        $this->entityName::where('parent_id', '=', $menuId)->delete();
+        return $this->entityName::where('id', '=', $menuId)->delete();
     }
 
     public function getList(bool $activeList)
