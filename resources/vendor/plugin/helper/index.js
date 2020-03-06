@@ -114,6 +114,10 @@ export const SmoothScroll = offsetTop => {
     } catch (e) {}
 };
 
+export const CopyOf = payload => (
+    JSON.parse(JSON.stringify( payload ))
+);
+
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
 export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
 export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;
