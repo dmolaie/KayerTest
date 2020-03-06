@@ -4,6 +4,7 @@ import Endpoint from '@endpoints';
 import TokenService from '@services/service/Token';
 import HTTPService from './service/HttpService';
 import {
+    CopyOf,
     Length,
     HasLength,
     SmoothScroll,
@@ -69,15 +70,13 @@ try {
             dropdown.parentElement.parentElement.classList.remove('has-error');
         }
     });
-    document.querySelector('.dnt-page__select--birth').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--birth-city').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--home-city').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--edu_province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--edu_city').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select_edu-level').MountDropdown( WITHOUT_FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--job-province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.dnt-page__select--job-city').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="birth_province"]').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="birth_city"]').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="current_province_id"]').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="current_city_id"]').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="edu_province"]').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="edu_city"]').MountDropdown( FILTER_CONFIG );
+    document.querySelector('select[name="last_education_degree"]').MountDropdown( WITHOUT_FILTER_CONFIG );
 } catch (e) {}
 
 try {
@@ -710,3 +709,525 @@ try {
     // }
 
 } catch (e) {}
+
+try {
+    const INPUT_ERROR_CLASSNAME = 'has-error';
+    const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
+    const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
+
+    const GET_ELEMENT = classname => document.querySelector(`.p-edit__box .${classname}`);
+    const HANDEL_ERROR_MESSAGE = ( element, text = '' ) => {
+        ( !!text ) ? (
+            element.classList.add( INPUT_ERROR_CLASSNAME )
+        ) : (
+            element.classList.remove( INPUT_ERROR_CLASSNAME )
+        );
+        let el = element.querySelector(`.${INPUT_ERROR_MESSAGE_CLASSNAME}`);
+        if ( !!el ) el.innerHTML = text;
+    };
+
+    const FIELD_ELEMENT = {
+        name: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__name'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyPersianAlphabet(this.val);
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام' ) )
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام' ) );
+                }
+            }
+        },
+        last_name: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__full-name'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyPersianAlphabet(this.val);
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام خانوادگی' ) )
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام خانوادگی' ) );
+                }
+            }
+        },
+        national_code: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__national-code'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = NationalCodeValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'کد ملی' ) )
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'کد ملی' ) );
+                }
+            }
+        },
+        identity_number: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__certificate'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyNumber( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'شماره شناسنامه' ) )
+                    );
+                } else {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                }
+            }
+        },
+        gender: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__gender'),
+            get hasVal() {
+                return !!HasLength( this.el.querySelectorAll('input[name="gender"]:checked') );
+            },
+            get val() {
+                return this.el.querySelector('input[name="gender"]:checked')?.value
+            },
+            get checkbox() {
+                return this.el.querySelectorAll('input[name="gender"]')
+            },
+            validate() {
+                this.isValid = !!this.hasVal;
+                HANDEL_ERROR_MESSAGE( this.el,
+                    !this.val ? RequiredErrorMessage( 'جنسیت' ) : ''
+                );
+            }
+        },
+        father_name: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__parent-name'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'نام پدر' ) )
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'نام پدر' ) );
+                }
+            }
+        },
+        date_birth: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__date_birth'),
+            validate() {
+                let day = this.el.querySelector('select[name="birth_day"]').value;
+                let month = this.el.querySelector('select[name="birth_month"]').value;
+                let year = this.el.querySelector('select[name="birth_year"]').value;
+                this.isValid = ( !!day && !!month && !!year );
+                ( this.isValid ) ? (
+                    HANDEL_ERROR_MESSAGE( this.el )
+                ) : (
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تاریخ تولد' ) )
+                );
+            }
+        },
+        province_of_birth: {
+            isValid: true,
+            el: GET_ELEMENT('field__birth_province'),
+            get select() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.select.value;
+            },
+            validate() {
+                this.isValid = true;
+            }
+        },
+        city_of_birth: {
+            isValid: true,
+            el: GET_ELEMENT('field__birth_city'),
+            get select() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.select.value;
+            },
+            validate() {
+                this.isValid = true;
+            }
+        },
+        job_title: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__job_title'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'شغل' ) )
+                    );
+                } else {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                }
+            }
+        },
+        mobile: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__phone'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = PhoneNumberValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'تلفن همراه' ) )
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تلفن همراه' ) );
+                }
+            }
+        },
+        email: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__email'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    if ( EmailValidator( this.val ) ) {
+                        this.isValid = true;
+                        HANDEL_ERROR_MESSAGE( this.el );
+                    } else {
+                        this.isValid = false;
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'ایمیل' ) );
+                    }
+                } else {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                }
+            }
+        },
+        current_province_id: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__home-province'),
+            get select() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.select.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'محل سکونت' ) );
+                }
+            }
+        },
+        current_city_id: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__home-city'),
+            get select() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.select.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'محل سکونت' ) );
+                }
+            }
+        },
+        current_address: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__current_address'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'شغل' ) )
+                    );
+                } else {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                }
+            }
+        },
+        phone: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__tel'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = ( OnlyNumber( this.val ) && Length(this.val) === 11 );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'تلفن منزل' ) )
+                    );
+                } else this.isValid = true;
+            }
+        },
+        home_postal_code: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__postal_code'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = PostalCodeValidator( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, InvalidErrorMessage( 'کدپستی منزل' ) )
+                    );
+                } else this.isValid = true;
+            }
+        },
+        last_education_degree: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__edu-level'),
+            get input() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                this.isValid = !!this.val;
+                ( !!this.val ) ? (
+                    HANDEL_ERROR_MESSAGE( this.el )
+                ) : (
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'میزان تحصیلات' ) )
+                );
+            }
+        },
+        education_field: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__education_field'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = OnlyPersianAlphabet( this.val );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, PersianInvalidErrorMessage( 'رشته تحصیلی' ) )
+                    );
+                } else {
+                    this.isValid = true;
+                    HANDEL_ERROR_MESSAGE( this.el );
+                }
+            }
+        },
+        education_province_id: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__select--province'),
+            get select() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.select.value;
+            },
+            validate() {
+                this.isValid = true;
+            }
+        },
+        education_city_id: {
+            isValid: true,
+            el: GET_ELEMENT('dnt-page__select--city'),
+            get select() {
+                return this.el.querySelector('select')
+            },
+            get val() {
+                return this.select.value;
+            },
+            validate() {
+                this.isValid = true;
+            }
+        },
+        password: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__password'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = ( Length( this.val ) >= 8 );
+                    ( Length( this.val ) >= 8 ) ? (
+                        HANDEL_ERROR_MESSAGE( this.el )
+                    ) : (
+                        HANDEL_ERROR_MESSAGE( this.el, 'گذرواژه نباید کمتر از 8 کاراکتر باشد.' )
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'گذرواژه' ) );
+                }
+            }
+        },
+        password_confirmation: {
+            isValid: false,
+            el: GET_ELEMENT('dnt-page__rpt-password'),
+            get input() {
+                return this.el.querySelector('.input')
+            },
+            get val() {
+                return this.input.value;
+            },
+            validate() {
+                if ( !!this.val ) {
+                    this.isValid = ( this.val === GET_ELEMENT('dnt-page__password input').value );
+                    ( this.isValid ) ? (
+                        HANDEL_ERROR_MESSAGE(this.el)
+                    ) : (
+                        HANDEL_ERROR_MESSAGE(this.el, 'گذرواژه‌ تطابق ندارد.')
+                    );
+                } else {
+                    this.isValid = false;
+                    HANDEL_ERROR_MESSAGE( this.el, RequiredErrorMessage( 'تکرار گذرواژه' ) );
+                }
+            }
+        },
+    };
+
+    const ONBLUR_INPUT_FIELD = ( { target } ) => {
+        let fieldName = target.getAttribute('name'),
+            property = FIELD_ELEMENT[fieldName];
+        property.validate();
+        target.removeEventListener('blur', ONBLUR_INPUT_FIELD);
+    };
+
+    for ( let field in FIELD_ELEMENT ) {
+        let fieldProperty = FIELD_ELEMENT[field],
+            input = fieldProperty['input'],
+            checkboxes = fieldProperty['checkbox'];
+        if ( !!input ) {
+            fieldProperty['input'].addEventListener(
+                'focus',
+                ( { target } ) => {
+                    target.addEventListener('blur', ONBLUR_INPUT_FIELD);
+                    target.parentElement.classList.remove( INPUT_ERROR_CLASSNAME );
+                }
+            )
+        } else if ( !!checkboxes ) {
+            fieldProperty['checkbox'].forEach(item => {
+                item.addEventListener('change', ONBLUR_INPUT_FIELD);
+            })
+        }
+    }
+
+    const GET_USER_DETAILS = async () => {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get( Endpoint.GET_USER_INFORMATION ));
+            console.log('response: ', response);
+        } catch (e) {
+            console.log('ex: ', e);
+        }
+    };
+
+    // CopyOf
+    
+    (async () => {
+        await GET_USER_DETAILS();
+    })();
+} catch (e) {
+
+}

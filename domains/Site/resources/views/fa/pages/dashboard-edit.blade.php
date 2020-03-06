@@ -152,25 +152,31 @@
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 استان محل تولد
                             </span>
-                            <select class="dnt-page__select dnt-page__select--birth"
-                                    name="birth_province"
-                            >
-                                <option value="">
-                                    انتخاب کنید...
-                                </option>
-                            </select>
+                            <div class="relative field__birth_province w-full">
+                                <select class="dnt-page__select dnt-page__select--birth"
+                                        name="birth_province"
+                                >
+                                    <option value="">
+                                        انتخاب کنید...
+                                    </option>
+                                </select>
+                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                            </div>
                         </div>
                         <div class="dnt-page__input block md:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شهر محل تولد
                             </span>
-                            <select class="dnt-page__select dnt-page__select--birth-city"
-                                    name="birth_city"
-                            >
-                                <option value="">
-                                    انتخاب کنید...
-                                </option>
-                            </select>
+                            <div class="relative field__birth_city w-full">
+                                <select class="dnt-page__select dnt-page__select--birth"
+                                        name="birth_city"
+                                >
+                                    <option value="">
+                                        انتخاب کنید...
+                                    </option>
+                                </select>
+                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                            </div>
                         </div>
                         <div class="dnt-page__input block md:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
@@ -336,7 +342,7 @@
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شهر محل تحصیل
                             </span>
-                            <div class="dnt-page__select--province w-full">
+                            <div class="dnt-page__select--city w-full">
                                 <select class="dnt-page__select dnt-page__select--edu_city"
                                         name="edu_city"
                                 >
@@ -379,7 +385,8 @@
                     </div>
 
                     <div class="flex flex-wrap w-full">
-                        <button class="p-edit__submit p-edit__submit--green text-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center spinner-loading">
+                        <!-- spinner-loading -->
+                        <button class="p-edit__submit p-edit__submit--green text-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center">
                             ذخیره
                         </button>
                         <a href=""
