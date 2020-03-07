@@ -39,7 +39,7 @@ class UserBriefInfoDTO
      */
     protected $roles;
     /**
-     * @var int
+     * @var string
      */
     protected $nationalCode;
     /**
@@ -180,16 +180,16 @@ class UserBriefInfoDTO
     /**
      * @return int
      */
-    public function getNationalCode(): int
+    public function getNationalCode(): string
     {
         return $this->nationalCode;
     }
 
     /**
-     * @param int $nationalCode
+     * @param string $nationalCode
      * @return UserBriefInfoDTO
      */
-    public function setNationalCode(int $nationalCode): UserBriefInfoDTO
+    public function setNationalCode(string $nationalCode): UserBriefInfoDTO
     {
         $this->nationalCode = $nationalCode;
         return $this;
