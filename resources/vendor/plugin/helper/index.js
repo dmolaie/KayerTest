@@ -29,7 +29,6 @@ export const GetNumberInString = string => {
 };
 
 export const toEnglishDigits = payload => {
-    console.log(payload, typeof payload === "string");
     return ( typeof payload === "string" ) ? (
         payload.replace(/[۰-۹]/g, chr => {
             let persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
