@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -60,7 +61,7 @@ class PagesController extends Controller
 
     public function legaterVolunteersFinalStep(Request $request)
     {
-        if (!$request->session()->get('national_code') && !$request->session()->get('name') &&
+        if (!Auth::check() && !$request->session()->get('national_code') && !$request->session()->get('name') &&
             !$request->session()->get('last_name') && !$request->session()->get('mobile') &&
             !$request->session()->get('email')) {
             return redirect()->route('page.volunteers', config('app.locale'));
@@ -76,5 +77,22 @@ class PagesController extends Controller
         $data['user_marital_statuses'] = config('user.user_marital_statuses');
         $data['field_of_activities'] = config('user.field_of_activities');
         return view('site::' . $request->language . '.pages.volunteers-final-step', compact('data'));
+    }
+
+    public function clientProfile(Request $request)
+    {
+        return view('site::' . $request->language . '.pages.dashboard');
+    }
+
+    public function editClientProfile(Request $request)
+    {
+        $data['gender'] = array_keys(config('user.user_genders'));
+        $data['day'] = range(1, 30);
+        $data['month'] = config('user.month');
+        $data['year'] = range(1330, 1381);
+        $data['state'] = Province::get(['id', 'name'])->toArray();
+        $data['city'] = City::get(['id', 'name'])->toArray();
+        $data['education_degree'] = config('user.education_degree');
+        return view('site::' . $request->language . '.pages.dashboard-edit', compact('data'));
     }
 }

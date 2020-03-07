@@ -22,4 +22,5 @@ return [
     'know_community_by' => trans('user::baseLang.know_community_by'),
     'month' => trans('user::baseLang.month'),
     'user_paginate_count' => 10,
+    'user_role_inactive_status' => 'inactive',
 ];

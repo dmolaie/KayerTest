@@ -25,7 +25,7 @@
                                            placeholder="حروف فارسی"
                                            class="input input--blue block w-full border border-solid rounded"
                                            name="name" autocomplete="off" required="required" readonly="readonly"
-                                           value="{{$data['dataSessionUser']->get('name')}}"
+                                           value="{{ $data['dataSessionUser']->get('name') ? $data['dataSessionUser']->get('name') : auth()->user()->name }}"
                                     />
                                     <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                 </label>
@@ -39,7 +39,7 @@
                                            placeholder="حروف فارسی"
                                            class="input input--blue block w-full border border-solid rounded"
                                            name="last_name" autocomplete="off" required="required" readonly="readonly"
-                                           value="{{$data['dataSessionUser']->get('last_name')}}"
+                                           value="{{$data['dataSessionUser']->get('last_name') ? $data['dataSessionUser']->get('last_name')  : auth()->user()->last_name}}"
                                     />
                                     <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                 </label>
@@ -118,7 +118,7 @@
                                            class="input input--blue block w-full border border-solid rounded direction-ltr"
                                            name="national_code" autocomplete="off" required="required"
                                            readonly="readonly"
-                                           value="{{$data['dataSessionUser']->get('national_code')}}"
+                                           value="{{$data['dataSessionUser']->get('national_code') ? $data['dataSessionUser']->get('national_code') : auth()->user()->national_code}}"
                                     />
                                     <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                 </label>
@@ -335,7 +335,7 @@
                                            placeholder="حروف انگلیسی"
                                            class="input input--blue block w-full border border-solid rounded direction-ltr"
                                            name="email" autocomplete="off" required="required" readonly="readonly"
-                                           value="{{$data['dataSessionUser']->get('email')}}"
+                                           value="{{$data['dataSessionUser']->get('email') ? $data['dataSessionUser']->get('email') : auth()->user()->email}}"
                                     />
                                     <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                 </label>
@@ -349,7 +349,7 @@
                                            placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                            class="input input--blue block w-full border border-solid rounded direction-ltr"
                                            name="mobile" autocomplete="off" required="required" readonly="readonly"
-                                           value="{{$data['dataSessionUser']->get('mobile')}}"
+                                           value="{{$data['dataSessionUser']->get('mobile') ? $data['dataSessionUser']->get('mobile') : auth()->user()->mobile}}"
                                     />
                                     <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                 </label>
