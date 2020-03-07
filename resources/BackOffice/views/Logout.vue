@@ -11,10 +11,10 @@
 
     export default {
         name: "Logout",
-        mounted() {
+        async mounted() {
             Service = new LogoutService( this );
             Service.viewPortProcess();
-            Service.logoutProcess();
+            await Service.logoutProcess();
         }
     }
 </script>

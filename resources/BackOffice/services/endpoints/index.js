@@ -14,6 +14,8 @@ const VALIDATE_LEGATE = "VALIDATE_LEGATE";
 const GET_USER_INFORMATION = "GET_USER_INFORMATION";
 const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 const GET_MENU_LIST = "GET_MENU_LIST";
+const LOGOUT = "LOGOUT";
+
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[REGISTER] = `/user/${VER_1_0}/register`;
@@ -23,6 +25,7 @@ endpoints[VALIDATE_LEGATE] = `/user/${VER_1_0}/validate_data_user_legate`;
 endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
 endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
+endpoints[LOGOUT] = '/user/logout';
 
 export default class Endpoint {
     static get API_DOMAIN() {
@@ -68,5 +71,9 @@ export default class Endpoint {
         return (
             this.API_DOMAIN + endpoint
         )
+    }
+
+    static get LOGOUT() {
+        return endpoints[LOGOUT];
     }
 }
