@@ -28,11 +28,14 @@ export const GetNumberInString = string => {
     )
 };
 
-export const toEnglishDigits = string => {
-    return string.replace(/[۰-۹]/g, chr => {
-        let persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return persian.indexOf(chr);
-    });
+export const toEnglishDigits = payload => {
+    console.log(payload, typeof payload === "string");
+    return ( typeof payload === "string" ) ? (
+        payload.replace(/[۰-۹]/g, chr => {
+            let persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return persian.indexOf(chr);
+        })
+    ) : ( payload )
 };
 
 export const NationalCodeValidator = payload => {

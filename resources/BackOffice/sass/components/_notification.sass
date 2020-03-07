@@ -18,6 +18,8 @@ $DesktopWidth: 380px
     box-shadow: 0 2px 6px 0 transparentize(#2f5397, (1 - .1))
     animation: notification_in .4s cubic-bezier(.68, -.55, .265, 1.55) forwards
     transform: translateY(12vh)
+    &:not(:last-of-type)
+      margin-bottom: 15px
     @include Md_Screen
       animation: notification_in .14s linear forwards
     &--out

@@ -78,7 +78,7 @@ const CREATE_INTERFACE = ( element, UUID, dropdownClass, inputClass, optionClass
                      ${DROPDOWN_UUID_ATTRIBUTE}="${attribute}"
                 >
                     <div class="${DROPDOWN_CLASS['input']} cursor-pointer user-select-none ${inputClass}">
-                        ${OPTIONS[0].textContent.trim()}
+                        ${element.options[element.selectedIndex].textContent.trim() || OPTIONS[0].textContent.trim()}
                     </div>
                     <div class="${DROPDOWN_CLASS['body']} ${!!hasFilterItem ? DROPDOWN_CLASS['has_filter'] : ''} absolute w-full opacity-0 visibility-hidden pointer-event-none transition-opacity">
                         ${!!hasFilterItem ? CREATE_FILTER_SECTION(filterClass, filterPlaceholder) : ""}
