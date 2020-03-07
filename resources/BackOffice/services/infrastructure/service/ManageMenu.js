@@ -1,10 +1,15 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import TokenService from '@services/service/Token';
+import BaseService from '@vendor/infrastructure/service/BaseService';
 
-export default class ManageMenuService {
-    constructor( ) {
+export default class ManageMenuService extends BaseService {
+    constructor( layout ) {
+        super();
+        this.$vm = layout;
+        this.$store = layout.$store;
 
+        BaseService.ViewPortProcess( this.$store , false );
     }
 
     async getList() {
