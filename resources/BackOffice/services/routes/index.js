@@ -10,6 +10,7 @@ const APP_NAME = 'اهدا | ';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
+export const MANAGE_MENU = 'MANAGE_MENU';
 export const CREATE_NEWS = 'CREATE_NEWS';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
@@ -54,6 +55,23 @@ const Routes = new VueRouter({
                     {
                         name: 'افزودن'
                     }
+                ]
+            }
+        },
+        {
+            name: MANAGE_MENU,
+            path: '/manage/menu',
+            component: GetViews('ManageMenu' ),
+            meta: {
+                title: 'مدیریت منو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'مدیریت منو'
+                    },
                 ]
             }
         },

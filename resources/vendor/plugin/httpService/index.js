@@ -37,12 +37,6 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
-        if ( !!requestInit.headers && HasLength( requestInit.headers ) ) {
-            for ( let [key, value] of Object.entries( requestInit.headers ) ) {
-                headers.append( key, value );
-            }
-        }
-
         requestInit.mode = 'cors';
         requestInit.headers = headers;
         return requestInit;
@@ -95,7 +89,7 @@ export default class HTTPService {
         )
     }
 
-    static async getRequest( route, payload = {}, query= {}, headers ) {
+    static async getRequest( route, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -103,16 +97,10 @@ export default class HTTPService {
             method: 'GET',
         };
 
-        if ( HasLength( payload ) )
-            init.body = JSON.stringify( payload );
-
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async postRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async postRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -123,13 +111,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async putRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async putRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -140,13 +125,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async deleteRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async deleteRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -156,9 +138,6 @@ export default class HTTPService {
 
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
-
-        if ( HasLength( headers ) )
-            init.headers = headers;
 
         return await this.Request( route, init );
     }
