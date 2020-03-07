@@ -107,7 +107,11 @@ class UserController extends EhdaBaseController
     {
         $userId = Auth::id();
         $data = $this->userService->editUserInfo($userId, $request->createUserEditDTO());
-        return $this->response($briefInfoPresenter->transform($data), Response::HTTP_OK);
+        return $this->response(
+            $briefInfoPresenter->transform($data),
+            Response::HTTP_OK,
+            trans('user::response.edit_profile_successful')
+        );
     }
 
     /**

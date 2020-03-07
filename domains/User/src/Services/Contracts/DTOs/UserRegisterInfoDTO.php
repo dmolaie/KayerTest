@@ -799,7 +799,7 @@ class UserRegisterInfoDTO
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -808,7 +808,7 @@ class UserRegisterInfoDTO
      * @param string $password
      * @return UserRegisterInfoDTO
      */
-    public function setPassword(string $password): UserRegisterInfoDTO
+    public function setPassword(?string $password): UserRegisterInfoDTO
     {
         $this->password = $password;
         return $this;
