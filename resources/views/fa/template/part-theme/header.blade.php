@@ -37,27 +37,27 @@
                         ماموریت و چشم انداز
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         فعالیت ها
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         گزارش سالانه
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         تماس با ما
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         اساسنامه
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         چارت سازمانی
                     </a>
@@ -71,32 +71,32 @@
                                 اطلاعات عمومی
                             </span>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             تاریخچه‌ي اهدا و پیوند
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             فرآیند مرگ مغزی
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             مرور بر اهدای عضو
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             تخصیص عضو
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اهدای عضو و مذهب
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اهدای عضو در سایر کشورها
                         </a>
@@ -106,12 +106,12 @@
                                 بیشتر بدانیم
                             </span>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             آمار
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             پرسش‌های متداول
                         </a>
@@ -127,12 +127,12 @@
                         اخبار ایران
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         رویدادها
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         در گوشه و کنار جهان
                     </a>
@@ -142,17 +142,17 @@
                 هنر اهدا
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         صوتی
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         تصویری
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         نوشتاری
                     </a>
@@ -162,27 +162,27 @@
                 مشارکت
                 <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         سفیر اهدای عضو
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ارسال آثار
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         حمایت از فرهنگ اهدای عضو
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         انتشار محصولات فرهنگی
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         حمایت مالی
                     </a>
@@ -196,17 +196,17 @@
                                 آموزش
                             </span>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اطلاع رسانی دوره‌ها
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             منابع آموزشی
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             ارتباط با واحد آموزش
                         </a>
@@ -216,23 +216,23 @@
                                 پژوهش
                             </span>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             اطلاع رسانی کنگره ها
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             منابع پژوهشی
                         </a>
 
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             طرح‌های تحقیقاتی
                         </a>
                         <a
-                           class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                                class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                         >
                             ارتباط با واحد پژوهش
                         </a>
@@ -248,53 +248,83 @@
                         ساختار و تشکیلات
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         برنامه‌ی ویژه‌ی خانواده‌ها
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         مراکز حمایتی همراه
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         گزارش سالانه
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ثبت نام خانواده‌های اهداکننده
                     </a>
                     <a
-                       class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
+                            class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap"
                     >
                         ارتباط با واحد مددکاری
                     </a>
                 </div>
             </div>
-            <div class="header__user header__user--active relative flex items-center m-r-auto">
+            <div class="header__user header__user--{{auth()->check() ? 'active' : 'toggle'}} relative flex items-center m-r-auto">
                 <a href="{{route('admin.login')}}"
                    class="flex items-center"
                 >
-                    <span class="text-green-300 font-sm font-bold text-nowrap">
-                     مهسا مسلمی خوش آمدید
+                    @if(auth()->check())
+                        <span class="text-green-300 font-sm font-bold text-nowrap">
+                     {{auth()->user()->name .' '.auth()->user()->last_name . ' '}}خوش آمدید
                     </span>
+                    @endif
                     <span class="block header__nav_btn header__nav_btn--user bg-size-contain"></span>
                 </a>
-                <div class="header__dropdown absolute bg-white border border-solid rounded-10">
-                    <a href=""
-                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200"
-                    >
-                        بخش سفیران اهدای عضو
-                    </a>
-                    <a href=""
-                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200"
-                    >
-                        خروج
-                    </a>
-                </div>
+                @if( auth()->check() )
+                    <div class="header__dropdown absolute bg-white border border-solid rounded-10">
+
+                        @if( in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                            <a href="{{route('admin.login',config('app.locale'))}}"
+                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                بخش سفیران اهدای عضو
+                            </a>
+                        @endif
+
+                        @if( in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                            <a href="{{route('page.client.profile',config('app.locale'))}}"
+                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                کارت اهدای عضو
+                            </a>
+                        @endif
+
+                        @if(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && !in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                            <a href="{{route('admin.login',config('app.locale'))}}"
+                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                ویرایش پروفایل
+                            </a>
+                        @elseif(!in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                            <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
+                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                ویرایش پروفایل
+                            </a>
+                        @elseif(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                            <a href="{{route('admin.login',config('app.locale'))}}"
+                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                ویرایش پروفایل
+                            </a>
+                        @endif
+
+                        <a href="/user/#/logout"
+                           class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                            خروج
+                        </a>
+                    </div>
+                @endif
             </div>
             <a href="{{route('index',config('app.locale'))}}" class="header__nav_btn header__nav_btn--home"></a>
             <button class="header__nav_btn header__nav_btn--search bg-size-contain"></button>

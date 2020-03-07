@@ -184,4 +184,10 @@ class UserRepository
             ->roles()->where('role_id', $validationDataUserDTO->getRoleId()
             )->exists();
     }
+
+    public function getUserRoles($user)
+    {
+        return $user->roles()
+            ->where('status', '<>', config('user.user_role_inactive_status'))->get();
+    }
 }

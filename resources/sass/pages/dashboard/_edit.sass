@@ -67,3 +67,16 @@ $shdow: 0 1px 3px 2px transparentize(black, (1 - .15))
       @include L_Screen
         &:hover
           background: darken($c, 7%)
+  &__loading
+    top: 0
+    right: 0
+    background: transparentize(white, .4)
+    @include SpinnerLoading(5vw, 4px, $blue)
+    position: fixed
+    &--hidden
+      opacity: 0
+      pointer-events: none
+  &__pre-loading
+    pointer-events: none
+    .container
+      filter: blur(2px)

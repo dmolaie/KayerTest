@@ -3,7 +3,7 @@
 Route::redirect('/', app()->getLocale());
 
 Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')], 'name' => 'site.'], function () {
-    Route::get('/', 'HomeController@index')->name('index');
+    Route::get('/', 'HomeController@index')->name('index')->middleware('web');
     Route::prefix('page')->name('page.')->group(function () {
         Route::get('/ngo-history', 'PagesController@history')->name('ngo-history');
         Route::get('/structure-and-organization', 'PagesController@structureAndOrganization')->name('structure-and-organization');
@@ -13,6 +13,8 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/donation-card','PagesController@donationAndCard')->name('donation-card')->middleware('web');
         Route::get('/volunteers','PagesController@legaterVolunteers')->name('volunteers')->middleware('web');
         Route::get('/volunteers-final-step','PagesController@legaterVolunteersFinalStep')->name('volunteers.finalstep')->middleware('web');
+        Route::get('/client-profile','PagesController@clientProfile')->name('client.profile')->middleware('web');
+        Route::get('/edit-client-profile','PagesController@editClientProfile')->name('edit.client.profile')->middleware('web');
     });
 
     Route::prefix('archive')->name('archive.')->group(function () {

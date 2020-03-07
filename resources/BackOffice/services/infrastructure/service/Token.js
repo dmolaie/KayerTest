@@ -58,7 +58,7 @@ export default class TokenService {
     redirectToWebsite() {
         try {
             let domain = window.location.origin;
-            RedirectRoute( domain );
+            RedirectRoute( '/fa/page/client-profile' );
         } catch ( e ) {}
     }
 

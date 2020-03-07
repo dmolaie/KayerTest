@@ -37,6 +37,11 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
+        const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
+        console.log(console.log())
+        if ( !!CSRF_TOKEN )
+            headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
+
         if ( !!requestInit.headers && HasLength( requestInit.headers ) ) {
             for ( let [key, value] of Object.entries( requestInit.headers ) ) {
                 headers.append( key, value );

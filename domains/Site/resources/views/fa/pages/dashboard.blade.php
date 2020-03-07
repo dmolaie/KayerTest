@@ -17,7 +17,7 @@
                             می توانید جهت همراه داشتن کارت اهدای عضو خود از طریق دکمه چاپ کارت اقدام نمائید، همچنین می توانید با استفاده از دکمه دریافت کارت، کارت اهدای عضو خود را برروی کامپیوتر شخصی خود ذخیره نمائید.
                         </p>
                         <div class="anchor w-full flex flex-wrap justify-center">
-                            <a href=""
+                            <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
                                class="anchor__item text-white font-lg font-bold rounded-6 bg-blue-100 l:transition-background l:hover:bg-blue-200 text-center"
                             >
                                 ویرایش پروفایل

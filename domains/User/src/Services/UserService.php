@@ -22,6 +22,7 @@ use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
+use Domains\User\src\Services\Contracts\DTOs\UserProfileDTO;
 use Illuminate\Support\Facades\Auth;
 
 class UserService
@@ -93,7 +94,6 @@ class UserService
      */
     public function loginWithApi(UserLoginDTO $loginDTO): UserLoginDTO
     {
-
         if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
             $user = Auth::getLastAttempted();
             $role = $this->getUserImportantActiveOrPendingRole($user);
@@ -215,5 +215,20 @@ class UserService
     public function ValidateUserWithRole(ValidationDataUserDTO $validationDataUserDTO)
     {
         return $this->userRepository->checkUserHasSpecialRole($validationDataUserDTO);
+    }
+
+    public function getProfileInfo(): UserProfileDTO
+    {
+        $userProfileDTO = new UserProfileDTO();
+        if ($user = Auth::user()) {
+            $userProfileDTO->setIsLogin(true)
+                ->setUserName($user->name);
+            $roles = $this->userRepository->getUserRoles($user);
+            foreach ($roles as $role) {
+                $userProfileDTO->addRole($role->name);
+            }
+        }
+        return $userProfileDTO;
+
     }
 }
