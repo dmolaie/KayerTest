@@ -19,7 +19,16 @@ class UserRegisterPresenter
                 'name' => $userLoginDTO->getRole()->name,
                 'id'   => $userLoginDTO->getRole()->id
             ],
-            'token'         => $userLoginDTO->getToken()
+            'token'         => $userLoginDTO->getToken(),
+            'redirection' =>$this->redirectionTo($userLoginDTO->getRole())
         ];
+    }
+
+    private function redirectionTo($role)
+    {
+        if($role->id == config('user.legate_role_id') ){
+            return 'panel';
+        }
+        return 'profile';
     }
 }
