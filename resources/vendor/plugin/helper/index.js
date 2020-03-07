@@ -28,11 +28,14 @@ export const GetNumberInString = string => {
     )
 };
 
-export const toEnglishDigits = string => {
-    return string.replace(/[۰-۹]/g, chr => {
-        let persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return persian.indexOf(chr);
-    });
+export const toEnglishDigits = payload => {
+    console.log(payload, typeof payload === "string");
+    return ( typeof payload === "string" ) ? (
+        payload.replace(/[۰-۹]/g, chr => {
+            let persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return persian.indexOf(chr);
+        })
+    ) : ( payload )
 };
 
 export const NationalCodeValidator = payload => {
@@ -113,6 +116,10 @@ export const SmoothScroll = offsetTop => {
         }
     } catch (e) {}
 };
+
+export const CopyOf = payload => (
+    JSON.parse(JSON.stringify( payload ))
+);
 
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
 export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;

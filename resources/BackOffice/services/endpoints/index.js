@@ -11,12 +11,16 @@ const REGISTER = "REGISTER";
 const REGISTER_LEGATE = "REGISTER_LEGATE";
 const VALIDATE_USER = "VALIDATE_USER";
 const VALIDATE_LEGATE = "VALIDATE_LEGATE";
+const GET_USER_INFORMATION = "GET_USER_INFORMATION";
+const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[REGISTER] = `/user/${VER_1_0}/register`;
 endpoints[REGISTER_LEGATE] = `/user/${VER_1_0}/register-legate`;
 endpoints[VALIDATE_USER] = `/user/${VER_1_0}/validate_data_user_client`;
 endpoints[VALIDATE_LEGATE] = `/user/${VER_1_0}/validate_data_user_legate`;
+endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
+endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 
 export default class Endpoint {
     static get API_DOMAIN() {
@@ -41,6 +45,14 @@ export default class Endpoint {
 
     static get VALIDATE_LEGATE() {
         return endpoints[VALIDATE_LEGATE];
+    }
+
+    static get GET_USER_INFORMATION() {
+        return endpoints[GET_USER_INFORMATION];
+    }
+
+    static get UPDATE_USER_INFORMATION() {
+        return endpoints[UPDATE_USER_INFORMATION];
     }
 
     static get( endpoint, params = {} ) {

@@ -1,6 +1,6 @@
 @extends('fa.template.master')
     @section('content')
-        <div class="p-edit dnt-page i-page">
+        <div class="p-edit dnt-page i-page p-edit__pre-loading">
             <div class="container">
                 <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
                     <span class="i-page__title text-center cursor-default">
@@ -72,7 +72,7 @@
                                 <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
                                     <input type="radio"
                                            class="dnt-page__radio none"
-                                           name="gender" value="0"
+                                           name="gender" value="{{$data['gender'][0]}}"
                                     />
                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                         خانم
@@ -81,7 +81,7 @@
                                 <label class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
                                     <input type="radio"
                                            class="dnt-page__radio none"
-                                           name="gender" value="1"
+                                           name="gender" value="{{$data['gender'][1]}}"
                                     />
                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                         آقا
@@ -90,9 +90,8 @@
                                 <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
                                     <input type="radio"
                                            class="dnt-page__radio none"
-                                           name="gender" value="2"
+                                           name="gender" value="{{$data['gender'][2]}}"
                                     />
-{{--                                    value="{{$data['gender'][2]}}"--}}
                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                         سایر
                                     </span>
@@ -121,10 +120,16 @@
                             <div class="dnt-page__date_birth w-full flex items-stretch text-center user-select-none">
                                 <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
                                     <select class="dnt-page__select dnt-page__select--day"
+                                            name="birth_day"
                                     >
                                         <option value="">
                                             روز
                                         </option>
+                                        @foreach($data['day'] as $day)
+                                            <option value="{{$day}}">
+                                                {{$day}}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
@@ -134,6 +139,11 @@
                                         <option value="">
                                             ماه
                                         </option>
+                                        @foreach($data['month'] as $key => $month)
+                                            <option value="{{$key}}">
+                                                {{$month}}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tr-none rounded-br-none cursor-pointer">
@@ -143,6 +153,11 @@
                                         <option value="">
                                             سال
                                         </option>
+                                        @foreach($data['year'] as $year)
+                                            <option value="{{$year}}">
+                                                {{$year}}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
@@ -152,25 +167,41 @@
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 استان محل تولد
                             </span>
-                            <select class="dnt-page__select dnt-page__select--birth"
-                                    name="birth_province"
-                            >
-                                <option value="">
-                                    انتخاب کنید...
-                                </option>
-                            </select>
+                            <div class="relative field__birth_province w-full">
+                                <select class="dnt-page__select dnt-page__select--birth"
+                                        name="birth_province"
+                                >
+                                    <option value="">
+                                        انتخاب کنید...
+                                    </option>
+                                    @foreach($data['state'] as $state)
+                                        <option value="{{$state['id']}}">
+                                            {{$state['name']}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                            </div>
                         </div>
                         <div class="dnt-page__input block md:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شهر محل تولد
                             </span>
-                            <select class="dnt-page__select dnt-page__select--birth-city"
-                                    name="birth_city"
-                            >
-                                <option value="">
-                                    انتخاب کنید...
-                                </option>
-                            </select>
+                            <div class="relative field__birth_city w-full">
+                                <select class="dnt-page__select dnt-page__select--birth"
+                                        name="birth_city"
+                                >
+                                    <option value="">
+                                        انتخاب کنید...
+                                    </option>
+                                    @foreach($data['city'] as $city)
+                                        <option value="{{$city['id']}}">
+                                            {{$city['name']}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
+                            </div>
                         </div>
                         <div class="dnt-page__input block md:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
@@ -228,6 +259,11 @@
                                     <option value="">
                                         محل سکونت را انتخاب نمایید
                                     </option>
+                                    @foreach($data['state'] as $state)
+                                        <option value="{{$state['id']}}">
+                                            {{$state['name']}}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -243,6 +279,11 @@
                                     <option value="">
                                         محل سکونت را انتخاب نمایید
                                     </option>
+                                    @foreach($data['city'] as $city)
+                                        <option value="{{$city['id']}}">
+                                            {{$city['name']}}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -300,6 +341,11 @@
                                     <option value="">
                                         انتخاب کنید...
                                     </option>
+                                    @foreach($data['education_degree'] as $key => $education_degree)
+                                        <option value="{{$key}}">
+                                            {{$education_degree}}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -321,13 +367,18 @@
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 استان محل تحصیل
                             </span>
-                            <div class="dnt-page__select--province w-full">
+                            <div class="field__edu_province dnt-page__select--province w-full">
                                 <select class="dnt-page__select dnt-page__select--edu_province"
                                         name="edu_province"
                                 >
                                     <option value="">
-                                        محل سکونت را انتخاب نمایید
+                                        محل تحصیل را انتخاب نمایید
                                     </option>
+                                    @foreach($data['state'] as $state)
+                                        <option value="{{$state['id']}}">
+                                            {{$state['name']}}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -336,13 +387,18 @@
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شهر محل تحصیل
                             </span>
-                            <div class="dnt-page__select--province w-full">
+                            <div class="field__edu_city dnt-page__select--city w-full">
                                 <select class="dnt-page__select dnt-page__select--edu_city"
                                         name="edu_city"
                                 >
                                     <option value="">
-                                        محل سکونت را انتخاب نمایید
+                                        محل تحصیل را انتخاب نمایید
                                     </option>
+                                    @foreach($data['city'] as $city)
+                                        <option value="{{$city['id']}}">
+                                            {{$city['name']}}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -351,7 +407,7 @@
 
                     <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2">
                         <div class="dnt-page__input block md:w-full">
-                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
+                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 گذرواژه‌ی جدید
                             </span>
                             <label class="dnt-page__password w-full block">
@@ -364,7 +420,7 @@
                             </label>
                         </div>
                         <div class="dnt-page__input block md:w-full">
-                            <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold">
+                            <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
                                 تکرار گذرواژه‌ی جدید
                             </span>
                             <label class="dnt-page__rpt-password w-full block">
@@ -379,10 +435,10 @@
                     </div>
 
                     <div class="flex flex-wrap w-full">
-                        <button class="p-edit__submit p-edit__submit--green text-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center spinner-loading">
+                        <button class="p-edit__submit p-edit__submit--green text-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center">
                             ذخیره
                         </button>
-                        <a href=""
+                        <a href="/"
                             class="p-edit__submit p-edit__submit--white bg-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center"
                         >
                             انصراف
@@ -390,6 +446,9 @@
                     </div>
                 </form>
             </div>
+            <div class="p-edit__loading fixed w-full h-full spinner-loading transition-opacity z-10"></div>
+            <div class="notification fixed pointer-event-none z-20"
+            ></div>
         </div>
     @endsection
 
