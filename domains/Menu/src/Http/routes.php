@@ -7,6 +7,7 @@ Route::group(['prefix' => 'admin', 'name' => '.menu.'],
         Route::post('/create', 'MenusController@createMenu')->middleware('auth:api');
         Route::post('/edit', 'MenusController@editMenu')->middleware('auth:api');
         Route::post('/delete', 'MenusController@destroyMenu')->middleware('auth:api');
+        Route::get('/types', 'MenusController@getMenuTypes')->middleware('auth:api');
     });
 
 Route::get('/active-list', 'MenusController@activeList');
