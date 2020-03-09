@@ -43,6 +43,7 @@ class UserBriefInfoDTOMaker
 
             return [
                 'name'   => $role->name,
+                'label'  => $role->label,
                 'status' => $role->pivot->status
             ];
         })->toArray();

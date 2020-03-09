@@ -113,6 +113,7 @@ return array(
     |
     */
     'attributes' => array(
+        "user-id"                     => "شماره کاربر",
         "name"                        => "نام",
         "username"                    => "نام کاربری",
         "email"                       => "پست الکترونیکی",
@@ -153,5 +154,8 @@ return array(
         'work_postal_code'            => 'کد پستی محل کار',
         'education_province_id'       => 'استان محل تحصیل',
         'education_city_id'           => 'شهر محل تحصیل',
+        'event_id'                    => 'رویداد',
+        'receive_email'               => 'خبرنامه',
+        'password_change'             => 'گذرواژه',
     ),
 );

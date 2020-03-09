@@ -26,9 +26,10 @@ class UserRegisterPresenter
 
     private function redirectionTo($role)
     {
-        if($role->id == config('user.legate_role_id') ){
-            return 'panel';
+        if($role->id == config('user.client_role_id') ){
+            return 'page.client.profile';
         }
-        return 'profile';
+        return 'admin.login';
+
     }
 }
