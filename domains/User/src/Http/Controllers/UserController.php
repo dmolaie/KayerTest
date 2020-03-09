@@ -12,6 +12,7 @@ use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\LegateRegisterRequest;
+use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
 use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
@@ -187,5 +188,21 @@ class UserController extends EhdaBaseController
             ], Response::HTTP_OK, trans('user::response.user_can_register'));
         }
 
+    }
+
+    /**
+     * @param UpdateUserInfoByAdminRequest $request
+     * @param UserBriefInfoPresenter $briefInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateUserInfoByAdmin(UpdateUserInfoByAdminRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
+    {
+
+        $data = $this->userService->editUserInfo($request['user_id'], $request->createUserEditDTO());
+        return $this->response(
+            $briefInfoPresenter->transform($data),
+            Response::HTTP_OK,
+            trans('user::response.edit_profile_successful')
+        );
     }
 }

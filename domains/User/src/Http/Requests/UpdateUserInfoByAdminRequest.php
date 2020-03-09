@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Domains\User\Services\Contracts\DTOs\LegateRegisterDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 
-class UpdateUserInfoRequest extends EhdaBaseRequest
+class UpdateUserInfoByAdminRequest extends EhdaBaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,17 +17,18 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
+            'user_id'                    => 'required|integer|exists:users,id',
             'gender'                     => 'required|integer|max:2|min:0',
             'name'                       => 'required|string|max:30|min:3',
             'last_name'                  => 'required|string|max:30|min:3',
-            'father_name'                => 'required|string|max:30|min:3',
+            'father_name'                => 'string|max:30|min:3',
             'identity_number'            => 'numeric|min:1',
             'province_of_birth'          => 'integer',
             'marital_status'             => 'integer',
             'city_of_birth'              => 'integer',
             'date_of_birth'              => 'required|numeric',
             'job_title'                  => 'string|max:50|min:3',
-            'last_education_degree'      => 'required|integer|max:8|min:0',
+            'last_education_degree'      => 'integer|max:8|min:0',
             'phone'                      => 'regex:/^0\d{2,3}\d{8}$/',
             'mobile'                     => 'required|regex:/(09)[0-9]{9}/',
             'essential_mobile'           => 'regex:/(09)[0-9]{9}/',
@@ -47,9 +48,11 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
             'know_community_by'          => 'integer|min:0|max:3',
             'motivation_for_cooperation' => 'string|max:100|min:3',
             'day_of_cooperation'         => 'integer|min:1|max:30',
-            'field_of_activities'        => 'array|min:1',
+            'field_of_activities'        => 'array',
             'field_of_activities.*'      => 'integer|distinct|min:0|max:12',
-            'password'                   => 'confirmed|min:8',
+            'event_id'                   => 'integer|exists:events,id',
+            'receive_email'              => 'boolean',
+            'password_change'            => 'boolean',
         ];
     }
 
@@ -65,8 +68,8 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
 
     public function createUserEditDTO(): UserRegisterInfoDTO
     {
-        $userRegisterInfoDTO = new UserRegisterInfoDTO();
-        $userRegisterInfoDTO
+        $userEditInfoDTO = new UserRegisterInfoDTO();
+        $userEditInfoDTO
             ->setGender(config('user.user_genders')[$this['gender']])
             ->setName($this['name'])
             ->setLastName($this['last_name'])
@@ -98,8 +101,10 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
             ->setMotivationForCooperation($this['motivation_for_cooperation'])
             ->setDayOfCooperation($this['day_of_cooperation'])
             ->setFieldOfActivities($this['field_of_activities'] ? implode(',', $this['field_of_activities']) : null)
-            ->setPassword($this['password']);
+            ->setEventId($this['event_id'])
+            ->setReceiveEmail($this['receive_email'])
+            ->setPassword($this['password_change']?$this['mobile']:null);
 
-        return $userRegisterInfoDTO;
+        return $userEditInfoDTO;
     }
 }
