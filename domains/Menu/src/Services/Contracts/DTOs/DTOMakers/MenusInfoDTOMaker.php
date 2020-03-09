@@ -39,9 +39,7 @@ class MenusInfoDTOMaker
 
     private function getMenuChildren(Menus $menu, $activeList)
     {
-        $child = $menu->child()->when($activeList, function ($query) {
-            return $query->where('active', true);
-        })->orderBy('priority')->get();
+        $child = $menu->child;
         return $child->map(function ($child) {
             return $this->convert($child);
         })->toArray();
