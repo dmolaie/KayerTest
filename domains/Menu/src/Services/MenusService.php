@@ -70,6 +70,12 @@ class MenusService
         return $this->menusInfoDTOMaker->convertMany($menus, $activeList);
     }
 
+
+    public function getListSite(bool $activeList = false): object
+    {
+        return $this->menusRepository->getList($activeList);
+    }
+
     public function savePriority(array $priorityDTOs): array
     {
         $menus = $this->menusRepository->savePriority($priorityDTOs);

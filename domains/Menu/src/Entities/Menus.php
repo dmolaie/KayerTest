@@ -56,7 +56,7 @@ class Menus extends Model
 
     public function child()
     {
-        return $this->hasOne(Menus::class, 'parent_id', 'id');
+        return $this->hasMany(Menus::class, 'parent_id', 'id');
     }
 
     public function events()
