@@ -37,8 +37,7 @@ class MenusRepository
     public function editMenu(MenusEditDTO $menusEditDTO): Menus
     {
         $type = config('menus.menus_type');
-        $menus = new $this->entityName;
-        $menus = $menus->findOrFail($menusEditDTO->getMenuId());
+        $menus = $this->entityName::findOrFail($menusEditDTO->getMenuId());
         $menus->name = $menusEditDTO->getName();
         $menus->title = $menusEditDTO->getTitle();
         $menus->alias = $menusEditDTO->getAlias();
