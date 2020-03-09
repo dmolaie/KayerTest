@@ -190,4 +190,14 @@ class UserRepository
         return $user->roles()
             ->where('status', '<>', config('user.user_role_inactive_status'))->get();
     }
+
+    public function changePasswordByAdmin(int $userId, string $password): User
+    {
+        $user = $this->entityName::findOrFail($userId);
+        $user->password = bcrypt($password);
+        if (!empty($user->getDirty())) {
+            $user->save();
+        }
+        return $user;
+    }
 }
