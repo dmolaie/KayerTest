@@ -129,18 +129,18 @@ class ArticleCreateDTO extends ArticleBaseSaveDTO
     }
 
     /**
-     * @return array|null
+     * @return int|null
      */
-    public function getCategoryIsMain(): ?array
+    public function getCategoryIsMain(): ?int
     {
         return $this->categoryIsMain;
     }
 
     /**
-     * @param array|null $categoryIsMain
+     * @param int|null $categoryIsMain
      * @return ArticleCreateDTO
      */
-    public function setCategoryIsMain(?array $categoryIsMain): ArticleCreateDTO
+    public function setCategoryIsMain(?int $categoryIsMain): ArticleCreateDTO
     {
         $this->categoryIsMain = $categoryIsMain;
         return $this;

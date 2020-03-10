@@ -36,7 +36,7 @@ class ArticleBaseSaveDTO
     protected $categories;
 
     /**
-     * @var null|array
+     * @var null|int
      */
     protected $categoryIsMain;
 
