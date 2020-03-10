@@ -98,4 +98,12 @@ class MenusController extends EhdaBaseController
         }
 
     }
+
+    public function getMenuTypes()
+    {
+        return $this->response(
+            array_values(config('menus.menus_type')),
+            Response::HTTP_OK
+        );
+    }
 }

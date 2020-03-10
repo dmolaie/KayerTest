@@ -37,8 +37,7 @@ class MenusRepository
     public function editMenu(MenusEditDTO $menusEditDTO): Menus
     {
         $type = config('menus.menus_type');
-        $menus = new $this->entityName;
-        $menus = $menus->findOrFail($menusEditDTO->getMenuId());
+        $menus = $this->entityName::findOrFail($menusEditDTO->getMenuId());
         $menus->name = $menusEditDTO->getName();
         $menus->title = $menusEditDTO->getTitle();
         $menus->alias = $menusEditDTO->getAlias();
@@ -73,7 +72,7 @@ class MenusRepository
 
     public function savePriority(array $priorityDTOs)
     {
-        return \DB::transaction(function () use($priorityDTOs){
+        return \DB::transaction(function () use ($priorityDTOs) {
             foreach ($priorityDTOs as $priorityDTO) {
                 $menu = $this->entityName::findOrFail($priorityDTO->getId());
                 $menu->priority = $priorityDTO->getPriority();
@@ -90,7 +89,7 @@ class MenusRepository
         return $this->entityName::whereNull('parent_id')
             ->when($activeList, function ($query) {
                 return $query->where('active', true);
-            })->orderBy('priority')->get();
+            })->orderBy('priority')->with('child')->get();
     }
 
 }

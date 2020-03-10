@@ -9,8 +9,11 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
-Route::get('/user-search', 'UserController@getListForAdmin')->middleware('auth:api')->name('user-search');
 Route::post('/register', 'UserController@register')->name('register-ehda');
 Route::post('/register-legate', 'UserController@legateRegister')->name('register-legate');
 
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/user-search', 'UserController@getListForAdmin')->middleware('auth:api')->name('user-search');
+    Route::post('/edit-user-by-admin', 'UserController@updateUserInfoByAdmin')->middleware('auth:api')->name('edit-user-by-admin');
+});
 
