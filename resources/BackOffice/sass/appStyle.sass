@@ -17,26 +17,32 @@ body
     family: IranSans
   background: $white
 
+// start --> vendor
+@import "components/box"
+// end   --> vendor
+
 // start --> views
 @import "resources/sass/pages/login/index"
 @import "page/Logout/index"
 @import "page/Dashboard/index"
 @import "page/create/index"
 @import "page/news/create"
+@import "page/menu/index"
 // end   --> views
 
 // start --> components
+@import "components/modal"
 @import "components/panel"
 @import "components/aside"
-@import "components/toolbar"
-@import "components/progress"
-@import "components/language"
-@import "components/domains"
-@import "components/image-panel"
-@import "components/dropdown"
 @import "components/select"
 @import "components/publish"
+@import "components/domains"
+@import "components/toolbar"
+@import "components/language"
+@import "components/dropdown"
+@import "components/progress"
 @import "components/breadcrumb"
+@import "components/image-panel"
 @import "components/notification"
 // end   --> components
 

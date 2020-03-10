@@ -14,11 +14,14 @@ export default class ManageMenuService extends BaseService {
 
     async getList() {
         try {
-            console.log('asd');
             let response = await HTTPService.getRequest( Endpoint.get( Endpoint.GET_MENU_LIST ) );
             console.log(response);
-        } catch (e) {
-            console.log(e);
+        }
+        catch ( { message } ) {
+            this.$vm.displayNotification( message, {
+                type: 'error',
+                duration: 4000
+            })
         }
     }
 

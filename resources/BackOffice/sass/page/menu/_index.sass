@@ -1,0 +1,143 @@
+$gap: 16px
+
+.c-menu
+  .m-b-20
+    margin-bottom: 20px
+  &__container
+    padding: 32px 22px 90px 34px
+  &__box
+    padding: 27px 40px 42px 48px
+    @include Xl_Screen
+      padding: 27px 55px 42px 63px
+  &__button
+    min-width: 205px
+    line-height: 46px
+    padding: 0 15px
+    transition: color $duration, background-color $duration
+    &--white
+      border-color: #7ed321
+      background-color: #f7f7f7
+      box-shadow: 0 2px 4px 0 transparentize(black, (1 - .09))
+      @include L_Screen
+        &:hover
+          color: $white
+          background-color: #7ed321
+  &__tree
+    //min-height: 70px
+  &__item
+    $border: transparentize(black, (1 - .1))
+    border-color: $border
+    background-color: #f0f3f8
+    &--parent
+      &::before
+        content: " "
+        width: 21px
+        height: 12px
+        background: url("/../images/ic__top-arrow--blue.svg") no-repeat center
+          size: contain
+        margin: 0 26px 0 20px
+        pointer-events: none
+        transform: rotate(180deg)
+        transition: transform $duration
+    &--child
+      padding-right: 28px
+      //
+    &_btn
+      @include Size( 54px )
+      border-color: $border
+      background:
+        position: center
+        repeat: no-repeat
+      filter: none
+      transition: filter $duration
+      &--unvisible
+        background:
+          image: url("/../images/ic_unvisibility--orange.svg")
+          size: 32px auto
+        @include L_Screen
+          &:hover
+            filter: drop-shadow(0 0 7px transparentize(#fa6400, (1 - .79)))
+      &--visible
+        background:
+          image: url("/../images/ic_visibility--orange.svg")
+          size: 32px auto
+        @include L_Screen
+          &:hover
+            filter: drop-shadow(0 0 7px transparentize(#fa6400, (1 - .79)))
+      &--edit
+        background:
+          image: url("/../images/ic__pen-green.svg")
+          size: auto 30px
+        @include L_Screen
+          &:hover
+            filter: drop-shadow(0 0 7px transparentize(#6dd400, (1 - .85)))
+      &--delete
+        background:
+          image: url("/../images/ic_delete--red.svg")
+          size: auto 30px
+        @include L_Screen
+          &:hover
+            filter: drop-shadow(0 0 7px transparentize(#e02020, (1 - .79)))
+      &--drag
+        cursor: grab
+        background:
+          image: url("/../images/ic_priority--blue.svg")
+          size: auto 30px
+        @include L_Screen
+          &:hover
+            filter: drop-shadow(0 0 7px transparentize(#32c5ff, (1 - .79)))
+  &__draggable
+    & > .c-menu__dragArea
+      padding: 20px 0 30px
+  &__child
+    margin-right: 10%
+    .c-menu__dragArea
+      min-height: $gap
+    .c-menu__tree
+      &:first-child
+        margin-top: $gap
+      .c-menu__item
+        background-color: transparentize(#f0f3f8, (1 - .48))
+  .ghost
+    .c-menu__item
+      opacity: 0.4
+      background-color: #c8ebfb
+  .modal
+    &__header
+      min-height: 60px
+      padding: 10px 39px 10px 27px
+      background-color: #effaff
+    &__button
+      @include Size( 22px )
+      &::before, &::after
+        content: " "
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 100%
+        height: 2px
+        border-radius: 2px
+        background: $red
+      &::before
+        transform: translate(-50%, -50%) rotate(45deg)
+      &::after
+        transform: translate(-50%, -50%) rotate(-45deg)
+    &__content
+      padding: 49px 53px 64px
+    &__label
+      width: (110px + 18)
+    &__input
+      color: $blue-800
+      border-color: #cfd2d5
+      &::placeholder
+        font-size: 15px
+    &__submit
+      $c: #7ed321
+      width: calc(100% - 52px - 51px)
+      border-color: $c
+      background: #9edb5b
+      line-height: 46px
+      box-shadow: 0 2px 4px 0 transparentize(black, (1 - .09))
+      @include L_Screen
+        &:hover
+          background-color: $c

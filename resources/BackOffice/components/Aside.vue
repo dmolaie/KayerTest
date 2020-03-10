@@ -45,6 +45,7 @@
         data: () => ({
             menu: [
                 {
+                    route: 'MANAGE_MENU',
                     title: 'رویدادها',
                     icon: 'ic_event--blue.svg'
                 },
