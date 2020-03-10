@@ -11,6 +11,7 @@ use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
+use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
@@ -123,8 +124,7 @@ class UserController extends EhdaBaseController
     public function getListForAdmin(
         UserListForAdminRequest $request,
         UserPaginateInfoPresenter $paginateInfoPresenter
-    )
-    {
+    ) {
         $usersPaginateInfoDTOs = $this->userService->filterUsers($request->createUserSearchDTO());
         return $this->response(
             $paginateInfoPresenter->transform($usersPaginateInfoDTOs),
@@ -195,8 +195,10 @@ class UserController extends EhdaBaseController
      * @param UserBriefInfoPresenter $briefInfoPresenter
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateUserInfoByAdmin(UpdateUserInfoByAdminRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
-    {
+    public function updateUserInfoByAdmin(
+        UpdateUserInfoByAdminRequest $request,
+        UserBriefInfoPresenter $briefInfoPresenter
+    ) {
 
         $data = $this->userService->editUserInfo($request['user_id'], $request->createUserEditDTO());
         return $this->response(
@@ -204,5 +206,24 @@ class UserController extends EhdaBaseController
             Response::HTTP_OK,
             trans('user::response.edit_profile_successful')
         );
+    }
+
+    public function changeUserPasswordByAdmin(ChangeUserPasswordAdminRequest $request)
+    {
+        try {
+            $this->userService->changePasswordByAdmin($request['user_id'], $request['password']);
+            return $this->response(
+                [],
+                Response::HTTP_OK,
+                trans('user::response.change_password_by_admin_successful')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('user::response.user_not_found')
+            );
+        }
+
     }
 }

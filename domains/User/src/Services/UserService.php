@@ -231,4 +231,10 @@ class UserService
         return $userProfileDTO;
 
     }
+
+    public function changePasswordByAdmin(int $userId, string $password)
+    {
+        $this->userRepository->changePasswordByAdmin($userId,$password);
+        return;
+    }
 }

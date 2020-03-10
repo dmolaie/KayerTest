@@ -3,19 +3,21 @@
 
 namespace Domains\Article\Services;
 
-use Domains\Article\Exceptions\ArticleNotFoundException;
-use Domains\Attachment\Services\AttachmentServices;
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Article\Entities\Article;
+use Domains\Article\Exceptions\ArticleNotFoundException;
 use Domains\Article\Repositories\ArticleRepository;
-use Domains\Article\Services\Contracts\DTOs\DTOMakers\ArticleInfoDTOMaker;
-use Domains\Article\Services\Contracts\DTOs\DTOMakers\PaginationDTO;
 use Domains\Article\Services\Contracts\DTOs\ArticleBaseSaveDTO;
 use Domains\Article\Services\Contracts\DTOs\ArticleCreateDTO;
 use Domains\Article\Services\Contracts\DTOs\ArticleEditDTO;
 use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
+use Domains\Article\Services\Contracts\DTOs\ArticleInfoDTO;
+use Domains\Article\Services\Contracts\DTOs\DTOMakers\ArticleInfoDTOMaker;
+use Domains\Article\Services\Contracts\DTOs\DTOMakers\MenuContentDTOMaker;
+use Domains\Article\Services\Contracts\DTOs\DTOMakers\PaginationDTO;
+use Domains\Attachment\Services\AttachmentServices;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\User\Entities\User;
 use Domains\User\Services\UserService;
@@ -104,8 +106,10 @@ class ArticleService
      * @return AttachmentInfoDTO|null
      * @throws \Domains\User\Exceptions\AttachmentFileErrorException
      */
-    private function addAttachmentForArticle(Article $article, ArticleBaseSaveDTO $articleBaseSaveDTO): ?AttachmentInfoDTO
-    {
+    private function addAttachmentForArticle(
+        Article $article,
+        ArticleBaseSaveDTO $articleBaseSaveDTO
+    ): ?AttachmentInfoDTO {
         if (!$articleBaseSaveDTO->getAttachmentFiles()) {
             return null;
         }
@@ -176,5 +180,13 @@ class ArticleService
         }
         return $result;
 
+    }
+
+    public function findWithMenuId(int $menuId):ArticleInfoDTO
+    {
+        $article = $this->articleRepository->findByMenuId($menuId);
+        $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
+        $images = $attachmentInfoDto->getImages()[$article->id];
+        return $this->articleInfoDTOMaker->convert($article, $images);
     }
 }
