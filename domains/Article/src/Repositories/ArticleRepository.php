@@ -130,4 +130,13 @@ class ArticleRepository
         return $this->entityName::where('id', $articleId)->delete();
     }
 
+    public function findByMenuId(int $menuId)
+    {
+        return $this->entityName::with([
+            'menus' => function ($query) use($menuId){
+                $query->where('id', $menuId);
+            }
+        ])->firstOrFail();
+    }
+
 }

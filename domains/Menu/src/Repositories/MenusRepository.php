@@ -92,4 +92,10 @@ class MenusRepository
             })->orderBy('priority')->with('child')->get();
     }
 
+    public function findByAlias(string $pageAlias)
+    {
+        return $this->entityName::where('alias', $pageAlias)
+            ->firstOrFail();
+    }
+
 }
