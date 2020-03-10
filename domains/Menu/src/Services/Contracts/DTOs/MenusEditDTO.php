@@ -6,6 +6,7 @@ namespace Domains\Menu\Services\Contracts\DTOs;
 
 use Domains\Menu\Entities\Menus;
 use Domains\User\Entities\User;
+use phpDocumentor\Reflection\Types\Boolean;
 
 
 /**
@@ -32,6 +33,11 @@ class MenusEditDTO extends MenusBaseSaveDTO
      * @var null|int
      */
     protected $menuId;
+
+    /**
+     * @var null|boolean
+     */
+    protected $active;
 
     /**
      * @return Menus|null
@@ -266,6 +272,24 @@ class MenusEditDTO extends MenusBaseSaveDTO
     public function setPriority(?int $priority): MenusEditDTO
     {
         $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * @return boolean|null
+     */
+    public function getActive(): ?Boolean
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean|null $active
+     * @return MenusEditDTO
+     */
+    public function setActive(?boolean $active): MenusEditDTO
+    {
+        $this->active = $active;
         return $this;
     }
 
