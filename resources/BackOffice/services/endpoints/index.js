@@ -14,6 +14,10 @@ const VALIDATE_LEGATE = "VALIDATE_LEGATE";
 const GET_USER_INFORMATION = "GET_USER_INFORMATION";
 const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 const GET_MENU_LIST = "GET_MENU_LIST";
+const GET_MENU_TYPE = "GET_MENU_TYPE";
+const GET_ARTICLE_LIST = "GET_ARTICLE_LIST";
+const CREATE_ARTICLE_LIST = "CREATE_ARTICLE_LIST";
+const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
 const LOGOUT = "LOGOUT";
 
 
@@ -25,6 +29,10 @@ endpoints[VALIDATE_LEGATE] = `/user/${VER_1_0}/validate_data_user_legate`;
 endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
 endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
+endpoints[EDIT_MENU_ITEM] = `/menu/${VER_1_0}/admin/edit`;
+endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
+endpoints[CREATE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/create`;
+endpoints[GET_ARTICLE_LIST] = `/article/${VER_1_0}/admin/list`;
 endpoints[LOGOUT] = '/user/logout';
 
 export default class Endpoint {
@@ -62,6 +70,22 @@ export default class Endpoint {
 
     static get GET_MENU_LIST() {
         return endpoints[GET_MENU_LIST];
+    }
+
+    static get EDIT_MENU_ITEM () {
+        return endpoints[EDIT_MENU_ITEM];
+    }
+
+    static get GET_MENU_TYPE() {
+        return endpoints[GET_MENU_TYPE];
+    }
+
+    static get GET_ARTICLE_LIST() {
+        return endpoints[GET_ARTICLE_LIST];
+    }
+
+    static get CREATE_ARTICLE_LIST() {
+        return endpoints[CREATE_ARTICLE_LIST];
     }
 
     static get( endpoint, params = {} ) {

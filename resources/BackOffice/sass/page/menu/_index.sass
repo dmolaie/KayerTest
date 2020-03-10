@@ -103,6 +103,16 @@ $gap: 16px
       opacity: 0.4
       background-color: #c8ebfb
   .modal
+    &__col
+      &:first-child
+        margin-left: 15px
+      &:last-child
+        margin-right: 15px
+    &__row
+      &:not(:last-child)
+        margin-bottom: 34px
+    &__body
+      padding-bottom: 40px
     &__header
       min-height: 60px
       padding: 10px 39px 10px 27px
@@ -123,7 +133,7 @@ $gap: 16px
       &::after
         transform: translate(-50%, -50%) rotate(-45deg)
     &__content
-      padding: 49px 53px 64px
+      padding: 45px 50px 60px
     &__label
       width: (110px + 18)
     &__input
@@ -141,3 +151,25 @@ $gap: 16px
       @include L_Screen
         &:hover
           background-color: $c
+  .confirm
+    padding: 20px 23px 18px
+    &__title
+      margin-bottom: 42px
+    &__button
+      width: 90px
+      line-height: 38px
+      color: $black
+      &:not(:last-of-type)
+        margin-left: 12px
+      &--submit
+        color: $blue-200
+        background: transparentize($sail, (1 - .64))
+        @include L_Screen
+          &:hover
+            background-color: $sail
+      &--discard
+        @include L_Screen
+          &:hover
+            background-color: darken(#f2f2f2, 3%)
+  .p-20
+    padding: 30px 0
