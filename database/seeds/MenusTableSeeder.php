@@ -211,7 +211,7 @@ class MenusTableSeeder extends Seeder
                         'name'     => 'iran news',
                         'title'    => 'اخبار ایران',
                         'alias'    => 'iran_news',
-                        'type'     => 'list_news_type',
+                        'type'     => 'list_news',
                         'priority' => 1,
                         'article_id'=>Category::where('type','news')->first()->id
                     ],
@@ -227,7 +227,7 @@ class MenusTableSeeder extends Seeder
                         'name'       => 'world news',
                         'title'      => 'اخبار جهان',
                         'alias'      => 'world-news',
-                        'type'       => 'list_news_type',
+                        'type'       => 'list_news',
                         'priority'   => 1,
                         'article_id' => Category::where('type', 'news')->first()->id
                     ],
