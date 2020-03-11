@@ -43,4 +43,12 @@ class CategoryRepository
         $category->save();
         return $category;
     }
+
+    public function findWithMenuId(int $menuId)
+    {
+        return $this->entityName::whereHas('menus', function ($q) use ($menuId) {
+            $q->where('id', '=', $menuId);
+
+        })->firstOrFail();
+    }
 }
