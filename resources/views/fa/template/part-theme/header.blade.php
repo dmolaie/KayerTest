@@ -19,7 +19,7 @@
                     @if($menu->child->count() > 0)
                         <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                             @foreach($menu->child as $child)
-                                <a href="@if($menu->type == config('menus.menus_type.link_type'))  {{$menu->link}} @else   @endif"
+                                <a href="/{{config('app.locale')}}/page/{{$child->alias}}"
                                    class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap">
                                     {{$child->title}}
                                 </a>

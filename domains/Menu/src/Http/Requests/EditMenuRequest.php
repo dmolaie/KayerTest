@@ -29,6 +29,7 @@ class EditMenuRequest extends EhdaBaseRequest
             'language' => ['required', Rule::in(config('menus.menu_language'))],
             'type' => ['required', Rule::in(array_values(config('menus.menus_type')))],
             'priority' => 'required','integer',
+            'active' => 'boolean',
         ];
     }
 
@@ -56,7 +57,8 @@ class EditMenuRequest extends EhdaBaseRequest
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setParentId($this['parent_id'])
             ->setManuableId($this['menuable_id'])
-            ->setPriority($this['priority']);
+            ->setPriority($this['priority'])
+            ->setActive($this['priority']);
         return $menusEditDTO;
     }
 }

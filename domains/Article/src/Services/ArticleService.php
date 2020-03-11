@@ -179,7 +179,6 @@ class ArticleService
             throw new ArticleNotFoundException(trans('article::response.article_not_found'));
         }
         return $result;
-
     }
 
     public function findWithMenuId(int $menuId):ArticleInfoDTO
