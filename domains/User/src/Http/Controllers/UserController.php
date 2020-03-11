@@ -13,6 +13,7 @@ use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
+use Domains\User\Http\Requests\RegisterUserByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
 use Domains\User\Http\Requests\UserListForAdminRequest;
@@ -132,6 +133,10 @@ class UserController extends EhdaBaseController
         );
     }
 
+    /**
+     * @param ValidateDataUserRequestClient $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function ValidateDataUserClient(ValidateDataUserRequestClient $request)
     {
         try {
@@ -157,6 +162,10 @@ class UserController extends EhdaBaseController
 
     }
 
+    /**
+     * @param ValidateDataUserRequestLegate $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function ValidateDataUserLegate(ValidateDataUserRequestLegate $request)
     {
         try {
@@ -208,6 +217,10 @@ class UserController extends EhdaBaseController
         );
     }
 
+    /**
+     * @param ChangeUserPasswordAdminRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeUserPasswordByAdmin(ChangeUserPasswordAdminRequest $request)
     {
         try {
@@ -224,6 +237,22 @@ class UserController extends EhdaBaseController
                 trans('user::response.user_not_found')
             );
         }
+    }
 
+    /**
+     * @param RegisterUserByAdminRequest $request
+     * @param UserBriefInfoPresenter $briefInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerUserByAdmin(
+        RegisterUserByAdminRequest $request,
+        UserBriefInfoPresenter $briefInfoPresenter
+    ) {
+        $userRegisterResult = $this->userService->registerByAdmin($request->createUserRegisterDTO());
+        return $this->response(
+            $briefInfoPresenter->transform($userRegisterResult),
+            Response::HTTP_CREATED,
+            trans('user::response.success_register')
+        );
     }
 }
