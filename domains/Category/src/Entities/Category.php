@@ -3,9 +3,9 @@
 namespace Domains\Category\Entities;
 
 use Domains\Event\Entities\Event;
+use Domains\Menu\Entities\Menus;
 use Domains\News\Entities\News;
 use Illuminate\Database\Eloquent\Model;
-use Menu;
 
 class Category extends Model
 {
@@ -45,7 +45,7 @@ class Category extends Model
 
     public function menus()
     {
-        return $this->morphToMany(Menu::class, 'menuable')->withTimestamps();
+        return $this->morphToMany(Menus::class, 'menuable')->withTimestamps();
     }
 
 }
