@@ -1,6 +1,6 @@
 <template>
     <draggable class="c-menu__dragArea" tag="div"
-               :list="list"
+               v-model="list"
                :group="{ name: 'menu' }"
                handle=".handle"
                ghost-class="ghost"
@@ -37,35 +37,55 @@
 
 <script>
     import draggable from "vuedraggable";
+    import ModalCm from '@vendor/components/modal/Index.vue';
 
     export default {
         name: "MenuDraggable",
         display: "Nested",
         order: 0,
+        data: () => ({
+            selectedItem: {}
+        }),
         props: {
             list: {
-                type: Array,
+                value: [Object, Array],
                 required: true,
-                default: () => ([])
             }
         },
         components: {
-            draggable
+            ModalCm, draggable
         },
         computed: {
         },
         methods: {
-            emitter(value) {
-                this.$emit("input", value);
+            forceUpdate() {
+                this.$forceUpdate();
             },
             onClickToggleActiveItem( item ) {
                 this.$emit('onClickToggleActiveItem', item );
             },
-            onClickRemoveItem( item, parent ) {
-                this.$emit('onClickRemoveItem', {
-                    parent,
+            onClickRemoveItem( item, parentObj ) {
+                let r = {
+                    parentObj,
                     ...item,
-                })
+                } ;
+                console.log(r, 'v');
+                this.$refs['confirm'].visible();
+                Object.assign( this.selectedItem, r );
+                // this.$emit('onClickRemoveItem', {
+                //     parentObj,
+                //     ...item,
+                // });
+            },
+            async onClickConfirmSubmitButton() {
+                this.$refs['confirm'].hidden();
+                // await Service._onClickRemoveItem( this.selectedItem );
+                this.selectedItem.parentObj.splice(this.selectedItem.index, 1);
+                this.$set( this, 'selectedItem', {} );
+            },
+            onClickDiscardSubmitButton() {
+                this.$refs['confirm'].hidden();
+                this.$set( this, 'selectedItem', {} );
             }
         },
     };

@@ -15,7 +15,7 @@ export const Flatten = ( array = [] ) => {
 
 export const Length = payload => {
     if ( Array.isArray( payload ) ) return payload.length;
-    if ( typeof payload === "object" ) return Object.keys( payload ).length;
+    if ( typeof payload === "object" ) return Object.values( payload ).length;
     if ( typeof payload === "number" ) return ( payload + "" ).length;
     return payload.length;
 };

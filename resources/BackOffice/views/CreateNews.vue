@@ -1,7 +1,7 @@
 <template>
     <div class="c-news c-post w-full">
         <div class="w-full flex items-start">
-            <div class="flex-1 l:m-l-25 xl:m-l-35">
+            <div class="c-post__content l:m-l-25 xl:m-l-35">
                 <div class="main inner-box inner-box--white w-full rounded-2 rounded-br-none rounded-bl-none">
                     <label class="block w-full">
                         <input type="text"
@@ -25,7 +25,8 @@
                         </label>
                     </transition>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        editor
+                        <text-editor-cm @onUpdate="onUpdateTextEditor"
+                        />
                     </div>
                     <div class="c-news__abstract w-full">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
@@ -112,7 +113,7 @@
 
 <script>
     import CreateNewsService from '@services/service/CreateNews';
-
+    import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
     import DomainsCm from '@components/DomainsPanel.vue';
     import PublishCm from '@components/PublishPanel.vue';
@@ -129,17 +130,22 @@
                 second_title: '',
             },
             shouldBeShowSecondTitle: false,
+
         }),
         components: {
             DomainsCm,
             PublishCm,
             LocationCm,
-            ImagePanelCm
+            ImagePanelCm,
+            TextEditorCm,
         },
         methods: {
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
+            },
+            onUpdateTextEditor( HTML ) {
+                console.log('HTML', HTML);
             },
             onClickPersianLang() {
                 alert('onClickPersianLang');
@@ -159,12 +165,12 @@
             },
             onChangeDomainsField( id ) {
                 this.$set( this.form, 'province_id', id )
-            }
+            },
         },
         mounted() {
             Service = new CreateNewsService( this );
             Service.processViewPort();
-        }
+        },
     }
 </script>
 

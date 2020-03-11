@@ -25,6 +25,10 @@
     min-height: 93px
     max-height: 200px
     resize: vertical
+  &__content
+    width: calc(#{100% - 33.333333%} - 25px)
+    @include Xl_Screen
+      width: calc(#{100% - 25%} - 35px)
   &__panel
     & > *
       &:not(:last-child)

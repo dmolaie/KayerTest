@@ -15,9 +15,10 @@
                             اضافه کردن
                         </button>
                     </div>
-                    <template v-if="items && !!items.length">
+                    <template v-if="items && Object.values( items ).length">
                         <div class="c-menu__draggable block w-full">
-                            <menu-draggable :list="items"
+                            <menu-draggable ref="menuDraggable"
+                                            :list="Object.values( items )"
                                             @onClickToggleActiveItem="onClickToggleActiveItem"
                                             @onClickRemoveItem="onClickRemoveItem"
                             />
@@ -120,6 +121,12 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from "vuex";
+    import {
+        HasLength
+    } from "@vendor/plugin/helper";
     import MenuDraggable from "@components/MenuDraggable";
     import ModalCm from '@vendor/components/modal/Index.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
@@ -130,31 +137,6 @@
     export default {
         name: "ManageMenu",
         data: () => ({
-            items: [
-                {
-                    active: true,
-                    id: 1,
-                    name: 'parent 1',
-                    children: [],
-                },
-                {
-                    active: true,
-                    id: 2,
-                    name: 'parent 2',
-                    children: [
-                        {
-                            active: true,
-                            id: 3,
-                            name: 'child 1'
-                        },
-                        {
-                            active: true,
-                            id: 4,
-                            name: 'child 2'
-                        }
-                    ]
-                }
-            ],
             options: [
                 {
                     text: 'salam',
@@ -169,6 +151,11 @@
         }),
         components: {
             MenuDraggable, ModalCm, SelectCm
+        },
+        computed: {
+            ...mapState({
+                items: state => state.MenuStore?.menuItem
+            }),ModalCm
         },
         methods: {
             onClickAddNewMenuButton() {
@@ -199,7 +186,7 @@
             await Service.getList();
             // await Service.createArticle();
             await Service.getMenuType();
-
+            this.$forceUpdate();
         }
     }
 </script>

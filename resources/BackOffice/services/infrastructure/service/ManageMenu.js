@@ -80,7 +80,7 @@ export default class ManageMenuService extends BaseService {
     async _onClickRemoveItem( item ) {
         try {
             // let response = await HTTPService.postRequest( Endpoint.get(Endpoint.EDIT_MENU_ITEM),  );
-            item.parent.splice(item.index, 1);
+            item.parentObj.splice(item.index, 1);
             // this.displaySuccessNotification( response?.message );
             this.displaySuccessNotification();
         }
