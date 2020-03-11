@@ -46,7 +46,8 @@ class MenusContentService
     {
         $page = $this->menusRepository->findByAlias($pageSlug);
         $menuContent = new MenuContentDTO();
-        $menuContent->setType($page->type);
+        $menuContent->setType($page->type)
+        ->setTitle($page->title);
         if ($page->type == config('menus.menus_type.article_type')) {
             $menuContent->setContentObject(
                     $this->articleService->findWithMenuId($page->id));
