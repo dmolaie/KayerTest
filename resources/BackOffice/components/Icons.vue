@@ -43,36 +43,42 @@
                 <path d="M5 13a1 1 0 010-2h14a1 1 0 010 2H5z" />
             </g>
         </symbol>
-        <symbol viewBox="0 0 24 24" id="icon--hr">
-            <g>
-                <path d="M5 13a1 1 0 010-2h14a1 1 0 010 2H5z" />
-            </g>
-        </symbol>
-        <symbol viewBox="0 0 24 24" id="icon--hr">
-            <g>
-                <path d="M5 13a1 1 0 010-2h14a1 1 0 010 2H5z" />
-            </g>
-        </symbol>
         <symbol viewBox="0 0 24 24" id="icon--redo">
             <path d="M22.608.161a.5.5 0 00-.545.108L19.472 2.86a.25.25 0 01-.292.045 12.537 12.537 0 00-12.966.865A12.259 12.259 0 006.1 23.632a1.25 1.25 0 001.476-2.018 9.759 9.759 0 01.091-15.809 10 10 0 019.466-1.1.25.25 0 01.084.409l-1.85 1.85a.5.5 0 00.354.853h6.7a.5.5 0 00.5-.5V.623a.5.5 0 00-.313-.462z" />
         </symbol>
         <symbol viewBox="0 0 24 24" id="icon--undo">
             <path d="M17.786 3.77a12.542 12.542 0 00-12.965-.865.249.249 0 01-.292-.045L1.937.269A.507.507 0 001.392.16a.5.5 0 00-.308.462v6.7a.5.5 0 00.5.5h6.7a.5.5 0 00.354-.854L6.783 5.115a.253.253 0 01-.068-.228.249.249 0 01.152-.181 10 10 0 019.466 1.1 9.759 9.759 0 01.094 15.809 1.25 1.25 0 001.473 2.016 12.122 12.122 0 005.013-9.961 12.125 12.125 0 00-5.127-9.9z" />
         </symbol>
-        <symbol viewBox="0 0 18 18" id="ic--justify">
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="3" y1="9" y2="9" />
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="3" y1="14" y2="14" />
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="3" y1="4" y2="4"/>
+        <symbol viewBox="0 0 384.97 384.97" id="icon--justify">
+            <g>
+                <g id="Menu">
+                    <path d="M12.03,84.212h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03
+                        C5.39,60.152,0,65.541,0,72.182C0,78.823,5.39,84.212,12.03,84.212z"/>
+                    <path d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03
+                        S379.58,180.455,372.939,180.455z"/>
+                    <path d="M372.939,300.758H12.03c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h360.909
+                        c6.641,0,12.03-5.39,12.03-12.03C384.97,306.147,379.58,300.758,372.939,300.758z"/>
+                </g>
+            </g>
         </symbol>
-        <symbol viewBox="0 0 18 18" id="icon--right">
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="3" y1="9" y2="9" />
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="5" y1="14" y2="14" />
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="9" y1="4" y2="4" />
+        <symbol viewBox="0 0 384.97 384.97" id="icon--right">
+            <g>
+                <g id="Menu_1_">
+                    <path d="M12.03,120.303h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03
+                        c-6.641,0-12.03,5.39-12.03,12.03C0,114.913,5.39,120.303,12.03,120.303z"/>
+                    <path d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03
+                        S379.58,180.455,372.939,180.455z"/>
+                    <path d="M372.939,264.667H132.333c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h240.606
+                        c6.641,0,12.03-5.39,12.03-12.03C384.97,270.056,379.58,264.667,372.939,264.667z"/>
+                </g>
+            </g>
         </symbol>
-        <symbol viewBox="0 0 18 18" id="icon--center">
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="15" x2="3" y1="9" y2="9"/>
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="14" x2="4" y1="14" y2="14"/>
-            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="6" y1="4" y2="4"/>
+        <symbol viewBox="0 0 64 64" id="icon--center">
+            <path d="m54 8h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/>
+            <path d="m54 52h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/>
+            <path d="m46 23c1.104 0 2-.896 2-2s-.896-2-2-2h-28c-1.104 0-2 .896-2 2s.896 2 2 2z"/>
+            <path d="m54 30h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/>
+            <path d="m46 45c1.104 0 2-.896 2-2s-.896-2-2-2h-28c-1.104 0-2 .896-2 2s.896 2 2 2z"/>
         </symbol>
         <symbol viewBox="0 0 18 18" id="icon--left">
             <line fill="none" stroke-linecap="round" stroke-linejoin="round"  stroke-width="2" x1="15" x2="3" y1="9" y2="9" />

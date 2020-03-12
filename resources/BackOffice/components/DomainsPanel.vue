@@ -34,19 +34,16 @@
 
     export default {
         name: "DomainsPanel",
-        data: () => ({
-            options: [
-                {
-                    text: 'salam',
-                    value: '213'
-                },
-                {
-                    text: 'bye',
-                    value: '341'
-                }
-            ],
-            isPending: true
-        }),
+        props: {
+            options: {
+                type: Array,
+                required: true
+            },
+            isPending: {
+                type: Boolean,
+                default: false,
+            },
+        },
         components: {
             SelectCm
         },

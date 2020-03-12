@@ -2,40 +2,32 @@
   &__input
     min-height: 45px
     line-height: 44px
-    background: #fafcff
     padding: 0 15px 0 40px
     text-overflow: ellipsis
     &:empty
       &::before
         content: attr(aria-placeholder)
-    &:not(.multiple)
-      &::after
-        content: ' '
-        position: absolute
-        top: 50%
-        left: 13px
-        width: 0
-        height: 0
-        border:
-          left: 9px solid transparent
-          right: 9px solid transparent
-          top: 11px solid $blue-100
-        vertical-align: middle
-        pointer-events: none
-        transform: translateY(-50%)
   &__body
+    right: 0
+    top: 50px
     box-shadow: 0 2px 2px 0 transparentize(black, (1 - .14)), 0 3px 1px -2px transparentize(black, (1 - .12)), 0 1px 5px 0 transparentize(black, (1 - .2))
+  &__options
+    overflow: auto
+    max-height: 300px
   &__option
+    color: #6d7278
     font-size: 13px
     padding: 6px 15px
+    transition: background-color .14s ease-in-out, color .14s ease-in-out
     &:first-of-type
       border-radius: $radius $radius 0 0
     &:last-of-type
       border-radius: 0 0 $radius $radius
     &--selected
-      background-color: transparentize(black, (1 - .05))
+      background-color: transparentize(black, (1 - .07))
     &:hover
-      background-color: transparentize(black, (1 - .08))
+      color: $white
+      background-color: #359be0
   &--disabled
     opacity: .6
     pointer-events: none

@@ -33,14 +33,20 @@
       line-height: ($size - 2)
       margin: 1px
       background: $white
+      background: lightpink
       border: 1px solid darken($white, 10%)
         radius: 3px
       text-transform: uppercase
+      &--xl
+        flex: 1 0 (($size * 3) + 5)
+        text-align: center
       &:hover
         background-color: rgba(0, 0, 0, .05)
       &.is-active
         background-color: rgba(0, 0, 0, .09)
-        //background-color: red
+        background-color: darkorange
+      .dropdown
+        top: 31px
   .confirm
     padding: 20px 23px 18px
     &__title
@@ -79,9 +85,9 @@
     word-break: break-word
     & > div
       min-height: (400px - 15px)
-      max-height: 740px
       overflow: auto
       padding: 1.45em .8em
+      border-radius: 6px
       &:focus, &:active
         outline: none
         box-shadow: none

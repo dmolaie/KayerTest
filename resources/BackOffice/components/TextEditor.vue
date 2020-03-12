@@ -55,27 +55,66 @@
                 >
                     <icon-cm name="paragraph" />
                 </button>
-                <button
-                        class="menubar__button"
+                <button class="menubar__button"
                         :class="{ 'is-active': isActive.heading({ level: 1 }) }"
                         @click="commands.heading({ level: 1 })"
                 >
                     H1
                 </button>
-                <button
-                        class="menubar__button"
+                <button class="menubar__button"
                         :class="{ 'is-active': isActive.heading({ level: 2 }) }"
                         @click="commands.heading({ level: 2 })"
                 >
                     H2
                 </button>
-                <button
-                        class="menubar__button"
+                <button class="menubar__button"
                         :class="{ 'is-active': isActive.heading({ level: 3 }) }"
                         @click="commands.heading({ level: 3 })"
                 >
                     H3
                 </button>
+                <div class="menubar__button menubar__button--xl relative cursor-pointer"
+                     @click.stop="onClickFontSizeButton"
+                >
+                    {{ !!getMarkAttrs('fontSize').fontSize ? getMarkAttrs('fontSize').fontSize : 'اندازه فونت' }}
+                    <dropdown-cm :visibility="shouldBeShowFontSizeDropdown">
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"8pt"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            8pt
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"10px"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            10pt
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"12pt"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            12pt
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"14pt"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            14pt
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"18pt"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            18pt
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"24pt"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            24pt
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.stop='() => {commands.fontSize({fontSize:"36pt"}); shouldBeShowFontSizeDropdown = false}'
+                        >
+                            36pt
+                        </button>
+                    </dropdown-cm>
+                </div>
                 <button class="menubar__button"
                         :class="{ 'is-active': isActive.bullet_list() }"
                         @click="commands.bullet_list"
@@ -93,15 +132,10 @@
                 <button class="menubar__button"
                         :class="{ 'is-active': isActive.blockquote() }"
                         @click="commands.blockquote"
+                        title="نقل قول"
                 >
                     <icon-cm name="quote" />
                 </button>
-                <!-- <button class="menubar__button"
-                        :class="{ 'is-active': isActive.code_block() }"
-                        @click="commands.code_block"
-                >
-                    <icon-cm name="code" />
-                </button> -->
                 <button class="menubar__button"
                         @click="commands.horizontal_rule"
                         title="خط"
@@ -125,23 +159,20 @@
                         @click="commands.alignment({ textAlign: 'justify' })"
                         title="مساوی از طرفین"
                 >
-                    j
-                    <icon-cm name="left" />
+                    <icon-cm name="justify" />
                 </button>
                 <button class="menubar__button"
                         :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'right' }"
                         @click="commands.alignment({ textAlign: 'right' })"
                         title="راست چین"
                 >
-                    r
-                    <icon-cm name="left" />
+                    <icon-cm name="right" />
                 </button>
                 <button class="menubar__button"
                         :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'center' }"
                         @click="commands.alignment({ textAlign: 'center' })"
                         title="وسط چین"
                 >
-                    c
                     <icon-cm name="center" />
                 </button>
                 <button class="menubar__button"
@@ -209,12 +240,6 @@
                     </button>
                 </template>
                 <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('fontSize').fontSize === '26px' }"
-                        @click='commands.fontSize({fontSize:"26px"})'
-                >
-                    26px
-                </button>
-                <button class="menubar__button"
                         :class="{ 'is-active': getMarkAttrs('direction').direction === 'rtl' }"
                         @click="commands.direction({ direction: 'rtl' })"
                         title="راست به چپ"
@@ -248,15 +273,10 @@
                                        placeholder="https://"
                                        ref="linkInput"
                                        @keydown.esc="onClickDiscardSubmitButton"
-                                       class="confirm__input flex font-base font-medium"
+                                       class="confirm__input flex font-base font-medium flex-1 rounded-inherit"
                                        autocomplete="off"
                                 />
                             </label>
-<!--                            <button class="menububble__button"-->
-<!--                                    @click.prevent="setLinkUrl(commands.link, null)"-->
-<!--                            >-->
-<!--                                <icon-cm name="remove" />-->
-<!--                            </button>-->
                         </form>
                         <div class="text-left">
                             <button class="confirm__button confirm__button--submit font-sm font-medium rounded text-center l:transition-bg"
@@ -320,6 +340,7 @@
     import IconCm from '@components/Icon.vue';
     import IconsCm from '@components/Icons.vue';
     import ModalCm from '@vendor/components/modal/Index.vue';
+    import DropdownCm from '@vendor/components/dropdown/Index.vue';
 
     export default {
         name: "TextEditor",
@@ -361,6 +382,7 @@
                     }
                 }),
                 linkUrl: null,
+                shouldBeShowFontSizeDropdown: false
             }
         },
         props: {
@@ -371,7 +393,7 @@
         },
         components: {
             EditorMenuBar, EditorContent,
-            IconCm, IconsCm, ModalCm
+            IconCm, IconsCm, ModalCm, DropdownCm
         },
         methods: {
             onClickLinkButton({ href }) {
@@ -388,6 +410,9 @@
             onClickDiscardSubmitButton() {
                 this.$refs['confirm']?.hidden();
                 this.$set(this, 'linkUrl', null);
+            },
+            onClickFontSizeButton() {
+                this.$set(this, 'shouldBeShowFontSizeDropdown', !this.shouldBeShowFontSizeDropdown)
             }
         },
         mounted() {

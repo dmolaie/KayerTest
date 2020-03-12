@@ -120,6 +120,20 @@ export const CopyOf = payload => (
     JSON.parse(JSON.stringify( payload ))
 );
 
+/**
+ * @returns formatted html as string.
+ */
+export const EncodeHTML = html => (
+    html.replace(/[\u00A0-\u9999<>&](?!#)/gim, i => `&#${i.charCodeAt(0)};`)
+);
+
+/**
+ * @returns formatted html as string.
+ */
+export const DecodeHTML = html => (
+    html.replace(/&#([0-9]{1,3});/gi, ( _, n ) => String.fromCharCode( parseInt(n) ))
+);
+
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
 export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
 export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;

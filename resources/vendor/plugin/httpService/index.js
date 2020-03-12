@@ -90,7 +90,7 @@ export default class HTTPService {
         }
 
         return (
-            route += ( path.includes('?') ? '&' : '?' ) + queryString.join('&')
+            route += ( route.includes('?') ? '&' : '?' ) + queryString.join('&')
         )
     }
 
