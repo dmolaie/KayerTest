@@ -1,6 +1,9 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import {
+    C_NEWS_SET_CATEGORY
+} from '@services/store/CreateNews';
 
 export default class CreateNewsService extends BaseService {
     constructor( layout ) {
@@ -19,17 +22,15 @@ export default class CreateNewsService extends BaseService {
 
     async getCategoryList() {
         try {
-            console.log(Endpoint.get(Endpoint.GET_CATEGORY_LIST));
             let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
                 category_type: 'news'
             });
-            console.log('response: ', response);
-        } catch ( e ) {
-            console.log(e);
-            // this.$vm.displayNotification( message, {
-            //     type: 'error',
-            //     duration: 4000
-            // })
+            BaseService.commitToStore(this.$store, C_NEWS_SET_CATEGORY, response);
+        } catch ({ message }) {
+            this.$vm.displayNotification( message, {
+                type: 'error',
+                duration: 4000
+            })
         }
     }
 }

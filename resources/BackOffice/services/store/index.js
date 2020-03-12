@@ -4,11 +4,13 @@ import Vuex from 'vuex';
 import UserStore from "@services/store/Login";
 import LayoutState from "@services/store/LayoutState";
 import MenuStore from "@services/store/ManageMenu";
+import CreateMenu from "@services/store/CreateNews";
 
 const modules = {
     UserStore,
     LayoutState,
-    MenuStore
+    MenuStore,
+    CreateMenu
 };
 
 Vue.use( Vuex );
