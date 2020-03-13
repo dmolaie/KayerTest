@@ -10,7 +10,7 @@ const CreateMenu = {
     },
     mutations: {
         [C_NEWS_SET_CATEGORY](state, payload) {
-            Object.assign(state.categories, new NewsCategoryPresenter( payload?.data ));
+            state.categories = { ...new NewsCategoryPresenter( payload.data ) };
         }
     }
 };

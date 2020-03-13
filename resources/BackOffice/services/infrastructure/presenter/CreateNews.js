@@ -21,24 +21,22 @@ export class SingleNewsCategoryPresenter extends BasePresenter {
         this.data = item;
 
         return this.mapProps({
+            is_active: Boolean,
             id: Number,
-            name: String,
             name_en: String,
             name_fa: String,
             type: String,
-            children: Array
+            children: Array,
+            checked: Boolean,
         })
+    }
+
+    is_active() {
+        return this.data?.is_active
     }
 
     id() {
         return this.data?.id
-    }
-
-    name() {
-        return (
-            (this.data?.name_en || ' ')
-                .replace(/ /g, '_')
-        )
     }
 
     name_en() {
@@ -59,5 +57,9 @@ export class SingleNewsCategoryPresenter extends BasePresenter {
                 new NewsCategoryPresenter( this.data?.children )
             ) : ([])
         )
+    }
+
+    checked() {
+        return this.data?.checked || false;
     }
 }

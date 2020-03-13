@@ -139,8 +139,13 @@
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
-                        اخبار ایران
+                        دسته‌بندی
                     </p>
+                    <category-cm :list="categories"
+                                 :lang="currentLang"
+                                 ref="categoryCm"
+                                 @onChange="onChangeCategoryField"
+                    />
                 </div>
                 <image-panel-cm @onChange="onChangeMainImageField"
                                 ref="imagePanel"
@@ -169,6 +174,7 @@
     import UploadCm from '@vendor/components/upload/Index.vue';
     import DatePickerCm from '@components/DatePicker.vue';
     import TagsCm from '@components/Tags.vue';
+    import CategoryCm from '@components/Category.vue';
 
     import {
         Length, toEnglishDigits
@@ -188,7 +194,8 @@
         publish_date: '',
         source_link: '',
         parent_id: '',
-        language: ''
+        language: '',
+        category_id: [],
     });
 
     const GET_INITIAL_IMAGE = () => ({
@@ -362,7 +369,8 @@
             ImagePanelCm,
             TextEditorCm,
             DatePickerCm,
-            TagsCm
+            TagsCm,
+            CategoryCm
         },
         computed: {
             ...mapGetters({
@@ -400,6 +408,7 @@
                 Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
                 this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
+                this.$refs['categoryCm'].$forceUpdate();
             },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
@@ -473,13 +482,25 @@
                     this.$route.params.parent_id || ""
                 ));
             },
+            onChangeCategoryField( item ) {
+                try {
+                    console.log('item.checked ', item.checked);
+                    if ( !item.checked ) {
+                        this.form.category_id.push( item.id )
+                    } else {
+                        let findIndex = this.form.category_id
+                            .findIndex(cat => cat === item.id);
+                        this.form.category_id.splice(findIndex, 1)
+                    }
+                } catch (e) {}
+                console.log(this.form.category_id, 'par');
+            }
         },
         async created() {
             Service = new CreateNewsService( this );
             await Service.processFetchAsyncData();
         },
         mounted() {
-            console.log(this.categories, 'categories');
             this.setLanguageFromParamsRouter();
             this.setParentIDFromParamsRouter();
         },
