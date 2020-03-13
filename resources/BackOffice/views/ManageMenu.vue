@@ -6,21 +6,30 @@
                 ></div>
                 <div class="c-menu__box box__body border-2 border-t-0 border-solid">
                     <div class="flex items-center">
-                        <h1 class="text-blue-800 font-24 font-bold cursor-default">
+                        <h1 class="text-blue-800 font-24 font-bold cursor-default m-l-auto">
                             منوی اصلی
                         </h1>
-                        <button class="c-menu__button c-menu__button--white text-blue-800 font-lg font-bold border border-solid rounded m-r-auto"
+                        <button class="c-menu__button c-menu__button--lang c-menu__button--faLang font-lg font-bold border border-solid border-l-0 rounded rounded-tl-none rounded-bl-none text-center"
+                                :class="{ 'c-menu__button--lang--active': true }"
+                        >
+                            فارسی
+                        </button>
+                        <button class="c-menu__button c-menu__button--lang c-menu__button--enLang font-lg font-bold border border-solid border-r-0 rounded rounded-tr-none rounded-br-none text-center">
+                            انگلیسی
+                        </button>
+                        <button class="c-menu__button c-menu__button--white text-blue-800 font-lg font-bold border border-solid rounded"
                                 @click.stop="onClickAddNewMenuButton"
                         >
                             اضافه کردن
                         </button>
                     </div>
-                    <template v-if="items && Object.values( items ).length">
+                    <template v-if="elements && elements.length">
                         <div class="c-menu__draggable block w-full">
                             <menu-draggable ref="menuDraggable"
-                                            :list="Object.values( items )"
+                                            v-model="elements"
                                             @onClickToggleActiveItem="onClickToggleActiveItem"
                                             @onClickRemoveItem="onClickRemoveItem"
+                                            @onToggleChild="onToggleChild"
                             />
                         </div>
                     </template>
@@ -53,34 +62,36 @@
                                placeholder="نام منو را وارد کنید"
                         >
                     </label>
-                    <label class="modal__row flex items-center w-full">
+                    <div class="modal__row flex items-center w-full">
                         <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                             نوع منو
                         </span>
-                        <select-cm :options="options"
-                                   placeholder="دامنه مورد نظر خود را انتخاب کنیددامنه مورد نظر خود را انتخاب کنید"
-                                   :multiple="false"
+                        <!-- onChange -->
+                        <select-cm :options="menuTypes"
+                                   placeholder="نوع منو را انتخاب کنید"
+                                   class="w-full"
                         />
-                    </label>
+                    </div>
                     <div class="modal__row flex">
-                        <label class="modal__col flex items-center w-full">
+                        <div class="modal__col flex items-center w-full">
                             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                                  دسته بندی
                             </span>
-                            <input type="text"
-                                   class="modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1"
-                                   placeholder="URL را وارد کنید"
-                            >
-                        </label>
-                        <label class="modal__col flex items-center w-full">
+                            <select-cm :options="options"
+                                       placeholder="دسته بندی را انتخاب کنید"
+                                       class="w-full"
+                            />
+                        </div>
+                        <div class="modal__col flex items-center w-full">
                             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                                 لیست مطالب
                             </span>
-                            <input type="text"
-                                   class="modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1"
-                                   placeholder="URL را وارد کنید"
-                            >
-                        </label>
+                            <select-cm :options="options"
+                                       placeholder="لیست مطالب را انتخاب کنید"
+                                       class="w-full"
+                                       :disabled="true"
+                            />
+                        </div>
                     </div>
                     <label class="modal__row flex items-center w-full">
                         <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
@@ -125,7 +136,7 @@
         mapState
     } from "vuex";
     import {
-        HasLength
+        HasLength, CopyOf
     } from "@vendor/plugin/helper";
     import MenuDraggable from "@components/MenuDraggable";
     import ModalCm from '@vendor/components/modal/Index.vue';
@@ -148,14 +159,35 @@
                 }
             ],
             selectedItem: {},
+            menuItem: {},
+            counter: 0,
+            anotherProcessIsPending: false
         }),
         components: {
             MenuDraggable, ModalCm, SelectCm
         },
         computed: {
             ...mapState({
-                items: state => state.MenuStore?.menuItem
-            }),ModalCm
+                menuTypes: ({ MenuStore }) => MenuStore.menuType
+            }),
+            elements: {
+                get() {
+                    return this.$store.state.MenuStore.menuItem;
+                },
+                async set(value) {
+                    this.$store.dispatch('updateElements', value);
+                }
+            },
+        },
+        watch: {
+            elements: {
+                deep: true,
+                async handler( value ) {
+                    if ( !!this.counter )
+                        await Service.saveMenuPriority( value );
+                    this.$set(this, 'counter', this.counter + 1)
+                }
+            }
         },
         methods: {
             onClickAddNewMenuButton() {
@@ -179,14 +211,26 @@
             onClickDiscardSubmitButton() {
                 this.$refs['confirm'].hidden();
                 this.$set( this, 'selectedItem', {} );
+            },
+            async onToggleChild() {
+                try {
+                    Service.processIsPending();
+                    new Promise(resolve => {
+                        setTimeout(() => resolve(), 60)
+                    }).then(() => {
+                        Service.processIsPending( false );
+                    })
+                } catch (e) {
+
+                }
             }
         },
-        async mounted() {
+        async created() {
             Service = new ManageMenuService( this );
             await Service.getList();
             // await Service.createArticle();
             await Service.getMenuType();
-            this.$forceUpdate();
+            // console.log(this.items);
         }
     }
 </script>

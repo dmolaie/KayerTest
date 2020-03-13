@@ -1,7 +1,7 @@
 <template>
     <div :class="[CLASSNAME['select'], 'relative transition-opacity', {
         'select--visible' : ( shouldBeShowOption ),
-        'select--disabled': ( disabled ),
+        'select--disabled pointer-event-none': ( disabled ),
     }]"
          v-click-outside="onClickOutside"
     >
@@ -50,7 +50,7 @@
         }),
         props: {
             options: {
-                type: Array,
+                type: [Array, Object],
                 required: true
             },
             value: {
@@ -90,9 +90,12 @@
                 let {
                     options, multiple
                 } = this;
+                console.log(option);
                 if ( !multiple ) {
                     let prevSelectedOption =
-                        options.find( item => item.selected );
+                        (
+                            Array.isArray( options ) ? options : Object.keys( options )
+                        ).find( item => item.selected );
                     if ( prevSelectedOption )
                         this.$set( prevSelectedOption, 'selected', false );
                 }

@@ -1,10 +1,13 @@
-$gap: 16px
+$gap: 18px
 
 .c-menu
   .m-b-20
     margin-bottom: 20px
   &__container
     padding: 32px 22px 90px 34px
+  &__tree
+    &--closed
+      height: (56px + $gap)
   &__box
     padding: 27px 40px 42px 48px
     @include Xl_Screen
@@ -14,6 +17,20 @@ $gap: 16px
     line-height: 46px
     padding: 0 15px
     transition: color $duration, background-color $duration
+    &--lang
+      color: #6d7278
+      min-width: 104px
+      border-color: #7ed321
+      background-color: #f7f7f7
+      &:hover
+        @include L_Screen
+          background-color: transparentize(#a1d76a, (1 - .5))
+      &--active
+        color: $blue-800
+        background-color: #a1d76a
+        pointer-events: none
+    &--enLang
+      margin-left: 19px
     &--white
       border-color: #7ed321
       background-color: #f7f7f7
@@ -22,26 +39,26 @@ $gap: 16px
         &:hover
           color: $white
           background-color: #7ed321
-  &__tree
-    //min-height: 70px
   &__item
     $border: transparentize(black, (1 - .1))
     border-color: $border
     background-color: #f0f3f8
     &--parent
-      &::before
-        content: " "
-        width: 21px
-        height: 12px
-        background: url("/../images/ic__top-arrow--blue.svg") no-repeat center
-          size: contain
-        margin: 0 26px 0 20px
-        pointer-events: none
-        transform: rotate(180deg)
-        transition: transform $duration
+      .c-menu__item_title
+        &::before
+          content: " "
+          width: 21px
+          height: 12px
+          background: url("/../images/ic__top-arrow--blue.svg") no-repeat center
+            size: contain
+          margin: 0 26px 0 20px
+          pointer-events: none
+          transform: rotate(180deg)
+          transition: transform $duration
     &--child
       padding-right: 28px
-      //
+    &_title
+      padding: 7px 0
     &_btn
       @include Size( 54px )
       border-color: $border
@@ -92,12 +109,29 @@ $gap: 16px
   &__child
     margin-right: 10%
     .c-menu__dragArea
+      padding-top: $gap
       min-height: $gap
+      //margin-top: $gap
     .c-menu__tree
-      &:first-child
-        margin-top: $gap
       .c-menu__item
         background-color: transparentize(#f0f3f8, (1 - .48))
+  &__dragArea
+    min-height: (56px + 16 - 16)
+  &__tree--disabled
+    .c-menu__item
+      border-color: #e1e1e1
+      background-color: #f9fdff !important
+      &::before
+        opacity: .75
+        filter: grayscale(1)
+    .c-menu__item_title
+      color: #6d7278
+    .c-menu__item_btn
+      &:not(.c-menu__item_btn--visible)
+        opacity: .7
+        filter: grayscale(1)
+    .c-menu__item_btn--delete
+      opacity: .4 !important
   .ghost
     .c-menu__item
       opacity: 0.4
@@ -151,6 +185,23 @@ $gap: 16px
       @include L_Screen
         &:hover
           background-color: $c
+    .select__option--selected
+      background-color: white
+      &:hover
+        background-color: #359be0
+    .select__input
+      color: $blue-800
+      border-color: #cfd2d5
+      background-color: #fafcff
+      font:
+        size: 16px
+        weight: 300
+      &::before
+        color: #b2b4b4
+        opacity: 1
+        font:
+          size: 15px
+          weight: 300
   .confirm
     padding: 20px 23px 18px
     &__title

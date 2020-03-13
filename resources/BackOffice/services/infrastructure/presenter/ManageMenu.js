@@ -3,7 +3,7 @@ import {
     HasLength
 } from "@vendor/plugin/helper";
 
-export default class MenuPresenter extends BasePresenter {
+export class MenuPresenter extends BasePresenter {
     constructor( data ) {
         super( data );
 
@@ -33,8 +33,9 @@ class SingleMenuPresenter extends BasePresenter {
             editor: Object,
             language: String,
             publish_date: Number,
-            status: Boolean,
-            priority: Number
+            active: Boolean,
+            priority: Number,
+            is_opened: Boolean
         })
     }
 
@@ -67,11 +68,7 @@ class SingleMenuPresenter extends BasePresenter {
     }
 
     children() {
-        return (
-            ( !!this.data?.children && HasLength( this.data?.children ) ) ? (
-                new MenuPresenter( this.data.children )
-            ) : ([])
-        )
+        return new MenuPresenter( this.data.children )
     }
 
     publisher() {
@@ -95,7 +92,7 @@ class SingleMenuPresenter extends BasePresenter {
         return ( this.data?.publish_date * 1e3 )
     }
 
-    status() {
+    active() {
         return this.data?.status
     }
 
@@ -103,4 +100,38 @@ class SingleMenuPresenter extends BasePresenter {
         return this.data?.priority
     }
 
+    is_opened() {
+        return false
+    }
+
 }
+
+export class MenuTypePresenter {
+    constructor({ data }) {
+
+        return [].concat(data).map((item, index) => ({
+            id: index,
+            text: item
+        }))
+    }
+}
+
+// export const SavePriorityPresenter = payload => {
+//     return payload.reduce((presenter, {id, children}) => {
+//         presenter.push({
+//             id,
+//             children: SavePriorityPresenter( children )
+//         });
+//         return presenter
+//     }, [])
+// };
+
+export const SavePriorityPresenter = payload => {
+    return payload.reduce((presenter, {id, children}, i) => {
+        presenter[i] = {
+            id,
+            children: HasLength( children ) ? SavePriorityPresenter( children ) : []
+        };
+        return presenter
+    }, {})
+};

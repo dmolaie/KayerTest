@@ -15,6 +15,8 @@ const GET_USER_INFORMATION = "GET_USER_INFORMATION";
 const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 const GET_MENU_LIST = "GET_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
+const REMOVE_MENU_ITEM = "REMOVE_MENU_ITEM";
+const SAVE_MENU_LIST = "SAVE_MENU_LIST";
 const GET_ARTICLE_LIST = "GET_ARTICLE_LIST";
 const CREATE_ARTICLE_LIST = "CREATE_ARTICLE_LIST";
 const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
@@ -32,6 +34,8 @@ endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
 endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[EDIT_MENU_ITEM] = `/menu/${VER_1_0}/admin/edit`;
+endpoints[REMOVE_MENU_ITEM] = `/menu/${VER_1_0}/admin/delete`;
+endpoints[SAVE_MENU_LIST] = `/menu/${VER_1_0}/admin/save-priority`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
 endpoints[CREATE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/create`;
 endpoints[GET_ARTICLE_LIST] = `/article/${VER_1_0}/admin/list`;
@@ -98,6 +102,14 @@ export default class Endpoint {
 
     static get GET_NEWS_LIST() {
         return endpoints[GET_NEWS_LIST]
+    }
+
+    static get SAVE_MENU_LIST() {
+        return endpoints[SAVE_MENU_LIST]
+    }
+
+    static get REMOVE_MENU_ITEM() {
+        return endpoints[REMOVE_MENU_ITEM]
     }
 
     static get( endpoint, params = {} ) {
