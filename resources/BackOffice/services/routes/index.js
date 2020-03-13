@@ -43,7 +43,7 @@ const Routes = new VueRouter({
             path: '/manage/news',
             component: GetViews('ManageNews' ),
             meta: {
-                title: 'ایجاد خبر',
+                title: 'اخبار',
                 breadcrumb: [
                     {
                         route: DASHBOARD,
@@ -60,7 +60,7 @@ const Routes = new VueRouter({
         },
         {
             name: CREATE_NEWS,
-            path: '/manage/news/create',
+            path: '/manage/news/:lang(fa|en)/create',
             component: GetViews('CreateNews' ),
             meta: {
                 title: 'ایجاد خبر',

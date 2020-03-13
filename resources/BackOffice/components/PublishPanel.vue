@@ -1,12 +1,12 @@
 <template>
     <div class="publish panel w-full block bg-white border-2 rounded-2 border-solid">
         <div class="publish__status w-full font-sm font-bold text-center cursor-default">
-            <p class="publish__status--published border border-solid rounded"
+            <p class="publish__status--published border border-solid rounded user-select-none"
                v-if="published"
             >
                 منتشرشده
             </p>
-            <p class="publish__status--not-published border border-solid rounded"
+            <p class="publish__status--not-published border border-solid rounded user-select-none"
                v-else
             >
                 ذخیره‌نشده

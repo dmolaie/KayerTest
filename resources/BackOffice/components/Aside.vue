@@ -50,7 +50,7 @@
                     icon: 'ic_event--blue.svg'
                 },
                 {
-                    route: 'CREATE_NEWS',
+                    route: 'MANAGE_NEWS',
                     title: 'اخبار',
                     icon: 'ic_newspaper--blue.svg'
                 }

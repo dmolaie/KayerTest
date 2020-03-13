@@ -27,6 +27,7 @@
                     </transition>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
                         <text-editor-cm @onUpdate="onUpdateTextEditor"
+                                        ref="textEditor"
                         />
                     </div>
                     <div class="c-news__abstract w-full">
@@ -125,11 +126,12 @@
                                     placeholder="زمان انتشار را انتخاب کنید"
                     />
                 </div>
-                <location-cm lang="fa"
+                <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
                 />
                 <image-panel-cm @onChange="onChangeMainImageField"
+                                ref="imagePanel"
                 />
                 <domains-cm @onChange="onChangeDomainsField"
                             :isPending="!domainsPanel.isPending"
@@ -158,26 +160,30 @@
 
     let Service = null;
 
+    const GET_INITIAL_FORM = () => ({
+        first_title: '',
+        second_title: '',
+        abstract: '',
+        description: '',
+        province_id: '',
+        publish_date: '',
+        source_link: '',
+        parent_id: '',
+        language: ''
+    });
+
+    const GET_INITIAL_IMAGE = () => ({
+        data: null,
+        preview: []
+    });
+
     export default {
         name: 'CreateNews',
         data: () => ({
-            form: {
-                first_title: '',
-                second_title: '',
-                abstract: '',
-                description: '',
-                province_id: '',
-                publish_date: '',
-                source_link: '',
-            },
+            form: GET_INITIAL_FORM(),
             images: {
-                main: {
-                    data: null,
-                },
-                second: {
-                    data: null,
-                    preview: []
-                },
+                main: GET_INITIAL_IMAGE(),
+                second: GET_INITIAL_IMAGE(),
             },
             domainsPanel: {
                 isPending: true,
@@ -255,9 +261,19 @@
                 } catch (e) {
                     return ''
                 }
+            },
+            currentLang() {
+                return this.$route.params.lang
             }
         },
         methods: {
+            setInitialState() {
+                Object.assign(this.form, GET_INITIAL_FORM());
+                Object.assign(this.images.main, GET_INITIAL_IMAGE());
+                Object.assign(this.images.second, GET_INITIAL_IMAGE());
+                this.$refs['textEditor']?.clearContent();
+                this.$refs['imagePanel']?.onClickRemoveImageButton();
+            },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
@@ -279,10 +295,22 @@
                 this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
-                alert('onClickPersianLang');
+                this.pushRouter({
+                    name: 'CREATE_NEWS',
+                    params: {
+                        lang: 'fa',
+                    }
+                });
+                this.setInitialState();
             },
             onClickEnglishLang() {
-                alert('onClickEnglishLang');
+                this.pushRouter({
+                    name: 'CREATE_NEWS',
+                    params: {
+                        lang: 'en',
+                    }
+                });
+                this.setInitialState();
             },
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
@@ -310,12 +338,27 @@
             onChangeDomainsField( id ) {
                 this.$set( this.form, 'province_id', id )
             },
-
+            setLanguageFromParamsRouter() {
+                this.$set(this.form, 'language', this.currentLang);
+            },
+            setParentIDFromParamsRouter() {
+                this.$set(this.form, 'parent_id', (
+                    this.$route.params.parent_id || ""
+                ));
+            },
         },
         async created() {
             Service = new CreateNewsService( this );
             await Service.processFetchAsyncData();
         },
+        mounted() {
+            this.setLanguageFromParamsRouter();
+            this.setParentIDFromParamsRouter();
+        },
+        updated() {
+            this.setLanguageFromParamsRouter();
+            this.setParentIDFromParamsRouter();
+        }
     }
 </script>
 
@@ -329,7 +372,7 @@
 <!--'source_link'  => 'url', *** OK *** -->
 <!--'province_id'  => 'required|integer|exists:provinces,id', *** OK *** -->
 <!--'parent_id'    => 'integer|exists:news,id|unique:news',-->
-<!--'language'     => ['required', Rule::in(config('news.news_language'))],-->
+<!--'language'     => ['required', Rule::in(config('news.news_language'))], *** OK ***-->
 <!--'images.*'     => 'image'  *** OK *** -->
 
 

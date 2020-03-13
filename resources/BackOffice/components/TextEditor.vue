@@ -396,6 +396,12 @@
             IconCm, IconsCm, ModalCm, DropdownCm
         },
         methods: {
+            setContent( content = '' ) {
+                this.editor.setContent( content )
+            },
+            clearContent() {
+                this.editor.clearContent()
+            },
             onClickLinkButton({ href }) {
                 this.$refs.confirm.visible();
                 this.$set(this, 'linkUrl', href);
@@ -413,7 +419,7 @@
             },
             onClickFontSizeButton() {
                 this.$set(this, 'shouldBeShowFontSizeDropdown', !this.shouldBeShowFontSizeDropdown)
-            }
+            },
         },
         mounted() {
             try {
