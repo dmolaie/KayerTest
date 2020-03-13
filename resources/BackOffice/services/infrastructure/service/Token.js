@@ -10,7 +10,10 @@ const TOKEN_COOKIE_KEY = 'JWT-Token';
 const USERNAME_COOKIE_KEY = 'a19140228cd';
 const ROLE_COOKIE_KEY = 'c9df3cbe73a';
 
-export const USER_ROLE_ID = 4;
+export const ADMIN_ROLE_ID   = 1;
+export const MANAGER_ROLE_ID = 2;
+export const LEGATE_ROLE_ID  = 3;
+export const USER_ROLE_ID    = 4;
 
 export default class TokenService {
     constructor( data ) {

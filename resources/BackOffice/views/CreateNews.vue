@@ -44,6 +44,13 @@
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
                             افزودن تگ
                         </p>
+                        <div class="c-post__tags">
+                            <tags-cm :list="tags"
+                                     placeholder="افزودن تگ"
+                                     itemClassName="text-right"
+                                     inputClassName="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div class="main inner-box inner-box--blue w-full rounded-2 rounded-tr-none rounded-tl-none">
@@ -102,7 +109,7 @@
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
                         >
-                            ارسال به سردبیر
+                            {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
                         </button>
                         <span class="dropdown__divider"> </span>
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
@@ -143,6 +150,9 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from 'vuex';
     import IconCm from '@components/Icon.vue';
     import CreateNewsService from '@services/service/CreateNews';
     import TextEditorCm from '@components/TextEditor.vue';
@@ -153,10 +163,14 @@
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
     import DatePickerCm from '@components/DatePicker.vue';
+    import TagsCm from '@components/Tags.vue';
 
     import {
         Length, toEnglishDigits
     } from "@vendor/plugin/helper";
+    import {
+        IS_ADMIN
+    } from '@services/store/Login'
 
     let Service = null;
 
@@ -230,6 +244,107 @@
                     },
                 ],
             },
+            tags: [
+                {
+                    name: 'یادداشت روز'
+                },
+                {
+                    name: 'کوردیناتور'
+                },
+                {
+                    name: 'مرگ مغزی'
+                },
+                {
+                    name: 'بیمارستان قلب رجایی'
+                },
+                {
+                    name: 'مرکز مدیریت پیوند'
+                },
+                {
+                    name: 'هزینه ملی اجتماعی'
+                },
+                {
+                    name: 'آگاهی اجتماعی'
+                },
+                {
+                    name: 'بیمار لیست انتظار'
+                },
+                {
+                    name: 'آیروس'
+                },
+                {
+                    name: 'کردستان'
+                },
+                {
+                    name: 'دانشگاه علوم پزشکی کردستان'
+                },
+                {
+                    name: 'بیماران لیست انتظار'
+                },
+                {
+                    name: 'پیوند'
+                },
+                {
+                    name: 'آمار اهدای عضو'
+                },
+                {
+                    name: 'فرهنگسازی'
+                },
+                {
+                    name: 'سمنان'
+                },
+                {
+                    name: 'کارت اهدای عضو'
+                },
+                {
+                    name: 'اهدای عضو'
+                },
+                {
+                    name: 'سینما'
+                },
+                {
+                    name: 'اینفوگرافی'
+                },
+                {
+                    name: 'ایران'
+                },
+                {
+                    name: 'ولادت امام رضا'
+                },
+                {
+                    name: 'ایثار'
+                },
+                {
+                    name: 'توکل'
+                },
+                {
+                    name: 'پیوند عضو'
+                },
+                {
+                    name: 'خانواده اهداکننده'
+                },
+                {
+                    name: 'مسئولیت اجتماعی'
+                },
+                {
+                    name: 'نهادهای فرهنگی'
+                },
+                {
+                    name: 'کارگاه آموزشی'
+                },
+                {
+                    name: 'مددکاری اجتماعی'
+                },
+                {
+                    name: 'گیرنده عضو'
+                },
+                {
+                    name: 'سفیر اهدای عضو'
+                },
+                {
+                    name: 'کوهنوردی'
+                }
+            ],
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
         }),
@@ -241,9 +356,13 @@
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
-            DatePickerCm
+            DatePickerCm,
+            TagsCm
         },
         computed: {
+            ...mapGetters({
+                isAdmin: IS_ADMIN
+            }),
             /**
              * @return {number | string}
              */
@@ -268,9 +387,9 @@
         },
         methods: {
             setInitialState() {
-                Object.assign(this.form, GET_INITIAL_FORM());
-                Object.assign(this.images.main, GET_INITIAL_IMAGE());
-                Object.assign(this.images.second, GET_INITIAL_IMAGE());
+                Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
+                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
+                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
                 this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
             },
