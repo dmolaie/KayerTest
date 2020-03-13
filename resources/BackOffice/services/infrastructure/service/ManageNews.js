@@ -15,6 +15,8 @@ export default class ManageNewsService extends BaseService {
         try {
             let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_NEWS_LIST));
             console.log('response', response);
-        } catch (e) {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

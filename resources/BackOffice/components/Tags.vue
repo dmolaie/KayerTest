@@ -22,7 +22,7 @@
             <li class="tags__input_wrapper flex-1">
                 <input type="text"
                        class="tags__input w-full h-full block bg-transparent"
-                       @keyup.enter=""
+                       @keyup.enter="CreateNewTag"
                        @input="onInputField"
                        v-model="inputField"
                        :placeholder="placeholder"
@@ -134,6 +134,27 @@
                 this.$set(item, 'hidden', false);
                 this.selectedTags.splice(index, 1);
                 this.passListToParent();
+            },
+            /**
+             * TODO: Check List Before Create & LowerCase
+             */
+            CreateNewTag() {
+                let selectedItem =
+                    this.selectedTags
+                        .map( ({ name }) => name );
+                if (!selectedItem.includes(this.inputField) ) {
+                    if ( Length( this.inputField.trim() ) > 2 ) {
+                        this.selectedTags.push({
+                            name: this.inputField,
+                            hidden: true,
+                        });
+                        this.$set(this, 'inputField', '');
+                    }
+                } else {
+                    this.displayNotification('این تگ درحال حاظر انتخاب شده است.', {
+                        type: 'error'
+                    })
+                }
             },
             onClickOutSide() {
                 this.hiddenAutocompleteDropDown();

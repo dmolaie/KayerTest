@@ -137,6 +137,11 @@
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
                 />
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        اخبار ایران
+                    </p>
+                </div>
                 <image-panel-cm @onChange="onChangeMainImageField"
                                 ref="imagePanel"
                 />
@@ -151,7 +156,7 @@
 
 <script>
     import {
-        mapGetters
+        mapGetters, mapState
     } from 'vuex';
     import IconCm from '@components/Icon.vue';
     import CreateNewsService from '@services/service/CreateNews';
@@ -363,6 +368,9 @@
             ...mapGetters({
                 isAdmin: IS_ADMIN
             }),
+            ...mapState({
+                categories: ({ CreateMenu }) => CreateMenu.categories
+            }),
             /**
              * @return {number | string}
              */
@@ -471,6 +479,7 @@
             await Service.processFetchAsyncData();
         },
         mounted() {
+            console.log(this.categories, 'categories');
             this.setLanguageFromParamsRouter();
             this.setParentIDFromParamsRouter();
         },
@@ -490,7 +499,7 @@
 <!--'publish_date' => 'required|numeric', *** OK *** -->
 <!--'source_link'  => 'url', *** OK *** -->
 <!--'province_id'  => 'required|integer|exists:provinces,id', *** OK *** -->
-<!--'parent_id'    => 'integer|exists:news,id|unique:news',-->
+<!--'parent_id'    => 'integer|exists:news,id|unique:news', *** OK *** Backend-->
 <!--'language'     => ['required', Rule::in(config('news.news_language'))], *** OK ***-->
 <!--'images.*'     => 'image'  *** OK *** -->
 
