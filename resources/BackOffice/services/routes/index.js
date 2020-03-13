@@ -11,6 +11,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_MENU = 'MANAGE_MENU';
+export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
@@ -38,6 +39,26 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: MANAGE_NEWS,
+            path: '/manage/news',
+            component: GetViews('ManageNews' ),
+            meta: {
+                title: 'ایجاد خبر',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'اخبار'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
             name: CREATE_NEWS,
             path: '/manage/news/create',
             component: GetViews('CreateNews' ),
@@ -49,7 +70,7 @@ const Routes = new VueRouter({
                         name: 'انجمن اهدای عضو ایرانیان',
                     },
                     {
-                        route: DASHBOARD,
+                        route: MANAGE_NEWS,
                         name: 'اخبار'
                     },
                     {
