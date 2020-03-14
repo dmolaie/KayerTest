@@ -159,21 +159,24 @@
                         @click="commands.alignment({ textAlign: 'justify' })"
                         title="مساوی از طرفین"
                 >
-                    <icon-cm name="justify" />
+                    j
+<!--                    <icon-cm name="justify" />-->
                 </button>
                 <button class="menubar__button"
                         :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'right' }"
                         @click="commands.alignment({ textAlign: 'right' })"
                         title="راست چین"
                 >
-                    <icon-cm name="right" />
+                    r
+<!--                    <icon-cm name="right" />-->
                 </button>
                 <button class="menubar__button"
                         :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'center' }"
                         @click="commands.alignment({ textAlign: 'center' })"
                         title="وسط چین"
                 >
-                    <icon-cm name="center" />
+                    C
+<!--                    <icon-cm name="center" />-->
                 </button>
                 <button class="menubar__button"
                         :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'left' }"
@@ -181,7 +184,7 @@
                         title="چپ چین"
                 >
                     l
-                    <icon-cm name="left" />
+<!--                    <icon-cm name="left" />-->
                 </button>
                 <button class="menubar__button"
                         @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"

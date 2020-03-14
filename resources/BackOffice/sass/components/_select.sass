@@ -11,6 +11,26 @@
     right: 0
     top: 50px
     box-shadow: 0 2px 2px 0 transparentize(black, (1 - .14)), 0 3px 1px -2px transparentize(black, (1 - .12)), 0 1px 5px 0 transparentize(black, (1 - .2))
+  &__search
+    margin: 7px 11px 8px 12px
+    border-color: #32c5ff
+    &_label
+      width: 35px
+      background-color: #359be0
+      border-left: 1px solid #32c5ff
+      &::before
+        content: " "
+        position: absolute
+        top: 50%
+        left: 50%
+        @include Size(14.5px)
+        background: url("/../images/ic_magnifying--white.svg") no-repeat center
+          size: contain
+        transform: translate(-50%, -50%) scaleX(-1)
+    &_input
+      height: 32px
+      color: #6d7278
+      padding: 0 18px
   &__options
     overflow: auto
     max-height: 300px
@@ -37,3 +57,6 @@
       opacity: 1
       visibility: visible
       pointer-events: all
+  &--search
+    .select__option
+      border-radius: 0

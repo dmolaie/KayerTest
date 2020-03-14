@@ -56,8 +56,6 @@ export class LoginNotificationPresenter extends BasePresenter {
     }
 
     welcomeMessage() {
-        return (`
-            ${this.name()} عزیز، مقدمتان گلباران 🌻🌹🌹🌹
-        `)
+        return this.message()
     }
 }

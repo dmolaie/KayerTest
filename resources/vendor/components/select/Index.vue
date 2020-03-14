@@ -2,6 +2,7 @@
     <div :class="[CLASSNAME['select'], 'relative transition-opacity', {
         'select--visible' : ( shouldBeShowOption ),
         'select--disabled pointer-event-none': ( disabled ),
+        'select--search': ( searchable )
     }]"
          v-click-outside="onClickOutside"
     >
@@ -10,14 +11,24 @@
              :aria-placeholder="placeholder"
              role="combobox"
         >
-            <template v-if="!multiple && !!selected.text"
+            <template v-if="(!multiple && !!selected.text) || !!value"
             >
-                {{ selected.text }}
+                {{ !!selected.text ? selected.text : value }}
             </template>
         </div>
         <div class="select__body absolute w-full bg-white rounded opacity-0 visibility-hidden pointer-event-none transition-opacity z-10">
-            <div class="select__options w-full"
+            <div class="select__search flex items-stretch border border-solid rounded"
+                 v-if="searchable"
             >
+                <span class="select__search_label flex-shrink-0 relative rounded rounded-tl-none rounded-bl-none"
+                > </span>
+                <input type="text"
+                       class="select__search_input flex-1 font-sm font-bold rounded rounded-tr-none rounded-br-none"
+                       @input="onChangeFilterField"
+                       v-model="searchField"
+                />
+            </div>
+            <div class="select__options w-full">
                 <button class="select__option w-full block text-bayoux font-xs font-bold cursor-pointer user-select-none text-right"
                         v-for="(option, index) in options"
                         :key="index"
@@ -39,6 +50,8 @@
     export default {
         name: "Index",
         data: () => ({
+            timer: null,
+            searchField: '',
             selected: {},
             CLASSNAME: {
                 select: 'select',
@@ -46,7 +59,7 @@
                 options: 'select__options',
                 option: 'select__option',
             },
-            shouldBeShowOption: false
+            shouldBeShowOption: false,
         }),
         props: {
             options: {
@@ -90,7 +103,6 @@
                 let {
                     options, multiple
                 } = this;
-                console.log(option);
                 if ( !multiple ) {
                     let prevSelectedOption =
                         (
@@ -103,7 +115,16 @@
                 this.$set( this, 'selected', option);
                 this.$emit('onChange', CopyOf(option));
                 this.onClickOutside();
-            }
+            },
+            onChangeFilterField() {
+                try {
+                    clearTimeout( this.timer );
+                    this.$set(this, 'timer', null);
+                    this.timer = setTimeout( async () => {
+                        await this.filterBy( this.searchField );
+                    }, 350);
+                } catch (e) {}
+            },
         },
     }
 </script>

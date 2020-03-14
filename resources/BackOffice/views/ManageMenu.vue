@@ -30,6 +30,7 @@
                                             @onClickToggleActiveItem="onClickToggleActiveItem"
                                             @onClickRemoveItem="onClickRemoveItem"
                                             @onToggleChild="onToggleChild"
+                                            :menuType="menuTypes"
                             />
                         </div>
                     </template>
@@ -227,9 +228,10 @@
         },
         async created() {
             Service = new ManageMenuService( this );
-            await Service.getList();
-            // await Service.createArticle();
-            await Service.getMenuType();
+            await Service.processFetchAsyncData();
+            // await Service.getList();
+            // // await Service.createArticle();
+            // await Service.getMenuType();
             // console.log(this.items);
         }
     }

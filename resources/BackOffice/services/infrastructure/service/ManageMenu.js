@@ -52,7 +52,7 @@ export default class ManageMenuService extends BaseService {
     async processFetchAsyncData() {
         try {
             await this.getList();
-
+            await this.getMenuType();
         } catch (e) {}
     }
 
@@ -89,9 +89,21 @@ export default class ManageMenuService extends BaseService {
 
     async getMenuType() {
         try {
-            // let response = await HTTPService.getRequest( Endpoint.get( Endpoint.GET_ARTICLE_LIST ) );
             let response = await HTTPService.getRequest( Endpoint.get( Endpoint.GET_MENU_TYPE ) );
             BaseService.commitToStore(this.$store, MENU_SET_TYPE_DATA, response)
+        }
+        catch ( { message } ) {
+            this.$vm.displayNotification( message, {
+                type: 'error',
+                duration: 4000
+            })
+        }
+    }
+
+    async getArticleList() {
+        try {
+            let response = await HTTPService.getRequest( Endpoint.get( Endpoint.GET_ARTICLE_LIST ) );
+            console.log(response);
         }
         catch ( { message } ) {
             this.$vm.displayNotification( message, {
