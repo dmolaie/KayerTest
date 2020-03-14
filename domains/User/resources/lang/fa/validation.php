@@ -113,7 +113,7 @@ return array(
     |
     */
     'attributes' => array(
-        "user-id"                     => "شماره کاربر",
+        "user_id"                     => "شماره کاربر",
         "name"                        => "نام",
         "username"                    => "نام کاربری",
         "email"                       => "پست الکترونیکی",

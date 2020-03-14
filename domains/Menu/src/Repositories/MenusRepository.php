@@ -48,7 +48,7 @@ class MenusRepository
         $menus->editor_id = $menusEditDTO->getEditor()->id;
         $menus->parent_id = $menusEditDTO->getParentId();
         $menus->priority = $menusEditDTO->getPriority();
-        $menus->active = true;
+        $menus->active = $menusEditDTO->getActive() ? $menusEditDTO->getActive() : true;
         $getDirty = $menus->getDirty();
         if (!empty($getDirty)) {
             $menus->save();
@@ -90,6 +90,12 @@ class MenusRepository
             ->when($activeList, function ($query) {
                 return $query->where('active', true);
             })->orderBy('priority')->with('child')->get();
+    }
+
+    public function findByAlias(string $pageAlias)
+    {
+        return $this->entityName::where('alias', $pageAlias)
+            ->firstOrFail();
     }
 
 }

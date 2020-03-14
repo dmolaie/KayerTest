@@ -4,6 +4,7 @@ namespace Domains\Article\Entities;
 
 use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
+use Domains\Menu\Entities\Menus;
 use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -58,7 +59,7 @@ class Article extends Model
 
     public function menus()
     {
-        return $this->morphToMany(Menu::class, 'menuable')->withTimestamps();
+        return $this->morphToMany(Menus::class, 'menuable')->withTimestamps();
     }
 
     public function parent()

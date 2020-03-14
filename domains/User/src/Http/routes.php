@@ -15,5 +15,7 @@ Route::post('/register-legate', 'UserController@legateRegister')->name('register
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/user-search', 'UserController@getListForAdmin')->middleware('auth:api')->name('user-search');
     Route::post('/edit-user-by-admin', 'UserController@updateUserInfoByAdmin')->middleware('auth:api')->name('edit-user-by-admin');
+    Route::post('/change-password-by-admin', 'UserController@changeUserPasswordByAdmin')->middleware('auth:api')->name('change-password-by-admin');
+    Route::post('/register-user-by-admin', 'UserController@registerUserByAdmin')->middleware('auth:api')->name('register-user-by-admin');
 });
 

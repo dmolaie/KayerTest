@@ -7,6 +7,7 @@ namespace Domains\Site\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
+use Domains\Menu\Services\MenusContentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,5 +95,34 @@ class PagesController extends Controller
         $data['city'] = City::get(['id', 'name'])->toArray();
         $data['education_degree'] = config('user.education_degree');
         return view('site::' . $request->language . '.pages.dashboard-edit', compact('data'));
+    }
+
+    public function pages($language, $slug, MenusContentService $menusContentService)
+    {
+        $menuTyps = config('menus.menus_type');
+
+        if (!$slug) {
+            abort(404);
+        }
+
+        $menusContentService = $menusContentService->getPageContent($slug);
+        $menusContent = $menusContentService->getContentObject();
+
+        switch ($menusContentService->getType()) {
+
+            case $menuTyps['article_type'] :
+                return view('site::' . $language . '.pages.page', compact('menusContent'));
+
+            case $menuTyps['list_article_type'] :
+                return view('site::' . $language . '.pages.article-list', compact('menusContent'));
+
+            case $menuTyps['list_news_type'] :
+                return view('site::' . $language . '.pages.news-list', compact('menusContent'));
+
+            case $menuTyps['list_event_type'] :
+                return view('site::' . $language . '.pages.event-list', compact('menusContent'));
+
+            default: abort(404);
+        }
     }
 }

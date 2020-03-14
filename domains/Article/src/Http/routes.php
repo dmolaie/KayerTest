@@ -8,6 +8,3 @@ Route::group(['prefix' => 'admin', 'name' => '.admin.'],
             ->where('id', '[0-9]+');
         Route::get('/list', 'ArticleController@getListForAdmin');
     });
-
-
-

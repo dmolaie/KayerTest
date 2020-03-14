@@ -6,7 +6,6 @@ namespace Domains\User\Repositories;
 use Domains\User\Entities\User;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
-use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 
 class UserRepository
 {
@@ -177,17 +176,26 @@ class UserRepository
             ->first();
     }
 
-    public function checkUserHasSpecialRole(ValidationDataUserDTO $validationDataUserDTO)
+    public function checkUserHasSpecialRole(string $nationalCode, int $roleId)
     {
         return $this->entityName::where(
-            'national_code', '=', $validationDataUserDTO->getNationalCode())->firstOrFail()
-            ->roles()->where('role_id', $validationDataUserDTO->getRoleId()
-            )->exists();
+            'national_code', '=', $nationalCode)->firstOrFail()
+            ->roles()->where('role_id', $roleId)->exist();
     }
 
     public function getUserRoles($user)
     {
         return $user->roles()
             ->where('status', '<>', config('user.user_role_inactive_status'))->get();
+    }
+
+    public function changePasswordByAdmin(int $userId, string $password): User
+    {
+        $user = $this->entityName::findOrFail($userId);
+        $user->password = bcrypt($password);
+        if (!empty($user->getDirty())) {
+            $user->save();
+        }
+        return $user;
     }
 }
