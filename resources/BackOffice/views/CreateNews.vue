@@ -160,8 +160,7 @@
                                 ref="imagePanel"
                 />
                 <domains-cm @onChange="onChangeDomainsField"
-                            :isPending="!domainsPanel.isPending"
-                            :options="domainsPanel.options"
+                            :options="provinces"
                 />
             </div>
         </div>
@@ -209,7 +208,7 @@
         second_title: '',
         abstract: '',
         description: '',
-        province_id: 1,
+        province_id: '',
         publish_date: '',
         source_link: '',
         parent_id: '',
@@ -232,150 +231,7 @@
             },
             domainsPanel: {
                 isPending: true,
-                options: [
-                    {
-                        text: 'بابل',
-                        value: 1
-                    },
-                    {
-                        text: 'آذربایجان شرقی',
-                        value: 1
-                    },
-                    {
-                        text: 'آذربایجان غربی',
-                        value: 1
-                    },
-                    {
-                        text: 'ایلام',
-                        value: 1
-                    },
-                    {
-                        text: 'اصفهان',
-                        value: 1
-                    },
-                    {
-                        text: 'تهران',
-                        value: 1
-                    },
-                    {
-                        text: 'چهار محال و بختیاری',
-                        value: 1
-                    },
-                    {
-                        text: 'خراسان رضوی',
-                        value: 1
-                    },
-                    {
-                        text: 'خوزستان',
-                        value: 1
-                    },
-                    {
-                        text: 'زنجان',
-                        value: 1
-                    },
-                ],
             },
-            tags: [
-                {
-                    name: 'یادداشت روز'
-                },
-                {
-                    name: 'کوردیناتور'
-                },
-                {
-                    name: 'مرگ مغزی'
-                },
-                {
-                    name: 'بیمارستان قلب رجایی'
-                },
-                {
-                    name: 'مرکز مدیریت پیوند'
-                },
-                {
-                    name: 'هزینه ملی اجتماعی'
-                },
-                {
-                    name: 'آگاهی اجتماعی'
-                },
-                {
-                    name: 'بیمار لیست انتظار'
-                },
-                {
-                    name: 'آیروس'
-                },
-                {
-                    name: 'کردستان'
-                },
-                {
-                    name: 'دانشگاه علوم پزشکی کردستان'
-                },
-                {
-                    name: 'بیماران لیست انتظار'
-                },
-                {
-                    name: 'پیوند'
-                },
-                {
-                    name: 'آمار اهدای عضو'
-                },
-                {
-                    name: 'فرهنگسازی'
-                },
-                {
-                    name: 'سمنان'
-                },
-                {
-                    name: 'کارت اهدای عضو'
-                },
-                {
-                    name: 'اهدای عضو'
-                },
-                {
-                    name: 'سینما'
-                },
-                {
-                    name: 'اینفوگرافی'
-                },
-                {
-                    name: 'ایران'
-                },
-                {
-                    name: 'ولادت امام رضا'
-                },
-                {
-                    name: 'ایثار'
-                },
-                {
-                    name: 'توکل'
-                },
-                {
-                    name: 'پیوند عضو'
-                },
-                {
-                    name: 'خانواده اهداکننده'
-                },
-                {
-                    name: 'مسئولیت اجتماعی'
-                },
-                {
-                    name: 'نهادهای فرهنگی'
-                },
-                {
-                    name: 'کارگاه آموزشی'
-                },
-                {
-                    name: 'مددکاری اجتماعی'
-                },
-                {
-                    name: 'گیرنده عضو'
-                },
-                {
-                    name: 'سفیر اهدای عضو'
-                },
-                {
-                    name: 'کوهنوردی'
-                }
-            ],
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: false,
@@ -397,7 +253,8 @@
                 isAdmin: IS_ADMIN
             }),
             ...mapState({
-                categories: ({ CreateMenu }) => CreateMenu.categories
+                categories: ({ CreateMenu }) => CreateMenu.categories,
+                provinces: ({ CreateMenu }) => CreateMenu.provinces
             }),
             /**
              * @return {number | string}
@@ -501,22 +358,11 @@
                     type: 'error'
                 });
             },
-            combineImagesFormData() {
-                // var formData = new FormData(form[0]);
-                // formData.append("someName", "someValue");
-
-                // data = new FormData($('#form1')[0]),
-                //     form_2 	= $('#form2').serializeArray();
-                //
-                // form_2.forEach(function(fields){
-                //     data.append(fields.name, fields.value);
-                // });
-            },
             onChangeMainImageField( payload ) {
                 this.$set( this.images.main, 'data', payload )
             },
             onChangeDomainsField( id ) {
-                this.$set( this.form, 'province_id', id )
+                this.$set( this.form, 'province_id', id );
             },
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
