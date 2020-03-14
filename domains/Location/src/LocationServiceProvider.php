@@ -35,7 +35,7 @@ class LocationServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Location\Http\Controllers',
-            'prefix'    => 'location',
+            'prefix'    => 'location/v1',
         ];
     }
 
