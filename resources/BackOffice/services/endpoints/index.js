@@ -14,6 +14,7 @@ const VALIDATE_LEGATE = "VALIDATE_LEGATE";
 const GET_USER_INFORMATION = "GET_USER_INFORMATION";
 const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 const GET_MENU_LIST = "GET_MENU_LIST";
+const CREATE_MENU_LIST = "CREATE_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const REMOVE_MENU_ITEM = "REMOVE_MENU_ITEM";
 const SAVE_MENU_LIST = "SAVE_MENU_LIST";
@@ -36,6 +37,7 @@ endpoints[VALIDATE_LEGATE] = `/user/${VER_1_0}/validate_data_user_legate`;
 endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
 endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
+endpoints[CREATE_MENU_LIST] = `/menu/${VER_1_0}/admin/create`;
 endpoints[EDIT_MENU_ITEM] = `/menu/${VER_1_0}/admin/edit`;
 endpoints[REMOVE_MENU_ITEM] = `/menu/${VER_1_0}/admin/delete`;
 endpoints[SAVE_MENU_LIST] = `/menu/${VER_1_0}/admin/save-priority`;
@@ -84,6 +86,10 @@ export default class Endpoint {
 
     static get GET_MENU_LIST() {
         return endpoints[GET_MENU_LIST];
+    }
+
+    static get CREATE_MENU_LIST() {
+        return endpoints[CREATE_MENU_LIST];
     }
 
     static get EDIT_MENU_ITEM () {

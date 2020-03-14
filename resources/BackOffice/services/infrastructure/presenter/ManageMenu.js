@@ -157,16 +157,6 @@ export class CategoryItemPresenter extends BasePresenter {
     }
 }
 
-// export const SavePriorityPresenter = payload => {
-//     return payload.reduce((presenter, {id, children}) => {
-//         presenter.push({
-//             id,
-//             children: SavePriorityPresenter( children )
-//         });
-//         return presenter
-//     }, [])
-// };
-
 export const SavePriorityPresenter = payload => {
     return payload.reduce((presenter, {id, children}, i) => {
         presenter[i] = {

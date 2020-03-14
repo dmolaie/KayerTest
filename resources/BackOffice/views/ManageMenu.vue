@@ -101,7 +101,8 @@
                             </span>
                             <select-cm :options="articleList"
                                        placeholder="لیست مطالب را انتخاب کنید"
-                                       class="w-full"
+                                       @onChange="onChangeArticleList"
+                                       class="w-full modal__article"
                                        ref="selectArticle"
                             />
                         </div>
@@ -113,11 +114,16 @@
                         <input type="text"
                                class="modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
                                placeholder="URL را وارد کنید"
-                               v-model="form.url"
+                               v-model="form.link"
                         >
                     </label>
                 </div>
-                <button class="modal__submit block text-white font-lg font-bold border border-solid rounded m-0-auto text-center l:transition-bg">
+                <button class="modal__submit block text-white font-lg font-bold border border-solid rounded m-0-auto text-center l:transition-bg"
+                        :class="{
+                            'spinner-loading': shouldBeShowSpinnerLoading
+                        }"
+                        @click.prevent="onClickCreateNewMenuItem"
+                >
                     تایید
                 </button>
             </div>
@@ -162,10 +168,10 @@
 
     const GET_INITIAL_FORM = () => ({
         name: '',
-        url: '',
+        link: '',
         type: '',
+        menuable_id: '',
         language: 'fa',
-        parent_id: null,
     });
 
     let Service = null;
@@ -173,16 +179,6 @@
     export default {
         name: "ManageMenu",
         data: () => ({
-            options: [
-                {
-                    text: 'salam',
-                    value: '213'
-                },
-                {
-                    text: 'bye',
-                    value: '341'
-                }
-            ],
             selectedItem: {},
             menuItem: {},
             categories: [],
@@ -191,6 +187,7 @@
             anotherProcessIsPending: false,
             form: GET_INITIAL_FORM(),
             categoryList: {},
+            shouldBeShowSpinnerLoading: false
         }),
         components: {
             MenuDraggable, ModalCm, SelectCm
@@ -270,12 +267,16 @@
                     let CategoryName = ManageMenuService.getCategoryName( text );
                     this.$refs['selectCategories'].resetValue();
                     this.$refs['selectArticle'].resetValue();
+                    this.$set(this, 'categories', []);
+                    this.$set(this, 'articleList', []);
+                    this.$set(this.form, 'menuable_id', '');
                     if ( !!CategoryName ) {
                         let response = await ManageMenuService.getCategoryList( CategoryName );
                         this.$set(this, 'categories', new CategoryPresenter( response.data ));
-                    } else {
-                        this.$set(this, 'categories', []);
-                        this.$set(this, 'articleList', []);
+                    }
+                    if ( !CategoryName && text === 'article' ) {
+                        let response = await ManageMenuService.getArticleList();
+                        this.$set(this, 'articleList', new CategoryPresenter( response.data.items ))
                     }
                 } catch ({ message }) {
                     this.displayNotification( message, {
@@ -284,21 +285,14 @@
                     })
                 }
             },
-            async onChangeCategories( ee ) {
-                try {
-                    console.log(ee);
-                    // if ( CategoryName === 'article' ) {
-                    //     let res = await ManageMenuService.getArticleList();
-                    //     this.$set(this, 'articleList', new CategoryPresenter( res.data.items ));
-                    // } else {
-                    //     this.$set(this, 'articleList', []);
-                    // }
-                } catch ({ message }) {
-                    this.displayNotification( message, {
-                        type: 'error',
-                        duration: 4000
-                    })
-                }
+            onChangeArticleList({ id }) {
+                this.$set(this.form, 'menuable_id', id);
+            },
+            onChangeCategories({ id }) {
+                this.$set(this.form, 'menuable_id', id);
+            },
+            async onClickCreateNewMenuItem() {
+                await Service.onClickCreateNewMenuItem( this.form );
             }
         },
         async created() {

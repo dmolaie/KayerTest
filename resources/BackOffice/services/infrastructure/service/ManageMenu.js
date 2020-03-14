@@ -9,6 +9,9 @@ import {
 import {
     SavePriorityPresenter
 } from '@services/presenter/ManageMenu';
+import {
+    CopyOf, Length
+} from "@vendor/plugin/helper";
 
 const DEFAULT_ERROR_MESSAGE   = 'متاسفانه مشکلی پیش آمده است.';
 const DEFAULT_Success_MESSAGE = 'فرآیند با موفقیت انجام شد.';
@@ -53,10 +56,7 @@ export default class ManageMenuService extends BaseService {
         try {
             await this.getList();
             await this.getMenuType();
-            // await this.getArticleList();
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     }
 
     async getList() {
@@ -133,12 +133,11 @@ export default class ManageMenuService extends BaseService {
     async _onClickRemoveItem( item ) {
         try {
             this.processIsPending();
-            // let response = await HTTPService.postRequest(Endpoint.get(Endpoint.REMOVE_MENU_ITEM),{
-            //     menu_id: item.id
-            // });
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.REMOVE_MENU_ITEM),{
+                menu_id: item.id
+            });
             item.parentObj.splice(item.index, 1);
-            // this.displaySuccessNotification( response?.message );
-            this.displaySuccessNotification();
+            this.displaySuccessNotification( response?.message );
         }
         catch ({ message }) {
             this.displayErrorNotification( message );
@@ -175,6 +174,48 @@ export default class ManageMenuService extends BaseService {
         }
         catch ({ message }) {
             this.displayErrorNotification( message );
+        }
+    }
+
+    async onClickCreateNewMenuItem( payload ) {
+        try {
+            let data = CopyOf( payload );
+            this.$vm.$set(this.$vm, 'shouldBeShowSpinnerLoading', true);
+            if ( !data.name.trim() ) {
+                this.displayErrorNotification('فیلد نام منو اجباری است.');
+                return false;
+            }
+            if ( !data.type ) {
+                this.displayErrorNotification('فیلد نوع منو اجباری است.');
+                return false;
+            }
+            if ( !data.link.trim() ) {
+                this.displayErrorNotification('فیلد URL اجباری است.');
+                return false;
+            }
+            if ( !data.menuable_id )
+                delete data['menuable_id'];
+
+            data['title'] = ( data.name );
+            data['alias'] = (data.name.replace(' ', '-'));
+            data['publish_date'] = (new Date().getTime() / 1e3);
+            data['priority'] = Length( this.$vm.elements ) + 1;
+
+            console.log(data, data);
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_MENU_LIST), data);
+            console.log(response);
+
+        }
+        catch ( exception ) {
+            console.log(exception);
+            let errorMessage = exception.message;
+            let errors = exception?.errors;
+            if (!!errors)
+                errorMessage = Object.entries(errors)[0][1][0];
+            this.displayErrorNotification( errorMessage );
+        }
+        finally {
+            this.$vm.$set(this.$vm, 'shouldBeShowSpinnerLoading', false);
         }
     }
 }
