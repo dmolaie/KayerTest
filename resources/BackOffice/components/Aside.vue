@@ -1,14 +1,15 @@
 <template>
     <aside class="aside w-1/4 xl:w-1/5 flex-shrink-0 h-full overflow-y-hidden">
         <div class="aside__header w-full flex items-center justify-between">
-            <router-link :to="{name: 'DASHBOARD'}">
+            <a href="/"
+            >
                 <image-cm
                     class="aside__header_logo"
                     :src="$asset( 'ic_ehda-center.png' )"
                     alt="انجمن اهدای عضو ایرانیان"
                     objectFit="contain"
                 />
-            </router-link>
+            </a>
             <button class="aside__header_button relative flex-shrink-0">
             <span v-for="( _, index ) in 3"
                   :key="index"

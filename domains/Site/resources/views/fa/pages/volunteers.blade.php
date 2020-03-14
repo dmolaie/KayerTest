@@ -289,5 +289,6 @@
 
 @section('scripts')
     <script src="{{asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{asset('js/site/donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{asset('js/site/volunteers.js')}}" defer></script>
 @endsection
