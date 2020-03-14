@@ -16,7 +16,7 @@ class ChangeNewsStatusRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'news_id'   => 'required|integer',
+            'news_id'   => 'required|integer|exists:news,id',
             'status'     => [
                 'required',
                 'string',

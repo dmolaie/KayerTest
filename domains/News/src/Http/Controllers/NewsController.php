@@ -13,6 +13,7 @@ use Domains\News\Http\Requests\CreateNewsRequest;
 use Domains\News\Http\Requests\EditNewsRequest;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
 use Domains\News\Services\NewsService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
 class NewsController extends EhdaBaseController
@@ -74,15 +75,25 @@ class NewsController extends EhdaBaseController
         }
     }
 
-    public function changeNewsStatus(ChangeNewsStatusRequest $request,NewsInfoPresenter $newsInfoPresenter){
-        $newsInfoDTO = $this->newsService->changeStatus(
-            $request->news_id,
-            $request->status
-        );
-        return $this->response(
-            $newsInfoPresenter->transform($newsInfoDTO),
-            Response::HTTP_OK,
-            trans('news::response.edit_successful')
-        );
+    public function changeNewsStatus(ChangeNewsStatusRequest $request, NewsInfoPresenter $newsInfoPresenter)
+    {
+        try {
+            $newsInfoDTO = $this->newsService->changeStatus(
+                $request->news_id,
+                $request->status
+            );
+            return $this->response(
+                $newsInfoPresenter->transform($newsInfoDTO),
+                Response::HTTP_OK,
+                trans('news::response.edit_successful')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('news::response.news_not_found')
+            );
+        }
+
     }
 }
