@@ -6,11 +6,13 @@ use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
-use Menu;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class News extends Model
 {
+    use SoftDeletes;
 
+    protected $softDelete = true;
     /**
      * The attributes that are mass assignable.
      *

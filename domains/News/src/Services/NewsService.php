@@ -8,6 +8,7 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\News\Entities\News;
+use Domains\News\Exceptions\NewsNotFoundException;
 use Domains\News\Repositories\NewsRepository;
 use Domains\News\Services\Contracts\DTOs\DTOMakers\NewsInfoDTOMaker;
 use Domains\News\Services\Contracts\DTOs\DTOMakers\PaginationDTO;
@@ -166,5 +167,14 @@ class NewsService
             $attachmentInfoDto
         );
 
+    }
+
+    public function destroyNews(int $newsId)
+    {
+        $result = $this->newsRepository->destroyNews($newsId);
+        if (!$result) {
+            throw new NewsNotFoundException(trans('news::response.news_not_found'));
+        }
+        return $result;
     }
 }
