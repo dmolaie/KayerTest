@@ -79,7 +79,6 @@ export default class CreateNewsService extends BaseService {
 
             return formData;
         } catch (e) {
-            console.log(e);
             throw e
         }
     }
@@ -88,12 +87,12 @@ export default class CreateNewsService extends BaseService {
         try {
             let payload = this.createRequestBody();
             console.log(payload);
-            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), payload);
-            this.$vm.displayNotification(response.message, {
-                type: 'success',
-                duration: 4000
-            });
-            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
+            // let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), payload);
+            // this.$vm.displayNotification(response.message, {
+            //     type: 'success',
+            //     duration: 4000
+            // });
+            // this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         }
         catch ( exception ) {
             let errorMessage = exception.message;

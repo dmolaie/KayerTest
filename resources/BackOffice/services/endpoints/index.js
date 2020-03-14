@@ -45,6 +45,7 @@ endpoints[GET_CATEGORY_LIST] = `/category/${VER_1_0}/admin/get_category_by_type`
 endpoints[GET_NEWS_LIST] = `/news/${VER_1_0}/admin/list`;
 endpoints[CREATE_NEWS_ITEM] = `/news/${VER_1_0}/admin/create`;
 endpoints[CREATE_CATEGORY_ITEM] = `/category/${VER_1_0}/admin/create`;
+endpoints[GET_ALL_PROVINCES] = `location/${VER_1_0}/all-provinces`;
 endpoints[LOGOUT] = '/user/logout';
 
 export default class Endpoint {
