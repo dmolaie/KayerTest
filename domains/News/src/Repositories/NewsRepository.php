@@ -125,4 +125,15 @@ class NewsRepository
         return $this->entityName::where('id', $newsId)->delete();
     }
 
+    public function changeStatus(int $newsId, string $status): News
+    {
+        $news = $this->findOrFail($newsId);
+        $news->status = $status;
+        $getDirty = $news->getDirty();
+        if (!empty($getDirty)) {
+            $news->save();
+        }
+        return $news;
+    }
+
 }

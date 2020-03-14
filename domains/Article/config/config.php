@@ -1,10 +1,13 @@
 <?php
 
 return [
-    'article_statue'                 => [
+    'article_statues'                 => [
         'accept',
         'reject',
         'pending',
+        'cancel',
+        'recycle',
+        'delete'
     ],
     'article_language'               => [
         'fa',

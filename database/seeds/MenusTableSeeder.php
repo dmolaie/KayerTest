@@ -142,19 +142,11 @@ class MenusTableSeeder extends Seeder
                             'article_id' => 1
                         ],
                         [
-                            'name'       => 'organ donation overview',
-                            'title'      => 'مروری بر اهدای عضو',
-                            'alias'      => 'organ-donation-overview',
-                            'type'       => 'article',
-                            'priority'   => 5,
-                            'article_id' => 1
-                        ],
-                        [
                             'name'       => 'organ transplant',
                             'title'      => 'پیوند اعضا',
                             'alias'      => 'organ-transplant',
                             'type'       => 'article',
-                            'priority'   => 6,
+                            'priority'   => 5,
                             'article_id' => 1
                         ],
                         [
@@ -162,7 +154,7 @@ class MenusTableSeeder extends Seeder
                             'title'      => 'اهدای عضو و مذهب',
                             'alias'      => 'organ-donation-and-religion',
                             'type'       => 'article',
-                            'priority'   => 7,
+                            'priority'   => 6,
                             'article_id' => 1
                         ],
                         [
@@ -170,7 +162,7 @@ class MenusTableSeeder extends Seeder
                             'title'      => 'اهدای عضو در کشورهای دیگر',
                             'alias'      => 'organ-donation-in-another-country',
                             'type'       => 'article',
-                            'priority'   => 8,
+                            'priority'   => 7,
                             'article_id' => 1
                         ],
                     ]],
