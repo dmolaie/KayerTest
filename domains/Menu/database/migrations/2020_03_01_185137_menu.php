@@ -17,7 +17,7 @@ class Menu extends Migration
             $table->integerIncrements('id');
             $table->string('name');
             $table->text('title')->nullable();
-            $table->text('alias')->nullable()->unique();
+            $table->string('alias')->nullable()->unique();
             $table->enum('type', array_values(config('menus.menus_type')));
             $table->string('link')->nullable();
             $table->enum('language', config('menus.menu_language'));

@@ -120,4 +120,9 @@ class NewsRepository
         return $baseQuery;
     }
 
+    public function destroyNews(int $newsId)
+    {
+        return $this->entityName::where('id', $newsId)->delete();
+    }
+
 }
