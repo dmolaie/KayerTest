@@ -13,7 +13,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/{slug}', 'PagesController@pages')->name('pages');
 
         /*Route::get('/ngo-history', 'PagesController@history')->name('ngo-history');
-          Route::get('/{structure-and-organization}', 'PagesController@structureAndOrganization')->name('structure-and-organization');
+          Route::get('/structure-and-organization', 'PagesController@structureAndOrganization')->name('structure-and-organization');
           Route::get('/interactions','PagesController@interactions')->name('interactions');
           Route::get('/ngo-foundations','PagesController@foundations')->name('foundations');
           Route::get('/mission-and-vision','PagesController@missionAndVision')->name('mission-and-vision');*/

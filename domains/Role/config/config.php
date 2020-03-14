@@ -6,13 +6,18 @@ return [
             'name' => 'admin',
             'label' => 'ادمین'
         ],
+        'manager' => [
+            'id' => 2,
+            'name' => 'manager',
+            'label' => 'مدیر'
+        ],
         'legate' => [
-            'id' => 1,
+            'id' => 3,
             'name' => 'legate',
             'label' => 'سفیر'
         ],
         'client' => [
-            'id' => 1,
+            'id' => 4,
             'name' => 'client',
             'label' => 'اهداکننده'
         ]

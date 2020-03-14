@@ -26,343 +26,34 @@
             <div class="block w-full overflow-hidden">
                 <div class="carousel__container bg-sky-blue">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
+
+                        @foreach($menusContent->getItems() as $item)
+
+                            <div class="swiper-slide">
+                                <a href=""
+                                   class="s-cart block w-full h-full bg-white"
+                                >
+                                    <figure class="s-cart__cover relative block w-full has-skeleton">
+                                        <img src=""
+                                             data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                             alt=""
+                                             class="s-cart__cover_image block w-full h-full object-cover"
+                                        />
+                                        <figcaption
+                                                class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
                                             <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
+                                                {{$item->getAbstract()}}
                                             </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
-                                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href=""
-                               class="s-cart block w-full h-full bg-white"
-                            >
-                                <figure class="s-cart__cover relative block w-full has-skeleton">
-                                    <img src=""
-                                         data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                         alt=""
-                                         class="s-cart__cover_image block w-full h-full object-cover"
-                                    />
-                                    <figcaption class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
-                                            <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                            </span>
-                                        <time class="block w-full font-2xs text-left">
-                                            انتشار: ۲۸ دی ۱۳۹۸
-                                        </time>
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </div>
+                                            <time class="block w-full font-2xs text-left">
+                                                انتشار: ۲۸ دی ۱۳۹۸
+                                            </time>
+                                        </figcaption>
+                                    </figure>
+                                </a>
+                            </div>
+
+                        @endforeach
+
                     </div>
                 </div>
             </div>
@@ -431,116 +122,29 @@
                     </div>
                 </aside>
                 <div class="w-full">
-                    <a href=""
-                       class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow"
-                    >
-                        <figure class="h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none has-skeleton">
-                            <img src=""
-                                 data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                 alt=""
-                                 class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
-                            />
+                    @foreach($menusContent->getItems() as $item)
+                        <a href="" class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow">
+                        <figure class=" h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none
+                           has-skeleton">
+                        <img src=""
+                             data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                             alt=""
+                             class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"/>
                         </figure>
                         <div class="h-cart__details flex-1">
                             <p class="h-cart__title font-sm-bold">
-                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
+                                {{$item->getAbstract()}}
                             </p>
                             <time class="h-cart__release block w-full font-1xs font-bold text-left">
                                 انتشار: ۲۸ دی ۱۳۹۸
                             </time>
                             <p class="h-cart__caption text-blue-800 font-xs">
-                                مدیرعامل انجمن اهدای عضو ایرانیان ضمن تقدیر از تصویب معافیت از سربازی یکی از فرزندان ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس شورای اسلامی، گفت: یک فرد مرگ مغزی می‌تواند جان یک تا هشت نفر را از مرگ حتمی و یک تا ۵۳ نفر را هم از معلولیت نجات دهد.
+                                {{$item->getDescription()}}
                             </p>
                         </div>
-                    </a>
-                    <a href=""
-                       class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow"
-                    >
-                        <figure class="h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none has-skeleton">
-                            <img src=""
-                                 data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                 alt=""
-                                 class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
-                            />
-                        </figure>
-                        <div class="h-cart__details flex-1">
-                            <p class="h-cart__title font-sm-bold">
-                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
-                            </p>
-                            <time class="h-cart__release block w-full font-1xs font-bold text-left">
-                                انتشار: ۲۸ دی ۱۳۹۸
-                            </time>
-                            <p class="h-cart__caption text-blue-800 font-xs">
-                                مدیرعامل انجمن اهدای عضو ایرانیان ضمن تقدیر از تصویب معافیت از سربازی یکی از فرزندان ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس شورای اسلامی، گفت: یک فرد مرگ مغزی می‌تواند جان یک تا هشت نفر را از مرگ حتمی و یک تا ۵۳ نفر را هم از معلولیت نجات دهد.
-                            </p>
-                        </div>
-                    </a>
-                    <a href=""
-                       class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow"
-                    >
-                        <figure class="h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none has-skeleton">
-                            <img src=""
-                                 data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                 alt=""
-                                 class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
-                            />
-                        </figure>
-                        <div class="h-cart__details flex-1">
-                            <p class="h-cart__title font-sm-bold">
-                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
-                            </p>
-                            <time class="h-cart__release block w-full font-1xs font-bold text-left">
-                                انتشار: ۲۸ دی ۱۳۹۸
-                            </time>
-                            <p class="h-cart__caption text-blue-800 font-xs">
-                                مدیرعامل انجمن اهدای عضو ایرانیان ضمن تقدیر از تصویب معافیت از سربازی یکی از فرزندان ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس شورای اسلامی، گفت: یک فرد مرگ مغزی می‌تواند جان یک تا هشت نفر را از مرگ حتمی و یک تا ۵۳ نفر را هم از معلولیت نجات دهد.
-                            </p>
-                        </div>
-                    </a>
-                    <a href=""
-                       class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow"
-                    >
-                        <figure class="h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none has-skeleton">
-                            <img src=""
-                                 data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                 alt=""
-                                 class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
-                            />
-                        </figure>
-                        <div class="h-cart__details flex-1">
-                            <p class="h-cart__title font-sm-bold">
-                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
-                            </p>
-                            <time class="h-cart__release block w-full font-1xs font-bold text-left">
-                                انتشار: ۲۸ دی ۱۳۹۸
-                            </time>
-                            <p class="h-cart__caption text-blue-800 font-xs">
-                                مدیرعامل انجمن اهدای عضو ایرانیان ضمن تقدیر از تصویب معافیت از سربازی یکی از فرزندان ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس شورای اسلامی، گفت: یک فرد مرگ مغزی می‌تواند جان یک تا هشت نفر را از مرگ حتمی و یک تا ۵۳ نفر را هم از معلولیت نجات دهد.
-                            </p>
-                        </div>
-                    </a>
-                    <a href=""
-                       class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow"
-                    >
-                        <figure class="h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none has-skeleton">
-                            <img src=""
-                                 data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                 alt=""
-                                 class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"
-                            />
-                        </figure>
-                        <div class="h-cart__details flex-1">
-                            <p class="h-cart__title font-sm-bold">
-                                تصویب معافیت سربازی فرزند ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس
-                            </p>
-                            <time class="h-cart__release block w-full font-1xs font-bold text-left">
-                                انتشار: ۲۸ دی ۱۳۹۸
-                            </time>
-                            <p class="h-cart__caption text-blue-800 font-xs">
-                                مدیرعامل انجمن اهدای عضو ایرانیان ضمن تقدیر از تصویب معافیت از سربازی یکی از فرزندان ذکور خانواده‌های اهداکننده عضو در کمیسیون بهداشت مجلس شورای اسلامی، گفت: یک فرد مرگ مغزی می‌تواند جان یک تا هشت نفر را از مرگ حتمی و یک تا ۵۳ نفر را هم از معلولیت نجات دهد.
-                            </p>
-                        </div>
-                    </a>
+                        </a>
+                    @endforeach
+
                 </div>
             </div>
         </div>
