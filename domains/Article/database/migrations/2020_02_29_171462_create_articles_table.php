@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration
             $table->text('description')->nullable();
             $table->dateTime('publish_date');
             $table->string('slug')->nullable();
-            $table->enum('status', config('article.article_statues'));
+            $table->enum('status', config('article.article_statuses'));
             $table->integer('province_id')->unsigned()->nullable();
             $table->enum('language', config('article.article_language'));
             $table->bigInteger('editor_id')->unsigned()->nullable();

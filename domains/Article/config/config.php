@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'article_statues'                 => [
+    'article_statuses'                 => [
         'accept',
         'reject',
         'pending',
