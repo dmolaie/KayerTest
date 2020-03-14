@@ -16,7 +16,7 @@
                 {{ !!selected.text ? selected.text : value }}
             </template>
         </div>
-        <div class="select__body absolute w-full bg-white rounded opacity-0 visibility-hidden pointer-event-none transition-opacity z-10">
+        <div class="select__body absolute none w-full bg-white rounded opacity-0 visibility-hidden pointer-event-none transition-opacity z-10">
             <div class="select__search flex items-stretch border border-solid rounded"
                  v-if="searchable"
             >
@@ -90,6 +90,9 @@
             },
         },
         methods: {
+            resetValue() {
+                this.$set(this, 'selected', {});
+            },
             onClickOutside() {
                 this.$set( this, 'shouldBeShowOption', false );
             },

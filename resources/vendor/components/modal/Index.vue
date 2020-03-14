@@ -37,7 +37,10 @@
                 this.$set(this, 'visibilityState', false);
             },
             onClickOutside() {
-                if ( this.clickOutside ) this.hidden();
+                if ( this.clickOutside ) {
+                    this.hidden();
+                    this.$emit('close')
+                }
             }
         }
     }

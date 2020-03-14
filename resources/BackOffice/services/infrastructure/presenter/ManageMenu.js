@@ -27,6 +27,7 @@ class SingleMenuPresenter extends BasePresenter {
             alias: String,
             type: String,
             link: String,
+            e_link: String,
             parent: Object,
             children: Array,
             publisher: Object,
@@ -60,6 +61,10 @@ class SingleMenuPresenter extends BasePresenter {
     }
 
     link() {
+        return this.data?.link || ''
+    }
+
+    e_link() {
         return this.data?.link || ''
     }
 
@@ -113,6 +118,42 @@ export class MenuTypePresenter {
             id: index,
             text: item
         }))
+    }
+}
+
+export class CategoryPresenter {
+    constructor( data ) {
+
+        return (
+             ( !!data && HasLength( data ) ) ? (
+                 data.map(item => new CategoryItemPresenter( item ))
+             ) : ([])
+        )
+    }
+}
+
+export class CategoryItemPresenter extends BasePresenter {
+    constructor( item ) {
+        super( item );
+        this.data = item;
+
+        return this.mapProps({
+            id: Number,
+            text: String,
+            type: String
+        })
+    }
+
+    id() {
+        return this.data.id
+    }
+
+    text() {
+        return this.data.name_fa || this.data.first_title
+    }
+
+    type() {
+        return this.data.type
     }
 }
 

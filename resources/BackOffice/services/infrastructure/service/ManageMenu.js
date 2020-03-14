@@ -53,7 +53,10 @@ export default class ManageMenuService extends BaseService {
         try {
             await this.getList();
             await this.getMenuType();
-        } catch (e) {}
+            // await this.getArticleList();
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async getList() {
@@ -100,16 +103,30 @@ export default class ManageMenuService extends BaseService {
         }
     }
 
-    async getArticleList() {
+    static async getArticleList() {
         try {
-            let response = await HTTPService.getRequest( Endpoint.get( Endpoint.GET_ARTICLE_LIST ) );
-            console.log(response);
+            return await HTTPService.getRequest( Endpoint.get( Endpoint.GET_ARTICLE_LIST ) );
         }
-        catch ( { message } ) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
-            })
+        catch ( e ) {
+            throw e;
+        }
+    }
+
+    static getCategoryName( selectedType = '' ) {
+        const ChunkStr = 'list_';
+
+        return ( selectedType.includes( ChunkStr ) ) ? (
+            selectedType.replace(ChunkStr, '')
+        ) : ( '' )
+    }
+
+    static async getCategoryList( filterBy = '' ) {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
+                category_type: filterBy
+            });
+        } catch (e) {
+            throw e;
         }
     }
 

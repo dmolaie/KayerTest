@@ -43,6 +43,7 @@
             </div>
         </div>
         <modal-cm ref="modal"
+                  @close="onCloseModal"
         >
             <div class="modal__body w-full bg-white rounded-10">
                 <div class="modal__header flex items-center justify-between rounded-inherit">
@@ -61,36 +62,47 @@
                         <input type="text"
                                class="modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1"
                                placeholder="نام منو را وارد کنید"
+                               v-model="form.name"
                         >
                     </label>
                     <div class="modal__row flex items-center w-full">
                         <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                             نوع منو
                         </span>
-                        <!-- onChange -->
                         <select-cm :options="menuTypes"
                                    placeholder="نوع منو را انتخاب کنید"
                                    class="w-full"
+                                   @onChange="onChangeMenuType"
                         />
                     </div>
                     <div class="modal__row flex">
-                        <div class="modal__col flex items-center w-full">
+                        <div class="modal__col flex items-center w-full"
+                             :class="{
+                                'modal__col--disable': !categories.length
+                             }"
+                        >
                             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                                  دسته بندی
                             </span>
-                            <select-cm :options="options"
+                            <select-cm :options="categories"
                                        placeholder="دسته بندی را انتخاب کنید"
                                        class="w-full"
+                                       @onChange="onChangeCategories"
+                                       ref="selectCategories"
                             />
                         </div>
-                        <div class="modal__col flex items-center w-full">
+                        <div class="modal__col flex items-center w-full"
+                             :class="{
+                                'modal__col--disable': !articleList.length
+                             }"
+                        >
                             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                                 لیست مطالب
                             </span>
-                            <select-cm :options="options"
+                            <select-cm :options="articleList"
                                        placeholder="لیست مطالب را انتخاب کنید"
                                        class="w-full"
-                                       :disabled="true"
+                                       ref="selectArticle"
                             />
                         </div>
                     </div>
@@ -101,6 +113,7 @@
                         <input type="text"
                                class="modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
                                placeholder="URL را وارد کنید"
+                               v-model="form.url"
                         >
                     </label>
                 </div>
@@ -143,6 +156,17 @@
     import ModalCm from '@vendor/components/modal/Index.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
     import ManageMenuService from '@services/service/ManageMenu';
+    import {
+        CategoryPresenter
+    } from '@services/presenter/ManageMenu';
+
+    const GET_INITIAL_FORM = () => ({
+        name: '',
+        url: '',
+        type: '',
+        language: 'fa',
+        parent_id: null,
+    });
 
     let Service = null;
 
@@ -161,8 +185,12 @@
             ],
             selectedItem: {},
             menuItem: {},
+            categories: [],
+            articleList: [],
             counter: 0,
-            anotherProcessIsPending: false
+            anotherProcessIsPending: false,
+            form: GET_INITIAL_FORM(),
+            categoryList: {},
         }),
         components: {
             MenuDraggable, ModalCm, SelectCm
@@ -196,6 +224,7 @@
             },
             onClickCloseModalButton() {
                 this.$refs['modal']?.hidden();
+                this.resetCreateForm();
             },
             async onClickToggleActiveItem( item ) {
                 await Service._onClickToggleActiveItem( item )
@@ -221,18 +250,88 @@
                     }).then(() => {
                         Service.processIsPending( false );
                     })
-                } catch (e) {
-
+                } catch (e) {}
+            },
+            resetCreateForm() {
+                this.$set(this, 'from', GET_INITIAL_FORM());
+                this.$set(this, 'categories', []);
+                this.$refs['selectCategories'].resetValue();
+                this.$refs['selectArticle'].resetValue();
+            },
+            onCloseModal() {
+                this.resetCreateForm();
+            },
+            /**
+             *  TODO: refactor the method or make this code simpler :||||||
+             */
+            async onChangeMenuType({ text }) {
+                try {
+                    this.$set(this.form, 'type', text);
+                    let CategoryName = ManageMenuService.getCategoryName( text );
+                    this.$refs['selectCategories'].resetValue();
+                    this.$refs['selectArticle'].resetValue();
+                    if ( !!CategoryName ) {
+                        let response = await ManageMenuService.getCategoryList( CategoryName );
+                        this.$set(this, 'categories', new CategoryPresenter( response.data ));
+                    } else {
+                        this.$set(this, 'categories', []);
+                        this.$set(this, 'articleList', []);
+                    }
+                } catch ({ message }) {
+                    this.displayNotification( message, {
+                        type: 'error',
+                        duration: 4000
+                    })
+                }
+            },
+            async onChangeCategories( ee ) {
+                try {
+                    console.log(ee);
+                    // if ( CategoryName === 'article' ) {
+                    //     let res = await ManageMenuService.getArticleList();
+                    //     this.$set(this, 'articleList', new CategoryPresenter( res.data.items ));
+                    // } else {
+                    //     this.$set(this, 'articleList', []);
+                    // }
+                } catch ({ message }) {
+                    this.displayNotification( message, {
+                        type: 'error',
+                        duration: 4000
+                    })
                 }
             }
         },
         async created() {
             Service = new ManageMenuService( this );
             await Service.processFetchAsyncData();
-            // await Service.getList();
-            // // await Service.createArticle();
-            // await Service.getMenuType();
-            // console.log(this.items);
         }
     }
 </script>
+
+<!--[-->
+<!--'name' => 'required|string',-->
+<!--'title' => 'required|string',-->
+<!--'alias' => 'required|string',-->
+<!--'publish_date' => 'numeric',-->
+<!--'link' => 'url',-->
+<!--'parent_id'    => 'integer|exists:menus,id',  *** OKKKK ***-->
+<!--'menuable_id'    => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],-->
+<!--'language' => ['required', Rule::in(config('menus.menu_language'))], *** OKKKK *** -->
+<!--'type' => ['required', Rule::in(array_values(config('menus.menus_type')))],-->
+<!--'priority' => 'required','integer',-->
+<!--];-->
+
+<!--edit-->
+<!--return [-->
+<!--'menu_id' => 'required|integer|exists:menus,id',-->
+<!--'name' => 'required|string',-->
+<!--'title' => 'required|string',-->
+<!--'alias' => 'required|string',-->
+<!--'publish_date' => 'numeric',-->
+<!--'link' => 'url',-->
+<!--'parent_id'    => 'integer|exists:menus,id',-->
+<!--'menuable_id'    => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],-->
+<!--'language' => ['required', Rule::in(config('menus.menu_language'))],-->
+<!--'type' => ['required', Rule::in(array_values(config('menus.menus_type')))],-->
+<!--'priority' => 'required','integer',-->
+<!--];-->

@@ -75,7 +75,7 @@
                         URL
                     </span>
                     <input type="text"
-                           v-model="item.link"
+                           v-model="item.e_link"
                            class="dragArea__form_input modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
                            placeholder="URL را وارد کنید"
                     />
