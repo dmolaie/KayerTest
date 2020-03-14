@@ -35,7 +35,10 @@
                 </template>
             </dropdown-cm>
         </div>
-        <button class="block text-blue-100 font-sm font-bold m-0-auto l:transition-color l:hover:text-blue--200 user-select-none">
+        <button class="block text-blue-100 font-sm font-bold m-0-auto l:transition-color l:hover:text-blue--200 user-select-none"
+                v-if="!published"
+                @click.prevent="onClickDraftButton"
+        >
             ذخیره پیش‌نویس
         </button>
     </div>
@@ -68,6 +71,9 @@
             onClickPublishButton() {
                 this.$set( this, 'shouldBeShowDropdown', !this.shouldBeShowDropdown );
             },
+            onClickDraftButton() {
+                this.$emit('onClickDraftButton')
+            }
         }
     }
 </script>

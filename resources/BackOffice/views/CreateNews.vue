@@ -6,6 +6,9 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
+                               :class="{
+                                    'direction-ltr': ( currentLang === 'en' )
+                               }"
                                placeholder="عنوان را اینجا وارد کنید"
                                v-model="form.first_title"
                         />
@@ -20,6 +23,9 @@
                         >
                             <input type="text"
                                    class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
+                                   :class="{
+                                        'direction-ltr': ( currentLang === 'en' )
+                                   }"
                                    placeholder="عنوان دوم را اینجا وارد کنید"
                                    v-model="form.second_title"
                             />
@@ -40,7 +46,9 @@
                             > </textarea>
                         </label>
                     </div>
-                    <div class="c-news__tags w-full">
+                    <div class="c-news__tags w-full"
+                         v-if="false"
+                    >
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
                             افزودن تگ
                         </p>
@@ -94,6 +102,7 @@
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
                 <publish-cm :published="false"
+                            @onClickDraftButton="onClickDraftButton"
                 >
                     <template #published="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right">
@@ -156,6 +165,11 @@
                 />
             </div>
         </div>
+        <transition name="fade">
+            <div class="loading fixed w-full h-full z-10"
+                 v-if="shouldBeShowLoading"
+            ></div>
+        </transition>
     </div>
 </template>
 
@@ -359,6 +373,7 @@
             ],
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
+            shouldBeShowLoading: false,
         }),
         components: {
             IconCm,
@@ -451,11 +466,35 @@
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
-            onClickChiefEditorButton() {
-                console.log('onClickChiefEditorButton');
+            formIsValid() {
+                let formIsValid = Service.checkFormValidation();
+                if ( !formIsValid )
+                    this.displayNotification('وارد کردن عنوان الزامی است.', {
+                        type: 'error'
+                    });
+                return formIsValid
+            },
+            async onClickChiefEditorButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    let formIsValid = this.formIsValid();
+                    if ( formIsValid ) {
+                        await Service.onClickReleaseButton();
+                    }
+                } catch (e) {}
+                finally {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
+                }
+            },
+            onClickDraftButton() {
+                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
+                    type: 'error'
+                });
             },
             onClickRemoveButton() {
-                console.log('onClickRemoveButton');
+                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
+                    type: 'error'
+                });
             },
             combineImagesFormData() {
                 // var formData = new FormData(form[0]);
@@ -484,7 +523,6 @@
             },
             onChangeCategoryField( item ) {
                 try {
-                    console.log('item.checked ', item.checked);
                     if ( !item.checked ) {
                         this.form.category_id.push( item.id )
                     } else {
@@ -493,7 +531,6 @@
                         this.form.category_id.splice(findIndex, 1)
                     }
                 } catch (e) {}
-                console.log(this.form.category_id, 'par');
             }
         },
         async created() {

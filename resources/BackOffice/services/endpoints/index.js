@@ -22,6 +22,7 @@ const CREATE_ARTICLE_LIST = "CREATE_ARTICLE_LIST";
 const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
 const GET_CATEGORY_LIST = "GET_CATEGORY_LIST";
 const GET_NEWS_LIST = "GET_NEWS_LIST";
+const CREATE_NEWS_ITEM = "CREATE_NEWS_ITEM";
 const LOGOUT = "LOGOUT";
 
 
@@ -41,6 +42,7 @@ endpoints[CREATE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/create`;
 endpoints[GET_ARTICLE_LIST] = `/article/${VER_1_0}/admin/list`;
 endpoints[GET_CATEGORY_LIST] = `/category/${VER_1_0}/admin/get_category_by_type`;
 endpoints[GET_NEWS_LIST] = `/news/${VER_1_0}/admin/list`;
+endpoints[CREATE_NEWS_ITEM] = `/news/${VER_1_0}/admin/create`;
 endpoints[LOGOUT] = '/user/logout';
 
 export default class Endpoint {
@@ -110,6 +112,10 @@ export default class Endpoint {
 
     static get REMOVE_MENU_ITEM() {
         return endpoints[REMOVE_MENU_ITEM]
+    }
+
+    static get CREATE_NEWS_ITEM() {
+        return endpoints[CREATE_NEWS_ITEM]
     }
 
     static get( endpoint, params = {} ) {

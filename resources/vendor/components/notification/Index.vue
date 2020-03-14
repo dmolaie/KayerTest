@@ -1,5 +1,5 @@
 <template>
-    <div class="notification fixed pointer-event-none z-10">
+    <div class="notification fixed pointer-event-none z-20">
         <div v-for="(item, index) in items"
              :key="index"
              class="notification__item w-full h-full border border-solid rounded-1/2 overflow-hidden opacity-0"
