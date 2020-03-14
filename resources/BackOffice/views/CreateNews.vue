@@ -174,6 +174,7 @@
 </template>
 
 <script>
+
     import {
         mapGetters, mapState
     } from 'vuex';
@@ -199,12 +200,16 @@
 
     let Service = null;
 
+    /**
+     * TODO: province_id should be Fetching from the server
+     * @return {{category_id: [], province_id: number, second_title: string, parent_id: string, description: string, language: string, first_title: string, abstract: string, publish_date: string, source_link: string}}
+     */
     const GET_INITIAL_FORM = () => ({
         first_title: '',
         second_title: '',
         abstract: '',
         description: '',
-        province_id: '',
+        province_id: 1,
         publish_date: '',
         source_link: '',
         parent_id: '',
@@ -234,39 +239,39 @@
                     },
                     {
                         text: 'آذربایجان شرقی',
-                        value: 2
+                        value: 1
                     },
                     {
                         text: 'آذربایجان غربی',
-                        value: 3
+                        value: 1
                     },
                     {
                         text: 'ایلام',
-                        value: 5
+                        value: 1
                     },
                     {
                         text: 'اصفهان',
-                        value: 6
+                        value: 1
                     },
                     {
                         text: 'تهران',
-                        value: 9
+                        value: 1
                     },
                     {
                         text: 'چهار محال و بختیاری',
-                        value: 10
+                        value: 1
                     },
                     {
                         text: 'خراسان رضوی',
-                        value: 12
+                        value: 1
                     },
                     {
                         text: 'خوزستان',
-                        value: 14
+                        value: 1
                     },
                     {
                         text: 'زنجان',
-                        value: 15
+                        value: 1
                     },
                 ],
             },

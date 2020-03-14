@@ -45,16 +45,41 @@ export default class CreateNewsService extends BaseService {
     createRequestBody() {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
+            const formData = new FormData();
+            // if ( !duplicateFrom['publish_date'] )
+            //     duplicateFrom['publish_date'] = (new Date().getTime() / 1e3);
+            // if ( HasLength( duplicateFrom['category_id'] ) )
+            //     duplicateFrom['main_category_id'] = duplicateFrom['category_id'][0];
+            // if ( HasLength( duplicateFrom['description'] ) )
+            //     duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
+            // if ( !!this.$vm.images.main.data ) {
+            //     formData.append('images', this.$vm.images.main.data.get('images'));
+            //     duplicateFrom['images'] = formData;
+            // }
+            // if ( !!this.$vm.images.second.data ) {
+            //     formData.append('images', this.$vm.images.second.data.get('images'));
+            //     duplicateFrom['images'] = formData;
+            // }
+            // if ( !HasLength(duplicateFrom['category_id']) )
+            //     delete duplicateFrom['category_id'];
+            formData.append('publish_date', (new Date().getTime() / 1e3));
+            formData.append('first_title', duplicateFrom['first_title']);
+            console.log(this.$vm.images.main.data.get('images'), 'd');
+            formData.append('images[]', this.$vm.images.main.data.get('images'));
+            formData.append('province_id', 1);
+            formData.append('language', 'fa');
+            // Object.keys( duplicateFrom )
+            //     .forEach( key => {
+            //         if (
+            //             !duplicateFrom[key] &&
+            //             typeof duplicateFrom[key] === 'string'
+            //         )
+            //             delete duplicateFrom[key]
+            //     });
 
-            if ( !duplicateFrom['publish_date'] )
-                duplicateFrom['publish_date'] = (new Date().getTime() / 1e3);
-            if ( HasLength( duplicateFrom['category_id'] ) )
-                duplicateFrom['main_category_id'] = duplicateFrom['category_id'][0];
-            if ( HasLength( duplicateFrom['description'] ) )
-                duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
-
-            return duplicateFrom;
+            return formData;
         } catch (e) {
+            console.log(e);
             throw e
         }
     }
@@ -63,10 +88,19 @@ export default class CreateNewsService extends BaseService {
         try {
             let payload = this.createRequestBody();
             console.log(payload);
-            // CREATE_NEWS_ITEM
+            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), payload);
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+                duration: 4000
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         }
-        catch ({ message }) {
-            this.$vm.displayNotification( message, {
+        catch ( exception ) {
+            let errorMessage = exception.message;
+            let errors = exception?.errors;
+            if (!!errors)
+                errorMessage = Object.entries(errors)[0][1][0];
+            this.$vm.displayNotification(errorMessage, {
                 type: 'error',
                 duration: 4000
             })

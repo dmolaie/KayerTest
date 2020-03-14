@@ -18,6 +18,7 @@
                        placeholder="دامنه مورد نظر خود را انتخاب کنیددامنه مورد نظر خود را انتخاب کنید"
                        :multiple="false"
                        @onChange="onChangeSelectBox"
+                       value="تهران"
             />
         </div>
         <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
