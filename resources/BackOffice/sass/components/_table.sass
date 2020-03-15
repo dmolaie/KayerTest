@@ -19,19 +19,49 @@
       flex: 5 1 0
     &\:l
       flex: 2 1 0
+  &__skeleton
+    //animation: UISkeletonOpacity 3s ease infinite forwards
+    //background-color: transparentize(black, (1 - .04))
+    &::before
+      content: " "
+      position: absolute
+      top: 0
+      left: 0
+      width: 110%
+      height: 100%
+      animation: UISkeleton 2.8s linear infinite
+      background: linear-gradient(90deg, transparent 2%, transparentize(black, (1 - .04)), transparent 43%)
+        size: 50%
   &__button
     border-color: #dfe8f0
     padding: 6px 7px 6px 9px
     &::after
       content: " "
       display: inline-block
-      width: 6px
+      width: 10px
       height: 10px
       background: url("/../images/ic_angle--blue-100.svg") center no-repeat
         size: contain
-      transform: rotate(-90deg)
       pointer-events: none
       margin-right: 5px
       vertical-align: middle
   &__cover
     border-color: #dfe8f0
+  &__checkbox
+    @include Size( 17px )
+    border-color: #bde8fa
+    &::before
+      content: " "
+      position: absolute
+      top: 0
+      right: 0
+      width: 100%
+      height: 100%
+      background: $blue-100 url("/../images/ic_tick--white.svg") no-repeat center
+        size: 8px auto
+      transform: scale(0)
+  input[type="checkbox"]
+    &:checked
+      & + .table__checkbox
+        &::before
+          animation: checked .16s cubic-bezier(.455, .03, .515, .955) forwards

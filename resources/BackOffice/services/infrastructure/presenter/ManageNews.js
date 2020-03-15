@@ -27,6 +27,10 @@ export class SingleManageNewsPresenter extends BasePresenter {
             publish_date: Number,
             source_link: String,
             status: String,
+            is_published: Boolean,
+            is_pending: Boolean,
+            is_reject: Boolean,
+            is_accept: Boolean,
             province: Object,
             publisher: Object,
             editor: Object,
@@ -76,6 +80,30 @@ export class SingleManageNewsPresenter extends BasePresenter {
         return this.data?.status?.fa || this.data?.status?.en
     }
 
+    is_published() {
+        return (
+            this.data.status?.en === 'published'
+        )
+    }
+
+    is_pending() {
+        return (
+            this.data.status?.en === "pending"
+        )
+    }
+
+    is_accept() {
+        return (
+            this.data.status?.en === "accept"
+        )
+    }
+
+    is_reject() {
+        return (
+            this.data.status?.en === "reject"
+        )
+    }
+
     province() {
         return this.data?.province
     }
@@ -92,7 +120,7 @@ export class SingleManageNewsPresenter extends BasePresenter {
     }
 
     lang() {
-        return this.data?.language
+        return (this.data?.language === 'fa') ? 'فارسی' : 'انگلیسی'
     }
 
     relation_id() {
