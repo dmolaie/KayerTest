@@ -11,6 +11,7 @@ use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
+use Domains\User\Http\Requests\AddRoleToUserRequest;
 use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\RegisterUserByAdminRequest;
@@ -254,5 +255,23 @@ class UserController extends EhdaBaseController
             Response::HTTP_CREATED,
             trans('user::response.success_register')
         );
+    }
+
+    public function addRoleToUser(AddRoleToUserRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
+    {
+        try {
+            $userAddRoleInfo = $this->userService->addNewRoleToUser($request->user_id, $request->role_id);
+            return $this->response(
+                $briefInfoPresenter->transform($userAddRoleInfo),
+                Response::HTTP_CREATED,
+                trans('user::response.success_register')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_OK,
+                trans('user::response.user_not_found')
+            );
+        }
     }
 }
