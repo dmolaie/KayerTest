@@ -18,10 +18,10 @@
             </button>
         </div>
         <div class="aside__menu">
-            <button class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+            <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
                  v-for="(item, index) in menu"
                  :key="index"
-                 @click.prevent="onClickMenuItem( item.route )"
+                 :to="{name: item.route}"
             >
                 <image-cm
                     class="aside__menu_item_icon"
@@ -33,7 +33,7 @@
                 <span class="aside__menu_item_title font-sm font-medium">
                     {{ item.title }}
                 </span>
-            </button>
+            </router-link>
         </div>
     </aside>
 </template>
@@ -46,14 +46,24 @@
         data: () => ({
             menu: [
                 {
+                    route: 'DASHBOARD',
+                    title: 'پیشخوان',
+                    icon: 'ic__dashboard--blue.svg',
+                },
+                {
                     route: 'MANAGE_MENU',
-                    title: 'رویدادها',
-                    icon: 'ic_event--blue.svg'
+                    title: 'مدیریت منوها',
+                    icon: 'ic__menu--blue.svg'
                 },
                 {
                     route: 'MANAGE_NEWS',
                     title: 'اخبار',
                     icon: 'ic_newspaper--blue.svg'
+                },
+                {
+                    route: 'LOGOUT',
+                    title: 'خروج',
+                    icon: 'ic__logout-blue.svg'
                 }
             ]
         }),

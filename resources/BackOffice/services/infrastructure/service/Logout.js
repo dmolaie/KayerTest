@@ -11,9 +11,7 @@ export default class LogoutService extends BaseService {
         super();
         this.$vm = layout;
         this.$store = layout.$store;
-    }
 
-    viewPortProcess() {
         BaseService.ViewPortProcess(this.$store , true);
     }
 
@@ -21,8 +19,17 @@ export default class LogoutService extends BaseService {
         try {
             TokenService._ClearToken();
             BaseService.commitToStore( this.$store, SET_LOGOUT );
-            await HTTPService.postRequest( Endpoint.get( Endpoint.LOGOUT ));
+            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.LOGOUT ));
+            this.$vm.displayNotification( response.message, {
+                type: 'success',
+                duration: 4000
+            });
             this.$vm.pushReplace({ name: 'LOGIN' })
-        } catch (e) {}
+        } catch ({ message }) {
+            this.$vm.displayNotification( message, {
+                type: 'error',
+                duration: 4000
+            })
+        }
     }
 }

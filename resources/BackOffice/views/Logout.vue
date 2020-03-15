@@ -13,7 +13,6 @@
         name: "Logout",
         async mounted() {
             Service = new LogoutService( this );
-            Service.viewPortProcess();
             await Service.logoutProcess();
         }
     }

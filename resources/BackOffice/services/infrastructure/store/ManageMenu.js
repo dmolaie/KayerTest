@@ -26,7 +26,7 @@ const MenuStore = {
         },
         [MENU_SET_TYPE_DATA](state, payload) {
             state.menuType = { ...new MenuTypePresenter( payload ) }
-        }
+        },
     }
 };
 

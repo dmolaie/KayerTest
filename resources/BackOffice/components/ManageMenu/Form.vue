@@ -98,23 +98,28 @@
             },
             async onChangeMenuTypeField( { text } ) {
                 try {
+                    this.$emit('onToggleChild');
                     this.$set(this.item, 'edit_menuType', text);
                     this.resetValue();
                     let CategoryName = ManageMenuService.getCategoryName( text );
                     if ( !!CategoryName ) {
                         let response = await ManageMenuService.getCategoryList( CategoryName );
+                        this.$emit('onToggleChild');
                         this.$set(this.item, 'edit_categories', new CategoryPresenter( response.data ));
                     }
                     if ( !CategoryName && text === 'article' ) {
                         let response = await ManageMenuService.getArticleList();
+                        this.$emit('onToggleChild');
                         this.$set(this.item, 'edit_article', new CategoryPresenter( response.data.items ))
                     }
                 } catch (e) {}
             },
             onChangeCategories({ id }) {
+                this.$emit('onToggleChild');
                 this.$set(this.item, 'edit_menuable_id', id);
             },
             onChangeArticleList({ id }) {
+                this.$emit('onToggleChild');
                 this.$set(this.item, 'edit_menuable_id', id);
             },
             onClickSaveChangeButton() {

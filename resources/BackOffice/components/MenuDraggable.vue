@@ -13,7 +13,7 @@
              :class="{
                  'c-menu__tree--disabled': ( !item.active ),
                  'c-menu__tree--closed overflow-hidden': ( !item.is_opened ),
-                 'c-menu__tree--editable': ( (!item.is_opened && !!item.is_edit) ||true ),
+                 'c-menu__tree--editable': ( !item.is_opened && item.is_edit ),
              }"
         >
             <div class="c-menu__item w-full flex items-center border border-solid rounded font-lg font-bold text-blue-800 user-select-none"
@@ -37,10 +37,11 @@
                 > </button>
             </div>
             <div class="w-full"
-                 v-if="!!item.is_edit||true"
+                 v-if="!!item.is_edit"
             >
                 <manage-menu-form-cm :item="item"
                                      :menuType="menuType"
+                                     @onToggleChild="onToggleChild"
                 />
             </div>
             <div class="c-menu__child"
