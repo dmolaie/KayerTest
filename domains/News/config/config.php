@@ -19,6 +19,7 @@ return [
     'news_cancel_status'           => 'cancel',
     'news_recycle_status'          => 'recycle',
     'news_publish_status'          => 'published',
+    'news_delete_status'          => 'delete',
     'news_ready_to_publish_status' => 'ready_to_publish',
     'news_list_status'             => [
         'published',
@@ -26,7 +27,8 @@ return [
         'pending',
         'recycle',
         'cancel',
-        'reject'
+        'reject',
+        'delete'
     ],
     'news_convert_to_real_status'  =>
         [
@@ -36,6 +38,7 @@ return [
             'reject'           => 'reject',
             'cancel'           => 'cancel',
             'recycle'          => 'recycle',
+            'delete'          => 'delete',
         ],
     'news_paginate_count'          => 10,
 ];

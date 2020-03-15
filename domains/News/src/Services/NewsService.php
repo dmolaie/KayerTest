@@ -176,6 +176,7 @@ class NewsService
 
     public function destroyNews(int $newsId)
     {
+        $this->changeStatus($newsId, config('news.news_delete_status'));
         $result = $this->newsRepository->destroyNews($newsId);
         if (!$result) {
             throw new NewsNotFoundException(trans('news::response.news_not_found'));

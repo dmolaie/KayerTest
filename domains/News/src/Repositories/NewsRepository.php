@@ -83,6 +83,9 @@ class NewsRepository
 
         $baseQuery = $this->entityName
             ::when($newsFilterDTO->getNewsRealStatus(), function ($query) use ($newsFilterDTO) {
+                if($newsFilterDTO->getNewsRealStatus() == config('news.news_convert_to_real_status.delete')){
+                    return $query->onlyTrashed();
+                }
                 return $query->where('status', $newsFilterDTO->getNewsRealStatus());
             })
             ->when($newsFilterDTO->getPublisherId(), function ($query) use ($newsFilterDTO) {

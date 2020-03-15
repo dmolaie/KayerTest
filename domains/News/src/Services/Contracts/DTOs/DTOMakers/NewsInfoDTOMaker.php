@@ -22,7 +22,7 @@ class NewsInfoDTOMaker
     {
         $newsInfoDTO = new NewsInfoDTO();
         $newsInfoDTO->setFirstTitle($news->first_title)
-            ->setStatus($news->status)
+            ->setStatus($news->deleted_at ?config('news.news_delete_status'):$news->status)
             ->setId($news->id)
             ->setCategory($this->categories($news->categories))
             ->setSourceLink($news->source_link)
