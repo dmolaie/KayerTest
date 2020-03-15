@@ -15,9 +15,12 @@
       right: 0
       bottom: -4px
       background-color: $blue-100
+      opacity: 0
     &--active
       color: $blue-100
       position: relative
+      &::before
+        opacity: 1
   &__button
     color: #2c3e50
     padding: 0 14px 0 20px
@@ -30,5 +33,6 @@
       @include Size(18px)
       margin-left: 13px
   &__header
+    margin-bottom: 36px
     .dropdown
       top: 45px

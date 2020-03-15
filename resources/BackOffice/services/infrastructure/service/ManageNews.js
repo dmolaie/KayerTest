@@ -14,7 +14,7 @@ export default class ManageNewsService extends BaseService {
     async processFetchAsyncData() {
         try {
             let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_NEWS_LIST), {
-                page: 4
+                page: 1
             });
             console.log('response', response);
         } catch (e) {

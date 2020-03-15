@@ -3,26 +3,26 @@
         <div class="m-post__container w-full bg-white rounded-10">
             <div class="m-post__tabs">
                 <div class="inline-flex items-stretch">
-                    <button class="m-post__tab font-sm font-bold transition-bg text-nowrap"
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
                             :class="{
                                 'm-post__tab--active': true
                             }"
                     >
                         منتشرشده‌ها
                     </button>
-                    <button class="m-post__tab font-sm font-bold transition-bg text-nowrap">
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap">
                         صف انتشار
                     </button>
-                    <button class="m-post__tab font-sm font-bold transition-bg text-nowrap">
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap">
                         منتظر تأیید
                     </button>
-                    <button class="m-post__tab font-sm font-bold transition-bg text-nowrap">
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap">
                         پیش‌نویس‌های من
                     </button>
-                    <button class="m-post__tab font-sm font-bold transition-bg text-nowrap">
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap">
                         زباله‌دان
                     </button>
-                    <button class="m-post__tab font-sm font-bold transition-bg text-nowrap">
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap">
                         جست‌وجو
                     </button>
                 </div>
@@ -54,6 +54,60 @@
                                 زبان انگلیسی
                             </router-link>
                         </dropdown-cm>
+                    </div>
+                </div>
+                <div class="m-post__table">
+                    <div class="table border border-solid rounded text-blue-800">
+                        <div class="table__header flex">
+                            <div class="table__th"></div>
+                            <div class="table__th font-1xs font-bold cursor-default text-center">
+                                عکس سربرگ
+                            </div>
+                            <div class="table__th table__th:xl font-1xs font-bold cursor-default">
+                                مشخصات
+                            </div>
+                            <div class="table__th flex-1 font-1xs font-bold cursor-default text-center">
+                                دامنه
+                            </div>
+                            <div class="table__th table__th:l font-1xs font-bold cursor-default text-center">
+                                دسته‌بندی
+                            </div>
+                            <div class="table__th flex-1 font-1xs font-bold cursor-default text-center">
+                                عملیات
+                            </div>
+                        </div>
+                        <div class="table__header">
+                            <div class="table__row flex">
+                                <div class="table__td inline-flex items-center justify-center">
+                                    <input type="checkbox"
+                                    />
+                                </div>
+                                <div class="table__td">
+                                    <figure class="w-full h-full border border-solid rounded">
+                                        <img src=""
+                                             alt=""
+                                             class="w-full h-full rounded-inherit"
+                                        />
+                                    </figure>
+                                </div>
+                                <div class="table__td table__td:xl">
+                                    <p class="font-xs font-bold cursor-default"
+                                       v-text="'رئیس مرکز مدیریت پیوند و درمان بیماری‌های وزارت بهداشت: تحریم‌ها و تاثیر آن بر کیفیت زندگی بیماران نادر، ضد حقوق بشر است'"
+                                    > </p>
+                                </div>
+                                <div class="table__td flex-1">
+                                    the
+                                </div>
+                                <div class="table__td table__td:l">
+
+                                </div>
+                                <div class="table__td inline-flex items-center justify-center flex-1">
+                                    <button class="table__button text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center">
+                                        عملیات
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

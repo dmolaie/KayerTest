@@ -1,0 +1,25 @@
+.table
+  border-color: #d2e3f4
+  background-color: #f0f3f8
+  &__header
+    border-bottom: 1px solid #d2e3f4
+  &__row
+    &:not(:last-of-type)
+      border-bottom: 1px solid #d2e3f4
+  &__th
+    padding: 15px 10px
+  &__td
+    padding: 10px
+  &__th, &__td
+    &:first-child
+      width: (17px + 14 + 14)
+      padding:
+        right: 0
+        left: 0
+    &\:xl
+      flex: 5 1 0
+    &\:l
+      flex: 2 1 0
+  &__button
+    border-color: #dfe8f0
+    padding: 6px 7px 6px 9px
