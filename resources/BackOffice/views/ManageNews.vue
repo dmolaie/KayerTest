@@ -57,8 +57,8 @@
                     </div>
                 </div>
                 <div class="m-post__table">
-                    <div class="table border border-solid rounded text-blue-800">
-                        <div class="table__header flex">
+                    <table-cm :data="items">
+                        <template #head>
                             <div class="table__th"></div>
                             <div class="table__th font-1xs font-bold cursor-default text-center">
                                 عکس سربرگ
@@ -75,40 +75,66 @@
                             <div class="table__th flex-1 font-1xs font-bold cursor-default text-center">
                                 عملیات
                             </div>
-                        </div>
-                        <div class="table__header">
-                            <div class="table__row flex">
+                        </template>
+                        <template #body="{ data }">
+                            <div class="table__row flex"
+                                 v-for="item in data"
+                                 :key="item.id"
+                            >
                                 <div class="table__td inline-flex items-center justify-center">
                                     <input type="checkbox"
                                     />
                                 </div>
                                 <div class="table__td">
-                                    <figure class="w-full h-full border border-solid rounded">
-                                        <img src=""
-                                             alt=""
-                                             class="w-full h-full rounded-inherit"
-                                        />
-                                    </figure>
+                                    <image-cm :src="item.image"
+                                              :alt="item.first_title"
+                                              :lazyLoading="true"
+                                              objectFit="cover"
+                                              className="table__image w-full h-full rounded-inherit"
+                                              class="table__cover border border-solid rounded"
+                                    />
                                 </div>
                                 <div class="table__td table__td:xl">
                                     <p class="font-xs font-bold cursor-default"
-                                       v-text="'رئیس مرکز مدیریت پیوند و درمان بیماری‌های وزارت بهداشت: تحریم‌ها و تاثیر آن بر کیفیت زندگی بیماران نادر، ضد حقوق بشر است'"
+                                       v-text="item.first_title"
                                     > </p>
+                                    <span class="text-xs font-medium">
+                                         مالک مطلب: {{ item.publisher.name }}
+                                    </span>
                                 </div>
-                                <div class="table__td flex-1">
-                                    the
+                                <div class="table__td flex-1 inline-flex items-center justify-center">
+                                    <span class="font-xs cursor-default text-center"
+                                          v-text="item.province && item.province.name"
+                                    > </span>
                                 </div>
-                                <div class="table__td table__td:l">
-
+                                <div class="table__td table__td:l inline-flex items-center justify-center">
+                                    <template v-if="item.category.length">
+                                        <span v-for="category in item.category"
+                                              :key="'cat-' + category.id"
+                                              class="m-post__category font-1xs text-medium text-blue-100 bg-white border border-solid cursor-default"
+                                        >
+                                            {{ item.lang === 'fa' ? category.fa : category.en }}
+                                        </span>
+                                        <template>
+                                            <span class="text-blue-100 font-lg">
+                                                …
+                                            </span>
+                                        </template>
+                                    </template>
+                                    <template v-else>
+                                        <span class="font-1xs font-medium text-center cursor-default">
+                                            دسته‌بندی انتخاب نشده است.
+                                        </span>
+                                    </template>
                                 </div>
                                 <div class="table__td inline-flex items-center justify-center flex-1">
-                                    <button class="table__button text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center">
-                                        عملیات
-                                    </button>
-                                </div>
+                                <button class="table__button text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center">
+                                    عملیات
+                                </button>
                             </div>
-                        </div>
-                    </div>
+                            </div>
+                        </template>
+                    </table-cm>
                 </div>
             </div>
         </div>
@@ -116,7 +142,12 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex';
     import ManageNewsService from '@services/service/ManageNews';
+    import TableCm from '@vendor/components/table/Index.vue';
+    import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
 
     let Service = null;
@@ -127,7 +158,12 @@
             shouldBeShowCreatedNewsDropdown: false
         }),
         components: {
-            DropdownCm
+            DropdownCm, TableCm, ImageCm
+        },
+        computed: {
+            ...mapState({
+                items: ({ ManageNews }) => ManageNews.items
+            })
         },
         methods: {
             onClickCreatedNewButton() {
@@ -137,6 +173,9 @@
         async created() {
             Service = new ManageNewsService( this );
             await Service.processFetchAsyncData();
+        },
+        mounted() {
+            console.log(this.items, 'items');
         }
     }
 </script>

@@ -1,6 +1,9 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import {
+    M_NEWS_SET_DATA
+} from '@services/store/ManageNews'
 
 export default class ManageNewsService extends BaseService {
     constructor( layout ) {
@@ -14,11 +17,13 @@ export default class ManageNewsService extends BaseService {
     async processFetchAsyncData() {
         try {
             let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_NEWS_LIST), {
-                page: 1
+                page: 3
             });
-            console.log('response', response);
-        } catch (e) {
-            console.log(e);
+            BaseService.commitToStore( this.$store, M_NEWS_SET_DATA, response );
+        } catch ({ message }) {
+            this.$vm.displayNotification(message, {
+                type: 'error'
+            })
         }
     }
 }

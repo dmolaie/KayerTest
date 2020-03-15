@@ -67,9 +67,14 @@ export default class CreateNewsService extends BaseService {
             if ( !duplicateFrom['province_id'] )
                 duplicateFrom['province_id'] = ( this.$vm.provinces[0]?.id || 1 );
 
-            if ( HasLength( duplicateFrom['category_id'] ) )
-                duplicateFrom['main_category_id'] = duplicateFrom['category_id'][0];
-            else delete duplicateFrom['category_id'];
+            if ( HasLength( duplicateFrom['category_ids'] ) ) {
+                duplicateFrom['main_category_id'] = duplicateFrom['category_ids'][0];
+                duplicateFrom['category_ids'].forEach(id => {
+                    formData.append('category_ids[]', id);
+                });
+            }
+
+            delete duplicateFrom['category_ids'];
 
             if ( HasLength( duplicateFrom['description'] ) )
                 duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
@@ -100,7 +105,7 @@ export default class CreateNewsService extends BaseService {
     async onClickReleaseButton() {
         try {
             let payload = this.createRequestBody();
-
+            console.log(payload);
             let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), payload);
             this.$vm.displayNotification(response.message, {
                 type: 'success',

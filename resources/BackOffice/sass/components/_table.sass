@@ -12,9 +12,8 @@
     padding: 10px
   &__th, &__td
     &:first-child
-      width: (17px + 14 + 14)
+      width: (17px + 14 + 4)
       padding:
-        right: 0
         left: 0
     &\:xl
       flex: 5 1 0
@@ -23,3 +22,16 @@
   &__button
     border-color: #dfe8f0
     padding: 6px 7px 6px 9px
+    &::after
+      content: " "
+      display: inline-block
+      width: 6px
+      height: 10px
+      background: url("/../images/ic_angle--blue-100.svg") center no-repeat
+        size: contain
+      transform: rotate(-90deg)
+      pointer-events: none
+      margin-right: 5px
+      vertical-align: middle
+  &__cover
+    border-color: #dfe8f0
