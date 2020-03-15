@@ -58,7 +58,7 @@ class EditMenuRequest extends EhdaBaseRequest
             ->setParentId($this['parent_id'])
             ->setManuableId($this['menuable_id'])
             ->setPriority($this['priority'])
-            ->setActive($this['priority']);
+            ->setActive($this['active']);
         return $menusEditDTO;
     }
 }

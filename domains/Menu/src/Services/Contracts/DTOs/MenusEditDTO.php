@@ -139,10 +139,10 @@ class MenusEditDTO extends MenusBaseSaveDTO
     }
 
     /**
-     * @param array|null $link
+     * @param string|null $link
      * @return MenusEditDTO
      */
-    public function setLink(?array $link): MenusEditDTO
+    public function setLink(?string $link): MenusEditDTO
     {
         $this->link = $link;
         return $this;
@@ -276,18 +276,18 @@ class MenusEditDTO extends MenusBaseSaveDTO
     }
 
     /**
-     * @return boolean|null
+     * @return bool|null
      */
-    public function getActive(): ?Boolean
+    public function getActive(): ?bool
     {
         return $this->active;
     }
 
     /**
-     * @param boolean|null $active
+     * @param bool|null $active
      * @return MenusEditDTO
      */
-    public function setActive(?boolean $active): MenusEditDTO
+    public function setActive(?bool $active): MenusEditDTO
     {
         $this->active = $active;
         return $this;
