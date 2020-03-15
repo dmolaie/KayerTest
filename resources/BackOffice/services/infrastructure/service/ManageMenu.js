@@ -170,7 +170,7 @@ export default class ManageMenuService extends BaseService {
                 let response = await HTTPService.postRequest(Endpoint.get(Endpoint.SAVE_MENU_LIST), {
                     menu_items: SavePriorityPresenter(payload)
                 });
-                BaseService.commitToStore( this.$store, MENU_SET_DATA, response );
+                // BaseService.commitToStore( this.$store, MENU_SET_DATA, response );
                 this.displaySuccessNotification( response?.message );
             }
         }
