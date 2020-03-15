@@ -105,7 +105,6 @@ export default class CreateNewsService extends BaseService {
     async onClickReleaseButton() {
         try {
             let payload = this.createRequestBody();
-            console.log(payload);
             let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), payload);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
