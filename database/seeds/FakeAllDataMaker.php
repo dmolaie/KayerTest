@@ -1,7 +1,6 @@
 <?php
 
 use Domains\Role\Entities\Role;
-use Domains\User\Entities\User;
 use Illuminate\Database\Seeder;
 
 class FakeAllDataMaker extends Seeder
@@ -13,7 +12,7 @@ class FakeAllDataMaker extends Seeder
      */
     public function run()
     {
-        if(!Role::first()){
+        if (!Role::first()) {
             $this->call(RoleTableSeeder::class);
         }
         $this->call(ProvinceTableSeeder::class);
@@ -21,7 +20,10 @@ class FakeAllDataMaker extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(NewsTableSeeder::class);
+        $this->call(ArticleTableSeeder::class);
+        $this->call(EventTableSeeder::class);
         $this->call(MenusTableSeeder::class);
+
     }
 
 }
