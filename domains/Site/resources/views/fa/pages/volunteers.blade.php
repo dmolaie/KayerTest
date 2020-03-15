@@ -8,7 +8,7 @@
                     </span>
             </h1>
             <div class="p-t-35 w-full flex items-start">
-                @if(!auth()->check() || !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                @if(!auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="dnt-page__panel border border-solid rounded-2">
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
@@ -99,13 +99,23 @@
                             </form>
                         </div>
                     </aside>
-                @elseif(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="dnt-page__panel border border-solid rounded-2">
-                            <p>شما پروفایل دارید لطفا از پروفایل جهت ثبت نام کارت استفاده کنید.</p>
-                            <a href="{{route('page.donation-card',config('app.locale'))}}"
+                            <p>شما پروفایل دارید و هم‌اکنون سفیر اهدای عضو هستید.</p>
+                            <a href="{{route('admin.login',config('app.locale'))}}"
                                class="dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200">
-                                ثبت نام کارت
+                                ورود به بخش سفیران اهدا عضو
+                            </a>
+                        </div>
+                    </aside>
+                @elseif(auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
+                        <div class="dnt-page__panel border border-solid rounded-2">
+                            <p>شما پروفایل دارید و برای ثبت نام در بخش سفیران به پروفایل خود مراجعه کنید.</p>
+                            <a href="#"
+                               class="dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200">
+                                ورود به بخش ثبت نام سفیران اهدا عضو
                             </a>
                         </div>
                     </aside>
