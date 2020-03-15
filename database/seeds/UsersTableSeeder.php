@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         $user = new User();
         $user->name = 'ehda_'.$role->name;
         $user->email = 'ehda.'. $role->name.'.test.'.rand(0,1000).'.@gmail.com';
-        $user->password = bcrypt('111111');
+        $user->password = bcrypt('11111111');
         $user->job_title = $role->name;
         $user->marital_status = 'single';
         $user->identity_number = $identityNumber;

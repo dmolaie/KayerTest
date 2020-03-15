@@ -72,6 +72,9 @@ class NewsController extends EhdaBaseController
             return $this->response([], Response::HTTP_OK, trans('news::response.success_delete_news'));
         } catch (NewsNotFoundException $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
+        } catch (ModelNotFoundException $exception) {
+            return $this->response([], Response::HTTP_NOT_FOUND,
+                trans('news::response.news_not_found'));
         }
     }
 
