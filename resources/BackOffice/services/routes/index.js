@@ -10,6 +10,8 @@ const APP_NAME = 'اهدا | ';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
+export const MANAGE_MENU = 'MANAGE_MENU';
+export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
@@ -37,8 +39,28 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: MANAGE_NEWS,
+            path: '/manage/news',
+            component: GetViews('ManageNews' ),
+            meta: {
+                title: 'اخبار',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'اخبار'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
             name: CREATE_NEWS,
-            path: '/manage/news/create',
+            path: '/manage/news/:lang(fa|en)/create',
             component: GetViews('CreateNews' ),
             meta: {
                 title: 'ایجاد خبر',
@@ -48,12 +70,29 @@ const Routes = new VueRouter({
                         name: 'انجمن اهدای عضو ایرانیان',
                     },
                     {
-                        route: DASHBOARD,
+                        route: MANAGE_NEWS,
                         name: 'اخبار'
                     },
                     {
                         name: 'افزودن'
                     }
+                ]
+            }
+        },
+        {
+            name: MANAGE_MENU,
+            path: '/manage/menu',
+            component: GetViews('ManageMenu' ),
+            meta: {
+                title: 'مدیریت منو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'مدیریت منو'
+                    },
                 ]
             }
         },

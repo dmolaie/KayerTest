@@ -97,6 +97,7 @@ $navBg: #bde8fa
       &--search
         background: url("/../images/ic_magnifying--gray.svg") no-repeat center
       &--user
+        margin: 0 6px !important
         background: url("/../images/ic_user--gray.svg") no-repeat center
       &--home
         background: url("/../images/ic_home--gray.svg") no-repeat center
@@ -116,17 +117,21 @@ $navBg: #bde8fa
             color: $black
             background: $white
   &__user
+    margin-left: (26px - 6)
+    @include Xl_Screen
+      margin-left: (30px - 6)
     &--active
       .header__nav_btn--user
         margin-right: 6px
         background-image: url("/../images/ic_user--green.svg")
   &__dropdown
-    top: 54px
-    left: -62px
+    top: 38px
+    left: 50%
     border-color: $blue-200
     box-shadow: 0 0 12px 2px transparentize(black, ( 1 - .18 ))
     pointer-events: none
     visibility: hidden
+    transform: translateX(-50%)
     &::before
       $size: 14px
       content: " "
@@ -147,7 +152,7 @@ $navBg: #bde8fa
         border-bottom: 1px solid #efefef
   &__user
     min-height: 56px
-    &:hover
+    &.show
       .header__dropdown
         visibility: visible
         pointer-events: all

@@ -3,7 +3,7 @@
         <p class="panel__title font-sm font-bold text-blue cursor-default">
             زبان‌ها
         </p>
-        <div class="language__item w-full flex items-center justify-between bg-white border border-solid rounded text-bayoux font-sm font-bold cursor-default"
+        <div class="language__item w-full flex items-center justify-between bg-white border border-solid rounded text-bayoux font-sm font-bold cursor-default user-select-none"
              :class="{ 'language__item--selected pointer-event-none': ( lang === 'fa' ) }"
         >
             فارسی
@@ -13,7 +13,7 @@
                     @click.prevent="onClickPersianLangButton"
             > </button>
         </div>
-        <div class="language__item w-full flex items-center justify-between bg-white border border-solid rounded text-bayoux font-sm font-bold cursor-default"
+        <div class="language__item w-full flex items-center justify-between bg-white border border-solid rounded text-bayoux font-sm font-bold cursor-default user-select-none"
              :class="{ 'language__item--selected pointer-event-none': ( lang === 'en' ) }"
         >
             انگلیسی

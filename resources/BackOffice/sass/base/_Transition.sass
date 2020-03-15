@@ -2,7 +2,7 @@
   &-enter, &-leave-to
     opacity: 0
   &-enter-active, &-leave-active
-    transition: all .22s ease-in-out
+    transition: all .13s ease-in-out
 
 .toggle
   &-enter, &-leave-to
@@ -12,3 +12,17 @@
     visibility: hidden
   &-enter-active, &-leave-active
     transition: all .18s ease-in-out
+
+.modal
+  &-enter, &-leave-to
+    opacity: 0
+    .modal__body
+      transform: translateY(35vh)
+  &-enter-active, &-leave-active
+    transition: all .24s ease-in-out
+  &-enter-active
+    .modal__body
+      animation: modalFadeIn .24s ease-in-out
+  &-leave-active
+    .modal__body
+      animation: modalFadeOut .24s ease-in-out

@@ -1,6 +1,7 @@
 import Cookies from '@vendor/plugin/cookie';
 import TokenService, {
-    USER_ROLE_ID
+    USER_ROLE_ID,
+    ADMIN_ROLE_ID
 } from '@services/service/Token';
 import {
     LoginPresenter,
@@ -10,6 +11,7 @@ export const SET_USER = "LOGIN_SET_USER";
 export const SET_LOGOUT = "SET_LOGOUT";
 export const GET_USER_HAS_ACCESS = "GET_USER_HAS_ACCESS";
 export const GET_IS_USER_LOGGED_IN = "GET_IS_USER_LOGGED_IN";
+export const IS_ADMIN = "IS_ADMIN";
 
 const GetDefaultState = () => ({
     token: null,
@@ -36,7 +38,8 @@ const UserStore = {
             !!state.token &&
             parseInt( state.roleId ) !== USER_ROLE_ID
         ),
-        GET_IS_USER_LOGGED_IN: state => ( !!state.token )
+        GET_IS_USER_LOGGED_IN: state => ( !!state.token ),
+        [IS_ADMIN]: () => parseInt( TokenService._GetRoleId ) === ADMIN_ROLE_ID
     }
 };
 

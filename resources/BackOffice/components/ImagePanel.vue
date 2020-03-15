@@ -3,34 +3,66 @@
         <div class="panel__title font-sm font-bold text-blue cursor-default">
             تصویر شاخص
         </div>
+        <upload-cm @onChange="onChangeImageField"
+                   ref="uploadCm"
+        />
         <button class="image-p__submit block w-3/4 text-white font-sm font-bold bg-blue-100 border-blue-1 rounded text-center l:transition-bg l:hover:bg-blue m-0-auto user-select-none"
-
+                @click.prevent="onClickOpenFileDialogButton"
         >
             انتخاب عکس
         </button>
-        <div class="image-p__preview">
-            <template>
+        <transition name="fade">
+            <div class="image-p__preview"
+                 v-if="!!value.fileName || !!selectedImage.fileName"
+            >
                 <image-cm
                     class="image-p__image w-full block rounded"
-                    src="https://images.unsplash.com/photo-1558981285-6f0c94958bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                    :src="value.image || selectedImage.image"
                     className="w-full h-full block rounded-inherit"
-                    :lazyLoading="true"
                 />
-            </template>
-            <button class="block m-0-auto text-red font-sm font-bold user-select-none"
-                    v-text="'تخلیه‌ی عکس'"
-            > </button>
-        </div>
+                <button class="block m-0-auto text-red font-sm font-bold user-select-none"
+                        v-text="'تخلیه‌ی عکس'"
+                        @click.prevent="onClickRemoveImageButton"
+                > </button>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
     import ImageCm from '@vendor/components/image/Index.vue';
+    import UploadService from '@vendor/components/upload';
+    import UploadCm from '@vendor/components/upload/Index.vue';
 
     export default {
         name: "ImagePanel",
+        data: () => ({
+            selectedImage: {}
+        }),
         components: {
-            ImageCm
+            ImageCm, UploadCm
+        },
+        props: {
+            value: {
+                type: Object,
+                default: () => ({})
+            }
+        },
+        methods: {
+            onClickOpenFileDialogButton() {
+                this.$refs['uploadCm']?.openFileDialog();
+            },
+            onClickRemoveImageButton() {
+                this.$emit('onChange', null);
+                this.$set(this, 'selectedImage', {});
+            },
+            async onChangeImageField( formData ) {
+                try {
+                    this.$emit('onChange', formData);
+                    let getImage = await UploadService.imagePreview( formData );
+                    this.$set(this, 'selectedImage', getImage[0]);
+                } catch (e) {}
+            }
         }
     }
 </script>

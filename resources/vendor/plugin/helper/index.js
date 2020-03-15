@@ -15,7 +15,7 @@ export const Flatten = ( array = [] ) => {
 
 export const Length = payload => {
     if ( Array.isArray( payload ) ) return payload.length;
-    if ( typeof payload === "object" ) return Object.keys( payload ).length;
+    if ( typeof payload === "object" ) return Object.values( payload ).length;
     if ( typeof payload === "number" ) return ( payload + "" ).length;
     return payload.length;
 };
@@ -29,7 +29,6 @@ export const GetNumberInString = string => {
 };
 
 export const toEnglishDigits = payload => {
-    console.log(payload, typeof payload === "string");
     return ( typeof payload === "string" ) ? (
         payload.replace(/[۰-۹]/g, chr => {
             let persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -119,6 +118,20 @@ export const SmoothScroll = offsetTop => {
 
 export const CopyOf = payload => (
     JSON.parse(JSON.stringify( payload ))
+);
+
+/**
+ * @returns formatted html as string.
+ */
+export const EncodeHTML = html => (
+    html.replace(/[\u00A0-\u9999<>&](?!#)/gim, i => `&#${i.charCodeAt(0)};`)
+);
+
+/**
+ * @returns formatted html as string.
+ */
+export const DecodeHTML = html => (
+    html.replace(/&#([0-9]{1,3});/gi, ( _, n ) => String.fromCharCode( parseInt(n) ))
 );
 
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;

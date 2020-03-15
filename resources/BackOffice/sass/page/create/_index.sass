@@ -21,10 +21,46 @@
         margin-left: 20px
   .main
     padding: 34px 20px 25px 28px
+  .select
+    &__input
+      background: #fafcff
+    &:not(.multiple)
+      &::after
+        content: ' '
+        position: absolute
+        top: 50%
+        left: 13px
+        width: 0
+        height: 0
+        border:
+          left: 9px solid transparent
+          right: 9px solid transparent
+          top: 11px solid $blue-100
+        vertical-align: middle
+        pointer-events: none
+        transform: translateY(-50%)
+  .datepicker
+    .vpd-icon-btn
+      width: 42px
+      border: 1px solid #5bc6f3
+        left: none
+        radius: 0 4px 4px 0
+      text-align: center
+    &__input
+      color: #6c698d
+      width: 100%
+      border: 1px solid #5bc6f3
+      line-height: 40px
+      border-radius: 4px 0 0 4px
+      background: #fafcff
   .textarea
     min-height: 93px
     max-height: 200px
     resize: vertical
+  &__content
+    width: calc(#{100% - 33.333333%} - 25px)
+    @include Xl_Screen
+      width: calc(#{100% - 25%} - 35px)
   &__panel
     & > *
       &:not(:last-child)
@@ -32,6 +68,9 @@
   &__second-title
     margin: 6px 0 0
     padding-bottom: 5px
+  &__fake_input
+    padding: 0 10px
+    line-height: 40px
   .l\:
     @include L_Screen
       &m

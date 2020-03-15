@@ -12,6 +12,14 @@ const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود
 export default class HTTPService {
 
     static headers() {
+        // return new Headers({
+        //     // 'Accept': 'application/json',
+        //     // 'Accept-Type': 'application/json',
+        //     'Access-Control-Allow-Origin': '*',
+        //     // 'Content-Type': 'application/json',
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        //     // 'Content-Type':'multipart/form-data'
+        // });
         return new Headers({
             'Accept': 'application/json',
             'Accept-Type': 'application/json',
@@ -19,6 +27,13 @@ export default class HTTPService {
             'Content-Type': 'application/json',
         });
     }
+
+    static uploadHeaders() {
+        return new Headers({
+            'Access-Control-Allow-Origin': '*',
+        });
+    }
+
 
     static onUnauthorizedUser( exception ) {
         if ( Routes?.currentRoute?.name !== 'LOGIN' ) Routes.push( { name: LOGIN } );
@@ -29,24 +44,22 @@ export default class HTTPService {
         })
     }
 
-    static onBeforeRequest( requestInit ) {
+    static onBeforeRequest( requestInit, is_file ) {
         const TOKEN = TokenService._GetToken;
-        let headers = this.headers();
+
+        // let headers = this.headers();
+        let headers = ( !is_file ) ? (
+            this.headers()
+        ) : ( this.uploadHeaders() );
 
         if ( !!TOKEN ) {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
         const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
-        console.log(console.log())
+
         if ( !!CSRF_TOKEN )
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
-
-        if ( !!requestInit.headers && HasLength( requestInit.headers ) ) {
-            for ( let [key, value] of Object.entries( requestInit.headers ) ) {
-                headers.append( key, value );
-            }
-        }
 
         requestInit.mode = 'cors';
         requestInit.headers = headers;
@@ -61,6 +74,7 @@ export default class HTTPService {
                 this.onUnauthorizedUser( EXCEPTION );
             else throw ({
                 status: ( EXCEPTION?.status_code ?? '' ),
+                errors: ( EXCEPTION?.errors || null ),
                 message: ( EXCEPTION?.message ?? DEFAULT_ERROR_MESSAGE )
             });
 
@@ -69,10 +83,10 @@ export default class HTTPService {
         }
     }
 
-    static Request( requestInfo = '' , requestInit = {} ) {
+    static Request( requestInfo = '' , requestInit = {}, is_file = false ) {
         return new Promise(
             ( resolve, reject ) => {
-                let init = this.onBeforeRequest( requestInit );
+                let init = this.onBeforeRequest( requestInit, is_file );
                 fetch( requestInfo, init )
                     .then( response =>
                         ( response.ok ) ? (
@@ -96,11 +110,11 @@ export default class HTTPService {
         }
 
         return (
-            route += ( path.includes('?') ? '&' : '?' ) + queryString.join('&')
+            route += ( route.includes('?') ? '&' : '?' ) + queryString.join('&')
         )
     }
 
-    static async getRequest( route, payload = {}, query= {}, headers ) {
+    static async getRequest( route, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -108,16 +122,10 @@ export default class HTTPService {
             method: 'GET',
         };
 
-        if ( HasLength( payload ) )
-            init.body = JSON.stringify( payload );
-
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async postRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async uploadRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -125,16 +133,28 @@ export default class HTTPService {
             method: 'POST',
         };
 
-        if ( HasLength( payload ) )
-            init.body = JSON.stringify( payload );
+        init.body = payload;
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
+        return await this.Request( route, init, true );
+    }
+
+    static async postRequest( route, payload = {}, query= {} ) {
+        if ( HasLength( query ) )
+            route = this._QueryString( route, query );
+
+        let init = {
+            method: 'POST',
+        };
+
+        init.body = JSON.stringify( payload );
+        // console.log(payload);
+        // if ( HasLength( payload ) )
+        // init.body = payload;
 
         return await this.Request( route, init );
     }
 
-    static async putRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async putRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -145,13 +165,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        if ( HasLength( headers ) )
-            init.headers = headers;
-
         return await this.Request( route, init );
     }
 
-    static async deleteRequest( route, payload = {}, query= {}, headers = {} ) {
+    static async deleteRequest( route, payload = {}, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -161,9 +178,6 @@ export default class HTTPService {
 
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
-
-        if ( HasLength( headers ) )
-            init.headers = headers;
 
         return await this.Request( route, init );
     }

@@ -27,15 +27,15 @@
           width: 60%
   &__menu
     &_item
-      padding: 11px 35px 10px 40px
+      padding: 13px 35px 13px 40px
       &:not(:last-child)
         border:
           bottom: 1px solid #dfe8f0
       &::after
         content: " "
         position: absolute
-        width: 7px
-        height: 11px
+        width: 11px
+        height: 14px
         top: 50%
         left: 26px
         background: url("/../images/ic_angle--blue.svg") no-repeat center
@@ -46,3 +46,17 @@
         width: 20px
         margin:
           left: 25px
+      &_title
+        font-size: 17px
+      &.router-link-exact-active
+        background: #f5fcff
+        &::before
+          content: " "
+          position: absolute
+          top: 0
+          right: 0
+          width: 6px
+          height: 100%
+          background-color: #5bc6f3
+        &::after
+          background-image: url("/../images/ic_angle--blue-200.svg")

@@ -3,6 +3,14 @@
 
 .border
   border-width: 1px
+  &-t
+    border-top: 1px solid
+  &-r
+    border-right: 1px solid
+  &-b
+    border-bottom: 1px solid
+  &-l
+    border-left: 1px solid
   &-transparent
     border-color: transparent
   &-solid
@@ -51,6 +59,8 @@
     border-radius: ($radius * 2)
   &-3
     border-radius: 3px
+  &-10
+    border-radius: 10px
   &-50
     border-radius: 50%
   &-tl-none
@@ -353,6 +363,8 @@
     background-color: $green
     &-#{200}
       background-color: $green-200
+  &-transparent
+    background-color: transparent
   &-size
     &-contain
       background-size: contain !important

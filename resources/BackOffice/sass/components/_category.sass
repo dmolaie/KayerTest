@@ -1,0 +1,37 @@
+.category
+  &__item
+    &--disable
+      opacity: .6
+    &:not(:last-of-type)
+      margin-bottom: 14px
+  &__checkbox
+    @include Size( 16px )
+    border-color: #bfc5cc
+    transition: border-color $duration
+    &::before
+      content: " "
+      position: absolute
+      top: 0
+      right: 0
+      width: 100%
+      height: 100%
+      background: $blue url("/../images/ic_tick--white.svg") no-repeat center
+        size: 8px auto
+      transform: scale(0)
+  &__input
+    background: red
+    &:checked
+      & + .category__checkbox
+        border-color: $blue-200
+        &::before
+          animation: checked .16s cubic-bezier(.455, .03, .515, .955) forwards
+  &__text
+    margin: 0 10px
+  &__children
+    .category__item
+      margin-top: 14px
+    &.m
+      &-r
+        margin-right: 12px
+      &-l
+        margin-left: 12px

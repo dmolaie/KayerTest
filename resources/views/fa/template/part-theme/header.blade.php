@@ -30,55 +30,57 @@
             @endforeach
             <div class="header__user header__user--{{auth()->check() ? 'active' : 'toggle'}} relative flex items-center m-r-auto">
                 <a href="{{route('admin.login')}}"
-                   class="flex items-center"
+                   class="flex items-center header__user_link"
                 >
                     @if(auth()->check())
                         <span class="text-green-300 font-sm font-bold text-nowrap">
                      {{auth()->user()->name .' '.auth()->user()->last_name . ' '}}خوش آمدید
                     </span>
                     @endif
-                    <span class="block header__nav_btn header__nav_btn--user bg-size-contain"></span>
+                    <object class="block relative">
+                        <span class="block header__nav_btn header__nav_btn--user bg-size-contain m-0"></span>
+                        @if( auth()->check() )
+                            <div class="header__dropdown absolute bg-white border border-solid rounded-10">
+
+                                @if( in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                                    <a href="{{route('admin.login',config('app.locale'))}}"
+                                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                        بخش سفیران اهدای عضو
+                                    </a>
+                                @endif
+
+                                @if( in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                                    <a href="{{route('page.client.profile',config('app.locale'))}}"
+                                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                        کارت اهدای عضو
+                                    </a>
+                                @endif
+
+                                @if(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && !in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                                    <a href="{{route('admin.login',config('app.locale'))}}"
+                                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                        ویرایش پروفایل
+                                    </a>
+                                @elseif(!in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                                    <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
+                                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                        ویرایش پروفایل
+                                    </a>
+                                @elseif(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                                    <a href="{{route('admin.login',config('app.locale'))}}"
+                                       class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                        ویرایش پروفایل
+                                    </a>
+                                @endif
+
+                                <a href="/user/#/logout"
+                                   class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
+                                    خروج
+                                </a>
+                            </div>
+                        @endif
+                    </object>
                 </a>
-                @if( auth()->check() )
-                    <div class="header__dropdown absolute bg-white border border-solid rounded-10">
-
-                        @if( in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
-                            <a href="{{route('admin.login',config('app.locale'))}}"
-                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
-                                بخش سفیران اهدای عضو
-                            </a>
-                        @endif
-
-                        @if( in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
-                            <a href="{{route('page.client.profile',config('app.locale'))}}"
-                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
-                                کارت اهدای عضو
-                            </a>
-                        @endif
-
-                        @if(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && !in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
-                            <a href="{{route('admin.login',config('app.locale'))}}"
-                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
-                                ویرایش پروفایل
-                            </a>
-                        @elseif(!in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
-                            <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
-                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
-                                ویرایش پروفایل
-                            </a>
-                        @elseif(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
-                            <a href="{{route('admin.login',config('app.locale'))}}"
-                               class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
-                                ویرایش پروفایل
-                            </a>
-                        @endif
-
-                        <a href="/user/#/logout"
-                           class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">
-                            خروج
-                        </a>
-                    </div>
-                @endif
             </div>
             <a href="{{route('index',config('app.locale'))}}" class="header__nav_btn header__nav_btn--home"></a>
             <button class="header__nav_btn header__nav_btn--search bg-size-contain"></button>

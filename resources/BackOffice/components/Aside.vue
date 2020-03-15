@@ -1,14 +1,15 @@
 <template>
     <aside class="aside w-1/4 xl:w-1/5 flex-shrink-0 h-full overflow-y-hidden">
         <div class="aside__header w-full flex items-center justify-between">
-            <router-link :to="{name: 'DASHBOARD'}">
+            <a href="/"
+            >
                 <image-cm
                     class="aside__header_logo"
                     :src="$asset( 'ic_ehda-center.png' )"
                     alt="انجمن اهدای عضو ایرانیان"
                     objectFit="contain"
                 />
-            </router-link>
+            </a>
             <button class="aside__header_button relative flex-shrink-0">
             <span v-for="( _, index ) in 3"
                   :key="index"
@@ -17,10 +18,10 @@
             </button>
         </div>
         <div class="aside__menu">
-            <button class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+            <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
                  v-for="(item, index) in menu"
                  :key="index"
-                 @click.prevent="onClickMenuItem( item.route )"
+                 :to="{name: item.route}"
             >
                 <image-cm
                     class="aside__menu_item_icon"
@@ -32,7 +33,7 @@
                 <span class="aside__menu_item_title font-sm font-medium">
                     {{ item.title }}
                 </span>
-            </button>
+            </router-link>
         </div>
     </aside>
 </template>
@@ -45,13 +46,24 @@
         data: () => ({
             menu: [
                 {
-                    title: 'رویدادها',
-                    icon: 'ic_event--blue.svg'
+                    route: 'DASHBOARD',
+                    title: 'پیشخوان',
+                    icon: 'ic__dashboard--blue.svg',
                 },
                 {
-                    route: 'CREATE_NEWS',
+                    route: 'MANAGE_MENU',
+                    title: 'مدیریت منوها',
+                    icon: 'ic__menu--blue.svg'
+                },
+                {
+                    route: 'MANAGE_NEWS',
                     title: 'اخبار',
                     icon: 'ic_newspaper--blue.svg'
+                },
+                {
+                    route: 'LOGOUT',
+                    title: 'خروج',
+                    icon: 'ic__logout-blue.svg'
                 }
             ]
         }),

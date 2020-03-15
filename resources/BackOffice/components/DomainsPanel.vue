@@ -15,9 +15,9 @@
         </p>
         <div class="panel__title">
             <select-cm :options="options"
-                       placeholder="دامنه مورد نظر خود را انتخاب کنیددامنه مورد نظر خود را انتخاب کنید"
-                       :multiple="false"
+                       placeholder="دامنه مورد نظر خود را انتخاب کنید"
                        @onChange="onChangeSelectBox"
+                       :value="computedValue"
             />
         </div>
         <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
@@ -30,29 +30,36 @@
     import {
         mapState
     } from 'vuex';
+    import {
+        HasLength
+    } from "@vendor/plugin/helper";
     import SelectCm from '@vendor/components/select/Index.vue';
 
     export default {
         name: "DomainsPanel",
-        data: () => ({
-            options: [
-                {
-                    text: 'salam',
-                    value: '213'
-                },
-                {
-                    text: 'bye',
-                    value: '341'
-                }
-            ],
-            isPending: true
-        }),
+        props: {
+            options: {
+                type: [Object, Array],
+                required: true
+            },
+            isPending: {
+                type: Boolean,
+                default: false,
+            },
+        },
         components: {
             SelectCm
         },
-        computed: mapState({
-            username: state => state.UserStore?.username,
-        }),
+        computed: {
+            ...mapState({
+                username: state => state.UserStore?.username,
+            }),
+            computedValue() {
+                return ( HasLength( this.options ) ) ? (
+                    this.options[0].text
+                ) : 'تهران'
+            }
+        },
         methods: {
             onChangeSelectBox( payload ) {
                 this.$emit('onChange', payload?.value )

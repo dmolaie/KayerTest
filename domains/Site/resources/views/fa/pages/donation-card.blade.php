@@ -462,10 +462,12 @@
                     </aside>
                 @elseif(in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
-                        <div class="dnt-page__panel border border-solid rounded-2">
-                            <p>شما پروفایل دارید لطفا از پروفایل جهت ثبت نام سفیر استفاده کنید.</p>
-                            <a href="{{route('page.donation-card',config('app.locale'))}}"
-                               class="dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200">
+                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
+                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
+                                شما پروفایل دارید لطفا از پروفایل جهت ثبت نام سفیر استفاده کنید.
+                            </p>
+                            <a href="{{route('page.volunteers',config('app.locale'))}}"
+                               class="empty-box__button block w-2/3 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center m-auto">
                                 ثبت نام سفیر
                             </a>
                         </div>
@@ -539,6 +541,6 @@
 
 @section('scripts')
     <script src="{{asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{asset('js/site/donation-card~edit-profile~volunteers-final.js')}}" defer></script>
+    <script src="{{asset('js/site/donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{asset('js/site/donation-card.js')}}" defer></script>
 @endsection

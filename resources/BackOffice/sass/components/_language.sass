@@ -15,5 +15,15 @@
     &--selected
       color: #8a8a94
       background: $white
+      &::before
+        content: " "
+        display: inline-block
+        width: 20px
+        height: 15px
+        background: url("/../images/ic_tick--green.svg") no-repeat center
+          size: contain
+        pointer-events: none
+        vertical-align: middle
+        margin-left: 3px
     &--not-selected
       background: #bde8fa
