@@ -35,20 +35,21 @@ class MenuPriorityRequest extends EhdaBaseRequest
     public function createMenuPriorityDTOs()
     {
         $priorityDTOs = [];
-        return $this->makePriorityDTO($this['menu_items'],$priorityDTOs);
+        return $this->makePriorityDTO($this['menu_items'], $priorityDTOs);
     }
 
-    protected function makePriorityDTO($items, &$priorityDTOs)
+    protected function makePriorityDTO($items, &$priorityDTOs, $parentId = null)
     {
         $priority = 1;
         foreach ($items as $item) {
             $menuPriorityDTO = new MenuPriorityDTO();
+            $menuPriorityDTO->setParentId($parentId);
             if (isset($item['id'])) {
                 $menuPriorityDTO->setId($item['id'])
                     ->setPriority($priority);
-                        if($item['children']) {
-                            $this->makePriorityDTO($item['children'], $priorityDTOs);
-                        }
+                if ($item['children']) {
+                    $this->makePriorityDTO($item['children'], $priorityDTOs, $item['id']);
+                }
                 $priority++;
                 $priorityDTOs[] = $menuPriorityDTO;
             }

@@ -28,6 +28,7 @@ class NewsRepository
         $news->first_title = $newsCreateDTO->getFirstTitle();
         $news->second_title = $newsCreateDTO->getSecondTitle();
         $news->abstract = $newsCreateDTO->getAbstract();
+        $news->description = $newsCreateDTO->getDescription();
         $news->publish_date = $newsCreateDTO->getPublishDate();
         $news->source_link = $newsCreateDTO->getSourceLink();
         $news->status = $newsCreateDTO->getStatus();

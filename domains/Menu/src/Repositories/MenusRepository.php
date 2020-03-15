@@ -76,6 +76,7 @@ class MenusRepository
             foreach ($priorityDTOs as $priorityDTO) {
                 $menu = $this->entityName::findOrFail($priorityDTO->getId());
                 $menu->priority = $priorityDTO->getPriority();
+                $menu->parent_id = $priorityDTO->getParentId();
                 if ($menu->getDirty()) {
                     $menu->save();
                 }
