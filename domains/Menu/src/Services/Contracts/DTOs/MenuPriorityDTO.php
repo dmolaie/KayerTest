@@ -17,6 +17,10 @@ class MenuPriorityDTO
      * @var integer
      */
     protected $priority;
+    /**
+     * @var integer|null
+     */
+    protected $parentId;
 
     /**
      * @return int
@@ -51,6 +55,24 @@ class MenuPriorityDTO
     public function setPriority(int $priority): MenuPriorityDTO
     {
         $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * @param int|null $parentId
+     * @return MenuPriorityDTO
+     */
+    public function setParentId(?int $parentId): MenuPriorityDTO
+    {
+        $this->parentId = $parentId;
         return $this;
     }
 
