@@ -50,7 +50,7 @@ export class SingleMenuPresenter extends BasePresenter {
     }
 
     name() {
-        return this.data?.name || ''
+        return this.data?.title || ''
     }
 
     alias() {
