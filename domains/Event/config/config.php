@@ -5,6 +5,9 @@ return [
         'accept',
         'reject',
         'pending',
+        'cancel',
+        'recycle',
+        'delete'
     ],
     'event_language'               => [
         'fa',

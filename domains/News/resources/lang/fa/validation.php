@@ -109,5 +109,7 @@ return array(
         "editor_id"          => "مالک خبر",
         "publish_date_end"   => "تاریخ شروع ایجاد خبر",
         "publish_date_start" => "تاریخ پایان ایجاد خبر",
+        "news_id"            => "شماره خبر",
+        "status"             => "وضعیت خبر",
     ],
 );

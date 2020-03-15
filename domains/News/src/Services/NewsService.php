@@ -19,6 +19,7 @@ use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\User\Entities\User;
 use Domains\User\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class NewsService
@@ -78,8 +79,10 @@ class NewsService
     public function createNews(NewsCreateDTO $newsCreateDTO)
     {
         $newsCreateDTO->setStatus(
-            $this->getNewsStatus($newsCreateDTO->getPublisher())
-        );
+            $this->getNewsStatus(
+                $newsCreateDTO->getPublisher(),
+                config('news.news_pending_status')
+            ));
         $news = $this->newsRepository->create($newsCreateDTO);
         $attachmentInfoDto = $this->addAttachmentForNews($news, $newsCreateDTO);
         return $this->newsInfoDTOMaker->convert($news, $attachmentInfoDto);
@@ -88,14 +91,15 @@ class NewsService
 
     /**
      * @param User $publisher
+     * @param string $status
      * @return \Illuminate\Config\Repository|mixed
      */
-    private function getNewsStatus(User $publisher)
+    private function getNewsStatus(User $publisher, string $status)
     {
-        if ($this->userService->isUserAdmin($publisher->id)) {
+        if ($status == config('news.news_pending_status') && $this->userService->isUserAdmin($publisher->id)) {
             return config('news.news_accept_status');
         }
-        return config('news.news_pending_status');
+        return $status;
     }
 
     /**
@@ -124,7 +128,8 @@ class NewsService
     public function editNews(NewsEditDTO $newsEditDTO)
     {
         $newsEditDTO->setStatus(
-            $this->getNewsStatus($newsEditDTO->getEditor())
+            $this->getNewsStatus($newsEditDTO->getEditor(),
+                config('news.news_pending_status'))
         );
         $news = $this->newsRepository->editNews($newsEditDTO);
         $this->addAttachmentForNews($news, $newsEditDTO);
@@ -176,5 +181,14 @@ class NewsService
             throw new NewsNotFoundException(trans('news::response.news_not_found'));
         }
         return $result;
+    }
+
+    public function changeStatus(int $newsId, string $status)
+    {
+        $status = $this->getNewsStatus(Auth::user(),$status);
+        $news = $this->newsRepository->changeStatus($newsId, $status);
+        $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
+        $images = $attachmentInfoDto->getImages()[$news->id];
+        return $this->newsInfoDTOMaker->convert($news, $images);
     }
 }
