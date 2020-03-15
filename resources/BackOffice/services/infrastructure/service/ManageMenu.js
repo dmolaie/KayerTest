@@ -4,7 +4,8 @@ import BaseService from '@vendor/infrastructure/service/BaseService';
 import {
     MENU_SET_DATA,
     MENU_UPDATE_DATA,
-    MENU_SET_TYPE_DATA
+    MENU_SET_TYPE_DATA,
+    MENU_ADD_ITEM
 } from '@services/store/ManageMenu';
 import {
     SavePriorityPresenter
@@ -72,24 +73,6 @@ export default class ManageMenuService extends BaseService {
         }
     }
 
-    async createArticle() {
-        try {
-            let payload = {
-                'first_title': 'دونه دونه دونه',
-                'description': 'یشسیسش',
-                'category_ids': [4, 3],
-                'publish_date': (new Date().getTime() / 1e3),
-                'slug': 'salam',
-                'province_id': 1,
-                'language': 'fa',
-            };
-            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.CREATE_ARTICLE_LIST ), payload );
-            console.log('createArticle: ', response);
-        } catch (e) {
-            console.log('createArticle: '. e);
-        }
-    }
-
     async getMenuType() {
         try {
             let response = await HTTPService.getRequest( Endpoint.get( Endpoint.GET_MENU_TYPE ) );
@@ -147,13 +130,41 @@ export default class ManageMenuService extends BaseService {
         }
     }
 
+    static async updateMenuItem( payload ) {
+        try {
+            return await HTTPService.postRequest( Endpoint.get(Endpoint.EDIT_MENU_ITEM), payload);
+        } catch (e) {
+            throw e
+        }
+    }
+
     async _onClickToggleActiveItem( item ) {
         try {
+            let {
+                name, title, alias, publish_date, language, type, link, priority
+            } = item;
+            let payload = {
+                name, title, alias, publish_date, language, type, link,
+                menu_id: item.id,
+                active: +(!item.active),
+            };
+            let findIndex = item.parentObj.findIndex(ch => ch.id === item.id);
+            let findItem = item.parentObj.find(ch => ch.id === item.id);
             this.processIsPending();
-            // let response = await HTTPService.postRequest( Endpoint.get(Endpoint.EDIT_MENU_ITEM),  );
-            this.$vm.$set( item, 'active', !item.active );
-            // this.displaySuccessNotification( response?.message );
-            this.displaySuccessNotification();
+            this.$vm.$set( findItem, 'active', !findItem.active );
+            payload.priority = ( !!findIndex ) ? (
+                findIndex + 1
+            ) : (
+                priority
+            );
+            if ( !!item.parent )
+                payload.parent_id = item.parent.id;
+            if ( !!item.menuable_id )
+                payload.menuable_id = item.menuable_id;
+
+            let response = await ManageMenuService.updateMenuItem( payload );
+            this.displaySuccessNotification( response?.message );
+            // this.displaySuccessNotification();
         }
         catch ({ message }) {
             this.displayErrorNotification( message );
@@ -201,17 +212,21 @@ export default class ManageMenuService extends BaseService {
                 delete data['menuable_id'];
 
             data['title'] = ( data.name );
-            data['alias'] = (data.name.replace(' ', '-'));
+            data['alias'] = (data.name.replace(/ /g, '-'));
             data['publish_date'] = (new Date().getTime() / 1e3);
             data['priority'] = Length( this.$vm.elements ) + 1;
-
-            console.log(data, data);
+            this.processIsPending();
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_MENU_LIST), data);
-            console.log(response);
 
+            BaseService.commitToStore(this.$store, MENU_ADD_ITEM, response);
+            this.displaySuccessNotification(response?.message);
+            this.$vm.$refs['modal']?.hidden();
+            this.$vm.$set(this.$vm.form, 'name', '');
+            this.$vm.$set(this.$vm.form, 'menuable_id', '');
+            this.$vm.$set(this.$vm.form, 'type', '');
+            this.$vm.$set(this.$vm.form, 'link', '');
         }
         catch ( exception ) {
-            console.log(exception);
             let errorMessage = exception.message;
             let errors = exception?.errors;
             if (!!errors)
@@ -220,6 +235,7 @@ export default class ManageMenuService extends BaseService {
         }
         finally {
             this.$vm.$set(this.$vm, 'shouldBeShowSpinnerLoading', false);
+            this.processIsPending( false );
         }
     }
 }

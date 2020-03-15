@@ -250,10 +250,14 @@
                 } catch (e) {}
             },
             resetCreateForm() {
-                this.$set(this, 'from', GET_INITIAL_FORM());
+                this.$set(this, 'from', GET_INITIAL_FORM.apply( this ));
                 this.$set(this, 'categories', []);
-                this.$refs['selectCategories'].resetValue();
-                this.$refs['selectArticle'].resetValue();
+                if ( this.$refs['selectCategories'] )
+                    this.$refs['selectCategories'].resetValue();
+                if ( this.$refs['selectArticle'] )
+                    this.$refs['selectArticle'].resetValue();
+                try {
+                } catch (e) {}
             },
             onCloseModal() {
                 this.resetCreateForm();
@@ -292,7 +296,9 @@
                 this.$set(this.form, 'menuable_id', id);
             },
             async onClickCreateNewMenuItem() {
-                await Service.onClickCreateNewMenuItem( this.form );
+                try {
+                    await Service.onClickCreateNewMenuItem( this.form );
+                } catch (e) {}
             }
         },
         async created() {

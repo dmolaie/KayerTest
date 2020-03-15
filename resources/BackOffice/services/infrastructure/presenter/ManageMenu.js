@@ -15,7 +15,7 @@ export class MenuPresenter extends BasePresenter {
     }
 }
 
-class SingleMenuPresenter extends BasePresenter {
+export class SingleMenuPresenter extends BasePresenter {
     constructor( item ) {
         super( item );
         this.data = item;
@@ -36,7 +36,8 @@ class SingleMenuPresenter extends BasePresenter {
             publish_date: Number,
             active: Boolean,
             priority: Number,
-            is_opened: Boolean
+            is_opened: Boolean,
+            menuable_id: Number
         })
     }
 
@@ -98,7 +99,7 @@ class SingleMenuPresenter extends BasePresenter {
     }
 
     active() {
-        return this.data?.status
+        return !!this.data?.status
     }
 
     priority() {
@@ -107,6 +108,10 @@ class SingleMenuPresenter extends BasePresenter {
 
     is_opened() {
         return false
+    }
+
+    menuable_id() {
+        return this.data?.menuable_id || ''
     }
 
 }

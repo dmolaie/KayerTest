@@ -2,6 +2,16 @@
     <div class="dragArea__form border border-solid rounded">
         <div class="dragArea__form_row flex items-center w-full">
             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
+                نام منو
+            </span>
+            <input type="text"
+                   v-model="name"
+                   class="dragArea__form_input modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
+                   placeholder="نام منو را وارد کنید"
+            />
+        </div>
+        <div class="dragArea__form_row flex items-center w-full">
+            <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                 نوع منو
             </span>
             <select-cm :options="menuType"
@@ -46,7 +56,7 @@
                 URL
             </span>
             <input type="text"
-                   v-model="item.e_link"
+                   v-model="e_link"
                    class="dragArea__form_input modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
                    placeholder="URL را وارد کنید"
             />
@@ -68,11 +78,16 @@
     import {
         CategoryPresenter
     } from '@services/presenter/ManageMenu';
+    import {
+        CopyOf
+    } from '@vendor/plugin/helper'
 
     export default {
         name: "Form",
         data: () => ({
-            shouldBeShowSpinnerLoading: false
+            shouldBeShowSpinnerLoading: false,
+            e_link: '',
+            name: '',
         }),
         props: {
             item: {
@@ -80,6 +95,10 @@
                 required: true
             },
             menuType: {
+                type: [Object, Array],
+                required: true
+            },
+            parentItem: {
                 type: [Object, Array],
                 required: true
             }
@@ -122,19 +141,71 @@
                 this.$emit('onToggleChild');
                 this.$set(this.item, 'edit_menuable_id', id);
             },
-            onClickSaveChangeButton() {
+            async onClickSaveChangeButton() {
                 try {
+                    if ( !this.name.trim() ) {
+                        this.displayNotification('فیلد نام منو اجباری است.', {
+                            type: 'error'
+                        });
+                        return false;
+                    }
+                    if ( !this.e_link.trim() ) {
+                        this.displayNotification('فیلد URL اجباری است.', {
+                            type: 'error'
+                        });
+                        return false;
+                    }
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
+                    let findIndex = this.parentItem.findIndex(item => item.id === this.item.id);
+                    let {
+                        publish_date, language, active
+                    } = this.item;
+                    let payload = {
+                        active: +active,
+                        name: this.name,
+                        title: this.name,
+                        alias: this.name.replace(/ /g, '-'),
+                        menu_id: this.item.id,
+                        publish_date, language,
+                        link: this.e_link,
+                        type: ( !!this.item.edit_menuType ? this.item.edit_menuType : this.item.type ),
+                        priority: (findIndex + 1),
+                    };
+                    if ( !!this.item.parent )
+                        payload.parent_id = this.item.parent.id;
+                    this.$emit('onToggleChild');
+                    if ( !!this.item.edit_menuable_id || this.item.menuable_id ) {
+                        payload.menuable_id = (!!this.item.edit_menuable_id) ? (!!this.item.edit_menuable_id) : (this.item.menuable_id);
+                        this.$set(this.item, 'menuable_id', payload.menuable_id)
+                    }
+                    this.$set(this.item, 'name', payload.name);
+                    this.$set(this.item, 'type', payload.type);
+                    this.$set(this.item, 'link', payload.link);
+                    try {
+                        let response = await ManageMenuService.updateMenuItem( payload );
+                        this.displayNotification(response.message, {
+                            type: 'success'
+                        });
+                    } catch (exception) {
+                        let errorMessage = exception.message;
+                        let errors = exception?.errors;
+                        if (!!errors)
+                            errorMessage = Object.entries(errors)[0][1][0];
+                        this.displayNotification(errorMessage, {
+                            type: 'error'
+                        });
+                    }
+                    console.log(payload);
                 }
-                catch (e) {
-
-                }
+                catch (e) {}
                 finally {
                     this.$set(this, 'shouldBeShowSpinnerLoading', false);
                 }
             }
         },
         async mounted() {
+            this.$set(this, 'e_link', this.item.link);
+            this.$set(this, 'name', this.item.name);
             await this.onChangeMenuTypeField({
                 text: this.item.type
             })

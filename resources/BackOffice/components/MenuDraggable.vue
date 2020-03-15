@@ -25,7 +25,7 @@
                 > </span>
                 <button class="c-menu__item_btn flex-shrink-0 border-r m-r-auto"
                         :class="[ item.active ? 'c-menu__item_btn--unvisible' : 'c-menu__item_btn--visible' ]"
-                        @click.prevent="onClickToggleActiveItem( item )"
+                        @click.prevent="onClickToggleActiveItem( item, realValue )"
                 > </button>
                 <button class="c-menu__item_btn c-menu__item_btn--edit flex-shrink-0 border-r"
                         @click="onClickEditButton( item )"
@@ -41,6 +41,7 @@
             >
                 <manage-menu-form-cm :item="item"
                                      :menuType="menuType"
+                                     :parentItem="realValue"
                                      @onToggleChild="onToggleChild"
                 />
             </div>
@@ -98,8 +99,11 @@
             emitter( value ) {
               this.$emit("input", value)
             },
-            onClickToggleActiveItem( item ) {
-                this.$emit('onClickToggleActiveItem', item );
+            onClickToggleActiveItem( item, parentObj ) {
+                this.$emit('onClickToggleActiveItem', {
+                    parentObj,
+                    ...item,
+                });
             },
             onToggleChild() {
                 this.$emit('onToggleChild')

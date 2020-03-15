@@ -1,11 +1,13 @@
 import {
     MenuPresenter,
-    MenuTypePresenter
+    MenuTypePresenter,
+    SingleMenuPresenter
 } from '@services/presenter/ManageMenu';
 
 export const MENU_SET_DATA = 'MENU_SET_DATA';
 export const MENU_SET_TYPE_DATA = 'MENU_SET_TYPE_DATA';
 export const MENU_UPDATE_DATA = 'MENU_UPDATE_DATA';
+export const MENU_ADD_ITEM = 'MENU_ADD_ITEM';
 
 const MenuStore = {
     state: {
@@ -27,6 +29,11 @@ const MenuStore = {
         [MENU_SET_TYPE_DATA](state, payload) {
             state.menuType = { ...new MenuTypePresenter( payload ) }
         },
+        [MENU_ADD_ITEM](state, payload) {
+            state.menuItem.push(
+                new SingleMenuPresenter( payload.data )
+            );
+        }
     }
 };
 
