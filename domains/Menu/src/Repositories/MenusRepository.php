@@ -48,7 +48,7 @@ class MenusRepository
         $menus->editor_id = $menusEditDTO->getEditor()->id;
         $menus->parent_id = $menusEditDTO->getParentId();
         $menus->priority = $menusEditDTO->getPriority();
-        $menus->active = $menusEditDTO->getActive() ? $menusEditDTO->getActive() : true;
+        $menus->active = $menusEditDTO->getActive();
         $getDirty = $menus->getDirty();
         if (!empty($getDirty)) {
             $menus->save();

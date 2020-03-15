@@ -180,7 +180,7 @@ class UserRepository
     {
         return $this->entityName::where(
             'national_code', '=', $nationalCode)->firstOrFail()
-            ->roles()->where('role_id', $roleId)->exist();
+            ->roles()->where('role_id', $roleId)->first();
     }
 
     public function getUserRoles($user)
