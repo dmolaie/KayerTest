@@ -89,7 +89,11 @@ class MenusRepository
         return $this->entityName::whereNull('parent_id')
             ->when($activeList, function ($query) {
                 return $query->where('active', true);
-            })->orderBy('priority')->with('child')->get();
+            })->orderBy('priority')->with([
+                'child' => function ($q) {
+                    $q->orderBy('priority');
+                }
+            ])->get();
     }
 
     public function findByAlias(string $pageAlias)

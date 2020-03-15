@@ -5,13 +5,15 @@ namespace Domains\News\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
 use Auth;
-use Domains\News\Entities\News;
+use Domains\News\Exceptions\NewsNotFoundException;
+use Domains\News\Http\Presenters\NewsInfoPresenter;
 use Domains\News\Http\Presenters\NewsPaginateInfoPresenter;
+use Domains\News\Http\Requests\ChangeNewsStatusRequest;
 use Domains\News\Http\Requests\CreateNewsRequest;
 use Domains\News\Http\Requests\EditNewsRequest;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
 use Domains\News\Services\NewsService;
-use Domains\News\Http\Presenters\NewsInfoPresenter;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
 class NewsController extends EhdaBaseController
@@ -61,5 +63,37 @@ class NewsController extends EhdaBaseController
             $newsPaginateInfoPresenter->transform($newsPaginateInfoDTO),
             Response::HTTP_OK
         );
+    }
+
+    public function deleteNews(int $newsId)
+    {
+        try {
+            $this->newsService->destroyNews($newsId);
+            return $this->response([], Response::HTTP_OK, trans('news::response.success_delete_news'));
+        } catch (NewsNotFoundException $exception) {
+            return $this->response([], $exception->getCode(), $exception->getMessage());
+        }
+    }
+
+    public function changeNewsStatus(ChangeNewsStatusRequest $request, NewsInfoPresenter $newsInfoPresenter)
+    {
+        try {
+            $newsInfoDTO = $this->newsService->changeStatus(
+                $request->news_id,
+                $request->status
+            );
+            return $this->response(
+                $newsInfoPresenter->transform($newsInfoDTO),
+                Response::HTTP_OK,
+                trans('news::response.edit_successful')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('news::response.news_not_found')
+            );
+        }
+
     }
 }

@@ -28,6 +28,7 @@ class ArticleRepository
         $article->first_title = $articleCreateDTO->getFirstTitle();
         $article->second_title = $articleCreateDTO->getSecondTitle();
         $article->third_title = $articleCreateDTO->getThirdTitle();
+        $article->description = $articleCreateDTO->getDescription();
         $article->abstract = $articleCreateDTO->getAbstract();
         $article->publish_date = $articleCreateDTO->getPublishDate();
         $article->slug = $articleCreateDTO->getSlug();

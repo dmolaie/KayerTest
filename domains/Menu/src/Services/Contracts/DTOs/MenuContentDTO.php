@@ -17,7 +17,10 @@ class MenuContentDTO
      * @var
      */
     protected $contentObject;
-
+    /**
+     * @var string
+     */
+    protected $title;
     /**
      * @return string
      */
@@ -51,6 +54,24 @@ class MenuContentDTO
     public function setContentObject($contentObject)
     {
         $this->contentObject = $contentObject;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return MenuContentDTO
+     */
+    public function setTitle(string $title): MenuContentDTO
+    {
+        $this->title = $title;
         return $this;
     }
 

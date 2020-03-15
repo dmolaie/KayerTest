@@ -20,8 +20,8 @@ use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
-use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
+use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Domains\User\src\Services\Contracts\DTOs\UserProfileDTO;
 use Illuminate\Support\Facades\Auth;
 
@@ -214,7 +214,10 @@ class UserService
 
     public function ValidateUserWithRole(ValidationDataUserDTO $validationDataUserDTO)
     {
-        return $this->userRepository->checkUserHasSpecialRole($validationDataUserDTO);
+        return $this->userRepository->checkUserHasSpecialRole(
+            $validationDataUserDTO->getNationalCode(),
+            $validationDataUserDTO->getRoleId()
+        );
     }
 
     public function getProfileInfo(): UserProfileDTO
@@ -234,7 +237,19 @@ class UserService
 
     public function changePasswordByAdmin(int $userId, string $password)
     {
-        $this->userRepository->changePasswordByAdmin($userId,$password);
+        $this->userRepository->changePasswordByAdmin($userId, $password);
         return;
+    }
+
+    public function registerByAdmin(UserRegisterInfoDTO $createUserRegisterDTO)
+    {
+        $existUser = $this->userRepository->findByNationalCode($createUserRegisterDTO->getNationalCode());
+        if (!$existUser && !$createUserRegisterDTO->getPassword()) {
+            $createUserRegisterDTO->setPassword($createUserRegisterDTO->getMobile());
+        }
+        $user = $this->userRepository->createOrUpdateUser(
+            $createUserRegisterDTO,
+            $existUser);
+        return $this->userBriefInfoDTOMaker->convert($user);
     }
 }
