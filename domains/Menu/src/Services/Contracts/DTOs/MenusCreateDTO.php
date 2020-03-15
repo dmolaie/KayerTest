@@ -105,10 +105,10 @@ class MenusCreateDTO extends MenusBaseSaveDTO
     }
 
     /**
-     * @param array|null $link
+     * @param string|null $link
      * @return MenusCreateDTO
      */
-    public function setLink(?array $link): MenusCreateDTO
+    public function setLink(?string $link): MenusCreateDTO
     {
         $this->link = $link;
         return $this;

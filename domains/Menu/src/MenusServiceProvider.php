@@ -4,6 +4,8 @@
 namespace Domains\Menu;
 
 
+use Domains\Menu\Entities\Menus;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +20,8 @@ class MenusServiceProvider extends ServiceProvider
         $this->loadConfig();
 
         $this->registerPublishing();
+
+        $this->registerPolicies();
 
     }
 
@@ -41,6 +45,7 @@ class MenusServiceProvider extends ServiceProvider
         return [
             'namespace' => 'Domains\Menu\Http\Controllers',
             'prefix' => 'menu/v1',
+            'middleware' => ['auth:api','can:list,Domains\Menu\Entities\Menus']
         ];
     }
 
@@ -84,5 +89,30 @@ class MenusServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'migrations');
+    }
+
+    /**
+     * Register the application's policies.
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies() as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
+    /**
+     * Get the policies defined on the provider.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+
+        return [
+            Menus::class => \Domains\Menu\Policies\MenuPolicy::class,
+        ];
     }
 }
