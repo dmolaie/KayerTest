@@ -165,12 +165,12 @@ export default class ManageMenuService extends BaseService {
 
     async saveMenuPriority( payload ) {
         try {
-            if ( !this.$vm.anotherProcessIsPending ) {
-                let response = await HTTPService.postRequest(Endpoint.get(Endpoint.SAVE_MENU_LIST), {
-                    menu_items: SavePriorityPresenter(payload)
-                });
-                this.displaySuccessNotification( response?.message );
-            }
+            // if ( !this.$vm.anotherProcessIsPending ) {
+            //     let response = await HTTPService.postRequest(Endpoint.get(Endpoint.SAVE_MENU_LIST), {
+            //         menu_items: SavePriorityPresenter(payload)
+            //     });
+            //     this.displaySuccessNotification( response?.message );
+            // }
         }
         catch ({ message }) {
             this.displayErrorNotification( message );

@@ -37,6 +37,7 @@ $gap: 18px
       border-color: #7ed321
       background-color: #f7f7f7
       box-shadow: 0 2px 4px 0 transparentize(black, (1 - .09))
+      @include SpinnerLoading(24px, 3px, #7ed321)
       @include L_Screen
         &:hover
           color: $white
@@ -300,3 +301,8 @@ $gap: 18px
           font:
             size: 15px
             weight: 300
+    &--disable
+      pointer-events: none
+      opacity: .7
+    .select__options
+      max-height: 155px

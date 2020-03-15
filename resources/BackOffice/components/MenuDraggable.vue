@@ -13,7 +13,7 @@
              :class="{
                  'c-menu__tree--disabled': ( !item.active ),
                  'c-menu__tree--closed overflow-hidden': ( !item.is_opened ),
-                 'c-menu__tree--editable': ( !item.is_opened && !! !!item.is_edit ),
+                 'c-menu__tree--editable': ( (!item.is_opened && !!item.is_edit) ||true ),
              }"
         >
             <div class="c-menu__item w-full flex items-center border border-solid rounded font-lg font-bold text-blue-800 user-select-none"
@@ -36,57 +36,12 @@
                 <button class="c-menu__item_btn c-menu__item_btn--drag border-r flex-shrink-0 handle"
                 > </button>
             </div>
-            <div class="dragArea__form border border-solid rounded"
-                 v-if="!!item.is_edit"
+            <div class="w-full"
+                 v-if="!!item.is_edit||true"
             >
-                <div class="dragArea__form_row flex items-center w-full">
-                    <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
-                        نوع منو
-                    </span>
-                    <select-cm :options="menuType"
-                               placeholder="نوع منو را انتخاب کنید"
-                               class="w-full"
-                               :value="item.type"
-                               @onChange="onChangeMenuTypeField($event, item)"
-                    />
-                </div>
-                <div class="dragArea__form_row flex items-center w-full">
-                    <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
-                         دسته بندی
-                    </span>
-                    <select-cm :options="menuType"
-                               placeholder="نوع منو را انتخاب کنید"
-                               class="w-full"
-                    />
-                </div>
-                <div class="dragArea__form_row flex items-center w-full">
-                    <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
-                        لیست مطالب
-                    </span>
-                    <select-cm :options="menuType"
-                               placeholder="نوع منو را انتخاب کنید"
-                               class="w-full"
-                               :searchable="true"
-                               :filterBy="onChangeSearchMethod"
-                    />
-                </div>
-                <div class="dragArea__form_row flex items-center w-full">
-                    <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
-                        URL
-                    </span>
-                    <input type="text"
-                           v-model="item.e_link"
-                           class="dragArea__form_input modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
-                           placeholder="URL را وارد کنید"
-                    />
-                </div>
-                <div class="text-left">
-                    <button class="c-menu__button c-menu__button--white text-blue-800 font-lg font-bold border border-solid rounded"
-                            @click.stop=""
-                    >
-                        ذخیره
-                    </button>
-                </div>
+                <manage-menu-form-cm :item="item"
+                                     :menuType="menuType"
+                />
             </div>
             <div class="c-menu__child"
             >
@@ -104,7 +59,7 @@
 
 <script>
     import draggable from "vuedraggable";
-    import SelectCm from '@vendor/components/select/Index.vue';
+    import ManageMenuFormCm from "@components/ManageMenu/Form.vue";
     import {
         CopyOf
     } from "@vendor/plugin/helper";
@@ -131,7 +86,7 @@
             }
         },
         components: {
-            draggable, SelectCm
+            draggable, ManageMenuFormCm
         },
         computed: {
             realValue() {
@@ -162,11 +117,8 @@
                     ...item,
                 });
             },
-            onChangeMenuTypeField( newVal, item ) {
-                this.$set(item, 'edit_menuType', newVal);
-            },
             onChangeSearchMethod( value ) {
-                console.log(value);
+                // console.log(value);
             },
         },
     };
