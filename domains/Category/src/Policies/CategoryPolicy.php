@@ -2,8 +2,6 @@
 
 namespace Domains\Category\Policies;
 
-use Domains\Role\Enitites\Permission;
-use Domains\Role\Entities\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CategoryPolicy
@@ -12,23 +10,27 @@ class CategoryPolicy
 
     public function before($user)
     {
-       /* $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
-        if (in_array(config('role.roles.admin.name'),$roleActiveUser)) {
-            return true;
-        }
-        return false;*/
+         $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+         if (in_array(config('role.roles.admin.name'),$roleActiveUser)) {
+             return true;
+         }
+         return false;
     }
+
 
     public function createCategory()
     {
-        $roleActiveUser = auth()->user()->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('roles.id')->toArray();
-        dd(Permission::wherePivotIn('role_id','=',$roleActiveUser)->get());
-        $permission = Role::whereIn('id',$roleActiveUser)->with('permissions')->get();
-
-        dd($permission);
-
-
-    /*    if (in_array(config('role.roles.manager.name'),$roleActiveUser)) {
+        return true;
+       /* $userRolePermission = auth()->user()->roles()->with(['permissions' => function ($query) {
+            $query->where('permissions.name', '=', 'createCategory')->select('name')->first();
+        }])->get();
+        $countPermiision = [];
+        foreach ($userRolePermission as $item) {
+            if (array_key_exists(0, $item->permissions->toArray())) {
+                $countPermiision[] = $item->permissions->toArray()[0]['name'];
+            }
+        }
+        if (count($countPermiision)) {
             return true;
         }
         return false;*/
