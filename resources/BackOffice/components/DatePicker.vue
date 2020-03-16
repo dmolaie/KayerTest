@@ -14,6 +14,7 @@
                      :color="color"
                      :disabled="disabled"
                      :locale="locale"
+                     :wrapper-submit="wrapperSubmit"
                      @input="onInput"
                      @change="onChange"
         />
@@ -100,6 +101,10 @@
                 type: String,
                 default: 'fa'
             },
+            wrapperSubmit: {
+                type: Boolean,
+                default: false,
+            }
         },
         components: {
             datePicker: VuePersianDatetimePicker
