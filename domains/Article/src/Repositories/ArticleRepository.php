@@ -88,6 +88,9 @@ class ArticleRepository
     {
         $baseQuery = $this->entityName::
         when($articleFilterDTO->getArticleRealStatus(), function ($query) use ($articleFilterDTO) {
+            if ($articleFilterDTO->getArticleRealStatus() == config('article.article_convert_to_real_status.delete')) {
+                return $query->onlyTrashed();
+            }
             return $query->where('status', $articleFilterDTO->getArticleRealStatus());
         })
             ->when($articleFilterDTO->getPublisherId(), function ($query) use ($articleFilterDTO) {
@@ -135,10 +138,21 @@ class ArticleRepository
     public function findByMenuId(int $menuId)
     {
         return $this->entityName::with([
-            'menus' => function ($query) use($menuId){
+            'menus' => function ($query) use ($menuId) {
                 $query->where('id', $menuId);
             }
         ])->firstOrFail();
+    }
+
+    public function changeStatus(int $articleId, string $status): Article
+    {
+        $article = $this->findOrFail($articleId);
+        $article->status = $status;
+        $getDirty = $article->getDirty();
+        if (!empty($getDirty)) {
+            $article->save();
+        }
+        return $article;
     }
 
 }

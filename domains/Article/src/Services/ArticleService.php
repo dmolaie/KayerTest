@@ -21,6 +21,7 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\User\Entities\User;
 use Domains\User\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ArticleService
@@ -80,7 +81,7 @@ class ArticleService
     public function createArticle(ArticleCreateDTO $articleCreateDTO)
     {
         $articleCreateDTO->setStatus(
-            $this->getArticleStatus($articleCreateDTO->getPublisher())
+            $this->getArticleStatus($articleCreateDTO->getPublisher(), config('article.article_pending_status'))
         );
         $article = $this->articleRepository->create($articleCreateDTO);
         $attachmentInfoDto = $this->addAttachmentForArticle($article, $articleCreateDTO);
@@ -90,14 +91,15 @@ class ArticleService
 
     /**
      * @param User $publisher
+     * @param string $status
      * @return \Illuminate\Config\Repository|mixed
      */
-    private function getArticleStatus(User $publisher)
+    private function getArticleStatus(User $publisher, string $status)
     {
-        if ($this->userService->isUserAdmin($publisher->id)) {
+        if ($status == config('article.article_pending_status') && $this->userService->isUserAdmin($publisher->id)) {
             return config('article.article_accept_status');
         }
-        return config('article.article_pending_status');
+        return $status;
     }
 
     /**
@@ -128,7 +130,7 @@ class ArticleService
     public function editArticle(ArticleEditDTO $articleEditDTO)
     {
         $articleEditDTO->setStatus(
-            $this->getArticleStatus($articleEditDTO->getEditor())
+            $this->getArticleStatus($articleEditDTO->getEditor(), config('article.article_pending_status'))
         );
 
         $article = $this->articleRepository->editArticle($articleEditDTO);
@@ -174,6 +176,7 @@ class ArticleService
 
     public function destroyArticle($articleId)
     {
+        $this->changeStatus($articleId, config('article.article_delete_status'));
         $result = $this->articleRepository->destroyArticle($articleId);
         if (!$result) {
             throw new ArticleNotFoundException(trans('article::response.article_not_found'));
@@ -184,6 +187,15 @@ class ArticleService
     public function findWithMenuId(int $menuId):ArticleInfoDTO
     {
         $article = $this->articleRepository->findByMenuId($menuId);
+        $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
+        $images = $attachmentInfoDto->getImages()[$article->id];
+        return $this->articleInfoDTOMaker->convert($article, $images);
+    }
+
+    public function changeStatus(int $articleId, string $status)
+    {
+        $status = $this->getArticleStatus(Auth::user(), $status);
+        $article = $this->articleRepository->changeStatus($articleId, $status);
         $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
         $images = $attachmentInfoDto->getImages()[$article->id];
         return $this->articleInfoDTOMaker->convert($article, $images);
