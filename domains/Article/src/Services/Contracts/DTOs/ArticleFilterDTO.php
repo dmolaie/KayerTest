@@ -55,7 +55,10 @@ class ArticleFilterDTO
      * @var string|null
      */
     protected $language;
-
+    /**
+     * @var string
+     */
+    protected $sort = 'DESC';
     /**
      * @return string|null
      */
@@ -231,6 +234,24 @@ class ArticleFilterDTO
     public function setLanguage(?string $language): ArticleFilterDTO
     {
         $this->language = $language;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSort(): string
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param string $sort
+     * @return ArticleFilterDTO
+     */
+    public function setSort(string $sort): ArticleFilterDTO
+    {
+        $this->sort = $sort;
         return $this;
     }
 

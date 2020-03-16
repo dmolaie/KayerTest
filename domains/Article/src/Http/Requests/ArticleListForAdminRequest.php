@@ -22,7 +22,8 @@ class ArticleListForAdminRequest extends EhdaBaseRequest
             'create_date_start' => 'numeric',
             'create_date_end'   => 'numeric',
             'publisher_id'      => 'integer',
-            'status'            => [Rule::in(config('article.article_list_status'))]
+            'status'            => [Rule::in(config('article.article_list_status'))],
+            'sort'              => [Rule::in('DESC', 'ASC')]
         ];
     }
 
@@ -49,6 +50,7 @@ class ArticleListForAdminRequest extends EhdaBaseRequest
             )
             ->setPublisherId($this['publisher_id'])
             ->setArticleInputStatus($this['status'])
+            ->setSort($this['sort'] ?? 'DESC')
             ->setFirstTitle($this['first_title']);
 
         return $articleFilterDTO;

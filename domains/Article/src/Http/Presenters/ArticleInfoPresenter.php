@@ -51,17 +51,25 @@ class ArticleInfoPresenter
 
     private function getStatus(ArticleInfoDTO $articleInfoDTO)
     {
-        $status = [
-            'fa' => trans('article::article.article_statuses.' . $articleInfoDTO->getStatus()),
-            'en' => $articleInfoDTO->getStatus()
-        ];
-        if ($articleInfoDTO->getStatus() == 'accept' && $articleInfoDTO->getPublishDate() <= Carbon::now()) {
-            $status = [
+        if ($articleInfoDTO->getStatus() != 'accept') {
+            return [
+                'fa' => trans('article::article.article_statuses.' . $articleInfoDTO->getStatus()),
+                'en' => $articleInfoDTO->getStatus()
+            ];
+        }
+
+        if (
+        Carbon::parse($articleInfoDTO->getPublishDate())->lessThanOrEqualTo(Carbon::now())) {
+            return [
                 'fa' => trans('article::article.article_statuses.published'),
                 'en' => 'published'
             ];
 
         }
-        return $status;
+        return [
+            'fa' => trans('article::article.article_statuses.ready_to_publish'),
+            'en' => 'ready_to_publish'
+        ];
+
     }
 }

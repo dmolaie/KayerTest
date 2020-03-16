@@ -2,12 +2,13 @@
 
 return [
     'article_statuses' => [
-        'accept'    => 'تایید شده',
-        'reject'    => 'رد شده',
-        'pending'   => 'در انتظار تایید',
-        'published' => 'منتشر شده',
-        'cancel'    => 'لغو شده',
-        'recycle'   => 'در زباله دان',
-        'delete'    => 'حذف شده'
+        'accept'           => 'تایید شده',
+        'ready_to_publish' => 'در انتظار انتشار',
+        'reject'           => 'رد شده',
+        'pending'          => 'در انتظار تایید',
+        'published'        => 'منتشر شده',
+        'cancel'           => 'لغو شده',
+        'recycle'          => 'در زباله‌دان',
+        'delete'           => 'حذف شده'
     ],
 ];

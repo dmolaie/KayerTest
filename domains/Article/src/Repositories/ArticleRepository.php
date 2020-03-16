@@ -97,16 +97,16 @@ class ArticleRepository
                 return $query->where('first_title', 'like', '%' . $articleFilterDTO->getFirstTitle() . '%');
             })
             ->when($articleFilterDTO->getCreateDateEnd(), function ($query) use ($articleFilterDTO) {
-                return $query->where('created_at', '<=', $articleFilterDTO->getCreateDateEnd());
+                return $query->whereDate('created_at', '<=', $articleFilterDTO->getCreateDateEnd());
             })
             ->when($articleFilterDTO->getCreateDateStart(), function ($query) use ($articleFilterDTO) {
-                return $query->where('created_at', '>=', $articleFilterDTO->getCreateDateStart());
+                return $query->whereDate('created_at', '>=', $articleFilterDTO->getCreateDateStart());
             })
             ->when($articleFilterDTO->getMaxPublishDate(), function ($query) use ($articleFilterDTO) {
-                return $query->where('publish_date', '<=', $articleFilterDTO->getMaxPublishDate());
+                return $query->whereDate('publish_date', '<=', $articleFilterDTO->getMaxPublishDate());
             })
             ->when($articleFilterDTO->getMinPublishDate(), function ($query) use ($articleFilterDTO) {
-                return $query->where('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
+                return $query->whereDate('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
             })
             ->when($articleFilterDTO->getLanguage(), function ($query) use ($articleFilterDTO) {
                 return $query->where('language', $articleFilterDTO->getLanguage());
@@ -122,6 +122,7 @@ class ArticleRepository
                         ->orWhereNull('province_id');
                 });
             })
+            ->orderBy('id', $articleFilterDTO->getSort())
             ->paginate(config('article.article_paginate_count'));
         return $baseQuery;
     }
