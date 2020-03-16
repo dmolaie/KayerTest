@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => 'web'], function () {
 
     Route::get('/full-info', 'UserController@getFullUserInfo')->middleware('auth');
     Route::post('/update-info', 'UserController@updateUserInfo')->middleware('auth');
