@@ -8,7 +8,7 @@
                     </span>
             </h1>
             <div class="p-t-35 w-full flex items-start">
-                @if(!auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                @if(!auth()->check() || !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="dnt-page__panel border border-solid rounded-2">
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
