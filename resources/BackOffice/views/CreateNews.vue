@@ -201,7 +201,7 @@
 
     /**
      * TODO: province_id should be Fetching from the server
-     * @return {{category_id: [], province_id: number, second_title: string, parent_id: string, description: string, language: string, first_title: string, abstract: string, publish_date: string, source_link: string}}
+     * @return {{category_ids: [], province_id: number, second_title: string, parent_id: string, description: string, language: string, first_title: string, abstract: string, publish_date: string, source_link: string}}
      */
     const GET_INITIAL_FORM = () => ({
         first_title: '',
@@ -213,7 +213,7 @@
         source_link: '',
         parent_id: '',
         language: '',
-        category_id: [],
+        category_ids: [],
     });
 
     const GET_INITIAL_IMAGE = () => ({
@@ -375,11 +375,11 @@
             onChangeCategoryField( item ) {
                 try {
                     if ( !item.checked ) {
-                        this.form.category_id.push( item.id )
+                        this.form.category_ids.push( item.id )
                     } else {
-                        let findIndex = this.form.category_id
+                        let findIndex = this.form.category_ids
                             .findIndex(cat => cat === item.id);
-                        this.form.category_id.splice(findIndex, 1)
+                        this.form.category_ids.splice(findIndex, 1)
                     }
                 } catch (e) {}
             }
