@@ -2,9 +2,9 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import {
-    M_NEWS_SET_DATA,
-    M_NEWS_UPDATE_DATA
-} from '@services/store/ManageNews';
+    M_ARTICLE_SET_DATA,
+    M_ARTICLE_UPDATE_DATA
+} from '@services/store/ManageArticle';
 import {
     HasLength, CopyOf
 } from "@vendor/plugin/helper";
@@ -65,7 +65,7 @@ export default class ManageNewsService extends BaseService {
 
     async deleteNewsItem( id ) {
         try {
-            let response = await HTTPService.deleteRequest(Endpoint.get(Endpoint.DELETE_NEWS_ITEM, { id }));
+            let response = await HTTPService.deleteRequest(Endpoint.get(Endpoint.DELETE_ARTICLE_LIST, { id }));
             this.$vm.displayNotification(response.message, {
                 type: 'success'
             });
@@ -73,7 +73,7 @@ export default class ManageNewsService extends BaseService {
             let findIndex = data.findIndex( item => item.id === id );
             if ( findIndex >= 0 )
                 data.splice(findIndex, 1);
-            BaseService.commitToStore(this.$store, M_NEWS_UPDATE_DATA, data)
+            BaseService.commitToStore(this.$store, M_ARTICLE_UPDATE_DATA, data)
         } catch ( exception ) {
             this.$vm.displayNotification(exception.message, {
                 type: 'error'
@@ -93,7 +93,7 @@ export default class ManageNewsService extends BaseService {
             let findIndex = data.findIndex( item => item.id === news_id );
             if ( findIndex >= 0 )
                 data.splice(findIndex, 1);
-            BaseService.commitToStore(this.$store, M_NEWS_UPDATE_DATA, data)
+            BaseService.commitToStore(this.$store, M_ARTICLE_UPDATE_DATA, data)
         } catch ( exception ) {
             this.$vm.displayNotification(exception.message, {
                 type: 'error'
@@ -104,13 +104,13 @@ export default class ManageNewsService extends BaseService {
     async _GetNewsListFilterBy( query = {} ) {
         try {
             let response = await this.getNewsListFilterBy( query );
-            BaseService.commitToStore( this.$store, M_NEWS_SET_DATA, response );
+            BaseService.commitToStore( this.$store, M_ARTICLE_SET_DATA, response );
         } catch (e) {}
     }
 
     async getNewsListFilterBy( query ) {
         try {
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_NEWS_LIST), query);
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ARTICLE_LIST), query);
         } catch ({ message }) {
             this.$vm.displayNotification(message, {
                 type: 'error'

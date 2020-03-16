@@ -4,15 +4,15 @@ import {
 } from "@vendor/plugin/helper";
 
 
-export class ManageNewsPresenter {
+export class ManageArticlePresenter {
     constructor( payload ) {
         return ( !!payload && HasLength( payload ) ) ? (
-            payload.map(item => new SingleManageNewsPresenter( item ))
+            payload.map(item => new SingleManageArticlePresenter( item ))
         ) : ([])
     }
 }
 
-export class SingleManageNewsPresenter extends BasePresenter {
+export class SingleManageArticlePresenter extends BasePresenter {
     constructor( item ) {
         super( item );
         this.data = item;
@@ -63,7 +63,7 @@ export class SingleManageNewsPresenter extends BasePresenter {
     }
 
     category() {
-        const CATEGORY = this.data?.category;
+        const CATEGORY = this.data?.categories;
 
         return ( !!CATEGORY && HasLength( CATEGORY ) ) ? (
             CATEGORY.map(cat => new CategoryItemPresenter( cat ))

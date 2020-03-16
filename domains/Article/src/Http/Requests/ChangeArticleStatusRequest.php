@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Illuminate\Validation\Rule;
 
-class ArticleListForAdminRequest extends EhdaBaseRequest
+class ChangeArticleStatusRequest extends EhdaBaseRequest
 {
 
     /**
@@ -18,12 +18,18 @@ class ArticleListForAdminRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'first_title'       => 'string',
-            'create_date_start' => 'numeric',
-            'create_date_end'   => 'numeric',
-            'publisher_id'      => 'integer',
-            'status'            => [Rule::in(config('article.article_list_status'))],
-            'sort'              => [Rule::in('DESC', 'ASC')]
+            'article_id' => 'required|integer|exists:articles,id',
+            'status'  => [
+                'required',
+                'string',
+                Rule::in([
+                    config('article.article_accept_status'),
+                    config('article.article_reject_status'),
+                    config('article.article_cancel_status'),
+                    config('article.article_pending_status'),
+                    config('article.article_recycle_status'),
+                ]),
+            ],
         ];
     }
 

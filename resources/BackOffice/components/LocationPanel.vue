@@ -8,8 +8,13 @@
         >
             فارسی
             <button class="language__btn font-sm font-light rounded text-center"
-                    :class="[( lang === 'fa' ) ? 'language__btn--selected' : 'language__btn--not-selected text-bayoux']"
-                    v-text="lang === 'fa' ? 'همین صفحه' : 'ایجاد'"
+                    :class="[
+                        ( lang === 'fa' ) ? 'language__btn--selected' : 'language__btn--not-selected text-bayoux',
+                        {
+                            'pointer-event-none': (disabled === 'fa')
+                        }
+                    ]"
+                    v-text="lang === 'fa' ? 'همین صفحه' : ( disabled === 'fa' ? 'فعلاً وجود ندارد' : 'ایجاد')"
                     @click.prevent="onClickPersianLangButton"
             > </button>
         </div>
@@ -18,8 +23,13 @@
         >
             انگلیسی
             <button class="language__btn font-sm font-light rounded text-center"
-                    :class="[( lang === 'en' ) ? 'language__btn--selected' : 'language__btn--not-selected text-bayoux']"
-                    v-text="lang === 'en' ? 'همین صفحه' : 'ایجاد'"
+                    :class="[
+                        ( lang === 'en' ) ? 'language__btn--selected' : 'language__btn--not-selected text-bayoux',
+                        {
+                            'pointer-event-none': (disabled === 'en')
+                        }
+                    ]"
+                    v-text="lang === 'en' ? 'همین صفحه' : ( disabled === 'en' ? 'فعلاً وجود ندارد' : 'ایجاد')"
                     @click.prevent="onClickEnglishLangButton"
             > </button>
         </div>
@@ -33,6 +43,10 @@
             lang: {
                 type: String,
                 required: true,
+            },
+            disabled: {
+                type: String,
+                required: false,
             }
         },
         methods: {

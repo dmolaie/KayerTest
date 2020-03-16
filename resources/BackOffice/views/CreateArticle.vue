@@ -1,5 +1,5 @@
 <template>
-    <div class="c-news c-post w-full">
+    <div class="c-news c-article c-post w-full">
         <div class="w-full flex items-start">
             <div class="c-post__content l:m-l-25 xl:m-l-35">
                 <div class="main inner-box inner-box--white w-full rounded-2 rounded-br-none rounded-bl-none">
@@ -46,55 +46,31 @@
                             > </textarea>
                         </label>
                     </div>
-                    <div class="c-news__tags w-full"
-                         v-if="false"
-                    >
-                        <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            افزودن تگ
-                        </p>
-                        <div class="c-post__tags">
-                            <tags-cm :list="tags"
-                                     placeholder="افزودن تگ"
-                                     itemClassName="text-right"
-                                     inputClassName="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                            />
-                        </div>
-                    </div>
                 </div>
                 <div class="main inner-box inner-box--blue w-full rounded-2 rounded-tr-none rounded-tl-none">
-                    <div class="w-full">
+                    <div class="c-news__source w-full" style="margin-top: 0">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            عکس دوم
+                            عنوان دسته‌بندی
                         </p>
-                        <div class="flex items-start">
-                            <upload-cm @onChange="onChangeSecondImageField"
-                                       ref="secondImageFiled"
+                        <div class="block w-full c-article__tags">
+                            <tags-cm :list="categories"
+                                     placeholder="عنوان دسته‌بندی"
+                                     itemClassName="text-right"
+                                     tagWrapperClassName="input bg-white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
+                                     @onChange="onChangeCategoryField"
+                                     inputClassName="input--white"
                             />
-                            <button class="c-news__second-image w-1/4 xl:w-1/5 flex-shrink-0 bg-zircon text-blue border-blue-100-1 rounded font-sm font-medium text-center m-l-20 l:hover:bg-white l:transition-bg user-select-none"
-                                    @click.prevent="onClickSecondImageButton"
-                            >
-                                انتخاب عکس
-                            </button>
-                            <div class="c-post__fake_input flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none pointer-event-none">
-                                <template v-if="!!images.second.data">
-                                    <span v-for="item in images.second.preview"
-                                          :key="item.fileName"
-                                          v-text="item.fileName"
-                                          class="font-sm font-medium text-bayoux"
-                                    > </span>
-                                </template>
-                            </div>
                         </div>
                     </div>
                     <div class="c-news__source w-full">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            منبع
+                            عنوان سوم
                         </p>
                         <label class="block w-full">
                             <input type="text"
-                                   class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-ltr"
-                                   placeholder="منبع عکس را اینجا وارد کنید"
-                                   v-model="form.source_link"
+                                   class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
+                                   placeholder="عنوان سوم را اینجا وارد کنید"
+                                   v-model="form.third_title"
                             />
                         </label>
                     </div>
@@ -111,11 +87,6 @@
                     </template>
                     <template #notPublished="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
-                        >
-                            تنظیم زمان انتشار
-                        </button>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
                         >
                             {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
@@ -128,40 +99,24 @@
                         </button>
                     </template>
                 </publish-cm>
-                <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
-                     v-if="shouldBeShowDatePicker"
-                >
-                    <p class="panel__title font-sm font-bold text-blue cursor-default">
-                        زمان انتشار
-                    </p>
-                    <date-picker-cm type="datetime"
-                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                    format="jYYYY/jMM/jDD HH:mm"
-                                    :min="DatePickerMinValue"
-                                    @onChange="onChangePublishDateField"
-                                    placeholder="زمان انتشار را انتخاب کنید"
-                    />
-                </div>
                 <location-cm :lang="currentLang"
-                             @onPersianLang="onClickPersianLang"
-                             @onEnglishLang="onClickEnglishLang"
+                             disabled="en"
                 />
-                <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
-                    <p class="panel__title font-sm font-bold text-blue cursor-default">
-                        دسته‌بندی
-                    </p>
-                    <category-cm :list="categories"
-                                 :lang="currentLang"
-                                 ref="categoryCm"
-                                 @onChange="onChangeCategoryField"
-                    />
-                </div>
                 <image-panel-cm @onChange="onChangeMainImageField"
                                 ref="imagePanel"
                 />
-                <domains-cm @onChange="onChangeDomainsField"
-                            :options="provinces"
-                />
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        نامک
+                    </p>
+                    <label class="block w-full">
+                        <input type="text"
+                               class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
+                               placeholder="نامک را اینجا وارد کنید"
+                               v-model="form.slug"
+                        />
+                    </label>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -177,8 +132,9 @@
     import {
         mapGetters, mapState
     } from 'vuex';
+    import TagsCm from '@components/Tags.vue';
     import IconCm from '@components/Icon.vue';
-    import CreateNewsService from '@services/service/CreateNews';
+    import CreateArticleService from '@services/service/CreateArticle';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
     import DomainsCm from '@components/DomainsPanel.vue';
@@ -186,8 +142,6 @@
     import LocationCm from '@components/LocationPanel.vue';
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
-    import DatePickerCm from '@components/DatePicker.vue';
-    import TagsCm from '@components/Tags.vue';
     import CategoryCm from '@components/Category.vue';
 
     import {
@@ -199,19 +153,15 @@
 
     let Service = null;
 
-    /**
-     * TODO: province_id should be Fetching from the server
-     * @return {{category_ids: [], province_id: number, second_title: string, parent_id: string, description: string, language: string, first_title: string, abstract: string, publish_date: string, source_link: string}}
-     */
+    // third_title slug
+
     const GET_INITIAL_FORM = () => ({
         first_title: '',
         second_title: '',
+        third_title: '',
         abstract: '',
         description: '',
-        province_id: '',
-        publish_date: '',
-        source_link: '',
-        parent_id: '',
+        slug: '',
         language: '',
         category_ids: [],
     });
@@ -220,9 +170,9 @@
         data: null,
         preview: []
     });
-
+        //CREATE_ARTICLE_LIST
     export default {
-        name: 'CreateNews',
+        name: 'CreateArticle',
         data: () => ({
             form: GET_INITIAL_FORM(),
             images: {
@@ -244,17 +194,15 @@
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
-            DatePickerCm,
-            TagsCm,
-            CategoryCm
+            CategoryCm,
+            TagsCm
         },
         computed: {
             ...mapGetters({
                 isAdmin: IS_ADMIN
             }),
             ...mapState({
-                categories: ({ CreateMenu }) => CreateMenu.categories,
-                provinces: ({ CreateMenu }) => CreateMenu.provinces
+                categories: ({ CreateArticle }) => CreateArticle.categories,
             }),
             /**
              * @return {number | string}
@@ -275,7 +223,7 @@
                 }
             },
             currentLang() {
-                return this.$route.params.lang
+                return this.$route.params.lang || 'fa'
             }
         },
         methods: {
@@ -293,37 +241,6 @@
             },
             onUpdateTextEditor( HTML ) {
                 this.$set(this.form, 'description', HTML);
-            },
-            onClickSecondImageButton() {
-                this.$refs['secondImageFiled']?.openFileDialog();
-            },
-            async onChangeSecondImageField( formData ) {
-                try {
-                    this.$set(this.images.second, 'data', formData);
-                    let getImage = await UploadService.imagePreview( formData );
-                    this.$set(this.images.second, 'preview', getImage);
-                } catch (e) {}
-            },
-            onChangePublishDateField( unix ) {
-                this.$set(this.form, 'publish_date', unix)
-            },
-            onClickPersianLang() {
-                this.pushRouter({
-                    name: 'CREATE_NEWS',
-                    params: {
-                        lang: 'fa',
-                    }
-                });
-                this.setInitialState();
-            },
-            onClickEnglishLang() {
-                this.pushRouter({
-                    name: 'CREATE_NEWS',
-                    params: {
-                        lang: 'en',
-                    }
-                });
-                this.setInitialState();
             },
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
@@ -374,18 +291,12 @@
             },
             onChangeCategoryField( item ) {
                 try {
-                    if ( !item.checked ) {
-                        this.form.category_ids.push( item.id )
-                    } else {
-                        let findIndex = this.form.category_ids
-                            .findIndex(cat => cat === item.id);
-                        this.form.category_ids.splice(findIndex, 1)
-                    }
+                    this.form.category_ids = item;
                 } catch (e) {}
             }
         },
         async created() {
-            Service = new CreateNewsService( this );
+            Service = new CreateArticleService( this );
             await Service.processFetchAsyncData();
         },
         mounted() {
@@ -398,29 +309,3 @@
         }
     }
 </script>
-
-<!--'first_title'  => 'required|string', *** OK *** -->
-<!--'second_title' => 'string',, *** OK *** -->
-<!--'abstract'     => 'string', *** OK ***  -->
-<!--'description'  => 'string', *** OK *** -->
-<!--'category_id'  => 'array|exists:categories,id',-->
-<!--'main_category_id'  => 'integer|exists:categories,id',-->
-<!--'publish_date' => 'required|numeric', *** OK *** -->
-<!--'source_link'  => 'url', *** OK *** -->
-<!--'province_id'  => 'required|integer|exists:provinces,id', *** OK *** -->
-<!--'parent_id'    => 'integer|exists:news,id|unique:news', *** OK *** Backend-->
-<!--'language'     => ['required', Rule::in(config('news.news_language'))], *** OK ***-->
-<!--'images.*'     => 'image'  *** OK *** -->
-
-
-<!--parent_id va province_id chie?-->
-<!--va source_link-->
-<!--manbae khabar = source link-->
-<!--province_id bareye che domaini dide beshe-->
-<!--age ye khabar vasash fa misazi ya en id khabar bedi:D-->
-<!--age aval farsi besaze bad bezane en to id fa tu save en behem midi-->
-
-<!--
-http://localhost/category/v1/admin/get_category_by_type?category_type=news
-
--->

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'article_statuses'                 => [
+    'article_statuses'                => [
         'accept',
         'reject',
         'pending',
@@ -9,27 +9,36 @@ return [
         'recycle',
         'delete'
     ],
-    'article_language'               => [
+    'article_language'                => [
         'fa',
         'en'
     ],
-    'article_accept_status'          => 'accept',
-    'article_reject_status'          => 'reject',
-    'article_pending_status'         => 'pending',
-    'article_publish_status'         => 'published',
-    'article_ready_to_publish_status'=> 'ready_to_publish',
-    'article_list_status'            => [
+    'article_accept_status'           => 'accept',
+    'article_reject_status'           => 'reject',
+    'article_pending_status'          => 'pending',
+    'article_publish_status'          => 'published',
+    'article_delete_status'           => 'delete',
+    'article_recycle_status'          => 'recycle',
+    'article_cancel_status'           => 'cancel',
+    'article_ready_to_publish_status' => 'ready_to_publish',
+    'article_list_status'             => [
         'published',
         'ready_to_publish',
         'pending',
-        'reject'
+        'recycle',
+        'cancel',
+        'reject',
+        'delete'
     ],
-    'article_convert_to_real_status' =>
+    'article_convert_to_real_status'  =>
         [
             'published'        => 'accept',
             'ready_to_publish' => 'accept',
             'pending'          => 'pending',
-            'reject'           => 'reject'
+            'reject'           => 'reject',
+            'cancel'           => 'cancel',
+            'recycle'          => 'recycle',
+            'delete'           => 'delete',
         ],
-    'article_paginate_count' => 10,
+    'article_paginate_count'          => 10,
 ];

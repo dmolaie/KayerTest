@@ -43,30 +43,15 @@
                         فیلتر ها
                     </button>
                     <div class="m-post__button--added relative">
-                        <button class="m-post__button inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
-                                @click.stop="onClickCreatedNewButton"
+                        <router-link class="m-post__button inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
+                                     :to="{ name: 'CREATE_ARTICLE', params: { lang: 'fa' } }"
                         >
                             <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" id="icon--remove">
                                 <path d="M20.485 3.511A12.01 12.01 0 1024 12a12.009 12.009 0 00-3.515-8.489zm-1.767 15.21A9.51 9.51 0 1121.5 12a9.508 9.508 0 01-2.782 6.721z" />
                                 <path d="M16.987 7.01a1.275 1.275 0 00-1.8 0l-3.177 3.177L8.829 7.01a1.277 1.277 0 00-1.805 1.806l3.176 3.177-3.176 3.178a1.277 1.277 0 001.805 1.806l3.176-3.177 3.177 3.178a1.277 1.277 0 001.8-1.806l-3.176-3.178 3.176-3.177a1.278 1.278 0 00.005-1.807z" />
                             </svg>
-                            افزودن به اخبار
-                        </button>
-                        <dropdown-cm :visibility="shouldBeShowCreatedNewsDropdown"
-                                     @onClickOutside="shouldBeShowCreatedNewsDropdown = !shouldBeShowCreatedNewsDropdown"
-                                     :clickOutside="true"
-                        >
-                            <router-link :to="{ name: 'CREATE_NEWS', params: { lang: 'fa' } }"
-                                         class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                            >
-                                زبان فارسی
-                            </router-link>
-                            <router-link :to="{ name: 'CREATE_NEWS', params: { lang: 'en' } }"
-                                         class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                            >
-                                زبان انگلیسی
-                            </router-link>
-                        </dropdown-cm>
+                            ایجاد صفحه ایستا
+                        </router-link>
                     </div>
                     <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
                             @click.prevent="onClickToggleSearchButton"
@@ -281,7 +266,7 @@
     import {
         Length, HasLength, toEnglishDigits
     } from "@vendor/plugin/helper";
-    import ManageNewsService from '@services/service/ManageNews';
+    import ManageArticleService from '@services/service/ManageArticle';
     import DatePickerCm from '@components/DatePicker.vue';
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
@@ -322,8 +307,8 @@
         },
         computed: {
             ...mapState({
-                items: ({ ManageNews }) => ManageNews.items,
-                pagination: ({ ManageNews }) => ManageNews.pagination
+                items: ({ ManageArticle }) => ManageArticle.items,
+                pagination: ({ ManageArticle }) => ManageArticle.pagination
             }),
             is_publishedTab() {
                 let { query } = this.$route;
@@ -389,7 +374,7 @@
             switchBetweenTabs( query  = {} ) {
                 this.$router.push(
                     {
-                        name: "MANAGE_NEWS",
+                        name: "MANAGE_ARTICLE",
                         query
                     }).catch(err => {})
             },
@@ -535,7 +520,7 @@
             }
         },
         created() {
-            Service = new ManageNewsService( this );
+            Service = new ManageArticleService( this );
         },
         mounted() {
             Service.processFetchAsyncData()

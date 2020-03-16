@@ -101,10 +101,12 @@
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
-                        <div class="dnt-page__panel border border-solid rounded-2">
-                            <p>شما پروفایل دارید و هم‌اکنون سفیر اهدای عضو هستید.</p>
+                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
+                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
+                                شما پروفایل دارید و هم‌اکنون سفیر اهدای عضو هستید.
+                            </p>
                             <a href="{{route('admin.login',config('app.locale'))}}"
-                               class="dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200">
+                               class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
                                 ورود به بخش سفیران اهدا عضو
                             </a>
                         </div>
