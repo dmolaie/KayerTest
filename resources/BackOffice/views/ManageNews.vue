@@ -244,6 +244,15 @@
                         </template>
                     </table-cm>
                 </div>
+                <div class="w-full m-post__pagination"
+                    v-if="!!Object.values(items)"
+                >
+                    <pagination-cm :isPending="isPending"
+                                   @input="onChangePagination"
+                                   :currentPage="pagination.current_page"
+                                   :total="pagination.total || 0"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -261,6 +270,7 @@
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
+    import PaginationCm from '@vendor/components/pagination/Index.vue';
 
     const PUBLISH_STATUS = 'published';
     const READY_TO_PUBLISH_STATUS = 'ready_to_publish';
@@ -290,11 +300,12 @@
         }),
         components: {
             DropdownCm, TableCm, ImageCm,
-            DatePickerCm
+            DatePickerCm, PaginationCm
         },
         computed: {
             ...mapState({
-                items: ({ ManageNews }) => ManageNews.items
+                items: ({ ManageNews }) => ManageNews.items,
+                pagination: ({ ManageNews }) => ManageNews.pagination
             }),
             is_publishedTab() {
                 let { query } = this.$route;
@@ -442,6 +453,22 @@
                     this.timeoutID = await setTimeout(async () => {
                         await Service.HandelSearchAction( this.searchField, this.$route )
                     }, this.timeout)
+                } catch (e) {}
+            },
+            onChangePagination( page ) {
+                try {
+                    let { query } = this.$route;
+                    let queryString = {};
+                    queryString['status'] = ( HasLength( query ) ) ? query.status : PUBLISH_STATUS;
+                    queryString['page'] = page;
+                    this.$set(this, 'isPending', true);
+                    Service._GetNewsListFilterBy( queryString )
+                        .then(this.$nextTick)
+                        .then(() => {
+                            setTimeout(() => {
+                                this.$set(this, 'isPending', false)
+                            }, 70);
+                        });
                 } catch (e) {}
             }
         },

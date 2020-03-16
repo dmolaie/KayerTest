@@ -5,11 +5,19 @@ import {
 
 const ManageNewsStore = {
     state: {
-        items: {}
+        items: {},
+        pagination: {}
     },
     mutations: {
         [M_NEWS_SET_DATA](state, payload) {
             state.items = { ...new ManageNewsPresenter( payload.data.items ) };
+
+            state.pagination = {
+                ... {
+                    current_page: payload.data.current_page || 1,
+                    total: payload.data.total || 0,
+                }
+            }
         }
     }
 };
