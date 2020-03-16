@@ -20,7 +20,6 @@ class MenusInfoDTOMaker
 
         $menusInfoDTO = new MenusInfoDTO();
         $menusInfoDTO->setId($menu->id)
-            ->setMenuableId($this->getMenuableId($menu))
             ->setTitle($menu->title)
             ->setName($menu->name)
             ->setType($menu->type)
@@ -36,6 +35,7 @@ class MenusInfoDTOMaker
             ->setActive($menu->active)
             ->setPriority($menu->priority)
             ->setEditorId($menu->editor_id);
+        $menusInfoDTO = $this->getMenuableId($menu, $menusInfoDTO);
         return $menusInfoDTO;
     }
 
@@ -47,16 +47,19 @@ class MenusInfoDTOMaker
         })->toArray();
     }
 
-    private function getMenuableId(Menus $menu)
+    private function getMenuableId(Menus $menu, MenusInfoDTO $menusInfoDTO)
     {
         $type = config('menus.menus_type');
 
         if ($menu->type == $type['article_type']) {
-            return $menu->articles->first()? $menu->articles->first()->id:null;
+            $menusInfoDTO->setMenuableId($menu->articles->first() ? $menu->articles->first()->id : null)
+            ->setMenuableName($menu->articles->first() ? $menu->articles->first()->first_title : null);
+            return $menusInfoDTO;
         }
         if (in_array($menu->type, [$type['list_news_type'], $type['list_event_type'], $type['list_article_type']])) {
-            return $menu->categories->first()? $menu->categories->first()->id:null;
+            return $menusInfoDTO->setMenuableId( $menu->categories->first()? $menu->categories->first()->id:null)
+            ->setMenuableName($menu->categories->first() ? $menu->categories->first()->name_fa : null);
         }
-        return null;
+        return $menusInfoDTO;
     }
 }
