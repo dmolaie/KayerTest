@@ -198,4 +198,14 @@ class UserRepository
         }
         return $user;
     }
+
+    public function addNewRoleToUser(int $userId, int $roleId)
+    {
+        $user = $this->entityName::findOrFail($userId);
+        $user->roles()->detach($roleId);
+        $user->roles()->attach(
+            $roleId,
+            ['status' => config('user.user_role_active_status')]);
+        return $user;
+    }
 }

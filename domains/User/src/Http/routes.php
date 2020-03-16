@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => 'web'], function () {
 
     Route::get('/full-info', 'UserController@getFullUserInfo')->middleware('auth');
     Route::post('/update-info', 'UserController@updateUserInfo')->middleware('auth');
@@ -17,5 +17,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/edit-user-by-admin', 'UserController@updateUserInfoByAdmin')->middleware('auth:api')->name('edit-user-by-admin');
     Route::post('/change-password-by-admin', 'UserController@changeUserPasswordByAdmin')->middleware('auth:api')->name('change-password-by-admin');
     Route::post('/register-user-by-admin', 'UserController@registerUserByAdmin')->middleware('auth:api')->name('register-user-by-admin');
+    Route::post('/add-role-to-user', 'UserController@addRoleToUser')->middleware('auth:api')->name('add-role-to-user');
 });
 
