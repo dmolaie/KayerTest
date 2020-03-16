@@ -22,7 +22,6 @@ const MenuStore = {
     mutations: {
         [MENU_SET_DATA](state, payload) {
             state.menuItem = new MenuPresenter( payload.data );
-            console.log(new MenuPresenter(payload.data));
         },
         [MENU_UPDATE_DATA](state, payload) {
             state.menuItem = payload;
