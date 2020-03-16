@@ -151,12 +151,6 @@
                         });
                         return false;
                     }
-                    // if ( !this.e_link.trim() ) {
-                    //     this.displayNotification('فیلد URL اجباری است.', {
-                    //         type: 'error'
-                    //     });
-                    //     return false;
-                    // }
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
                     let findIndex = this.parentItem.findIndex(item => item.id === this.item.id);
                     let {
@@ -177,7 +171,7 @@
                         payload.parent_id = this.item.parent.id;
                     this.$emit('onToggleChild');
                     if ( !!this.item.edit_menuable_id || this.item.menuable_id ) {
-                        payload.menuable_id = (!!this.item.edit_menuable_id) ? (!!this.item.edit_menuable_id) : (this.item.menuable_id);
+                        payload.menuable_id = (!!this.item.edit_menuable_id) ? (this.item.edit_menuable_id) : (this.item.menuable_id);
                         this.$set(this.item, 'menuable_id', payload.menuable_id)
                     }
                     this.$set(this.item, 'name', payload.name);
