@@ -74,6 +74,20 @@
                         جست‌وجو
                     </button>
                 </div>
+                <div class="w-full"
+                     v-if="shouldBeShowSearchField"
+                >
+                    <label class="w-3/4 flex items-stretch m-post__search border border-solid rounded">
+                        <span class="m-post__search_label flex-shrink-0 rounded rounded-tl-none rounded-bl-none"
+                        > </span>
+                        <input type="text"
+                               placeholder="جست‌وجو..."
+                               class="m-post__search_input bg-transparent flex-1 font-base font-bold"
+                               v-model="searchField"
+                               @input="oninputSearchField"
+                        />
+                    </label>
+                </div>
                 <div class="m-post__filter w-full flex flex-wrap items-start"
                      v-if="shouldBeShowFilterFields"
                 >
@@ -113,20 +127,6 @@
                             حذف فیلترها
                         </button>
                     </div>
-                </div>
-                <div class="w-full"
-                     v-if="shouldBeShowSearchField"
-                >
-                    <label class="w-3/4 flex items-stretch m-post__search border border-solid rounded">
-                        <span class="m-post__search_label flex-shrink-0 rounded rounded-tl-none rounded-bl-none"
-                        > </span>
-                        <input type="text"
-                               placeholder="جست‌وجو..."
-                               class="m-post__search_input bg-transparent flex-1 font-base font-bold"
-                               v-model="searchField"
-                               @input="oninputSearchField"
-                        />
-                    </label>
                 </div>
                 <div class="m-post__table">
                     <table-cm :data="items"
@@ -182,6 +182,7 @@
                                         <span class="m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                               :class="{
                                                 'm-post__status--published': ( item.is_published ),
+                                                'm-post__status--ready-published': ( item.is_ready_to_publish ),
                                                 'm-post__status--pending': ( item.is_pending ),
                                                 'm-post__status--reject': ( item.is_reject ),
                                                 'm-post__status--accept': ( item.is_accept )
@@ -251,6 +252,7 @@
                                    @input="onChangePagination"
                                    :currentPage="pagination.current_page"
                                    :total="pagination.total || 0"
+                                   :key="'paginate-' + paginateKeyCounter"
                     />
                 </div>
             </div>
@@ -283,6 +285,7 @@
     export default {
         name: "ManageNews",
         data: () => ({
+            paginateKeyCounter: 0,
             keyCounter: 0,
             timeout: 330,
             timeoutID: null,
@@ -385,11 +388,11 @@
                 this.$set(this, 'shouldBeShowFilterFields', false);
             },
             onClickToggleFiltersButton() {
-                this.hideSearchSection();
+                // this.hideSearchSection();
                 this.$set(this, 'shouldBeShowFilterFields', !this.shouldBeShowFilterFields);
             },
             onClickToggleSearchButton() {
-                this.hideFiltersSection();
+                // this.hideFiltersSection();
                 this.$set(this, 'searchField', '');
                 this.$set(this, 'shouldBeShowSearchField', !this.shouldBeShowSearchField);
             },
@@ -402,9 +405,10 @@
             async onClickSubmitFiltersButton() {
                 try {
                     this.$set(this, 'ShouldBeShowSpinnerLoadingSubmitFilter', true);
-                    await Service.HandleFilterAction( this.filter, this.$route )
+                    await Service.HandleFilterAction( this.filter, this.$route );
                 }
                 finally {
+                    this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                     this.$set(this, 'ShouldBeShowSpinnerLoadingSubmitFilter', false);
                 }
             },
@@ -418,6 +422,7 @@
                 }
                 finally {
                     this.$set(this, 'ShouldBeShowSpinnerLoadingDiscardFilter', false);
+                    this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                 }
             },
             onClickCreatedNewButton() {
@@ -451,9 +456,27 @@
                     clearTimeout( this.timeoutID );
                     this.timeoutID = null;
                     this.timeoutID = await setTimeout(async () => {
-                        await Service.HandelSearchAction( this.searchField, this.$route )
+                        await Service.HandelSearchAction( this.searchField, this.$route );
+                        this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                     }, this.timeout)
                 } catch (e) {}
+            },
+            /**
+             * TODO: :D --> general
+             */
+            backToTop() {
+                try {
+                    let MainContainer = document.querySelector('[role="main"]');
+                    if ( !!MainContainer ) {
+                        let currentScroll = MainContainer.scrollTop;
+                        if (currentScroll > 0) {
+                            window.requestAnimationFrame( this.backToTop );
+                            MainContainer.scrollTo(0, Math.floor(currentScroll - (currentScroll / 8)))
+                        }
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
             },
             onChangePagination( page ) {
                 try {
@@ -462,6 +485,19 @@
                     queryString['status'] = ( HasLength( query ) ) ? query.status : PUBLISH_STATUS;
                     queryString['page'] = page;
                     this.$set(this, 'isPending', true);
+
+                    if ( this.shouldBeShowSearchField &&
+                         HasLength( this.searchField.trim() )
+                       ) queryString['first_title'] = this.searchField.trim();
+
+                    if ( this.shouldBeShowFilterFields &&
+                        !!this.filter.create_date_start
+                    ) queryString['create_date_start'] = this.filter.create_date_start;
+
+                    if ( this.shouldBeShowFilterFields &&
+                        !!this.filter.create_date_end
+                    ) queryString['create_date_end'] = this.filter.create_date_end;
+                    this.backToTop();
                     Service._GetNewsListFilterBy( queryString )
                         .then(this.$nextTick)
                         .then(() => {

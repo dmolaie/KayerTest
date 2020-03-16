@@ -49,7 +49,6 @@ export default class ManageNewsService extends BaseService {
 
     async HandelSearchAction( searchValue, { query } ) {
         try {
-            // this.$vm.$set(this.$vm, 'isPending', true);
             const QUERY_STRING = ( HasLength( query ) ) ? query : DEFAULT_STATUS;
             ( HasLength( searchValue.trim() ) ) ? (
                 QUERY_STRING['first_title'] = searchValue.trim()

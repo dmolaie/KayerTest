@@ -30,6 +30,7 @@ export class SingleManageNewsPresenter extends BasePresenter {
             is_published: Boolean,
             is_pending: Boolean,
             is_reject: Boolean,
+            is_ready_to_publish: Boolean,
             is_accept: Boolean,
             province: Object,
             publisher: Object,
@@ -101,6 +102,12 @@ export class SingleManageNewsPresenter extends BasePresenter {
     is_reject() {
         return (
             this.data.status?.en === "reject"
+        )
+    }
+
+    is_ready_to_publish() {
+        return (
+            this.data.status?.en === "ready_to_publish"
         )
     }
 
