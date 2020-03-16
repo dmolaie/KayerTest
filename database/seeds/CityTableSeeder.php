@@ -15,19 +15,19 @@ class CityTableSeeder extends Seeder
     {
         City::insert([
             [
-                "name"        => 'tehran',
-                "slug"        => 'تهران',
+                "slug"        => 'tehran',
+                "name"        => 'تهران',
                 "province_id" => Province::first()->id
             ],
 
             [
-                "name"        => 'varamin',
-                "slug"        => 'ورامین',
+                "slug"        => 'varamin',
+                "name"        => 'ورامین',
                 "province_id" => Province::first()->id
             ],
             [
-                "name"        => 'shiraz test',
-                "slug"        => 'شیراز',
+                "slug"        => 'shiraz test',
+                "name"        => 'شیراز',
                 "province_id" => Province::latest('id')->first()->id
             ],
 
