@@ -86,7 +86,10 @@ class MenusInfoDTO
      * @var int
      */
     protected $priority;
-
+    /**
+     * @var int|null
+     */
+    protected $menuableId;
     /**
      * @return User|null
      */
@@ -354,6 +357,24 @@ class MenusInfoDTO
     public function setPriority(int $priority): MenusInfoDTO
     {
         $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMenuableId(): ?int
+    {
+        return $this->menuableId;
+    }
+
+    /**
+     * @param int|null $menuableId
+     * @return MenusInfoDTO
+     */
+    public function setMenuableId(?int $menuableId): MenusInfoDTO
+    {
+        $this->menuableId = $menuableId;
         return $this;
     }
 

@@ -17,8 +17,10 @@ class MenusInfoDTOMaker
 
     public function convert(Menus $menu, Bool $activeList = false): MenusInfoDTO
     {
+
         $menusInfoDTO = new MenusInfoDTO();
         $menusInfoDTO->setId($menu->id)
+            ->setMenuableId($this->getMenuableId($menu))
             ->setTitle($menu->title)
             ->setName($menu->name)
             ->setType($menu->type)
@@ -43,5 +45,18 @@ class MenusInfoDTOMaker
         return $child->map(function ($child) {
             return $this->convert($child);
         })->toArray();
+    }
+
+    private function getMenuableId(Menus $menu)
+    {
+        $type = config('menus.menus_type');
+
+        if ($menu->type == $type['article_type']) {
+            return $menu->articles->first()? $menu->articles->first()->id:null;
+        }
+        if (in_array($menu->type, [$type['list_news_type'], $type['list_event_type'], $type['list_article_type']])) {
+            return $menu->categories->first()? $menu->categories->first()->id:null;
+        }
+        return null;
     }
 }
