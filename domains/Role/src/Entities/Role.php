@@ -2,7 +2,7 @@
 
 namespace Domains\Role\Entities ;
 
-use App\Domains\Role\Enitites\Permission;
+use Domains\Role\Enitites\Permission;
 use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

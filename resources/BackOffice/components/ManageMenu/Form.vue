@@ -6,7 +6,7 @@
             </span>
             <input type="text"
                    v-model="name"
-                   class="dragArea__form_input modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1 direction-ltr"
+                   class="dragArea__form_input modal__input input input--white text-blue-800 border border-solid rounded font-base font-light flex-1"
                    placeholder="نام منو را وارد کنید"
             />
         </div>
@@ -149,12 +149,12 @@
                         });
                         return false;
                     }
-                    if ( !this.e_link.trim() ) {
-                        this.displayNotification('فیلد URL اجباری است.', {
-                            type: 'error'
-                        });
-                        return false;
-                    }
+                    // if ( !this.e_link.trim() ) {
+                    //     this.displayNotification('فیلد URL اجباری است.', {
+                    //         type: 'error'
+                    //     });
+                    //     return false;
+                    // }
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
                     let findIndex = this.parentItem.findIndex(item => item.id === this.item.id);
                     let {
@@ -181,6 +181,9 @@
                     this.$set(this.item, 'name', payload.name);
                     this.$set(this.item, 'type', payload.type);
                     this.$set(this.item, 'link', payload.link);
+                    if ( !payload.link.trim() ) {
+                        delete payload.link;
+                    }
                     try {
                         let response = await ManageMenuService.updateMenuItem( payload );
                         this.displayNotification(response.message, {

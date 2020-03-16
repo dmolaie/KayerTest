@@ -91,6 +91,6 @@ export class SingleProvincesPresenter extends BasePresenter {
     }
 
     text() {
-        return this.data?.slug || this.data.name
+        return this.data?.name || this.data.slug
     }
 }

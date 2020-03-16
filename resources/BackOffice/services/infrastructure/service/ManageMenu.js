@@ -161,6 +161,8 @@ export default class ManageMenuService extends BaseService {
                 payload.parent_id = item.parent.id;
             if ( !!item.menuable_id )
                 payload.menuable_id = item.menuable_id;
+            if ( !payload.link )
+                delete payload.link;
 
             let response = await ManageMenuService.updateMenuItem( payload );
             this.displaySuccessNotification( response?.message );
@@ -204,10 +206,13 @@ export default class ManageMenuService extends BaseService {
                 this.displayErrorNotification('فیلد نوع منو اجباری است.');
                 return false;
             }
-            if ( !data.link.trim() ) {
-                this.displayErrorNotification('فیلد URL اجباری است.');
-                return false;
-            }
+            // if ( !data.link.trim() ) {
+            //     this.displayErrorNotification('فیلد URL اجباری است.');
+            //     return false;
+            // }
+            if ( !data.link.trim() )
+                delete data['link'];
+
             if ( !data.menuable_id )
                 delete data['menuable_id'];
 
