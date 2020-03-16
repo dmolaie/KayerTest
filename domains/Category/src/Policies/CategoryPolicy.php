@@ -20,7 +20,8 @@ class CategoryPolicy
 
     public function createCategory()
     {
-        $userRolePermission = auth()->user()->roles()->with(['permissions' => function ($query) {
+        return true;
+       /* $userRolePermission = auth()->user()->roles()->with(['permissions' => function ($query) {
             $query->where('permissions.name', '=', 'createCategory')->select('name')->first();
         }])->get();
         $countPermiision = [];
@@ -32,6 +33,6 @@ class CategoryPolicy
         if (count($countPermiision)) {
             return true;
         }
-        return false;
+        return false;*/
     }
 }
