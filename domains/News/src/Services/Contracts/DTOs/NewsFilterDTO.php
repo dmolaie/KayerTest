@@ -55,6 +55,10 @@ class NewsFilterDTO
      * @var string|null
      */
     protected $language;
+    /**
+     * @var string
+     */
+    protected $sort = 'DESC';
 
     /**
      * @return string|null
@@ -142,7 +146,7 @@ class NewsFilterDTO
      */
     public function setNewsInputStatus(?string $newsInputStatus): NewsFilterDTO
     {
-        if(!$newsInputStatus){
+        if (!$newsInputStatus) {
             return $this;
         }
         $this->newsInputStatus = $newsInputStatus;
@@ -233,4 +237,23 @@ class NewsFilterDTO
         $this->language = $language;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSort(): string
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param string $sort
+     * @return NewsFilterDTO
+     */
+    public function setSort(string $sort): NewsFilterDTO
+    {
+        $this->sort = $sort;
+        return $this;
+    }
+
 }
