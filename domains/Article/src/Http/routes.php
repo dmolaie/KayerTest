@@ -7,4 +7,6 @@ Route::group(['prefix' => 'admin', 'name' => '.admin.'],
         Route::delete('/delete/{id}', 'ArticleController@deleteArticle')->middleware('auth:api')
             ->where('id', '[0-9]+');
         Route::get('/list', 'ArticleController@getListForAdmin');
+        Route::post('/change-status', 'ArticleController@changeArticleStatus')->middleware('auth:api');
+
     });

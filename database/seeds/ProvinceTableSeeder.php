@@ -12,16 +12,58 @@ class ProvinceTableSeeder extends Seeder
      */
     public function run()
     {
-        $rand = rand(10,1000);
         Province::insert([
             [
-                "name" => 'tehran test'.$rand,
-                "slug" => '  تست تهران',
+                "name" => 'tehran',
+                "slug" => 'تهران',
             ],
-
             [
-                "name" => 'fars test'. $rand,
-                "slug" => 'فارس تست',
+                "name" => 'Alborz',
+                "slug" => 'البرز',
+            ],
+            [
+                "name" => 'Ardabil',
+                "slug" => 'اردبیل',
+            ],
+            [
+                "name" => 'Azerbaijan East',
+                "slug" => 'آذربایجان شرقی',
+            ],
+            [
+                "name" => 'Azerbaijan West',
+                "slug" => 'آذربایجان غربی',
+            ],
+            [
+                "name" => 'Bushehr',
+                "slug" => 'بوشهر',
+            ],
+            [
+                "name" => 'Chahar Mahaal and Bakhtiari',
+                "slug" => 'چهارمحال و بختیاری',
+            ],
+            [
+                "name" => 'Fars',
+                "slug" => 'فارس',
+            ],
+            [
+                "name" => 'Gilan',
+                "slug" => 'گیلان',
+            ],
+            [
+                "name" => 'Golestan',
+                "slug" => 'گلستان',
+            ],
+            [
+                "name" => 'Hamadan',
+                "slug" => 'همدان',
+            ],
+            [
+                "name" => 'Hormozgan',
+                "slug" => 'هرمزگان',
+            ],
+            [
+                "name" => 'Ilam',
+                "slug" => 'یزد',
             ],
 
         ]);

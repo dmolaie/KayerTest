@@ -22,7 +22,8 @@ class NewsListForAdminRequest extends EhdaBaseRequest
             'create_date_start' => 'numeric',
             'create_date_end'   => 'numeric',
             'publisher_id'      => 'integer',
-            'status'            => [Rule::in(config('news.news_list_status'))]
+            'status'            => [Rule::in(config('news.news_list_status'))],
+            'sort'              => [Rule::in('DESC', 'ASC')]
         ];
     }
 
@@ -48,6 +49,7 @@ class NewsListForAdminRequest extends EhdaBaseRequest
                     $this['create_date_start'])->toDateTimeString() : null)
             ->setPublisherId($this['publisher_id'])
             ->setNewsInputStatus($this['status'])
+            ->setSort($this['sort'] ?? 'DESC')
             ->setFirstTitle($this['first_title']);
         return $newsFilterDTO;
     }

@@ -15,23 +15,23 @@ class CategoriesTableSeeder extends Seeder
         $rand = rand(10, 1000);
         Category::insert([
             [
-                'name_en' => 'scientific test' . $rand,
-                'name_fa' => ' تست علمی' . $rand,
+                'name_en' => 'scientific',
+                'name_fa' => 'علمی',
             ],
             [
-                'name_en' => 'sport test' . $rand,
-                'name_fa' => ' تست ورزشی' . $rand,
+                'name_en' => 'sport',
+                'name_fa' => 'ورزشی',
             ],
         ]);
         Category::insert([
                 [
-                    'name_en' => 'article test' . $rand,
-                    'name_fa' => ' تست مطلب' . $rand,
+                    'name_en' => 'article',
+                    'name_fa' => 'مطلب',
                     'type'    => 'article',
                 ],
                 [
-                    'name_en' => 'event test' . $rand,
-                    'name_fa' => ' تست رویداد' . $rand,
+                    'name_en' => 'event',
+                    'name_fa' => 'رویداد',
                     'type'    => 'event',
                 ]
             ]
@@ -39,15 +39,15 @@ class CategoriesTableSeeder extends Seeder
 
         Category::insert([
             [
-                'name_en'   => 'medical test' . $rand,
-                'name_fa'   => 'پزشکی تست' . $rand,
+                'name_en'   => 'medical',
+                'name_fa'   => 'پزشکی',
                 'parent_id' => Category::first()->id
             ]
         ]);
         Category::insert([
             [
-                'name_en'   => 'Cardiovascular test' . $rand,
-                'name_fa'   => 'قلب و عروق تست' . $rand,
+                'name_en'   => 'Cardiovascular',
+                'name_fa'   => 'قلب و عروق',
                 'parent_id' => Category::latest('id')->first()->id
             ]
         ]);

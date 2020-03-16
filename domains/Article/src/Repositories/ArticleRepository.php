@@ -88,6 +88,9 @@ class ArticleRepository
     {
         $baseQuery = $this->entityName::
         when($articleFilterDTO->getArticleRealStatus(), function ($query) use ($articleFilterDTO) {
+            if ($articleFilterDTO->getArticleRealStatus() == config('article.article_convert_to_real_status.delete')) {
+                return $query->onlyTrashed();
+            }
             return $query->where('status', $articleFilterDTO->getArticleRealStatus());
         })
             ->when($articleFilterDTO->getPublisherId(), function ($query) use ($articleFilterDTO) {
@@ -97,16 +100,16 @@ class ArticleRepository
                 return $query->where('first_title', 'like', '%' . $articleFilterDTO->getFirstTitle() . '%');
             })
             ->when($articleFilterDTO->getCreateDateEnd(), function ($query) use ($articleFilterDTO) {
-                return $query->where('created_at', '<=', $articleFilterDTO->getCreateDateEnd());
+                return $query->whereDate('created_at', '<=', $articleFilterDTO->getCreateDateEnd());
             })
             ->when($articleFilterDTO->getCreateDateStart(), function ($query) use ($articleFilterDTO) {
-                return $query->where('created_at', '>=', $articleFilterDTO->getCreateDateStart());
+                return $query->whereDate('created_at', '>=', $articleFilterDTO->getCreateDateStart());
             })
             ->when($articleFilterDTO->getMaxPublishDate(), function ($query) use ($articleFilterDTO) {
-                return $query->where('publish_date', '<=', $articleFilterDTO->getMaxPublishDate());
+                return $query->whereDate('publish_date', '<=', $articleFilterDTO->getMaxPublishDate());
             })
             ->when($articleFilterDTO->getMinPublishDate(), function ($query) use ($articleFilterDTO) {
-                return $query->where('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
+                return $query->whereDate('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
             })
             ->when($articleFilterDTO->getLanguage(), function ($query) use ($articleFilterDTO) {
                 return $query->where('language', $articleFilterDTO->getLanguage());
@@ -122,6 +125,7 @@ class ArticleRepository
                         ->orWhereNull('province_id');
                 });
             })
+            ->orderBy('id', $articleFilterDTO->getSort())
             ->paginate(config('article.article_paginate_count'));
         return $baseQuery;
     }
@@ -134,10 +138,21 @@ class ArticleRepository
     public function findByMenuId(int $menuId)
     {
         return $this->entityName::with([
-            'menus' => function ($query) use($menuId){
+            'menus' => function ($query) use ($menuId) {
                 $query->where('id', $menuId);
             }
         ])->firstOrFail();
+    }
+
+    public function changeStatus(int $articleId, string $status): Article
+    {
+        $article = $this->findOrFail($articleId);
+        $article->status = $status;
+        $getDirty = $article->getDirty();
+        if (!empty($getDirty)) {
+            $article->save();
+        }
+        return $article;
     }
 
 }
