@@ -26,6 +26,7 @@ class MenusInfoPresenter
             'link'     => $menusInfoDTO->getLink() ? $menusInfoDTO->getLink() : null,
             'parent'   => $menusInfoDTO->getParent() ? $this->getParent($menusInfoDTO->getParent()) : null,
             'children' => $this->transformMany($menusInfoDTO->getChild()),
+            'menuable_id' => $menusInfoDTO->getMenuableId(),
             'publisher'     => [
                 'id'        => $menusInfoDTO->getPublisher()->id,
                 'name'      => $menusInfoDTO->getPublisher()->name,
