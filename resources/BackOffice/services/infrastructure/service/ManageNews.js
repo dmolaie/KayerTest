@@ -2,10 +2,11 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import {
-    M_NEWS_SET_DATA
+    M_NEWS_SET_DATA,
+    M_NEWS_UPDATE_DATA
 } from '@services/store/ManageNews';
 import {
-    HasLength
+    HasLength, CopyOf
 } from "@vendor/plugin/helper";
 
 export const DEFAULT_STATUS = {
@@ -61,6 +62,44 @@ export default class ManageNewsService extends BaseService {
             // this.$vm.$set(this.$vm, 'isPending', false);
         }
     }
+
+    async deleteNewsItem( id ) {
+        try {
+            let response = await HTTPService.deleteRequest(Endpoint.get(Endpoint.DELETE_NEWS_ITEM, { id }));
+            this.$vm.displayNotification(response.message, {
+                type: 'success'
+            });
+            let data = CopyOf( Object.values( this.$vm.items ) );
+            let findIndex = data.findIndex( item => item.id === id );
+            if ( findIndex >= 0 )
+                data.splice(findIndex, 1);
+            BaseService.commitToStore(this.$store, M_NEWS_UPDATE_DATA, data)
+        } catch ( exception ) {
+            this.$vm.displayNotification(exception.message, {
+                type: 'error'
+            });
+        }
+    }
+
+    async changeStatusNewsItem( news_id, status ) {
+        try {
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_NEWS_ITEM), {
+                news_id, status
+            });
+            this.$vm.displayNotification(response.message, {
+                type: 'success'
+            });
+            let data = CopyOf( Object.values( this.$vm.items ) );
+            let findIndex = data.findIndex( item => item.id === news_id );
+            if ( findIndex >= 0 )
+                data.splice(findIndex, 1);
+            BaseService.commitToStore(this.$store, M_NEWS_UPDATE_DATA, data)
+        } catch ( exception ) {
+            this.$vm.displayNotification(exception.message, {
+                type: 'error'
+            });
+        }
+    };
 
     async _GetNewsListFilterBy( query = {} ) {
         try {

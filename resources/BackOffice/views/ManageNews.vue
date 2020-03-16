@@ -185,7 +185,8 @@
                                                 'm-post__status--ready-published': ( item.is_ready_to_publish ),
                                                 'm-post__status--pending': ( item.is_pending ),
                                                 'm-post__status--reject': ( item.is_reject ),
-                                                'm-post__status--accept': ( item.is_accept )
+                                                'm-post__status--accept': ( item.is_accept ),
+                                                'm-post__status--recycle': ( item.is_recycle )
                                               }"
                                               v-text="item.status"
                                         > </span>
@@ -235,9 +236,22 @@
                                                      :clickOutside="true"
                                                      class="table__dropdown"
                                         >
-                                            <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                    v-text="'حذف خبر'"
-                                            > </button>
+                                            <template v-if="item.is_recycle">
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="'بازیابی از زباله دان'"
+                                                        @click.prevent="onClickPendingActionButton( item.id )"
+                                                > </button>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="'حذف خبر'"
+                                                        @click.prevent="onClickDeleteActionButton( item.id )"
+                                                > </button>
+                                            </template>
+                                            <template v-else>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="'انتقال به زباله دان'"
+                                                        @click.prevent="onClickRecycleActionButton( item.id )"
+                                                > </button>
+                                            </template>
                                         </dropdown-cm>
                                     </div>
                                 </div>
@@ -278,6 +292,7 @@
     const READY_TO_PUBLISH_STATUS = 'ready_to_publish';
     const RECYCLE_STATUS = 'recycle';
     const PENDING_STATUS = 'pending';
+    const DELETE_STATUS = 'delete';
 
         ///change-status
     let Service = null;
@@ -506,6 +521,17 @@
                             }, 70);
                         });
                 } catch (e) {}
+            },
+            async onClickRecycleActionButton( news_id ) {
+                try {
+                    await Service.changeStatusNewsItem( news_id, RECYCLE_STATUS );
+                } catch (e) {}
+            },
+            async onClickPendingActionButton( news_id ) {
+                await Service.changeStatusNewsItem( news_id, PENDING_STATUS );
+            },
+            async onClickDeleteActionButton( news_id ) {
+                await Service.deleteNewsItem( news_id );
             }
         },
         created() {

@@ -31,6 +31,7 @@ export class SingleManageNewsPresenter extends BasePresenter {
             is_pending: Boolean,
             is_reject: Boolean,
             is_ready_to_publish: Boolean,
+            is_recycle: Boolean,
             is_accept: Boolean,
             province: Object,
             publisher: Object,
@@ -108,6 +109,12 @@ export class SingleManageNewsPresenter extends BasePresenter {
     is_ready_to_publish() {
         return (
             this.data.status?.en === "ready_to_publish"
+        )
+    }
+
+    is_recycle() {
+        return (
+            this.data.status?.en === "recycle"
         )
     }
 
