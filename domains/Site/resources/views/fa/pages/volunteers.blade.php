@@ -8,7 +8,7 @@
                     </span>
             </h1>
             <div class="p-t-35 w-full flex items-start">
-                @if(!auth()->check() || !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                @if(!auth()->check())
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="dnt-page__panel border border-solid rounded-2">
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
@@ -113,11 +113,13 @@
                     </aside>
                 @elseif(auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
-                        <div class="dnt-page__panel border border-solid rounded-2">
-                            <p>شما پروفایل دارید و برای ثبت نام در بخش سفیران به پروفایل خود مراجعه کنید.</p>
+                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
+                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
+                            <p>شما کارت اهدای عضو دارید. لطفا از پروفایل خود جهت ثبت نام به عنوان سفیر اهدای عضو اقدام
+                                کنید.</p>
                             <a href="#"
-                               class="dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200">
-                                ورود به بخش ثبت نام سفیران اهدا عضو
+                               class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
+                                ثبت نام سفیر
                             </a>
                         </div>
                     </aside>
