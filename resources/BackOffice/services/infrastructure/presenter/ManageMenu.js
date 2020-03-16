@@ -37,8 +37,23 @@ export class SingleMenuPresenter extends BasePresenter {
             active: Boolean,
             priority: Number,
             is_opened: Boolean,
-            menuable_id: Number
+            menuable_id: Number,
+            is_list_type: Boolean,
+            is_article_type: Boolean,
+            menuable_name: String
         })
+    }
+
+    menuable_id() {
+        return this.data?.menuable_id || ''
+    }
+
+    is_list_type() {
+        return this.data.type.includes('list_')
+    }
+
+    is_article_type() {
+        return this.data.type === "article"
     }
 
     id() {
@@ -108,10 +123,6 @@ export class SingleMenuPresenter extends BasePresenter {
 
     is_opened() {
         return false
-    }
-
-    menuable_id() {
-        return this.data?.menuable_id || ''
     }
 
 }

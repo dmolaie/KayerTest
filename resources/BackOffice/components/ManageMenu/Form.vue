@@ -35,6 +35,7 @@
                        @onChange="onChangeCategories"
                        ref="categories"
             />
+            <!-- :value="item.type"-->
         </div>
         <div class="dragArea__form_row flex items-center w-full"
              :class="{
@@ -50,6 +51,7 @@
                        @onChange="onChangeArticleList"
                        ref="article"
             />
+            <!-- :value="item.type"-->
         </div>
         <div class="dragArea__form_row flex items-center w-full">
             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
@@ -198,7 +200,6 @@
                             type: 'error'
                         });
                     }
-                    console.log(payload);
                 }
                 catch (e) {}
                 finally {
