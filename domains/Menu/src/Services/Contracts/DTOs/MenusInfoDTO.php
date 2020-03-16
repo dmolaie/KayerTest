@@ -91,6 +91,10 @@ class MenusInfoDTO
      */
     protected $menuableId;
     /**
+     * @var string|null
+     */
+    protected $menuableName;
+    /**
      * @return User|null
      */
     public function getEditor(): ?User
@@ -375,6 +379,24 @@ class MenusInfoDTO
     public function setMenuableId(?int $menuableId): MenusInfoDTO
     {
         $this->menuableId = $menuableId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMenuableName(): ?string
+    {
+        return $this->menuableName;
+    }
+
+    /**
+     * @param string|null $menuableName
+     * @return MenusInfoDTO
+     */
+    public function setMenuableName(?string $menuableName): MenusInfoDTO
+    {
+        $this->menuableName = $menuableName;
         return $this;
     }
 
