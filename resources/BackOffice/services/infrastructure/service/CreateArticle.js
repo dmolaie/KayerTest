@@ -94,7 +94,7 @@ export default class CreateNewsService extends BaseService {
                 type: 'success',
                 duration: 4000
             });
-            // this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
+            this.$vm.pushRouter( { name: 'MANAGE_ARTICLE' } );
         }
         catch ( exception ) {
             let errorMessage = exception.message;

@@ -7,6 +7,7 @@ import MenuStore from "@services/store/ManageMenu";
 import CreateMenu from "@services/store/CreateNews";
 import ManageNews from "@services/store/ManageNews";
 import CreateArticle from "@services/store/CreateArticle";
+import ManageArticle from "@services/store/ManageArticle";
 
 const modules = {
     UserStore,
@@ -15,6 +16,7 @@ const modules = {
     CreateMenu,
     ManageNews,
     CreateArticle,
+    ManageArticle,
 };
 
 Vue.use( Vuex );

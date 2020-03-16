@@ -56,7 +56,7 @@
                     icon: 'ic__menu--blue.svg'
                 },
                 {
-                    route: 'CREATE_ARTICLE',
+                    route: 'MANAGE_ARTICLE',
                     title: 'صفحات ایستا',
                     icon: 'ic_newspaper--blue.svg'
                 },

@@ -19,6 +19,7 @@ const GET_MENU_TYPE = "GET_MENU_TYPE";
 const REMOVE_MENU_ITEM = "REMOVE_MENU_ITEM";
 const SAVE_MENU_LIST = "SAVE_MENU_LIST";
 const GET_ARTICLE_LIST = "GET_ARTICLE_LIST";
+const DELETE_ARTICLE_LIST = "DELETE_ARTICLE_LIST";
 const CREATE_ARTICLE_LIST = "CREATE_ARTICLE_LIST";
 const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
 const GET_CATEGORY_LIST = "GET_CATEGORY_LIST";
@@ -45,6 +46,7 @@ endpoints[REMOVE_MENU_ITEM] = `/menu/${VER_1_0}/admin/delete`;
 endpoints[SAVE_MENU_LIST] = `/menu/${VER_1_0}/admin/save-priority`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
 endpoints[CREATE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/create`;
+endpoints[DELETE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/delete:id`;
 endpoints[GET_ARTICLE_LIST] = `/article/${VER_1_0}/admin/list`;
 endpoints[GET_CATEGORY_LIST] = `/category/${VER_1_0}/admin/get_category_by_type`;
 endpoints[GET_NEWS_LIST] = `/news/${VER_1_0}/admin/list`;
@@ -106,6 +108,10 @@ export default class Endpoint {
 
     static get GET_ARTICLE_LIST() {
         return endpoints[GET_ARTICLE_LIST];
+    }
+
+    static get DELETE_ARTICLE_LIST() {
+        return endpoints[DELETE_ARTICLE_LIST];
     }
 
     static get CREATE_ARTICLE_LIST() {
