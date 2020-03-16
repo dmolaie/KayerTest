@@ -100,6 +100,7 @@
         color: $white
         background-color: #7ed321
         border-color: #7ed321
+        @include SpinnerLoading(22px, 3px, $white)
         @include L_Screen
           &:hover
             background-color: darken(#7ed321, 4%)
@@ -107,6 +108,7 @@
         color: $blue-800
         background-color: #f7f7f7
         border-color: #7ed321
+        @include SpinnerLoading(22px, 3px, #7ed321)
         @include L_Screen
           &:hover
             color: $white

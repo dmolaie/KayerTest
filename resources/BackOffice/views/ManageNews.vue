@@ -37,7 +37,9 @@
             </div>
             <div class="m-post__wrapper">
                 <div class="m-post__header flex">
-                    <button class="m-post__button m-post__button--filter inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 m-r-auto l:transition-bg">
+                    <button class="m-post__button m-post__button--filter inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 m-r-auto l:transition-bg"
+                            @click.prevent="onClickToggleFiltersButton"
+                    >
                         فیلتر ها
                     </button>
                     <div class="m-post__button--added relative">
@@ -66,18 +68,23 @@
                             </router-link>
                         </dropdown-cm>
                     </div>
-                    <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg">
+                    <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
+                            @click.prevent="onClickToggleSearchButton"
+                    >
                         جست‌وجو
                     </button>
                 </div>
                 <div class="m-post__filter w-full flex flex-wrap items-start"
-                     v-if="false"
+                     v-if="shouldBeShowFilterFields"
                 >
                     <div class="m-post__filter_col w-1/3">
                         <p class="m-post__filter_title w-full text-blue-800 font-sm font-bold cursor-default">
                             تاریخ شروع:
                         </p>
                         <date-picker-cm placeholder="تاریخ شروع را انتخاب کنید"
+                                        :wrapper-submit="true"
+                                        :key="'start-date-' + keyCounter"
+                                        @onChange="onChangeDateStartField"
                         />
                     </div>
                     <div class="m-post__filter_col w-1/3">
@@ -85,19 +92,30 @@
                             تاریخ پایان:
                         </p>
                         <date-picker-cm placeholder="تاریخ پایان را انتخاب کنید"
+                                        :wrapper-submit="true"
+                                        :key="'end-date-' + keyCounter"
+                                        @onChange="onChangeDateEndField"
+                                        :disabled="!filter.create_date_start"
+                                        :min="datePickerMinValue"
                         />
                     </div>
                     <div class="w-full text-left">
-                        <button class="m-post__filter_button m-post__filter_button--green font-base font-bold border border-solid rounded">
+                        <button class="m-post__filter_button m-post__filter_button--green font-base font-bold border border-solid rounded"
+                                :class="{ 'spinner-loading': ShouldBeShowSpinnerLoadingSubmitFilter }"
+                                @click.prevent="onClickSubmitFiltersButton"
+                        >
                             اعمال فیلترها
                         </button>
-                        <button class="m-post__filter_button m-post__filter_button--white font-base font-bold border border-solid rounded">
+                        <button class="m-post__filter_button m-post__filter_button--white font-base font-bold border border-solid rounded"
+                                :class="{ 'spinner-loading': ShouldBeShowSpinnerLoadingDiscardFilter }"
+                                @click.prevent="onClickDiscardFiltersButton"
+                        >
                             حذف فیلترها
                         </button>
                     </div>
                 </div>
                 <div class="w-full"
-                     v-if="true"
+                     v-if="shouldBeShowSearchField"
                 >
                     <label class="w-3/4 flex items-stretch m-post__search border border-solid rounded">
                         <span class="m-post__search_label flex-shrink-0 rounded rounded-tl-none rounded-bl-none"
@@ -105,6 +123,8 @@
                         <input type="text"
                                placeholder="جست‌وجو..."
                                class="m-post__search_input bg-transparent flex-1 font-base font-bold"
+                               v-model="searchField"
+                               @input="oninputSearchField"
                         />
                     </label>
                 </div>
@@ -234,7 +254,7 @@
         mapState
     } from 'vuex';
     import {
-        HasLength
+        Length, HasLength, toEnglishDigits
     } from "@vendor/plugin/helper";
     import ManageNewsService from '@services/service/ManageNews';
     import DatePickerCm from '@components/DatePicker.vue';
@@ -253,8 +273,20 @@
     export default {
         name: "ManageNews",
         data: () => ({
+            keyCounter: 0,
+            timeout: 330,
+            timeoutID: null,
+            filter: {
+                create_date_start: '',
+                create_date_end: '',
+            },
+            shouldBeShowFilterFields: false,
+            searchField: '',
+            shouldBeShowSearchField: false,
             isPending: true,
-            shouldBeShowCreatedNewsDropdown: false
+            shouldBeShowCreatedNewsDropdown: false,
+            ShouldBeShowSpinnerLoadingSubmitFilter: false,
+            ShouldBeShowSpinnerLoadingDiscardFilter: false
         }),
         components: {
             DropdownCm, TableCm, ImageCm,
@@ -287,14 +319,32 @@
                 return ( HasLength(this.$route.query) ) ? (
                     query.status === PENDING_STATUS
                 ) : false
-            }
+            },
+            datePickerMinValue() {
+                try {
+                    if ( !!this.filter.create_date_start ) {
+                        const DATE = new Date( this.filter.create_date_start * 1e3 ),
+                            LOCALE_DATE = DATE.toLocaleString('fa');
+                        return toEnglishDigits(
+                                LOCALE_DATE
+                                    .replace('،', ' ')
+                                    .slice(0, Length( LOCALE_DATE ) - 3)
+                            )
+                    } return '';
+                } catch (e) {
+                    return ''
+                }
+            },
         },
         watch: {
             $route({ query }) {
                 let queryString = ( HasLength( query ) ) ? query : ({
                     status: PUBLISH_STATUS
                 });
-                Service.getNewsListFilterByStatus( queryString )
+                this.$set(this, 'isPending', true);
+                this.hideSearchSection();
+                this.hideFiltersSection();
+                Service._GetNewsListFilterBy( queryString )
                     .then(this.$nextTick)
                     .then(() => {
                         setTimeout(() => {
@@ -303,11 +353,6 @@
                     });
             }
         },
-        // beforeRouteUpdate (to, from, next) {
-        //     // console.log('injjj');
-        //     // this.$forceUpdate();
-        //     next();
-        // },
         methods: {
             /**
              * @param query { Object }
@@ -318,6 +363,51 @@
                         name: "MANAGE_NEWS",
                         query
                     }).catch(err => {})
+            },
+            hideSearchSection() {
+                this.$set(this, 'searchField', '');
+                this.$set(this, 'shouldBeShowSearchField', false);
+            },
+            hideFiltersSection() {
+                this.$set(this.filter, 'create_date_end', '');
+                this.$set(this.filter, 'create_date_start', '');
+                this.$set(this, 'shouldBeShowFilterFields', false);
+            },
+            onClickToggleFiltersButton() {
+                this.hideSearchSection();
+                this.$set(this, 'shouldBeShowFilterFields', !this.shouldBeShowFilterFields);
+            },
+            onClickToggleSearchButton() {
+                this.hideFiltersSection();
+                this.$set(this, 'searchField', '');
+                this.$set(this, 'shouldBeShowSearchField', !this.shouldBeShowSearchField);
+            },
+            onChangeDateStartField( unix ) {
+                this.$set(this.filter, 'create_date_start', unix)
+            },
+            onChangeDateEndField( unix ) {
+                this.$set(this.filter, 'create_date_end', unix)
+            },
+            async onClickSubmitFiltersButton() {
+                try {
+                    this.$set(this, 'ShouldBeShowSpinnerLoadingSubmitFilter', true);
+                    await Service.HandleFilterAction( this.filter, this.$route )
+                }
+                finally {
+                    this.$set(this, 'ShouldBeShowSpinnerLoadingSubmitFilter', false);
+                }
+            },
+            async onClickDiscardFiltersButton() {
+                try {
+                    this.$set(this, 'ShouldBeShowSpinnerLoadingDiscardFilter', true);
+                    this.$set(this, 'keyCounter', this.keyCounter + 1);
+                    this.$set(this.filter, 'create_date_end', '');
+                    this.$set(this.filter, 'create_date_start', '');
+                    await Service.HandleFilterAction( this.filter, this.$route )
+                }
+                finally {
+                    this.$set(this, 'ShouldBeShowSpinnerLoadingDiscardFilter', false);
+                }
             },
             onClickCreatedNewButton() {
                 this.$set(this, 'shouldBeShowCreatedNewsDropdown', !this.shouldBeShowCreatedNewsDropdown)
@@ -345,6 +435,15 @@
                     status: RECYCLE_STATUS
                 })
             },
+            async oninputSearchField() {
+                try {
+                    clearTimeout( this.timeoutID );
+                    this.timeoutID = null;
+                    this.timeoutID = await setTimeout(async () => {
+                        await Service.HandelSearchAction( this.searchField, this.$route )
+                    }, this.timeout)
+                } catch (e) {}
+            }
         },
         created() {
             Service = new ManageNewsService( this );
