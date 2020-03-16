@@ -19,48 +19,56 @@ class NewsInfoPresenter
     public function transform(NewsInfoDTO $newsInfoDTO)
     {
         return [
-            'id' => $newsInfoDTO->getId(),
-            'first_title' => $newsInfoDTO->getFirstTitle(),
+            'id'           => $newsInfoDTO->getId(),
+            'first_title'  => $newsInfoDTO->getFirstTitle(),
             'second_title' => $newsInfoDTO->getSecondTitle(),
-            'abstract' => $newsInfoDTO->getAbstract(),
-            'description' => $newsInfoDTO->getDescription(),
-            'category' => $newsInfoDTO->getCategory() ? $newsInfoDTO->getCategory() : null,
+            'abstract'     => $newsInfoDTO->getAbstract(),
+            'description'  => $newsInfoDTO->getDescription(),
+            'category'     => $newsInfoDTO->getCategory() ? $newsInfoDTO->getCategory() : null,
             'publish_date' => strtotime($newsInfoDTO->getPublishDate()),
-            'source_link' => $newsInfoDTO->getSourceLink(),
-            'status' => $this->getStatus($newsInfoDTO),
-            'province' => [
-                'id' => $newsInfoDTO->getProvince()->id,
+            'source_link'  => $newsInfoDTO->getSourceLink(),
+            'status'       => $this->getStatus($newsInfoDTO),
+            'province'     => [
+                'id'   => $newsInfoDTO->getProvince()->id,
                 'name' => $newsInfoDTO->getProvince()->name,
             ],
-            'publisher' => [
-                'id' => $newsInfoDTO->getPublisher()->id,
-                'name' => $newsInfoDTO->getPublisher()->name,
+            'publisher'    => [
+                'id'        => $newsInfoDTO->getPublisher()->id,
+                'name'      => $newsInfoDTO->getPublisher()->name,
                 'last_name' => $newsInfoDTO->getPublisher()->last_name
             ],
-            'editor' => $newsInfoDTO->getEditor() ? [
-                'id' => $newsInfoDTO->getEditor()->id,
-                'name' => $newsInfoDTO->getEditor()->name,
+            'editor'       => $newsInfoDTO->getEditor() ? [
+                'id'        => $newsInfoDTO->getEditor()->id,
+                'name'      => $newsInfoDTO->getEditor()->name,
                 'last_name' => $newsInfoDTO->getEditor()->last_name
             ] : null,
-            'language' => $newsInfoDTO->getLanguage(),
-            'relation_id' => $newsInfoDTO->getRelationNewsId(),
-            'image_paths' => $newsInfoDTO->getAttachmentFiles() ?? []
+            'language'     => $newsInfoDTO->getLanguage(),
+            'relation_id'  => $newsInfoDTO->getRelationNewsId(),
+            'image_paths'  => $newsInfoDTO->getAttachmentFiles() ?? []
         ];
     }
 
     private function getStatus(NewsInfoDTO $newsInfoDTO)
     {
-        $status = [
-            'fa' => trans('news::news.news_statuses.' . $newsInfoDTO->getStatus()),
-            'en' => $newsInfoDTO->getStatus()
-        ];
-        if ($newsInfoDTO->getStatus() == 'accept' && $newsInfoDTO->getPublishDate() <= Carbon::now()) {
-            $status = [
+        if ($newsInfoDTO->getStatus() != 'accept') {
+            return [
+                'fa' => trans('news::news.news_statuses.' . $newsInfoDTO->getStatus()),
+                'en' => $newsInfoDTO->getStatus()
+            ];
+        }
+        if (
+        Carbon::parse($newsInfoDTO->getPublishDate())->lessThanOrEqualTo(Carbon::now())) {
+            return [
                 'fa' => trans('news::news.news_statuses.published'),
                 'en' => 'published'
             ];
 
         }
-        return $status;
+        return [
+            'fa' => trans('news::news.news_statuses.ready_to_publish'),
+            'en' => 'ready_to_publish'
+        ];
+
+
     }
 }
