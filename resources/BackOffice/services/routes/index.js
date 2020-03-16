@@ -13,6 +13,8 @@ export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
+export const MANAGE_ARTICLE = 'MANAGE_ARTICLE';
+export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -72,6 +74,47 @@ const Routes = new VueRouter({
                     {
                         route: MANAGE_NEWS,
                         name: 'اخبار'
+                    },
+                    {
+                        name: 'افزودن'
+                    }
+                ]
+            }
+        },
+        {
+            name: MANAGE_ARTICLE,
+            path: '/manage/statics',
+            component: GetViews('ManageArticle' ),
+            meta: {
+                title: 'صفحات ایستا',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات ایستا'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
+            name: CREATE_ARTICLE,
+            path: '/manage/statics/:lang(fa)/create',
+            component: GetViews('CreateArticle' ),
+            meta: {
+                title: 'افزودن صفحه ایستا',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: DASHBOARD,
+                        name: 'صفحات ایستا'
                     },
                     {
                         name: 'افزودن'
