@@ -14,56 +14,56 @@ class ProvinceTableSeeder extends Seeder
     {
         Province::insert([
             [
-                "name" => 'tehran',
-                "slug" => 'تهران',
+                "slug" => 'tehran',
+                "name" => 'تهران',
             ],
             [
-                "name" => 'Alborz',
-                "slug" => 'البرز',
+                "slug" => 'Alborz',
+                "name" => 'البرز',
             ],
             [
-                "name" => 'Ardabil',
-                "slug" => 'اردبیل',
+                "slug" => 'Ardabil',
+                "name" => 'اردبیل',
             ],
             [
-                "name" => 'Azerbaijan East',
-                "slug" => 'آذربایجان شرقی',
+                "slug" => 'Azerbaijan East',
+                "name" => 'آذربایجان شرقی',
             ],
             [
-                "name" => 'Azerbaijan West',
-                "slug" => 'آذربایجان غربی',
+                "slug" => 'Azerbaijan West',
+                "name" => 'آذربایجان غربی',
             ],
             [
-                "name" => 'Bushehr',
-                "slug" => 'بوشهر',
+                "slug" => 'Bushehr',
+                "name" => 'بوشهر',
             ],
             [
-                "name" => 'Chahar Mahaal and Bakhtiari',
-                "slug" => 'چهارمحال و بختیاری',
+                "slug" => 'Chahar Mahaal and Bakhtiari',
+                "name" => 'چهارمحال و بختیاری',
             ],
             [
-                "name" => 'Fars',
-                "slug" => 'فارس',
+                "slug" => 'Fars',
+                "name" => 'فارس',
             ],
             [
-                "name" => 'Gilan',
-                "slug" => 'گیلان',
+                "slug" => 'Gilan',
+                "name" => 'گیلان',
             ],
             [
-                "name" => 'Golestan',
-                "slug" => 'گلستان',
+                "slug" => 'Golestan',
+                "name" => 'گلستان',
             ],
             [
-                "name" => 'Hamadan',
-                "slug" => 'همدان',
+                "slug" => 'Hamadan',
+                "name" => 'همدان',
             ],
             [
-                "name" => 'Hormozgan',
-                "slug" => 'هرمزگان',
+                "slug" => 'Hormozgan',
+                "name" => 'هرمزگان',
             ],
             [
-                "name" => 'Ilam',
-                "slug" => 'یزد',
+                "slug" => 'Ilam',
+                "name" => 'یزد',
             ],
 
         ]);
