@@ -22,14 +22,20 @@ return [
         'published',
         'ready_to_publish',
         'pending',
-        'reject'
+        'recycle',
+        'cancel',
+        'reject',
+        'delete'
     ],
     'article_convert_to_real_status' =>
         [
             'published'        => 'accept',
             'ready_to_publish' => 'accept',
             'pending'          => 'pending',
-            'reject'           => 'reject'
+            'reject'           => 'reject',
+            'cancel'           => 'cancel',
+            'recycle'          => 'recycle',
+            'delete'           => 'delete',
         ],
     'article_paginate_count' => 10,
 ];
