@@ -3,7 +3,8 @@
          v-click-outside="onClickOutSide"
     >
         <ul class="tags__wrapper w-full flex flex-wrap"
-            :class="inputClassName"
+            :class="tagWrapperClassName"
+
         >
             <li v-for="(item, index) in selectedTags"
                 :key="'tags-' + index"
@@ -22,6 +23,7 @@
             <li class="tags__input_wrapper flex-1">
                 <input type="text"
                        class="tags__input w-full h-full block bg-transparent"
+                       :class="inputClassName"
                        @keyup.enter="CreateNewTag"
                        @input="onInputField"
                        v-model="inputField"
@@ -33,18 +35,27 @@
         <div class="tags__autocomplete absolute w-full overflow-auto"
              v-if="shouldBeShowAutocomplete"
         >
-            <button v-for="(item, index) in filteredAutocompleteItems"
-                    :key="'item-' + index"
-                    v-text="item.name"
-                    class="tags__autocomplete_items block w-full font-sm font-medium text-bayoux"
-                    :class="[
+            <template v-if="filteredAutocompleteItems.length">
+                <button v-for="(item, index) in filteredAutocompleteItems"
+                        :key="'item-' + index"
+                        v-text="item.name"
+                        class="tags__autocomplete_items block w-full font-sm font-medium text-bayoux"
+                        :class="[
                         itemClassName,
                         {
                             'none': item.hidden
                         }
                     ]"
-                    @click.prevent="onClickAutocompleteItem( item )"
-            > </button>
+                        @click.prevent="onClickAutocompleteItem( item )"
+                > </button>
+            </template>
+            <template v-else>
+                <span class="block w-full text-blue-800 font-sm font-medium text-center bg-white"
+                      style="padding: 10px 0"
+                >
+                    عنوان دسته‌بندی برای انتخاب وجود ندارد
+                </span>
+            </template>
         </div>
     </div>
 </template>
@@ -68,6 +79,10 @@
                 required: true
             },
             placeholder: {
+                type: String,
+                default: ''
+            },
+            tagWrapperClassName: {
                 type: String,
                 default: ''
             },
@@ -139,22 +154,22 @@
              * TODO: Check List Before Create & LowerCase
              */
             CreateNewTag() {
-                let selectedItem =
-                    this.selectedTags
-                        .map( ({ name }) => name );
-                if (!selectedItem.includes(this.inputField) ) {
-                    if ( Length( this.inputField.trim() ) > 2 ) {
-                        this.selectedTags.push({
-                            name: this.inputField,
-                            hidden: true,
-                        });
-                        this.$set(this, 'inputField', '');
-                    }
-                } else {
-                    this.displayNotification('این تگ درحال حاظر انتخاب شده است.', {
-                        type: 'error'
-                    })
-                }
+                // let selectedItem =
+                //     this.selectedTags
+                //         .map( ({ name }) => name );
+                // if (!selectedItem.includes(this.inputField) ) {
+                //     if ( Length( this.inputField.trim() ) > 2 ) {
+                //         this.selectedTags.push({
+                //             name: this.inputField,
+                //             hidden: true,
+                //         });
+                //         this.$set(this, 'inputField', '');
+                //     }
+                // } else {
+                //     this.displayNotification('این تگ درحال حاظر انتخاب شده است.', {
+                //         type: 'error'
+                //     })
+                // }
             },
             onClickOutSide() {
                 this.hiddenAutocompleteDropDown();

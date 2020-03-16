@@ -6,13 +6,15 @@ import LayoutState from "@services/store/LayoutState";
 import MenuStore from "@services/store/ManageMenu";
 import CreateMenu from "@services/store/CreateNews";
 import ManageNews from "@services/store/ManageNews";
+import CreateArticle from "@services/store/CreateArticle";
 
 const modules = {
     UserStore,
     LayoutState,
     MenuStore,
     CreateMenu,
-    ManageNews
+    ManageNews,
+    CreateArticle,
 };
 
 Vue.use( Vuex );
