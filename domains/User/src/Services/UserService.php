@@ -17,6 +17,7 @@ use Domains\User\Repositories\UserRepository;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
@@ -250,6 +251,12 @@ class UserService
         $user = $this->userRepository->createOrUpdateUser(
             $createUserRegisterDTO,
             $existUser);
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function addNewRoleToUser(int $userId, int $roleId): UserBriefInfoDTO
+    {
+        $user = $this->userRepository->addNewRoleToUser($userId, $roleId);
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 }
