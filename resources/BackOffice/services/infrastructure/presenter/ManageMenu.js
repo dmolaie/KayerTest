@@ -44,6 +44,10 @@ export class SingleMenuPresenter extends BasePresenter {
         })
     }
 
+    menuable_name() {
+        return this.data?.menuable_name || ''
+    }
+
     menuable_id() {
         return this.data?.menuable_id || ''
     }
