@@ -81,16 +81,16 @@ export default class ManageNewsService extends BaseService {
         }
     }
 
-    async changeStatusNewsItem( news_id, status ) {
+    async changeStatusNewsItem( article_id, status ) {
         try {
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_NEWS_ITEM), {
-                news_id, status
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_ARTICLE_ITEM), {
+                article_id, status
             });
             this.$vm.displayNotification(response.message, {
                 type: 'success'
             });
             let data = CopyOf( Object.values( this.$vm.items ) );
-            let findIndex = data.findIndex( item => item.id === news_id );
+            let findIndex = data.findIndex( item => item.id === article_id );
             if ( findIndex >= 0 )
                 data.splice(findIndex, 1);
             BaseService.commitToStore(this.$store, M_ARTICLE_UPDATE_DATA, data)

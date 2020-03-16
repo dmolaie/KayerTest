@@ -27,6 +27,7 @@ const GET_NEWS_LIST = "GET_NEWS_LIST";
 const CREATE_NEWS_ITEM = "CREATE_NEWS_ITEM";
 const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";
 const EDIT_STATUS_NEWS_ITEM = "EDIT_STATUS_NEWS_ITEM";
+const EDIT_STATUS_ARTICLE_ITEM = "EDIT_STATUS_ARTICLE_ITEM";
 const CREATE_CATEGORY_ITEM = "CREATE_CATEGORY_ITEM";
 const GET_ALL_PROVINCES = "GET_ALL_PROVINCES";
 const LOGOUT = "LOGOUT";
@@ -46,12 +47,13 @@ endpoints[REMOVE_MENU_ITEM] = `/menu/${VER_1_0}/admin/delete`;
 endpoints[SAVE_MENU_LIST] = `/menu/${VER_1_0}/admin/save-priority`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
 endpoints[CREATE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/create`;
-endpoints[DELETE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/delete:id`;
+endpoints[DELETE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/delete/:id`;
 endpoints[GET_ARTICLE_LIST] = `/article/${VER_1_0}/admin/list`;
 endpoints[GET_CATEGORY_LIST] = `/category/${VER_1_0}/admin/get_category_by_type`;
 endpoints[GET_NEWS_LIST] = `/news/${VER_1_0}/admin/list`;
 endpoints[CREATE_NEWS_ITEM] = `/news/${VER_1_0}/admin/create`;
 endpoints[EDIT_STATUS_NEWS_ITEM] = `/news/${VER_1_0}/admin/change-status`;
+endpoints[EDIT_STATUS_ARTICLE_ITEM] = `/article/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_NEWS_ITEM] = `/news/${VER_1_0}/admin/delete/:id`;
 endpoints[CREATE_CATEGORY_ITEM] = `/category/${VER_1_0}/admin/create`;
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
@@ -152,6 +154,10 @@ export default class Endpoint {
 
     static get GET_ALL_PROVINCES() {
         return endpoints[GET_ALL_PROVINCES]
+    }
+
+    static get EDIT_STATUS_ARTICLE_ITEM() {
+        return endpoints[EDIT_STATUS_ARTICLE_ITEM]
     }
 
     static get( endpoint, params = {} ) {
