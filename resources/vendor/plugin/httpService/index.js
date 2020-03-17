@@ -67,7 +67,6 @@ export default class HTTPService {
         if ( !!CSRF_TOKEN )
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
 
-        requestInit.mode = 'no-cors';
         requestInit.headers = headers;
         return requestInit;
     }
