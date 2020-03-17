@@ -24,6 +24,7 @@ export default class HTTPService {
             'Accept': 'application/json',
             'Accept-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': 'true',
             'Content-Type': 'application/json',
         });
     }
@@ -31,6 +32,7 @@ export default class HTTPService {
     static uploadHeaders() {
         return new Headers({
             'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': 'true',
         });
     }
 
@@ -61,7 +63,6 @@ export default class HTTPService {
         if ( !!CSRF_TOKEN )
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
 
-        requestInit.mode = 'cors';
         requestInit.headers = headers;
         return requestInit;
     }
