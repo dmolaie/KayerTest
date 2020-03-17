@@ -26,6 +26,7 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
+        requestInit.mode = 'no-cors';
         requestInit.headers = headers;
         return requestInit;
     }
