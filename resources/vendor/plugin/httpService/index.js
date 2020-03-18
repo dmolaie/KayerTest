@@ -22,12 +22,15 @@ export default class HTTPService {
         // });
         return new Headers({
             'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json;charset=utf-8',
         });
     }
 
     static uploadHeaders() {
-        return new Headers({});
+        return new Headers({
+            'Access-Control-Allow-Origin': '*',
+        });
     }
 
 
