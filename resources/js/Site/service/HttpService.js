@@ -8,7 +8,6 @@ export default class HTTPService {
     static headers() {
         return new Headers({
             'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json;charset=utf-8',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
         });
@@ -22,6 +21,7 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
+        requestInit.mode = 'cors';
         requestInit.headers = headers;
         return requestInit;
     }
