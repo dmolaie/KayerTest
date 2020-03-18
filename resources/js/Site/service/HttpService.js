@@ -10,6 +10,7 @@ export default class HTTPService {
             'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': 'true',
+            'Content-Type': 'application/json;charset=utf-8',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
         });
     }
