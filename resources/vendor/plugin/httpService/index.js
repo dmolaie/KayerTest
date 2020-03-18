@@ -83,6 +83,7 @@ export default class HTTPService {
         return new Promise(
             ( resolve, reject ) => {
                 let init = this.onBeforeRequest( requestInit, is_file );
+                console.log('init: ', init);
                 fetch( requestInfo, init )
                     .then( response =>
                         ( response.ok ) ? (
