@@ -22,17 +22,12 @@ export default class HTTPService {
         // });
         return new Headers({
             'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
             'Content-Type': 'application/json;charset=utf-8',
         });
     }
 
     static uploadHeaders() {
-        return new Headers({
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
-        });
+        return new Headers({});
     }
 
 
