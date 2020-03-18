@@ -8,6 +8,7 @@ export default class HTTPService {
     static headers() {
         return new Headers({
             'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json;charset=utf-8',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
         });
