@@ -22,15 +22,12 @@ export default class HTTPService {
         // });
         return new Headers({
             'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json;charset=utf-8',
         });
     }
 
     static uploadHeaders() {
-        return new Headers({
-            'Access-Control-Allow-Origin': '*',
-        });
+        return new Headers({});
     }
 
 
@@ -60,6 +57,7 @@ export default class HTTPService {
         if ( !!CSRF_TOKEN )
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
 
+        requestInit.mode = 'cors';
         requestInit.headers = headers;
         return requestInit;
     }
