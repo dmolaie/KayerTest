@@ -36,7 +36,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
              \App\Http\Middleware\DataNecessaryInBlades::class,
-             \App\Http\Middleware\cors::class
             // \App\Http\Middleware\Localization::class
         ],
 
