@@ -12,21 +12,12 @@ const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود
 export default class HTTPService {
 
     static headers() {
-        // return new Headers({
-        //     // 'Accept': 'application/json',
-        //     // 'Accept-Type': 'application/json',
-        //     'Access-Control-Allow-Origin': '*',
-        //     // 'Content-Type': 'application/json',
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        //     // 'Content-Type':'multipart/form-data'
-        // });
         return new Headers({
             'Accept': 'application/json',
             'Accept-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Methods': "GET,HEAD,OPTIONS,POST,PUT,DELETE",
-            'Content-Type': 'application/json',
         });
     }
 
