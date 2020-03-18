@@ -8,11 +8,10 @@ class EhdaBaseController extends Controller
 {
     public function response(array $data = [], int $code, $message = "")
     {
-        return response()->header('Access-Control-Allow-Origin', '*')->json([
+        return response()->json([
             'data' => $data,
             'status_code' => $code,
             'message' => $message
-        ], $code);
+        ], $code)->header('Access-Control-Allow-Origin','*');
     }
-
 }
