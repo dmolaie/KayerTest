@@ -12,7 +12,6 @@ class EhdaBaseController extends Controller
             'data' => $data,
             'status_code' => $code,
             'message' => $message
-        ], $code);
+        ], $code)->header('Access-Control-Allow-Origin','*');
     }
-
 }
