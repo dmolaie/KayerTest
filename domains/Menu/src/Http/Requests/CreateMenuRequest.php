@@ -20,7 +20,7 @@ class CreateMenuRequest extends EhdaBaseRequest
         return [
             'name' => 'required|string',
             'title' => 'required|string',
-            'alias' => 'required|string',
+            'alias' => 'required|string|unique:menus,alias',
             'publish_date' => 'numeric',
             'link' => 'url',
             'parent_id'    => 'integer|exists:menus,id',
