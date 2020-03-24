@@ -84,7 +84,7 @@ const Routes = new VueRouter({
         },
         {
             name: EDIT_NEWS,
-            path: '/manage/news/:lang(fa|en)/edit',
+            path: '/manage/news/:lang(fa|en)/edit/:id(\\d+)',
             component: GetViews('EditNews' ),
             meta: {
                 title: 'ویرایش اخبار',

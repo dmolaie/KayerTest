@@ -76,7 +76,7 @@
                                 انتخاب عکس
                             </button>
                             <div class="c-post__fake_input flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none pointer-event-none">
-                                <template v-if="!!images.second.data">
+                                <template v-if="!!images.second.data || !!form.secondImage">
                                     <span v-for="item in images.second.preview"
                                           :key="item.fileName"
                                           v-text="item.fileName"
@@ -101,11 +101,19 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm :published="false"
+                <publish-cm :published="!!form.is_published"
                             @onClickDraftButton="onClickDraftButton"
                 >
                     <template #published="{ hiddenDropdown }">
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right">
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.prevent="() => {onClickUpdateButton(); hiddenDropdown()}"
+                        >
+                            بروزرسانی
+                        </button>
+                        <span class="dropdown__divider"> </span>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
+                        >
                             لغو انتشار
                         </button>
                     </template>
@@ -119,12 +127,6 @@
                                 @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
                         >
                             {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
-                        </button>
-                        <span class="dropdown__divider"> </span>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickRemoveButton(); hiddenDropdown()}"
-                        >
-                            انتقال به زباله‌دان
                         </button>
                     </template>
                 </publish-cm>
@@ -157,7 +159,9 @@
                     />
                 </div>
                 <image-panel-cm @onChange="onChangeMainImageField"
+                                @onDelete="onDeleteMainImageField"
                                 ref="imagePanel"
+                                :value="form.mainImage"
                 />
                 <domains-cm @onChange="onChangeDomainsField"
                             :options="provinces"
@@ -178,7 +182,7 @@
         mapGetters, mapState
     } from 'vuex';
     import IconCm from '@components/Icon.vue';
-    import CreateNewsService from '@services/service/CreateNews';
+    import EditNewsService from '@services/service/EditNews';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
     import DomainsCm from '@components/DomainsPanel.vue';
@@ -191,7 +195,7 @@
     import CategoryCm from '@components/Category.vue';
 
     import {
-        Length, toEnglishDigits
+        CopyOf, toEnglishDigits, Length
     } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
@@ -199,20 +203,19 @@
 
     let Service = null;
 
-    /**
-     * @return {{category_ids: [], province_id: number, second_title: string, parent_id: string, description: string, language: string, first_title: string, abstract: string, publish_date: string, source_link: string}}
-     */
     const GET_INITIAL_FORM = () => ({
+        news_id: '',
         first_title: '',
         second_title: '',
         abstract: '',
         description: '',
-        province_id: '',
-        publish_date: '',
+        category: '',
         source_link: '',
-        parent_id: '',
+        province: '',
+        relation_id: '',
         language: '',
-        category_ids: [],
+        mainImage: {},
+        secondImage: {},
     });
 
     const GET_INITIAL_IMAGE = () => ({
@@ -221,8 +224,9 @@
     });
 
     export default {
-        name: 'CreateNews',
+        name: 'EditNews',
         data: () => ({
+            isModuleRegistered: false,
             form: GET_INITIAL_FORM(),
             images: {
                 main: GET_INITIAL_IMAGE(),
@@ -252,8 +256,9 @@
                 isAdmin: IS_ADMIN
             }),
             ...mapState({
-                categories: ({ CreateMenu }) => CreateMenu.categories,
-                provinces: ({ CreateMenu }) => CreateMenu.provinces
+                categories: ({ EditNewsStore }) => EditNewsStore.categories,
+                provinces: ({ EditNewsStore }) => EditNewsStore.provinces,
+                detail: ({ EditNewsStore }) => EditNewsStore.detail,
             }),
             /**
              * @return {number | string}
@@ -327,13 +332,11 @@
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
-            formIsValid() {
-                let formIsValid = Service.checkFormValidation();
-                if ( !formIsValid )
-                    this.displayNotification('وارد کردن عنوان الزامی است.', {
-                        type: 'error'
-                    });
-                return formIsValid
+            async onClickUpdateButton() {
+                await Service.onClickUpdateButton();
+            },
+            async onClickUnPublishButton() {
+                await Service.onClickUnPublishButton();
             },
             async onClickChiefEditorButton() {
                 try {
@@ -360,6 +363,9 @@
             onChangeMainImageField( payload ) {
                 this.$set( this.images.main, 'data', payload )
             },
+            onDeleteMainImageField( image_id ) {
+                console.log(image_id);
+            },
             onChangeDomainsField( id ) {
                 this.$set( this.form, 'province_id', id );
             },
@@ -381,19 +387,46 @@
                         this.form.category_ids.splice(findIndex, 1)
                     }
                 } catch (e) {}
+            },
+            setDataIntoForm() {
+                try {
+                    this.$set(this, 'form', CopyOf(this.detail));
+                    this.$refs['textEditor'].setContent( this.form.description );
+                    if ( !!this.form.second_title )
+                        this.$set(this, 'shouldBeShowSecondTitle', true);
+                } catch (e) {}
             }
         },
         async created() {
-            Service = new CreateNewsService( this );
-            await Service.processFetchAsyncData();
-        },
-        mounted() {
-            this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
+            Service = new EditNewsService( this );
+            Service.processFetchAsyncData()
+                .then(this.$nextTick)
+                .then(() => {
+                    this.setLanguageFromParamsRouter();
+                    this.setParentIDFromParamsRouter();
+                    this.setDataIntoForm();
+                    console.log(this.form);
+                });
         },
         updated() {
             this.setLanguageFromParamsRouter();
             this.setParentIDFromParamsRouter();
+        },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
         }
     }
 </script>
+
+'news_id' => 'required|integer|exists:news,id',
+'first_title' => 'required|string',
+'second_title' => 'string',
+'abstract' => 'string',
+'description' => 'string',
+'category_ids' => 'array|exists:categories,id',
+'main_category_id' => 'integer|exists:categories,id',
+'publish_date' => 'required|numeric',
+'source_link' => 'url',
+'province_id' => 'required|integer|exists:provinces,id',
+'language' => ['required', Rule::in(config('news.news_language'))],
+'images.*' => 'image'
