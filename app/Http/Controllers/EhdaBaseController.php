@@ -14,5 +14,4 @@ class EhdaBaseController extends Controller
             'message' => $message
         ], $code);
     }
-
 }

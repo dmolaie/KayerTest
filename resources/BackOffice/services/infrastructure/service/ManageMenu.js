@@ -88,7 +88,9 @@ export default class ManageMenuService extends BaseService {
 
     static async getArticleList() {
         try {
-            return await HTTPService.getRequest( Endpoint.get( Endpoint.GET_ARTICLE_LIST ) );
+            return await HTTPService.getRequest( Endpoint.get( Endpoint.GET_ARTICLE_LIST ), {
+                status: 'published'
+            });
         }
         catch ( e ) {
             throw e;

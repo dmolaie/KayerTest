@@ -22,16 +22,12 @@ export default class HTTPService {
         // });
         return new Headers({
             'Accept': 'application/json',
-            'Accept-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
         });
     }
 
     static uploadHeaders() {
-        return new Headers({
-            'Access-Control-Allow-Origin': '*',
-        });
+        return new Headers({});
     }
 
 
@@ -87,6 +83,7 @@ export default class HTTPService {
         return new Promise(
             ( resolve, reject ) => {
                 let init = this.onBeforeRequest( requestInit, is_file );
+                console.log('init: ', init);
                 fetch( requestInfo, init )
                     .then( response =>
                         ( response.ok ) ? (
