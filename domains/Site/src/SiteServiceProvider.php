@@ -33,7 +33,7 @@ class SiteServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Site\Http\Controllers',
-            'middleware' => 'ehda',
+            'middleware' => 'web',
         ];
     }
 
