@@ -16,6 +16,7 @@ use Domains\News\Services\Contracts\DTOs\NewsBaseSaveDTO;
 use Domains\News\Services\Contracts\DTOs\NewsCreateDTO;
 use Domains\News\Services\Contracts\DTOs\NewsEditDTO;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
+use Domains\News\Services\Contracts\DTOs\NewsInfoDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\User\Entities\User;
 use Domains\User\Services\UserService;
@@ -188,6 +189,14 @@ class NewsService
     {
         $status = $this->getNewsStatus(Auth::user(),$status);
         $news = $this->newsRepository->changeStatus($newsId, $status);
+        $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
+        $images = $attachmentInfoDto->getImages()[$news->id];
+        return $this->newsInfoDTOMaker->convert($news, $images);
+    }
+
+    public function getNewsDetail(int $id): NewsInfoDTO
+    {
+        $news = $this->newsRepository->findOrFail($id);
         $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
         $images = $attachmentInfoDto->getImages()[$news->id];
         return $this->newsInfoDTOMaker->convert($news, $images);
