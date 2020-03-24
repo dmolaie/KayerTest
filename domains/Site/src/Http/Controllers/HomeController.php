@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        dd(auth()->user());
         return view('site::'.$request->language.'.index');
     }
 
