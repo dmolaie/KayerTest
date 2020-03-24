@@ -18,6 +18,7 @@ const getXsrfCookies = () => {
 
         return decodeURIComponent(xsrfCookies[0].split('=')[1]);
     } catch (e) {
+        console.log(e);
         return null
     }
 };
@@ -74,7 +75,6 @@ export default class HTTPService {
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
 
         const XSRF_TOKEN = getXsrfCookies();
-
         if ( !!XSRF_TOKEN )
             headers.append('X-XSRF-TOKEN', XSRF_TOKEN);
 
