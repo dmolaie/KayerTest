@@ -11,7 +11,7 @@ import Progress from '@vendor/components/progress';
 import Breadcrumb from '@vendor/components/breadcrumb';
 import Notification from '@vendor/components/notification';
 
-Vue.config.devtools = true;
+Vue.config.devtools = false;
 Vue.config.productionTip = false;
 
 // Vue.use( Vuex );

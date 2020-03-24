@@ -19,7 +19,10 @@ export default class LogoutService extends BaseService {
         try {
             TokenService._ClearToken();
             BaseService.commitToStore( this.$store, SET_LOGOUT );
-            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.LOGOUT ));
+            const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
+            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.LOGOUT ), {
+                _token: !!CSRF_TOKEN ? CSRF_TOKEN.getAttribute('content') : ''
+            });
             this.$vm.displayNotification( response.message, {
                 type: 'success',
                 duration: 4000
