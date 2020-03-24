@@ -5,7 +5,23 @@ import Routes, {
     LOGIN
 } from "@routes";
 import TokenService from '@services/service/Token';
-import Cookies from '@vendor/plugin/cookie';
+
+const getXsrfCookies = () => {
+    try {
+        if (!document.cookie) return null;
+
+        const xsrfCookies = document.cookie.split(';')
+            .map(c => c.trim())
+            .filter(c => c.startsWith('XSRF-TOKEN' + '='));
+
+        if (xsrfCookies.length === 0) return null;
+
+        return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+    } catch (e) {
+        console.log(e);
+        return null
+    }
+};
 
 const DEFAULT_ERROR_MESSAGE = 'متاسفانه مشکلی پیش آمده است.';
 const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود وارد شوید.';
@@ -58,7 +74,7 @@ export default class HTTPService {
         if ( !!CSRF_TOKEN )
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
 
-        const XSRF_TOKEN = Cookies.get('XSRF-TOKEN');
+        const XSRF_TOKEN = getXsrfCookies();
         if ( !!XSRF_TOKEN )
             headers.append('X-XSRF-TOKEN', XSRF_TOKEN);
 

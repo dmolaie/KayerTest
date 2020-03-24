@@ -2,7 +2,22 @@ import {
     HasLength
 } from '@vendor/plugin/helper';
 import TokenService from '@services/service/Token';
-import Cookies from '@vendor/plugin/cookie';
+
+const getXsrfCookies = () => {
+    try {
+        if (!document.cookie) return null;
+
+        const xsrfCookies = document.cookie.split(';')
+            .map(c => c.trim())
+            .filter(c => c.startsWith('XSRF-TOKEN' + '='));
+
+        if (xsrfCookies.length === 0) return null;
+
+        return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+    } catch (e) {
+        return null
+    }
+};
 
 export default class HTTPService {
 
@@ -22,7 +37,7 @@ export default class HTTPService {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
 
-        const XSRF_TOKEN = Cookies.get('XSRF-TOKEN');
+        const XSRF_TOKEN = getXsrfCookies();
         if ( !!XSRF_TOKEN )
             headers.append('X-XSRF-TOKEN', XSRF_TOKEN);
 

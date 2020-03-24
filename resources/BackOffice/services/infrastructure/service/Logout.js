@@ -17,12 +17,12 @@ export default class LogoutService extends BaseService {
 
     async logoutProcess() {
         try {
-            TokenService._ClearToken();
-            BaseService.commitToStore( this.$store, SET_LOGOUT );
             const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
             let response = await HTTPService.postRequest( Endpoint.get( Endpoint.LOGOUT ), {
                 _token: !!CSRF_TOKEN ? CSRF_TOKEN.getAttribute('content') : ''
             });
+            TokenService._ClearToken();
+            BaseService.commitToStore( this.$store, SET_LOGOUT );
             this.$vm.displayNotification( response.message, {
                 type: 'success',
                 duration: 4000
