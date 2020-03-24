@@ -99,4 +99,21 @@ class NewsController extends EhdaBaseController
         }
 
     }
+    public function getNewsDetail(int $id, NewsInfoPresenter $newsInfoPresenter){
+        try {
+            $newsInfoDTO = $this->newsService->getNewsDetail($id);
+
+            return $this->response(
+                $newsInfoPresenter->transform($newsInfoDTO),
+                Response::HTTP_OK,
+                trans('news::response.edit_successful')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('news::response.news_not_found')
+            );
+        }
+    }
 }
