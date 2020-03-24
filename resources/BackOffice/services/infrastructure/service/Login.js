@@ -28,8 +28,12 @@ export default class LoginService extends BaseService {
 
     async SignInRequest( payload ) {
         try {
+            const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
             this.$vm.$set( this.$vm, 'shouldBeShowSpinnerLoading', true );
-            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.SIGN_IN ), payload );
+            let response = await HTTPService.postRequest( Endpoint.get( Endpoint.SIGN_IN ), {
+                ...payload,
+                _token: !!CSRF_TOKEN ? CSRF_TOKEN.getAttribute('content') : ''
+            });
 
             const TOKEN_SERVICE = new TokenService( response );
             const USER_HAS_ACCESS = TOKEN_SERVICE._HandelToken();
