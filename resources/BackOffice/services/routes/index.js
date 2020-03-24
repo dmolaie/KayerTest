@@ -13,6 +13,7 @@ export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
+export const EDIT_NEWS = 'EDIT_NEWS';
 export const MANAGE_ARTICLE = 'MANAGE_ARTICLE';
 export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const PROFILE = 'PROFILE';
@@ -80,6 +81,27 @@ const Routes = new VueRouter({
                     }
                 ]
             }
+        },
+        {
+            name: EDIT_NEWS,
+            path: '/manage/news/:lang(fa|en)/edit',
+            component: GetViews('EditNews' ),
+            meta: {
+                title: 'ویرایش اخبار',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_NEWS,
+                        name: 'اخبار'
+                    },
+                    {
+                        name: 'ویرایش'
+                    }
+                ]
+            },
         },
         {
             name: MANAGE_ARTICLE,

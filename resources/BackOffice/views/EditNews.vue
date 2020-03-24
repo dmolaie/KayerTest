@@ -397,29 +397,3 @@
         }
     }
 </script>
-
-<!--'first_title'  => 'required|string', *** OK *** -->
-<!--'second_title' => 'string',, *** OK *** -->
-<!--'abstract'     => 'string', *** OK ***  -->
-<!--'description'  => 'string', *** OK *** -->
-<!--'category_id'  => 'array|exists:categories,id',-->
-<!--'main_category_id'  => 'integer|exists:categories,id',-->
-<!--'publish_date' => 'required|numeric', *** OK *** -->
-<!--'source_link'  => 'url', *** OK *** -->
-<!--'province_id'  => 'required|integer|exists:provinces,id', *** OK *** -->
-<!--'parent_id'    => 'integer|exists:news,id|unique:news', *** OK *** Backend-->
-<!--'language'     => ['required', Rule::in(config('news.news_language'))], *** OK ***-->
-<!--'images.*'     => 'image'  *** OK *** -->
-
-
-<!--parent_id va province_id chie?-->
-<!--va source_link-->
-<!--manbae khabar = source link-->
-<!--province_id bareye che domaini dide beshe-->
-<!--age ye khabar vasash fa misazi ya en id khabar bedi:D-->
-<!--age aval farsi besaze bad bezane en to id fa tu save en behem midi-->
-
-<!--
-http://localhost/category/v1/admin/get_category_by_type?category_type=news
-
--->
