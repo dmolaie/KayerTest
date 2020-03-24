@@ -2,6 +2,7 @@ import {
     HasLength
 } from '@vendor/plugin/helper';
 import TokenService from '@services/service/Token';
+import Cookies from '@vendor/plugin/cookie';
 
 export default class HTTPService {
 
@@ -20,6 +21,10 @@ export default class HTTPService {
         if ( !!TOKEN ) {
             headers.append('Authorization', `Bearer ${TOKEN}`);
         }
+
+        const XSRF_TOKEN = Cookies.get('XSRF-TOKEN');
+        if ( !!XSRF_TOKEN )
+            headers.append('X-XSRF-TOKEN', XSRF_TOKEN);
 
         requestInit.mode = 'cors';
         requestInit.headers = headers;

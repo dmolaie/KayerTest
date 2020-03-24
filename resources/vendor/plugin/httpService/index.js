@@ -5,6 +5,7 @@ import Routes, {
     LOGIN
 } from "@routes";
 import TokenService from '@services/service/Token';
+import Cookies from '@vendor/plugin/cookie';
 
 const DEFAULT_ERROR_MESSAGE = 'متاسفانه مشکلی پیش آمده است.';
 const UNAUTHORIZED_ERROR_MESSAGE = 'ابتدا به حساب کاربری خود وارد شوید.';
@@ -56,6 +57,10 @@ export default class HTTPService {
 
         if ( !!CSRF_TOKEN )
             headers.append('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
+
+        const XSRF_TOKEN = Cookies.get('XSRF-TOKEN');
+        if ( !!XSRF_TOKEN )
+            headers.append('X-XSRF-TOKEN', XSRF_TOKEN);
 
         requestInit.mode = 'cors';
         requestInit.headers = headers;
