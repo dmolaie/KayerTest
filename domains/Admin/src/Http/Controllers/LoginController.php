@@ -25,6 +25,7 @@ class LoginController extends EhdaBaseController
 
     public function login(UserLoginRequest $request, LoginPresenter $loginPresenter)
     {
+        dd($request->all());
         try {
             $result = $this->adminService->login($request->createLoginDTO());
             return $this->response($loginPresenter->transform($result), Response::HTTP_OK,
