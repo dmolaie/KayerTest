@@ -61,6 +61,12 @@ export default class Cookies {
         if ( HasLength( getItem ) ) return getItem[0].split('=')[1];
     }
 
+    static delete(name,  path = DEFAULT_OPTION.path ) {
+        try {
+            document.cookie = `${name}=; path= ${path}; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+        } catch (e) {}
+    }
+
     static clearAll( path = DEFAULT_OPTION.path ) {
         const CURRENT_COOKIE = this.decodeCookies( document.cookie ).split(";");
 

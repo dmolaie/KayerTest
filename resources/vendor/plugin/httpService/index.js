@@ -18,7 +18,6 @@ const getXsrfCookies = () => {
 
         return decodeURIComponent(xsrfCookies[0].split('=')[1]);
     } catch (e) {
-        console.log(e);
         return null
     }
 };
