@@ -102,8 +102,10 @@ class UserService
             $loginDTO->setRole($role);
             $loginDTO->setId($user->id);
             $loginDTO->setCardId($user->card_id);
-            Auth::loginUsingId(auth()->user()->id);
             Auth::login($user, true);
+
+            dd(\auth()->user());
+
             return $loginDTO;
         }
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
