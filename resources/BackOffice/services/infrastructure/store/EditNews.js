@@ -5,6 +5,18 @@ import {
     ProvincesPresenter,
     CategoriesPresenter,
 } from '@vendor/infrastructure/presenter/MainPresenter';
+import {
+    HasLength
+} from "@vendor/plugin/helper";
+
+const FlattenCategories = ( payload = [] ) => {
+    return payload.reduce((flatArray, item) => {
+        HasLength( item.children ) ? (
+            flatArray.push( item, ...FlattenCategories( item.children ) )
+        ) : flatArray.push( item );
+        return flatArray;
+    }, [])
+};
 
 export const E_NEWS_SET_DATA = 'E_NEWS_SET_DATA';
 export const E_NEWS_SET_PROVINCES = 'E_NEWS_SET_PROVINCES';
@@ -21,7 +33,7 @@ const EditNewsStore = {
             state.detail = { ...new NewsItemPresenter( payload ) };
         },
         [E_NEWS_SET_CATEGORIES](state, { data }) {
-            state.categories = { ...new CategoriesPresenter( data ) }
+            state.categories = { ...FlattenCategories( new CategoriesPresenter( data ) ) }
         },
         [E_NEWS_SET_PROVINCES](state, { data }) {
             state.provinces = { ...new ProvincesPresenter( data ) };

@@ -237,7 +237,7 @@
             },
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
-            shouldBeShowLoading: false,
+            shouldBeShowLoading: true,
         }),
         components: {
             IconCm,
@@ -405,6 +405,7 @@
                     this.setLanguageFromParamsRouter();
                     this.setParentIDFromParamsRouter();
                     this.setDataIntoForm();
+                    this.$set(this, 'shouldBeShowLoading', false);
                     console.log(this.form);
                 });
         },
