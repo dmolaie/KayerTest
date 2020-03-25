@@ -64,9 +64,47 @@ export default class EditNewsService extends BaseService {
         }
     }
 
+    createUpdateRequestBody() {
+        try {
+            let duplicateFrom = CopyOf( this.$vm.form );
+            const formData = new FormData();
+
+            formData.append('news_id', duplicateFrom['news_id']);
+            formData.append('first_title', duplicateFrom['first_title']);
+            formData.append('publish_date', (new Date().getTime() / 1e3));
+            formData.append('province_id', duplicateFrom['province_id']);
+            if ( !!duplicateFrom['second_title'] )
+                formData.append('second_title', duplicateFrom['second_title']);
+            if ( !!duplicateFrom['abstract'] )
+                formData.append('abstract', duplicateFrom['abstract']);
+            if ( !!duplicateFrom['description'] )
+                formData.append('description', EncodeHTML( duplicateFrom['description'] ));
+            if ( !!duplicateFrom['source_link'] )
+                formData.append('source_link', duplicateFrom['source_link']);
+            if ( !!duplicateFrom['language'] )
+                formData.append('language', duplicateFrom['language']);
+            if ( HasLength( duplicateFrom['category_ids'] ) ) {
+                formData.append('main_category_id', duplicateFrom['category_ids'][0]);
+                duplicateFrom['category_ids'].forEach(id => {
+                    formData.append('category_ids[]', id);
+                });
+            }
+
+            return formData;
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async onClickUpdateButton() {
         try {
-            // let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM));
+            let payload = this.createUpdateRequestBody();
+            console.log(payload, 'payload');
+            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM), payload)
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+                duration: 4000
+            });
         } catch ({ message }) {
             this.$vm.displayNotification( message, {
                 type: 'error',

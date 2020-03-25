@@ -75,7 +75,7 @@
                             >
                                 انتخاب عکس
                             </button>
-                            <div class="c-post__fake_input flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none pointer-event-none">
+                            <div class="c-post__fake_input flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none pointer-event-none overflow-hidden text-nowrap text-ellipsis">
                                 <template v-if="!!images.second.data || !!form.secondImage">
                                     <span v-for="item in images.second.preview"
                                           :key="item.fileName"
@@ -153,19 +153,42 @@
                         دسته‌بندی
                     </p>
                     <category-cm :list="categories"
+                                 :value="selectedCategory"
                                  :lang="currentLang"
                                  ref="categoryCm"
-                                 @onChange="onChangeCategoryField"
+                                 @change="onChangeCategoryField"
                     />
                 </div>
                 <image-panel-cm @onChange="onChangeMainImageField"
-                                @onDelete="onDeleteMainImageField"
                                 ref="imagePanel"
                                 :value="form.mainImage"
                 />
-                <domains-cm @onChange="onChangeDomainsField"
-                            :options="provinces"
-                />
+                <template v-if="false">
+                    <domains-cm @onChange="onChangeDomainsField"
+                                :options="provinces"
+                    />
+                </template>
+                <template v-else>
+                    <div class="domains panel relative w-full block bg-white border-2 rounded-2 border-solid">
+                        <p class="panel__title font-sm font-bold text-blue cursor-default">
+                            متفرقه
+                        </p>
+                        <p class="panel__title font-sm font-bold text-bayoux cursor-default">
+                            دامنه
+                        </p>
+                        <div class="panel__title">
+                            <select-cm :options="provinces"
+                                       placeholder="دامنه مورد نظر خود را انتخاب کنید"
+                                       @onChange="onUpdateDomainsField"
+                                       :value="form.province_name || ''"
+                                       label="name"
+                            />
+                        </div>
+                        <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
+                            مالک مطلب: {{ form.publisher_name }}
+                        </p>
+                    </div>
+                </template>
             </div>
         </div>
         <transition name="fade">
@@ -191,11 +214,11 @@
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
     import DatePickerCm from '@components/DatePicker.vue';
-    import TagsCm from '@components/Tags.vue';
+    import SelectCm from '@vendor/components/select/Index.vue';
     import CategoryCm from '@components/Category.vue';
 
     import {
-        CopyOf, toEnglishDigits, Length
+        CopyOf, toEnglishDigits, Length, HasLength
     } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
@@ -209,9 +232,10 @@
         second_title: '',
         abstract: '',
         description: '',
-        category: '',
+        category: [],
         source_link: '',
-        province: '',
+        province_id: '',
+        province_name: '',
         relation_id: '',
         language: '',
         mainImage: {},
@@ -248,7 +272,7 @@
             ImagePanelCm,
             TextEditorCm,
             DatePickerCm,
-            TagsCm,
+            SelectCm,
             CategoryCm
         },
         computed: {
@@ -259,6 +283,7 @@
                 categories: ({ EditNewsStore }) => EditNewsStore.categories,
                 provinces: ({ EditNewsStore }) => EditNewsStore.provinces,
                 detail: ({ EditNewsStore }) => EditNewsStore.detail,
+                username: ({ UserStore }) => UserStore.username,
             }),
             /**
              * @return {number | string}
@@ -280,6 +305,11 @@
             },
             currentLang() {
                 return this.$route.params.lang
+            },
+            selectedCategory() {
+                return ( !!this.form.category_ids && HasLength( this.form.category_ids ) ) ? (
+                    this.form.category_ids
+                ) : ([])
             }
         },
         methods: {
@@ -363,10 +393,10 @@
             onChangeMainImageField( payload ) {
                 this.$set( this.images.main, 'data', payload )
             },
-            onDeleteMainImageField( image_id ) {
-                console.log(image_id);
-            },
             onChangeDomainsField( id ) {
+                this.$set( this.form, 'province_id', id );
+            },
+            onUpdateDomainsField({ id }) {
                 this.$set( this.form, 'province_id', id );
             },
             setLanguageFromParamsRouter() {
@@ -377,15 +407,9 @@
                     this.$route.params.parent_id || ""
                 ));
             },
-            onChangeCategoryField( item ) {
+            onChangeCategoryField( payload ) {
                 try {
-                    if ( !item.checked ) {
-                        this.form.category_ids.push( item.id )
-                    } else {
-                        let findIndex = this.form.category_ids
-                            .findIndex(cat => cat === item.id);
-                        this.form.category_ids.splice(findIndex, 1)
-                    }
+                    this.$set(this.form, 'category_ids', payload);
                 } catch (e) {}
             },
             setDataIntoForm() {
@@ -409,6 +433,9 @@
                     console.log(this.form);
                 });
         },
+        mounted() {
+            console.log(this.provinces, 'provinces');
+        },
         updated() {
             this.setLanguageFromParamsRouter();
             this.setParentIDFromParamsRouter();
@@ -419,15 +446,16 @@
     }
 </script>
 
-'news_id' => 'required|integer|exists:news,id',
-'first_title' => 'required|string',
-'second_title' => 'string',
-'abstract' => 'string',
-'description' => 'string',
+'news_id' => 'required|integer|exists:news,id', ***** ---> OK
+'first_title' => 'required|string', ***** ---> OK
+'second_title' => 'string', ***** ---> OK
+'abstract' => 'string',, ***** ---> OK
+'description' => 'string',, ***** ---> OK
+'publish_date' => 'required|numeric',, ***** ---> OK
+'source_link' => 'url', ***** ---> OK
+'language' => ['required', Rule::in(config('news.news_language'))], ***** ---> OK
+
+'province_id' => 'required|integer|exists:provinces,id',
 'category_ids' => 'array|exists:categories,id',
 'main_category_id' => 'integer|exists:categories,id',
-'publish_date' => 'required|numeric',
-'source_link' => 'url',
-'province_id' => 'required|integer|exists:provinces,id',
-'language' => ['required', Rule::in(config('news.news_language'))],
 'images.*' => 'image'

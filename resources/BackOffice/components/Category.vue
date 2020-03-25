@@ -17,7 +17,7 @@
                            :checked="item.checked"
                            :value="item.id"
                            v-model="selectedItems"
-                           @change="() => {onChangeCheckboxField( item ); item.checked = !item.checked}"
+                           @change="() => {onChangeCheckboxField(); item.checked = !item.checked}"
                     />
                     <span class="category__checkbox relative border border-solid rounded-1/2 flex-shrink-0"
                     > </span>
@@ -27,13 +27,13 @@
                 </label>
                 <template v-if="!!selectedItems.length">
                     <span v-if="isMainCategory( item.id )"
-                          class="font-1xs font-bold text-green-200 cursor-default"
+                          class="category__label font-1xs font-bold text-green-200 cursor-default text-center"
                           :class="[ 'fa' === lang ? 'm-r-auto' : 'm-l-auto' ]"
                     >
                         اصلی
                     </span>
                     <button v-else-if="categoryIsSelected( item.id )"
-                        class="font-1xs font-bold text-gray cursor-pointer"
+                        class="category__label font-1xs font-bold text-gray cursor-pointer text-center"
                         :class="[ 'fa' === lang ? 'm-r-auto' : 'm-l-auto' ]"
                         @click="onClickDoMainCategory( item.id )"
                     >
@@ -41,22 +41,13 @@
                     </button>
                 </template>
             </div>
-            <div class="category__children"
-                 :class="'fa' === lang ? 'm-r' : 'm-l'"
-                 v-if="!!item.children.length && false"
-            >
-                <category :list="item.children"
-                          :lang="lang"
-                          @onChange="onChangeCheckboxField"
-                />
-            </div>
         </div>
     </div>
 </template>
 
 <script>
     import {
-        HasLength
+        HasLength, CopyOf
     } from "@vendor/plugin/helper";
 
     export default {
@@ -72,11 +63,21 @@
             lang: {
                 type: String,
                 required: true
+            },
+            value: {
+                type: Array,
+                default: () => ([])
+            }
+        },
+        watch: {
+            value( newVal ) {
+                if ( HasLength( newVal ) )
+                    this.$set(this, 'selectedItems', CopyOf( newVal ))
             }
         },
         methods: {
-            onChangeCheckboxField( item ) {
-                this.$emit('onChange', item)
+            onChangeCheckboxField() {
+                this.$emit('change', this.selectedItems)
             },
             isMainCategory( category_id ) {
                 try {
@@ -90,11 +91,14 @@
             },
             onClickDoMainCategory( category_id ) {
                 try {
-                    let index = this.selectedItems.findIndex(({ id }) => id === category_id);
-                    this.selectedItems.splice(index, 1);
-                    this.selectedItems.unshift( category_id );
+                    let index = this.selectedItems.findIndex(id => id === category_id);
+                    if ( index >= 0 ) {
+                        this.selectedItems.splice(index, 1);
+                        this.selectedItems.unshift( category_id );
+                        this.onChangeCheckboxField();
+                    }
                 } catch (e) {}
             }
-        }
+        },
     }
 </script>

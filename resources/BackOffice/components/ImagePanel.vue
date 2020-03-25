@@ -13,12 +13,12 @@
         </button>
         <transition name="fade">
             <div class="image-p__preview"
-                 v-if="!!value.fileName || !!selectedImage.fileName"
+                 v-if="!!value.id || !!selectedImage.fileName"
             >
                 <image-cm
-                    class="image-p__image w-full block rounded"
-                    :src="value.image || selectedImage.image"
-                    className="w-full h-full block rounded-inherit"
+                        class="image-p__image w-full block rounded"
+                        :src="value.path || selectedImage.image"
+                        className="w-full h-full block rounded-inherit"
                 />
                 <button class="block m-0-auto text-red font-sm font-bold user-select-none"
                         v-text="'تخلیه‌ی عکس'"

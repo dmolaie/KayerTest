@@ -18,11 +18,12 @@ export class NewsItemPresenter extends BasePresenter {
             second_title: String,
             abstract: String,
             description: String,
-            category: Array,
+            category_ids: Array,
             source_link: String,
             is_published: Boolean,
-            province: Object,
-            publisher: Object,
+            province_id: Number,
+            province_name: String,
+            publisher_name: Object,
             is_persian: Boolean,
             is_english: Boolean,
             relation_id: Number,
@@ -53,7 +54,7 @@ export class NewsItemPresenter extends BasePresenter {
         return !!description ? DecodeHTML( description ) : '';
     }
 
-    category() {
+    category_ids() {
         return (
             new SelectedCategoriesPresenter( this.data.category )
                 .map(({ id }) => id)
@@ -68,15 +69,22 @@ export class NewsItemPresenter extends BasePresenter {
         return this.data.status.en === "published"
     }
 
-    province() {
-        let province = this.data.province;
-        return ( !!province && HasLength( province ) ) ? ({
-            id: province.id,
-            name: province.name
-        }) : ({
-            id: '',
-            name: ''
-        })
+    province_id() {
+        return this.data.province?.id
+    }
+
+    province_name() {
+        return this.data.province?.name
+    }
+
+    publisher_name() {
+        let {
+            name, last_name
+        } = this.data.publisher;
+
+        return (
+            name + ' ' + last_name
+        )
     }
 
     is_persian() {
