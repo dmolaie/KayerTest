@@ -12,7 +12,8 @@ import {
 import {
     CopyOf, HasLength, EncodeHTML
 } from "@vendor/plugin/helper";
-//DELETE_IMAGES_ITEM
+import StatusService from '@services/service/Status'
+
 export default class EditNewsService extends BaseService {
     constructor( layout ) {
         super();
@@ -64,6 +65,14 @@ export default class EditNewsService extends BaseService {
         }
     }
 
+    static async deleteImage( image_id ) {
+        try {
+            await HTTPService.postRequest( Endpoint.get( Endpoint.DELETE_IMAGES_ITEM ), {
+                image_id
+            })
+        } catch (e) {}
+    }
+
     createUpdateRequestBody() {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
@@ -89,6 +98,10 @@ export default class EditNewsService extends BaseService {
                     formData.append('category_ids[]', id);
                 });
             }
+            if ( !!this.$vm.images.main.data )
+                formData.append('images[]', this.$vm.images.main.data.get('images'));
+            if ( !!this.$vm.images.second.data )
+                formData.append('images[]', this.$vm.images.second.data.get('images'));
 
             return formData;
         } catch (e) {
@@ -96,15 +109,25 @@ export default class EditNewsService extends BaseService {
         }
     }
 
+    async deleteUnusedImages() {
+        try {
+            await Promise.all(
+                this.$vm.removedImages.map(image_id => EditNewsService.deleteImage( image_id ))
+            )
+        } catch (e) {}
+    }
+
     async onClickUpdateButton() {
         try {
+            this.$vm.$set(this.$vm, 'shouldBeShowLoading', true);
             let payload = this.createUpdateRequestBody();
-            console.log(payload, 'payload');
-            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM), payload)
+            await this.deleteUnusedImages();
+            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM), payload);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
                 duration: 4000
             });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         } catch ({ message }) {
             this.$vm.displayNotification( message, {
                 type: 'error',
@@ -113,9 +136,17 @@ export default class EditNewsService extends BaseService {
         }
     }
 
-    async onClickUnPublishButton() {
+    async onClickUnPublishButton( news_id ) {
         try {
-
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_NEWS_ITEM), {
+                news_id,
+                status: StatusService.PENDING_STATUS
+            });
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+                duration: 4000
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         } catch ({ message }) {
             this.$vm.displayNotification( message, {
                 type: 'error',

@@ -112,9 +112,12 @@ export class NewsItemPresenter extends BasePresenter {
 
     secondImage() {
         const IMAGES = this.images();
-        return (!!IMAGES && HasLength( IMAGES ) && Length( IMAGES ) > 1) ? (
-            IMAGES[1]
-        ) : ({})
+        return (!!IMAGES && HasLength( IMAGES ) && Length( IMAGES ) > 1) ? ({
+            ...IMAGES[1],
+            fileName: IMAGES[1].path.split('/')[Length( IMAGES[1].path.split('/') ) - 1]
+        }) : ({
+            fileName: ''
+        })
     }
 
 }

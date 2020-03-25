@@ -75,11 +75,22 @@
                             >
                                 انتخاب عکس
                             </button>
-                            <div class="c-post__fake_input flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none pointer-event-none overflow-hidden text-nowrap text-ellipsis">
-                                <template v-if="!!images.second.data || !!form.secondImage">
+                            <div class="c-post__fake_input relative flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none overflow-hidden text-nowrap text-ellipsis">
+                                <template v-if="!!images.second.data">
+                                    <button class="c-post__remove_button absolute"
+                                            @click.stop="onClickRemoveSecondImage"
+                                    > </button>
                                     <span v-for="item in images.second.preview"
                                           :key="item.fileName"
                                           v-text="item.fileName"
+                                          class="font-sm font-medium text-bayoux"
+                                    > </span>
+                                </template>
+                                <template v-else-if="form.secondImage.fileName">
+                                    <button class="c-post__remove_button absolute"
+                                            @click.stop="onClickRemoveSelectedSecondImage( form.secondImage.id )"
+                                    > </button>
+                                    <span v-text="form.secondImage.fileName"
                                           class="font-sm font-medium text-bayoux"
                                     > </span>
                                 </template>
@@ -159,7 +170,7 @@
                                  @change="onChangeCategoryField"
                     />
                 </div>
-                <image-panel-cm @onChange="onChangeMainImageField"
+                <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
                                 :value="form.mainImage"
                 />
@@ -200,14 +211,13 @@
 </template>
 
 <script>
-
     import {
         mapGetters, mapState
     } from 'vuex';
     import IconCm from '@components/Icon.vue';
     import EditNewsService from '@services/service/EditNews';
     import TextEditorCm from '@components/TextEditor.vue';
-    import ImagePanelCm from '@components/ImagePanel.vue';
+    import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
     import DomainsCm from '@components/DomainsPanel.vue';
     import PublishCm from '@components/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
@@ -256,9 +266,7 @@
                 main: GET_INITIAL_IMAGE(),
                 second: GET_INITIAL_IMAGE(),
             },
-            domainsPanel: {
-                isPending: true,
-            },
+            removedImages: [],
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: true,
@@ -317,6 +325,7 @@
                 Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
                 Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
                 Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
+                this.$set(this, 'removedImages', []);
                 this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
                 this.$refs['categoryCm'].$forceUpdate();
@@ -333,9 +342,26 @@
             },
             async onChangeSecondImageField( formData ) {
                 try {
+                    this.onClickRemoveSecondImage();
                     this.$set(this.images.second, 'data', formData);
                     let getImage = await UploadService.imagePreview( formData );
                     this.$set(this.images.second, 'preview', getImage);
+                } catch (e) {}
+            },
+            onClickRemoveSecondImage() {
+                let {
+                    secondImage
+                } = this.form;
+
+                if ( HasLength( secondImage.fileName ) )
+                    this.onClickRemoveSelectedSecondImage( secondImage.id );
+
+                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
+            },
+            onClickRemoveSelectedSecondImage( image_id ) {
+                try {
+                    this.removedImages.push( image_id );
+                    this.$set(this.form, 'secondImage', {});
                 } catch (e) {}
             },
             onChangePublishDateField( unix ) {
@@ -366,7 +392,7 @@
                 await Service.onClickUpdateButton();
             },
             async onClickUnPublishButton() {
-                await Service.onClickUnPublishButton();
+                await Service.onClickUnPublishButton( this.form.news_id );
             },
             async onClickChiefEditorButton() {
                 try {
@@ -391,7 +417,20 @@
                 });
             },
             onChangeMainImageField( payload ) {
+                this.onClickRemoveMainImage();
                 this.$set( this.images.main, 'data', payload )
+            },
+            onClickRemoveMainImage() {
+                let {
+                    mainImage
+                } = this.form;
+
+                if ( HasLength( mainImage ) ) {
+                    this.removedImages.push( mainImage.id );
+                    this.$set(this.form, 'mainImage', {});
+                }
+
+                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
             },
             onChangeDomainsField( id ) {
                 this.$set( this.form, 'province_id', id );
@@ -433,9 +472,6 @@
                     console.log(this.form);
                 });
         },
-        mounted() {
-            console.log(this.provinces, 'provinces');
-        },
         updated() {
             this.setLanguageFromParamsRouter();
             this.setParentIDFromParamsRouter();
@@ -445,17 +481,3 @@
         }
     }
 </script>
-
-'news_id' => 'required|integer|exists:news,id', ***** ---> OK
-'first_title' => 'required|string', ***** ---> OK
-'second_title' => 'string', ***** ---> OK
-'abstract' => 'string',, ***** ---> OK
-'description' => 'string',, ***** ---> OK
-'publish_date' => 'required|numeric',, ***** ---> OK
-'source_link' => 'url', ***** ---> OK
-'language' => ['required', Rule::in(config('news.news_language'))], ***** ---> OK
-
-'province_id' => 'required|integer|exists:provinces,id',
-'category_ids' => 'array|exists:categories,id',
-'main_category_id' => 'integer|exists:categories,id',
-'images.*' => 'image'
