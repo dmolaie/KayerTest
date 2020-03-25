@@ -284,7 +284,7 @@
                 Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
                 this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
-                this.$refs['categoryCm'].$forceUpdate();
+                this.$refs['categoryCm']?.reset();
             },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );

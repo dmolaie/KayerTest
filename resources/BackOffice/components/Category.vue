@@ -76,6 +76,9 @@
             }
         },
         methods: {
+            reset() {
+                this.$set(this, 'selectedItems', []);
+            },
             onChangeCheckboxField() {
                 this.$emit('change', this.selectedItems)
             },
