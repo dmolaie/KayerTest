@@ -55,7 +55,9 @@ export default class TokenService {
     }
 
     static _ClearToken() {
-        Cookies.clearAll();
+        Cookies.delete( TOKEN_COOKIE_KEY );
+        Cookies.delete( ROLE_COOKIE_KEY );
+        Cookies.delete( USERNAME_COOKIE_KEY );
     }
 
     redirectToWebsite() {
