@@ -31,7 +31,7 @@
                             {{$menusContent->getAbstract()}}
                 </div>
                 <div class="n-show__caption text-bayoux font-base cursor-default md:font-sm">
-                    {{$menusContent->getDescription()}}
+                    {!! html_entity_decode($menusContent->getDescription(), ENT_QUOTES, 'UTF-8') !!}
                 </div>
                 <div class="i-page__footer relative">
                     <div class="flex items-center md:flex-col">
