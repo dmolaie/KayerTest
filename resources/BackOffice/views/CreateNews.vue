@@ -153,7 +153,7 @@
                     <category-cm :list="categories"
                                  :lang="currentLang"
                                  ref="categoryCm"
-                                 @onChange="onChangeCategoryField"
+                                 @change="onChangeCategoryField"
                     />
                 </div>
                 <image-panel-cm @onChange="onChangeMainImageField"
@@ -371,16 +371,8 @@
                     this.$route.params.parent_id || ""
                 ));
             },
-            onChangeCategoryField( item ) {
-                try {
-                    if ( !item.checked ) {
-                        this.form.category_ids.push( item.id )
-                    } else {
-                        let findIndex = this.form.category_ids
-                            .findIndex(cat => cat === item.id);
-                        this.form.category_ids.splice(findIndex, 1)
-                    }
-                } catch (e) {}
+            onChangeCategoryField( payload ) {
+                this.$set(this.form, 'category_ids', payload);
             }
         },
         async created() {
