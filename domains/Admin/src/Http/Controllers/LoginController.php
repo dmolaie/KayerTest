@@ -27,8 +27,7 @@ class LoginController extends EhdaBaseController
     {
         try {
             $result = $this->adminService->login($request->createLoginDTO());
-            $request->session()->regenerate();
-
+            dd($request);
             return $this->response($loginPresenter->transform($result), Response::HTTP_OK,
                 trans('admin::response.authenticate.successful_login'));
 

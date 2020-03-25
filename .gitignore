@@ -1,5 +1,6 @@
 .env
 storage/logs
+storage/framework/*
 storage/proxies/*
 vendor/*
 bootstrap/cache/*
