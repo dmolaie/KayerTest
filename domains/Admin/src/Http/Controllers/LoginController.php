@@ -11,7 +11,7 @@ use Domains\Admin\Http\Resources\LoginResource;
 use Domains\Admin\Services\AdminServices;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends EhdaBaseController
@@ -26,7 +26,7 @@ class LoginController extends EhdaBaseController
     public function login(UserLoginRequest $request, LoginPresenter $loginPresenter)
     {
         try {
-            $result = $this->adminService->login($request->createLoginDTO());
+            $result = $this->adminService->login($request,$request->createLoginDTO());
             return $this->response($loginPresenter->transform($result), Response::HTTP_OK,
                 trans('admin::response.authenticate.successful_login'));
 
@@ -37,8 +37,9 @@ class LoginController extends EhdaBaseController
         }
 
     }
-    public function logout(){
-        \Auth::logout();
+    public function logout(Request $request){
+        $logoutController = new \App\Http\Controllers\Auth\LoginController();
+        $logoutController->logout($request);
         return $this->response([], Response::HTTP_OK,
             trans('admin::response.authenticate.successful_logout'));
     }
