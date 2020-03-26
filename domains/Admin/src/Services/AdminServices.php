@@ -15,8 +15,8 @@ class AdminServices
         $this->userService = $userService;
     }
 
-    public function login(UserLoginDTO $loginDTO): UserLoginDTO
+    public function login($request,UserLoginDTO $loginDTO): UserLoginDTO
     {
-        return $this->userService->loginWithApi($loginDTO);
+        return $this->userService->loginWithApi($request,$loginDTO);
     }
 }

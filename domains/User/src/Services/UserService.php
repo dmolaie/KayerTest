@@ -3,6 +3,7 @@
 
 namespace Domains\User\Services;
 
+use App\Http\Controllers\Auth\LoginController;
 use Domains\Location\Services\CityServices;
 use Domains\Location\Services\Contracts\DTOs\SearchCityDTO;
 use Domains\Location\Services\Contracts\DTOs\SearchProvinceDTO;
@@ -88,15 +89,19 @@ class UserService
     }
 
     /**
+     * @param $request
      * @param UserLoginDTO $loginDTO
      * @return UserLoginDTO
-     * @throws UserUnAuthorizedException
      * @throws UserDoseNotHaveActiveRole
+     * @throws UserUnAuthorizedException
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function loginWithApi(UserLoginDTO $loginDTO): UserLoginDTO
+    public function loginWithApi($request,UserLoginDTO $loginDTO): UserLoginDTO
     {
-        if (Auth::attempt(['national_code' => $loginDTO->getNationalCode(), 'password' => $loginDTO->getPassword()])) {
-            $user = Auth::getLastAttempted();
+        $loginController = new LoginController();
+        $loginController->login($request);
+        if (\auth()->check()) {
+            $user = \auth()->user();
             $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
             $loginDTO->setRole($role);
