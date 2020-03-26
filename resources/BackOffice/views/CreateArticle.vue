@@ -80,11 +80,6 @@
                 <publish-cm :published="false"
                             @onClickDraftButton="onClickDraftButton"
                 >
-                    <template #published="{ hiddenDropdown }">
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right">
-                            لغو انتشار
-                        </button>
-                    </template>
                     <template #notPublished="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
@@ -137,23 +132,14 @@
     import CreateArticleService from '@services/service/CreateArticle';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
-    import DomainsCm from '@components/DomainsPanel.vue';
     import PublishCm from '@components/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
-    import UploadService from '@vendor/components/upload';
-    import UploadCm from '@vendor/components/upload/Index.vue';
-    import CategoryCm from '@components/Category.vue';
 
-    import {
-        Length, toEnglishDigits
-    } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
     } from '@services/store/Login'
 
     let Service = null;
-
-    // third_title slug
 
     const GET_INITIAL_FORM = () => ({
         first_title: '',
@@ -170,7 +156,7 @@
         data: null,
         preview: []
     });
-        //CREATE_ARTICLE_LIST
+
     export default {
         name: 'CreateArticle',
         data: () => ({
@@ -179,22 +165,16 @@
                 main: GET_INITIAL_IMAGE(),
                 second: GET_INITIAL_IMAGE(),
             },
-            domainsPanel: {
-                isPending: true,
-            },
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: false,
         }),
         components: {
             IconCm,
-            UploadCm,
-            DomainsCm,
             PublishCm,
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
-            CategoryCm,
             TagsCm
         },
         computed: {
@@ -204,24 +184,6 @@
             ...mapState({
                 categories: ({ CreateArticle }) => CreateArticle.categories,
             }),
-            /**
-             * @return {number | string}
-             */
-            DatePickerMinValue() {
-                try {
-                    const DATE = new Date(),
-                        LOCALE_DATE = DATE.toLocaleString('fa');
-                    return (
-                        toEnglishDigits(
-                            LOCALE_DATE
-                                .replace('،', ' ')
-                                .slice(0, Length( LOCALE_DATE ) - 3)
-                        )
-                    )
-                } catch (e) {
-                    return ''
-                }
-            },
             currentLang() {
                 return this.$route.params.lang || 'fa'
             }
@@ -233,7 +195,6 @@
                 Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
                 this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
-                this.$refs['categoryCm'].$forceUpdate();
             },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
@@ -241,9 +202,6 @@
             },
             onUpdateTextEditor( HTML ) {
                 this.$set(this.form, 'description', HTML);
-            },
-            onClickReleaseTimeButton() {
-                this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
             formIsValid() {
                 let formIsValid = Service.checkFormValidation();
@@ -278,16 +236,8 @@
             onChangeMainImageField( payload ) {
                 this.$set( this.images.main, 'data', payload )
             },
-            onChangeDomainsField( id ) {
-                this.$set( this.form, 'province_id', id );
-            },
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
-            },
-            setParentIDFromParamsRouter() {
-                this.$set(this.form, 'parent_id', (
-                    this.$route.params.parent_id || ""
-                ));
             },
             onChangeCategoryField( item ) {
                 try {
@@ -301,11 +251,6 @@
         },
         mounted() {
             this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
         },
-        updated() {
-            this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
-        }
     }
 </script>
