@@ -13,6 +13,18 @@ export const DEFAULT_STATUS = {
     status: 'published'
 };
 
+export class ArticleService {
+    static async getArticleCategories() {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
+                category_type: 'article'
+            });
+        } catch (e) {
+            throw e;
+        }
+    }
+}
+
 export default class ManageNewsService extends BaseService {
     constructor( layout ) {
         super();

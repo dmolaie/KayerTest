@@ -54,6 +54,7 @@
                         </p>
                         <div class="block w-full c-article__tags">
                             <tags-cm :list="categories"
+                                     :value="form.categories"
                                      placeholder="عنوان دسته‌بندی"
                                      itemClassName="text-right"
                                      tagWrapperClassName="input bg-white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
@@ -77,20 +78,26 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm :published="false"
+                <publish-cm :isPublished="form.is_published"
+                            :isPending="form.is_pending"
+                            :isReject="form.is_reject"
+                            :isAccept="form.is_accept"
+                            :isReadyPublished="form.is_ready_to_publish"
+                            buttonLabel="بروزرسانی"
+                            :statusLabel="form.status || ''"
                             @onClickDraftButton="onClickDraftButton"
                 >
-                    <template #notPublished="{ hiddenDropdown }">
+                    <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
                         >
-                            {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
+                            بروزرسانی
                         </button>
                         <span class="dropdown__divider"> </span>
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickRemoveButton(); hiddenDropdown()}"
                         >
-                            انتقال به زباله‌دان
+                            لفو انتشار
                         </button>
                     </template>
                 </publish-cm>
@@ -123,21 +130,19 @@
 </template>
 
 <script>
-
     import {
         mapGetters, mapState
     } from 'vuex';
-    import TagsCm from '@components/Tags.vue';
+    import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
-    import CreateArticleService from '@services/service/CreateArticle';
+    import EditArticleService from '@services/service/EditArticle';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
-    import PublishCm from '@components/PublishPanel.vue';
+    import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
-
     import {
-        IS_ADMIN
-    } from '@services/store/Login'
+        CopyOf
+    } from "@vendor/plugin/helper";
 
     let Service = null;
 
@@ -149,12 +154,8 @@
         description: '',
         slug: '',
         language: '',
+        categories: [],
         category_ids: [],
-    });
-
-    const GET_INITIAL_IMAGE = () => ({
-        data: null,
-        preview: []
     });
 
     export default {
@@ -162,12 +163,12 @@
         data: () => ({
             form: GET_INITIAL_FORM(),
             images: {
-                main: GET_INITIAL_IMAGE(),
-                second: GET_INITIAL_IMAGE(),
+                data: null,
+                preview: []
             },
+            isModuleRegistered: false,
+            shouldBeShowLoading: true,
             shouldBeShowSecondTitle: false,
-            shouldBeShowDatePicker: false,
-            shouldBeShowLoading: false,
         }),
         components: {
             IconCm,
@@ -178,24 +179,15 @@
             TagsCm
         },
         computed: {
-            ...mapGetters({
-                isAdmin: IS_ADMIN
-            }),
             ...mapState({
-                categories: ({ CreateArticle }) => CreateArticle.categories,
+                detail: ({ EditArticleStore }) => EditArticleStore.detail,
+                categories: ({ EditArticleStore }) => EditArticleStore.categories,
             }),
             currentLang() {
                 return this.$route.params.lang || 'fa'
             }
         },
         methods: {
-            setInitialState() {
-                Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
-                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
-                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
-                this.$refs['textEditor']?.clearContent();
-                this.$refs['imagePanel']?.onClickRemoveImageButton();
-            },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
@@ -243,14 +235,29 @@
                 try {
                     this.form.category_ids = item;
                 } catch (e) {}
+            },
+            setDataIntoForm() {
+                try {
+                    this.$set(this, 'form', CopyOf(this.detail));
+                    this.$refs['textEditor'].setContent( this.form.description );
+                    if ( !!this.form.second_title )
+                        this.$set(this, 'shouldBeShowSecondTitle', true);
+                } catch (e) {}
             }
         },
         async created() {
-            Service = new CreateArticleService( this );
-            await Service.processFetchAsyncData();
+            Service = new EditArticleService( this );
+            Service.processFetchAsyncData()
+                .then(this.nextTick)
+                .then(() => {
+                    this.setLanguageFromParamsRouter();
+                    this.setDataIntoForm();
+                    this.$set(this, 'shouldBeShowLoading', false);
+                    console.log(this.form);
+                });
         },
-        mounted() {
-            this.setLanguageFromParamsRouter();
-        },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
+        }
     }
 </script>
