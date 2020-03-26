@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
@@ -113,6 +114,23 @@ class LoginController extends Controller
             'data' => [],
             'status_code' => Response::HTTP_UNAUTHORIZED,
             'message' => trans('user::response.authenticate.user_not_login')
+        ], Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return response()->json([
+            'data' => [],
+            'status_code' => Response::HTTP_UNAUTHORIZED,
+            'message' => trans('user::response.authenticate.error_username_password')
         ], Response::HTTP_UNAUTHORIZED);
     }
 }
