@@ -13,9 +13,10 @@ export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
-export const EDIT_NEWS = 'EDIT_NEWS';
+export const EDIT_NEWS   = 'EDIT_NEWS';
 export const MANAGE_ARTICLE = 'MANAGE_ARTICLE';
 export const CREATE_ARTICLE = 'CREATE_ARTICLE';
+export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -135,11 +136,32 @@ const Routes = new VueRouter({
                         name: 'انجمن اهدای عضو ایرانیان',
                     },
                     {
-                        route: DASHBOARD,
+                        route: MANAGE_ARTICLE,
                         name: 'صفحات ایستا'
                     },
                     {
                         name: 'افزودن'
+                    }
+                ]
+            }
+        },
+        {
+            name: EDIT_ARTICLE,
+            path: '/manage/statics/:lang(fa)/edit/:id(\\d+)',
+            component: GetViews('EditArticle' ),
+            meta: {
+                title: 'ویرایش صفحه ایستا',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_ARTICLE,
+                        name: 'صفحات ایستا'
+                    },
+                    {
+                        name: 'ویرایش'
                     }
                 ]
             }
