@@ -1,16 +1,17 @@
 import {
-    ArticleCategoryPresenter,
-} from '@services/presenter/CreateArticle';
+    FlattenCategories,
+    CategoriesPresenter,
+} from '@vendor/infrastructure/presenter/MainPresenter';
 
 export const C_ARTICLE_SET_CATEGORY = 'C_ARTICLE_SET_CATEGORY';
 
 const CreateArticle = {
     state: {
-        categories: [],
+        categories: {},
     },
     mutations: {
-        [C_ARTICLE_SET_CATEGORY](state, payload) {
-            state.categories = new ArticleCategoryPresenter( payload.data );
+        [C_ARTICLE_SET_CATEGORY](state, { data }) {
+            state.categories = { ...FlattenCategories( new CategoriesPresenter( data ) ) };
         },
     }
 };

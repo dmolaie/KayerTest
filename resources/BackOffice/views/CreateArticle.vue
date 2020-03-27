@@ -77,10 +77,12 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm :published="false"
+                <publish-cm statusLabel="ذخیره‌نشده"
+                            :isNotPublished="true"
+                            :showDraftButton="true"
                             @onClickDraftButton="onClickDraftButton"
                 >
-                    <template #notPublished="{ hiddenDropdown }">
+                    <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
                         >
@@ -97,7 +99,7 @@
                 <location-cm :lang="currentLang"
                              disabled="en"
                 />
-                <image-panel-cm @onChange="onChangeMainImageField"
+                <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
@@ -127,12 +129,12 @@
     import {
         mapGetters, mapState
     } from 'vuex';
-    import TagsCm from '@components/Tags.vue';
+    import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
     import CreateArticleService from '@services/service/CreateArticle';
     import TextEditorCm from '@components/TextEditor.vue';
-    import ImagePanelCm from '@components/ImagePanel.vue';
-    import PublishCm from '@components/PublishPanel.vue';
+    import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
+    import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
 
     import {
@@ -161,13 +163,10 @@
         name: 'CreateArticle',
         data: () => ({
             form: GET_INITIAL_FORM(),
-            images: {
-                main: GET_INITIAL_IMAGE(),
-                second: GET_INITIAL_IMAGE(),
-            },
+            images: GET_INITIAL_IMAGE(),
             shouldBeShowSecondTitle: false,
-            shouldBeShowDatePicker: false,
             shouldBeShowLoading: false,
+            isModuleRegistered: false,
         }),
         components: {
             IconCm,
@@ -182,7 +181,7 @@
                 isAdmin: IS_ADMIN
             }),
             ...mapState({
-                categories: ({ CreateArticle }) => CreateArticle.categories,
+                categories: ({ CreateArticleStore }) => CreateArticleStore.categories,
             }),
             currentLang() {
                 return this.$route.params.lang || 'fa'
@@ -191,8 +190,7 @@
         methods: {
             setInitialState() {
                 Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
-                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
-                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
+                Object.assign(this.images, GET_INITIAL_IMAGE.apply( this ));
                 this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
             },
@@ -218,7 +216,7 @@
                     if ( formIsValid ) {
                         await Service.onClickReleaseButton();
                     }
-                } catch (e) {}
+                }
                 finally {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
@@ -234,7 +232,7 @@
                 });
             },
             onChangeMainImageField( payload ) {
-                this.$set( this.images.main, 'data', payload )
+                this.$set( this.images, 'data', payload )
             },
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
@@ -252,5 +250,8 @@
         mounted() {
             this.setLanguageFromParamsRouter();
         },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
+        }
     }
 </script>

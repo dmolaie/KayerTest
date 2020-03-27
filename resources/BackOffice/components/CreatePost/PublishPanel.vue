@@ -52,11 +52,11 @@
             },
             buttonLabel: {
                 type: String,
-                default: 'ذخیره‌نشده'
+                default: 'انتشار'
             },
             statusLabel: {
                 type: String,
-                default: 'ذخیره‌نشده'
+                default: ''
             },
             isPublished: {
                 type: Boolean,
