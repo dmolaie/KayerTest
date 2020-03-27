@@ -227,11 +227,18 @@ const SetPageTitle = title => {
     } catch (e) {}
 };
 
+const backToTop = () => {
+    try {
+        const MAIN_CONTAINER = document.querySelector('[role="main"]');
+        if ( !!MAIN_CONTAINER ) MAIN_CONTAINER.scrollTo(0, 0);
+    } catch (e) {}
+};
+
 Routes.beforeEach(
     (to, from, next) => {
         let routeTitle = to.meta?.title,
             isGuessRoute = to.meta?.guess;
-
+        backToTop();
         SetPageTitle( routeTitle );
         if ( !isGuessRoute ) {
             if ( Store?.getters[GET_USER_HAS_ACCESS] ) {
