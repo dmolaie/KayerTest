@@ -1,4 +1,7 @@
-import Routes from '@BackOffice/services/routes'
+import Routes from '@BackOffice/services/routes';
+import {
+    RequestAnimation
+} from '@vendor/plugin/helper';
 
 let isInstalled = false;
 
@@ -20,29 +23,6 @@ const General = {
             },
         });
 
-        // Vue.directive('ripple', {
-        //    bind: ( el, { value } ) => {
-        //        const BG_COLOR = value || 'rgba(0, 0, 0, 0.35)';
-        //        const POSITION_RELATIVE = 'relative';
-        //        console.log(el);
-        //        el.classList.add( POSITION_RELATIVE );
-        //        const makeRippleEffect = event => {
-        //            let {
-        //                left, top
-        //            } = el.getBoundingClientRect(),
-        //                width       = el.offsetWidth,
-        //                height      = el.offsetHeight,
-        //                dx          = event.clientX - left,
-        //                dy          = event.clientY - top,
-        //                maxX        = Math.max(dx, width - dx),
-        //                maxY        = Math.max(dy, height - dy),
-        //                style       = window.getComputedStyle(target),
-        //                radius      = Math.sqrt((maxX * maxX) + (maxY * maxY)),
-        //                border      = (targetBorder > 0 ) ? targetBorder : 0;
-        //        }
-        //    }
-        // });
-
         Vue.mixin({
             methods: {
                 $asset( src ) {
@@ -55,9 +35,22 @@ const General = {
                 },
                 pushRouter( location = { name: '/' } ) {
                     Routes.push( location )
+                        .catch(err => {})
                 },
                 pushReplace( location = { name: '/' } ) {
                     Routes.replace( location )
+                },
+                backToTop() {
+                    try {
+                        const MAIN_CONTAINER = document.querySelector('[role="main"]');
+                        if ( !!MAIN_CONTAINER ) {
+                            let currentScroll = MAIN_CONTAINER.scrollTop;
+                            if ( currentScroll > 0 ) {
+                                MAIN_CONTAINER.scrollTo(0, Math.floor(currentScroll - (currentScroll / 8)));
+                                ( !!RequestAnimation ) ? RequestAnimation(this.backToTop) : setTimeout(this.backToTop, 100 );
+                            }
+                        }
+                    } catch (e) {}
                 }
             }
         })

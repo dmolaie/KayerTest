@@ -176,7 +176,7 @@
                                               v-text="item.status"
                                         > </span>
                                         <span class="m-post__lang inline-flex items-center border border-solid rounded bg-white text-blue-100 font-1xs"
-                                              v-text="item.lang"
+                                              v-text="item.lang_fa"
                                         > </span>
                                     </div>
                                     <span class="text-blue-700 font-xs font-medium">
@@ -196,7 +196,7 @@
                                               :key="'cat-' + category.id"
                                               class="m-post__category inline-block font-1xs text-medium text-blue-100 bg-white border border-solid cursor-default"
                                         >
-                                            {{ item.lang === 'fa' ? category.fa : category.en }}
+                                            {{ item.lang === 'fa' ? category.name_fa : category.name_en }}
                                         </span>
                                         <template v-if="item.category.length > 2">
                                             <span class="m-post__category--more text-blue-100 font-lg font-bold line-height-1 cursor-default">
@@ -232,6 +232,11 @@
                                                 > </button>
                                             </template>
                                             <template v-else>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="'ویرایش'"
+                                                        @click.prevent="onClickEditActionButton( item.id, item.lang )"
+                                                > </button>
+                                                <span class="dropdown__divider"> </span>
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                         v-text="'انتقال به زباله دان'"
                                                         @click.prevent="onClickRecycleActionButton( item.id )"
@@ -272,18 +277,18 @@
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
+    import StatusService from '@services/service/Status';
 
-    const PUBLISH_STATUS = 'published';
-    const READY_TO_PUBLISH_STATUS = 'ready_to_publish';
-    const RECYCLE_STATUS = 'recycle';
-    const PENDING_STATUS = 'pending';
-    const DELETE_STATUS = 'delete';
+    const PUBLISH_STATUS = StatusService.PUBLISH_STATUS;
+    const READY_TO_PUBLISH_STATUS =  StatusService.READY_TO_PUBLISH_STATUS;
+    const RECYCLE_STATUS =  StatusService.RECYCLE_STATUS;
+    const PENDING_STATUS =  StatusService.PENDING_STATUS;
+    const DELETE_STATUS =  StatusService.DELETE_STATUS;
 
-        ///change-status
     let Service = null;
 
     export default {
-        name: "ManageNews",
+        name: "ManageArticle",
         data: () => ({
             paginateKeyCounter: 0,
             keyCounter: 0,
@@ -297,7 +302,7 @@
             searchField: '',
             shouldBeShowSearchField: false,
             isPending: true,
-            shouldBeShowCreatedNewsDropdown: false,
+            shouldBeShowCreatedArticleDropdown: false,
             ShouldBeShowSpinnerLoadingSubmitFilter: false,
             ShouldBeShowSpinnerLoadingDiscardFilter: false
         }),
@@ -358,7 +363,7 @@
                 this.$set(this, 'isPending', true);
                 this.hideSearchSection();
                 this.hideFiltersSection();
-                Service._GetNewsListFilterBy( queryString )
+                Service._GetArticleListFilterBy( queryString )
                     .then(this.$nextTick)
                     .then(() => {
                         setTimeout(() => {
@@ -426,7 +431,7 @@
                 }
             },
             onClickCreatedNewButton() {
-                this.$set(this, 'shouldBeShowCreatedNewsDropdown', !this.shouldBeShowCreatedNewsDropdown)
+                this.$set(this, 'shouldBeShowCreatedArticleDropdown', !this.shouldBeShowCreatedArticleDropdown)
             },
             onClickActionButton( item ) {
                 this.$set(item, 'is_opened', !item.is_opened)
@@ -461,23 +466,6 @@
                     }, this.timeout)
                 } catch (e) {}
             },
-            /**
-             * TODO: :D --> general
-             */
-            backToTop() {
-                try {
-                    let MainContainer = document.querySelector('[role="main"]');
-                    if ( !!MainContainer ) {
-                        let currentScroll = MainContainer.scrollTop;
-                        if (currentScroll > 0) {
-                            window.requestAnimationFrame( this.backToTop );
-                            MainContainer.scrollTo(0, Math.floor(currentScroll - (currentScroll / 8)))
-                        }
-                    }
-                } catch (e) {
-                    console.log(e);
-                }
-            },
             onChangePagination( page ) {
                 try {
                     let { query } = this.$route;
@@ -498,7 +486,7 @@
                         !!this.filter.create_date_end
                     ) queryString['create_date_end'] = this.filter.create_date_end;
                     this.backToTop();
-                    Service._GetNewsListFilterBy( queryString )
+                    Service._GetArticleListFilterBy( queryString )
                         .then(this.$nextTick)
                         .then(() => {
                             setTimeout(() => {
@@ -507,16 +495,25 @@
                         });
                 } catch (e) {}
             },
-            async onClickRecycleActionButton( news_id ) {
+            async onClickEditActionButton(article_id, lang) {
+                this.pushRouter({
+                    name: 'EDIT_ARTICLE',
+                    params: {
+                        lang,
+                        id: article_id
+                    }
+                });
+            },
+            async onClickRecycleActionButton( article_id ) {
                 try {
-                    await Service.changeStatusNewsItem( news_id, RECYCLE_STATUS );
+                    await Service.changeStatusArticleItem( article_id, RECYCLE_STATUS );
                 } catch (e) {}
             },
-            async onClickPendingActionButton( news_id ) {
-                await Service.changeStatusNewsItem( news_id, PENDING_STATUS );
+            async onClickPendingActionButton( article_id ) {
+                await Service.changeStatusArticleItem( article_id, PENDING_STATUS );
             },
-            async onClickDeleteActionButton( news_id ) {
-                await Service.deleteNewsItem( news_id );
+            async onClickDeleteActionButton( article_id ) {
+                await Service.deleteArticleItem( article_id );
             }
         },
         created() {
