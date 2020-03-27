@@ -381,7 +381,8 @@
                     {
                         name: "MANAGE_ARTICLE",
                         query
-                    }).catch(err => {})
+                    }).catch(err => {});
+                this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
             },
             hideSearchSection() {
                 this.$set(this, 'searchField', '');
