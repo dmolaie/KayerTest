@@ -122,7 +122,6 @@
             value( newVal ) {
                 if ( HasLength( newVal ) )
                     this.$set(this, 'selectedTags', newVal);
-                console.log(newVal, 'newVal');
             }
         },
         methods: {
