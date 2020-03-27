@@ -21,6 +21,12 @@ export class NewsItemPresenter extends BasePresenter {
             category_ids: Array,
             source_link: String,
             is_published: Boolean,
+            is_pending: Boolean,
+            is_accept: Boolean,
+            is_reject: Boolean,
+            is_ready_to_publish: Boolean,
+            is_recycle: Boolean,
+            status: String,
             province_id: Number,
             province_name: String,
             publisher_name: Object,
@@ -66,7 +72,41 @@ export class NewsItemPresenter extends BasePresenter {
     }
 
     is_published() {
-        return this.data.status.en === "published"
+        return this.data.status?.en === "published"
+    }
+
+    is_pending() {
+        return (
+            this.data.status?.en === "pending"
+        )
+    }
+
+    is_accept() {
+        return (
+            this.data.status?.en === "accept"
+        )
+    }
+
+    is_reject() {
+        return (
+            this.data.status?.en === "reject"
+        )
+    }
+
+    is_ready_to_publish() {
+        return (
+            this.data.status?.en === "ready_to_publish"
+        )
+    }
+
+    is_recycle() {
+        return (
+            this.data.status?.en === "recycle"
+        )
+    }
+
+    status() {
+        return this.data.status.fa || this.data.status.en
     }
 
     province_id() {

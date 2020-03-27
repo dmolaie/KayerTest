@@ -46,20 +46,6 @@
                             > </textarea>
                         </label>
                     </div>
-                    <div class="c-news__tags w-full"
-                         v-if="false"
-                    >
-                        <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            افزودن تگ
-                        </p>
-                        <div class="c-post__tags">
-                            <tags-cm :list="tags"
-                                     placeholder="افزودن تگ"
-                                     itemClassName="text-right"
-                                     inputClassName="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                            />
-                        </div>
-                    </div>
                 </div>
                 <div class="main inner-box inner-box--blue w-full rounded-2 rounded-tr-none rounded-tl-none">
                     <div class="w-full">
@@ -112,10 +98,16 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm :published="!!form.is_published"
+                <publish-cm :isPublished="form.is_published"
+                            :isPending="form.is_pending"
+                            :isReject="form.is_reject"
+                            :isAccept="form.is_accept"
+                            :isReadyPublished="form.is_ready_to_publish"
+                            :statusLabel="form.status || ''"
+                            buttonLabel="بروزرسانی"
                             @onClickDraftButton="onClickDraftButton"
                 >
-                    <template #published="{ hiddenDropdown }">
+                    <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickUpdateButton(); hiddenDropdown()}"
                         >
@@ -128,33 +120,7 @@
                             لغو انتشار
                         </button>
                     </template>
-                    <template #notPublished="{ hiddenDropdown }">
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
-                        >
-                            تنظیم زمان انتشار
-                        </button>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
-                        >
-                            {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
-                        </button>
-                    </template>
                 </publish-cm>
-                <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
-                     v-if="shouldBeShowDatePicker"
-                >
-                    <p class="panel__title font-sm font-bold text-blue cursor-default">
-                        زمان انتشار
-                    </p>
-                    <date-picker-cm type="datetime"
-                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                    format="jYYYY/jMM/jDD HH:mm"
-                                    :min="DatePickerMinValue"
-                                    @onChange="onChangePublishDateField"
-                                    placeholder="زمان انتشار را انتخاب کنید"
-                    />
-                </div>
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
@@ -174,32 +140,25 @@
                                 ref="imagePanel"
                                 :value="form.mainImage"
                 />
-                <template v-if="false">
-                    <domains-cm @onChange="onChangeDomainsField"
-                                :options="provinces"
-                    />
-                </template>
-                <template v-else>
-                    <div class="domains panel relative w-full block bg-white border-2 rounded-2 border-solid">
-                        <p class="panel__title font-sm font-bold text-blue cursor-default">
-                            متفرقه
-                        </p>
-                        <p class="panel__title font-sm font-bold text-bayoux cursor-default">
-                            دامنه
-                        </p>
-                        <div class="panel__title">
-                            <select-cm :options="provinces"
-                                       placeholder="دامنه مورد نظر خود را انتخاب کنید"
-                                       @onChange="onUpdateDomainsField"
-                                       :value="form.province_name || ''"
-                                       label="name"
-                            />
-                        </div>
-                        <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
-                            مالک مطلب: {{ form.publisher_name }}
-                        </p>
+                <div class="domains panel relative w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        متفرقه
+                    </p>
+                    <p class="panel__title font-sm font-bold text-bayoux cursor-default">
+                        دامنه
+                    </p>
+                    <div class="panel__title">
+                        <select-cm :options="provinces"
+                                   placeholder="دامنه مورد نظر خود را انتخاب کنید"
+                                   @onChange="onUpdateDomainsField"
+                                   :value="form.province_name || ''"
+                                   label="name"
+                        />
                     </div>
-                </template>
+                    <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
+                        مالک مطلب: {{ form.publisher_name }}
+                    </p>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -218,12 +177,10 @@
     import EditNewsService from '@services/service/EditNews';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
-    import DomainsCm from '@components/DomainsPanel.vue';
-    import PublishCm from '@components/PublishPanel.vue';
+    import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
-    import DatePickerCm from '@components/DatePicker.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
     import CategoryCm from '@components/Category.vue';
 
@@ -274,12 +231,10 @@
         components: {
             IconCm,
             UploadCm,
-            DomainsCm,
             PublishCm,
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
-            DatePickerCm,
             SelectCm,
             CategoryCm
         },
