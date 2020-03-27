@@ -36,6 +36,7 @@ export class NewsItemPresenter extends BasePresenter {
             images: Array,
             mainImage: Object,
             secondImage: Object,
+            has_relation: Boolean,
         })
     }
 
@@ -160,4 +161,7 @@ export class NewsItemPresenter extends BasePresenter {
         })
     }
 
+    has_relation() {
+        return !!this.data.relation_id
+    }
 }

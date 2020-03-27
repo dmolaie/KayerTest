@@ -64,7 +64,7 @@ const Routes = new VueRouter({
         },
         {
             name: CREATE_NEWS,
-            path: '/manage/news/:lang(fa|en)/create',
+            path: '/manage/news/:lang(fa|en)/create/:parent_id(\\d+)?',
             component: GetViews('CreateNews' ),
             meta: {
                 title: 'ایجاد خبر',

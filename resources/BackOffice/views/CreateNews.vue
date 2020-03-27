@@ -128,6 +128,9 @@
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
+                             disabledLabel="قبلا ایجاد شده"
+                             :disabledEn="disabledEnLang"
+                             :disabledFa="disabledFaLang"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -228,6 +231,8 @@
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: false,
             isModuleRegistered: false,
+            disabledEnLang: false,
+            disabledFaLang: false,
         }),
         components: {
             IconCm,
@@ -365,10 +370,13 @@
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
             },
-            setParentIDFromParamsRouter() {
-                this.$set(this.form, 'parent_id', (
-                    this.$route.params.parent_id || ""
-                ));
+            setDataFromParamsRouter() {
+                let {
+                    onlyEnLang, onlyFaLang, parent_id
+                } = this.$route.params;
+                this.$set(this.form, 'parent_id', parent_id || "");
+                this.$set(this, 'disabledEnLang', !!onlyFaLang);
+                this.$set(this, 'disabledFaLang', !!onlyEnLang);
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
@@ -380,11 +388,11 @@
         },
         mounted() {
             this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
+            this.setDataFromParamsRouter();
         },
         updated() {
             this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
+            this.setDataFromParamsRouter();
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();

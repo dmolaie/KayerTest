@@ -11,10 +11,10 @@
                     :class="[
                         ( lang === 'fa' ) ? 'language__btn--selected' : 'language__btn--not-selected text-bayoux',
                         {
-                            'pointer-event-none': (disabled === 'fa')
+                            'pointer-event-none': disabledFa
                         }
                     ]"
-                    v-text="lang === 'fa' ? 'همین صفحه' : ( disabled === 'fa' ? disabledLabel : 'ایجاد')"
+                    v-text="lang === 'fa' ? 'همین صفحه' : ( disabledFa ? disabledLabel : defaultLabel)"
                     @click.prevent="onClickPersianLangButton"
             > </button>
         </div>
@@ -26,10 +26,10 @@
                     :class="[
                         ( lang === 'en' ) ? 'language__btn--selected' : 'language__btn--not-selected text-bayoux',
                         {
-                            'pointer-event-none': (disabled === 'en')
+                            'pointer-event-none': disabledEn
                         }
                     ]"
-                    v-text="lang === 'en' ? 'همین صفحه' : ( disabled === 'en' ? disabledLabel : 'ایجاد')"
+                    v-text="lang === 'en' ? 'همین صفحه' : ( disabledEn ? disabledLabel : defaultLabel)"
                     @click.prevent="onClickEnglishLangButton"
             > </button>
         </div>
@@ -44,9 +44,17 @@
                 type: String,
                 required: true,
             },
-            disabled: {
+            disabledEn: {
+                type: Boolean,
+                default: false
+            },
+            disabledFa: {
+                type: Boolean,
+                default: false
+            },
+            defaultLabel: {
                 type: String,
-                required: false,
+                default: 'ایجاد'
             },
             disabledLabel: {
                 type: String,

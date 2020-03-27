@@ -124,6 +124,9 @@
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
+                             disabledLabel="قبلا ایجاد شده"
+                             :disabledEn="disabledEnLang"
+                             :disabledFa="disabledFaLang"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -273,18 +276,19 @@
                 return ( !!this.form.category_ids && HasLength( this.form.category_ids ) ) ? (
                     this.form.category_ids
                 ) : ([])
+            },
+            disabledEnLang() {
+                return (
+                    !!this.form.has_relation && this.form.language === 'fa'
+                )
+            },
+            disabledFaLang() {
+                return (
+                    !!this.form.has_relation && this.form.language === 'en'
+                )
             }
         },
         methods: {
-            setInitialState() {
-                Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
-                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
-                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
-                this.$set(this, 'removedImages', []);
-                this.$refs['textEditor']?.clearContent();
-                this.$refs['imagePanel']?.onClickRemoveImageButton();
-                this.$refs['categoryCm'].$forceUpdate();
-            },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
@@ -327,18 +331,20 @@
                     name: 'CREATE_NEWS',
                     params: {
                         lang: 'fa',
+                        onlyFaLang: true,
+                        parent_id: this.form.news_id,
                     }
                 });
-                this.setInitialState();
             },
             onClickEnglishLang() {
                 this.pushRouter({
                     name: 'CREATE_NEWS',
                     params: {
                         lang: 'en',
+                        onlyEnLang: true,
+                        parent_id: this.form.news_id,
                     }
                 });
-                this.setInitialState();
             },
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
@@ -396,11 +402,6 @@
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
             },
-            setParentIDFromParamsRouter() {
-                this.$set(this.form, 'parent_id', (
-                    this.$route.params.parent_id || ""
-                ));
-            },
             onChangeCategoryField( payload ) {
                 try {
                     this.$set(this.form, 'category_ids', payload);
@@ -421,7 +422,6 @@
                 .then(this.$nextTick)
                 .then(() => {
                     this.setLanguageFromParamsRouter();
-                    this.setParentIDFromParamsRouter();
                     this.setDataIntoForm();
                     this.$set(this, 'shouldBeShowLoading', false);
                     console.log(this.form);
@@ -429,7 +429,6 @@
         },
         updated() {
             this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();
