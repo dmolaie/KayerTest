@@ -46,20 +46,6 @@
                             > </textarea>
                         </label>
                     </div>
-                    <div class="c-news__tags w-full"
-                         v-if="false"
-                    >
-                        <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            افزودن تگ
-                        </p>
-                        <div class="c-post__tags">
-                            <tags-cm :list="tags"
-                                     placeholder="افزودن تگ"
-                                     itemClassName="text-right"
-                                     inputClassName="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                            />
-                        </div>
-                    </div>
                 </div>
                 <div class="main inner-box inner-box--blue w-full rounded-2 rounded-tr-none rounded-tl-none">
                     <div class="w-full">
@@ -101,15 +87,12 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm :published="false"
+                <publish-cm statusLabel="ذخیره‌نشده"
+                            :isNotPublished="true"
+                            :showDraftButton="true"
                             @onClickDraftButton="onClickDraftButton"
                 >
-                    <template #published="{ hiddenDropdown }">
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right">
-                            لغو انتشار
-                        </button>
-                    </template>
-                    <template #notPublished="{ hiddenDropdown }">
+                    <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
                         >
@@ -159,9 +142,25 @@
                 <image-panel-cm @onChange="onChangeMainImageField"
                                 ref="imagePanel"
                 />
-                <domains-cm @onChange="onChangeDomainsField"
-                            :options="provinces"
-                />
+                <div class="domains panel relative w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        متفرقه
+                    </p>
+                    <p class="panel__title font-sm font-bold text-bayoux cursor-default">
+                        دامنه
+                    </p>
+                    <div class="panel__title">
+                        <select-cm :options="provinces"
+                                   placeholder="دامنه مورد نظر خود را انتخاب کنید"
+                                   @onChange="onChangeDomainsField"
+                                   :value="defaultProvinces.name || ''"
+                                   label="name"
+                        />
+                    </div>
+                    <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
+                        مالک مطلب: {{ username }}
+                    </p>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -173,7 +172,6 @@
 </template>
 
 <script>
-
     import {
         mapGetters, mapState
     } from 'vuex';
@@ -181,21 +179,19 @@
     import CreateNewsService from '@services/service/CreateNews';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
-    import DomainsCm from '@components/DomainsPanel.vue';
-    import PublishCm from '@components/PublishPanel.vue';
+    import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
     import DatePickerCm from '@components/DatePicker.vue';
-    import TagsCm from '@components/Tags.vue';
     import CategoryCm from '@components/Category.vue';
-
+    import SelectCm from '@vendor/components/select/Index.vue';
     import {
-        Length, toEnglishDigits
+        Length, toEnglishDigits, HasLength
     } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
-    } from '@services/store/Login'
+    } from '@services/store/Login';
 
     let Service = null;
 
@@ -228,32 +224,30 @@
                 main: GET_INITIAL_IMAGE(),
                 second: GET_INITIAL_IMAGE(),
             },
-            domainsPanel: {
-                isPending: true,
-            },
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: false,
+            isModuleRegistered: false,
         }),
         components: {
             IconCm,
             UploadCm,
-            DomainsCm,
             PublishCm,
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
             DatePickerCm,
-            TagsCm,
-            CategoryCm
+            CategoryCm,
+            SelectCm
         },
         computed: {
             ...mapGetters({
-                isAdmin: IS_ADMIN
+                isAdmin: IS_ADMIN,
             }),
             ...mapState({
-                categories: ({ CreateMenu }) => CreateMenu.categories,
-                provinces: ({ CreateMenu }) => CreateMenu.provinces
+                username: ({ UserStore }) => UserStore.username,
+                categories: ({ CreateMenuStore }) => CreateMenuStore.categories,
+                provinces: ({ CreateMenuStore }) => CreateMenuStore.provinces
             }),
             /**
              * @return {number | string}
@@ -275,6 +269,11 @@
             },
             currentLang() {
                 return this.$route.params.lang
+            },
+            defaultProvinces() {
+                return ( HasLength( this.provinces ) ) ? (
+                    (Object.values( this.provinces ))[0]
+                ) : ({})
             }
         },
         methods: {
@@ -360,7 +359,7 @@
             onChangeMainImageField( payload ) {
                 this.$set( this.images.main, 'data', payload )
             },
-            onChangeDomainsField( id ) {
+            onChangeDomainsField({ id }) {
                 this.$set( this.form, 'province_id', id );
             },
             setLanguageFromParamsRouter() {
@@ -386,32 +385,9 @@
         updated() {
             this.setLanguageFromParamsRouter();
             this.setParentIDFromParamsRouter();
+        },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
         }
     }
 </script>
-
-<!--'first_title'  => 'required|string', *** OK *** -->
-<!--'second_title' => 'string',, *** OK *** -->
-<!--'abstract'     => 'string', *** OK ***  -->
-<!--'description'  => 'string', *** OK *** -->
-<!--'category_id'  => 'array|exists:categories,id',-->
-<!--'main_category_id'  => 'integer|exists:categories,id',-->
-<!--'publish_date' => 'required|numeric', *** OK *** -->
-<!--'source_link'  => 'url', *** OK *** -->
-<!--'province_id'  => 'required|integer|exists:provinces,id', *** OK *** -->
-<!--'parent_id'    => 'integer|exists:news,id|unique:news', *** OK *** Backend-->
-<!--'language'     => ['required', Rule::in(config('news.news_language'))], *** OK ***-->
-<!--'images.*'     => 'image'  *** OK *** -->
-
-
-<!--parent_id va province_id chie?-->
-<!--va source_link-->
-<!--manbae khabar = source link-->
-<!--province_id bareye che domaini dide beshe-->
-<!--age ye khabar vasash fa misazi ya en id khabar bedi:D-->
-<!--age aval farsi besaze bad bezane en to id fa tu save en behem midi-->
-
-<!--
-http://localhost/category/v1/admin/get_category_by_type?category_type=news
-
--->
