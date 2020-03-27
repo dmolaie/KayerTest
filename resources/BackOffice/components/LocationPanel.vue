@@ -14,7 +14,7 @@
                             'pointer-event-none': (disabled === 'fa')
                         }
                     ]"
-                    v-text="lang === 'fa' ? 'همین صفحه' : ( disabled === 'fa' ? 'فعلاً وجود ندارد' : 'ایجاد')"
+                    v-text="lang === 'fa' ? 'همین صفحه' : ( disabled === 'fa' ? disabledLabel : 'ایجاد')"
                     @click.prevent="onClickPersianLangButton"
             > </button>
         </div>
@@ -29,7 +29,7 @@
                             'pointer-event-none': (disabled === 'en')
                         }
                     ]"
-                    v-text="lang === 'en' ? 'همین صفحه' : ( disabled === 'en' ? 'فعلاً وجود ندارد' : 'ایجاد')"
+                    v-text="lang === 'en' ? 'همین صفحه' : ( disabled === 'en' ? disabledLabel : 'ایجاد')"
                     @click.prevent="onClickEnglishLangButton"
             > </button>
         </div>
@@ -47,6 +47,10 @@
             disabled: {
                 type: String,
                 required: false,
+            },
+            disabledLabel: {
+                type: String,
+                default: 'فعلاً وجود ندارد'
             }
         },
         methods: {
