@@ -8,9 +8,10 @@ import {
 import {
     HasLength, CopyOf
 } from "@vendor/plugin/helper";
+import StatusService from '@services/service/Status';
 
 export const DEFAULT_STATUS = {
-    status: 'published'
+    status: StatusService.PUBLISH_STATUS
 };
 
 export class NewsService {
@@ -29,6 +30,16 @@ export class NewsService {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES));
         } catch (e) {
             throw e;
+        }
+    }
+
+    static async changeStatusNewsItem(news_id, status) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_NEWS_ITEM), {
+                news_id, status
+            });
+        } catch (e) {
+            throw e
         }
     }
 }
@@ -103,9 +114,7 @@ export default class ManageNewsService extends BaseService {
 
     async changeStatusNewsItem( news_id, status ) {
         try {
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_NEWS_ITEM), {
-                news_id, status
-            });
+            let response = await NewsService.changeStatusNewsItem(news_id, status);
             this.$vm.displayNotification(response.message, {
                 type: 'success'
             });
