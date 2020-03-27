@@ -108,7 +108,6 @@
                             :isReadyPublished="form.is_ready_to_publish"
                             :statusLabel="form.status || ''"
                             buttonLabel="بروزرسانی"
-                            @onClickDraftButton="onClickDraftButton"
                 >
                     <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
@@ -254,24 +253,6 @@
                 detail: ({ EditNewsStore }) => EditNewsStore.detail,
                 username: ({ UserStore }) => UserStore.username,
             }),
-            /**
-             * @return {number | string}
-             */
-            DatePickerMinValue() {
-                try {
-                    const DATE = new Date(),
-                        LOCALE_DATE = DATE.toLocaleString('fa');
-                    return (
-                        toEnglishDigits(
-                            LOCALE_DATE
-                                .replace('،', ' ')
-                                .slice(0, Length( LOCALE_DATE ) - 3)
-                        )
-                    )
-                } catch (e) {
-                    return ''
-                }
-            },
             currentLang() {
                 return this.$route.params.lang
             },
@@ -352,33 +333,32 @@
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
+            formIsValid() {
+                let formIsValid = Service.checkFormValidation();
+                if ( !formIsValid )
+                    this.displayNotification('وارد کردن عنوان الزامی است.', {
+                        type: 'error'
+                    });
+                return formIsValid
+            },
             async onClickUpdateButton() {
-                await Service.onClickUpdateButton();
-            },
-            async onClickUnPublishButton() {
-                await Service.onClickUnPublishButton( this.form.news_id );
-            },
-            async onClickChiefEditorButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
                     let formIsValid = this.formIsValid();
-                    if ( formIsValid ) {
-                        await Service.onClickReleaseButton();
-                    }
-                } catch (e) {}
+                    if ( formIsValid ) await Service.onClickUpdateButton();
+                }
                 finally {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
             },
-            onClickDraftButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
-            },
-            onClickRemoveButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            async onClickUnPublishButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickChangeStatusButton( this.form.news_id );
+                }
+                finally {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                }
             },
             onChangeMainImageField( payload ) {
                 this.onClickRemoveMainImage();

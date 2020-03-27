@@ -12,7 +12,8 @@ import {
 import {
     CopyOf, HasLength, EncodeHTML
 } from "@vendor/plugin/helper";
-import StatusService from '@services/service/Status'
+import StatusService from '@services/service/Status';
+import ExceptionService from '@services/service/exception';
 
 export default class EditNewsService extends BaseService {
     constructor( layout ) {
@@ -73,6 +74,11 @@ export default class EditNewsService extends BaseService {
         } catch (e) {}
     }
 
+    checkFormValidation() {
+        let duplicateFrom = this.$vm.form;
+        return !!duplicateFrom['first_title'].trim();
+    }
+
     createUpdateRequestBody() {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
@@ -119,39 +125,33 @@ export default class EditNewsService extends BaseService {
 
     async onClickUpdateButton() {
         try {
-            this.$vm.$set(this.$vm, 'shouldBeShowLoading', true);
             let payload = this.createUpdateRequestBody();
             await this.deleteUnusedImages();
             let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM), payload);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
-                duration: 4000
             });
             this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
-        } catch ({ message }) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
-            })
+        } catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
     }
 
-    async onClickUnPublishButton( news_id ) {
+    async onClickChangeStatusButton( news_id ) {
         try {
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_NEWS_ITEM), {
-                news_id,
-                status: StatusService.PENDING_STATUS
-            });
+            let response = await NewsService.changeStatusNewsItem(news_id, StatusService.PENDING_STATUS);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
-                duration: 4000
             });
             this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
-        } catch ({ message }) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
-            })
+        } catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
     }
 }
