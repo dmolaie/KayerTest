@@ -42,6 +42,9 @@
                         </p>
                         <label class="w-full block">
                             <textarea class="textarea textarea--white w-full block border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
+                                      :class="{
+                                           'direction-ltr': ( currentLang === 'en' )
+                                      }"
                                       v-model="form.abstract"
                             > </textarea>
                         </label>
@@ -424,7 +427,6 @@
                     this.setLanguageFromParamsRouter();
                     this.setDataIntoForm();
                     this.$set(this, 'shouldBeShowLoading', false);
-                    console.log(this.form);
                 });
         },
         updated() {
