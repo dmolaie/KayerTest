@@ -85,17 +85,16 @@
                             :isReadyPublished="form.is_ready_to_publish"
                             buttonLabel="بروزرسانی"
                             :statusLabel="form.status || ''"
-                            @onClickDraftButton="onClickDraftButton"
                 >
                     <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
+                                @click.prevent="() => {onClickSaveChangeButton(); hiddenDropdown()}"
                         >
                             بروزرسانی
                         </button>
                         <span class="dropdown__divider"> </span>
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickRemoveButton(); hiddenDropdown()}"
+                                @click.prevent="() => {onClickChangeStatusButton(); hiddenDropdown()}"
                         >
                             لفو انتشار
                         </button>
@@ -104,8 +103,9 @@
                 <location-cm :lang="currentLang"
                              disabled="en"
                 />
-                <image-panel-cm @onChange="onChangeMainImageField"
+                <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
+                                :value="form.image_paths"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -131,17 +131,17 @@
 
 <script>
     import {
-        mapGetters, mapState
+        mapState
     } from 'vuex';
     import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
     import EditArticleService from '@services/service/EditArticle';
     import TextEditorCm from '@components/TextEditor.vue';
-    import ImagePanelCm from '@components/ImagePanel.vue';
+    import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import {
-        CopyOf
+        CopyOf, HasLength
     } from "@vendor/plugin/helper";
 
     let Service = null;
@@ -158,14 +158,17 @@
         category_ids: [],
     });
 
+    const GET_INITIAL_IMAGE = () => ({
+        data: null,
+        preview: []
+    });
+
     export default {
         name: 'EditArticle',
         data: () => ({
             form: GET_INITIAL_FORM(),
-            images: {
-                data: null,
-                preview: []
-            },
+            images: GET_INITIAL_IMAGE(),
+            removedImages: [],
             isModuleRegistered: false,
             shouldBeShowLoading: true,
             shouldBeShowSecondTitle: false,
@@ -203,30 +206,39 @@
                     });
                 return formIsValid
             },
-            async onClickChiefEditorButton() {
+            async onClickSaveChangeButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
                     let formIsValid = this.formIsValid();
-                    if ( formIsValid ) {
-                        await Service.onClickReleaseButton();
-                    }
-                } catch (e) {}
-                finally {
+                    if ( formIsValid )
+                        await Service.onClickSaveChangeButton();
+                } catch (e) {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
             },
-            onClickDraftButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            async onClickChangeStatusButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickChangeStatusArticleButton( this.form.article_id );
+                } catch (e) {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
+                }
             },
-            onClickRemoveButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            onClickRemoveMainImage() {
+                let {
+                    image_paths
+                } = this.form;
+
+                if ( HasLength( image_paths ) ) {
+                    this.removedImages.push( image_paths.id );
+                    this.$set(this.form, 'image_paths', {});
+                }
+
+                Object.assign(this.images, GET_INITIAL_IMAGE.apply( this ));
             },
             onChangeMainImageField( payload ) {
-                this.$set( this.images.main, 'data', payload )
+                this.onClickRemoveMainImage();
+                this.$set( this.images, 'data', payload )
             },
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
@@ -253,7 +265,6 @@
                     this.setLanguageFromParamsRouter();
                     this.setDataIntoForm();
                     this.$set(this, 'shouldBeShowLoading', false);
-                    console.log(this.form);
                 });
         },
         beforeDestroy() {

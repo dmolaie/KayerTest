@@ -21,7 +21,9 @@ const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
 const REMOVE_MENU_ITEM = "REMOVE_MENU_ITEM";
 const SAVE_MENU_LIST = "SAVE_MENU_LIST";
 const GET_ARTICLE_LIST = "GET_ARTICLE_LIST";
+const GET_ARTICLE_ITEM = "GET_ARTICLE_ITEM";
 const CREATE_ARTICLE_LIST = "CREATE_ARTICLE_LIST";
+const EDIT_ARTICLE_ITEM = "EDIT_ARTICLE_ITEM";
 const EDIT_STATUS_ARTICLE_ITEM = "EDIT_STATUS_ARTICLE_ITEM";
 const DELETE_ARTICLE_LIST = "DELETE_ARTICLE_LIST";
 const GET_CATEGORY_LIST = "GET_CATEGORY_LIST";
@@ -43,25 +45,33 @@ endpoints[VALIDATE_USER] = `/user/${VER_1_0}/validate_data_user_client`;
 endpoints[VALIDATE_LEGATE] = `/user/${VER_1_0}/validate_data_user_legate`;
 endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
 endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
+
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
 endpoints[CREATE_MENU_LIST] = `/menu/${VER_1_0}/admin/create`;
 endpoints[EDIT_MENU_ITEM] = `/menu/${VER_1_0}/admin/edit`;
 endpoints[REMOVE_MENU_ITEM] = `/menu/${VER_1_0}/admin/delete`;
 endpoints[SAVE_MENU_LIST] = `/menu/${VER_1_0}/admin/save-priority`;
+
 endpoints[GET_ARTICLE_LIST] = `/article/${VER_1_0}/admin/list`;
+endpoints[GET_ARTICLE_ITEM] = `/article/${VER_1_0}/admin/detail/:id`;
 endpoints[CREATE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/create`;
+endpoints[EDIT_ARTICLE_ITEM] = `/article/${VER_1_0}/admin/edit`;
 endpoints[EDIT_STATUS_ARTICLE_ITEM] = `/article/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_ARTICLE_LIST] = `/article/${VER_1_0}/admin/delete/:id`;
+
 endpoints[GET_CATEGORY_LIST] = `/category/${VER_1_0}/admin/get_category_by_type`;
 endpoints[CREATE_CATEGORY_ITEM] = `/category/${VER_1_0}/admin/create`;
+
 endpoints[GET_NEWS_LIST] = `/news/${VER_1_0}/admin/list`;
 endpoints[GET_NEWS_ITEM] = `/news/${VER_1_0}/admin/detail/:id`;
 endpoints[CREATE_NEWS_ITEM] = `/news/${VER_1_0}/admin/create`;
 endpoints[EDIT_NEWS_ITEM] = `/news/${VER_1_0}/admin/edit`;
 endpoints[EDIT_STATUS_NEWS_ITEM] = `/news/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_NEWS_ITEM] = `/news/${VER_1_0}/admin/delete/:id`;
+
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
+
 endpoints[DELETE_IMAGES_ITEM] = `/attachment/destroy_image`;
 
 export default class Endpoint {
@@ -121,12 +131,20 @@ export default class Endpoint {
         return endpoints[GET_ARTICLE_LIST];
     }
 
+    static get GET_ARTICLE_ITEM() {
+        return endpoints[GET_ARTICLE_ITEM];
+    }
+
     static get DELETE_ARTICLE_LIST() {
         return endpoints[DELETE_ARTICLE_LIST];
     }
 
     static get CREATE_ARTICLE_LIST() {
         return endpoints[CREATE_ARTICLE_LIST];
+    }
+
+    static get EDIT_ARTICLE_ITEM() {
+        return endpoints[EDIT_ARTICLE_ITEM];
     }
 
     static get GET_CATEGORY_LIST() {

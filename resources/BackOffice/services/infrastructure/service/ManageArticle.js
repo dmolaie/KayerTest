@@ -23,6 +23,16 @@ export class ArticleService {
             throw e;
         }
     }
+
+    static async changeStatusArticleItem(article_id, status) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_ARTICLE_ITEM), {
+                article_id, status
+            });
+        } catch (e) {
+            throw e
+        }
+    }
 }
 
 export default class ManageNewsService extends BaseService {

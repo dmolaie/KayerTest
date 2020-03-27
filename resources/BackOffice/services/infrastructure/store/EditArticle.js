@@ -43,7 +43,6 @@ const EditArticle = {
                     ]
                 }
             };
-            console.log('11', new ArticleItemPresenter( fake_payload ));
             state.detail = { ... new ArticleItemPresenter( fake_payload ) };
         },
         [E_ARTICLE_SET_CATEGORIES](state, { data }) {

@@ -32,6 +32,7 @@ export default class ArticleItemPresenter extends BasePresenter {
             publisher_name: String,
             language: String,
             relation_id: Number,
+            image_paths: Array,
         })
     }
 
@@ -133,7 +134,8 @@ export default class ArticleItemPresenter extends BasePresenter {
     }
 
     image_paths() {
-        return new ImagesPresenter( this.data.image_paths )
+        let images = new ImagesPresenter( this.data.image_paths );
+        return HasLength( images ) ? images[0] : {}
     }
 
 }
