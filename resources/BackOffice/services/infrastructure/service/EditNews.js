@@ -54,7 +54,8 @@ export default class EditNewsService extends BaseService {
             this.$vm.displayNotification( message, {
                 type: 'error',
                 duration: 4000
-            })
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         }
     }
 

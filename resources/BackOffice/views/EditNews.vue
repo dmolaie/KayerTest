@@ -75,7 +75,7 @@
                                           class="font-sm font-medium text-bayoux"
                                     > </span>
                                 </template>
-                                <template v-else-if="form.secondImage.fileName">
+                                <template v-else-if="!!form.secondImage && form.secondImage.fileName">
                                     <button class="c-post__remove_button absolute"
                                             @click.stop="onClickRemoveSelectedSecondImage( form.secondImage.id )"
                                     > </button>
