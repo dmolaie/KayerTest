@@ -212,7 +212,8 @@
                     let formIsValid = this.formIsValid();
                     if ( formIsValid )
                         await Service.onClickSaveChangeButton();
-                } catch (e) {
+                }
+                finally {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
             },
