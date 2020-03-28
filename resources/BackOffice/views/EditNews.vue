@@ -155,6 +155,21 @@
                                 ref="imagePanel"
                                 :value="form.mainImage"
                 />
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        نامک
+                    </p>
+                    <label class="block w-full">
+                        <input type="text"
+                               class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
+                               :class="{
+                                   'direction-ltr': ( currentLang === 'en' )
+                               }"
+                               placeholder="نامک را اینجا وارد کنید"
+                               v-model="form.slug"
+                        />
+                    </label>
+                </div>
                 <div class="domains panel relative w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
                         متفرقه
@@ -222,6 +237,7 @@
         language: '',
         mainImage: {},
         secondImage: {},
+        slug: ''
     });
 
     const GET_INITIAL_IMAGE = () => ({
@@ -343,18 +359,10 @@
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
-            formIsValid() {
-                let formIsValid = Service.checkFormValidation();
-                if ( !formIsValid )
-                    this.displayNotification('وارد کردن عنوان الزامی است.', {
-                        type: 'error'
-                    });
-                return formIsValid
-            },
             async onClickUpdateButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
-                    let formIsValid = this.formIsValid();
+                    let formIsValid = Service.checkFormValidation();
                     if ( formIsValid ) await Service.onClickUpdateButton();
                 }
                 finally {

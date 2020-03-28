@@ -27,7 +27,9 @@ export class ImagePresenter extends BasePresenter {
     }
 
     path() {
-        return this.data.path
+        return (
+            '/' + this.data.path
+        )
     }
 }
 
