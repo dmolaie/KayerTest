@@ -144,9 +144,8 @@ class ArticleRepository
         })->firstOrFail();
     }
 
-    public function changeStatus(int $articleId, string $status): Article
+    public function changeStatus(Article $article, string $status): Article
     {
-        $article = $this->findOrFail($articleId);
         $article->status = $status;
         $getDirty = $article->getDirty();
         if (!empty($getDirty)) {

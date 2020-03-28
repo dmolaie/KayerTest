@@ -101,4 +101,22 @@ class ArticleController extends EhdaBaseController
         }
 
     }
+
+    public function getArticleDetail(int $id, ArticleInfoPresenter $articleInfoPresenter)
+    {
+        try {
+            $articleInfoDTO = $this->articleService->getArticleDetail($id);
+
+            return $this->response(
+                $articleInfoPresenter->transform($articleInfoDTO),
+                Response::HTTP_OK
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('article::response.article_not_found')
+            );
+        }
+    }
 }
