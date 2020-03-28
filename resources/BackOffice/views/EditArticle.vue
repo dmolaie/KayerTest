@@ -206,18 +206,10 @@
             onUpdateTextEditor( HTML ) {
                 this.$set(this.form, 'description', HTML);
             },
-            formIsValid() {
-                let formIsValid = Service.checkFormValidation();
-                if ( !formIsValid )
-                    this.displayNotification('وارد کردن عنوان الزامی است.', {
-                        type: 'error'
-                    });
-                return formIsValid
-            },
             async onClickSaveChangeButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
-                    let formIsValid = this.formIsValid();
+                    let formIsValid = Service.checkFormValidation();
                     if ( formIsValid )
                         await Service.onClickSaveChangeButton();
                 }
