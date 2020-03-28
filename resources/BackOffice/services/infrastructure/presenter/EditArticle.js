@@ -7,19 +7,21 @@ import {
     HasLength, Length, DecodeHTML
 } from "@vendor/plugin/helper";
 
-export class NewsItemPresenter extends BasePresenter {
+export default class ArticleItemPresenter extends BasePresenter {
     constructor({ data }) {
         super( data );
         this.data = data;
 
         return this.mapProps({
-            news_id: Number,
+            article_id: Number,
             first_title: String,
             second_title: String,
+            third_title: String,
             abstract: String,
             description: String,
+            categories: Array,
             category_ids: Array,
-            source_link: String,
+            slug: String,
             is_published: Boolean,
             is_pending: Boolean,
             is_accept: Boolean,
@@ -27,21 +29,15 @@ export class NewsItemPresenter extends BasePresenter {
             is_ready_to_publish: Boolean,
             is_recycle: Boolean,
             status: String,
-            province_id: Number,
-            province_name: String,
-            publisher_name: Object,
-            is_persian: Boolean,
-            is_english: Boolean,
+            publisher_name: String,
+            language: String,
             relation_id: Number,
-            images: Array,
-            mainImage: Object,
-            secondImage: Object,
-            has_relation: Boolean,
+            image_paths: Array,
             is_owner: Boolean,
         })
     }
 
-    news_id() {
+    article_id() {
         return this.data.id
     }
 
@@ -50,11 +46,15 @@ export class NewsItemPresenter extends BasePresenter {
     }
 
     second_title() {
-        return this.data.second_title || ''
+        return this.data.second_title
+    }
+
+    third_title() {
+        return this.data.third_title
     }
 
     abstract() {
-        return this.data.abstract || ''
+        return this.data.abstract
     }
 
     description() {
@@ -62,15 +62,20 @@ export class NewsItemPresenter extends BasePresenter {
         return !!description ? DecodeHTML( description ) : '';
     }
 
-    category_ids() {
-        return (
-            new SelectedCategoriesPresenter( this.data.category )
-                .map(({ id }) => id)
-        )
+    categories() {
+        return new SelectedCategoriesPresenter( this.data.categories )
     }
 
-    source_link() {
-        return this.data.source_link || ''
+    category_ids() {
+        return new SelectedCategoriesPresenter( this.data.categories )
+    }
+
+    slug() {
+        let {
+            slug
+        } = this.data;
+
+       return !!slug ? slug.replace(/-/g, ' ') : ''
     }
 
     is_published() {
@@ -111,14 +116,6 @@ export class NewsItemPresenter extends BasePresenter {
         return this.data.status.fa || this.data.status.en
     }
 
-    province_id() {
-        return this.data.province?.id
-    }
-
-    province_name() {
-        return this.data.province?.name
-    }
-
     publisher_name() {
         let {
             name, last_name
@@ -129,41 +126,17 @@ export class NewsItemPresenter extends BasePresenter {
         )
     }
 
-    is_persian() {
-        return this.data.language === 'fa'
-    }
-
-    is_english() {
-        return this.data.language === 'en'
+    language() {
+        return this.data.language
     }
 
     relation_id() {
-        return this.data.relation_id
+        return this.data.relation_id || ''
     }
 
-    images() {
-        return new ImagesPresenter( this.data.image_paths )
-    }
-
-    mainImage() {
-        const IMAGES = this.images();
-        return (!!IMAGES && HasLength( IMAGES )) ? (
-            IMAGES[0]
-        ) : ({})
-    }
-
-    secondImage() {
-        const IMAGES = this.images();
-        return (!!IMAGES && HasLength( IMAGES ) && Length( IMAGES ) > 1) ? ({
-            ...IMAGES[1],
-            fileName: IMAGES[1].path.split('/')[Length( IMAGES[1].path.split('/') ) - 1]
-        }) : ({
-            fileName: ''
-        })
-    }
-
-    has_relation() {
-        return !!this.data.relation_id
+    image_paths() {
+        let images = new ImagesPresenter( this.data.image_paths );
+        return HasLength( images ) ? images[0] : {}
     }
 
     is_owner() {

@@ -82,8 +82,8 @@ export class SelectedCategoryPresenter extends BasePresenter {
 
         return this.mapProps({
             id: Number,
-            en: String,
-            fa: String,
+            name_en: String,
+            name_fa: String,
             is_main: Boolean,
         })
     }
@@ -92,11 +92,11 @@ export class SelectedCategoryPresenter extends BasePresenter {
         return this.data.id
     }
 
-    en() {
+    name_en() {
         return this.data.name_en
     }
 
-    fa() {
+    name_fa() {
         return this.data.name_fa
     }
 
@@ -153,3 +153,11 @@ export class CategoryPresenter extends BasePresenter {
     }
 }
 
+export const FlattenCategories = ( payload = [] ) => {
+    return payload.reduce((flatArray, item) => {
+        HasLength( item.children ) ? (
+            flatArray.push( item, ...FlattenCategories( item.children ) )
+        ) : flatArray.push( item );
+        return flatArray;
+    }, [])
+};

@@ -13,11 +13,11 @@
         </button>
         <transition name="fade">
             <div class="image-p__preview"
-                 v-if="!!value.id || !!selectedImage.fileName"
+                 v-if="!!selectedImage.fileName"
             >
                 <image-cm
                         class="image-p__image w-full block rounded"
-                        :src="value.path || selectedImage.image"
+                        :src="selectedImage.image"
                         className="w-full h-full block rounded-inherit"
                 />
                 <button class="block m-0-auto text-red font-sm font-bold user-select-none"
@@ -33,6 +33,9 @@
     import ImageCm from '@vendor/components/image/Index.vue';
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
+    import {
+        HasLength, CopyOf
+    } from "@vendor/plugin/helper";
 
     export default {
         name: "ImagePanel",
@@ -48,17 +51,27 @@
                 default: () => ({})
             }
         },
+        watch: {
+            value( newVal ) {
+                if ( HasLength( newVal ) )
+                    this.$set(this, 'selectedImage', {
+                        fileName: newVal.id,
+                        image: newVal.path,
+                        id: newVal.id
+                    });
+            }
+        },
         methods: {
             onClickOpenFileDialogButton() {
                 this.$refs['uploadCm']?.openFileDialog();
             },
             onClickRemoveImageButton() {
-                this.$emit('onChange', null);
+                this.$emit('change', null);
                 this.$set(this, 'selectedImage', {});
             },
             async onChangeImageField( formData ) {
                 try {
-                    this.$emit('onChange', formData);
+                    this.$emit('change', formData);
                     let getImage = await UploadService.imagePreview( formData );
                     this.$set(this, 'selectedImage', getImage[0]);
                 } catch (e) {}

@@ -1,20 +1,39 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
-import {
+import CreateArticle, {
     C_ARTICLE_SET_CATEGORY
 } from '@services/store/CreateArticle';
 import {
     CopyOf, HasLength, EncodeHTML
 } from "@vendor/plugin/helper";
+import {
+    ArticleService
+} from '@services/service/ManageArticle';
+import ExceptionService from '@services/service/exception';
 
-export default class CreateNewsService extends BaseService {
+export default class CreateArticleService extends BaseService {
     constructor( layout ) {
         super();
         this.$vm = layout;
         this.$store = layout.$store;
 
         BaseService.ViewPortProcess( this.$store , false );
+        this._RegisterStoreModule();
+    }
+
+    _RegisterStoreModule() {
+        try {
+            this.$store.registerModule('CreateArticleStore', CreateArticle);
+            this.$vm.$set(this.$vm, 'isModuleRegistered', true);
+        } catch (e) {}
+    }
+
+    _UnregisterStoreModule() {
+        try {
+            if ( this.$vm.isModuleRegistered )
+                this.$store.unregisterModule('CreateArticleStore');
+        } catch (e) {}
     }
 
     async processFetchAsyncData() {
@@ -25,9 +44,7 @@ export default class CreateNewsService extends BaseService {
 
     async getCategoryList() {
         try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
-                category_type: 'article'
-            });
+            let response = await ArticleService.getArticleCategories();
             BaseService.commitToStore(this.$store, C_ARTICLE_SET_CATEGORY, response);
         } catch ({ message }) {
             this.$vm.displayNotification( message, {
@@ -42,7 +59,7 @@ export default class CreateNewsService extends BaseService {
         return !!duplicateFrom['first_title'].trim();
     }
 
-    createRequestBody() {
+    get createRequestBody() {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
             const formData = new FormData();
@@ -74,8 +91,8 @@ export default class CreateNewsService extends BaseService {
                         delete duplicateFrom[key]
                 });
 
-            if ( !!this.$vm.images.main.data )
-                formData.append('images[]', this.$vm.images.main.data.get('images'));
+            if ( !!this.$vm.images.data )
+                formData.append('images[]', this.$vm.images.data.get('images'));
 
             for ( let [key, value] of Object.entries( duplicateFrom ) ) {
                 formData.append(key, value);
@@ -88,7 +105,7 @@ export default class CreateNewsService extends BaseService {
 
     async onClickReleaseButton() {
         try {
-            let payload = this.createRequestBody();
+            let payload = this.createRequestBody;
             let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_ARTICLE_LIST), payload);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
@@ -97,14 +114,10 @@ export default class CreateNewsService extends BaseService {
             this.$vm.pushRouter( { name: 'MANAGE_ARTICLE' } );
         }
         catch ( exception ) {
-            let errorMessage = exception.message;
-            let errors = exception?.errors;
-            if (!!errors)
-                errorMessage = Object.entries(errors)[0][1][0];
-            this.$vm.displayNotification(errorMessage, {
-                type: 'error',
-                duration: 4000
-            })
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
     }
 }

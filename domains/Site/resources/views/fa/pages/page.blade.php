@@ -11,7 +11,7 @@
                 <div class="n-show__header flex items-stretch md:flex-col">
                     <figure class="n-show__cover flex-shrink-0 rounded max-w-full has-skeleton md:w-full">
                         <img src=""
-                             data-src="https://images.unsplash.com/photo-1581097671213-10bdd66a2f32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                             data-src="/{{$menusContent->getAttachmentFiles()[0] ? $menusContent->getAttachmentFiles()[0]['path'] : ''}}"
                              alt=""
                              class="n-show__cover_image w-full h-full block rounded-inherit object-cover"
                         />

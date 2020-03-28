@@ -42,23 +42,12 @@
                         </p>
                         <label class="w-full block">
                             <textarea class="textarea textarea--white w-full block border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
+                                      :class="{
+                                           'direction-ltr': ( currentLang === 'en' )
+                                      }"
                                       v-model="form.abstract"
                             > </textarea>
                         </label>
-                    </div>
-                    <div class="c-news__tags w-full"
-                         v-if="false"
-                    >
-                        <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            افزودن تگ
-                        </p>
-                        <div class="c-post__tags">
-                            <tags-cm :list="tags"
-                                     placeholder="افزودن تگ"
-                                     itemClassName="text-right"
-                                     inputClassName="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                            />
-                        </div>
                     </div>
                 </div>
                 <div class="main inner-box inner-box--blue w-full rounded-2 rounded-tr-none rounded-tl-none">
@@ -75,11 +64,22 @@
                             >
                                 انتخاب عکس
                             </button>
-                            <div class="c-post__fake_input flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none pointer-event-none">
-                                <template v-if="!!images.second.data || !!form.secondImage">
+                            <div class="c-post__fake_input relative flex-1 min-height-42 bg-zircon text-blue border-blue-100-1 rounded direction-ltr user-select-none overflow-hidden text-nowrap text-ellipsis">
+                                <template v-if="!!images.second.data">
+                                    <button class="c-post__remove_button absolute"
+                                            @click.stop="onClickRemoveSecondImage"
+                                    > </button>
                                     <span v-for="item in images.second.preview"
                                           :key="item.fileName"
                                           v-text="item.fileName"
+                                          class="font-sm font-medium text-bayoux"
+                                    > </span>
+                                </template>
+                                <template v-else-if="!!form.secondImage && form.secondImage.fileName">
+                                    <button class="c-post__remove_button absolute"
+                                            @click.stop="onClickRemoveSelectedSecondImage( form.secondImage.id )"
+                                    > </button>
+                                    <span v-text="form.secondImage.fileName"
                                           class="font-sm font-medium text-bayoux"
                                     > </span>
                                 </template>
@@ -101,71 +101,79 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm :published="!!form.is_published"
-                            @onClickDraftButton="onClickDraftButton"
+                <publish-cm :isPublished="form.is_published"
+                            :isPending="form.is_pending"
+                            :isReject="form.is_reject"
+                            :isAccept="form.is_accept"
+                            :isReadyPublished="form.is_ready_to_publish"
+                            :statusLabel="form.status || ''"
+                            buttonLabel="بروزرسانی"
                 >
-                    <template #published="{ hiddenDropdown }">
+                    <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickUpdateButton(); hiddenDropdown()}"
                         >
                             بروزرسانی
                         </button>
-                        <span class="dropdown__divider"> </span>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
-                        >
-                            لغو انتشار
-                        </button>
-                    </template>
-                    <template #notPublished="{ hiddenDropdown }">
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
-                        >
-                            تنظیم زمان انتشار
-                        </button>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
-                        >
-                            {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
-                        </button>
+                        <template v-if="form.is_pending">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickRejectItemButton(); hiddenDropdown()}"
+                            >
+                                بازگشت به نویسنده (رد)
+                            </button>
+                        </template>
+                        <template v-if="!(isAdmin && form.is_owner) && !form.is_pending">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
+                            >
+                                لغو انتشار
+                            </button>
+                        </template>
                     </template>
                 </publish-cm>
-                <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
-                     v-if="shouldBeShowDatePicker"
-                >
-                    <p class="panel__title font-sm font-bold text-blue cursor-default">
-                        زمان انتشار
-                    </p>
-                    <date-picker-cm type="datetime"
-                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                    format="jYYYY/jMM/jDD HH:mm"
-                                    :min="DatePickerMinValue"
-                                    @onChange="onChangePublishDateField"
-                                    placeholder="زمان انتشار را انتخاب کنید"
-                    />
-                </div>
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
+                             disabledLabel="قبلا ایجاد شده"
+                             :disabledEn="disabledEnLang"
+                             :disabledFa="disabledFaLang"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
                         دسته‌بندی
                     </p>
                     <category-cm :list="categories"
+                                 :value="selectedCategory"
                                  :lang="currentLang"
                                  ref="categoryCm"
-                                 @onChange="onChangeCategoryField"
+                                 @change="onChangeCategoryField"
                     />
                 </div>
-                <image-panel-cm @onChange="onChangeMainImageField"
-                                @onDelete="onDeleteMainImageField"
+                <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
                                 :value="form.mainImage"
                 />
-                <domains-cm @onChange="onChangeDomainsField"
-                            :options="provinces"
-                />
+                <div class="domains panel relative w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        متفرقه
+                    </p>
+                    <p class="panel__title font-sm font-bold text-bayoux cursor-default">
+                        دامنه
+                    </p>
+                    <div class="panel__title">
+                        <select-cm :options="provinces"
+                                   placeholder="دامنه مورد نظر خود را انتخاب کنید"
+                                   @onChange="onUpdateDomainsField"
+                                   :value="form.province_name || ''"
+                                   label="name"
+                        />
+                    </div>
+                    <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
+                        مالک مطلب: {{ form.publisher_name }}
+                    </p>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -177,29 +185,26 @@
 </template>
 
 <script>
-
     import {
         mapGetters, mapState
     } from 'vuex';
     import IconCm from '@components/Icon.vue';
     import EditNewsService from '@services/service/EditNews';
     import TextEditorCm from '@components/TextEditor.vue';
-    import ImagePanelCm from '@components/ImagePanel.vue';
-    import DomainsCm from '@components/DomainsPanel.vue';
-    import PublishCm from '@components/PublishPanel.vue';
+    import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
+    import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import UploadService from '@vendor/components/upload';
     import UploadCm from '@vendor/components/upload/Index.vue';
-    import DatePickerCm from '@components/DatePicker.vue';
-    import TagsCm from '@components/Tags.vue';
+    import SelectCm from '@vendor/components/select/Index.vue';
     import CategoryCm from '@components/Category.vue';
 
     import {
-        CopyOf, toEnglishDigits, Length
+        CopyOf, toEnglishDigits, Length, HasLength
     } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
-    } from '@services/store/Login'
+    } from '@services/store/Login';
 
     let Service = null;
 
@@ -209,9 +214,10 @@
         second_title: '',
         abstract: '',
         description: '',
-        category: '',
+        category: [],
         source_link: '',
-        province: '',
+        province_id: '',
+        province_name: '',
         relation_id: '',
         language: '',
         mainImage: {},
@@ -232,23 +238,19 @@
                 main: GET_INITIAL_IMAGE(),
                 second: GET_INITIAL_IMAGE(),
             },
-            domainsPanel: {
-                isPending: true,
-            },
+            removedImages: [],
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
-            shouldBeShowLoading: false,
+            shouldBeShowLoading: true,
         }),
         components: {
             IconCm,
             UploadCm,
-            DomainsCm,
             PublishCm,
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
-            DatePickerCm,
-            TagsCm,
+            SelectCm,
             CategoryCm
         },
         computed: {
@@ -259,38 +261,28 @@
                 categories: ({ EditNewsStore }) => EditNewsStore.categories,
                 provinces: ({ EditNewsStore }) => EditNewsStore.provinces,
                 detail: ({ EditNewsStore }) => EditNewsStore.detail,
+                username: ({ UserStore }) => UserStore.username,
             }),
-            /**
-             * @return {number | string}
-             */
-            DatePickerMinValue() {
-                try {
-                    const DATE = new Date(),
-                        LOCALE_DATE = DATE.toLocaleString('fa');
-                    return (
-                        toEnglishDigits(
-                            LOCALE_DATE
-                                .replace('،', ' ')
-                                .slice(0, Length( LOCALE_DATE ) - 3)
-                        )
-                    )
-                } catch (e) {
-                    return ''
-                }
-            },
             currentLang() {
                 return this.$route.params.lang
+            },
+            selectedCategory() {
+                return ( !!this.form.category_ids && HasLength( this.form.category_ids ) ) ? (
+                    this.form.category_ids
+                ) : ([])
+            },
+            disabledEnLang() {
+                return (
+                    !!this.form.has_relation && this.form.language === 'fa'
+                )
+            },
+            disabledFaLang() {
+                return (
+                    !!this.form.has_relation && this.form.language === 'en'
+                )
             }
         },
         methods: {
-            setInitialState() {
-                Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
-                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
-                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
-                this.$refs['textEditor']?.clearContent();
-                this.$refs['imagePanel']?.onClickRemoveImageButton();
-                this.$refs['categoryCm'].$forceUpdate();
-            },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
@@ -303,9 +295,26 @@
             },
             async onChangeSecondImageField( formData ) {
                 try {
+                    this.onClickRemoveSecondImage();
                     this.$set(this.images.second, 'data', formData);
                     let getImage = await UploadService.imagePreview( formData );
                     this.$set(this.images.second, 'preview', getImage);
+                } catch (e) {}
+            },
+            onClickRemoveSecondImage() {
+                let {
+                    secondImage
+                } = this.form;
+
+                if ( HasLength( secondImage.fileName ) )
+                    this.onClickRemoveSelectedSecondImage( secondImage.id );
+
+                Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
+            },
+            onClickRemoveSelectedSecondImage( image_id ) {
+                try {
+                    this.removedImages.push( image_id );
+                    this.$set(this.form, 'secondImage', {});
                 } catch (e) {}
             },
             onChangePublishDateField( unix ) {
@@ -316,76 +325,87 @@
                     name: 'CREATE_NEWS',
                     params: {
                         lang: 'fa',
+                        onlyFaLang: true,
+                        parent_id: this.form.news_id,
                     }
                 });
-                this.setInitialState();
             },
             onClickEnglishLang() {
                 this.pushRouter({
                     name: 'CREATE_NEWS',
                     params: {
                         lang: 'en',
+                        onlyEnLang: true,
+                        parent_id: this.form.news_id,
                     }
                 });
-                this.setInitialState();
             },
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
+            formIsValid() {
+                let formIsValid = Service.checkFormValidation();
+                if ( !formIsValid )
+                    this.displayNotification('وارد کردن عنوان الزامی است.', {
+                        type: 'error'
+                    });
+                return formIsValid
+            },
             async onClickUpdateButton() {
-                await Service.onClickUpdateButton();
-            },
-            async onClickUnPublishButton() {
-                await Service.onClickUnPublishButton();
-            },
-            async onClickChiefEditorButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
                     let formIsValid = this.formIsValid();
-                    if ( formIsValid ) {
-                        await Service.onClickReleaseButton();
-                    }
-                } catch (e) {}
+                    if ( formIsValid ) await Service.onClickUpdateButton();
+                }
                 finally {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
             },
-            onClickDraftButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            async onClickRejectItemButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickRejectItemButton( this.form.news_id );
+                } finally {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                }
             },
-            onClickRemoveButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            async onClickUnPublishButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickChangeStatusButton( this.form.news_id );
+                }
+                finally {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                }
             },
             onChangeMainImageField( payload ) {
+                this.onClickRemoveMainImage();
                 this.$set( this.images.main, 'data', payload )
             },
-            onDeleteMainImageField( image_id ) {
-                console.log(image_id);
+            onClickRemoveMainImage() {
+                let {
+                    mainImage
+                } = this.form;
+
+                if ( HasLength( mainImage ) ) {
+                    this.removedImages.push( mainImage.id );
+                    this.$set(this.form, 'mainImage', {});
+                }
+
+                Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
             },
             onChangeDomainsField( id ) {
+                this.$set( this.form, 'province_id', id );
+            },
+            onUpdateDomainsField({ id }) {
                 this.$set( this.form, 'province_id', id );
             },
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
             },
-            setParentIDFromParamsRouter() {
-                this.$set(this.form, 'parent_id', (
-                    this.$route.params.parent_id || ""
-                ));
-            },
-            onChangeCategoryField( item ) {
+            onChangeCategoryField( payload ) {
                 try {
-                    if ( !item.checked ) {
-                        this.form.category_ids.push( item.id )
-                    } else {
-                        let findIndex = this.form.category_ids
-                            .findIndex(cat => cat === item.id);
-                        this.form.category_ids.splice(findIndex, 1)
-                    }
+                    this.$set(this.form, 'category_ids', payload);
                 } catch (e) {}
             },
             setDataIntoForm() {
@@ -403,30 +423,15 @@
                 .then(this.$nextTick)
                 .then(() => {
                     this.setLanguageFromParamsRouter();
-                    this.setParentIDFromParamsRouter();
                     this.setDataIntoForm();
-                    console.log(this.form);
+                    this.$set(this, 'shouldBeShowLoading', false);
                 });
         },
         updated() {
             this.setLanguageFromParamsRouter();
-            this.setParentIDFromParamsRouter();
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();
         }
     }
 </script>
-
-'news_id' => 'required|integer|exists:news,id',
-'first_title' => 'required|string',
-'second_title' => 'string',
-'abstract' => 'string',
-'description' => 'string',
-'category_ids' => 'array|exists:categories,id',
-'main_category_id' => 'integer|exists:categories,id',
-'publish_date' => 'required|numeric',
-'source_link' => 'url',
-'province_id' => 'required|integer|exists:provinces,id',
-'language' => ['required', Rule::in(config('news.news_language'))],
-'images.*' => 'image'

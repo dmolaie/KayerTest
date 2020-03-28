@@ -13,9 +13,10 @@ export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
-export const EDIT_NEWS = 'EDIT_NEWS';
+export const EDIT_NEWS   = 'EDIT_NEWS';
 export const MANAGE_ARTICLE = 'MANAGE_ARTICLE';
 export const CREATE_ARTICLE = 'CREATE_ARTICLE';
+export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -63,7 +64,7 @@ const Routes = new VueRouter({
         },
         {
             name: CREATE_NEWS,
-            path: '/manage/news/:lang(fa|en)/create',
+            path: '/manage/news/:lang(fa|en)/create/:parent_id(\\d+)?',
             component: GetViews('CreateNews' ),
             meta: {
                 title: 'ایجاد خبر',
@@ -135,11 +136,32 @@ const Routes = new VueRouter({
                         name: 'انجمن اهدای عضو ایرانیان',
                     },
                     {
-                        route: DASHBOARD,
+                        route: MANAGE_ARTICLE,
                         name: 'صفحات ایستا'
                     },
                     {
                         name: 'افزودن'
+                    }
+                ]
+            }
+        },
+        {
+            name: EDIT_ARTICLE,
+            path: '/manage/statics/:lang(fa)/edit/:id(\\d+)',
+            component: GetViews('EditArticle' ),
+            meta: {
+                title: 'ویرایش صفحه ایستا',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_ARTICLE,
+                        name: 'صفحات ایستا'
+                    },
+                    {
+                        name: 'ویرایش'
                     }
                 ]
             }
@@ -205,11 +227,18 @@ const SetPageTitle = title => {
     } catch (e) {}
 };
 
+const backToTop = () => {
+    try {
+        const MAIN_CONTAINER = document.querySelector('[role="main"]');
+        if ( !!MAIN_CONTAINER ) MAIN_CONTAINER.scrollTo(0, 0);
+    } catch (e) {}
+};
+
 Routes.beforeEach(
     (to, from, next) => {
         let routeTitle = to.meta?.title,
             isGuessRoute = to.meta?.guess;
-
+        backToTop();
         SetPageTitle( routeTitle );
         if ( !isGuessRoute ) {
             if ( Store?.getters[GET_USER_HAS_ACCESS] ) {
