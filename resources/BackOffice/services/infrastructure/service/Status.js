@@ -3,6 +3,7 @@ export const READY_TO_PUBLISH_STATUS = 'ready_to_publish';
 export const RECYCLE_STATUS = 'recycle';
 export const PENDING_STATUS = 'pending';
 export const DELETE_STATUS = 'delete';
+export const REJECT_STATUS = 'reject';
 
 export default class StatusService {
     static get PUBLISH_STATUS() {
@@ -23,5 +24,9 @@ export default class StatusService {
 
     static get DELETE_STATUS() {
         return DELETE_STATUS
+    }
+
+    static get REJECT_STATUS() {
+        return REJECT_STATUS;
     }
 }

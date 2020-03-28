@@ -252,10 +252,18 @@
                                                         @click.prevent="onClickEditActionButton( item.id, item.lang )"
                                                 > </button>
                                                 <span class="dropdown__divider"> </span>
-                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="'انتقال به زباله دان'"
-                                                        @click.prevent="onClickRecycleActionButton( item.id )"
-                                                > </button>
+                                                <template v-if="item.is_pending">
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'بازگشت به نویسنده (رد)'"
+                                                            @click.prevent="onClickRejectActionButton( item.id )"
+                                                    > </button>
+                                                </template>
+                                                <template v-else>
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'انتقال به زباله دان'"
+                                                            @click.prevent="onClickRecycleActionButton( item.id )"
+                                                    > </button>
+                                                </template>
                                             </template>
                                         </dropdown-cm>
                                     </div>
@@ -299,6 +307,7 @@
     const RECYCLE_STATUS =  StatusService.RECYCLE_STATUS;
     const PENDING_STATUS =  StatusService.PENDING_STATUS;
     const DELETE_STATUS =  StatusService.DELETE_STATUS;
+    const REJECT_STATUS =  StatusService.REJECT_STATUS;
 
     let Service = null;
 
@@ -523,6 +532,11 @@
             async onClickRecycleActionButton( news_id ) {
                 try {
                     await Service.changeStatusNewsItem( news_id, RECYCLE_STATUS );
+                } catch (e) {}
+            },
+            async onClickRejectActionButton( news_id ) {
+                try {
+                    await Service.changeStatusNewsItem( news_id, REJECT_STATUS );
                 } catch (e) {}
             },
             async onClickPendingActionButton( news_id ) {

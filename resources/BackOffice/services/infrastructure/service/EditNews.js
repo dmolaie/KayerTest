@@ -124,6 +124,21 @@ export default class EditNewsService extends BaseService {
         } catch (e) {}
     }
 
+    async onClickRejectItemButton( news_id ) {
+        try {
+            let response = await NewsService.changeStatusNewsItem(news_id, StatusService.REJECT_STATUS);
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
+        } catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
+        }
+    }
+
     async onClickUpdateButton() {
         try {
             let payload = this.createUpdateRequestBody();

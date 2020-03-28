@@ -115,7 +115,15 @@
                         >
                             بروزرسانی
                         </button>
-                        <template v-if="!(isAdmin && form.is_owner)">
+                        <template v-if="form.is_pending">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickRejectItemButton(); hiddenDropdown()}"
+                            >
+                                بازگشت به نویسنده (رد)
+                            </button>
+                        </template>
+                        <template v-if="!(isAdmin && form.is_owner) && !form.is_pending">
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
@@ -351,6 +359,14 @@
                 }
                 finally {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
+                }
+            },
+            async onClickRejectItemButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickRejectItemButton( this.form.news_id );
+                } finally {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
                 }
             },
             async onClickUnPublishButton() {
