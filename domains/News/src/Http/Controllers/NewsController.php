@@ -45,13 +45,19 @@ class NewsController extends EhdaBaseController
 
     public function editNews(EditNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
     {
-        $newsEditDTO = $request->createNewsEditDTO();
-        $newsInfoDTO = $this->newsService->editNews($newsEditDTO);
-        return $this->response(
-            $newsInfoPresenter->transform($newsInfoDTO),
-            Response::HTTP_OK,
-            trans('news::response.edit_successful')
-        );
+        try {
+            $newsEditDTO = $request->createNewsEditDTO();
+            $newsInfoDTO = $this->newsService->editNews($newsEditDTO);
+            return $this->response(
+                $newsInfoPresenter->transform($newsInfoDTO),
+                Response::HTTP_OK,
+                trans('news::response.edit_successful')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response([], Response::HTTP_NOT_FOUND,
+                trans('news::response.news_not_found'));
+        }
+
     }
 
     public function getListForAdmin(
@@ -99,7 +105,9 @@ class NewsController extends EhdaBaseController
         }
 
     }
-    public function getNewsDetail(int $id, NewsInfoPresenter $newsInfoPresenter){
+
+    public function getNewsDetail(int $id, NewsInfoPresenter $newsInfoPresenter)
+    {
         try {
             $newsInfoDTO = $this->newsService->getNewsDetail($id);
 

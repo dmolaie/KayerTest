@@ -37,6 +37,7 @@ class CategoryRepository
         $category->name_en = $createCategoryCreateDTO->getNameEn();
         $category->name_fa = $createCategoryCreateDTO->getNameFa();
         $category->type = $createCategoryCreateDTO->getType();
+        $category->slug = $createCategoryCreateDTO->getSlug();
         $category->is_active = $createCategoryCreateDTO->isStatus();
         $category->parent_id = $createCategoryCreateDTO->getParentId();
 
