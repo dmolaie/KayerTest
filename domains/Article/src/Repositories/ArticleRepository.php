@@ -59,7 +59,7 @@ class ArticleRepository
         $article->abstract = $articleEditDTO->getAbstract();
         $article->description = $articleEditDTO->getDescription();
         $article->publish_date = $articleEditDTO->getPublishDate();
-        $article->slug = $articleEditDTO->getSlug();
+        $article->slug = $articleEditDTO->getSlug() ?? $article->slug;
         $article->status = $articleEditDTO->getStatus();
         $article->province_id = $articleEditDTO->getProvinceId();
         $article->editor_id = $articleEditDTO->getEditor()->id;
