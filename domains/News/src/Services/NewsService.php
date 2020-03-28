@@ -20,7 +20,6 @@ use Domains\News\Services\Contracts\DTOs\NewsInfoDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\User\Entities\User;
 use Domains\User\Services\UserService;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class NewsService
@@ -63,7 +62,8 @@ class NewsService
         AttachmentServices $attachmentServices,
         PaginationDTOMaker $paginationDTOMaker,
         UserService $userService
-    ) {
+    )
+    {
 
         $this->newsRepository = $newsRepository;
         $this->newsInfoDTOMaker = $newsInfoDTOMaker;
@@ -198,6 +198,14 @@ class NewsService
     public function getNewsDetail(int $id): NewsInfoDTO
     {
         $news = $this->newsRepository->findOrFail($id);
+        $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
+        $images = $attachmentInfoDto->getImages()[$news->id];
+        return $this->newsInfoDTOMaker->convert($news, $images);
+    }
+
+    public function getNewsDetailWithSlug(string $slug)
+    {
+        $news = $this->newsRepository->findOrFailSlug($slug);
         $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
         $images = $attachmentInfoDto->getImages()[$news->id];
         return $this->newsInfoDTOMaker->convert($news, $images);

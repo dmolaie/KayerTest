@@ -26,7 +26,6 @@ class NewsController extends EhdaBaseController
 
     public function __construct(NewsService $newsService)
     {
-
         $this->newsService = $newsService;
     }
 

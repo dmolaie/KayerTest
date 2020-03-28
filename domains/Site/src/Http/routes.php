@@ -16,12 +16,16 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/interactions', 'PagesController@interactions')->name('interactions');
         Route::get('/ngo-foundations', 'PagesController@foundations')->name('foundations');
         Route::get('/mission-and-vision', 'PagesController@missionAndVision')->name('mission-and-vision');
+        Route::get('/iran_news', 'PagesController@newsListIran')->name('news-list-iran');
+        Route::get('/world-news', 'PagesController@newsListWorld')->name('news-list-world');
+
 
         Route::get('/{slug}', 'PagesController@pages')->name('pages');
     });
 
     Route::prefix('archive')->name('archive.')->group(function () {
         Route::get('/news', 'PagesController@newsList')->name('news-list');
+        Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
     });
 
 });
