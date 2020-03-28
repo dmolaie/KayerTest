@@ -119,9 +119,8 @@ class NewsRepository
                 return $query->where('province_id', $newsFilterDTO->getProvinceId());
 
             })
-            ->orderBy('id', $newsFilterDTO->getSort())
-            ->paginate(config('news.news_paginate_count'));
-
+            ->orderBy('created_at', $newsFilterDTO->getSort())
+            ->paginate($newsFilterDTO->getPaginationCount());
         return $baseQuery;
     }
 
@@ -130,9 +129,8 @@ class NewsRepository
         return $this->entityName::where('id', $newsId)->delete();
     }
 
-    public function changeStatus(int $newsId, string $status): News
+    public function changeStatus(News $news, string $status): News
     {
-        $news = $this->findOrFail($newsId);
         $news->status = $status;
         $getDirty = $news->getDirty();
         if (!empty($getDirty)) {

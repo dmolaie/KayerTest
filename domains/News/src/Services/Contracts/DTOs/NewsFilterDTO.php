@@ -59,6 +59,10 @@ class NewsFilterDTO
      * @var string
      */
     protected $sort = 'DESC';
+    /**
+     * @var int|null
+     */
+    protected $paginationCount;
 
     /**
      * @return string|null
@@ -253,6 +257,24 @@ class NewsFilterDTO
     public function setSort(string $sort): NewsFilterDTO
     {
         $this->sort = $sort;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPaginationCount(): int
+    {
+        return $this->paginationCount ?? config('news.news_paginate_count');
+    }
+
+    /**
+     * @param int|null $paginationCount
+     * @return NewsFilterDTO
+     */
+    public function setPaginationCount(?int $paginationCount): NewsFilterDTO
+    {
+        $this->paginationCount = $paginationCount;
         return $this;
     }
 

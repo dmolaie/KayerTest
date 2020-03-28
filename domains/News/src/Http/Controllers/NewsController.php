@@ -105,8 +105,7 @@ class NewsController extends EhdaBaseController
 
             return $this->response(
                 $newsInfoPresenter->transform($newsInfoDTO),
-                Response::HTTP_OK,
-                trans('news::response.edit_successful')
+                Response::HTTP_OK
             );
         } catch (ModelNotFoundException $exception) {
             return $this->response(

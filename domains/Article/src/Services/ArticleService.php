@@ -194,8 +194,17 @@ class ArticleService
 
     public function changeStatus(int $articleId, string $status)
     {
-        $status = $this->getArticleStatus(Auth::user(), $status);
-        $article = $this->articleRepository->changeStatus($articleId, $status);
+        $oldArticle = $this->articleRepository->findOrFail($articleId);
+        $status = $this->getArticleStatus($oldArticle->publisher, $status);
+        $article = $this->articleRepository->changeStatus($oldArticle, $status);
+        $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
+        $images = $attachmentInfoDto->getImages()[$article->id];
+        return $this->articleInfoDTOMaker->convert($article, $images);
+    }
+
+    public function getArticleDetail(int $id)
+    {
+        $article = $this->articleRepository->findOrFail($id);
         $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
         $images = $attachmentInfoDto->getImages()[$article->id];
         return $this->articleInfoDTOMaker->convert($article, $images);
