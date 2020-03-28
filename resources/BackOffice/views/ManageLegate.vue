@@ -4,15 +4,19 @@
             <div class="m-post__tabs">
                 <div class="inline-flex items-stretch">
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                            :class="{ 'm-post__tab--active': true }"
                             v-text="'همه'"
                     > </button>
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                            v-if="false"
                             v-text="'زباله‌دان'"
                     > </button>
                 </div>
             </div>
             <div class="m-post__wrapper">
-                <div class="m-post__header flex">
+                <div class="m-post__header flex"
+                     v-if="false"
+                >
                     <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
                             @click.prevent="onClickToggleSearchButton"
                     >
@@ -89,7 +93,9 @@
                                     > </span>
                                 </div>
                                 <div class="table__td table__td:xl">
-                                    <div class="flex items-start">
+                                    <div class="flex items-start"
+                                         v-if="false"
+                                    >
                                         <span class="m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                               v-for="(item, index) in item.roles"
                                               :key="'status-' + index"
@@ -170,7 +176,6 @@
                 .then(() => {
                     setTimeout(() => {
                         this.$set(this, 'isPending', false);
-
                     }, 70);
                 });
         },
