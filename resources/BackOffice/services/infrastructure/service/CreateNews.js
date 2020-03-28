@@ -57,8 +57,23 @@ export default class CreateNewsService extends BaseService {
     }
 
     checkFormValidation() {
-        let duplicateFrom = this.$vm.form;
-        return !!duplicateFrom['first_title'].trim();
+        let {
+            first_title,
+            slug
+        } = this.$vm.form;
+        if ( !first_title.trim() ) {
+            this.$vm.displayNotification('وارد کردن عنوان الزامی است.', {
+                type: 'error'
+            });
+            return false;
+        }
+        if ( !slug.trim() ) {
+            this.$vm.displayNotification('وارد کردن اسلاگ خبر الزامی است.', {
+                type: 'error'
+            });
+            return false;
+        }
+        return true;
     }
 
     get createRequestBody() {
@@ -82,6 +97,8 @@ export default class CreateNewsService extends BaseService {
 
             if ( HasLength( duplicateFrom['description'] ) )
                 duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
+
+            duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /, '-');
 
             Object.keys( duplicateFrom )
                 .forEach( key => {

@@ -76,8 +76,23 @@ export default class EditNewsService extends BaseService {
     }
 
     checkFormValidation() {
-        let duplicateFrom = this.$vm.form;
-        return !!duplicateFrom['first_title'].trim();
+        let {
+            first_title,
+            slug
+        } = this.$vm.form;
+        if ( !first_title.trim() ) {
+            this.$vm.displayNotification('وارد کردن عنوان الزامی است.', {
+                type: 'error'
+            });
+            return false;
+        }
+        if ( !slug.trim() ) {
+            this.$vm.displayNotification('وارد کردن اسلاگ خبر الزامی است.', {
+                type: 'error'
+            });
+            return false;
+        }
+        return true;
     }
 
     createUpdateRequestBody() {
@@ -105,6 +120,10 @@ export default class EditNewsService extends BaseService {
                     formData.append('category_ids[]', id);
                 });
             }
+
+            if ( !(this.$vm.detail['slug'] === duplicateFrom['slug'].trim()) )
+                formData.append('slug', duplicateFrom['slug'].replace(/ /, '-'));
+
             if ( !!this.$vm.images.main.data )
                 formData.append('images[]', this.$vm.images.main.data.get('images'));
             if ( !!this.$vm.images.second.data )

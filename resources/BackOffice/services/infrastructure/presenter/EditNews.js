@@ -38,6 +38,7 @@ export class NewsItemPresenter extends BasePresenter {
             secondImage: Object,
             has_relation: Boolean,
             is_owner: Boolean,
+            slug: String,
         })
     }
 
@@ -168,5 +169,13 @@ export class NewsItemPresenter extends BasePresenter {
 
     is_owner() {
         return !!this.data.is_created_by_user
+    }
+
+    slug() {
+        let {
+            slug
+        } = this.data;
+
+        return !!slug ? slug.replace(/-/g, ' ') : ''
     }
 }

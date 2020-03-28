@@ -64,8 +64,23 @@ export default class EditArticleService {
     }
 
     checkFormValidation() {
-        let duplicateFrom = this.$vm.form;
-        return !!duplicateFrom['first_title'].trim();
+        let {
+            first_title,
+            slug
+        } = this.$vm.form;
+        if ( !first_title.trim() ) {
+            this.$vm.displayNotification('وارد کردن عنوان الزامی است.', {
+                type: 'error'
+            });
+            return false;
+        }
+        if ( !slug.trim() ) {
+            this.$vm.displayNotification('وارد کردن اسلاگ صفحه الزامی است.', {
+                type: 'error'
+            });
+            return false;
+        }
+        return true;
     }
 
     get createBodyRequest() {
@@ -82,8 +97,6 @@ export default class EditArticleService {
                 formData.append('category_ids[]', id);
             });
         }
-        if ( !!duplicateFrom['slug'] )
-            formData.append('slug', duplicateFrom['slug'].replace(/ /g, '-'));
         formData.append('first_title', duplicateFrom['first_title']);
         if ( !!duplicateFrom['second_title'] )
             formData.append('second_title', duplicateFrom['second_title']);
@@ -93,6 +106,9 @@ export default class EditArticleService {
             formData.append('abstract', duplicateFrom['abstract']);
         if ( !!duplicateFrom['language'] )
             formData.append('language', duplicateFrom['language']);
+        if ( !(this.$vm.detail['slug'] === duplicateFrom['slug'].trim()) )
+            formData.append('slug', duplicateFrom['slug'].replace(/ /, '-'));
+
         if ( !!this.$vm.images.data )
             formData.append('images[]', this.$vm.images.data.get('images'));
 

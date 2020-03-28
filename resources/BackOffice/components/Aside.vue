@@ -66,6 +66,11 @@
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {
+                    route: 'MANAGE_LEGATE',
+                    title: 'سفیران اهدای عضو',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
                     route: 'LOGOUT',
                     title: 'خروج',
                     icon: 'ic__logout-blue.svg'
