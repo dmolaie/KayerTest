@@ -25,6 +25,10 @@ class CategoryDTO
      * @var string
      */
     protected $type;
+    /**
+     * @var string
+     */
+    protected $slug;
 
     /**
      * @var mixed
@@ -140,6 +144,24 @@ class CategoryDTO
     public function setId(int $id): CategoryDTO
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return CategoryDTO
+     */
+    public function setSlug(string $slug): CategoryDTO
+    {
+        $this->slug = $slug;
         return $this;
     }
 

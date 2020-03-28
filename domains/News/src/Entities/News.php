@@ -30,6 +30,7 @@ class News extends Model
         'province_id',
         'editor_id',
         'publisher_id',
+        'slug',
         'language'
     ];
 

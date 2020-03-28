@@ -23,6 +23,7 @@ class CategoryListPresenter
             'name_fa'   => $categoryDTO->getNameFa(),
             'type'      => $categoryDTO->getType(),
             'is_active' => $categoryDTO->isStatus(),
+            'slug'      => $categoryDTO->getSlug(),
             'children'  => $this->transformMany(
                 $categoryDTO->getChildren()->toArray()
             )

@@ -60,7 +60,10 @@ class NewsBaseSaveDTO
      * @var null|string
      */
     protected $status;
-
+    /**
+     * @var string
+     */
+    protected $slug;
     /**
      * @var null|array
      */
