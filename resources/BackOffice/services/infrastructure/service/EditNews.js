@@ -12,7 +12,9 @@ import {
 import {
     CopyOf, HasLength, EncodeHTML
 } from "@vendor/plugin/helper";
-//DELETE_IMAGES_ITEM
+import StatusService from '@services/service/Status';
+import ExceptionService from '@services/service/exception';
+
 export default class EditNewsService extends BaseService {
     constructor( layout ) {
         super();
@@ -52,7 +54,8 @@ export default class EditNewsService extends BaseService {
             this.$vm.displayNotification( message, {
                 type: 'error',
                 duration: 4000
-            })
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         }
     }
 
@@ -64,25 +67,107 @@ export default class EditNewsService extends BaseService {
         }
     }
 
-    async onClickUpdateButton() {
+    static async deleteImage( image_id ) {
         try {
-            // let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM));
-        } catch ({ message }) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
+            await HTTPService.postRequest( Endpoint.get( Endpoint.DELETE_IMAGES_ITEM ), {
+                image_id
             })
+        } catch (e) {}
+    }
+
+    checkFormValidation() {
+        let duplicateFrom = this.$vm.form;
+        return !!duplicateFrom['first_title'].trim();
+    }
+
+    createUpdateRequestBody() {
+        try {
+            let duplicateFrom = CopyOf( this.$vm.form );
+            const formData = new FormData();
+
+            formData.append('news_id', duplicateFrom['news_id']);
+            formData.append('first_title', duplicateFrom['first_title']);
+            formData.append('publish_date', (new Date().getTime() / 1e3));
+            formData.append('province_id', duplicateFrom['province_id']);
+            if ( !!duplicateFrom['second_title'] )
+                formData.append('second_title', duplicateFrom['second_title']);
+            if ( !!duplicateFrom['abstract'] )
+                formData.append('abstract', duplicateFrom['abstract']);
+            if ( !!duplicateFrom['description'] )
+                formData.append('description', EncodeHTML( duplicateFrom['description'] ));
+            if ( !!duplicateFrom['source_link'] )
+                formData.append('source_link', duplicateFrom['source_link']);
+            if ( !!duplicateFrom['language'] )
+                formData.append('language', duplicateFrom['language']);
+            if ( HasLength( duplicateFrom['category_ids'] ) ) {
+                formData.append('main_category_id', duplicateFrom['category_ids'][0]);
+                duplicateFrom['category_ids'].forEach(id => {
+                    formData.append('category_ids[]', id);
+                });
+            }
+            if ( !!this.$vm.images.main.data )
+                formData.append('images[]', this.$vm.images.main.data.get('images'));
+            if ( !!this.$vm.images.second.data )
+                formData.append('images[]', this.$vm.images.second.data.get('images'));
+
+            return formData;
+        } catch (e) {
+            throw e;
         }
     }
 
-    async onClickUnPublishButton() {
+    async deleteUnusedImages() {
         try {
+            await Promise.all(
+                this.$vm.removedImages.map(image_id => EditNewsService.deleteImage( image_id ))
+            )
+        } catch (e) {}
+    }
 
-        } catch ({ message }) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
-            })
+    async onClickRejectItemButton( news_id ) {
+        try {
+            let response = await NewsService.changeStatusNewsItem(news_id, StatusService.REJECT_STATUS);
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
+        } catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
+        }
+    }
+
+    async onClickUpdateButton() {
+        try {
+            let payload = this.createUpdateRequestBody();
+            await this.deleteUnusedImages();
+            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_NEWS_ITEM), payload);
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
+        } catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
+        }
+    }
+
+    async onClickChangeStatusButton( news_id ) {
+        try {
+            let response = await NewsService.changeStatusNewsItem(news_id, StatusService.PENDING_STATUS);
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
+        } catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
     }
 }

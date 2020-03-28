@@ -54,6 +54,7 @@
                         </p>
                         <div class="block w-full c-article__tags">
                             <tags-cm :list="categories"
+                                     :value="form.categories"
                                      placeholder="عنوان دسته‌بندی"
                                      itemClassName="text-right"
                                      tagWrapperClassName="input bg-white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
@@ -77,23 +78,28 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm statusLabel="ذخیره‌نشده"
-                            :isNotPublished="true"
-                            :showDraftButton="true"
-                            @onClickDraftButton="onClickDraftButton"
+                <publish-cm :isPublished="form.is_published"
+                            :isPending="form.is_pending"
+                            :isReject="form.is_reject"
+                            :isAccept="form.is_accept"
+                            :isReadyPublished="form.is_ready_to_publish"
+                            buttonLabel="بروزرسانی"
+                            :statusLabel="form.status || ''"
                 >
                     <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickChiefEditorButton(); hiddenDropdown()}"
+                                @click.prevent="() => {onClickSaveChangeButton(); hiddenDropdown()}"
                         >
-                            {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
+                            بروزرسانی
                         </button>
-                        <span class="dropdown__divider"> </span>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickRemoveButton(); hiddenDropdown()}"
-                        >
-                            انتقال به زباله‌دان
-                        </button>
+                        <template v-if="!(isAdmin && form.is_owner)">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickChangeStatusButton(); hiddenDropdown()}"
+                            >
+                                لفو انتشار
+                            </button>
+                        </template>
                     </template>
                 </publish-cm>
                 <location-cm :lang="currentLang"
@@ -101,6 +107,7 @@
                 />
                 <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
+                                :value="form.image_paths"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -125,18 +132,19 @@
 </template>
 
 <script>
-
     import {
         mapGetters, mapState
     } from 'vuex';
     import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
-    import CreateArticleService from '@services/service/CreateArticle';
+    import EditArticleService from '@services/service/EditArticle';
     import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
-
+    import {
+        CopyOf, HasLength
+    } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
     } from '@services/store/Login'
@@ -151,6 +159,7 @@
         description: '',
         slug: '',
         language: '',
+        categories: [],
         category_ids: [],
     });
 
@@ -160,13 +169,14 @@
     });
 
     export default {
-        name: 'CreateArticle',
+        name: 'EditArticle',
         data: () => ({
             form: GET_INITIAL_FORM(),
             images: GET_INITIAL_IMAGE(),
-            shouldBeShowSecondTitle: false,
-            shouldBeShowLoading: false,
+            removedImages: [],
             isModuleRegistered: false,
+            shouldBeShowLoading: true,
+            shouldBeShowSecondTitle: false,
         }),
         components: {
             IconCm,
@@ -181,19 +191,14 @@
                 isAdmin: IS_ADMIN
             }),
             ...mapState({
-                categories: ({ CreateArticleStore }) => CreateArticleStore.categories,
+                detail: ({ EditArticleStore }) => EditArticleStore.detail,
+                categories: ({ EditArticleStore }) => EditArticleStore.categories,
             }),
             currentLang() {
                 return this.$route.params.lang || 'fa'
             }
         },
         methods: {
-            setInitialState() {
-                Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
-                Object.assign(this.images, GET_INITIAL_IMAGE.apply( this ));
-                this.$refs['textEditor']?.clearContent();
-                this.$refs['imagePanel']?.onClickRemoveImageButton();
-            },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
@@ -209,29 +214,39 @@
                     });
                 return formIsValid
             },
-            async onClickChiefEditorButton() {
+            async onClickSaveChangeButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
                     let formIsValid = this.formIsValid();
-                    if ( formIsValid ) {
-                        await Service.onClickReleaseButton();
-                    }
+                    if ( formIsValid )
+                        await Service.onClickSaveChangeButton();
                 }
                 finally {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
             },
-            onClickDraftButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            async onClickChangeStatusButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickChangeStatusArticleButton( this.form.article_id );
+                } catch (e) {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
+                }
             },
-            onClickRemoveButton() {
-                this.displayNotification('این قابلیت در حال حاظر فعال نمیباشد.', {
-                    type: 'error'
-                });
+            onClickRemoveMainImage() {
+                let {
+                    image_paths
+                } = this.form;
+
+                if ( HasLength( image_paths ) ) {
+                    this.removedImages.push( image_paths.id );
+                    this.$set(this.form, 'image_paths', {});
+                }
+
+                Object.assign(this.images, GET_INITIAL_IMAGE.apply( this ));
             },
             onChangeMainImageField( payload ) {
+                this.onClickRemoveMainImage();
                 this.$set( this.images, 'data', payload )
             },
             setLanguageFromParamsRouter() {
@@ -241,14 +256,25 @@
                 try {
                     this.form.category_ids = item;
                 } catch (e) {}
+            },
+            setDataIntoForm() {
+                try {
+                    this.$set(this, 'form', CopyOf(this.detail));
+                    this.$refs['textEditor'].setContent( this.form.description );
+                    if ( !!this.form.second_title )
+                        this.$set(this, 'shouldBeShowSecondTitle', true);
+                } catch (e) {}
             }
         },
         async created() {
-            Service = new CreateArticleService( this );
-            await Service.processFetchAsyncData();
-        },
-        mounted() {
-            this.setLanguageFromParamsRouter();
+            Service = new EditArticleService( this );
+            Service.processFetchAsyncData()
+                .then(this.nextTick)
+                .then(() => {
+                    this.setLanguageFromParamsRouter();
+                    this.setDataIntoForm();
+                    this.$set(this, 'shouldBeShowLoading', false);
+                });
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();

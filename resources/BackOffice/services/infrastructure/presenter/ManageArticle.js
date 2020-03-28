@@ -2,17 +2,20 @@ import BasePresenter from '@vendor/infrastructure/presenter/BasePresenter';
 import {
     HasLength
 } from "@vendor/plugin/helper";
-
+import {
+    ImagesPresenter,
+    SelectedCategoriesPresenter
+} from '@vendor/infrastructure/presenter/MainPresenter';
 
 export class ManageArticlePresenter {
     constructor( payload ) {
         return ( !!payload && HasLength( payload ) ) ? (
-            payload.map(item => new SingleManageArticlePresenter( item ))
+            payload.map(item => new SingleArticlePresenter( item ))
         ) : ([])
     }
 }
 
-export class SingleManageArticlePresenter extends BasePresenter {
+export class SingleArticlePresenter extends BasePresenter {
     constructor( item ) {
         super( item );
         this.data = item;
@@ -37,6 +40,7 @@ export class SingleManageArticlePresenter extends BasePresenter {
             publisher: Object,
             editor: Object,
             lang: String,
+            lang_fa: String,
             relation_id: Number,
             image: String,
         })
@@ -63,11 +67,7 @@ export class SingleManageArticlePresenter extends BasePresenter {
     }
 
     category() {
-        const CATEGORY = this.data?.categories;
-
-        return ( !!CATEGORY && HasLength( CATEGORY ) ) ? (
-            CATEGORY.map(cat => new CategoryItemPresenter( cat ))
-        ) : ([])
+        return new SelectedCategoriesPresenter( this.data.categories );
     }
 
     publish_date() {
@@ -134,6 +134,10 @@ export class SingleManageArticlePresenter extends BasePresenter {
     }
 
     lang() {
+        return this.data?.language
+    }
+
+    lang_fa() {
         return (this.data?.language === 'fa') ? 'فارسی' : 'انگلیسی'
     }
 
@@ -142,55 +146,8 @@ export class SingleManageArticlePresenter extends BasePresenter {
     }
 
     image() {
-        const IMAGES = this.data?.image_paths;
-        return ( !!IMAGES && HasLength( IMAGES ) ) ? (
-            (IMAGES.map(image => new ImagePresenter( image )))[0].path
-        ) : ('')
+        let images = new ImagesPresenter( this.data.image_paths );
+        return HasLength( images ) ? images[0].path : '';
     }
 
-}
-
-export class CategoryItemPresenter extends BasePresenter {
-    constructor( item ) {
-        super( item );
-        this.data = item;
-
-        return this.mapProps({
-            id: Number,
-            en: String,
-            fa: String,
-            is_main: Boolean
-        })
-    }
-
-    id() {
-        return this.data.id
-    }
-
-    en() {
-        return this.data.name_en
-    }
-
-    fa() {
-        return this.data.name_fa
-    }
-
-    is_main() {
-        return this.data.is_main
-    }
-}
-
-export class ImagePresenter extends BasePresenter {
-    constructor( item ) {
-        super( item );
-        this.data = item;
-
-        return this.mapProps({
-            path: String
-        })
-    }
-
-    path() {
-        return this.data.path || ''
-    }
 }

@@ -4,7 +4,7 @@ const EventBus = new Vue();
 
 const defaultOption = {
     type: 'simple',
-    duration: 5000,
+    duration: 4000,
     visibility: true,
     closeWithClick: true,
 };

@@ -1,13 +1,17 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
-import {
+import CreateMenu, {
     C_NEWS_SET_CATEGORY,
     C_NEWS_SET_PROVINCES
 } from '@services/store/CreateNews';
 import {
+    NewsService
+} from '@services/service/ManageNews';
+import {
     CopyOf, HasLength, EncodeHTML
 } from "@vendor/plugin/helper";
+import ExceptionService from '@services/service/exception';
 
 export default class CreateNewsService extends BaseService {
     constructor( layout ) {
@@ -16,38 +20,39 @@ export default class CreateNewsService extends BaseService {
         this.$store = layout.$store;
 
         BaseService.ViewPortProcess( this.$store , false );
+        this._RegisterStoreModule();
+    }
+
+    _RegisterStoreModule() {
+        try {
+            this.$store.registerModule('CreateMenuStore', CreateMenu);
+            this.$vm.$set(this.$vm, 'isModuleRegistered', true);
+        } catch (e) {}
+    }
+
+    _UnregisterStoreModule() {
+        try {
+            if ( this.$vm.isModuleRegistered )
+                this.$store.unregisterModule('CreateMenuStore');
+        } catch (e) {}
     }
 
     async processFetchAsyncData() {
         try {
-            await this.getCategoryList();
-            await this.getProvincesList();
-        } catch (e) {}
-    }
+            let response = await Promise.all([
+                NewsService.getNewsCategories(),
+                NewsService.getProvincesList(),
+            ]);
 
-    async getCategoryList() {
-        try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
-                category_type: 'news'
-            });
-            BaseService.commitToStore(this.$store, C_NEWS_SET_CATEGORY, response);
-        } catch ({ message }) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
-            })
+            BaseService.commitToStore(this.$store, C_NEWS_SET_CATEGORY, response[0]);
+            BaseService.commitToStore(this.$store, C_NEWS_SET_PROVINCES, response[1]);
         }
-    }
-
-    async getProvincesList() {
-        try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES));
-            BaseService.commitToStore(this.$store, C_NEWS_SET_PROVINCES, response);
-        } catch ({ message }) {
+        catch ({ message }) {
             this.$vm.displayNotification( message, {
                 type: 'error',
                 duration: 4000
-            })
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         }
     }
 
@@ -56,7 +61,7 @@ export default class CreateNewsService extends BaseService {
         return !!duplicateFrom['first_title'].trim();
     }
 
-    createRequestBody() {
+    get createRequestBody() {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
             const formData = new FormData();
@@ -64,8 +69,7 @@ export default class CreateNewsService extends BaseService {
             if ( !duplicateFrom['publish_date'] )
                 duplicateFrom['publish_date'] = (new Date().getTime() / 1e3);
 
-            if ( !duplicateFrom['province_id'] )
-                duplicateFrom['province_id'] = ( this.$vm.provinces[0]?.id || 1 );
+            duplicateFrom['province_id'] = ( duplicateFrom['province_id'] || this.$vm.defaultProvinces.id );
 
             if ( HasLength( duplicateFrom['category_ids'] ) ) {
                 duplicateFrom['main_category_id'] = duplicateFrom['category_ids'][0];
@@ -104,8 +108,8 @@ export default class CreateNewsService extends BaseService {
 
     async onClickReleaseButton() {
         try {
-            let payload = this.createRequestBody();
-            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), payload);
+            let REQUEST_BODY = this.createRequestBody;
+            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_NEWS_ITEM), REQUEST_BODY);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
                 duration: 4000
@@ -113,14 +117,10 @@ export default class CreateNewsService extends BaseService {
             this.$vm.pushRouter( { name: 'MANAGE_NEWS' } );
         }
         catch ( exception ) {
-            let errorMessage = exception.message;
-            let errors = exception?.errors;
-            if (!!errors)
-                errorMessage = Object.entries(errors)[0][1][0];
-            this.$vm.displayNotification(errorMessage, {
-                type: 'error',
-                duration: 4000
-            })
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
     }
 }

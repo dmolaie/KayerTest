@@ -1,16 +1,39 @@
 .publish
   padding: 25px 13px 15px 14px
   &__status
-    margin-bottom: 24px
-    &--published, &--not-published
-      padding-top: 3px
-      line-height: 41px
+    padding-top: 3px
+    line-height: 41px
+    &--accept
+      $color: #33c15d
+      color: $white
+      background-color: $color
+      border-color: darken($color, 8%)
     &--published
-      $c: #417505
+      $c: #33c15d
       color: $c
       border:
         color: $c
-      background: #cfebd7
+      background: transparentize($c, .91)
+    &--ready-published
+      $c: #7ed321
+      color: $c
+      border:
+        color: $c
+      background: transparentize($c, .91)
+    &--pending
+      $color: #ffb540
+      color: $white
+      border-color: darken($color, 7%)
+      background: $color
+    &--reject
+      $black: #444
+      color: $black
+      border-color: lighten($black, 20%)
+      background-color: lighten($black, 60%)
+    &--recycle
+      color: $red
+      border-color: lighten($red, 20%)
+      background-color: lighten($red, 55%)
     &--not-published
       color: $red
       border:
@@ -33,3 +56,5 @@
       pointer-events: none
   .dropdown
     top: 52px
+  .m-b-24
+    margin-bottom: 24px

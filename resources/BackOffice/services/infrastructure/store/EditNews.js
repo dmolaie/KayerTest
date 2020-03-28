@@ -2,9 +2,13 @@ import {
     NewsItemPresenter,
 } from '@services/presenter/EditNews';
 import {
+    FlattenCategories,
     ProvincesPresenter,
-    CategoriesPresenter,
+    CategoriesPresenter
 } from '@vendor/infrastructure/presenter/MainPresenter';
+import {
+    HasLength
+} from "@vendor/plugin/helper";
 
 export const E_NEWS_SET_DATA = 'E_NEWS_SET_DATA';
 export const E_NEWS_SET_PROVINCES = 'E_NEWS_SET_PROVINCES';
@@ -21,7 +25,7 @@ const EditNewsStore = {
             state.detail = { ...new NewsItemPresenter( payload ) };
         },
         [E_NEWS_SET_CATEGORIES](state, { data }) {
-            state.categories = { ...new CategoriesPresenter( data ) }
+            state.categories = { ...FlattenCategories( new CategoriesPresenter( data ) ) }
         },
         [E_NEWS_SET_PROVINCES](state, { data }) {
             state.provinces = { ...new ProvincesPresenter( data ) };

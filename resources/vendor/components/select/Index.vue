@@ -11,9 +11,9 @@
              :aria-placeholder="placeholder"
              role="combobox"
         >
-            <template v-if="(!multiple && !!selected.text) || !!value"
+            <template v-if="(!multiple && !!selected[label]) || !!value"
             >
-                {{ !!selected.text ? selected.text : value }}
+                {{ !!selected[label] ? selected[label] : value }}
             </template>
         </div>
         <div class="select__body absolute none w-full bg-white rounded opacity-0 visibility-hidden pointer-event-none transition-opacity z-10">
@@ -32,7 +32,7 @@
                 <button class="select__option w-full block text-bayoux font-xs font-bold cursor-pointer user-select-none text-right"
                         v-for="(option, index) in options"
                         :key="index"
-                        v-text="option.text"
+                        v-text="option[label]"
                         :class="{ 'select__option--selected': ( option.selected ) }"
                         @click.prevent="onClickOptions( option )"
                         role="option"
@@ -88,6 +88,10 @@
                 type: String,
                 default: ''
             },
+            label: {
+                type: String,
+                default: 'text'
+            }
         },
         methods: {
             resetValue() {
