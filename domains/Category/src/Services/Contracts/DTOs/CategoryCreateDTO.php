@@ -22,6 +22,10 @@ class CategoryCreateDTO
      */
     protected $type;
     /**
+     * @var string
+     */
+    protected $slug;
+    /**
      * @var null
      */
     protected $parentId = null;
@@ -117,6 +121,24 @@ class CategoryCreateDTO
     public function setStatus(bool $status): CategoryCreateDTO
     {
         $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return CategoryCreateDTO
+     */
+    public function setSlug(string $slug): CategoryCreateDTO
+    {
+        $this->slug = $slug;
         return $this;
     }
 

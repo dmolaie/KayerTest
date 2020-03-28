@@ -273,5 +273,23 @@ class NewsEditDTO extends NewsBaseSaveDTO
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param null|string $slug
+     * @return NewsEditDTO
+     */
+    public function setSlug(?string $slug): NewsEditDTO
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
 }

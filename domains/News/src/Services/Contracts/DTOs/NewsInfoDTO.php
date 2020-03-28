@@ -4,7 +4,6 @@
 namespace Domains\News\Services\Contracts\DTOs;
 
 
-use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 
@@ -73,6 +72,10 @@ class NewsInfoDTO
      * @var null|User
      */
     protected $editor;
+    /**
+     * @var string
+     */
+    protected $slug;
 
     /**
      * @return User|null
@@ -343,4 +346,23 @@ class NewsInfoDTO
         $this->language = $language;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return NewsInfoDTO
+     */
+    public function setSlug(string $slug): NewsInfoDTO
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 }

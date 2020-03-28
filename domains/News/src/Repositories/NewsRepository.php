@@ -26,6 +26,7 @@ class NewsRepository
     {
         $news = new  $this->entityName;
         $news->first_title = $newsCreateDTO->getFirstTitle();
+        $news->slug = $newsCreateDTO->getSlug();
         $news->second_title = $newsCreateDTO->getSecondTitle();
         $news->abstract = $newsCreateDTO->getAbstract();
         $news->description = $newsCreateDTO->getDescription();
@@ -53,6 +54,7 @@ class NewsRepository
         $news->first_title = $newsEditDTO->getFirstTitle();
         $news->second_title = $newsEditDTO->getSecondTitle();
         $news->abstract = $newsEditDTO->getAbstract();
+        $news->slug = $newsEditDTO->getSlug()??$news->slug;
         $news->description = $newsEditDTO->getDescription();
         $news->publish_date = $newsEditDTO->getPublishDate();
         $news->source_link = $newsEditDTO->getSourceLink();
@@ -84,13 +86,16 @@ class NewsRepository
 
         $baseQuery = $this->entityName
             ::when($newsFilterDTO->getNewsRealStatus(), function ($query) use ($newsFilterDTO) {
-                if($newsFilterDTO->getNewsRealStatus() == config('news.news_convert_to_real_status.delete')){
+                if ($newsFilterDTO->getNewsRealStatus() == config('news.news_convert_to_real_status.delete')) {
                     return $query->onlyTrashed();
                 }
                 return $query->where('status', $newsFilterDTO->getNewsRealStatus());
             })
             ->when($newsFilterDTO->getPublisherId(), function ($query) use ($newsFilterDTO) {
                 return $query->where('publisher_id', $newsFilterDTO->getPublisherId());
+            })
+            ->when($newsFilterDTO->getSlug(), function ($query) use ($newsFilterDTO) {
+                return $query->where('slug', $newsFilterDTO->getSlug());
             })
             ->when($newsFilterDTO->getFirstTitle(), function ($query) use ($newsFilterDTO) {
                 return $query->where('first_title', 'like', '%' . $newsFilterDTO->getFirstTitle() . '%');

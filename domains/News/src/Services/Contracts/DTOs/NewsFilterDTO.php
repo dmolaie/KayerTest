@@ -56,6 +56,10 @@ class NewsFilterDTO
      */
     protected $language;
     /**
+     * @var string|null
+     */
+    protected $slug;
+    /**
      * @var string
      */
     protected $sort = 'DESC';
@@ -275,6 +279,24 @@ class NewsFilterDTO
     public function setPaginationCount(?int $paginationCount): NewsFilterDTO
     {
         $this->paginationCount = $paginationCount;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     * @return NewsFilterDTO
+     */
+    public function setSlug(?string $slug): NewsFilterDTO
+    {
+        $this->slug = $slug;
         return $this;
     }
 

@@ -273,5 +273,23 @@ class NewsCreateDTO extends NewsBaseSaveDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return NewsCreateDTO
+     */
+    public function setSlug(string $slug): NewsCreateDTO
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
 }

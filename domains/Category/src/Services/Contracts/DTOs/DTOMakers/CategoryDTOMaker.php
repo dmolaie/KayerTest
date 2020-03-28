@@ -23,6 +23,7 @@ class CategoryDTOMaker
             ->setNameFa($category->name_fa)
             ->setType($category->type)
             ->setId($category->id)
+            ->setSlug($category->slug)
             ->setStatus($category->is_active)
             ->setChildren(
                 $this->getCategoryChildren($category)

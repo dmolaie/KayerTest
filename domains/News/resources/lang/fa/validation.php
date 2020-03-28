@@ -111,5 +111,6 @@ return array(
         "publish_date_start" => "تاریخ پایان ایجاد خبر",
         "news_id"            => "شماره خبر",
         "status"             => "وضعیت خبر",
+        "slug"               => "اسلاگ خبر",
     ],
 );

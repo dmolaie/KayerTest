@@ -18,18 +18,19 @@ class EditNewsRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'news_id' => 'required|integer|exists:news,id',
-            'first_title' => 'required|string',
-            'second_title' => 'string',
-            'abstract' => 'string',
-            'description' => 'string',
-            'category_ids' => 'array|exists:categories,id',
+            'news_id'          => 'required|integer|exists:news,id',
+            'first_title'      => 'required|string',
+            'second_title'     => 'string',
+            'abstract'         => 'string',
+            'description'      => 'string',
+            'slug'             => 'string|unique:news',
+            'category_ids'     => 'array|exists:categories,id',
             'main_category_id' => 'integer|exists:categories,id',
-            'publish_date' => 'required|numeric',
-            'source_link' => 'url',
-            'province_id' => 'required|integer|exists:provinces,id',
-            'language' => ['required', Rule::in(config('news.news_language'))],
-            'images.*' => 'image'
+            'publish_date'     => 'required|numeric',
+            'source_link'      => 'url',
+            'province_id'      => 'required|integer|exists:provinces,id',
+            'language'         => ['required', Rule::in(config('news.news_language'))],
+            'images.*'         => 'image'
         ];
     }
 
@@ -58,6 +59,7 @@ class EditNewsRequest extends EhdaBaseRequest
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setSecondTitle($this['second_title'])
             ->setAttachmentFiles($this['images'])
+            ->setSlug($this['slug'])
             ->setSourceLink($this['source_link']);
 
         return $newsEditDTO;
