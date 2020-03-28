@@ -92,16 +92,18 @@
                         >
                             بروزرسانی
                         </button>
-                        <span class="dropdown__divider"> </span>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickChangeStatusButton(); hiddenDropdown()}"
-                        >
-                            لفو انتشار
-                        </button>
+                        <template v-if="!(isAdmin && form.is_owner)">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickChangeStatusButton(); hiddenDropdown()}"
+                            >
+                                لفو انتشار
+                            </button>
+                        </template>
                     </template>
                 </publish-cm>
                 <location-cm :lang="currentLang"
-                             disabled="en"
+                             :disabledEn="true"
                 />
                 <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
@@ -131,7 +133,7 @@
 
 <script>
     import {
-        mapState
+        mapGetters, mapState
     } from 'vuex';
     import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
@@ -143,6 +145,9 @@
     import {
         CopyOf, HasLength
     } from "@vendor/plugin/helper";
+    import {
+        IS_ADMIN
+    } from '@services/store/Login'
 
     let Service = null;
 
@@ -182,6 +187,9 @@
             TagsCm
         },
         computed: {
+            ...mapGetters({
+                isAdmin: IS_ADMIN
+            }),
             ...mapState({
                 detail: ({ EditArticleStore }) => EditArticleStore.detail,
                 categories: ({ EditArticleStore }) => EditArticleStore.categories,

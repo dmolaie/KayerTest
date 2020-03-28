@@ -33,6 +33,7 @@ export default class ArticleItemPresenter extends BasePresenter {
             language: String,
             relation_id: Number,
             image_paths: Array,
+            is_owner: Boolean,
         })
     }
 
@@ -66,7 +67,7 @@ export default class ArticleItemPresenter extends BasePresenter {
     }
 
     category_ids() {
-        return this.categories().map(({ id }) => id)
+        return new SelectedCategoriesPresenter( this.data.categories )
     }
 
     slug() {
@@ -138,4 +139,7 @@ export default class ArticleItemPresenter extends BasePresenter {
         return HasLength( images ) ? images[0] : {}
     }
 
+    is_owner() {
+        return !!this.data.is_created_by_user
+    }
 }

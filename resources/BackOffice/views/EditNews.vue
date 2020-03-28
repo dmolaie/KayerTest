@@ -115,12 +115,14 @@
                         >
                             بروزرسانی
                         </button>
-                        <span class="dropdown__divider"> </span>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
-                        >
-                            لغو انتشار
-                        </button>
+                        <template v-if="!(isAdmin && form.is_owner)">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
+                            >
+                                لغو انتشار
+                            </button>
+                        </template>
                     </template>
                 </publish-cm>
                 <location-cm :lang="currentLang"
@@ -194,7 +196,7 @@
     } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
-    } from '@services/store/Login'
+    } from '@services/store/Login';
 
     let Service = null;
 

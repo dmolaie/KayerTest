@@ -97,7 +97,7 @@
                     </template>
                 </publish-cm>
                 <location-cm :lang="currentLang"
-                             disabled="en"
+                             :disabledEn="true"
                 />
                 <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"

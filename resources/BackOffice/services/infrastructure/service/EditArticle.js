@@ -39,8 +39,7 @@ export default class EditArticleService {
 
     static async getDetailsOfArticleItem( id ) {
         try {
-            //GET_ARTICLE_ITEM
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_NEWS_ITEM, { id }))
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ARTICLE_ITEM, { id }))
         } catch (e) {
             throw e;
         }
@@ -78,21 +77,21 @@ export default class EditArticleService {
         if ( HasLength( duplicateFrom['description'] ) )
             formData.append('description', EncodeHTML( duplicateFrom['description'] ));
         if ( HasLength( duplicateFrom['category_ids'] ) ) {
-            formData.append('main_category_id', duplicateFrom['category_ids'][0]);
+            formData.append('main_category_id', duplicateFrom['category_ids'][0]?.id);
             duplicateFrom['category_ids'].forEach(({ id }) => {
                 formData.append('category_ids[]', id);
             });
         }
-        if ( HasLength( duplicateFrom['slug'] ) )
+        if ( !!duplicateFrom['slug'] )
             formData.append('slug', duplicateFrom['slug'].replace(/ /g, '-'));
         formData.append('first_title', duplicateFrom['first_title']);
-        if ( HasLength( duplicateFrom['second_title'] ) )
+        if ( !!duplicateFrom['second_title'] )
             formData.append('second_title', duplicateFrom['second_title']);
-        if ( HasLength( duplicateFrom['third_title'] ) )
+        if ( !!duplicateFrom['third_title'] )
             formData.append('third_title', duplicateFrom['third_title']);
-        if ( HasLength( duplicateFrom['abstract'] ) )
+        if ( !! duplicateFrom['abstract'] )
             formData.append('abstract', duplicateFrom['abstract']);
-        if ( HasLength( duplicateFrom['language'] ) )
+        if ( !!duplicateFrom['language'] )
             formData.append('language', duplicateFrom['language']);
         if ( !!this.$vm.images.data )
             formData.append('images[]', this.$vm.images.data.get('images'));
@@ -120,7 +119,7 @@ export default class EditArticleService {
         try {
             const BODY_REQUEST = this.createBodyRequest;
             await this.deleteUnusedImages();
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_ARTICLE_ITEM), BODY_REQUEST);
+            let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_ARTICLE_ITEM), BODY_REQUEST);
             this.$vm.displayNotification(response.message, {
                 type: 'success'
             });
@@ -130,7 +129,6 @@ export default class EditArticleService {
             this.$vm.displayNotification(ERROR_MESSAGE, {
                 type: 'error'
             });
-            throw exception;
         }
     }
     
