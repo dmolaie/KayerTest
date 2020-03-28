@@ -8,22 +8,33 @@
                             v-text="'همه'"
                     > </button>
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
-                            v-if="false"
                             v-text="'زباله‌دان'"
                     > </button>
                 </div>
             </div>
             <div class="m-post__wrapper">
                 <div class="m-post__header flex"
-                     v-if="false"
                 >
-                    <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
+                    <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg m-r-auto"
                             @click.prevent="onClickToggleSearchButton"
                     >
                         جست‌وجو
                     </button>
                 </div>
-                <div class="w-full"></div>
+                <div class="w-full"
+                     v-if="shouldBeShowSearchField"
+                >
+                    <label class="w-3/4 flex items-stretch m-post__search border border-solid rounded">
+                        <span class="m-post__search_label flex-shrink-0 rounded rounded-tl-none rounded-bl-none"
+                        > </span>
+                        <input type="text"
+                               placeholder="جست‌وجو براساس کدملی و نام‌کاربر..."
+                               class="m-post__search_input bg-transparent flex-1 font-base font-bold"
+                               v-model="filter.search"
+                               @input="oninputSearchField"
+                        />
+                    </label>
+                </div>
                 <div class="m-post__table">
                     <table-cm :data="items"
                               :isPending="isPending"
@@ -39,7 +50,7 @@
                             <div class="table__th table__td:l font-1xs font-bold cursor-default text-center">
                                 شغل و تحصیلات
                             </div>
-                            <div class="table__th table__th:xl font-1xs font-bold cursor-default text-center">
+                            <div class="table__th table__th:l font-1xs font-bold cursor-default text-center">
                                 نقش کاربری
                             </div>
                             <div class="table__th flex-1 font-1xs font-bold cursor-default text-center">
@@ -88,18 +99,30 @@
                                     </div>
                                 </div>
                                 <div class="table__td table__td:l">
-                                    <span class="block font-xs cursor-default text-center"
+                                    <span class="block font-xs cursor-default text-right"
                                           v-text="item.location"
                                     > </span>
                                 </div>
-                                <div class="table__td table__td:xl">
-                                    <div class="flex items-start"
-                                         v-if="false"
+                                <div class="table__td table__td:l">
+                                    <div class="flex flex-wrap items-start cursor-default"
                                     >
-                                        <span class="m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
-                                              v-for="(item, index) in item.roles"
-                                              :key="'status-' + index"
-                                        > </span>
+                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
+                                              v-for="(role, i) in item.roles"
+                                              :key="'status-' + i"
+                                              :class="{
+                                                  'm-post__status--accept': role.is_active,
+                                                  'm-post__status--pending': role.is_pending,
+                                                  'm-post__status--reject': role.is_inactive,
+                                              }"
+                                        >
+                                            سفیر {{ item.province_name }}: {{ role.status_fa }}
+                                        </span>
+                                        <div class="w-full">
+                                            <button class="m-legate__t-button table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
+
+                                                    v-text="'مدیریت نقش‌ها'"
+                                            > </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="table__td flex-1">
@@ -147,8 +170,14 @@
     export default {
         name: "ManageLegate",
         data: () => ({
+            searchTimeout: null,
+            filter: {
+                search: ''
+            },
             isPending: true,
-            isModuleRegistered: false
+            paginateKeyCounter: false,
+            isModuleRegistered: false,
+            shouldBeShowSearchField: false,
         }),
         components: {
             DropdownCm, TableCm,
@@ -161,7 +190,18 @@
         },
         methods: {
             onClickToggleSearchButton() {
-
+                this.$set(this.filter, 'search', '');
+                this.$set(this, 'shouldBeShowSearchField', !this.shouldBeShowSearchField);
+            },
+            async oninputSearchField() {
+                try {
+                    clearTimeout( this.searchTimeout );
+                    this.searchTimeout = null;
+                    this.searchTimeout = await setTimeout(async () => {
+                        await Service.HandelSearchAction( this.filter.search, this.$route );
+                        this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
+                    }, 330)
+                } catch (e) {}
             },
             onClickActionButton( item ) {
                 this.$set(item, 'is_opened', !item.is_opened)
