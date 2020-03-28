@@ -119,9 +119,8 @@ class NewsRepository
                 return $query->where('province_id', $newsFilterDTO->getProvinceId());
 
             })
-            ->orderBy('id', $newsFilterDTO->getSort())
-            ->paginate(config('news.news_paginate_count'));
-
+            ->orderBy('created_at', $newsFilterDTO->getSort())
+            ->paginate($newsFilterDTO->getPaginationCount());
         return $baseQuery;
     }
 
