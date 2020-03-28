@@ -98,7 +98,7 @@ export default class CreateNewsService extends BaseService {
             if ( HasLength( duplicateFrom['description'] ) )
                 duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
 
-            duplicateFrom['slug'] = duplicateFrom['slug'].replace(/ /, '-');
+            duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /, '-');
 
             Object.keys( duplicateFrom )
                 .forEach( key => {
