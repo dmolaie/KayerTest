@@ -17,6 +17,7 @@ export const EDIT_NEWS   = 'EDIT_NEWS';
 export const MANAGE_ARTICLE = 'MANAGE_ARTICLE';
 export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
+export const MANAGE_LEGATE = 'MANAGE_LEGATE';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -179,6 +180,26 @@ const Routes = new VueRouter({
                     },
                     {
                         name: 'مدیریت منو'
+                    },
+                ]
+            }
+        },
+        {
+            name: MANAGE_LEGATE,
+            path: '/manage/volunteers',
+            component: GetViews('ManageLegate' ),
+            meta: {
+                title: 'سفیران اهدای عضو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'سفیران اهدای عضو'
+                    },
+                    {
+                        name: 'همه'
                     },
                 ]
             }

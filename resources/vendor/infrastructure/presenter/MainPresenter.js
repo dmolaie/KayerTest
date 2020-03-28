@@ -161,3 +161,51 @@ export const FlattenCategories = ( payload = [] ) => {
         return flatArray;
     }, [])
 };
+
+export class UserRolePresenter {
+    constructor( payload ) {
+        return (!!payload && HasLength(payload)) ? (
+            payload.map(item => new RolePresenter( item ))
+        ) : ([])
+    }
+}
+
+export class RolePresenter extends BasePresenter {
+    constructor( data ) {
+        super( data );
+        this.data = data;
+
+        return this.mapProps({
+            name: String,
+            label: String,
+            status: String,
+            is_active: Boolean,
+            is_pending: Boolean,
+            is_inactive: Boolean,
+        })
+    }
+
+    name() {
+        return this.data.name
+    }
+
+    label() {
+        return this.data.label
+    }
+
+    status() {
+        return this.data.status
+    }
+
+    is_active() {
+        return this.data.status === "active"
+    }
+
+    is_pending() {
+        return this.data.status === "pending"
+    }
+
+    is_inactive() {
+        return this.data.status === "inactive"
+    }
+}
