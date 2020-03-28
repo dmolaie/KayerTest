@@ -19,33 +19,34 @@ class ArticleInfoPresenter
     public function transform(ArticleInfoDTO $articleInfoDTO)
     {
         return [
-            'id'           => $articleInfoDTO->getId(),
-            'first_title'  => $articleInfoDTO->getFirstTitle(),
-            'second_title' => $articleInfoDTO->getSecondTitle(),
-            'third_title'  => $articleInfoDTO->getThirdTitle(),
-            'abstract'     => $articleInfoDTO->getAbstract(),
-            'description'  => $articleInfoDTO->getDescription(),
-            'categories'   => $articleInfoDTO->getCategories(),
-            'publish_date' => strtotime($articleInfoDTO->getPublishDate()),
-            'slug'         => $articleInfoDTO->getSlug(),
-            'status'       => $this->getStatus($articleInfoDTO),
-            'province'     => $articleInfoDTO->getProvince()?[
+            'id'                 => $articleInfoDTO->getId(),
+            'first_title'        => $articleInfoDTO->getFirstTitle(),
+            'second_title'       => $articleInfoDTO->getSecondTitle(),
+            'third_title'        => $articleInfoDTO->getThirdTitle(),
+            'abstract'           => $articleInfoDTO->getAbstract(),
+            'description'        => $articleInfoDTO->getDescription(),
+            'categories'         => $articleInfoDTO->getCategories(),
+            'publish_date'       => strtotime($articleInfoDTO->getPublishDate()),
+            'slug'               => $articleInfoDTO->getSlug(),
+            'status'             => $this->getStatus($articleInfoDTO),
+            'is_created_by_user' => $this->isCreatedByUser($articleInfoDTO),
+            'province'           => $articleInfoDTO->getProvince() ? [
                 'id'   => $articleInfoDTO->getProvince()->id,
                 'name' => $articleInfoDTO->getProvince()->name,
-            ]:null,
-            'publisher'    => [
+            ] : null,
+            'publisher'          => [
                 'id'        => $articleInfoDTO->getPublisher()->id,
                 'name'      => $articleInfoDTO->getPublisher()->name,
                 'last_name' => $articleInfoDTO->getPublisher()->last_name
             ],
-            'editor'       => $articleInfoDTO->getEditor() ? [
+            'editor'             => $articleInfoDTO->getEditor() ? [
                 'id'        => $articleInfoDTO->getEditor()->id,
                 'name'      => $articleInfoDTO->getEditor()->name,
                 'last_name' => $articleInfoDTO->getEditor()->last_name
             ] : null,
-            'language'     => $articleInfoDTO->getLanguage(),
-            'relation_id'  => $articleInfoDTO->getRelationArticleId(),
-            'image_paths'  => $articleInfoDTO->getAttachmentFiles() ?? []
+            'language'           => $articleInfoDTO->getLanguage(),
+            'relation_id'        => $articleInfoDTO->getRelationArticleId(),
+            'image_paths'        => $articleInfoDTO->getAttachmentFiles() ?? []
         ];
     }
 
@@ -70,6 +71,18 @@ class ArticleInfoPresenter
             'fa' => trans('article::article.article_statuses.ready_to_publish'),
             'en' => 'ready_to_publish'
         ];
+
+    }
+
+    private function isCreatedByUser(ArticleInfoDTO $articleInfoDTO)
+    {
+        if (!\Auth::user()) {
+            return false;
+        }
+        if ($articleInfoDTO->getPublisher()->id == \Auth::user()->id) {
+            return true;
+        }
+        return false;
 
     }
 }

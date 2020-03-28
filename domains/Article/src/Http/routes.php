@@ -8,5 +8,6 @@ Route::group(['prefix' => 'admin', 'name' => '.admin.'],
             ->where('id', '[0-9]+');
         Route::get('/list', 'ArticleController@getListForAdmin');
         Route::post('/change-status', 'ArticleController@changeArticleStatus')->middleware('auth:api');
-
+        Route::get('/detail/{id}', 'ArticleController@getArticleDetail')->middleware('auth:api')
+            ->where('id', '[0-9]+');
     });

@@ -28,6 +28,7 @@ class NewsInfoPresenter
             'publish_date' => strtotime($newsInfoDTO->getPublishDate()),
             'source_link'  => $newsInfoDTO->getSourceLink(),
             'status'       => $this->getStatus($newsInfoDTO),
+            'is_created_by_user' => $this->isCreatedByUser($newsInfoDTO),
             'province'     => [
                 'id'   => $newsInfoDTO->getProvince()->id,
                 'name' => $newsInfoDTO->getProvince()->name,
@@ -70,5 +71,16 @@ class NewsInfoPresenter
         ];
 
 
+    }
+
+    private function isCreatedByUser(NewsInfoDTO $newsInfoDTO)
+    {
+        if (!\Auth::user()) {
+            return false;
+        }
+        if ($newsInfoDTO->getPublisher()->id == \Auth::user()->id) {
+            return true;
+        }
+        return false;
     }
 }
