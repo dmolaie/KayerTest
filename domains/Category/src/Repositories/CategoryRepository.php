@@ -31,6 +31,12 @@ class CategoryRepository
             ->whereNull('parent_id')->get();
     }
 
+    public function findCategoryWithSlug(string $categorySlug)
+    {
+        return $this->entityName::where('slug', '=', $categorySlug)
+            ->whereNull('parent_id')->firstOrFail();
+    }
+
     public function createCategory(CategoryCreateDTO $createCategoryCreateDTO): Category
     {
         $category = new $this->entityName;
