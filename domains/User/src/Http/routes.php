@@ -17,5 +17,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/change-password-by-admin', 'UserController@changeUserPasswordByAdmin')->middleware('auth:api')->name('change-password-by-admin');
     Route::post('/register-user-by-admin', 'UserController@registerUserByAdmin')->middleware('auth:api')->name('register-user-by-admin');
     Route::post('/add-role-to-user', 'UserController@addRoleToUser')->middleware('auth:api')->name('add-role-to-user');
+    Route::get('/user-info-for-admin', 'UserController@getFullUserInfoForAdmin')->middleware('auth:api')->name('user-info-for-admin');
 });
 
