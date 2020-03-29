@@ -26,7 +26,7 @@ class CreateArticleRequest extends EhdaBaseRequest
             'category_ids'     => 'array|exists:categories,id',
             'main_category_id' => 'integer|exists:categories,id',
             'publish_date'     => 'numeric',
-            'slug'             => 'string',
+            'slug'             => 'string|required|unique:articles',
             'province_id'      => 'integer|exists:provinces,id',
             'parent_id'        => 'integer|exists:articles,id|unique:articles',
             'language'         => ['required', Rule::in(config('article.article_language'))],

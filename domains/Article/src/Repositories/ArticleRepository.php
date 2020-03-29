@@ -59,7 +59,7 @@ class ArticleRepository
         $article->abstract = $articleEditDTO->getAbstract();
         $article->description = $articleEditDTO->getDescription();
         $article->publish_date = $articleEditDTO->getPublishDate();
-        $article->slug = $articleEditDTO->getSlug();
+        $article->slug = $articleEditDTO->getSlug() ?? $article->slug;
         $article->status = $articleEditDTO->getStatus();
         $article->province_id = $articleEditDTO->getProvinceId();
         $article->editor_id = $articleEditDTO->getEditor()->id;
@@ -100,16 +100,16 @@ class ArticleRepository
                 return $query->where('first_title', 'like', '%' . $articleFilterDTO->getFirstTitle() . '%');
             })
             ->when($articleFilterDTO->getCreateDateEnd(), function ($query) use ($articleFilterDTO) {
-                return $query->whereDate('created_at', '<=', $articleFilterDTO->getCreateDateEnd());
+                return $query->where('created_at', '<=', $articleFilterDTO->getCreateDateEnd());
             })
             ->when($articleFilterDTO->getCreateDateStart(), function ($query) use ($articleFilterDTO) {
-                return $query->whereDate('created_at', '>=', $articleFilterDTO->getCreateDateStart());
+                return $query->where('created_at', '>=', $articleFilterDTO->getCreateDateStart());
             })
             ->when($articleFilterDTO->getMaxPublishDate(), function ($query) use ($articleFilterDTO) {
-                return $query->whereDate('publish_date', '<=', $articleFilterDTO->getMaxPublishDate());
+                return $query->where('publish_date', '<=', $articleFilterDTO->getMaxPublishDate());
             })
             ->when($articleFilterDTO->getMinPublishDate(), function ($query) use ($articleFilterDTO) {
-                return $query->whereDate('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
+                return $query->where('publish_date', '>=', $articleFilterDTO->getMinPublishDate());
             })
             ->when($articleFilterDTO->getLanguage(), function ($query) use ($articleFilterDTO) {
                 return $query->where('language', $articleFilterDTO->getLanguage());

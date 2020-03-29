@@ -28,6 +28,7 @@ class UserBriefInfoDTOMaker
             ->setLastName($user->last_name)
             ->setNationalCode($user->national_code)
             ->setIdentityNumber($user->identity_number)
+            ->setJobTitle($user->job_title)
             ->setCreatedAt(strtotime($user->created_at))
             ->setCurrentCity($this->getCurrentCityInfo($user->currentCity))
             ->setCurrentProvince($this->getCurrentProvinceInfo($user->currentProvince))
