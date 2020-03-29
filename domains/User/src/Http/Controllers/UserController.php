@@ -17,6 +17,7 @@ use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\RegisterUserByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
+use Domains\User\Http\Requests\UserInfoByAdminRequest;
 use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
 use Domains\User\Http\Requests\ValidateDataUserRequestClient;
@@ -273,5 +274,21 @@ class UserController extends EhdaBaseController
                 trans('user::response.user_not_found')
             );
         }
+    }
+
+    /**
+     * @param UserInfoByAdminRequest $request
+     * @param UserFullInfoPresenter $userFullInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFullUserInfoForAdmin(
+        UserInfoByAdminRequest $request,
+        UserFullInfoPresenter $userFullInfoPresenter
+    ) {
+        $userId = $request['user_id'];
+        return $this->response(
+            $userFullInfoPresenter->transform(
+                $this->userService->getUserFullInfo($userId)
+            ), Response::HTTP_OK);
     }
 }

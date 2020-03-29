@@ -101,16 +101,16 @@ class NewsRepository
                 return $query->where('first_title', 'like', '%' . $newsFilterDTO->getFirstTitle() . '%');
             })
             ->when($newsFilterDTO->getCreateDateEnd(), function ($query) use ($newsFilterDTO) {
-                return $query->whereDate('created_at', '<=', $newsFilterDTO->getCreateDateEnd());
+                return $query->where('created_at', '<=', $newsFilterDTO->getCreateDateEnd());
             })
             ->when($newsFilterDTO->getCreateDateStart(), function ($query) use ($newsFilterDTO) {
-                return $query->whereDate('created_at', '>=', $newsFilterDTO->getCreateDateStart());
+                return $query->where('created_at', '>=', $newsFilterDTO->getCreateDateStart());
             })
             ->when($newsFilterDTO->getMaxPublishDate(), function ($query) use ($newsFilterDTO) {
-                return $query->whereDate('publish_date', '<=', $newsFilterDTO->getMaxPublishDate());
+                return $query->where('publish_date', '<=', $newsFilterDTO->getMaxPublishDate());
             })
             ->when($newsFilterDTO->getMinPublishDate(), function ($query) use ($newsFilterDTO) {
-                return $query->whereDate('publish_date', '>=', $newsFilterDTO->getMinPublishDate());
+                return $query->where('publish_date', '>=', $newsFilterDTO->getMinPublishDate());
             })
             ->when($newsFilterDTO->getLanguage(), function ($query) use ($newsFilterDTO) {
                 return $query->where('language', $newsFilterDTO->getLanguage());
