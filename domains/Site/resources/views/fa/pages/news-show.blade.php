@@ -21,7 +21,8 @@
                             {{$content->getFirstTitle()}}
                         </h1>
                         <time class="n-show__release w-full block color-black text-left font-xs-bold cursor-default">
-                            انتشار: ۲۸ دی ۱۳۹۸
+                            انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()))->format(' %d %B %Y')}}
+
                         </time>
                         <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                     </div>
@@ -35,7 +36,7 @@
                 <div class="i-page__footer relative">
                     <div class="flex items-center md:flex-col">
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
-                            انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
+                            انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()))->format('H:i /  %d %B %Y')}}
                         </p>
                         <div class="inline-flex items-center l:m-r-auto md:m-b-20">
                             <span class="text-bayoux font-sm-bold cursor-default">
@@ -91,7 +92,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -111,7 +113,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -131,7 +134,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -151,7 +155,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -171,7 +176,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -191,7 +197,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -211,7 +218,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر
@@ -231,7 +239,8 @@
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
                                         <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
-                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای تبیین فرهنگ اهدای عضو است
+                                            حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
+                                            تبیین فرهنگ اهدای عضو است
                                         </p>
                                         <p class="relative-news__cart_link text-blue font-xs-bold text-left">
                                             بیشتر

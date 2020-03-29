@@ -43,7 +43,7 @@
                                                 {!! html_entity_decode($item->getFirstTitle(), ENT_QUOTES, 'UTF-8') !!}
                                             </span>
                                             <time class="block w-full font-2xs text-left">
-                                                انتشار: ۲۸ دی ۱۳۹۸
+                                                انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
                                             </time>
                                         </figcaption>
                                     </figure>
@@ -135,7 +135,8 @@
                                     {!! html_entity_decode($item->getFirstTitle(), ENT_QUOTES, 'UTF-8') !!}
                                 </p>
                                 <time class="h-cart__release block w-full font-1xs font-bold text-left">
-                                    انتشار: ۲۸ دی ۱۳۹۸
+                                    انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
+
                                 </time>
                                 <p class="h-cart__caption text-blue-800 font-xs">
                                     {!! html_entity_decode($item->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
