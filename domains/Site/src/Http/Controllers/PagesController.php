@@ -34,7 +34,8 @@ class PagesController extends Controller
     public function newsListIran(Request $request)
     {
         $news = $this->siteServices->getFilterNews('iran-news')->getItems();
-        return view('site::' . $request->language . '.pages.news-list',compact('news'));
+        $categories = $this->siteServices->getActiveCategoryByType('news'); 
+        return view('site::' . $request->language . '.pages.news-list',compact('news','categories'));
     }
 
     public function newsListWorld(Request $request)
