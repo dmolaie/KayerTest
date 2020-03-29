@@ -58,6 +58,12 @@ class CategoryService
         return $this->categoryDTOMaker->convertMany($categories);
     }
 
+    public function getCategoryBySlug(string $categorySlug): int
+    {
+        $category = $this->categoryRepository->findCategoryWithSlug($categorySlug);
+        return $this->categoryDTOMaker->convert($category)->getId();
+    }
+
     public function createCategory(CategoryCreateDTO $createCategoryCreateDTO): CategoryDTO
     {
         $category = $this->categoryRepository->createCategory($createCategoryCreateDTO);

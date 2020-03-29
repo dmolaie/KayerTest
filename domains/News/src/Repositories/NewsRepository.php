@@ -54,7 +54,7 @@ class NewsRepository
         $news->first_title = $newsEditDTO->getFirstTitle();
         $news->second_title = $newsEditDTO->getSecondTitle();
         $news->abstract = $newsEditDTO->getAbstract();
-        $news->slug = $newsEditDTO->getSlug()??$news->slug;
+        $news->slug = $newsEditDTO->getSlug() ?? $news->slug;
         $news->description = $newsEditDTO->getDescription();
         $news->publish_date = $newsEditDTO->getPublishDate();
         $news->source_link = $newsEditDTO->getSourceLink();
@@ -79,6 +79,11 @@ class NewsRepository
     public function findOrFail(int $id)
     {
         return $this->entityName::findOrFail($id);
+    }
+
+    public function findOrFailSlug(string $slug)
+    {
+        return $this->entityName::where('slug', '=', $slug)->firstOrFail();
     }
 
     function filter(NewsFilterDTO $newsFilterDTO)
