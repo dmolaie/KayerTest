@@ -117,7 +117,7 @@
                             <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
                             <p>شما کارت اهدای عضو دارید. لطفا از پروفایل خود جهت ثبت نام به عنوان سفیر اهدای عضو اقدام
                                 کنید.</p>
-                            <a href="#"
+                            <a href="{{route('page.volunteers.finalstep',config('app.locale'))}}"
                                class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
                                 ثبت نام سفیر
                             </a>

@@ -401,7 +401,7 @@
                                                     </figure>
                                                 </div>
                                                 <time class="cart__release has_notebook--gray block text-gray font-xs text-left text-nowrap">
-                                                    ۲۸ مهر ۹۸
+                                                    {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
                                                 </time>
                                             </header>
                                             <div class="cart__body relative bg-white has-shadow border border-solid rounded m-r-auto">
