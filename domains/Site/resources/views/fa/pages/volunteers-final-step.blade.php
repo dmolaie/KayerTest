@@ -334,7 +334,7 @@
                                     <input type="text"
                                            placeholder="حروف انگلیسی"
                                            class="input input--blue block w-full border border-solid rounded direction-ltr"
-                                           name="email" autocomplete="off" required="required" readonly="readonly"
+                                           name="email" autocomplete="off" required="required"
                                            value="{{$data['dataSessionUser']->get('email') ? $data['dataSessionUser']->get('email') : auth()->user()->email}}"
                                     />
                                     <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
