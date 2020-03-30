@@ -42,7 +42,9 @@ export default class HTTPService {
     }
 
     static uploadHeaders() {
-        return new Headers({});
+        return new Headers({
+            'Accept': 'application/json',
+        });
     }
 
 
