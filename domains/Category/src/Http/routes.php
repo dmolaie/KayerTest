@@ -5,3 +5,4 @@ Route::group(['prefix' => 'admin', 'name' => '.admin.', 'middleware' => 'auth:ap
         Route::get('/get_category_by_type', 'CategoryController@getCategoryByType');
         Route::post('/create', 'CategoryController@createCategory')->middleware(['can:createCategory,Domains\Category\Entities\Category']);
     });
+Route::get('/get-active-category-by-type', 'CategoryController@getActiveCategoryByType');

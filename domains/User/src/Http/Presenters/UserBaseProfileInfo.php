@@ -6,7 +6,7 @@ namespace Domains\User\Http\Presenters;
 
 use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
 
-class UserBriefInfoPresenter
+class UserBaseProfileInfo
 {
     public function transformMany($userBriefInfoDTOs)
     {
@@ -18,16 +18,12 @@ class UserBriefInfoPresenter
     public function transform(UserBriefInfoDTO $userBriefInfoDTO)
     {
         return [
-            'name'             => $userBriefInfoDTO->getName(),
-            'card_id'          => $this->getCardId($userBriefInfoDTO),
-            'last_name'        => $userBriefInfoDTO->getLastName(),
-            'id'               => $userBriefInfoDTO->getId(),
-            'national_code'    => $userBriefInfoDTO->getNationalCode(),
-            'current_province' => $userBriefInfoDTO->getCurrentProvince(),
-            'current_city'     => $userBriefInfoDTO->getCurrentCity(),
-            'identity_number'  => $userBriefInfoDTO->getIdentityNumber(),
-            'job-title'        => $userBriefInfoDTO->getJobTitle(),
-            'roles'            => $userBriefInfoDTO->getRoles()
+            'name'          => $userBriefInfoDTO->getName(),
+            'card_id'       => $this->getCardId($userBriefInfoDTO),
+            'last_name'     => $userBriefInfoDTO->getLastName(),
+            'id'            => $userBriefInfoDTO->getId(),
+            'national_code' => $userBriefInfoDTO->getNationalCode(),
+            'roles'         => $userBriefInfoDTO->getRoles()
         ];
     }
 
@@ -40,4 +36,5 @@ class UserBriefInfoPresenter
         }
         return null;
     }
+
 }

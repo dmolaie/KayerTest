@@ -69,6 +69,8 @@ class UserFullInfoDTOMaker
 
             return [
                 'name'   => $role->name,
+                'id'     => $role->id,
+                'label'  => $role->label,
                 'status' => $role->pivot->status
             ];
         })->toArray();

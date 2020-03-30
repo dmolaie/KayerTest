@@ -44,4 +44,14 @@ class CategoryController extends EhdaBaseController
         );
     }
 
+    public function getActiveCategoryByType(
+        CategoryByTypeRequest $request,
+        CategoryListPresenter $categoryListPresenter
+    ) {
+        $categoryDTOs = $this->categoryService->getActiveCategoryByType($request['category_type']);
+        return $this->response(
+            $categoryListPresenter->transformMany($categoryDTOs),
+            Response::HTTP_OK
+        );
+    }
 }
