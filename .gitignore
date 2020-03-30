@@ -10,7 +10,6 @@ tests/_output
 tests/_output/
 tests/_data/
 docker-compose/mongo-report/*
-docker-compose/nginx/*
 composer.lock
 node_modules
 
