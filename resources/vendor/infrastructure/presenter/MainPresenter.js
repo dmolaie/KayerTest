@@ -181,6 +181,7 @@ export class RolePresenter extends BasePresenter {
             name: String,
             label: String,
             status: String,
+            status_fa: String,
             is_active: Boolean,
             is_pending: Boolean,
             is_inactive: Boolean,
@@ -197,6 +198,12 @@ export class RolePresenter extends BasePresenter {
 
     status() {
         return this.data.status
+    }
+
+    status_fa() {
+        if ( this.data.status === 'active' ) return 'فعال';
+        if ( this.data.status === 'pending' ) return 'در انتظار تایید';
+        if ( this.data.status === 'inactive' ) return 'غیرفعال';
     }
 
     is_active() {

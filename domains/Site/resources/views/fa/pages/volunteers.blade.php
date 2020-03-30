@@ -129,7 +129,7 @@
                         <h2 class="i-page__sub-title text-blue-800 font-24 font-bold cursor-default m-b-20">
                             طرح سفیران اهدای عضو
                         </h2>
-                        <div class="dnt-page__caption text-bayoux cursor-default font-base">
+                        <div class="dnt-page__caption text-bayoux cursor-default font-base text-justify">
                             <p>
                                 یکی از مهمترین ارکان فرهنگ‌سازی اهدای عضو در تمام نقاط دنیا، نیروهای داوطلب مردمی
                                 می‌باشند که با هر شغل و سمتی که دارند بخشی از اوقات فراغت خود را با همراهی با انجمن وقف
