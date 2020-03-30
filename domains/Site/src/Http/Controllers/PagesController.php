@@ -9,6 +9,7 @@ use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\NewsService;
+use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,17 +32,20 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.structure-and-organization');
     }
 
-    public function newsListIran(Request $request)
+    public function newsListIran(Request $request,CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('iran-news')->getItems();
-        $categories = $this->siteServices->getActiveCategoryByType('news'); 
+        $categories = $categoryInfoPresenter->transformMany(
+            $this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list',compact('news','categories'));
     }
 
-    public function newsListWorld(Request $request)
+    public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('world-news')->getItems();
-        return view('site::' . $request->language . '.pages.news-list' ,compact('news'));
+        $categories = $categoryInfoPresenter->transformMany(
+            $this->siteServices->getActiveCategoryByType('news'));
+        return view('site::' . $request->language . '.pages.news-list' ,compact('news','categories'));
     }
 
     public function interactions(Request $request)
