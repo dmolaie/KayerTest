@@ -14,7 +14,7 @@ class UserBriefInfoDTOMaker
 
     public function convertMany($users)
     {
-        return $users->map(function ($user){
+        return $users->map(function ($user) {
             return $this->convert($user);
         })->toArray();
     }
@@ -38,20 +38,6 @@ class UserBriefInfoDTOMaker
 
     }
 
-    private function getRoles(User $user)
-    {
-        return $user->roles->map(function ($role) {
-
-            return [
-                'name'   => $role->name,
-                'label'  => $role->label,
-                'status' => $role->pivot->status
-            ];
-        })->toArray();
-    }
-
-
-
     private function getCurrentCityInfo(City $city)
     {
 
@@ -70,5 +56,18 @@ class UserBriefInfoDTOMaker
             'id'   => $province->id,
             'slug' => $province->slug
         ];
+    }
+
+    private function getRoles(User $user)
+    {
+        return $user->roles->map(function ($role) {
+
+            return [
+                'name'   => $role->name,
+                'id'     => $role->id,
+                'label'  => $role->label,
+                'status' => $role->pivot->status
+            ];
+        })->toArray();
     }
 }

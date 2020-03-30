@@ -7,11 +7,13 @@ namespace Domains\User\Http\Controllers;
 use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
+use Domains\User\Http\Presenters\UserBaseProfileInfo;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\AddRoleToUserRequest;
+use Domains\User\Http\Requests\ChangeAdminPasswordRequest;
 use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\RegisterUserByAdminRequest;
@@ -230,13 +232,42 @@ class UserController extends EhdaBaseController
             return $this->response(
                 [],
                 Response::HTTP_OK,
-                trans('user::response.change_password_by_admin_successful')
+                trans('user::response.change_password_successful')
             );
         } catch (ModelNotFoundException $exception) {
             return $this->response(
                 [],
                 Response::HTTP_NOT_FOUND,
                 trans('user::response.user_not_found')
+            );
+        }
+    }    /**
+     * @param ChangeAdminPasswordRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changePassword(ChangeAdminPasswordRequest $request)
+    {
+        try {
+            $this->userService->changePassword(
+                \Auth::user()->id,
+                $request['password'],
+                $request['current_password']);
+            return $this->response(
+                [],
+                Response::HTTP_OK,
+                trans('user::response.change_password_successful')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('user::response.user_not_found')
+            );
+        }catch (UserUnAuthorizedException $exception){
+            return $this->response(
+                [],
+                $exception->getCode(),
+                $exception->getMessage()
             );
         }
     }
@@ -290,5 +321,13 @@ class UserController extends EhdaBaseController
             $userFullInfoPresenter->transform(
                 $this->userService->getUserFullInfo($userId)
             ), Response::HTTP_OK);
+    }
+
+    public function getUserBaseProfileInfo(UserBaseProfileInfo $userBaseProfileInfo)
+    {
+        return $this->response($userBaseProfileInfo->transform(
+            $this->userService->getUserBaseInfo()),
+            Response::HTTP_OK
+        );
     }
 }
