@@ -4,6 +4,8 @@
 namespace Domains\News;
 
 
+use Domains\News\Entities\News;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +20,8 @@ class NewsServiceProvider extends ServiceProvider
         $this->loadConfig();
 
         $this->registerPublishing();
+
+        $this->registerPolicies();
 
     }
 
@@ -39,8 +43,9 @@ class NewsServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace' => 'Domains\News\Http\Controllers',
-            'prefix'    => 'news/v1',
+            'namespace'  => 'Domains\News\Http\Controllers',
+            'prefix'     => 'news/v1',
+            'middleware' => 'auth:api'
         ];
     }
 
@@ -84,5 +89,28 @@ class NewsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'news');
         $this->publishes([__DIR__ . '/../config/config.php' => config_path('news.php')], 'news');
 
+    }
+
+    /**
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies() as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
+    /**
+     * Get the policies defined on the provider.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+        return [
+            News::class => \Domains\News\Policies\NewsPolicy::class,
+        ];
     }
 }
