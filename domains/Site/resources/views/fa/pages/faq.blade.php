@@ -30,7 +30,7 @@
                                 ></span>
                             </button>
                             <div class="faq-page__body h-0 overflow-hidden">
-                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default">
+                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default text-justify">
                                     بله ؛ در هر زمان که از داشتن کارت منصرف شوید می توانید از طریق سایت، تقاضای خود را لغو کنید. هر چند با در نظر داشتن نیاز به رضایت خانواده برای اهدا تنها با اعلام خواسته خود به خانواده خویش نیز میتوانید انصراف خود را از اهدا اعلام کنید.
                                     برای لغو کارت اهدای عضو خود، می توانید کد ملی، نام و نام خانوادگی، تاریخ تولد و علت درخواست خود را به آدرس ایمیل card@ehda.center ارسال کنید.
                                 </div>
@@ -44,7 +44,7 @@
                                 ></span>
                             </button>
                             <div class="faq-page__body h-0 overflow-hidden">
-                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default">
+                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default text-justify">
                                     بله ؛ در هر زمان که از داشتن کارت منصرف شوید می توانید از طریق سایت، تقاضای خود را لغو کنید. هر چند با در نظر داشتن نیاز به رضایت خانواده برای اهدا تنها با اعلام خواسته خود به خانواده خویش نیز میتوانید انصراف خود را از اهدا اعلام کنید.
                                     <br>
                                     برای لغو کارت اهدای عضو خود، می توانید کد ملی، نام و نام خانوادگی، تاریخ تولد و علت درخواست خود را به آدرس ایمیل card@ehda.center ارسال کنید.
@@ -59,7 +59,7 @@
                                 ></span>
                             </button>
                             <div class="faq-page__body h-0 overflow-hidden">
-                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default">
+                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default text-justify">
                                     کارت اهدای عضو نشان دهنده آرزوی قلبی فرد در مورد اهدای اعضای بدن خویش می باشد و همین امر می تواند با نشان دادن خواسته فرد به خانواده، تصمیم گیری را برای آن ها در آن موقعیت حساس آسان تر نماید و ضمنا این کارت می تواند جنبه فرهنگ سازی نیز داشته باشد. نشان داده شده که در صورت بروز حادثه خانواده در آن لحظه می خواهند خواسته های عزیزشان برآورده شود و حتی در صورت عدم تمایل خود اگر بدانند که آرزوی عزیزشان این بوده همان را برآورده می کنند.
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                 ></span>
                             </button>
                             <div class="faq-page__body h-0 overflow-hidden">
-                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default">
+                                <div class="faq-page__content font-lg rounded-6 rounded-tl-none rounded-tr-none cursor-default text-justify">
                                     خیر، هویت طرفین به دلائلی که چند نمونه از آن در ذیل قید شده ، محرمانه خواهد ماند، البته تعدادی از خانواده ها تمایل خواهند داشت که از طریق نامه های بی نام و نشان (با همکاری مرکز اهدای عضو) با هم مکاتبه داشته باشند:
                                     <br>
                                     الف) به ندرت دیده شده برخی از اعضای خانواده ی اهدا کننده، پس از مدتی از خانواده ی گیرنده ی عضو، در خواست مادی دارند.

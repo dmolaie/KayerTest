@@ -5,6 +5,9 @@ import ManageLegate, {
     M_LEGATE_SET_DATA,
 } from '@services/store/ManageLegate';
 import StatusService from '@services/service/Status';
+import {
+    HasLength
+} from '@vendor/plugin/helper';
 
 export default class ManageLegateService extends BaseService {
     constructor( layout ) {
@@ -43,13 +46,23 @@ export default class ManageLegateService extends BaseService {
     async getVolunteersListFilterBy( querystring = {} ) {
         try {
             // console.log(StatusService.RECYCLE_STATUS);
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_VOLUNTEERS_LIST), {
-                role_id: 3,
-                ...querystring
-            });
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_VOLUNTEERS_LIST), querystring);
             BaseService.commitToStore(this.$store, M_LEGATE_SET_DATA, response);
         } catch (e) {
             throw e;
         }
+    }
+
+    async HandelSearchAction(searchValue, { query }) {
+        try {
+            // const QUERY_STRING = query;
+            // ( HasLength( searchValue.trim() ) ) ? (
+            //     QUERY_STRING['national_code'] = searchValue.trim()
+            // ) : (
+            //     delete QUERY_STRING['national_code']
+            // );
+            // console.log('QUERY_STRING', QUERY_STRING);
+            // await this.getVolunteersListFilterBy( QUERY_STRING );
+        } catch (e) {}
     }
 }
