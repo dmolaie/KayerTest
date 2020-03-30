@@ -8,7 +8,7 @@
                 </span>
             </h1>
             <div class="inner-box inner-box--white">
-                <p class="i-page__text md:font-sm text-bayoux font-base text-right m-b-20">
+                <p class="i-page__text md:font-sm text-bayoux font-base text-justify m-b-20">
                     با توجه به اینکه پیشرفت در برخی ابعاد اهدای عضو و پیوند اعضا در هر کشور توسط سیستم‌های دولتی مانند
                     بیمارستان و مرکز فراهم‌‌آوری و وزارت بهداشت بسیار پرهزینه، زمان‌بر و مشکل بوده و حتی در برخی موارد
                     با توجه به سنگینی بدنه این سیستم‌ها غیرعملی است. در اکثر کشورهای جهان سازمان‌های مردم‌نهاد به کمک
@@ -16,7 +16,7 @@
                 </p>
                 <div class="flex items-start m-b-85 md:flex-col-reverse">
                     <div class="flex-1">
-                        <p class="i-page__text md:font-sm text-bayoux font-base text-right">
+                        <p class="i-page__text md:font-sm text-bayoux font-base text-justify">
                             امکان پیشرفت هر چه سریع‌تر اهدای عضو و پیوند اعضا را در آن کشورها فراهم می‌نمایند. در همین
                             راستا در سال 1394 بانیان این انجمن که در زمینه فراهم‌آوری و پیوند اعضا در کشور و حتی در سایر
                             کشورها شناخته شده بودند،

@@ -8,10 +8,10 @@
                     </span>
                 </h1>
                 <div class="inner-box inner-box--white text-right">
-                    <h1 class="i-page__sub-title text-blue-800 relative block w-full font-20 sm:font-18 font-bold m-b-20 cursor-default">
+                    <h1 class="i-page__sub-title text-blue-800 relative block w-full font-20 sm:font-18 font-bold m-b-20 cursor-default text-justify">
                         تعامل انجمن اهدای عضو ایرانیان با سازمان‌ها و نهادها  :
                     </h1>
-                    <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm">
+                    <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm text-justify">
                         در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد:
                     </p>
                     <div class="relative">
