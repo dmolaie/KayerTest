@@ -187,9 +187,7 @@ class NewsService
 
     public function changeStatus(int $newsId, string $status)
     {
-        $oldNews = $this->newsRepository->findOrFail($newsId);
-        $status = $this->getNewsStatus($oldNews->publisher, $status);
-        $news = $this->newsRepository->changeStatus($oldNews, $status);
+        $news = $this->newsRepository->changeStatus($newsId, $status);
         $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
         $images = $attachmentInfoDto->getImages()[$news->id];
         return $this->newsInfoDTOMaker->convert($news, $images);
