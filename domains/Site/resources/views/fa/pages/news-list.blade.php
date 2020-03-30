@@ -11,7 +11,7 @@
                         <span class="flower_line relative flex items-end justify-end block w-full"></span>
                     </div>
                     <p class="n-list__header_sub-title text-white font-20 font-bold cursor-default">
-                        اخبار ایران
+                        {{current(current($news)->getCategory())['name_fa']}}
                     </p>
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
@@ -27,25 +27,23 @@
                 <div class="carousel__container bg-sky-blue">
                     <div class="swiper-wrapper">
 
-                        @foreach($menusContent->getItems() as $item)
-
+                        @foreach($news as $item)
                             <div class="swiper-slide">
-                                <a href=""
-                                   class="s-cart block w-full h-full bg-white"
-                                >
+                                <a href="{{route('archive.showDetailNews',[config('app.locale'),$item->getSlug()])}}"
+                                   class="s-cart block w-full h-full bg-white">
                                     <figure class="s-cart__cover relative block w-full has-skeleton">
                                         <img src=""
-                                             data-src="https://images.unsplash.com/photo-1581075814634-9c0eaf943453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                             data-src="/{{$item->getAttachmentFiles() ? current($item->getAttachmentFiles())['path'] : ''}}"
                                              alt=""
                                              class="s-cart__cover_image block w-full h-full object-cover"
                                         />
                                         <figcaption
                                                 class="s-cart__caption absolute w-full flex flex-col justify-between text-white font-bold z-2">
                                             <span class="s-cart__caption_text block w-full font-1xs text-right">
-                                                {{$item->getAbstract()}}
+                                                {!! html_entity_decode($item->getFirstTitle(), ENT_QUOTES, 'UTF-8') !!}
                                             </span>
                                             <time class="block w-full font-2xs text-left">
-                                                انتشار: ۲۸ دی ۱۳۹۸
+                                                انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
                                             </time>
                                         </figcaption>
                                     </figure>
@@ -122,26 +120,28 @@
                     </div>
                 </aside>
                 <div class="w-full">
-                    @foreach($menusContent->getItems() as $item)
-                        <a href="" class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow">
-                        <figure class=" h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none
+                    @foreach($news as $item)
+                        <a href="{{route('archive.showDetailNews',[config('app.locale'),$item->getSlug()])}}"
+                           class="h-cart relative block w-full flex border border-solid rounded bg-white has-shadow">
+                            <figure class=" h-cart__cover flex-shrink-0 rounded-inherit rounded-tl-none rounded-bl-none
                            has-skeleton">
-                        <img src=""
-                             data-src="https://images.unsplash.com/photo-1581084104193-bec602b556a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                             alt=""
-                             class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"/>
-                        </figure>
-                        <div class="h-cart__details flex-1">
-                            <p class="h-cart__title font-sm-bold">
-                                {{$item->getAbstract()}}
-                            </p>
-                            <time class="h-cart__release block w-full font-1xs font-bold text-left">
-                                انتشار: ۲۸ دی ۱۳۹۸
-                            </time>
-                            <p class="h-cart__caption text-blue-800 font-xs">
-                                {{$item->getDescription()}}
-                            </p>
-                        </div>
+                                <img src=""
+                                     data-src="/{{$item->getAttachmentFiles() ? current($item->getAttachmentFiles())['path'] : ''}}"
+                                     alt=""
+                                     class="h-cart__cover_image block w-full h-full rounded-inherit object-cover"/>
+                            </figure>
+                            <div class="h-cart__details flex-1">
+                                <p class="h-cart__title font-sm-bold">
+                                    {!! html_entity_decode($item->getFirstTitle(), ENT_QUOTES, 'UTF-8') !!}
+                                </p>
+                                <time class="h-cart__release block w-full font-1xs font-bold text-left">
+                                    انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
+
+                                </time>
+                                <p class="h-cart__caption text-blue-800 font-xs">
+                                    {!! html_entity_decode($item->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
+                                </p>
+                            </div>
                         </a>
                     @endforeach
 

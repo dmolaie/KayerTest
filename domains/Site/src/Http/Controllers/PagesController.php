@@ -8,11 +8,19 @@ use App\Http\Controllers\Controller;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Services\MenusContentService;
+use Domains\News\Services\NewsService;
+use Domains\Site\Services\SiteServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
+    protected $siteServices;
+    public function __construct(SiteServices $siteServices)
+    {
+        $this->siteServices = $siteServices;
+    }
+
     public function history(Request $request)
     {
         return view('site::' . $request->language . '.pages.history');
@@ -23,9 +31,16 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.structure-and-organization');
     }
 
-    public function newsList(Request $request)
+    public function newsListIran(Request $request)
     {
-        return view('site::' . $request->language . '.pages.news-list');
+        $news = $this->siteServices->getFilterNews('iran-news')->getItems();
+        return view('site::' . $request->language . '.pages.news-list',compact('news'));
+    }
+
+    public function newsListWorld(Request $request)
+    {
+        $news = $this->siteServices->getFilterNews('world-news')->getItems();
+        return view('site::' . $request->language . '.pages.news-list' ,compact('news'));
     }
 
     public function interactions(Request $request)
@@ -124,5 +139,15 @@ class PagesController extends Controller
 
             default: abort(404);
         }
+    }
+
+    public function showDetailNews($language, $slug)
+    {
+        if (!$slug) {
+            abort(404);
+        }
+        $content = $this->siteServices->getDetailNews($slug);
+        return view('site::' . $language . '.pages.news-show', compact('content'));
+
     }
 }

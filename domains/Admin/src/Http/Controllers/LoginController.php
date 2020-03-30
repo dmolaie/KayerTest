@@ -26,18 +26,18 @@ class LoginController extends EhdaBaseController
     public function login(UserLoginRequest $request, LoginPresenter $loginPresenter)
     {
         try {
-            $result = $this->adminService->login($request,$request->createLoginDTO());
+            $result = $this->adminService->login($request, $request->createLoginDTO());
             return $this->response($loginPresenter->transform($result), Response::HTTP_OK,
                 trans('admin::response.authenticate.successful_login'));
-
         } catch (UserUnAuthorizedException $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
         } catch (UserDoseNotHaveActiveRole $exception) {
             return $this->response([], $exception->getCode(), $exception->getMessage());
         }
-
     }
-    public function logout(Request $request){
+
+    public function logout(Request $request)
+    {
         $logoutController = new \App\Http\Controllers\Auth\LoginController();
         $logoutController->logout($request);
         return $this->response([], Response::HTTP_OK,

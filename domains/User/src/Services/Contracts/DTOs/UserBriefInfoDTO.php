@@ -50,7 +50,10 @@ class UserBriefInfoDTO
      * @var array
      */
     protected $currentProvince;
-
+    /**
+     * @var string|null
+     */
+    protected $jobTitle;
     /**
      * @return string
      */
@@ -228,6 +231,24 @@ class UserBriefInfoDTO
     public function setCurrentProvince(array $currentProvince): UserBriefInfoDTO
     {
         $this->currentProvince = $currentProvince;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getJobTitle(): ?string
+    {
+        return $this->jobTitle;
+    }
+
+    /**
+     * @param string|null $jobTitle
+     * @return UserBriefInfoDTO
+     */
+    public function setJobTitle(?string $jobTitle): UserBriefInfoDTO
+    {
+        $this->jobTitle = $jobTitle;
         return $this;
     }
 

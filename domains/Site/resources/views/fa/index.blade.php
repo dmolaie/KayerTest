@@ -386,79 +386,32 @@
                     <div class="max-w-full overflow-x-hidden">
                         <div class="carousel__container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="/"
-                                       class="cart w-full block relative">
-                                        <header class="cart__header relative flex items-end z-1">
-                                            <div class="cart__cover relative has-shadow rounded bg-white">
-                                                <figure class="block w-full h-full rounded has-skeleton">
-                                                    <img src=""
-                                                         data-src="https://images.unsplash.com/photo-1580564182117-00cc0ce3587e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                         alt=""
-                                                         class="cart__cover_image w-full h-full block rounded object-cover"
-                                                    />
-                                                </figure>
+                                @foreach($news as $item)
+                                    <div class="swiper-slide">
+                                        <a href="{{route('archive.showDetailNews',[config('app.locale'),$item->getSlug()])}}"
+                                           class="cart w-full block relative">
+                                            <header class="cart__header relative flex items-end z-1">
+                                                <div class="cart__cover relative has-shadow rounded bg-white">
+                                                    <figure class="block w-full h-full rounded has-skeleton">
+                                                        <img src=""
+                                                             data-src="{{$item->getAttachmentFiles() ? current($item->getAttachmentFiles())['path'] : ''}}"
+                                                             alt=""
+                                                             class="cart__cover_image w-full h-full block rounded object-cover"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <time class="cart__release has_notebook--gray block text-gray font-xs text-left text-nowrap">
+                                                    {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
+                                                </time>
+                                            </header>
+                                            <div class="cart__body relative bg-white has-shadow border border-solid rounded m-r-auto">
+                                                <p class="cart__title text-blue-800 font-sm-bold">
+                                                    {{$item->getFirstTitle()}}
+                                                </p>
                                             </div>
-                                            <time class="cart__release has_notebook--gray block text-gray font-xs text-left text-nowrap">
-                                                ۲۸ مهر ۹۸
-                                            </time>
-                                        </header>
-                                        <div class="cart__body relative bg-white has-shadow border border-solid rounded m-r-auto">
-                                            <p class="cart__title text-blue-800 font-sm-bold">
-                                                تجلیل از مدیرعامل انجمن اهدای عضو ایرانیان در دومین همایش ملی ایثار
-                                                اجتماعی
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="/"
-                                       class="cart w-full block relative">
-                                        <header class="cart__header relative flex items-end z-1">
-                                            <div class="cart__cover relative has-shadow rounded bg-white">
-                                                <figure class="block w-full h-full rounded has-skeleton">
-                                                    <img src=""
-                                                         data-src="https://images.unsplash.com/photo-1580564182117-00cc0ce3587e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                         alt=""
-                                                         class="cart__cover_image w-full h-full block rounded object-cover"
-                                                    />
-                                                </figure>
-                                            </div>
-                                            <time class="cart__release has_notebook--gray block text-gray font-xs text-left text-nowrap">
-                                                ۲۸ اردیبهشت ۹۸
-                                            </time>
-                                        </header>
-                                        <div class="cart__body relative bg-white has-shadow border border-solid rounded m-r-auto">
-                                            <p class="cart__title text-blue-800 font-sm-bold">
-                                                برپایی غرفه صدور آنی کارت اهدای عضو در حاشیه اختتامیه پویش ۳۰ - ۶۰
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="/"
-                                       class="cart w-full block relative">
-                                        <header class="cart__header relative flex items-end z-1">
-                                            <div class="cart__cover relative has-shadow rounded bg-white">
-                                                <figure class="block w-full h-full rounded has-skeleton">
-                                                    <img src=""
-                                                         data-src="https://images.unsplash.com/photo-1580564182117-00cc0ce3587e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                         alt=""
-                                                         class="cart__cover_image w-full h-full block rounded object-cover"
-                                                    />
-                                                </figure>
-                                            </div>
-                                            <time class="cart__release has_notebook--gray block text-gray font-xs text-left text-nowrap">
-                                                ۲۸ خرداد ۹۸
-                                            </time>
-                                        </header>
-                                        <div class="cart__body relative bg-white has-shadow border border-solid rounded m-r-auto">
-                                            <p class="cart__title text-blue-800 font-sm-bold">
-                                                اعطای جایزه MBE به یک پرستار به دلیل تشویق اقلیت‌ها به اهدای اعضا
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

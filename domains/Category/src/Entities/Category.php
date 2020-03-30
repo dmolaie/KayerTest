@@ -20,6 +20,7 @@ class Category extends Model
         'name_fa',
         'type',
         'parent_id',
+        'slug',
     ];
 
     public function children()
