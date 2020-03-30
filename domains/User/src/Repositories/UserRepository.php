@@ -189,7 +189,7 @@ class UserRepository
             ->where('status', '<>', config('user.user_role_inactive_status'))->get();
     }
 
-    public function changePasswordByAdmin(int $userId, string $password): User
+    public function changePassword(int $userId, string $password): User
     {
         $user = $this->entityName::findOrFail($userId);
         $user->password = bcrypt($password);

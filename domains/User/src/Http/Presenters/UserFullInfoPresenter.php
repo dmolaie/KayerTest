@@ -23,14 +23,14 @@ class UserFullInfoPresenter
             'city_of_birth'              => $this->getCityInfo($userFullInfoDTO->getCityOfBirth()),
             'date_of_birth'              => $userFullInfoDTO->getDateOfBirth(),
             'job_title'                  => $userFullInfoDTO->getJobTitle(),
-            'last_education_degree'      => $userFullInfoDTO->getLastEducationDegree()?array_flip(config('user.education_degree'))[$userFullInfoDTO->getLastEducationDegree()]:null,
+            'last_education_degree'      => $userFullInfoDTO->getLastEducationDegree() ? array_flip(config('user.education_degree'))[$userFullInfoDTO->getLastEducationDegree()] : null,
             'phone'                      => $userFullInfoDTO->getPhone(),
             'mobile'                     => $userFullInfoDTO->getMobile(),
             'essential_mobile'           => $userFullInfoDTO->getEssentialMobile(),
             'current_province'           => $this->getProvinceInfo($userFullInfoDTO->getCurrentProvince()),
             'current_city'               => $this->getCityInfo($userFullInfoDTO->getCurrentCity()),
             'email'                      => $userFullInfoDTO->getEmail(),
-            'marital_status'             => $userFullInfoDTO->getMaritalStatus()?array_flip(config('user.user_marital_statuses'))[$userFullInfoDTO->getMaritalStatus()]:null,
+            'marital_status'             => $userFullInfoDTO->getMaritalStatus() ? array_flip(config('user.user_marital_statuses'))[$userFullInfoDTO->getMaritalStatus()] : null,
             'education_field'            => $userFullInfoDTO->getEducationField(),
             'education_province'         => $this->getProvinceInfo($userFullInfoDTO->getEducationProvince()),
             'education_city'             => $this->getCityInfo($userFullInfoDTO->getEducationCity()),
@@ -41,13 +41,14 @@ class UserFullInfoPresenter
             'work_phone'                 => $userFullInfoDTO->getWorkPhone(),
             'work_postal_code'           => $userFullInfoDTO->getWorkPostalCode(),
             'day_of_cooperation'         => $userFullInfoDTO->getDayOfCooperation(),
-            'know_community_by'          => $userFullInfoDTO->getKnowCommunityBy()?array_flip(config('user.know_community_by'))[$userFullInfoDTO->getKnowCommunityBy()]:null,
+            'know_community_by'          => $userFullInfoDTO->getKnowCommunityBy() ? array_flip(config('user.know_community_by'))[$userFullInfoDTO->getKnowCommunityBy()] : null,
             'motivation_for_cooperation' => $userFullInfoDTO->getMotivationForCooperation(),
-            'field_of_activities'        => $userFullInfoDTO->getFieldOfActivities()?array_map('intval', explode(',', $userFullInfoDTO->getFieldOfActivities())):[],
+            'field_of_activities'        => $userFullInfoDTO->getFieldOfActivities() ? array_map('intval',
+                explode(',', $userFullInfoDTO->getFieldOfActivities())) : [],
             'current_address'            => $userFullInfoDTO->getCurrentAddress(),
             'roles'                      => $userFullInfoDTO->getRoles(),
             'receive_email'              => $userFullInfoDTO->getReceiveEmail(),
-            'card_id'                    => $userFullInfoDTO->getCardId(),
+            'card_id'                    => $this->getCardId($userFullInfoDTO),
         ];
     }
 
@@ -73,5 +74,15 @@ class UserFullInfoPresenter
             'slug' => $city->getSlug(),
             'id'   => $city->getId(),
         ];
+    }
+
+    private function getCardId(UserFullInfoDTO $userFullInfoDTO)
+    {
+        $roleIds = collect($userFullInfoDTO->getRoles())
+            ->keyBy('id')->keys()->toArray();
+        if (in_array(config('user.client_role_id'), $roleIds)) {
+            return $userFullInfoDTO->getCardId();
+        }
+        return null;
     }
 }

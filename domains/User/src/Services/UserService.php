@@ -26,6 +26,7 @@ use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Domains\User\src\Services\Contracts\DTOs\UserProfileDTO;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -96,7 +97,7 @@ class UserService
      * @throws UserUnAuthorizedException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function loginWithApi($request,UserLoginDTO $loginDTO): UserLoginDTO
+    public function loginWithApi($request, UserLoginDTO $loginDTO): UserLoginDTO
     {
         $loginController = new LoginController();
         $loginController->login($request);
@@ -243,7 +244,7 @@ class UserService
 
     public function changePasswordByAdmin(int $userId, string $password)
     {
-        $this->userRepository->changePasswordByAdmin($userId, $password);
+        $this->userRepository->changePassword($userId, $password);
         return;
     }
 
@@ -259,9 +260,25 @@ class UserService
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 
+    public function changePassword(int $userId, string $password, string $currentPassword)
+    {
+        $user = $this->userRepository->findOrFail($userId);
+        if (Hash::check($currentPassword, $user->password)) {
+            $this->userRepository->changePassword($userId, $password);
+            return;
+        }
+        throw new UserUnAuthorizedException(trans('user::response.authenticate.error_password'));
+    }
+
     public function addNewRoleToUser(int $userId, int $roleId): UserBriefInfoDTO
     {
         $user = $this->userRepository->addNewRoleToUser($userId, $roleId);
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function getUserBaseInfo()
+    {
+        $user = Auth::user();
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 }

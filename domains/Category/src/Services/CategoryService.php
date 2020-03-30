@@ -91,4 +91,11 @@ class CategoryService
         }
         return;
     }
+
+    public function getActiveCategoryByType(string $categoryType): array
+    {
+        $categories = $this->categoryRepository->findCategoryWithType(
+            $categoryType,true);
+        return $this->categoryDTOMaker->convertMany($categories);
+    }
 }

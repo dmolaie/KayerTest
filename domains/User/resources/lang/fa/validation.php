@@ -119,6 +119,7 @@ return array(
         "email"                       => "پست الکترونیکی",
         "first_name"                  => "نام",
         "last_name"                   => "نام خانوادگی",
+        "current_password"            => "رمز عبور فعلی",
         "password"                    => "رمز عبور",
         "password_confirmation"       => "تاییدیه ی رمز عبور",
         "current_province_id"         => "استان محل سکونت",

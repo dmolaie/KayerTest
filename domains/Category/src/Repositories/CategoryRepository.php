@@ -25,9 +25,12 @@ class CategoryRepository
         return $this->entityName::findOrFail($id);
     }
 
-    public function findCategoryWithType(string $categoryType)
+    public function findCategoryWithType(string $categoryType, $justActive = false)
     {
         return $this->entityName::where('type', '=', $categoryType)
+            ->when($justActive, function ($query) {
+                $query->where('is_active', '1');
+            })
             ->whereNull('parent_id')->get();
     }
 

@@ -72,4 +72,9 @@ class SiteServices
     {
         return $this->newsService->getNewsDetailWithSlug($slug);
     }
+
+    public function getActiveCategoryByType($type)
+    {
+        return $this->categoryService->getActiveCategoryByType($type);
+    }
 }
