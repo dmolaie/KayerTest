@@ -139,8 +139,9 @@ class NewsRepository
         return $this->entityName::where('id', $newsId)->delete();
     }
 
-    public function changeStatus(News $news, string $status): News
+    public function changeStatus(int $newsId, string $status): News
     {
+        $news = $this->findOrFail($newsId);
         $news->status = $status;
         $getDirty = $news->getDirty();
         if (!empty($getDirty)) {
