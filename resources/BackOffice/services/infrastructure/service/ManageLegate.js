@@ -9,10 +9,6 @@ import {
     HasLength
 } from '@vendor/plugin/helper';
 
-const DEFAULT_STATUS = {
-    role_id: 3
-};
-
 export default class ManageLegateService extends BaseService {
     constructor( layout ) {
         super();
@@ -39,7 +35,7 @@ export default class ManageLegateService extends BaseService {
 
     async processFetchAsyncData() {
         try {
-            await this.getVolunteersListFilterBy( DEFAULT_STATUS );
+            await this.getVolunteersListFilterBy();
         } catch ({ message }) {
             this.$vm.displayNotification(message, {
                 type: 'error'
@@ -59,12 +55,14 @@ export default class ManageLegateService extends BaseService {
 
     async HandelSearchAction(searchValue, { query }) {
         try {
-            const QUERY_STRING = ( HasLength( query ) ) ? query : DEFAULT_STATUS;
-            ( HasLength( searchValue.trim() ) ) ? (
-                QUERY_STRING['first_title'] = searchValue.trim()
-            ) : (
-                delete QUERY_STRING['first_title']
-            );
+            // const QUERY_STRING = query;
+            // ( HasLength( searchValue.trim() ) ) ? (
+            //     QUERY_STRING['national_code'] = searchValue.trim()
+            // ) : (
+            //     delete QUERY_STRING['national_code']
+            // );
+            // console.log('QUERY_STRING', QUERY_STRING);
+            // await this.getVolunteersListFilterBy( QUERY_STRING );
         } catch (e) {}
     }
 }

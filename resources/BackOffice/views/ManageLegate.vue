@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                                 <div class="table__td table__td:l">
-                                    <span class="block font-xs cursor-default text-right"
+                                    <span class="m-legate__location block font-xs cursor-default text-right"
                                           v-text="item.location"
                                     > </span>
                                 </div>
@@ -115,7 +115,7 @@
                                                   'm-post__status--reject': role.is_inactive,
                                               }"
                                         >
-                                            سفیر {{ item.province_name }}: {{ role.status_fa }}
+                                            {{ role.label + ' ' + item.province_name }}: {{ role.status_fa }}
                                         </span>
                                         <div class="w-full">
                                             <button class="m-legate__t-button table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
@@ -148,6 +148,16 @@
                             </div>
                         </template>
                     </table-cm>
+                </div>
+                <div class="w-full m-post__pagination"
+                     v-if="!!Object.values(items)"
+                >
+                    <pagination-cm :isPending="isPending"
+                                   @input="onChangePagination"
+                                   :currentPage="pagination.current_page"
+                                   :total="pagination.total || 0"
+                                   :key="'paginate-' + paginateKeyCounter"
+                    />
                 </div>
             </div>
         </div>
@@ -185,7 +195,8 @@
         },
         computed: {
             ...mapState({
-                items: ({ ManageLegateStore }) => ManageLegateStore.items
+                items: ({ ManageLegateStore }) => ManageLegateStore.items,
+                pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination
             })
         },
         methods: {
@@ -200,11 +211,23 @@
                     this.searchTimeout = await setTimeout(async () => {
                         await Service.HandelSearchAction( this.filter.search, this.$route );
                         this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
-                    }, 330)
+                    }, 350)
                 } catch (e) {}
             },
             onClickActionButton( item ) {
                 this.$set(item, 'is_opened', !item.is_opened)
+            },
+            onChangePagination( page ) {
+                try {
+                    this.backToTop();
+                    Service.getVolunteersListFilterBy( page )
+                        .then(this.$nextTick)
+                        .then(() => {
+                            setTimeout(() => {
+                                this.$set(this, 'isPending', false)
+                            }, 70);
+                        });
+                } catch (e) {}
             }
         },
         created() {

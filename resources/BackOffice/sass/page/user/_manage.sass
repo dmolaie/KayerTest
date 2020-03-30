@@ -5,7 +5,26 @@
       margin-bottom: (7px + 23px)
     &::before
       display: none
+  &__location
+    &::before
+      content: " "
+      display: inline-block
+      @include Size( 14px )
+      background: url("/../images/ic_marker--blue--800.svg") center no-repeat
+        size: contain
+      margin-left: 4px
+      pointer-events: none
+      vertical-align: middle
   &__t-button
     margin-top: 8px
     &::after
       display: none !important
+    &::before
+      content: " "
+      display: inline-block
+      @include Size( 14px )
+      background: url("/../images/ic_setting--blue--800.svg") center no-repeat
+        size: contain
+      margin-left: 5px
+      pointer-events: none
+      vertical-align: middle
