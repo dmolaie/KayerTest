@@ -23,15 +23,26 @@
                         منتظر تأیید
                     </button>
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
-                            v-if="false"
                     >
-                        پیش‌نویس‌های من
+                        نوشته‌های من
+                    </button>
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                    >
+                        کنسل شده
+                    </button>
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                    >
+                        رد شده
                     </button>
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
                             :class="{ 'm-post__tab--active': is_recycleTab }"
                             @click.prevent="onClickDeleteRecycleItemTab"
                     >
                         زباله‌دان
+                    </button>
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                    >
+                        حذف شده
                     </button>
                 </div>
             </div>
