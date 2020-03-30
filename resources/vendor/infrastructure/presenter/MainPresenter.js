@@ -155,11 +155,17 @@ export class CategoryPresenter extends BasePresenter {
     }
 }
 
-export const FlattenCategories = ( payload = [] ) => {
+export const FlattenCategories = ( payload = [], gap = 0 ) => {
     return payload.reduce((flatArray, item) => {
         HasLength( item.children ) ? (
-            flatArray.push( item, ...FlattenCategories( item.children ) )
-        ) : flatArray.push( item );
+            flatArray.push({
+                ...item,
+                gap: ( gap * 16 )
+            }, ...FlattenCategories( item.children, gap + 1 ) )
+        ) : flatArray.push({
+            ... item,
+            gap: ( gap * 16 )
+        });
         return flatArray;
     }, [])
 };

@@ -9,6 +9,7 @@
                      'fa' === lang ? 'direction-rtl' : 'direction-ltr',
                      !item.is_active ? 'category__item--disable' : '',
                  ]"
+                 :style="`padding-${'fa' === lang ? 'right' : 'left'}: ${item.gap}px`"
             >
                 <label class="inline-flex items-center cursor-pointer">
                     <input type="checkbox"
