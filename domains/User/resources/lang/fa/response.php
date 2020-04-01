@@ -5,8 +5,8 @@ return array(
     'authenticate'                     => [
         'error_username_password' => 'نام کاربری و پسورد اشتباه است',
         'user_not_login'          => 'شما لاگین نیستید.',
-        'error_password' => 'پسورد اشتباه است'
-
+        'error_password' => 'پسورد اشتباه است',
+        'user_cant_access' => 'شما دسترسی ندارید',
     ],
     'is_not_admin'                     => 'دسترسی شما ادمین نیست.',
     'success_login'                    => 'لاگین با موفقیت انجام شد.',
