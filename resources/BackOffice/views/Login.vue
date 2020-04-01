@@ -9,7 +9,8 @@
                          class="ehda-logo__image block w-full h-full m-0-auto object-contain"
                     />
                 </a>
-                <div class="c-form w-full text-center">
+                <form @submit.stop="onClickSubmitButton"
+                      class="c-form w-full text-center">
                     <label class="c-form__wrapper block w-full relative text-right"
                            :class="{
                                 'c-form__wrapper--active': (!!form.username.value),
@@ -19,6 +20,7 @@
                         <input type="text"
                                @blur="onBlurUsernameField( form.username.value )"
                                v-model="form.username.value"
+                               autocomplete="off"
                                class="c-form__input block w-full height rounded text-cornflower font-20 font-bold direction-ltr text-left"
                         />
                         <span class="c-form__label absolute text-gra font-lg font-bold bg-white pointer-event-none user-select-none z-2">
@@ -37,6 +39,7 @@
                         <input type="password"
                                @blur="onBlurPasswordField( form.password.value )"
                                v-model="form.password.value"
+                               autocomplete="off"
                                class="c-form__input block w-full height rounded text-cornflower font-20 font-bold direction-ltr text-left"
                         />
                         <span class="c-form__label absolute text-gra font-lg font-bold bg-white pointer-event-none user-select-none z-2">
@@ -52,7 +55,7 @@
                     >
                         ورود
                     </button>
-                </div>
+                </form>
             </div>
             <div class="p-login__background flex-1 h-full md:none"></div>
         </div>
@@ -64,11 +67,13 @@
     import {
         Length
     } from '@vendor/plugin/helper';
+    import Form from "../components/ManageMenu/Form";
 
     let Service = null;
 
     export default {
         name: "Login",
+        components: {Form},
         data: () => ({
             form: {
                 username: {
