@@ -23,8 +23,8 @@ const GetDefaultState = () => ({
 
 const UserStore = {
     state: {
+        id: TokenService._GetUserId || null,
         token: TokenService._GetToken || null,
-        userId: TokenService._GetUserId || null,
         roleId: TokenService._GetRoleId || null,
         username: TokenService._GetUsername || null,
     },
@@ -43,7 +43,7 @@ const UserStore = {
         ),
         GET_IS_USER_LOGGED_IN: state => ( !!state.token ),
         [IS_ADMIN]: () => parseInt( TokenService._GetRoleId ) === ADMIN_ROLE_ID,
-        [GET_USER_ID]: state => state.userId
+        [GET_USER_ID]: state => state.id
     }
 };
 

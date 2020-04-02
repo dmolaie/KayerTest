@@ -9,6 +9,8 @@
                    'publish__status--reject': isReject,
                    'publish__status--accept': isAccept,
                    'publish__status--recycle': isRecycle,
+                   'publish__status--cancel': isCancel,
+                   'publish__status--delete': isDelete,
                    'publish__status--not-published': isNotPublished,
                }"
                v-text="statusLabel"
@@ -79,6 +81,14 @@
                 default: false
             },
             isRecycle: {
+                type: Boolean,
+                default: false
+            },
+            isCancel: {
+                type: Boolean,
+                default: false
+            },
+            isDelete: {
                 type: Boolean,
                 default: false
             },

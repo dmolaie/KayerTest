@@ -30,7 +30,7 @@ export default class TokenService {
     }
 
     static get _GetUserId() {
-        Cookies.get( USER_ID_COOKIE_KEY );
+        return Cookies.get( USER_ID_COOKIE_KEY );
     }
 
     _SetUsername() {

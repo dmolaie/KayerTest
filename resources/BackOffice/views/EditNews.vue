@@ -105,6 +105,7 @@
                             :isPending="form.is_pending"
                             :isReject="form.is_reject"
                             :isAccept="form.is_accept"
+                            :isCancel="form.is_cancel"
                             :isReadyPublished="form.is_ready_to_publish"
                             :statusLabel="form.status || ''"
                             buttonLabel="بروزرسانی"

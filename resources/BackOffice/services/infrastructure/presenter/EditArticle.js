@@ -28,6 +28,7 @@ export default class ArticleItemPresenter extends BasePresenter {
             is_reject: Boolean,
             is_ready_to_publish: Boolean,
             is_recycle: Boolean,
+            is_cancel: Boolean,
             status: String,
             publisher_name: String,
             language: String,
@@ -109,6 +110,12 @@ export default class ArticleItemPresenter extends BasePresenter {
     is_recycle() {
         return (
             this.data.status?.en === "recycle"
+        )
+    }
+
+    is_cancel() {
+        return (
+            this.data.status?.en === "cancel"
         )
     }
 

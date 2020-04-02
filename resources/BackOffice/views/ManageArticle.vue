@@ -2,36 +2,55 @@
     <div class="m-news m-post">
         <div class="m-post__container w-full bg-white rounded-10">
             <div class="m-post__tabs">
-                <div class="inline-flex items-stretch">
-                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                <div class="inline-flex items-stretch min-w-full">
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
                             :class="{ 'm-post__tab--active': is_publishedTab }"
                             @click.prevent="onClickPublishItemTab"
                     >
                         منتشرشده‌ها
                     </button>
-                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
                             :class="{ 'm-post__tab--active': is_scheduleTab }"
                             @click.prevent="onClickScheduledItemTab"
                     >
                         صف انتشار
                     </button>
-                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
                             :class="{ 'm-post__tab--active': is_pendingTab }"
-                            @click.prevent="onClickDeletePendingItemTab"
+                            @click.prevent="onClickPendingItemTab"
 
                     >
                         منتظر تأیید
                     </button>
-                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
-                            v-if="false"
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
+                            :class="{ 'm-post__tab--active': is_cancelTab }"
+                            @click.prevent="onClickCancelItemTab"
                     >
-                        پیش‌نویس‌های من
+                        کنسل شده
                     </button>
-                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
+                            :class="{ 'm-post__tab--active': is_rejectTab }"
+                            @click.prevent="onClickRejectItemTab"
+                    >
+                        رد شده
+                    </button>
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
                             :class="{ 'm-post__tab--active': is_recycleTab }"
-                            @click.prevent="onClickDeleteRecycleItemTab"
+                            @click.prevent="onClickRecycleItemTab"
                     >
                         زباله‌دان
+                    </button>
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
+                            :class="{ 'm-post__tab--active': is_deleteTab }"
+                            @click.prevent="onClickDeleteItemTab"
+                    >
+                        حذف شده
+                    </button>
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
+                            :class="{ 'm-post__tab--active': is_myPostTab }"
+                            @click.prevent="onClickMyPostItemTab"
+                    >
+                        نوشته‌های من
                     </button>
                 </div>
             </div>
@@ -139,6 +158,7 @@
                             <div class="table__row flex"
                                  v-for="item in data"
                                  :key="item.id"
+                                 :class="{ 'table__row--delete pointer-event-none': item.is_delete }"
                             >
                                 <div class="table__td inline-flex items-center justify-center">
                                     <label class="cursor-pointer">
@@ -171,7 +191,9 @@
                                                 'm-post__status--pending': ( item.is_pending ),
                                                 'm-post__status--reject': ( item.is_reject ),
                                                 'm-post__status--accept': ( item.is_accept ),
-                                                'm-post__status--recycle': ( item.is_recycle )
+                                                'm-post__status--recycle': ( item.is_recycle ),
+                                                'm-post__status--delete': ( item.is_delete ),
+                                                'm-post__status--cancel': ( item.is_cancel ),
                                               }"
                                               v-text="item.status"
                                         > </span>
@@ -215,32 +237,35 @@
                                         <button class="table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
                                                 v-text="'عملیات'"
                                                 @click.stop="onClickActionButton( item )"
+                                                :disabled="!(item.is_owner || isAdmin)"
                                         > </button>
                                         <dropdown-cm :visibility="item.is_opened"
                                                      @onClickOutside="onClickActionButton( item )"
                                                      :clickOutside="true"
                                                      class="table__dropdown"
                                         >
-                                            <template v-if="item.is_recycle">
-                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="'بازیابی از زباله دان'"
-                                                        @click.prevent="onClickPendingActionButton( item.id )"
-                                                > </button>
-                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="'حذف خبر'"
-                                                        @click.prevent="onClickDeleteActionButton( item.id )"
-                                                > </button>
-                                            </template>
-                                            <template v-else>
-                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="'ویرایش'"
-                                                        @click.prevent="onClickEditActionButton( item.id, item.lang )"
-                                                > </button>
-                                                <span class="dropdown__divider"> </span>
-                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="'انتقال به زباله دان'"
-                                                        @click.prevent="onClickRecycleActionButton( item.id )"
-                                                > </button>
+                                            <template v-if="item.is_owner || isAdmin">
+                                                <template v-if="item.is_recycle">
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'بازیابی از زباله دان'"
+                                                            @click.prevent="onClickPendingActionButton( item.id )"
+                                                    > </button>
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'حذف خبر'"
+                                                            @click.prevent="onClickDeleteActionButton( item.id )"
+                                                    > </button>
+                                                </template>
+                                                <template v-else>
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'ویرایش'"
+                                                            @click.prevent="onClickEditActionButton( item.id, item.lang )"
+                                                    > </button>
+                                                    <span class="dropdown__divider"> </span>
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'انتقال به زباله دان'"
+                                                            @click.prevent="onClickRecycleActionButton( item.id )"
+                                                    > </button>
+                                                </template>
                                             </template>
                                         </dropdown-cm>
                                     </div>
@@ -266,8 +291,11 @@
 
 <script>
     import {
-        mapState
+        mapState, mapGetters
     } from 'vuex';
+    import {
+        IS_ADMIN
+    } from '@services/store/Login';
     import {
         Length, HasLength, toEnglishDigits
     } from "@vendor/plugin/helper";
@@ -282,8 +310,11 @@
     const PUBLISH_STATUS = StatusService.PUBLISH_STATUS;
     const READY_TO_PUBLISH_STATUS =  StatusService.READY_TO_PUBLISH_STATUS;
     const RECYCLE_STATUS =  StatusService.RECYCLE_STATUS;
+    const CANCEL_STATUS =  StatusService.CANCEL_STATUS;
     const PENDING_STATUS =  StatusService.PENDING_STATUS;
     const DELETE_STATUS =  StatusService.DELETE_STATUS;
+    const REJECT_STATUS =  StatusService.REJECT_STATUS;
+    const MY_POST_STATUS =  StatusService.MY_POST_STATUS;
 
     let Service = null;
 
@@ -311,6 +342,9 @@
             DatePickerCm, PaginationCm
         },
         computed: {
+            ...mapGetters({
+                isAdmin: IS_ADMIN
+            }),
             ...mapState({
                 items: ({ ManageArticle }) => ManageArticle.items,
                 pagination: ({ ManageArticle }) => ManageArticle.pagination
@@ -333,11 +367,35 @@
                     query.status === RECYCLE_STATUS
                 ) : false
             },
+            is_deleteTab() {
+                let { query } = this.$route;
+                return ( HasLength(this.$route.query) ) ? (
+                    query.status === DELETE_STATUS
+                ) : false
+            },
+            is_cancelTab() {
+                let { query } = this.$route;
+                return ( HasLength(this.$route.query) ) ? (
+                    query.status === CANCEL_STATUS
+                ) : false
+            },
+            is_rejectTab() {
+                let { query } = this.$route;
+                return ( HasLength(this.$route.query) ) ? (
+                    query.status === REJECT_STATUS
+                ) : false
+            },
             is_pendingTab() {
                 let { query } = this.$route;
                 return ( HasLength(this.$route.query) ) ? (
                     query.status === PENDING_STATUS
                 ) : false
+            },
+            is_myPostTab() {
+                let { query } = this.$route;
+                return ( HasLength(this.$route.query) ) ? (
+                    query.status === MY_POST_STATUS
+                ) : false;
             },
             datePickerMinValue() {
                 try {
@@ -447,14 +505,34 @@
                     status: READY_TO_PUBLISH_STATUS
                 })
             },
-            onClickDeletePendingItemTab() {
+            onClickPendingItemTab() {
                 this.switchBetweenTabs({
                     status: PENDING_STATUS
                 })
             },
-            onClickDeleteRecycleItemTab() {
+            onClickCancelItemTab() {
+                this.switchBetweenTabs({
+                    status: CANCEL_STATUS
+                })
+            },
+            onClickRejectItemTab() {
+                this.switchBetweenTabs({
+                    status: REJECT_STATUS
+                })
+            },
+            onClickRecycleItemTab() {
                 this.switchBetweenTabs({
                     status: RECYCLE_STATUS
+                })
+            },
+            onClickDeleteItemTab() {
+                this.switchBetweenTabs({
+                    status: DELETE_STATUS
+                })
+            },
+            onClickMyPostItemTab() {
+                this.switchBetweenTabs({
+                    status: MY_POST_STATUS
                 })
             },
             async oninputSearchField() {
