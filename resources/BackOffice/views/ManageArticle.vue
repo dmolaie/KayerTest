@@ -245,26 +245,34 @@
                                                      class="table__dropdown"
                                         >
                                             <template v-if="item.is_owner || isAdmin">
-                                                <template v-if="item.is_recycle">
+                                                <template v-if="item.is_recycle && isAdmin">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'بازیابی از زباله دان'"
                                                             @click.prevent="onClickPendingActionButton( item.id )"
                                                     > </button>
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                            v-text="'حذف خبر'"
+                                                            v-text="'حذف صفحه'"
                                                             @click.prevent="onClickDeleteActionButton( item.id )"
                                                     > </button>
                                                 </template>
-                                                <template v-else>
+                                                <template v-else-if="!item.is_delete">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'ویرایش'"
                                                             @click.prevent="onClickEditActionButton( item.id, item.lang )"
                                                     > </button>
                                                     <span class="dropdown__divider"> </span>
-                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                            v-text="'انتقال به زباله دان'"
-                                                            @click.prevent="onClickRecycleActionButton( item.id )"
-                                                    > </button>
+                                                    <template v-if="isAdmin">
+                                                        <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                                v-text="'بازگشت به نویسنده (رد)'"
+                                                                @click.prevent="onClickRejectActionButton( item.id )"
+                                                                v-if="item.is_pending"
+                                                        > </button>
+                                                        <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                                v-text="'انتقال به زباله دان'"
+                                                                @click.prevent="onClickRecycleActionButton( item.id )"
+                                                                v-else
+                                                        > </button>
+                                                    </template>
                                                 </template>
                                             </template>
                                         </dropdown-cm>
@@ -582,6 +590,11 @@
                         id: article_id
                     }
                 });
+            },
+            async onClickRejectActionButton( news_id ) {
+                try {
+                    await Service.changeStatusNewsItem( news_id, REJECT_STATUS );
+                } catch (e) {}
             },
             async onClickRecycleActionButton( article_id ) {
                 try {

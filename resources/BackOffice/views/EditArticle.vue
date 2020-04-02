@@ -93,7 +93,15 @@
                         >
                             بروزرسانی
                         </button>
-                        <template v-if="!(isAdmin && form.is_owner)">
+                        <template v-if="form.is_pending">
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickRejectItemButton(); hiddenDropdown()}"
+                            >
+                                بازگشت به نویسنده (رد)
+                            </button>
+                        </template>
+                        <template v-else>
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickChangeStatusButton(); hiddenDropdown()}"
@@ -218,10 +226,18 @@
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }
             },
+            async onClickRejectItemButton() {
+                try {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
+                    await Service.onClickChangeStatusArticleToRejectButton( this.form.article_id );
+                } catch (e) {
+                    this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
+                }
+            },
             async onClickChangeStatusButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
-                    await Service.onClickChangeStatusArticleButton( this.form.article_id );
+                    await Service.onClickChangeStatusArticleToPendingButton( this.form.article_id );
                 } catch (e) {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading)
                 }

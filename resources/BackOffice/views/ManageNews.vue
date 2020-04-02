@@ -260,7 +260,7 @@
                                                      class="table__dropdown"
                                         >
                                             <template v-if="item.is_owner || isAdmin">
-                                                <template v-if="item.is_recycle">
+                                                <template v-if="item.is_recycle && isAdmin">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'بازیابی از زباله دان'"
                                                             @click.prevent="onClickPendingActionButton( item.id )"
@@ -275,17 +275,17 @@
                                                             v-text="'ویرایش'"
                                                             @click.prevent="onClickEditActionButton( item.id, item.lang )"
                                                     > </button>
-                                                    <span class="dropdown__divider"> </span>
-                                                    <template v-if="item.is_pending">
+                                                    <template v-if="isAdmin">
+                                                        <span class="dropdown__divider"> </span>
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'بازگشت به نویسنده (رد)'"
                                                                 @click.prevent="onClickRejectActionButton( item.id )"
+                                                                v-if="item.is_pending"
                                                         > </button>
-                                                    </template>
-                                                    <template v-else>
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'انتقال به زباله دان'"
                                                                 @click.prevent="onClickRecycleActionButton( item.id )"
+                                                                v-else
                                                         > </button>
                                                     </template>
                                                 </template>
