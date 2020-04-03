@@ -73,49 +73,23 @@
                             <p class="text-blue-800 font-sm-bold m-b-10 cursor-default">
                                 دسته بندی اخبار
                             </p>
-                            <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
-                                <input type="radio"
-                                       class="checkbox-square__input"
-                                       name="news"
-                                />
-                                <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                <span class="checkbox-square__label rounded user-select-none">
-                                        جدیدترین خبرها
+                            @foreach($categories as $category)
+                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
+                                       style="margin-right: {{$category->gap}}px"
+                                >
+                                    <input type="radio"
+                                           class="checkbox-square__input"
+                                           name="news"
+                                    />
+                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
+                                    <span class="checkbox-square__label rounded user-select-none">
+                                         {{ $category->getNameFa() }}
                                     </span>
-                            </label>
-                            <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
-                                <input type="radio"
-                                       class="checkbox-square__input"
-                                       name="news"
-                                />
-                                <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                <span class="checkbox-square__label rounded user-select-none">
-                                    خبرهای ویژه
-                                </span>
-                            </label>
-                            <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
-                                <input type="radio"
-                                       class="checkbox-square__input"
-                                       name="news"
-                                />
-                                <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                <span class="checkbox-square__label rounded user-select-none">
-                                    مهم‌ترین خبرها
-                                </span>
-                            </label>
-                            <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
-                                <input type="radio"
-                                       class="checkbox-square__input"
-                                       name="news"
-                                />
-                                <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                <span class="checkbox-square__label rounded user-select-none">
-                                    خبرهای داغ
-                                </span>
-                            </label>
-                            <button class="i-page__panel_button relative text-blue-800 font-xs-bold">
+                                </label>
+                            @endforeach
+                            {{-- <button class="i-page__panel_button relative text-blue-800 font-xs-bold">
                                 بیشتر...
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
                 </aside>
