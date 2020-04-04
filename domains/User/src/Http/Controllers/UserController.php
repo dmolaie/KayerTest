@@ -15,6 +15,7 @@ use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\AddRoleToUserRequest;
 use Domains\User\Http\Requests\ChangeAdminPasswordRequest;
 use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
+use Domains\User\Http\Requests\ChangeUserRoleStatusRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\RegisterUserByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
@@ -241,7 +242,9 @@ class UserController extends EhdaBaseController
                 trans('user::response.user_not_found')
             );
         }
-    }    /**
+    }
+
+    /**
      * @param ChangeAdminPasswordRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -263,7 +266,7 @@ class UserController extends EhdaBaseController
                 Response::HTTP_NOT_FOUND,
                 trans('user::response.user_not_found')
             );
-        }catch (UserUnAuthorizedException $exception){
+        } catch (UserUnAuthorizedException $exception) {
             return $this->response(
                 [],
                 $exception->getCode(),
@@ -329,5 +332,27 @@ class UserController extends EhdaBaseController
             $this->userService->getUserBaseInfo()),
             Response::HTTP_OK
         );
+    }
+
+    public function changeUserRoleStatus(
+        ChangeUserRoleStatusRequest $request,
+        UserBriefInfoPresenter $briefInfoPresenter
+    ) {
+        try {
+            $userInfoDTO = $this->userService->changeUserRoleStatus(
+                $request->createUserChangeRoleDTO()
+            );
+            return $this->response(
+                $briefInfoPresenter->transform($userInfoDTO),
+                Response::HTTP_OK,
+                trans('user::response.change_role')
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_OK,
+                trans('user::response.user_not_found')
+            );
+        }
     }
 }

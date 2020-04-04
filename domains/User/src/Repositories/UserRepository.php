@@ -96,7 +96,9 @@ class UserRepository
             'status',
             [
                 config('user.user_role_active_status'),
-                config('user.user_role_pending_status')
+                config('user.user_role_pending_status'),
+                config('user.user_role_wait_for_documents'),
+                config('user.user_role_wait_for_exam'),
             ])
             ->orderBy('role_id')->first();
     }
@@ -199,13 +201,16 @@ class UserRepository
         return $user;
     }
 
-    public function addNewRoleToUser(int $userId, int $roleId)
-    {
+    public function addNewRoleToUser(
+        int $userId,
+        int $roleId,
+        string $roleStatus
+    ) {
         $user = $this->entityName::findOrFail($userId);
         $user->roles()->detach($roleId);
         $user->roles()->attach(
             $roleId,
-            ['status' => config('user.user_role_active_status')]);
+            ['status' => $roleStatus]);
         return $user;
     }
 }

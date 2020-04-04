@@ -19,6 +19,7 @@ use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserChangeRoleDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
@@ -274,13 +275,27 @@ class UserService
 
     public function addNewRoleToUser(int $userId, int $roleId): UserBriefInfoDTO
     {
-        $user = $this->userRepository->addNewRoleToUser($userId, $roleId);
+        $user = $this->userRepository->addNewRoleToUser(
+            $userId,
+            $roleId,
+            config('user.user_role_active_status')
+        );
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 
     public function getUserBaseInfo()
     {
         $user = Auth::user();
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function changeUserRoleStatus(UserChangeRoleDTO $userChangeRoleDTO)
+    {
+        $user = $this->userRepository->addNewRoleToUser(
+            $userChangeRoleDTO->getUserId(),
+            $userChangeRoleDTO->getRoleId(),
+            $userChangeRoleDTO->getRoleStatus()
+            );
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 }
