@@ -20,9 +20,7 @@ export default class LoginService extends BaseService {
         super();
         this.$vm = layout;
         this.$store = layout.$store;
-    }
 
-    processViewPort() {
         BaseService.ViewPortProcess(this.$store , true);
     }
 

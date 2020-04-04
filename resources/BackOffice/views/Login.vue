@@ -64,16 +64,10 @@
 
 <script>
     import LoginService from '@services/service/Login';
-    import {
-        Length
-    } from '@vendor/plugin/helper';
-    import Form from "../components/ManageMenu/Form";
-
     let Service = null;
 
     export default {
         name: "Login",
-        components: {Form},
         data: () => ({
             form: {
                 username: {
@@ -102,7 +96,6 @@
         },
         mounted() {
             Service = new LoginService( this );
-            Service.processViewPort();
         }
     }
 </script>
