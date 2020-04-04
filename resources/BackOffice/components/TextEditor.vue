@@ -21,6 +21,12 @@
                     </button>
                 </template>
                 <button class="menubar__button"
+                        @click="onClickImageButton"
+                        title="اضافه کردن تصویر"
+                >
+                    <icon-cm name="image" />
+                </button>
+                <button class="menubar__button"
                         :class="{ 'is-active': isActive.bold() }"
                         @click="commands.bold"
                         title="بولد"
@@ -257,6 +263,71 @@
                     ltr
                 </button>
 
+                <modal-cm ref="imageConfirm"
+                          size="small"
+                          :clickOutside="false"
+                >
+                    <div class="confirm confirm--image modal__body w-full bg-white rounded direction-rtl">
+                        <p class="confirm__title text-black font-bold cursor-default">
+                            اضافه کردن تصویر
+                        </p>
+                        <div class="confirm__tabs inline-flex items-stretch min-w-full">
+                            <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                                    :class="{ 'm-post__tab--active': imageModal.shouldBeShowUploadTab }"
+                                    @click.stop="onClickImageModalTabs( true )"
+                            >
+                                آپلود از سیستم
+                            </button>
+                            <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                                    :class="{ 'm-post__tab--active': !( imageModal.shouldBeShowUploadTab ) }"
+                                    @click.stop="onClickImageModalTabs( false )"
+                            >
+                                آپلود از آدرس
+                            </button>
+                        </div>
+                        <template v-if="imageModal.shouldBeShowUploadTab" >
+                            <upload-cm @onChange="onChangeImageField"
+                                       ref="uploadImage"
+                            />
+                            <button class="image-p__submit confirm__button--image block w-3/4 text-white font-sm font-bold bg-blue-100 border-blue-1 rounded text-center l:transition-bg l:hover:bg-blue m-0-auto user-select-none"
+                                    @click.prevent="onClickOpenFileDialogButton"
+                            >
+                                انتخاب عکس
+                            </button>
+                            <div class="confirm__file-name block w-3/4 relative font-sm font-medium text-bayoux min-height-42 bg-zircon border-blue-100-1 rounded direction-ltr user-select-none overflow-hidden text-nowrap text-ellipsis"
+                                 v-if="!!imageModal.filename"
+                                 v-text="imageModal.filename"
+                            > </div>
+                        </template>
+                        <template v-else>
+                            <form class="confirm__form w-full block"
+                                  @submit.prevent="onClickImageModalConfirmSubmit(commands.image)">
+                                <label class="confirm__label flex items-stretch w-full border border-solid rounded direction-ltr">
+                                    <span class="confirm__icon flex-shrink-0 inline-flex items-center justify-center">
+                                        <icon-cm name="link" />
+                                    </span>
+                                    <input type="text"
+                                           v-model="imageModal.src"
+                                           placeholder="https://"
+                                           @keydown.esc="onClickImageModalDiscardButton"
+                                           class="confirm__input flex font-base font-medium flex-1 rounded-inherit"
+                                           autocomplete="off"
+                                    />
+                                </label>
+                            </form>
+                        </template>
+                        <div class="text-left">
+                            <button class="confirm__button confirm__button--submit font-sm font-medium rounded text-center l:transition-bg"
+                                    @click.prevent="onClickImageModalConfirmSubmit(commands.image)"
+                                    v-text="'تایید'"
+                            > </button>
+                            <button class="confirm__button confirm__button--discard text-black font-sm font-medium rounded text-center l:transition-bg"
+                                    @click.prevent="onClickImageModalDiscardButton"
+                                    v-text="'لغو'"
+                            > </button>
+                        </div>
+                    </div>
+                </modal-cm>
                 <modal-cm ref="confirm"
                           size="small"
                           :clickOutside="false"
@@ -326,7 +397,8 @@
         TableHeader,
         TableCell,
         TableRow,
-        Link
+        Link,
+        Image
     } from 'tiptap-extensions';
 
     import {
@@ -343,6 +415,8 @@
     import IconCm from '@components/Icon.vue';
     import IconsCm from '@components/Icons.vue';
     import ModalCm from '@vendor/components/modal/Index.vue';
+    import UploadService from '@vendor/components/upload';
+    import UploadCm from '@vendor/components/upload/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
 
     export default {
@@ -376,7 +450,8 @@
                         new Paragraph(),
                         new Alignment(),
                         new Direction(),
-                        new FontSize()
+                        new FontSize(),
+                        new Image(),
                     ],
                     content: '',
                     onUpdate: ({getHTML}) => {
@@ -385,6 +460,11 @@
                     }
                 }),
                 linkUrl: null,
+                imageModal: {
+                    src: null,
+                    filename: null,
+                    shouldBeShowUploadTab: true
+                },
                 shouldBeShowFontSizeDropdown: false
             }
         },
@@ -396,7 +476,7 @@
         },
         components: {
             EditorMenuBar, EditorContent,
-            IconCm, IconsCm, ModalCm, DropdownCm
+            IconCm, IconsCm, ModalCm, DropdownCm, UploadCm
         },
         methods: {
             setContent( content = '' ) {
@@ -419,6 +499,38 @@
             onClickDiscardSubmitButton() {
                 this.$refs['confirm']?.hidden();
                 this.$set(this, 'linkUrl', null);
+            },
+            async onChangeImageField( formData ) {
+                try {
+                    const IMAGE = await UploadService.imagePreview( formData );
+                    if ( !!IMAGE ) {
+                        let {image, fileName} = IMAGE[0];
+                        this.$set(this.imageModal, 'src', image);
+                        this.$set(this.imageModal, 'filename', fileName);
+                    }
+                } catch (e) {}
+            },
+            onClickImageModalTabs( status ) {
+                this.$set(this.imageModal, 'shouldBeShowUploadTab', status)
+            },
+            onClickOpenFileDialogButton() {
+                this.$refs['uploadImage']?.openFileDialog();
+            },
+            onClickImageButton() {
+                this.$refs['imageConfirm']?.visible();
+            },
+            onClickImageModalConfirmSubmit( command ) {
+                const SRC = this.imageModal.src;
+                if ( !!SRC && !!SRC.trim() ) {
+                    command({ src: SRC });
+                    this.onClickImageModalDiscardButton();
+                }
+            },
+            onClickImageModalDiscardButton() {
+                this.$refs['imageConfirm']?.hidden();
+                this.$set(this.imageModal, 'src', null);
+                this.$set(this.imageModal, 'filename', null);
+                this.$set(this.imageModal, 'shouldBeShowUploadTab', true);
             },
             onClickFontSizeButton() {
                 this.$set(this, 'shouldBeShowFontSizeDropdown', !this.shouldBeShowFontSizeDropdown)
