@@ -46,7 +46,8 @@ class User extends Authenticatable
         'home_postal_code',
         'work_postal_code',
         'education_province_id',
-        'education_city_id'
+        'education_city_id',
+        'is_active'
     ];
 
     /**

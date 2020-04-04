@@ -101,7 +101,8 @@ class UserService
     {
         $loginController = new LoginController();
         $loginController->login($request);
-        if (\auth()->check()) {
+
+        if (\auth()->check() && \auth()->user()->is_active) {
             $user = \auth()->user();
             $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
@@ -111,6 +112,7 @@ class UserService
             Auth::login($user, true);
             return $loginDTO;
         }
+        $loginController->logout($request);
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
     }
 
