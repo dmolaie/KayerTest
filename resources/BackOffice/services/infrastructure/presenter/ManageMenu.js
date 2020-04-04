@@ -40,7 +40,8 @@ export class SingleMenuPresenter extends BasePresenter {
             menuable_id: Number,
             is_list_type: Boolean,
             is_article_type: Boolean,
-            menuable_name: String
+            menuable_name: String,
+            class: String,
         })
     }
 
@@ -129,6 +130,9 @@ export class SingleMenuPresenter extends BasePresenter {
         return false
     }
 
+    class() {
+        return 'collapse'
+    }
 }
 
 export class MenuTypePresenter {

@@ -13,6 +13,7 @@ import {
 import {
     CopyOf, Length
 } from "@vendor/plugin/helper";
+import ExceptionService from '@services/service/exception';
 
 const DEFAULT_ERROR_MESSAGE   = 'متاسفانه مشکلی پیش آمده است.';
 const DEFAULT_Success_MESSAGE = 'فرآیند با موفقیت انجام شد.';
@@ -40,23 +41,12 @@ export default class ManageMenuService extends BaseService {
         })
     }
 
-    processIsPending( status = true ) {
-        try {
-            ( status ) ? (
-                this.$vm.$set(this.$vm, 'anotherProcessIsPending', true)
-            ) : (
-                setTimeout(() => { this.$vm.$set(this.$vm, 'anotherProcessIsPending', false) }, 50)
-            )
-        } catch (e) {}
-    }
-
-    /**
-     * TODO: Should be refactor structure
-     */
     async processFetchAsyncData() {
         try {
-            await this.getList();
-            await this.getMenuType();
+            await Promise.all([
+                await this.getList(),
+                await this.getMenuType()
+            ]);
         } catch (e) {}
     }
 
@@ -115,20 +105,23 @@ export default class ManageMenuService extends BaseService {
         }
     }
 
-    async _onClickRemoveItem( item ) {
+    async _onClickRemoveItem({ id }) {
         try {
-            this.processIsPending();
+            this.$vm.$set(this.$vm, 'isPending', true);
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.REMOVE_MENU_ITEM),{
-                menu_id: item.id
+                menu_id: id
             });
-            item.parentObj.splice(item.index, 1);
+            await this.getList();
             this.displaySuccessNotification( response?.message );
         }
-        catch ({ message }) {
-            this.displayErrorNotification( message );
+        catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
         finally {
-            this.processIsPending( false );
+            this.$vm.$set(this.$vm, 'isPending', false);
         }
     }
 
@@ -143,22 +136,15 @@ export default class ManageMenuService extends BaseService {
     async _onClickToggleActiveItem( item ) {
         try {
             let {
-                name, title, alias, publish_date, language, type, link, priority
+                name, title, alias, publish_date, language, type, link
             } = item;
             let payload = {
                 name, title, alias, publish_date, language, type, link,
                 menu_id: item.id,
-                active: +(!item.active),
+                active: +(item.active),
+                priority: (item.index + 1)
             };
-            let findIndex = item.parentObj.findIndex(ch => ch.id === item.id);
-            let findItem = item.parentObj.find(ch => ch.id === item.id);
-            this.processIsPending();
-            this.$vm.$set( findItem, 'active', !findItem.active );
-            payload.priority = ( !!findIndex ) ? (
-                findIndex + 1
-            ) : (
-                priority
-            );
+
             if ( !!item.parent )
                 payload.parent_id = item.parent.id;
             if ( !!item.menuable_id )
@@ -168,31 +154,24 @@ export default class ManageMenuService extends BaseService {
 
             let response = await ManageMenuService.updateMenuItem( payload );
             this.displaySuccessNotification( response?.message );
-            // this.displaySuccessNotification();
         }
-        catch ({ message }) {
-            this.displayErrorNotification( message );
-        }
-        finally {
-            this.processIsPending( false );
+        catch ( exception ) {
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
     }
 
     async saveMenuPriority( payload ) {
         try {
-            if ( !this.$vm.anotherProcessIsPending ) {
-                this.processIsPending();
-                let response = await HTTPService.postRequest(Endpoint.get(Endpoint.SAVE_MENU_LIST), {
-                    menu_items: SavePriorityPresenter(payload)
-                });
-                // BaseService.commitToStore( this.$store, MENU_SET_DATA, response );
-                this.displaySuccessNotification( response?.message );
-            }
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.SAVE_MENU_LIST), {
+                menu_items: SavePriorityPresenter(payload)
+            });
+            this.displaySuccessNotification( response?.message );
         }
         catch ({ message }) {
             this.displayErrorNotification( message );
-        } finally {
-            this.processIsPending( false );
         }
     }
 
@@ -208,10 +187,7 @@ export default class ManageMenuService extends BaseService {
                 this.displayErrorNotification('فیلد نوع منو اجباری است.');
                 return false;
             }
-            // if ( !data.link.trim() ) {
-            //     this.displayErrorNotification('فیلد URL اجباری است.');
-            //     return false;
-            // }
+
             if ( !data.link.trim() )
                 delete data['link'];
 
@@ -222,11 +198,11 @@ export default class ManageMenuService extends BaseService {
             data['alias'] = (data.name.replace(/ /g, '-'));
             data['publish_date'] = (new Date().getTime() / 1e3);
             data['priority'] = Length( this.$vm.elements ) + 1;
-            this.processIsPending();
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_MENU_LIST), data);
 
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_MENU_LIST), data);
             BaseService.commitToStore(this.$store, MENU_ADD_ITEM, response);
             this.displaySuccessNotification(response?.message);
+
             this.$vm.$refs['modal']?.hidden();
             this.$vm.$set(this.$vm.form, 'name', '');
             this.$vm.$set(this.$vm.form, 'menuable_id', '');
@@ -234,15 +210,13 @@ export default class ManageMenuService extends BaseService {
             this.$vm.$set(this.$vm.form, 'link', '');
         }
         catch ( exception ) {
-            let errorMessage = exception.message;
-            let errors = exception?.errors;
-            if (!!errors)
-                errorMessage = Object.entries(errors)[0][1][0];
-            this.displayErrorNotification( errorMessage );
+            const ERROR_MESSAGE = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(ERROR_MESSAGE, {
+                type: 'error'
+            });
         }
         finally {
             this.$vm.$set(this.$vm, 'shouldBeShowSpinnerLoading', false);
-            this.processIsPending( false );
         }
     }
 }
