@@ -14,7 +14,7 @@ class MenuPolicy
         if (in_array(config('role.roles.admin.name'),$roleActiveUser)) {
             return true;
         }
-        return false;
+        return $this->deny(trans('user::response.authenticate.user_cant_access'),403);
     }
 
     public function list()
