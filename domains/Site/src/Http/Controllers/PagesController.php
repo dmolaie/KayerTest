@@ -178,6 +178,5 @@ class PagesController extends Controller
 
     public function shortUrl($shortUrl)
     {
-        dd($shortUrl);
     }
 }
