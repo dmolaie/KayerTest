@@ -322,6 +322,7 @@
                         </template>
                         <div class="text-left">
                             <button class="confirm__button confirm__button--submit font-sm font-medium rounded text-center l:transition-bg"
+                                    :class="{ 'spinner-loading': (imageModal.isPending) }"
                                     @click.prevent="onClickImageModalConfirmSubmit(commands.image)"
                                     v-text="'تایید'"
                             > </button>
@@ -410,10 +411,7 @@
         Alignment,
         Direction,
         FontSize,
-        FontBold,
-        FontItalic,
-        FontStrike,
-        FontUnderline
+        TextEditorService
     } from '@services/service/TextEditor';
 
     import {
@@ -470,7 +468,9 @@
                 linkUrl: null,
                 imageModal: {
                     src: null,
+                    data: null,
                     filename: null,
+                    isPending: false,
                     shouldBeShowUploadTab: true
                 },
                 shouldBeShowFontSizeDropdown: false
@@ -514,6 +514,7 @@
                     if ( !!IMAGE ) {
                         let {image, fileName} = IMAGE[0];
                         this.$set(this.imageModal, 'src', image);
+                        this.$set(this.imageModal, 'data', formData);
                         this.$set(this.imageModal, 'filename', fileName);
                     }
                 } catch (e) {}
@@ -527,16 +528,38 @@
             onClickImageButton() {
                 this.$refs['imageConfirm']?.visible();
             },
-            onClickImageModalConfirmSubmit( command ) {
-                const SRC = this.imageModal.src;
-                if ( !!SRC && !!SRC.trim() ) {
-                    command({ src: SRC });
+            async uploadImageEditor() {
+                try {
+                    this.$set(this.imageModal, 'isPending', true);
+                    let {
+                        data
+                    } = this.imageModal;
+                    if ( !!data ) {
+                        let response = await TextEditorService.uploadImageForTextEditor( data );
+                        console.log('response: ', response);
+                    }
+                } catch ({ message }) {
+                    this.displayNotification( message, {
+                        type: 'error'
+                    })
+                } finally {
+                    this.$set(this.imageModal, 'isPending', false);
+                }
+            },
+            async onClickImageModalConfirmSubmit( command ) {
+                let {
+                    src,
+                } = this.imageModal;
+                if ( !!src && !!src.trim() ) {
+                    await this.uploadImageEditor();
+                    command({ src });
                     this.onClickImageModalDiscardButton();
                 }
             },
             onClickImageModalDiscardButton() {
                 this.$refs['imageConfirm']?.hidden();
                 this.$set(this.imageModal, 'src', null);
+                this.$set(this.imageModal, 'data', null);
                 this.$set(this.imageModal, 'filename', null);
                 this.$set(this.imageModal, 'shouldBeShowUploadTab', true);
             },

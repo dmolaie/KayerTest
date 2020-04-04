@@ -8,6 +8,18 @@ import {
     markInputRule,
     pasteRule
 } from 'tiptap-commands';
+import Endpoint from '@endpoints';
+import HTTPService from '@vendor/plugin/httpService';
+
+export class TextEditorService {
+    static async uploadImageForTextEditor( formData ) {
+        try {
+            return await HTTPService.uploadRequest( Endpoint.get( Endpoint.UPLOAD_IMAGES_ITEM ), formData )
+        } catch (e) {
+            throw e;
+        }
+    }
+}
 
 function _iterableToArray(iter) {
     if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
