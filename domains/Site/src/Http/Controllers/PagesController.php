@@ -5,14 +5,17 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use ArieTimmerman\Laravel\URLShortener\URLShortener;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\NewsService;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
+use Gallib\ShortUrl\Facades\ShortUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
@@ -154,5 +157,10 @@ class PagesController extends Controller
         $content = $this->siteServices->getDetailNews($slug);
         return view('site::' . $language . '.pages.news-show', compact('content'));
 
+    }
+
+    public function shortUrl($shortUrl)
+    {
+        dd($shortUrl);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/{short_url}','PagesController@shortUrl');
+
 Route::redirect('/', app()->getLocale());
 
 Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')], 'name' => 'site.'], function () {
