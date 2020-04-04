@@ -61,24 +61,26 @@
                 >
                     <icon-cm name="paragraph" />
                 </button>
-                <button class="menubar__button"
-                        :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-                        @click="commands.heading({ level: 1 })"
-                >
-                    H1
-                </button>
-                <button class="menubar__button"
-                        :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-                        @click="commands.heading({ level: 2 })"
-                >
-                    H2
-                </button>
-                <button class="menubar__button"
-                        :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-                        @click="commands.heading({ level: 3 })"
-                >
-                    H3
-                </button>
+                <template v-if="false">
+                    <button class="menubar__button"
+                            :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+                            @click="commands.heading({ level: 1 })"
+                    >
+                        H1
+                    </button>
+                    <button class="menubar__button"
+                            :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+                            @click="commands.heading({ level: 2 })"
+                    >
+                        H2
+                    </button>
+                    <button class="menubar__button"
+                            :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+                            @click="commands.heading({ level: 3 })"
+                    >
+                        H3
+                    </button>
+                </template>
                 <div class="menubar__button menubar__button--xl relative cursor-pointer"
                      @click.stop="onClickFontSizeButton"
                 >
@@ -161,7 +163,7 @@
                     <icon-cm name="redo" />
                 </button>
                 <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'justify' }"
+                        :class="{ 'is-active': isActive.alignment({ textAlign: 'justify' }) }"
                         @click="commands.alignment({ textAlign: 'justify' })"
                         title="مساوی از طرفین"
                 >
@@ -169,7 +171,7 @@
 <!--                    <icon-cm name="justify" />-->
                 </button>
                 <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'right' }"
+                        :class="{ 'is-active': isActive.alignment({ textAlign: 'right' }) }"
                         @click="commands.alignment({ textAlign: 'right' })"
                         title="راست چین"
                 >
@@ -177,7 +179,7 @@
 <!--                    <icon-cm name="right" />-->
                 </button>
                 <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'center' }"
+                        :class="{ 'is-active': isActive.alignment({ textAlign: 'center' }) }"
                         @click="commands.alignment({ textAlign: 'center' })"
                         title="وسط چین"
                 >
@@ -185,7 +187,7 @@
 <!--                    <icon-cm name="center" />-->
                 </button>
                 <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('alignment').textAlign === 'left' }"
+                        :class="{ 'is-active': isActive.alignment({ textAlign: 'left' }) }"
                         @click="commands.alignment({ textAlign: 'left' })"
                         title="چپ چین"
                 >
@@ -248,20 +250,22 @@
                         <icon-cm name="combine_cells" />
                     </button>
                 </template>
-                <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('direction').direction === 'rtl' }"
-                        @click="commands.direction({ direction: 'rtl' })"
-                        title="راست به چپ"
-                >
-                    rtl
-                </button>
-                <button class="menubar__button"
-                        :class="{ 'is-active': getMarkAttrs('direction').direction === 'ltr' }"
-                        @click="commands.direction({ direction: 'ltr' })"
-                        title="چپ به راست"
-                >
-                    ltr
-                </button>
+                <template v-if="false">
+                    <button class="menubar__button"
+                            :class="{ 'is-active': isActive.direction({ direction: 'rtl' }) }"
+                            @click="commands.direction({ direction: 'rtl' })"
+                            title="راست به چپ"
+                    >
+                        rtl
+                    </button>
+                    <button class="menubar__button"
+                            :class="{ 'is-active': isActive.direction({ direction: 'ltr' }) }"
+                            @click="commands.direction({ direction: 'ltr' })"
+                            title="چپ به راست"
+                    >
+                        ltr
+                    </button>
+                </template>
 
                 <modal-cm ref="imageConfirm"
                           size="small"
@@ -406,6 +410,10 @@
         Alignment,
         Direction,
         FontSize,
+        FontBold,
+        FontItalic,
+        FontStrike,
+        FontUnderline
     } from '@services/service/TextEditor';
 
     import {
