@@ -15,8 +15,8 @@ class Attachment extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('class');
-            $table->integer('reference_id')->unsigned();
+            $table->string('class')->nullable();
+            $table->integer('reference_id')->unsigned()->nullable();
             $table->string('file_name');
             $table->text('path');
             $table->softDeletes();

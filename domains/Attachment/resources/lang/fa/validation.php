@@ -95,5 +95,6 @@ return array(
     */
     'attributes'            => [
         "image_id" => "شناسه تصویر",
+        "images" => " تصویر الزامی میباشد.",
     ],
 );
