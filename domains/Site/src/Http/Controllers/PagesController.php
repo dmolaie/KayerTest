@@ -5,14 +5,17 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use ArieTimmerman\Laravel\URLShortener\URLShortener;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\NewsService;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
+use Gallib\ShortUrl\Facades\ShortUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
@@ -32,19 +35,36 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.structure-and-organization');
     }
 
+    static function getNewsCategories($categories, $gap = 0)
+    {
+        return array_reduce($categories, function ($flatArray, $item) use ($gap) {
+            $item->gap = 16 * $gap;
+            ( !empty($item->getChildren()) ) ? (
+                array_push($flatArray, $item, ...self::getNewsCategories($item->getChildren()->all(), $gap + 1))
+            ) : (
+                array_push($flatArray, $item)
+            );
+            return $flatArray;
+        }, []);
+    }
+
     public function newsListIran(Request $request,CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('iran-news')->getItems();
-        $categories = $categoryInfoPresenter->transformMany(
-            $this->siteServices->getActiveCategoryByType('news'));
+        $categories = $this->siteServices->getActiveCategoryByType('news');
+        $categories = self::getNewsCategories($categories);
+//        $categories = $categoryInfoPresenter->transformMany(
+//            $this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list',compact('news','categories'));
     }
 
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('world-news')->getItems();
-        $categories = $categoryInfoPresenter->transformMany(
-            $this->siteServices->getActiveCategoryByType('news'));
+        $categories = $this->siteServices->getActiveCategoryByType('news');
+        $categories = self::getNewsCategories($categories);
+//        $categories = $categoryInfoPresenter->transformMany(
+//            $this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list' ,compact('news','categories'));
     }
 
@@ -154,5 +174,9 @@ class PagesController extends Controller
         $content = $this->siteServices->getDetailNews($slug);
         return view('site::' . $language . '.pages.news-show', compact('content'));
 
+    }
+
+    public function shortUrl($shortUrl)
+    {
     }
 }

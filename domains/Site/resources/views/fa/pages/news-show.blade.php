@@ -27,9 +27,11 @@
                         <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                     </div>
                 </div>
-                <div class="n-show__description text-bayoux font-base cursor-default rounded-3 md:font-sm">
-                    {!! html_entity_decode($content->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
-                </div>
+                @if(!!$content->getAbstract())
+                    <div class="n-show__description text-bayoux font-base cursor-default rounded-3 md:font-sm">
+                        {!! html_entity_decode($content->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
+                    </div>
+                @endif
                 <div class="n-show__caption text-bayoux font-base cursor-default md:font-sm">
                     {!! html_entity_decode($content->getDescription(), ENT_QUOTES, 'UTF-8') !!}
                 </div>

@@ -33,6 +33,8 @@ export class SingleManageNewsPresenter extends BasePresenter {
             is_published: Boolean,
             is_pending: Boolean,
             is_reject: Boolean,
+            is_delete: Boolean,
+            is_cancel: Boolean,
             is_ready_to_publish: Boolean,
             is_recycle: Boolean,
             is_accept: Boolean,
@@ -43,6 +45,7 @@ export class SingleManageNewsPresenter extends BasePresenter {
             lang_fa: String,
             relation_id: Number,
             image: String,
+            is_owner: Boolean
         })
     }
 
@@ -106,6 +109,18 @@ export class SingleManageNewsPresenter extends BasePresenter {
         )
     }
 
+    is_cancel() {
+        return (
+            this.data.status?.en === "cancel"
+        )
+    }
+
+    is_delete() {
+        return (
+            this.data.status?.en === "delete"
+        )
+    }
+
     is_ready_to_publish() {
         return (
             this.data.status?.en === "ready_to_publish"
@@ -150,4 +165,7 @@ export class SingleManageNewsPresenter extends BasePresenter {
         return HasLength( images ) ? images[0].path : '';
     }
 
+    is_owner() {
+        return this.data.is_created_by_user
+    }
 }

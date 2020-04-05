@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from "vue-router";
+import VueNestable from 'vue-nestable';
 
 import Store from "./services/store";
 import Routes from "./services/routes";
@@ -19,6 +20,7 @@ Vue.use( General );
 Vue.use( Progress );
 Vue.use( VueRouter );
 Vue.use( Breadcrumb );
+Vue.use( VueNestable );
 Vue.use( Notification );
 
 new Vue({

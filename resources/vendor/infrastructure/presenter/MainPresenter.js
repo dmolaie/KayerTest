@@ -1,6 +1,6 @@
 import BasePresenter from '@vendor/infrastructure/presenter/BasePresenter';
 import {
-    HasLength
+    HasLength, CopyOf
 } from "@vendor/plugin/helper";
 
 export class ImagesPresenter {
@@ -155,11 +155,19 @@ export class CategoryPresenter extends BasePresenter {
     }
 }
 
-export const FlattenCategories = ( payload = [] ) => {
+export const FlattenCategories = ( payload = [], gap = 0 ) => {
     return payload.reduce((flatArray, item) => {
+        const ITEM = CopyOf( item );
+        delete ITEM.children;
         HasLength( item.children ) ? (
-            flatArray.push( item, ...FlattenCategories( item.children ) )
-        ) : flatArray.push( item );
+            flatArray.push({
+                ...ITEM,
+                gap: ( gap * 16 )
+            }, ...FlattenCategories( item.children, gap + 1 ) )
+        ) : flatArray.push({
+            ... ITEM,
+            gap: ( gap * 16 )
+        });
         return flatArray;
     }, [])
 };

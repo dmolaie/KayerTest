@@ -24,19 +24,19 @@
                         </button>
                     </div>
                     <template v-if="elements && elements.length">
-                        <div class="c-menu__draggable block w-full">
-                            <menu-draggable ref="menuDraggable"
-                                            v-model="elements"
-                                            @onClickToggleActiveItem="onClickToggleActiveItem"
-                                            @onClickRemoveItem="onClickRemoveItem"
-                                            @onToggleChild="onToggleChild"
-                                            :menuType="menuTypes"
+                        <div class="c-menu__draggable block w-full p-20">
+                            <menu-list :list="elements"
+                                       :menuType="menuTypes"
+                                       @input="onInputDragItem"
+                                       @change="onChangeDragItem"
+                                       @toggleActive="onClickToggleActiveItem"
+                                       @removeItem="onClickRemoveItem"
                             />
                         </div>
                     </template>
                     <template v-else>
                         <p class="font-base font-bold text-blue-800 text-center p-20">
-                            آیتمی برای نمایش وجود ندارد
+                            {{ isPending ? 'در حال دریافت اطلاعات...' : 'آیتمی برای نمایش وجود ندارد' }}
                         </p>
                     </template>
                 </div>
@@ -148,6 +148,11 @@
                 </div>
             </div>
         </modal-cm>
+        <transition name="fade">
+            <div class="loading fixed w-full h-full z-50"
+                 v-if="isPending"
+            ></div>
+        </transition>
     </div>
 </template>
 
@@ -158,7 +163,7 @@
     import {
         HasLength, CopyOf
     } from "@vendor/plugin/helper";
-    import MenuDraggable from "@components/MenuDraggable";
+    import MenuList from "@components/ManageMenu/MenuList.vue";
     import ModalCm from '@vendor/components/modal/Index.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
     import ManageMenuService from '@services/service/ManageMenu';
@@ -179,18 +184,19 @@
     export default {
         name: "ManageMenu",
         data: () => ({
+            isPending: true,
             selectedItem: {},
             menuItem: {},
             categories: [],
             articleList: [],
             counter: 0,
-            anotherProcessIsPending: false,
             form: GET_INITIAL_FORM(),
             categoryList: {},
             shouldBeShowSpinnerLoading: false
         }),
         components: {
-            MenuDraggable, ModalCm, SelectCm
+            ModalCm, SelectCm,
+            MenuList
         },
         computed: {
             ...mapState({
@@ -205,17 +211,13 @@
                 }
             },
         },
-        watch: {
-            elements: {
-                deep: true,
-                async handler( value ) {
-                    if ( !!this.counter )
-                        await Service.saveMenuPriority( value );
-                    this.$set(this, 'counter', this.counter + 1)
-                }
-            }
-        },
         methods: {
+            onInputDragItem( newVal ) {
+                this.$set(this, 'elements', newVal);
+            },
+            async onChangeDragItem( newVal ) {
+                await Service.saveMenuPriority( newVal );
+            },
             onClickAddNewMenuButton() {
                 this.$refs['modal']?.visible();
             },
@@ -238,16 +240,6 @@
             onClickDiscardSubmitButton() {
                 this.$refs['confirm'].hidden();
                 this.$set( this, 'selectedItem', {} );
-            },
-            async onToggleChild() {
-                try {
-                    Service.processIsPending();
-                    new Promise(resolve => {
-                        setTimeout(() => resolve(), 60)
-                    }).then(() => {
-                        Service.processIsPending( false );
-                    })
-                } catch (e) {}
             },
             resetCreateForm() {
                 this.$set(this, 'from', GET_INITIAL_FORM.apply( this ));
@@ -303,35 +295,16 @@
         },
         async created() {
             Service = new ManageMenuService( this );
-            await Service.processFetchAsyncData();
+            Service.processFetchAsyncData()
+            .then(this.$nextTick)
+            .then(() => {
+                this.$set(this, 'isPending', false);
+            })
+        },
+        beforeDestroy() {
+            try {
+                this.$set(this, 'elements', {});
+            } catch (e) {}
         }
     }
 </script>
-
-<!--[-->
-<!--'name' => 'required|string',-->
-<!--'title' => 'required|string',-->
-<!--'alias' => 'required|string',-->
-<!--'publish_date' => 'numeric',-->
-<!--'link' => 'url',-->
-<!--'parent_id'    => 'integer|exists:menus,id',  *** OKKKK ***-->
-<!--'menuable_id'    => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],-->
-<!--'language' => ['required', Rule::in(config('menus.menu_language'))], *** OKKKK *** -->
-<!--'type' => ['required', Rule::in(array_values(config('menus.menus_type')))],-->
-<!--'priority' => 'required','integer',-->
-<!--];-->
-
-<!--edit-->
-<!--return [-->
-<!--'menu_id' => 'required|integer|exists:menus,id',-->
-<!--'name' => 'required|string',-->
-<!--'title' => 'required|string',-->
-<!--'alias' => 'required|string',-->
-<!--'publish_date' => 'numeric',-->
-<!--'link' => 'url',-->
-<!--'parent_id'    => 'integer|exists:menus,id',-->
-<!--'menuable_id'    => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],-->
-<!--'language' => ['required', Rule::in(config('menus.menu_language'))],-->
-<!--'type' => ['required', Rule::in(array_values(config('menus.menus_type')))],-->
-<!--'priority' => 'required','integer',-->
-<!--];-->

@@ -70,6 +70,7 @@
       &--submit
         color: $blue-200
         background: transparentize($sail, (1 - .64))
+        //@include SpinnerLoading()
         @include L_Screen
           &:hover
             background-color: $sail
@@ -77,6 +78,22 @@
         @include L_Screen
           &:hover
             background-color: darken(#f2f2f2, 3%)
+    &--image
+      .confirm__title
+        margin-bottom: 20px
+      .confirm__label
+        margin-bottom: 40px
+      .m-post__tab
+        line-height: 48px
+      .confirm__button--image
+        margin-bottom: 25px
+      .confirm__file-name
+        padding: 0 15px
+        line-height: 42px
+        margin: -5px auto 24px
+      .confirm__tabs
+        margin-bottom: 32px
+        border-bottom: 4px solid #f0f7ff
   &__content
     overflow-wrap: break-word
     word-wrap: break-word
@@ -124,6 +141,7 @@
       margin: 0
     blockquote
       color: rgba(0, 0, 0, .8)
+      margin: 1rem 0
       padding: .8rem
       font-style: italic
       border-right: 3px solid rgba(0, 0, 0, .1)
