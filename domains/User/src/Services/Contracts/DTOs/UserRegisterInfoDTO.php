@@ -164,6 +164,10 @@ class UserRegisterInfoDTO
     /**
      * @var string
      */
+    protected $roleType;
+    /**
+     * @var string
+     */
     protected $roleStatus;
 
     /**
@@ -832,6 +836,23 @@ class UserRegisterInfoDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getRoleType(): string
+    {
+        return $this->roleType;
+    }
+
+    /**
+     * @param string $roleType
+     * @return UserRegisterInfoDTO
+     */
+    public function setRoleType(string $roleType): UserRegisterInfoDTO
+    {
+        $this->roleType = $roleType;
+        return $this;
+    }
     /**
      * @return string
      */

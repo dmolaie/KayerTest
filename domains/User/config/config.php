@@ -10,8 +10,8 @@ return [
         0 => 'single',
         1 => 'married'
     ],
-    'client_role_id' => 4,
-    'legate_role_id' => 3,
+    'client_role_type' => 'client',
+    'legate_role_type' => 'legate',
     'admin_role_id' => 1,
     'user_role_status' => [
         'active',

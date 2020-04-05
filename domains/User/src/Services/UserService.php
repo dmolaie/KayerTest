@@ -140,7 +140,7 @@ class UserService
      */
     public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
     {
-
+        $userRegisterInfoDTO->setRoleId($this->getRoleId($userRegisterInfoDTO));
         $user = $this->userRepository->createOrUpdateUser(
             $userRegisterInfoDTO,
             $this->getUser($userRegisterInfoDTO));
@@ -154,6 +154,17 @@ class UserService
             ->setCardId($user->card_id)
             ->setName($user->name);
         return $userLoginDTO;
+
+    }
+
+    private function getRoleId(UserRegisterInfoDTO $userRegisterInfoDTO)
+    {
+        if ($userRegisterInfoDTO->getRoleType() == config('user.legate_role_type')) {
+            return $this->roleServices->getRoleWithRoleType(
+                $userRegisterInfoDTO->getRoleType(),
+                $userRegisterInfoDTO->getCurrentProvinceId())->getId();
+        }
+        return $this->roleServices->getRoleWithRoleType($userRegisterInfoDTO->getRoleType())->getId();
 
     }
 
@@ -224,9 +235,11 @@ class UserService
 
     public function ValidateUserWithRole(ValidationDataUserDTO $validationDataUserDTO)
     {
+        $roleId = $this->roleServices->getRoleWithRoleType($validationDataUserDTO->getRoleType())->getId();
+
         return $this->userRepository->checkUserHasSpecialRole(
             $validationDataUserDTO->getNationalCode(),
-            $validationDataUserDTO->getRoleId()
+            $roleId
         );
     }
 
@@ -295,7 +308,7 @@ class UserService
             $userChangeRoleDTO->getUserId(),
             $userChangeRoleDTO->getRoleId(),
             $userChangeRoleDTO->getRoleStatus()
-            );
+        );
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 }

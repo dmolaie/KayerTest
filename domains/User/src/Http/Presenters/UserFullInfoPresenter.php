@@ -78,9 +78,8 @@ class UserFullInfoPresenter
 
     private function getCardId(UserFullInfoDTO $userFullInfoDTO)
     {
-        $roleIds = collect($userFullInfoDTO->getRoles())
-            ->keyBy('id')->keys()->toArray();
-        if (in_array(config('user.client_role_id'), $roleIds)) {
+        $roleIds = collect($userFullInfoDTO->getRoles())->pluck('type')->toArray();
+        if (in_array(config('user.client_role_type'), $roleIds)) {
             return $userFullInfoDTO->getCardId();
         }
         return null;

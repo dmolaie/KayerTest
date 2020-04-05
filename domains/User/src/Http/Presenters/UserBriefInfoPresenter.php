@@ -33,9 +33,8 @@ class UserBriefInfoPresenter
 
     private function getCardId(UserBriefInfoDTO $userBriefInfoDTO)
     {
-        $roleIds = collect($userBriefInfoDTO->getRoles())
-            ->keyBy('id')->keys()->toArray();
-        if (in_array(config('user.client_role_id'), $roleIds)) {
+        $roleIds = collect($userBriefInfoDTO->getRoles())->pluck('type')->toArray();
+        if (in_array(config('user.client_role_type'), $roleIds)) {
             return $userBriefInfoDTO->getCardId();
         }
         return null;

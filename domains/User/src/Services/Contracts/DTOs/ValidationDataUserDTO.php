@@ -17,7 +17,10 @@ class ValidationDataUserDTO
      * @var integer
      */
     protected $roleId;
-
+    /**
+     * @var string
+     */
+    protected $roleType;
     /**
      * @return string
      */
@@ -51,6 +54,24 @@ class ValidationDataUserDTO
     public function setRoleId(int $roleId): ValidationDataUserDTO
     {
         $this->roleId = $roleId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoleType(): string
+    {
+        return $this->roleType;
+    }
+
+    /**
+     * @param string $roleType
+     * @return ValidationDataUserDTO
+     */
+    public function setRoleType(string $roleType): ValidationDataUserDTO
+    {
+        $this->roleType = $roleType;
         return $this;
     }
 
