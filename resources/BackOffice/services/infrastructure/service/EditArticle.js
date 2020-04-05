@@ -147,8 +147,23 @@ export default class EditArticleService {
             });
         }
     }
-    
-    async onClickChangeStatusArticleButton( article_id ) {
+
+    async onClickChangeStatusArticleToRejectButton( article_id ) {
+        try {
+            let response = await ArticleService.changeStatusArticleItem(article_id, StatusService.REJECT_STATUS);
+            this.$vm.displayNotification(response.message, {
+                type: 'success',
+            });
+            this.$vm.pushRouter( { name: 'MANAGE_ARTICLE' } );
+        } catch ({ message }) {
+            this.$vm.displayNotification( message, {
+                type: 'error',
+            });
+            throw message;
+        }
+    }
+
+    async onClickChangeStatusArticleToPendingButton( article_id ) {
         try {
             let response = await ArticleService.changeStatusArticleItem(article_id, StatusService.PENDING_STATUS);
             this.$vm.displayNotification(response.message, {

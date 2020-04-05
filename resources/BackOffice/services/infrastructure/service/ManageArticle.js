@@ -6,6 +6,9 @@ import {
     M_ARTICLE_UPDATE_DATA
 } from '@services/store/ManageArticle';
 import {
+    GET_USER_ID
+} from '@services/store/Login';
+import {
     HasLength, CopyOf
 } from "@vendor/plugin/helper";
 import StatusService from '@services/service/Status';
@@ -124,12 +127,17 @@ export default class ManageNewsService extends BaseService {
 
     async _GetArticleListFilterBy( query = {} ) {
         try {
-            let response = await this.getNewsListFilterBy( query );
+            const QUERY_STRING = CopyOf( query );
+            if ( QUERY_STRING['status'] === StatusService.MY_POST_STATUS ) {
+                delete QUERY_STRING['status'];
+                QUERY_STRING['publisher_id'] = this.$store.getters[GET_USER_ID]
+            }
+            let response = await this.getArticleListFilterBy( QUERY_STRING );
             BaseService.commitToStore( this.$store, M_ARTICLE_SET_DATA, response );
         } catch (e) {}
     }
 
-    async getNewsListFilterBy( query ) {
+    async getArticleListFilterBy( query ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ARTICLE_LIST), query);
         } catch ({ message }) {

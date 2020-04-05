@@ -1,5 +1,5 @@
 <template>
-    <div class="dragArea__form border border-solid rounded">
+    <div class="dragArea__form border border-solid rounded m-t-14 cursor-default">
         <div class="dragArea__form_row flex items-center w-full">
             <span class="modal__label text-blue-800 font-lg font-bold flex-shrink-0">
                 نام منو
@@ -96,14 +96,13 @@
                 Type: Object,
                 required: true
             },
+            index: {
+                Type: Number,
+            },
             menuType: {
                 type: [Object, Array],
                 required: true
             },
-            parentItem: {
-                type: [Object, Array],
-                required: true
-            }
         },
         components: {
             SelectCm
@@ -143,6 +142,9 @@
                 this.$emit('onToggleChild');
                 this.$set(this.item, 'edit_menuable_id', id);
             },
+            /**
+             *  TODO: refactor the method or make this code simpler :||||||
+             */
             async onClickSaveChangeButton() {
                 try {
                     if ( !this.name.trim() ) {
@@ -152,7 +154,6 @@
                         return false;
                     }
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
-                    let findIndex = this.parentItem.findIndex(item => item.id === this.item.id);
                     let {
                         publish_date, language, active
                     } = this.item;
@@ -165,11 +166,10 @@
                         publish_date, language,
                         link: this.e_link,
                         type: ( !!this.item.edit_menuType ? this.item.edit_menuType : this.item.type ),
-                        priority: (findIndex + 1),
+                        priority: (this.index + 1),
                     };
                     if ( !!this.item.parent )
                         payload.parent_id = this.item.parent.id;
-                    this.$emit('onToggleChild');
                     if ( !!this.item.edit_menuable_id || this.item.menuable_id ) {
                         payload.menuable_id = (!!this.item.edit_menuable_id) ? (this.item.edit_menuable_id) : (this.item.menuable_id);
                         this.$set(this.item, 'menuable_id', payload.menuable_id)

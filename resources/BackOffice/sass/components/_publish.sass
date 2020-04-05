@@ -3,6 +3,7 @@
   &__status
     padding-top: 3px
     line-height: 41px
+    min-height: 46px
     &--accept
       $color: #33c15d
       color: $white
@@ -39,6 +40,15 @@
       border:
         color: $red
       background: #f3e2e3
+    &--cancel
+      $color: #17a2b8
+      color: $white
+      border-color: darken($color, 7%)
+      background: $color
+    &--delete
+      color: $white
+      border-color: lighten($red, 5%)
+      background-color: lighten($red, 20%)
   &__submit
     margin-bottom: 7px
     line-height: 44px

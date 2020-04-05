@@ -36,6 +36,7 @@ const EDIT_NEWS_ITEM = "EDIT_NEWS_ITEM";
 const EDIT_STATUS_NEWS_ITEM = "EDIT_STATUS_NEWS_ITEM";
 const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";
 const GET_ALL_PROVINCES = "GET_ALL_PROVINCES";
+const UPLOAD_IMAGES_ITEM = "UPLOAD_IMAGES_ITEM";
 const DELETE_IMAGES_ITEM = "DELETE_IMAGES_ITEM";
 
 endpoints[SIGN_IN] = '/user/login';
@@ -73,7 +74,7 @@ endpoints[EDIT_STATUS_NEWS_ITEM] = `/news/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_NEWS_ITEM] = `/news/${VER_1_0}/admin/delete/:id`;
 
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
-
+endpoints[UPLOAD_IMAGES_ITEM] = `/attachment/attach_image`;
 endpoints[DELETE_IMAGES_ITEM] = `/attachment/destroy_image`;
 
 export default class Endpoint {
@@ -199,6 +200,10 @@ export default class Endpoint {
 
     static get EDIT_STATUS_ARTICLE_ITEM() {
         return endpoints[EDIT_STATUS_ARTICLE_ITEM]
+    }
+
+    static get UPLOAD_IMAGES_ITEM() {
+        return endpoints[UPLOAD_IMAGES_ITEM]
     }
 
     static get DELETE_IMAGES_ITEM() {

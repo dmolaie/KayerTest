@@ -26,6 +26,7 @@ export class NewsItemPresenter extends BasePresenter {
             is_reject: Boolean,
             is_ready_to_publish: Boolean,
             is_recycle: Boolean,
+            is_cancel: Boolean,
             status: String,
             province_id: Number,
             province_name: String,
@@ -105,6 +106,12 @@ export class NewsItemPresenter extends BasePresenter {
     is_recycle() {
         return (
             this.data.status?.en === "recycle"
+        )
+    }
+
+    is_cancel() {
+        return (
+            this.data.status?.en === "cancel"
         )
     }
 
