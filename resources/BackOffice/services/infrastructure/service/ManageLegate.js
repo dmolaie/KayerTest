@@ -5,6 +5,9 @@ import ManageLegate, {
     M_LEGATE_SET_DATA,
     M_LEGATE_SET_USER_ROLES
 } from '@services/store/ManageLegate';
+import {
+    UserInformationPresenter
+} from '@services/presenter/ManageLegate';
 import StatusService from '@services/service/Status';
 import {
     HasLength
@@ -66,6 +69,15 @@ export default class ManageLegateService extends BaseService {
             // console.log('QUERY_STRING', QUERY_STRING);
             // await this.getVolunteersListFilterBy( QUERY_STRING );
         } catch (e) {}
+    }
+
+    async getUserInformationByID( user_id ) {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN, { user_id }));
+            return new UserInformationPresenter( response.data );
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
     }
 
     async getAllUserRoles() {

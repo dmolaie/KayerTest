@@ -82,9 +82,10 @@
                                     />
                                 </div>
                                 <div class="table__td table__td:l flex flex-col cursor-default">
-                                    <p class="font-xs font-bold m-b-auto"
-                                       v-text="item.full_name"
-                                    > </p>
+                                    <button class="text-blue-800 font-xs font-bold m-b-auto text-right l:transition-color l:hover:text-blue--200"
+                                            v-text="item.full_name"
+                                            @click.stop="onClickShowUserInfoModal( item.id )"
+                                    > </button>
                                     <div class="w-full flex items-start flex-col">
                                         <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                               :class="[ item.has_cart ? 'm-post__status--published' : 'm-post__status--recycle m-legate__status--recycle' ]"
@@ -172,6 +173,155 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="userInfo"
+                  @close="onClickCloseUserInformationModal"
+        >
+            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         اطلاعات کاربر
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseUserInformationModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <template v-if="userInfo.isPending">
+                        <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                            <span class="confirm__spinner spinner-loading"> </span>
+                            در حال دریافت اطلاعات...
+                        </p>
+                    </template>
+                    <div v-else
+                         class="confirm__container cursor-default"
+                    >
+                        <p class="confirm__label w-full text-bayoux font-base font-bold"
+                           v-text="userInfo.data.full_name"
+                        > </p>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تلفن همراه:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.mobile"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center"
+                           v-if="!!userInfo.data.email"
+                        >
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                ایمیل:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.email"
+                            > </span>
+                        </p>
+                        <span class="confirm__divider w-full block"> </span>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                کد ملی:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.national_code"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-if="!!userInfo.data.identity_number"
+                                  v-text="`(شماره شناسنامه: ${userInfo.data.identity_number})`"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تولد:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.date_of_birth.fa"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.city_of_birth.name"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center"
+                           v-if="!!userInfo.data.last_education_degree"
+                        >
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تحصیلات:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.last_education_degree"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.education_field"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center"
+                           v-if="!!userInfo.data.phone || !!userInfo.data.current_address"
+                        >
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                محل سکونت:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-if="!!userInfo.data.phone"
+                                  v-text="userInfo.data.phone"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-if="!!userInfo.data.current_address"
+                                  v-text="userInfo.data.current_address"
+                            > </span>
+                        </p>
+                        <template v-if="!!userInfo.data.field_of_activities.length || !!userInfo.data.day_of_cooperation">
+                            <span class="confirm__divider w-full block"> </span>
+                            <div class="confirm__label w-full flex items-start">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    حوزه‌های فعالیت:
+                                </span>
+                                <div class="text-blue-700 font-xs font-bold flex-1">
+                                    <span class="w-full block p-0-15"
+                                          v-if="!!userInfo.data.field_of_activities.length"
+                                    >
+                                        {{ userInfo.data.field_of_activities.join('،') }}
+                                    </span>
+                                    <span class="w-full block p-0-15"
+                                          v-if="!!userInfo.data.day_of_cooperation"
+                                          :class="{'m-t-6': !!userInfo.data.field_of_activities}"
+                                          v-text="`فرصت همکاری: ${userInfo.data.day_of_cooperation}`"
+                                    > </span>
+                                </div>
+                            </div>
+                        </template>
+                        <span class="confirm__divider w-full block"> </span>
+                        <div class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                 نقش کاربری:
+                            </span>
+                            <div class="inline-flex flex-wrap items-start flex-1">
+                                <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-xs"
+                                      v-for="(role, index) in userInfo.data.roles"
+                                      :key="'r-' + index"
+                                      v-text="role.label"
+                                > </span>
+                                <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-xs"
+                                      v-if="userInfo.data.has_card"
+                                >
+                                    کارت اهدای عضو
+                                </span>
+                            </div>
+                        </div>
+                        <span class="confirm__divider w-full block"> </span>
+                        <div class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                عضویت:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="'۱۵ فروردین ۱۳۹۹ ۲۳:۰۳'"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15">
+                                به‌روز‌رسانی << ۱۵ فروردین ۱۳۹۹ ۲۳:۱۴ >> توسط مریم روشندل
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-cm>
         <modal-cm ref="userRole"
                   @close="onClickCloseManageUserRoleModal"
         >
@@ -191,12 +341,11 @@
                             در حال دریافت اطلاعات...
                         </p>
                     </template>
-                    <form v-else
-                          @submit="onClickSubmitChangePasswordModal"
+                    <div v-else
                           class="confirm__container"
                     >
                         <div class="confirm__label w-full flex items-center">
-                            <span class="w-1/4 xl:w-1/5  text-blue-800 font-sm font-bold flex-shrink-0 p-l-14 cursor-default">
+                            <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 p-l-14 cursor-default">
                                 نام
                             </span>
                             <span class="text-blue-800 font-sm font-medium flex-1 cursor-default"
@@ -216,7 +365,7 @@
                                     @click.prevent="onClickUserRoleItem"
                             > </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </modal-cm>
@@ -311,6 +460,10 @@
                 search: ''
             },
             selectedItem: {},
+            userInfo: {
+                isPending: true,
+                data: {}
+            },
             userRole: {
                 isPending: false,
             },
@@ -367,6 +520,21 @@
                             }, 70);
                         });
                 } catch (e) {}
+            },
+            async onClickShowUserInfoModal( user_id ) {
+                try {
+                    this.$refs['userInfo']?.visible();
+                    this.$set(this.userInfo, 'isPending', true);
+                    let response = await Service.getUserInformationByID( user_id );
+                    console.log('response', response);
+                    this.$set(this.userInfo, 'data', response);
+                    this.$set(this.userInfo, 'isPending', false);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            onClickCloseUserInformationModal() {
+                this.$refs['userInfo']?.hidden();
             },
             async onClickManageUserRoleButton( item ) {
                 try {
