@@ -272,7 +272,7 @@ class MenusTableSeeder extends Seeder
                 ->setLink($menu['link'] ?? null)
                 ->setPublisher(User::first())
                 ->setLanguage('fa')
-                ->setPublishDate(Carbon::now()->format('Y-m-d h:m:s'))
+                ->setPublishDate(Carbon::now()->format('Y-m-d H:m:s'))
                 ->setParentId($parent_menu ? $parent_menu->id : null)
                 ->setManuableId($menu['article_id'] ?? null)
                 ->setPriority($menu['priority']);
