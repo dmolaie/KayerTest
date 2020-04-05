@@ -536,7 +536,7 @@
                     } = this.imageModal;
                     if ( !!data ) {
                         let response = await TextEditorService.uploadImageForTextEditor( data );
-                        console.log('response: ', response);
+                        this.$set(this.imageModal, 'src', response.path);
                     }
                 } catch ({ message }) {
                     this.displayNotification( message, {
@@ -552,7 +552,8 @@
                 } = this.imageModal;
                 if ( !!src && !!src.trim() ) {
                     await this.uploadImageEditor();
-                    command({ src });
+                    console.log(this.imageModal.src);
+                    command({ src: this.imageModal.src });
                     this.onClickImageModalDiscardButton();
                 }
             },

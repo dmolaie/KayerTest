@@ -10,11 +10,21 @@ import {
 } from 'tiptap-commands';
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
+import {
+    HasLength
+} from "@vendor/plugin/helper";
+import {
+    ImagesPresenter
+} from '@vendor/infrastructure/presenter/MainPresenter';
 
 export class TextEditorService {
     static async uploadImageForTextEditor( formData ) {
         try {
-            return await HTTPService.uploadRequest( Endpoint.get( Endpoint.UPLOAD_IMAGES_ITEM ), formData )
+            const REQUEST_BODY = new FormData();
+            REQUEST_BODY.append('images[0]', formData.get('images'));
+            let response = await HTTPService.uploadRequest( Endpoint.get( Endpoint.UPLOAD_IMAGES_ITEM ), REQUEST_BODY )
+            response = new ImagesPresenter( response.data );
+            return response[0]
         } catch (e) {
             throw e;
         }
