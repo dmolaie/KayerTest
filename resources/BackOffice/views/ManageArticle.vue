@@ -237,7 +237,7 @@
                                         <button class="table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
                                                 v-text="'عملیات'"
                                                 @click.stop="onClickActionButton( item )"
-                                                :disabled="!(item.is_owner || isAdmin)"
+                                                :disabled="!(item.is_owner || isAdmin) || item.is_delete"
                                         > </button>
                                         <dropdown-cm :visibility="item.is_opened"
                                                      @onClickOutside="onClickActionButton( item )"
