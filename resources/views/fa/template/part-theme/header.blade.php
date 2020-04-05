@@ -15,7 +15,9 @@
         <div class="header__nav_container container flex items-center">
             @foreach($menus as $menu)
                 <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
-                    {{$menu->title}}
+                    <a class="text-nowrap text-black font-xs-bold" href="/{{config('app.locale')}}/page/{{$menu->alias}}">
+                        {{$menu->title}}
+                    </a>
                     @if($menu->child->count() > 0)
                         <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                             @foreach($menu->child as $child)

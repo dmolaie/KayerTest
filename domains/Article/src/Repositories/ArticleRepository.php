@@ -141,7 +141,7 @@ class ArticleRepository
             function ($q) use ($menuId) {
             $q->where('id', '=', $menuId);
 
-        })->firstOrFail();
+        })->where('status','=', config('article.article_accept_status'))->firstOrFail();
     }
 
     public function changeStatus(Article $article, string $status): Article
