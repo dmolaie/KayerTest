@@ -1,4 +1,4 @@
-$gap: 24px
+$gap: 0
 
 .c-menu
   .m-b-20
@@ -7,7 +7,7 @@ $gap: 24px
     padding: 32px 22px 90px 34px
   &__tree
     &--closed
-      height: (56px + $gap)
+      //height: (56px + $gap)
     &--editable
       height: 510px
   &__box
@@ -114,8 +114,8 @@ $gap: 24px
   &__child
     margin-right: 10%
     .c-menu__dragArea
-      padding-top: $gap
-      min-height: $gap
+      //padding-top: $gap
+      //min-height: $gap
       //margin-top: $gap
     .c-menu__tree
       .c-menu__item
@@ -123,7 +123,7 @@ $gap: 24px
         & + .dragArea__form
           background-color: transparentize(#f0f3f8, (1 - .48))
   &__dragArea
-    min-height: (56px + 16 - 16)
+    //min-height: (56px + 16 - 16)
   &__tree--disabled
     .c-menu__item
       border-color: #e1e1e1
@@ -258,8 +258,9 @@ $gap: 24px
             background-color: darken(#f2f2f2, 3%)
   .p-20
     padding: 30px 0
+  .m-t-14
+    margin-top: 14px
   .dragArea__form
-    margin-top: 18px
     padding: 18px 50px 25px
     border-color: rgba(0,0,0,0.1)
     &_row

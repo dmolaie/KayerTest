@@ -8,6 +8,7 @@ import {
 
 const TOKEN_COOKIE_KEY = 'JWT-Token';
 const USERNAME_COOKIE_KEY = 'a19140228cd';
+const USER_ID_COOKIE_KEY = 'bf396750';
 const ROLE_COOKIE_KEY = 'c9df3cbe73a';
 
 export const ADMIN_ROLE_ID   = 1;
@@ -22,6 +23,14 @@ export default class TokenService {
 
     get _CheckRole() {
         return this.payload?.roleId !== USER_ROLE_ID
+    }
+
+    _SetUserId() {
+        Cookies.set( USER_ID_COOKIE_KEY, this.payload?.id );
+    }
+
+    static get _GetUserId() {
+        return Cookies.get( USER_ID_COOKIE_KEY );
     }
 
     _SetUsername() {
@@ -52,11 +61,13 @@ export default class TokenService {
         this._SetToken();
         this._SetRoleId();
         this._SetUsername();
+        this._SetUserId();
     }
 
     static _ClearToken() {
         Cookies.delete( TOKEN_COOKIE_KEY );
         Cookies.delete( ROLE_COOKIE_KEY );
+        Cookies.delete( USER_ID_COOKIE_KEY );
         Cookies.delete( USERNAME_COOKIE_KEY );
     }
 

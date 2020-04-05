@@ -105,6 +105,7 @@
                             :isPending="form.is_pending"
                             :isReject="form.is_reject"
                             :isAccept="form.is_accept"
+                            :isCancel="form.is_cancel"
                             :isReadyPublished="form.is_ready_to_publish"
                             :statusLabel="form.status || ''"
                             buttonLabel="بروزرسانی"
@@ -116,6 +117,11 @@
                             بروزرسانی
                         </button>
                         <template v-if="form.is_pending">
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
+                            >
+                                تنظیم زمان انتشار
+                            </button>
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickRejectItemButton(); hiddenDropdown()}"
@@ -123,7 +129,7 @@
                                 بازگشت به نویسنده (رد)
                             </button>
                         </template>
-                        <template v-if="!(isAdmin && form.is_owner) && !form.is_pending">
+                        <template v-else>
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
@@ -133,12 +139,24 @@
                         </template>
                     </template>
                 </publish-cm>
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
+                     v-if="shouldBeShowDatePicker"
+                >
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        زمان انتشار
+                    </p>
+                    <date-picker-cm type="datetime"
+                                    displayFormat="jYYYY/jMM/jDD HH:mm"
+                                    format="jYYYY/jMM/jDD HH:mm"
+                                    :min="DatePickerMinValue"
+                                    @onChange="onChangePublishDateField"
+                                    placeholder="زمان انتشار را انتخاب کنید"
+                    />
+                </div>
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
-                             disabledLabel="قبلا ایجاد شده"
-                             :disabledEn="disabledEnLang"
-                             :disabledFa="disabledFaLang"
+                             :defaultLabel="LocationPanelTitle"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -213,7 +231,7 @@
     import UploadCm from '@vendor/components/upload/Index.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
     import CategoryCm from '@components/Category.vue';
-
+    import DatePickerCm from '@components/DatePicker.vue';
     import {
         CopyOf, toEnglishDigits, Length, HasLength
     } from "@vendor/plugin/helper";
@@ -237,7 +255,8 @@
         language: '',
         mainImage: {},
         secondImage: {},
-        slug: ''
+        slug: '',
+        publish_date: ''
     });
 
     const GET_INITIAL_IMAGE = () => ({
@@ -267,7 +286,8 @@
             ImagePanelCm,
             TextEditorCm,
             SelectCm,
-            CategoryCm
+            CategoryCm,
+            DatePickerCm
         },
         computed: {
             ...mapGetters({
@@ -287,15 +307,43 @@
                     this.form.category_ids
                 ) : ([])
             },
-            disabledEnLang() {
+            /**
+             * @return {string}
+             */
+            LocationPanelTitle() {
                 return (
-                    !!this.form.has_relation && this.form.language === 'fa'
+                    this.form.has_relation ? 'ویرایش' : 'ایجاد'
                 )
             },
-            disabledFaLang() {
-                return (
-                    !!this.form.has_relation && this.form.language === 'en'
-                )
+            /**
+             * @return {number | string}
+             */
+            DatePickerMinValue() {
+                try {
+                    const DATE = new Date(),
+                        LOCALE_DATE = DATE.toLocaleString('fa');
+                    return (
+                        toEnglishDigits(
+                            LOCALE_DATE
+                                .replace('،', ' ')
+                                .slice(0, Length( LOCALE_DATE ) - 3)
+                        )
+                    )
+                } catch (e) {
+                    return ''
+                }
+            },
+        },
+        watch: {
+            $route() {
+                this.$set(this, 'shouldBeShowLoading', true);
+                Service.processFetchAsyncData()
+                    .then(this.$nextTick)
+                    .then(() => {
+                        this.setLanguageFromParamsRouter();
+                        this.setDataIntoForm();
+                        this.$set(this, 'shouldBeShowLoading', false);
+                    });
             }
         },
         methods: {
@@ -337,26 +385,47 @@
                 this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
-                this.pushRouter({
-                    name: 'CREATE_NEWS',
-                    params: {
-                        lang: 'fa',
-                        onlyFaLang: true,
-                        parent_id: this.form.news_id,
-                    }
-                });
+                if ( this.form.has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_NEWS',
+                        params: {
+                            lang: 'fa',
+                            id: this.form.relation_id,
+                        }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: 'CREATE_NEWS',
+                        params: {
+                            lang: 'fa',
+                            onlyFaLang: true,
+                            parent_id: this.form.news_id,
+                        }
+                    });
+                }
             },
             onClickEnglishLang() {
-                this.pushRouter({
-                    name: 'CREATE_NEWS',
-                    params: {
-                        lang: 'en',
-                        onlyEnLang: true,
-                        parent_id: this.form.news_id,
-                    }
-                });
+                if ( this.form.has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_NEWS',
+                        params: {
+                            lang: 'en',
+                            id: this.form.relation_id,
+                        }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: 'CREATE_NEWS',
+                        params: {
+                            lang: 'en',
+                            onlyEnLang: true,
+                            parent_id: this.form.news_id,
+                        }
+                    });
+                }
             },
             onClickReleaseTimeButton() {
+                this.$set(this.form, 'publish_date', '');
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
             async onClickUpdateButton() {

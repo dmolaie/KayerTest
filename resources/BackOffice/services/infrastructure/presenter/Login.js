@@ -7,12 +7,17 @@ export class LoginPresenter extends BasePresenter {
 
         return (
             this.mapProps({
+                id: Number,
                 token: String,
                 roleId: Number,
                 roleName: String,
                 username: String
             })
         )
+    }
+
+    id() {
+        return this.payload?.id ?? 0
     }
 
     token() {

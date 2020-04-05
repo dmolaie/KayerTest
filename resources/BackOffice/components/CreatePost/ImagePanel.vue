@@ -59,6 +59,7 @@
                         image: newVal.path,
                         id: newVal.id
                     });
+                else this.$set(this, 'selectedImage', {});
             }
         },
         methods: {

@@ -99,10 +99,11 @@ export default class EditNewsService extends BaseService {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
             const formData = new FormData();
+            let publish_date = duplicateFrom['publish_date'] || (new Date().getTime() / 1e3);
 
+            formData.append('publish_date', publish_date);
             formData.append('news_id', duplicateFrom['news_id']);
             formData.append('first_title', duplicateFrom['first_title']);
-            formData.append('publish_date', (new Date().getTime() / 1e3));
             formData.append('province_id', duplicateFrom['province_id']);
             if ( !!duplicateFrom['second_title'] )
                 formData.append('second_title', duplicateFrom['second_title']);
