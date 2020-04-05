@@ -552,7 +552,6 @@
                 } = this.imageModal;
                 if ( !!src && !!src.trim() ) {
                     await this.uploadImageEditor();
-                    console.log(this.imageModal.src);
                     command({ src: this.imageModal.src });
                     this.onClickImageModalDiscardButton();
                 }
