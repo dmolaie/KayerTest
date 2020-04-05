@@ -137,10 +137,11 @@
                                         >
                                             <template v-if="isAdmin">
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="' نقش کاربری '"
+                                                        v-text="'ویرایش اطلاعات'"
                                                 > </button>
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        v-text="'ویرایش اطلاعات'"
+                                                        @click.stop="onClickManageUserRoleButton( item )"
+                                                        v-text="'نقش کاربری'"
                                                 > </button>
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                         @click.stop="onClickChangeUserPassword( item )"
@@ -171,6 +172,54 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="userRole"
+                  @close="onClickCloseManageUserRoleModal"
+        >
+            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         نقش کاربری
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseManageUserRoleModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <template v-if="userRole.isPending">
+                        <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                            <span class="confirm__spinner spinner-loading"> </span>
+                            در حال دریافت اطلاعات...
+                        </p>
+                    </template>
+                    <form v-else
+                          @submit="onClickSubmitChangePasswordModal"
+                          class="confirm__container"
+                    >
+                        <div class="confirm__label w-full flex items-center">
+                            <span class="w-1/4 xl:w-1/5  text-blue-800 font-sm font-bold flex-shrink-0 p-l-14 cursor-default">
+                                نام
+                            </span>
+                            <span class="text-blue-800 font-sm font-medium flex-1 cursor-default"
+                                  v-text="selectedItem.full_name"
+                            > </span>
+                        </div>
+                        <div class="confirm__label w-full flex items-center"
+                             v-for="role in roles"
+                             :key="'role-' + role.id"
+                        >
+                            <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 text-right p-l-14 cursor-default"
+                                  v-text="role.name"
+                            > </span>
+                            <button class="font-xs font-bold"
+                                    v-text=" role.name === 'به عنوان سفیر تهران' ? 'اکنون این نقش را دارد.' :  'اکنون چنین نقشی ندارد'"
+                                    :class="[ role.name === 'به عنوان سفیر تهران' ? 'r-confirm__active' : 'r-confirm__disabled' ]"
+                                    @click.prevent="onClickUserRoleItem"
+                            > </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </modal-cm>
         <modal-cm ref="changePassword"
                   @close="onClickCloseChangePasswordModal"
         >
@@ -262,6 +311,9 @@
                 search: ''
             },
             selectedItem: {},
+            userRole: {
+                isPending: false,
+            },
             changePassword: {
                 value: '',
                 isPending: false,
@@ -282,6 +334,7 @@
             }),
             ...mapState({
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
+                roles: ({ ManageLegateStore }) => ManageLegateStore.roles,
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination
             })
         },
@@ -314,6 +367,29 @@
                             }, 70);
                         });
                 } catch (e) {}
+            },
+            async onClickManageUserRoleButton( item ) {
+                try {
+                    this.$set(this.userRole, 'isPending', true);
+                    this.$set(this, 'selectedItem', item);
+                    this.onClickActionButton( item );
+                    this.$refs['userRole']?.visible();
+                    await Service.getAllUserRoles();
+                    this.$set(this.userRole, 'isPending', false);
+                } catch ( error_message ) {
+                    this.displayNotification(error_message, { type: 'error' });
+                }
+            },
+            onClickCloseManageUserRoleModal() {
+                this.$refs['userRole']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedItem', {});
+                });
+            },
+            async onClickUserRoleItem() {
+                this.displayNotification('این قابلیت در حال حاضر فعال نمی‌باشد.', {
+                    type: 'warn'
+                })
             },
             onClickChangeUserPassword( item ) {
                 try {

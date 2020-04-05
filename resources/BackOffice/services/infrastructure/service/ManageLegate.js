@@ -3,6 +3,7 @@ import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import ManageLegate, {
     M_LEGATE_SET_DATA,
+    M_LEGATE_SET_USER_ROLES
 } from '@services/store/ManageLegate';
 import StatusService from '@services/service/Status';
 import {
@@ -65,6 +66,15 @@ export default class ManageLegateService extends BaseService {
             // console.log('QUERY_STRING', QUERY_STRING);
             // await this.getVolunteersListFilterBy( QUERY_STRING );
         } catch (e) {}
+    }
+
+    async getAllUserRoles() {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES));
+            BaseService.commitToStore(this.$store, M_LEGATE_SET_USER_ROLES, response)
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
     }
     
     async changePasswordByAdmin(user_id = 0, password = '') {
