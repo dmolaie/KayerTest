@@ -28,3 +28,60 @@
       margin-left: 5px
       pointer-events: none
       vertical-align: middle
+  .confirm
+    $border: #cfd2d5
+    &__header
+      padding: 16px 39px 16px 27px
+      background-color: #effaff
+    &__button
+      @include Size(20px)
+      &::before, &::after
+        content: " "
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 100%
+        height: 2px
+        border-radius: 2px
+        background: $red
+      &::before
+        transform: translate(-50%, -50%) rotate(45deg)
+      &::after
+        transform: translate(-50%, -50%) rotate(-45deg)
+    &__content
+    &__container
+      padding: 33px 39px 37px 27px
+    &__label
+      &:not(:last-of-type)
+        margin-bottom: 25px
+    &__text
+      width: 12%
+    &__input
+      border-color: $border
+      padding: 12px 15px
+      &:disabled
+        opacity: .7
+        filter: brightness(.94)
+        pointer-events: none
+    &__footer
+      border-top: 1px solid $border
+      padding: 13px 39px 13px 27px
+    &__f-button
+      width: 110px
+      line-height: 42px
+      color: $black
+      &:not(:last-of-type)
+        margin-left: 12px
+      &--submit
+        color: $blue-200
+        background: transparentize($sail, (1 - .64))
+        @include SpinnerLoading(22px, 2px, $blue-200)
+        @include L_Screen
+          &:hover
+            background-color: $sail
+      &--discard
+        @include L_Screen
+          &:hover
+            background-color: darken(#f2f2f2, 3%)
+  .m-b-10
+    margin-bottom: 10px

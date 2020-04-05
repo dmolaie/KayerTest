@@ -99,6 +99,10 @@
                                     </div>
                                 </div>
                                 <div class="table__td table__td:l">
+                                    <span class="block font-xs cursor-default text-right m-b-10"
+                                          v-if="!!item.job_title"
+                                          v-text="item.job_title"
+                                    > </span>
                                     <span class="m-legate__location block font-xs cursor-default text-right"
                                           v-text="item.location"
                                     > </span>
@@ -106,23 +110,17 @@
                                 <div class="table__td table__td:l">
                                     <div class="flex flex-wrap items-start cursor-default"
                                     >
-                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
-                                              v-for="(role, i) in item.roles"
-                                              :key="'status-' + i"
-                                              :class="{
-                                                  'm-post__status--accept': role.is_active,
-                                                  'm-post__status--pending': role.is_pending,
-                                                  'm-post__status--reject': role.is_inactive,
-                                              }"
+                                        <button class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
+                                                v-for="(role, i) in item.roles"
+                                                :key="'status-' + i"
+                                                :class="{
+                                                    'm-post__status--accept': role.is_active,
+                                                    'm-post__status--pending': role.is_pending,
+                                                    'm-post__status--reject': role.is_inactive,
+                                                }"
                                         >
                                             {{ role.label + ' ' + item.province_name }}: {{ role.status_fa }}
-                                        </span>
-                                        <div class="w-full">
-                                            <button class="m-legate__t-button table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
-
-                                                    v-text="'مدیریت نقش‌ها'"
-                                            > </button>
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="table__td flex-1">
@@ -130,18 +128,30 @@
                                         <button class="table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
                                                 @click.stop="onClickActionButton( item )"
                                                 v-text="'عملیات'"
+                                                :disabled="!isAdmin"
                                         > </button>
                                         <dropdown-cm :visibility="item.is_opened"
                                                      :clickOutside="true"
                                                      @onClickOutside="onClickActionButton( item )"
                                                      class="table__dropdown"
                                         >
-                                            <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                    v-text="'ویرایش اطلاعات'"
-                                            > </button>
-                                            <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                    v-text="'تغییر گذرواژه'"
-                                            > </button>
+                                            <template v-if="isAdmin">
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="' نقش کاربری '"
+                                                > </button>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="'ویرایش اطلاعات'"
+                                                > </button>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click.stop="onClickChangeUserPassword( item )"
+                                                        v-text="'تغییر گذرواژه'"
+                                                > </button>
+                                                <span class="dropdown__divider"> </span>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click="onClickBlockUserButton( item )"
+                                                        v-text="'مسدود سازی'"
+                                                > </button>
+                                            </template>
                                         </dropdown-cm>
                                     </div>
                                 </div>
@@ -161,18 +171,85 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="changePassword"
+                  @close="onClickCloseChangePasswordModal"
+        >
+            <div class="confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                        تغییر گذرواژه
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseChangePasswordModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <form @submit="onClickSubmitChangePasswordModal"
+                          class="confirm__container">
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                نام
+                            </span>
+                            <input type="text"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1"
+                                   placeholder="نام کاربر" readonly="readonly" disabled="disabled"
+                                   :value="selectedItem.full_name"
+                            >
+                        </label>
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تلفن همراه
+                            </span>
+                            <input type="text"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr"
+                                   placeholder="تلفن همراه کاربر" readonly="readonly" disabled="disabled"
+                                   :value="selectedItem.mobile"
+                            >
+                        </label>
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-required text-blue-800 font-sm font-bold flex-shrink-0">
+                                گذرواژه
+                            </span>
+                            <input type="password"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr"
+                                   placeholder="گذرواژه کاربر" autocomplete="off"
+                                   v-model="changePassword.value"
+                            >
+                        </label>
+                    </form>
+                </div>
+                <div class="modal__footer confirm__footer w-full text-left">
+                    <button class="confirm__f-button confirm__f-button--submit font-base font-medium rounded text-center l:transition-bg"
+                            :class="{ 'spinner-loading': ( changePassword.isPending ) }"
+                            @click.prevent="onClickSubmitChangePasswordModal"
+                            v-text="'تایید'"
+                    > </button>
+                    <button class="confirm__f-button confirm__f-button--discard font-base font-medium rounded text-center l:transition-bg"
+                            @click.prevent="onClickCloseChangePasswordModal"
+                            v-text="'لغو'"
+                    > </button>
+                </div>
+            </div>
+        </modal-cm>
     </div>
 </template>
 
 <script>
     import {
-        mapState
+        mapState, mapGetters
     } from 'vuex';
+    import {
+        IS_ADMIN
+    } from '@services/store/Login';
+    import {
+        Length
+    } from "@vendor/plugin/helper";
     import ManageLegateService from '@services/service/ManageLegate';
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
+    import ModalCm from '@vendor/components/modal/Index.vue';
     import StatusService from '@services/service/Status';
 
     let Service = null;
@@ -184,6 +261,11 @@
             filter: {
                 search: ''
             },
+            selectedItem: {},
+            changePassword: {
+                value: '',
+                isPending: false,
+            },
             isPending: true,
             paginateKeyCounter: false,
             isModuleRegistered: false,
@@ -191,9 +273,13 @@
         }),
         components: {
             DropdownCm, TableCm,
-            ImageCm, PaginationCm
+            ImageCm, PaginationCm,
+            ModalCm
         },
         computed: {
+            ...mapGetters({
+                isAdmin: IS_ADMIN
+            }),
             ...mapState({
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination
@@ -227,6 +313,49 @@
                                 this.$set(this, 'isPending', false)
                             }, 70);
                         });
+                } catch (e) {}
+            },
+            onClickChangeUserPassword( item ) {
+                try {
+                    this.$set(this, 'selectedItem', item);
+                    this.onClickActionButton( item );
+                    this.$refs['changePassword']?.visible();
+                } catch (e) {}
+            },
+            checkChangePasswordFormValidation() {
+                let { value } = this.changePassword;
+                let isValidPassword = !!value && ( Length(value.trim()) >= 8 );
+                if ( !isValidPassword ) this.displayNotification('حداقل هشت کاراکتر حساس به کوچکی و بزرگی حروف.', { type: 'error' });
+                return isValidPassword;
+            },
+            async onClickSubmitChangePasswordModal() {
+                try {
+                    this.$set(this.changePassword, 'isPending', true);
+                    let isValid = this.checkChangePasswordFormValidation();
+                    if ( isValid ) {
+                        let response = await Service.changePasswordByAdmin( this.selectedItem.id, this.changePassword.value );
+                        this.displayNotification(response, { type: 'success' });
+                        this.onClickCloseChangePasswordModal();
+                    }
+                } catch ( error_message ) {
+                    this.displayNotification(error_message, { type: 'error' });
+                } finally {
+                    this.$set(this.changePassword, 'isPending', false);
+                }
+            },
+            onClickCloseChangePasswordModal() {
+                this.$refs['changePassword']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedItem', {});
+                    this.$set(this.changePassword, 'value', '');
+                });
+            },
+            async onClickBlockUserButton( item ) {
+                try {
+                    this.onClickActionButton( item );
+                    this.displayNotification('این قابلیت در حال حاضر فعال نمی‌باشد.', {
+                        type: 'warn'
+                    })
                 } catch (e) {}
             }
         },

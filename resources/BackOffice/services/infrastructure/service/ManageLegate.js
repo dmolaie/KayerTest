@@ -8,6 +8,7 @@ import StatusService from '@services/service/Status';
 import {
     HasLength
 } from '@vendor/plugin/helper';
+import ExceptionService from '@services/service/exception';
 
 export default class ManageLegateService extends BaseService {
     constructor( layout ) {
@@ -46,7 +47,7 @@ export default class ManageLegateService extends BaseService {
     async getVolunteersListFilterBy( querystring = {} ) {
         try {
             // console.log(StatusService.RECYCLE_STATUS);
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_VOLUNTEERS_LIST), querystring);
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_LIST), querystring);
             BaseService.commitToStore(this.$store, M_LEGATE_SET_DATA, response);
         } catch (e) {
             throw e;
@@ -64,5 +65,17 @@ export default class ManageLegateService extends BaseService {
             // console.log('QUERY_STRING', QUERY_STRING);
             // await this.getVolunteersListFilterBy( QUERY_STRING );
         } catch (e) {}
+    }
+    
+    async changePasswordByAdmin(user_id = 0, password = '') {
+        try {
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_PASSWORD), {
+                user_id, password,
+                password_confirmation: password
+            });
+            return response.message
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
     }
 }

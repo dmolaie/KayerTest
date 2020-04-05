@@ -37,6 +37,8 @@ export class SingleLegatePresenter extends BasePresenter {
             province_id: Number,
             province_name: String,
             location: String,
+            job_title: String,
+            mobile: String,
         })
     }
 
@@ -104,5 +106,13 @@ export class SingleLegatePresenter extends BasePresenter {
                 this.province_name() + ' / '
             ) : '') + this.city_name()
         )
+    }
+
+    job_title() {
+        return this.data['job-title'] || ''
+    }
+
+    mobile() {
+        return this.data.mobile || '09013040663'
     }
 }

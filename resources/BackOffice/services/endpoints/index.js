@@ -14,7 +14,8 @@ const VALIDATE_USER = "VALIDATE_USER";
 const VALIDATE_LEGATE = "VALIDATE_LEGATE";
 const GET_USER_INFORMATION = "GET_USER_INFORMATION";
 const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
-const GET_VOLUNTEERS_LIST = "GET_VOLUNTEERS_LIST";
+const GET_USER_LIST = "GET_USER_LIST";
+const EDIT_USER_PASSWORD = "EDIT_USER_PASSWORD";
 const GET_MENU_LIST = "GET_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
@@ -47,7 +48,8 @@ endpoints[VALIDATE_USER] = `/user/${VER_1_0}/validate_data_user_client`;
 endpoints[VALIDATE_LEGATE] = `/user/${VER_1_0}/validate_data_user_legate`;
 endpoints[GET_USER_INFORMATION] = `/user/${VER_1_0}/full-info`;
 endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
-endpoints[GET_VOLUNTEERS_LIST] = `/user/${VER_1_0}/admin/user-search`;
+endpoints[GET_USER_LIST] = `/user/${VER_1_0}/admin/user-search`;
+endpoints[EDIT_USER_PASSWORD] = `/user/${VER_1_0}/admin/change-password-by-admin`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
@@ -114,8 +116,12 @@ export default class Endpoint {
         return endpoints[UPDATE_USER_INFORMATION];
     }
 
-    static get GET_VOLUNTEERS_LIST() {
-        return endpoints[GET_VOLUNTEERS_LIST]
+    static get GET_USER_LIST() {
+        return endpoints[GET_USER_LIST]
+    }
+
+    static get EDIT_USER_PASSWORD() {
+        return endpoints[EDIT_USER_PASSWORD]
     }
 
     static get GET_MENU_LIST() {
