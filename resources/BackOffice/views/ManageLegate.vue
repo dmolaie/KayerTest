@@ -99,7 +99,7 @@
                                         > </span>
                                     </div>
                                 </div>
-                                <div class="table__td table__td:l">
+                                <div class="table__td table__td:l inline-flex flex-wrap flex-col items-center justify-center">
                                     <span class="block font-xs cursor-default text-right m-b-10"
                                           v-if="!!item.job_title"
                                           v-text="item.job_title"
@@ -108,7 +108,7 @@
                                           v-text="item.location"
                                     > </span>
                                 </div>
-                                <div class="table__td table__td:l">
+                                <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
                                     <div class="flex flex-wrap items-start cursor-default"
                                     >
                                         <button class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
@@ -124,7 +124,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="table__td flex-1">
+                                <div class="table__td flex-1 inline-flex items-center justify-center">
                                     <div class="relative w-full flex items-center justify-center">
                                         <button class="table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
                                                 @click.stop="onClickActionButton( item )"
@@ -512,7 +512,8 @@
             onChangePagination( page ) {
                 try {
                     this.backToTop();
-                    Service.getVolunteersListFilterBy( page )
+                    this.$set(this, 'isPending', true);
+                    Service.HandelPagination( page, this.$route )
                         .then(this.$nextTick)
                         .then(() => {
                             setTimeout(() => {

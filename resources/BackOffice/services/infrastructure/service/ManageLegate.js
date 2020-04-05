@@ -10,9 +10,13 @@ import {
 } from '@services/presenter/ManageLegate';
 import StatusService from '@services/service/Status';
 import {
-    HasLength
+    HasLength, CopyOf
 } from '@vendor/plugin/helper';
 import ExceptionService from '@services/service/exception';
+import {
+    NationalCodeValidator,
+    toEnglishDigits
+} from "@vendor/plugin/helper";
 
 export default class ManageLegateService extends BaseService {
     constructor( layout ) {
@@ -60,15 +64,31 @@ export default class ManageLegateService extends BaseService {
 
     async HandelSearchAction(searchValue, { query }) {
         try {
-            // const QUERY_STRING = query;
-            // ( HasLength( searchValue.trim() ) ) ? (
-            //     QUERY_STRING['national_code'] = searchValue.trim()
-            // ) : (
-            //     delete QUERY_STRING['national_code']
-            // );
-            // console.log('QUERY_STRING', QUERY_STRING);
-            // await this.getVolunteersListFilterBy( QUERY_STRING );
+            if (HasLength( searchValue.trim() )) {
+                const QUERY_STRING = query;
+                if ( NationalCodeValidator( searchValue ) ) {
+                    delete QUERY_STRING['name'];
+                    QUERY_STRING['national_code'] = toEnglishDigits( searchValue.trim() )
+                } else {
+                    delete QUERY_STRING['national_code'];
+                    QUERY_STRING['name'] = toEnglishDigits( searchValue.trim() )
+                }
+                await this.getVolunteersListFilterBy( QUERY_STRING );
+            }
         } catch (e) {}
+    }
+
+    async HandelPagination(page, { query }) {
+        try {
+            const REQUEST_BODY = {
+                page,
+                ...CopyOf( query )
+            };
+            await this.getVolunteersListFilterBy( REQUEST_BODY )
+        } catch ( exception ) {
+            let message = ExceptionService._GetErrorMessage( exception );
+            this.$vm.displayNotification(message, { type: 'error' });
+        }
     }
 
     async getUserInformationByID( user_id ) {
