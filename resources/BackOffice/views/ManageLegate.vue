@@ -526,7 +526,6 @@
                     this.$refs['userInfo']?.visible();
                     this.$set(this.userInfo, 'isPending', true);
                     let response = await Service.getUserInformationByID( user_id );
-                    console.log('response', response);
                     this.$set(this.userInfo, 'data', response);
                     this.$set(this.userInfo, 'isPending', false);
                 } catch ( exception ) {
