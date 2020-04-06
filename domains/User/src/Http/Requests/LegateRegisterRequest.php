@@ -110,7 +110,7 @@ class LegateRegisterRequest extends EhdaBaseRequest
             ->setDayOfCooperation($this['day_of_cooperation'])
             ->setFieldOfActivities(implode(',',$this['field_of_activities']))
             ->setPassword($this['password'])
-            ->setRoleId(config('user.legate_role_id'))
+            ->setRoleType(config('user.legate_role_type'))
             ->setRoleStatus(config('user.user_role_pending_status'));
 
         return $userRegisterInfoDTO;

@@ -96,7 +96,9 @@ class UserRepository
             'status',
             [
                 config('user.user_role_active_status'),
-                config('user.user_role_pending_status')
+                config('user.user_role_pending_status'),
+                config('user.user_role_wait_for_documents'),
+                config('user.user_role_wait_for_exam'),
             ])
             ->orderBy('role_id')->first();
     }
@@ -161,10 +163,10 @@ class UserRepository
 
                 return $query->where('national_code', $userSearchDTO->getNationalCode());
             })
-            ->when($userSearchDTO->getRoleId(), function ($query) use ($userSearchDTO) {
+            ->when($userSearchDTO->getRoleType(), function ($query) use ($userSearchDTO) {
                 return $query->whereHas(
                     'roles', function ($query) use ($userSearchDTO) {
-                    $query->where('roles.id', $userSearchDTO->getRoleId());
+                    $query->where('roles.type', $userSearchDTO->getRoleType());
                 });
             })
             ->paginate(config('user.user_paginate_count'));
@@ -199,13 +201,16 @@ class UserRepository
         return $user;
     }
 
-    public function addNewRoleToUser(int $userId, int $roleId)
-    {
+    public function addNewRoleToUser(
+        int $userId,
+        int $roleId,
+        string $roleStatus
+    ) {
         $user = $this->entityName::findOrFail($userId);
         $user->roles()->detach($roleId);
         $user->roles()->attach(
             $roleId,
-            ['status' => config('user.user_role_active_status')]);
+            ['status' => $roleStatus]);
         return $user;
     }
 }

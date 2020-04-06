@@ -27,10 +27,6 @@ class UserBriefInfoDTO
      */
     protected $id;
     /**
-     * @var string
-     */
-    protected $createdAt;
-    /**
      * @var null|string
      */
     protected $identityNumber;
@@ -54,6 +50,19 @@ class UserBriefInfoDTO
      * @var string|null
      */
     protected $jobTitle;
+    /**
+     * @var null|string
+     */
+    protected $createdAt;
+    /**
+     * @var null|string
+     */
+    protected $updatedAt;
+    /**
+     * @var null|array
+     */
+    protected $createdBy;
+
     /**
      * @return string
      */
@@ -127,18 +136,18 @@ class UserBriefInfoDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
     /**
-     * @param string $createdAt
+     * @param null|string $createdAt
      * @return UserBriefInfoDTO
      */
-    public function setCreatedAt(string $createdAt): UserBriefInfoDTO
+    public function setCreatedAt(?string $createdAt): UserBriefInfoDTO
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -249,6 +258,42 @@ class UserBriefInfoDTO
     public function setJobTitle(?string $jobTitle): UserBriefInfoDTO
     {
         $this->jobTitle = $jobTitle;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param null|string $updatedAt
+     * @return UserBriefInfoDTO
+     */
+    public function setUpdatedAt(?string $updatedAt): UserBriefInfoDTO
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCreatedBy(): ?array
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param array|null $createdBy
+     * @return UserBriefInfoDTO
+     */
+    public function setCreatedBy(?array $createdBy): UserBriefInfoDTO
+    {
+        $this->createdBy = $createdBy;
         return $this;
     }
 

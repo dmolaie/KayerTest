@@ -150,6 +150,7 @@ return array(
         "work_phone"                  => "تلفن ثابت محل کار",
         'id'                          => 'شناسه',
         'role_id'                     => 'نوع نقش کاربری',
+        'role_status'                 => 'وضعیت نقش کاربری',
         'father_name'                 => 'نام پدر',
         'home_postal_code'            => 'کد پستی',
         'work_postal_code'            => 'کد پستی محل کار',

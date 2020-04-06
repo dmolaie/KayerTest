@@ -49,6 +49,9 @@ class UserFullInfoPresenter
             'roles'                      => $userFullInfoDTO->getRoles(),
             'receive_email'              => $userFullInfoDTO->getReceiveEmail(),
             'card_id'                    => $this->getCardId($userFullInfoDTO),
+            'created_by'                 => $userFullInfoDTO->getCreatedBy(),
+            'created_at'                 => strtotime($userFullInfoDTO->getCreatedAt()),
+            'updated_at'                 => strtotime($userFullInfoDTO->getUpdatedAt())
         ];
     }
 
@@ -78,9 +81,8 @@ class UserFullInfoPresenter
 
     private function getCardId(UserFullInfoDTO $userFullInfoDTO)
     {
-        $roleIds = collect($userFullInfoDTO->getRoles())
-            ->keyBy('id')->keys()->toArray();
-        if (in_array(config('user.client_role_id'), $roleIds)) {
+        $roleIds = collect($userFullInfoDTO->getRoles())->pluck('type')->toArray();
+        if (in_array(config('user.client_role_type'), $roleIds)) {
             return $userFullInfoDTO->getCardId();
         }
         return null;

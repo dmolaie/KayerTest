@@ -47,7 +47,7 @@ class ValidateDataUserRequestLegate extends EhdaBaseRequest
     {
         $validationDataUserDTO = new ValidationDataUserDTO();
         $validationDataUserDTO->setNationalCode($this['national_code'])
-        ->setRoleId(config('user.legate_role_id'));
+        ->setRoleType(config('user.legate_role_type'));
         return $validationDataUserDTO;
     }
 }

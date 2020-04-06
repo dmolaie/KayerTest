@@ -17,6 +17,8 @@ class UserRegisterPresenter
             'national_code' => $userLoginDTO->getNationalCode(),
             'role'          => [
                 'name' => $userLoginDTO->getRole()->name,
+                'type' => $userLoginDTO->getRole()->type,
+                'label' => $userLoginDTO->getRole()->label,
                 'id'   => $userLoginDTO->getRole()->id
             ],
             'token'         => $userLoginDTO->getToken(),
@@ -26,7 +28,7 @@ class UserRegisterPresenter
 
     private function redirectionTo($role)
     {
-        if($role->id == config('user.client_role_id') ){
+        if($role->type == config('user.client_role_type') ){
             return 'page.client.profile';
         }
         return 'admin.login';

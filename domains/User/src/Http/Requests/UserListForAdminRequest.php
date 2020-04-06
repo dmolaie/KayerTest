@@ -29,7 +29,7 @@ class UserListForAdminRequest extends EhdaBaseRequest
             'national_code' => 'numeric',
             'name'          => 'string|max:30|min:3',
             'id'            => 'integer',
-            'role_id'       => 'integer',
+            'role_type'       => 'string',
         ];
     }
 
@@ -49,7 +49,7 @@ class UserListForAdminRequest extends EhdaBaseRequest
         $userSearchDto->setName($this['name'])
             ->setId($this['id'])
             ->setNationalCode($this['national_code'])
-            ->setRoleId($this['role_id']);
+            ->setRoleType($this['role_type']);
 
         return $userSearchDto;
     }

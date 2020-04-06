@@ -27,15 +27,17 @@ class UserBriefInfoPresenter
             'current_city'     => $userBriefInfoDTO->getCurrentCity(),
             'identity_number'  => $userBriefInfoDTO->getIdentityNumber(),
             'job-title'        => $userBriefInfoDTO->getJobTitle(),
-            'roles'            => $userBriefInfoDTO->getRoles()
+            'roles'            => $userBriefInfoDTO->getRoles(),
+            'created_by'       => $userBriefInfoDTO->getCreatedBy(),
+            'created_at'       => strtotime($userBriefInfoDTO->getCreatedAt()),
+            'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt())
         ];
     }
 
     private function getCardId(UserBriefInfoDTO $userBriefInfoDTO)
     {
-        $roleIds = collect($userBriefInfoDTO->getRoles())
-            ->keyBy('id')->keys()->toArray();
-        if (in_array(config('user.client_role_id'), $roleIds)) {
+        $roleIds = collect($userBriefInfoDTO->getRoles())->pluck('type')->toArray();
+        if (in_array(config('user.client_role_type'), $roleIds)) {
             return $userBriefInfoDTO->getCardId();
         }
         return null;

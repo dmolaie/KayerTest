@@ -13,9 +13,10 @@ class FakeAllDataMaker extends Seeder
     public function run()
     {
         if (!Role::first()) {
+            $this->call(ProvinceTableSeeder::class);
             $this->call(RoleTableSeeder::class);
+
         }
-        $this->call(ProvinceTableSeeder::class);
         $this->call(CityTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(UsersTableSeeder::class);

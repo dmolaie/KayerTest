@@ -99,7 +99,7 @@
                             </form>
                         </div>
                     </aside>
-                @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
                             <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
@@ -111,7 +111,7 @@
                             </a>
                         </div>
                     </aside>
-                @elseif(auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('name')->toArray()))
+                @elseif(auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
                         <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
                             <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">

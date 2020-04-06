@@ -89,7 +89,7 @@ class RegisterUserByAdminRequest extends EhdaBaseRequest
             ->setCurrentAddress($this['current_address'])
             ->setHomePostalCode($this['home_postal_code'])
             ->setPassword($this['password_change'] ? $this['mobile'] : null)
-            ->setRoleId(config('user.client_role_id'))
+            ->setRoleType(config('user.client_role_type'))
             ->setRoleStatus(config('user.user_role_active_status'))
             ->setCreatedBy(Auth::id())
             ->setEventId($this['event_id'])

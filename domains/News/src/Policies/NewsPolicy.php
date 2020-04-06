@@ -12,7 +12,7 @@ class NewsPolicy
 
     public function before($user)
     {
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.admin.name'), $roleActiveUser)) {
             return true;
         }
@@ -20,7 +20,7 @@ class NewsPolicy
 
     public function createNews($user)
     {
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.admin.name'), $roleActiveUser) || in_array(config('role.roles.legate.name'), $roleActiveUser)) {
             return true;
         }
@@ -29,7 +29,7 @@ class NewsPolicy
 
     public function getListForAdmin($user)
     {
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.admin.name'), $roleActiveUser) || in_array(config('role.roles.legate.name'), $roleActiveUser)) {
             return true;
         }
@@ -40,7 +40,7 @@ class NewsPolicy
     {
         $newsId = request()->segment(count(request()->segments()));
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.legate.name'), $roleActiveUser) && $publiserId->publisher_id == auth()->user()->id) {
             return true;
         }
@@ -51,7 +51,7 @@ class NewsPolicy
     {
         $newsId = request()->input('news_id');
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.legate.name'), $roleActiveUser) && $publiserId->publisher_id == auth()->user()->id) {
             return true;
         }
@@ -62,7 +62,7 @@ class NewsPolicy
     {
         $newsId = request()->input('news_id');
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.legate.name'), $roleActiveUser) && $publiserId->publisher_id == auth()->user()->id) {
             return true;
         }
@@ -73,7 +73,7 @@ class NewsPolicy
     {
         $newsId = request()->segment(count(request()->segments()));
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
-        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('name')->toArray();
+        $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.legate.name'), $roleActiveUser) && $publiserId->publisher_id == auth()->user()->id) {
             return true;
         }
