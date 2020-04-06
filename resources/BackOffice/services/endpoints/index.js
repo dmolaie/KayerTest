@@ -224,13 +224,7 @@ export default class Endpoint {
 
     static get( endpoint, params = {} ) {
         if ( !!HasLength( params ) ) {
-            let queryString = [];
-
-            for ( const [key, val] of Object.entries( params ) ) {
-                queryString.push( `${key}=${val}` )
-            }
-
-            endpoint += ( endpoint.includes('?') ? '&' : '?' ) + queryString.join('&');
+            endpoint = endpoint.split('/').map( pathname => pathname.includes(':') ? params[pathname.slice(1)] : pathname ).join('/')
         }
         return (
             this.API_DOMAIN + endpoint
