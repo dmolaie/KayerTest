@@ -129,7 +129,7 @@
                                                 }"
                                                 @click.stop="onClickShowUserAccessLevelModal( item )"
                                         >
-                                            {{ role.label + ' ' + item.province_name }}: {{ role.status_fa }}
+                                            {{ role.label }}: {{ role.status_fa }}
                                         </button>
                                     </div>
                                 </div>
@@ -557,7 +557,8 @@
         watch: {
             $route({ query }) {
                 this.$set(this, 'isPending', true);
-                this.onClickToggleSearchButton();
+                this.$set(this.filter, 'search', '');
+                this.$set(this, 'shouldBeShowSearchField', false);
                 Service.getVolunteersListFilterBy( query )
                     .then(this.$nextTick)
                     .then(() => {
