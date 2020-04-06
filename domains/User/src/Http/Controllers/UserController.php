@@ -8,6 +8,7 @@ use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBaseProfileInfo;
+use Domains\User\Http\Presenters\UserBasicRegisterInfoPresenter;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
@@ -354,5 +355,13 @@ class UserController extends EhdaBaseController
                 trans('user::response.user_not_found')
             );
         }
+    }
+
+    public function userBasicRegisterInfo(UserBasicRegisterInfoPresenter $infoPresenter)
+    {
+        return $this->response(
+            $infoPresenter->transform(),
+            Response::HTTP_OK
+        );
     }
 }
