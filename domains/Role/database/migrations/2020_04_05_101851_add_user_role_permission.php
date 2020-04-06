@@ -30,7 +30,9 @@ class AddUserRolePermission extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission_role');
-
+        Schema::table('permission_role', function (Blueprint $table) {
+            $table->dropForeign('permission_role_user_id_foreign');
+            $table->dropColumn('user_id');
+        });
     }
 }
