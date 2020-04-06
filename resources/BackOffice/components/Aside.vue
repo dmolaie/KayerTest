@@ -67,7 +67,7 @@
                 },
                 {
                     route: 'MANAGE_LEGATE',
-                    title: 'سفیران اهدای عضو',
+                    title: 'کاربران',
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {

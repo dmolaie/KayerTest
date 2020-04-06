@@ -82,7 +82,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
-                                                           value="{{$data['gender'][0]}}"
+                                                           value="{{$data['gender'][1]}}"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         خانم
@@ -92,7 +92,7 @@
                                                     <input type="radio"
                                                            class="dnt-page__radio none"
                                                            name="gender" disabled="disabled"
-                                                           value="{{$data['gender'][1]}}"
+                                                           value="{{$data['gender'][0]}}"
                                                     />
                                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                         آقا
