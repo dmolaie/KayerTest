@@ -84,6 +84,11 @@ class ArticleRepository
         return $this->entityName::findOrFail($id);
     }
 
+    public function findOrFailUuid(string $uuid)
+    {
+        return $this->entityName::where('uuid', '=', $uuid)->firstOrFail();
+    }
+
     function filter(ArticleFilterDTO $articleFilterDTO)
     {
         $baseQuery = $this->entityName::

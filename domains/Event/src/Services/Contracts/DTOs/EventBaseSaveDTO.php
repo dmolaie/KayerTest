@@ -95,4 +95,9 @@ class EventBaseSaveDTO
      */
     protected $attachmentFiles;
 
+    /**
+     * @var null|string
+     */
+    protected $uuid;
+
 }

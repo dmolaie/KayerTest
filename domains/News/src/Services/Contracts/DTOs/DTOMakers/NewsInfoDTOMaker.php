@@ -37,7 +37,8 @@ class NewsInfoDTOMaker
             ->setEditor($news->editor)
             ->setRelationNewsId($this->getRelationNewsId($news))
             ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
-            ->setProvince($news->province);
+            ->setProvince($news->province)
+            ->setUuid($news->uuid);
 
         return $newsInfoDTO;
     }

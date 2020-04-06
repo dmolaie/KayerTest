@@ -6,7 +6,6 @@ namespace Domains\Event\Repositories;
 use Domains\Event\Entities\Event;
 use Domains\Event\Services\Contracts\DTOs\EventCreateDTO;
 use Domains\Event\Services\Contracts\DTOs\EventEditDTO;
-use Domains\Event\Services\Contracts\DTOs\EventInfoDTO;
 use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 
 class EventRepository
@@ -126,5 +125,11 @@ class EventRepository
     {
         return $this->entityName::where('id', '=', $eventId)->delete();
     }
+
+    public function findOrFailUuid(string $uuid)
+    {
+        return $this->entityName::where('uuid', '=', $uuid)->firstOrFail();
+    }
+
 
 }

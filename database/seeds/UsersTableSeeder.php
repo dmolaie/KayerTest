@@ -28,6 +28,7 @@ class UsersTableSeeder extends Seeder
         $city = City::first();
         $status =['active','inactive','pending'];
         $user = new User();
+        $user->uuid = \App\Http\Controllers\UuIdTrait::randomStrings(8);
         $user->name = 'ehda_'.$role->name;
         $user->email = 'ehda.'. $role->name.'.test.'.rand(0,1000).'.@gmail.com';
         $user->password = bcrypt('11111111');

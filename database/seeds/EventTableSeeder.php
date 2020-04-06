@@ -34,7 +34,8 @@ class EventTableSeeder extends Seeder
             ->setSourceLinkText('source_link_text')
             ->setSourceLinkImage('source_link_image')
             ->setStatus('accept')
-            ->setSourceLinkVideo('source_link_video');
+            ->setSourceLinkVideo('source_link_video')
+            ->setUuid( \App\Http\Controllers\UuIdTrait::randomStrings(8));
         $eventRepository = app(EventRepository::class);
         $eventRepository->create($eventCreateDTO);
     }

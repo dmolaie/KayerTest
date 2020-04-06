@@ -5,9 +5,13 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Cassandra\Uuid;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\News\Services\NewsService;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {

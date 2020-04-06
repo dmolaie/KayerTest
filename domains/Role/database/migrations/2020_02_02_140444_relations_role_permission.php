@@ -25,6 +25,12 @@ class RelationsRolePermission extends Migration
                 ->on('permissions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('user_id')->unsignedInteger()
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
 
     }

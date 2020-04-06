@@ -5,6 +5,7 @@ namespace Domains\Event\Services\Contracts\DTOs;
 
 
 
+use Domains\Article\Services\Contracts\DTOs\ArticleCreateDTO;
 use Domains\User\Entities\User;
 
 
@@ -382,6 +383,24 @@ class EventCreateDTO extends EventBaseSaveDTO
     public function setParentId(?int $parentId): EventCreateDTO
     {
         $this->parentId = $parentId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string|null $uuid
+     * @return EventCreateDTO
+     */
+    public function setUuid(?string $uuid): EventCreateDTO
+    {
+        $this->uuid = $uuid;
         return $this;
     }
 

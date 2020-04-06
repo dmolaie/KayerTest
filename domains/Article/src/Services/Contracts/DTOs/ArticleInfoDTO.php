@@ -77,6 +77,10 @@ class ArticleInfoDTO
      * @var null|User
      */
     protected $editor;
+    /**
+     * @var string
+     */
+    protected $uuid;
 
     /**
      * @return int
@@ -366,5 +370,22 @@ class ArticleInfoDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return ArticleInfoDTO
+     */
+    public function setUuid(string $uuid): ArticleInfoDTO
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
 
 }

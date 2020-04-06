@@ -2,6 +2,7 @@
 
 namespace Domains\Article\Entities;
 
+use App\Http\Controllers\UuIdTrait;
 use Domains\Category\Entities\Category;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Entities\Menus;
@@ -34,8 +35,17 @@ class Article extends Model
         'province_id',
         'editor_id',
         'publisher_id',
-        'language'
+        'language',
+        'uuid',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->uuid = UuIdTrait::randomStrings(8);
+        });
+    }
 
     public function editor()
     {
