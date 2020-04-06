@@ -10,7 +10,7 @@ import {
 } from '@services/presenter/ManageLegate';
 import StatusService from '@services/service/Status';
 import {
-    HasLength, CopyOf
+    HasLength, CopyOf, Length
 } from '@vendor/plugin/helper';
 import ExceptionService from '@services/service/exception';
 import {
@@ -44,7 +44,10 @@ export default class ManageLegateService extends BaseService {
 
     async processFetchAsyncData() {
         try {
-            await this.getVolunteersListFilterBy();
+            let {
+                query
+            } = this.$vm.$route;
+            await this.getVolunteersListFilterBy( query );
         } catch ({ message }) {
             this.$vm.displayNotification(message, {
                 type: 'error'
@@ -64,7 +67,7 @@ export default class ManageLegateService extends BaseService {
 
     async HandelSearchAction(searchValue, { query }) {
         try {
-            if (HasLength( searchValue.trim() )) {
+            if (Length( searchValue.trim() ) >= 3) {
                 const QUERY_STRING = query;
                 if ( NationalCodeValidator( searchValue ) ) {
                     delete QUERY_STRING['name'];
@@ -73,6 +76,11 @@ export default class ManageLegateService extends BaseService {
                     delete QUERY_STRING['national_code'];
                     QUERY_STRING['name'] = toEnglishDigits( searchValue.trim() )
                 }
+                await this.getVolunteersListFilterBy( QUERY_STRING );
+            } else {
+                const QUERY_STRING = query;
+                delete QUERY_STRING['name'];
+                delete QUERY_STRING['national_code'];
                 await this.getVolunteersListFilterBy( QUERY_STRING );
             }
         } catch (e) {}

@@ -4,10 +4,18 @@
             <div class="m-post__tabs">
                 <div class="inline-flex items-stretch">
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
-                            :class="{ 'm-post__tab--active': true }"
+                            :class="{ 'm-post__tab--active': isAllUserTab }"
+                            @click.prevent="onClickAllUserTab"
                             v-text="'همه'"
                     > </button>
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                            :class="{ 'm-post__tab--active': isLegateTab }"
+                            @click.prevent="onClickLegateUserTab"
+                            v-text="'سفیران اهدای عضو'"
+                    > </button>
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                            :class="{ 'm-post__tab--active': isRecycleTab }"
+                            @click.prevent="onClickRecycleUserTab"
                             v-text="'زباله‌دان'"
                     > </button>
                 </div>
@@ -440,7 +448,7 @@
         IS_ADMIN
     } from '@services/store/Login';
     import {
-        Length
+        Length, HasLength
     } from "@vendor/plugin/helper";
     import ManageLegateService from '@services/service/ManageLegate';
     import TableCm from '@vendor/components/table/Index.vue';
@@ -489,9 +497,59 @@
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
                 roles: ({ ManageLegateStore }) => ManageLegateStore.roles,
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination
-            })
+            }),
+            isAllUserTab() {
+                let { query } = this.$route;
+                return !HasLength( query )
+            },
+            isLegateTab() {
+                let { query } = this.$route;
+                return query.role_id !== void 0;
+            },
+            isRecycleTab() {
+                let { query } = this.$route;
+                return ( HasLength(this.$route.query) ) ? (
+                    query.status === StatusService.RECYCLE_STATUS
+                ) : false
+            },
+        },
+        watch: {
+            $route({ query }) {
+                this.$set(this, 'isPending', true);
+                this.onClickToggleSearchButton();
+                Service.getVolunteersListFilterBy( query )
+                    .then(this.$nextTick)
+                    .then(() => {
+                        setTimeout(() => {
+                            this.$set(this, 'isPending', false);
+                        }, 70);
+                    });
+            }
         },
         methods: {
+            /**
+             * @param query { Object }
+             */
+            switchBetweenTabs( query  = {} ) {
+                this.$router.push({
+                    name: "MANAGE_LEGATE",
+                    query
+                }).catch(err => {});
+                this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
+            },
+            onClickAllUserTab() {
+                this.switchBetweenTabs()
+            },
+            onClickLegateUserTab() {
+                this.switchBetweenTabs({
+                    role_id: 3
+                })
+            },
+            onClickRecycleUserTab() {
+                this.switchBetweenTabs({
+                    status: StatusService.RECYCLE_STATUS
+                })
+            },
             onClickToggleSearchButton() {
                 this.$set(this.filter, 'search', '');
                 this.$set(this, 'shouldBeShowSearchField', !this.shouldBeShowSearchField);
