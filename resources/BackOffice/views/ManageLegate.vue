@@ -127,6 +127,7 @@
                                                     'm-post__status--pending': role.is_pending,
                                                     'm-post__status--reject': role.is_inactive,
                                                 }"
+                                                @click.stop="onClickShowUserAccessLevelModal( item )"
                                         >
                                             {{ role.label + ' ' + item.province_name }}: {{ role.status_fa }}
                                         </button>
@@ -181,6 +182,43 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="accessLevel"
+                  @close="onClickCloseUserAccessLevelModal"
+        >
+            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         سطح دسترسی
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseUserAccessLevelModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <template v-if="accessLevel.isPending">
+                        <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                            <span class="confirm__spinner spinner-loading"> </span>
+                            در حال دریافت اطلاعات...
+                        </p>
+                    </template>
+                    <div v-else
+                         class="confirm__container cursor-default"
+                    >
+                        <p class="confirm__label w-full text-bayoux font-base font-bold"
+                           v-text="selectedItem.full_name"
+                        > </p>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                نقش کاربری:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="'سفیر'"
+                            > </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </modal-cm>
         <modal-cm ref="userInfo"
                   @close="onClickCloseUserInformationModal"
         >
@@ -468,6 +506,9 @@
                 search: ''
             },
             selectedItem: {},
+            accessLevel: {
+                isPending: false
+            },
             userInfo: {
                 isPending: true,
                 data: {}
@@ -579,6 +620,25 @@
                             }, 70);
                         });
                 } catch (e) {}
+            },
+            async onClickShowUserAccessLevelModal( item ) {
+                try {
+                    this.$refs['accessLevel'].visible();
+                    this.$set(this.accessLevel, 'isPending', true);
+                    this.$set(this, 'selectedItem', item);
+                    let response = await Service.getUserInformationByID( item.id );
+                    console.log(response);
+                    // this.$set(this.userInfo, 'data', response);
+                    this.$set(this.accessLevel, 'isPending', false);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            onClickCloseUserAccessLevelModal() {
+                this.$refs['accessLevel']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedItem', {});
+                });
             },
             async onClickShowUserInfoModal( user_id ) {
                 try {
