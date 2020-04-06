@@ -47,7 +47,8 @@ class User extends Authenticatable
         'work_postal_code',
         'education_province_id',
         'education_city_id',
-        'is_active'
+        'is_active',
+        'creator_id'
     ];
 
     /**
@@ -92,5 +93,10 @@ class User extends Authenticatable
     public function currentProvince()
     {
         return $this->belongsTo(Province::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'creator_id', 'id');
     }
 }

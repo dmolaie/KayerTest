@@ -266,6 +266,7 @@ class UserService
 
     public function registerByAdmin(UserRegisterInfoDTO $createUserRegisterDTO)
     {
+        $createUserRegisterDTO->setRoleId($this->getRoleId($createUserRegisterDTO));
         $existUser = $this->userRepository->findByNationalCode($createUserRegisterDTO->getNationalCode());
         if (!$existUser && !$createUserRegisterDTO->getPassword()) {
             $createUserRegisterDTO->setPassword($createUserRegisterDTO->getMobile());

@@ -27,7 +27,10 @@ class UserBriefInfoPresenter
             'current_city'     => $userBriefInfoDTO->getCurrentCity(),
             'identity_number'  => $userBriefInfoDTO->getIdentityNumber(),
             'job-title'        => $userBriefInfoDTO->getJobTitle(),
-            'roles'            => $userBriefInfoDTO->getRoles()
+            'roles'            => $userBriefInfoDTO->getRoles(),
+            'created_by'       => $userBriefInfoDTO->getCreatedBy(),
+            'created_at'       => strtotime($userBriefInfoDTO->getCreatedAt()),
+            'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt())
         ];
     }
 

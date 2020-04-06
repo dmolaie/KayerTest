@@ -58,7 +58,13 @@ class UserFullInfoDTOMaker
             ->setMotivationForCooperation($user->motivation_for_cooperation)
             ->setFieldOfActivities($user->field_of_activities)
             ->setReceiveEmail($user->receive_email)
-            ->setCardId($user->card_id);
+            ->setCardId($user->card_id)
+            ->setUpdatedAt($user->updated_at)
+            ->setCreatedBy($user->createdBy ? [
+                'name' => $user->createdBy->name,
+                'id'   => $user->createdBy->id,
+            ] : null)
+            ->setCreatedAt($user->created_at);
 
         return $userFullInfoDTO;
     }

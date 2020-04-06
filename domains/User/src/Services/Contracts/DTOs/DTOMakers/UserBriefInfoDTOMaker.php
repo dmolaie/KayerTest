@@ -21,6 +21,7 @@ class UserBriefInfoDTOMaker
 
     public function convert(User $user): UserBriefInfoDTO
     {
+
         $userBriefInfoDTO = new UserBriefInfoDTO();
         $userBriefInfoDTO->setId($user->id)
             ->setName($user->name)
@@ -32,8 +33,13 @@ class UserBriefInfoDTOMaker
             ->setCreatedAt(strtotime($user->created_at))
             ->setCurrentCity($this->getCurrentCityInfo($user->currentCity))
             ->setCurrentProvince($this->getCurrentProvinceInfo($user->currentProvince))
-            ->setRoles($this->getRoles($user));
-
+            ->setRoles($this->getRoles($user))
+            ->setUpdatedAt($user->updated_at)
+            ->setCreatedBy($user->createdBy ? [
+                'name' => $user->createdBy->name,
+                'id'   => $user->createdBy->id,
+            ] : null)
+            ->setCreatedAt($user->created_at);
         return $userBriefInfoDTO;
 
     }
@@ -66,7 +72,7 @@ class UserBriefInfoDTOMaker
                 'name'   => $role->name,
                 'id'     => $role->id,
                 'label'  => $role->label,
-                'type'  => $role->type,
+                'type'   => $role->type,
                 'status' => $role->pivot->status
             ];
         })->toArray();
