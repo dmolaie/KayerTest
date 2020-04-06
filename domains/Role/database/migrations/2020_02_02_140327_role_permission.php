@@ -16,6 +16,7 @@ class RolePermission extends Migration
         Schema::create('permission_role', function (Blueprint $table) {
             $table->unsignedBigInteger('role_id')->index();
             $table->unsignedBigInteger('permission_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->primary(['role_id', 'permission_id']);
         });
     }

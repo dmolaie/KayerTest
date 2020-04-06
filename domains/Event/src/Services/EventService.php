@@ -155,6 +155,23 @@ class EventService
      * @param array $eventIds
      * @return AttachmentGetInfoDTO|null
      */
+    private function getAttachmentInfoNews(string $entityName, array $eventIds)
+    {
+        $attachmentGetInfoDTO = new AttachmentGetInfoDTO();
+
+        if ($eventIds) {
+            $attachmentGetInfoDTO->setEntityName($entityName)
+                ->setEntityIds($eventIds);
+            return $this->attachmentServices->getImagesByIds($attachmentGetInfoDTO);
+        }
+        return $attachmentGetInfoDTO;
+    }
+
+    /**
+     * @param string $entityName
+     * @param array $eventIds
+     * @return AttachmentGetInfoDTO|null
+     */
     private function getAttachmentInfoEvent(string $entityName, array $eventIds)
     {
         $attachmentGetInfoDTO = new AttachmentGetInfoDTO();
@@ -195,6 +212,14 @@ class EventService
             throw new EventNotFoundErrorException(trans('event::response.event_not_found'));
         }
         return $result;
+    }
+
+    public function getEventDetailWithUuid($uuid)
+    {
+        $event = $this->eventRepository->findOrFailUuid($uuid);
+        $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(Event::class), [$event->id]);
+        $images = $attachmentInfoDto->getImages()[$event->id];
+        return $this->eventInfoDTOMaker->convert($event, $images);
     }
 
 }

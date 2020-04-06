@@ -29,3 +29,8 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
     });
 
 });
+Route::get('/news/{uuid}', 'PagesController@newsShortLink')->name('news-short-link');
+Route::get('/even/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
+Route::get('/article/{uuid}', 'PagesController@articleShortLink')->name('article-short-link');
+
+

@@ -69,4 +69,9 @@ class ArticleBaseSaveDTO
      * @var null|array
      */
     protected $attachmentFiles;
+
+    /**
+     * @var null|string
+     */
+    protected $uuid;
 }

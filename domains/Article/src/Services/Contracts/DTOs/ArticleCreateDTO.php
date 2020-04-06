@@ -290,4 +290,21 @@ class ArticleCreateDTO extends ArticleBaseSaveDTO
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string|null $uuid
+     * @return ArticleCreateDTO
+     */
+    public function setUuid(?string $uuid): ArticleCreateDTO
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
 }
