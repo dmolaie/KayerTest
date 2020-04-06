@@ -2,6 +2,7 @@
 
 namespace Domains\User\Entities;
 
+use App\Http\Controllers\UuIdTrait;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Role\Entities\Role;
@@ -48,8 +49,17 @@ class User extends Authenticatable
         'education_province_id',
         'education_city_id',
         'is_active',
-        'creator_id'
+        'creator_id',
+        'uuid'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->uuid = UuIdTrait::randomStrings(8);
+        });
+    }
 
     /**
      * The attributes that should be hidden for arrays.

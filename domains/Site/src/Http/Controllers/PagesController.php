@@ -157,10 +157,32 @@ class PagesController extends Controller
         }
         $content = $this->siteServices->getDetailNews($slug);
         return view('site::' . $language . '.pages.news-show', compact('content'));
-
     }
 
-    public function shortUrl($shortUrl)
+    public function newsShortLink($uuid)
     {
+        if (!$uuid) {
+            abort(404);
+        }
+        $content = $this->siteServices->getNewsWithUuid($uuid);
+        return view('site::' . $content->getLanguage() . '.pages.news-show', compact('content'));
+    }
+
+    public function eventShortLink($uuid)
+    {
+        if (!$uuid) {
+            abort(404);
+        }
+        $content = $this->siteServices->getEventsWithUuid($uuid);
+        return view('site::' . $content->getLanguage() . '.pages.event-show', compact('content'));
+    }
+
+    public function articleShortLink($uuid)
+    {
+        if (!$uuid) {
+            abort(404);
+        }
+        $menusContent = $this->siteServices->getArticleWithUuid($uuid);
+        return view('site::' . $menusContent->getLanguage() . '.pages.page', compact('menusContent'));
     }
 }

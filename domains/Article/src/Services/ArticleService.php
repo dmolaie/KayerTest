@@ -142,6 +142,23 @@ class ArticleService
 
     /**
      * @param string $entityName
+     * @param array $eventIds
+     * @return AttachmentGetInfoDTO|null
+     */
+    private function getAttachmentInfoNews(string $entityName, array $eventIds)
+    {
+        $attachmentGetInfoDTO = new AttachmentGetInfoDTO();
+
+        if ($eventIds) {
+            $attachmentGetInfoDTO->setEntityName($entityName)
+                ->setEntityIds($eventIds);
+            return $this->attachmentServices->getImagesByIds($attachmentGetInfoDTO);
+        }
+        return $attachmentGetInfoDTO;
+    }
+
+    /**
+     * @param string $entityName
      * @param array $articleIds
      * @return AttachmentGetInfoDTO|null
      */
@@ -206,6 +223,14 @@ class ArticleService
     {
         $article = $this->articleRepository->findOrFail($id);
         $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
+        $images = $attachmentInfoDto->getImages()[$article->id];
+        return $this->articleInfoDTOMaker->convert($article, $images);
+    }
+
+    public function getArticleDetailWithUuid($uuid)
+    {
+        $article = $this->articleRepository->findOrFailUuid($uuid);
+        $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(Article::class), [$article->id]);
         $images = $attachmentInfoDto->getImages()[$article->id];
         return $this->articleInfoDTOMaker->convert($article, $images);
     }

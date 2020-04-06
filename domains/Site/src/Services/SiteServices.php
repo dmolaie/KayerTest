@@ -3,7 +3,9 @@
 namespace Domains\Site\Services;
 
 
+use Domains\Article\Services\ArticleService;
 use Domains\Category\Services\CategoryService;
+use Domains\Event\Services\EventService;
 use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
 use Domains\Menu\Services\MenusContentService;
@@ -31,14 +33,24 @@ class SiteServices
      * @var NewsService
      */
     private $newsService;
+    /**
+     * @var EventService
+     */
+    private $eventService;
+    /**
+     * @var ArticleService
+     */
+    private $articleService;
 
 
-    public function __construct(MenusContentService $menusService,CategoryService $categoryService,NewsService $newsService,NewsFilterDTO $newsFilterDTO)
+    public function __construct(MenusContentService $menusService,CategoryService $categoryService,NewsService $newsService,NewsFilterDTO $newsFilterDTO,EventService $eventService,ArticleService $articleService)
     {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
         $this->newsFilterDTO = $newsFilterDTO;
         $this->newsService = $newsService;
+        $this->eventService = $eventService;
+        $this->articleService = $articleService;
     }
 
     public function getAll()
@@ -76,5 +88,19 @@ class SiteServices
     public function getActiveCategoryByType($type)
     {
         return $this->categoryService->getActiveCategoryByType($type);
+    }
+
+    public function getNewsWithUuid($uuid)
+    {
+        return $this->newsService->getNewsDetailWithUuid($uuid);
+    }
+
+    public function getEventsWithUuid($uuid)
+    {
+        return $this->eventService->getEventDetailWithUuid($uuid);
+    }
+    public function getArticleWithUuid($uuid)
+    {
+        return $this->articleService->getArticleDetailWithUuid($uuid);
     }
 }

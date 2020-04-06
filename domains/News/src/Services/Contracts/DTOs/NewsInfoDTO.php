@@ -76,6 +76,10 @@ class NewsInfoDTO
      * @var string
      */
     protected $slug;
+    /**
+     * @var string
+     */
+    protected $uuid;
 
     /**
      * @return User|null
@@ -362,6 +366,24 @@ class NewsInfoDTO
     public function setSlug(string $slug): NewsInfoDTO
     {
         $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return NewsInfoDTO
+     */
+    public function setUuid(string $uuid): NewsInfoDTO
+    {
+        $this->uuid = $uuid;
         return $this;
     }
 

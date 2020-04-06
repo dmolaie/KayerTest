@@ -208,4 +208,12 @@ class NewsService
         $images = $attachmentInfoDto->getImages()[$news->id];
         return $this->newsInfoDTOMaker->convert($news, $images);
     }
+
+    public function getNewsDetailWithUuid(string $uuid)
+    {
+        $news = $this->newsRepository->findOrFailUuid($uuid);
+        $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(News::class), [$news->id]);
+        $images = $attachmentInfoDto->getImages()[$news->id];
+        return $this->newsInfoDTOMaker->convert($news, $images);
+    }
 }
