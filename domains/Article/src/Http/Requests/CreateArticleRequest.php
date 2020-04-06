@@ -57,7 +57,7 @@ class CreateArticleRequest extends EhdaBaseRequest
             ->setFirstTitle($this['first_title'])
             ->setPublishDate($this['publish_date'] ?
                 Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString() :
-                Carbon::now()->format('Y-m-d h:m:s')
+                Carbon::now()->format('Y-m-d H:m:s')
             )
             ->setSecondTitle($this['second_title'])
             ->setThirdTitle($this['third_title'])

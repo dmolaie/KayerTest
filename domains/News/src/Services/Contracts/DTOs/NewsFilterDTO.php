@@ -161,9 +161,9 @@ class NewsFilterDTO
         $this->newsRealStatus = config('news.news_convert_to_real_status.' . $newsInputStatus);
 
         if ($this->newsInputStatus == config('news.news_publish_status')) {
-            $this->maxPublishDate = Carbon::now()->format('Y-m-d h:m:s');
+            $this->maxPublishDate = Carbon::now()->format('Y-m-d H:m:s');
         } elseif ($this->newsInputStatus == config('news.news_ready_to_publish_status')) {
-            $this->minPublishDate = Carbon::now()->format('Y-m-d h:m:s');
+            $this->minPublishDate = Carbon::now()->format('Y-m-d H:m:s');
         }
         return $this;
     }

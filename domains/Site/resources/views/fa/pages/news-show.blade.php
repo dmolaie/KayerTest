@@ -48,7 +48,7 @@
                                 <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
                                     کپی شد
                                 </span>
-                                https://ehda.center/PNWVzX
+                                {{route('news-short-link',$content->getUuid())}}
                             </div>
                         </div>
                         <div class="flex items-center border border-solid i-page__box rounded-1/2 l:m-r-20 user-select-none">

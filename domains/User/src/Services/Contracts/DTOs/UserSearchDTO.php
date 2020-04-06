@@ -21,9 +21,9 @@ class UserSearchDTO
      */
     protected $id;
     /**
-     * @var null|integer
+     * @var null|string
      */
-    protected $roleId;
+    protected $roleType;
     /**
      * @return string|null
      */
@@ -79,20 +79,20 @@ class UserSearchDTO
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getRoleId(): ?int
+    public function getRoleType(): ?string
     {
-        return $this->roleId;
+        return $this->roleType;
     }
 
     /**
-     * @param int|null $roleId
+     * @param string|null $roleType
      * @return UserSearchDTO
      */
-    public function setRoleId(?int $roleId): UserSearchDTO
+    public function setRoleType(?string $roleType): UserSearchDTO
     {
-        $this->roleId = $roleId;
+        $this->roleType = $roleType;
         return $this;
     }
 

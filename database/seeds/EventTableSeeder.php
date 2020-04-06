@@ -26,15 +26,16 @@ class EventTableSeeder extends Seeder
             ->setLanguage('fa')
             ->setTitle('title')
             ->setLocation('location')
-            ->setPublishDate(Carbon::now()->format('Y-m-d h:m:s'))
-            ->setEventStartDate(Carbon::now()->format('Y-m-d h:m:s'))
-            ->setEventEndDate(Carbon::now()->format('Y-m-d h:m:s'))
-            ->setEventStartRegisterDate(Carbon::now()->format('Y-m-d h:m:s'))
-            ->setEventEndRegisterDate(Carbon::now()->format('Y-m-d h:m:s'))
+            ->setPublishDate(Carbon::now()->format('Y-m-d H:m:s'))
+            ->setEventStartDate(Carbon::now()->format('Y-m-d H:m:s'))
+            ->setEventEndDate(Carbon::now()->format('Y-m-d H:m:s'))
+            ->setEventStartRegisterDate(Carbon::now()->format('Y-m-d H:m:s'))
+            ->setEventEndRegisterDate(Carbon::now()->format('Y-m-d H:m:s'))
             ->setSourceLinkText('source_link_text')
             ->setSourceLinkImage('source_link_image')
             ->setStatus('accept')
-            ->setSourceLinkVideo('source_link_video');
+            ->setSourceLinkVideo('source_link_video')
+            ->setUuid( \App\Http\Controllers\UuIdTrait::randomStrings(8));
         $eventRepository = app(EventRepository::class);
         $eventRepository->create($eventCreateDTO);
     }

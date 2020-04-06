@@ -38,7 +38,8 @@ class ArticleInfoDTOMaker
             ->setEditor($article->editor)
             ->setRelationArticleId($this->getRelationArticleId($article))
             ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
-            ->setProvince($article->province);
+            ->setProvince($article->province)
+            ->setUuid($article->uuid);
 
         return $articleInfoDTO;
     }

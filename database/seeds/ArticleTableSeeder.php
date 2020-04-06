@@ -31,7 +31,8 @@ class ArticleTableSeeder extends Seeder
             ->setSecondTitle('second_title')
             ->setThirdTitle('third_title')
             ->setStatus('accept')
-            ->setSlug('slug'.rand(1,1000));
+            ->setSlug('slug'.rand(1,1000))
+            ->setUuid( \App\Http\Controllers\UuIdTrait::randomStrings(8));
         $articleRepository = app(ArticleRepository::class);
         $articleRepository->create($articleCreateDTO);
 

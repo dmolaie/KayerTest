@@ -75,7 +75,7 @@
                             </p>
                             @foreach($categories as $category)
                                 <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
-                                       style="margin-right: {{$category->gap}}px"
+                                       style="margin-right: {{$category['gap']}}px"
                                 >
                                     <input type="radio"
                                            class="checkbox-square__input"
@@ -83,7 +83,7 @@
                                     />
                                     <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
                                     <span class="checkbox-square__label rounded user-select-none">
-                                         {{ $category->getNameFa() }}
+                                         {{ $category['name_fa'] }}
                                     </span>
                                 </label>
                             @endforeach

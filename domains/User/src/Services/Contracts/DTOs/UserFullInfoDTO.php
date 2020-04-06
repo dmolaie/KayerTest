@@ -160,7 +160,18 @@ class UserFullInfoDTO
      * @var array
      */
     protected $roles;
-
+    /**
+     * @var null|string
+     */
+    protected $createdAt;
+    /**
+     * @var null|string
+     */
+    protected $updatedAt;
+    /**
+     * @var null|array
+     */
+    protected $createdBy;
     /**
      * @return int
      */
@@ -740,24 +751,6 @@ class UserFullInfoDTO
     /**
      * @return int|null
      */
-    public function getCreatedBy(): ?int
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param int|null $createdBy
-     * @return UserFullInfoDTO
-     */
-    public function setCreatedBy(?int $createdBy): UserFullInfoDTO
-    {
-        $this->createdBy = $createdBy;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
     public function getEventId(): ?int
     {
         return $this->eventId;
@@ -844,4 +837,62 @@ class UserFullInfoDTO
         $this->roles = $roles;
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string|null $createdAt
+     * @return UserFullInfoDTO
+     */
+    public function setCreatedAt(?string $createdAt): UserFullInfoDTO
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param string|null $updatedAt
+     * @return UserFullInfoDTO
+     */
+    public function setUpdatedAt(?string $updatedAt): UserFullInfoDTO
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCreatedBy(): ?array
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param array|null $createdBy
+     * @return UserFullInfoDTO
+     */
+    public function setCreatedBy(?array $createdBy): UserFullInfoDTO
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+
+
+
 }

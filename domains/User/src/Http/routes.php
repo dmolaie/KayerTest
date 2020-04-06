@@ -20,5 +20,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/add-role-to-user', 'UserController@addRoleToUser')->middleware('auth:api')->name('add-role-to-user');
     Route::get('/user-info-for-admin', 'UserController@getFullUserInfoForAdmin')->middleware('auth:api')->name('user-info-for-admin');
     Route::get('/user-base-profile-info', 'UserController@getUserBaseProfileInfo')->middleware('auth:api')->name('user-base-profile-info');
+    Route::post('/change-user-role-status', 'UserController@changeUserRoleStatus')->middleware('auth:api')->name('change-user-role-status');
 });
 
+Route::get('/user-basic-register-info',
+    'UserController@userBasicRegisterInfo')->name('user-basic-register-info');

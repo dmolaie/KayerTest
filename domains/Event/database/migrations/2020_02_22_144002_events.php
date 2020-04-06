@@ -15,6 +15,7 @@ class Events extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->integerIncrements('id');
+            $table->string('uuid')->unique()->index();
             $table->string('title');
             $table->text('abstract')->nullable();
             $table->text('description')->nullable();

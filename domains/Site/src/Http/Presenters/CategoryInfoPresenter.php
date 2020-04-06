@@ -14,7 +14,7 @@ class CategoryInfoPresenter
         return $this->categoryData($categoryDTOs, $data);
     }
 
-    private function categoryData($categoryDTOs, &$data, $parentId = null)
+    private function categoryData($categoryDTOs, &$data, $parentId = null, $gap = 0)
     {
         foreach ($categoryDTOs as $categoryDTO) {
             /**
@@ -28,9 +28,10 @@ class CategoryInfoPresenter
                 'is_active' => $categoryDTO->isStatus(),
                 'slug'      => $categoryDTO->getSlug(),
                 'parentId'  => $parentId,
+                'gap'       => $gap,
 
             ];
-            $data = $this->categoryData($categoryDTO->getChildren(), $data, $categoryDTO->getId());
+            $data = $this->categoryData($categoryDTO->getChildren(), $data, $categoryDTO->getId(),$gap+16);
 
         }
         return $data;

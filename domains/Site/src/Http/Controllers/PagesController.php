@@ -35,36 +35,20 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.structure-and-organization');
     }
 
-    static function getNewsCategories($categories, $gap = 0)
-    {
-        return array_reduce($categories, function ($flatArray, $item) use ($gap) {
-            $item->gap = 16 * $gap;
-            ( !empty($item->getChildren()) ) ? (
-                array_push($flatArray, $item, ...self::getNewsCategories($item->getChildren()->all(), $gap + 1))
-            ) : (
-                array_push($flatArray, $item)
-            );
-            return $flatArray;
-        }, []);
-    }
-
     public function newsListIran(Request $request,CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('iran-news')->getItems();
-        $categories = $this->siteServices->getActiveCategoryByType('news');
-        $categories = self::getNewsCategories($categories);
-//        $categories = $categoryInfoPresenter->transformMany(
-//            $this->siteServices->getActiveCategoryByType('news'));
+        $categories = $categoryInfoPresenter->transformMany(
+            $this->siteServices->getActiveCategoryByType('news'));
+
         return view('site::' . $request->language . '.pages.news-list',compact('news','categories'));
     }
 
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('world-news')->getItems();
-        $categories = $this->siteServices->getActiveCategoryByType('news');
-        $categories = self::getNewsCategories($categories);
-//        $categories = $categoryInfoPresenter->transformMany(
-//            $this->siteServices->getActiveCategoryByType('news'));
+        $categories = $categoryInfoPresenter->transformMany(
+            $this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list' ,compact('news','categories'));
     }
 
@@ -173,10 +157,32 @@ class PagesController extends Controller
         }
         $content = $this->siteServices->getDetailNews($slug);
         return view('site::' . $language . '.pages.news-show', compact('content'));
-
     }
 
-    public function shortUrl($shortUrl)
+    public function newsShortLink($uuid)
     {
+        if (!$uuid) {
+            abort(404);
+        }
+        $content = $this->siteServices->getNewsWithUuid($uuid);
+        return view('site::' . $content->getLanguage() . '.pages.news-show', compact('content'));
+    }
+
+    public function eventShortLink($uuid)
+    {
+        if (!$uuid) {
+            abort(404);
+        }
+        $content = $this->siteServices->getEventsWithUuid($uuid);
+        return view('site::' . $content->getLanguage() . '.pages.event-show', compact('content'));
+    }
+
+    public function articleShortLink($uuid)
+    {
+        if (!$uuid) {
+            abort(404);
+        }
+        $menusContent = $this->siteServices->getArticleWithUuid($uuid);
+        return view('site::' . $menusContent->getLanguage() . '.pages.page', compact('menusContent'));
     }
 }

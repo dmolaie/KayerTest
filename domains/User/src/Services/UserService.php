@@ -19,6 +19,7 @@ use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserChangeRoleDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
@@ -101,7 +102,8 @@ class UserService
     {
         $loginController = new LoginController();
         $loginController->login($request);
-        if (\auth()->check()) {
+
+        if (\auth()->check() && \auth()->user()->is_active) {
             $user = \auth()->user();
             $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
@@ -111,6 +113,7 @@ class UserService
             Auth::login($user, true);
             return $loginDTO;
         }
+        $loginController->logout($request);
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
     }
 
@@ -137,7 +140,7 @@ class UserService
      */
     public function register(UserRegisterInfoDTO $userRegisterInfoDTO): UserLoginDTO
     {
-
+        $userRegisterInfoDTO->setRoleId($this->getRoleId($userRegisterInfoDTO));
         $user = $this->userRepository->createOrUpdateUser(
             $userRegisterInfoDTO,
             $this->getUser($userRegisterInfoDTO));
@@ -151,6 +154,17 @@ class UserService
             ->setCardId($user->card_id)
             ->setName($user->name);
         return $userLoginDTO;
+
+    }
+
+    private function getRoleId(UserRegisterInfoDTO $userRegisterInfoDTO)
+    {
+        if ($userRegisterInfoDTO->getRoleType() == config('user.legate_role_type')) {
+            return $this->roleServices->getRoleWithRoleType(
+                $userRegisterInfoDTO->getRoleType(),
+                $userRegisterInfoDTO->getCurrentProvinceId())->getId();
+        }
+        return $this->roleServices->getRoleWithRoleType($userRegisterInfoDTO->getRoleType())->getId();
 
     }
 
@@ -221,9 +235,11 @@ class UserService
 
     public function ValidateUserWithRole(ValidationDataUserDTO $validationDataUserDTO)
     {
+        $roleId = $this->roleServices->getRoleWithRoleType($validationDataUserDTO->getRoleType())->getId();
+
         return $this->userRepository->checkUserHasSpecialRole(
             $validationDataUserDTO->getNationalCode(),
-            $validationDataUserDTO->getRoleId()
+            $roleId
         );
     }
 
@@ -250,6 +266,7 @@ class UserService
 
     public function registerByAdmin(UserRegisterInfoDTO $createUserRegisterDTO)
     {
+        $createUserRegisterDTO->setRoleId($this->getRoleId($createUserRegisterDTO));
         $existUser = $this->userRepository->findByNationalCode($createUserRegisterDTO->getNationalCode());
         if (!$existUser && !$createUserRegisterDTO->getPassword()) {
             $createUserRegisterDTO->setPassword($createUserRegisterDTO->getMobile());
@@ -272,13 +289,27 @@ class UserService
 
     public function addNewRoleToUser(int $userId, int $roleId): UserBriefInfoDTO
     {
-        $user = $this->userRepository->addNewRoleToUser($userId, $roleId);
+        $user = $this->userRepository->addNewRoleToUser(
+            $userId,
+            $roleId,
+            config('user.user_role_active_status')
+        );
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 
     public function getUserBaseInfo()
     {
         $user = Auth::user();
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function changeUserRoleStatus(UserChangeRoleDTO $userChangeRoleDTO)
+    {
+        $user = $this->userRepository->addNewRoleToUser(
+            $userChangeRoleDTO->getUserId(),
+            $userChangeRoleDTO->getRoleId(),
+            $userChangeRoleDTO->getRoleStatus()
+        );
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 }

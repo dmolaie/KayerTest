@@ -22,7 +22,7 @@ class DataNecessaryInBlades
      */
     public function handle($request, Closure $next)
     {
-        $listOfMenu = $this->menuService->getListSite();
+        $listOfMenu = $this->menuService->getListSite(true);
         \View::share('menus', $listOfMenu);
         return $next($request);
     }

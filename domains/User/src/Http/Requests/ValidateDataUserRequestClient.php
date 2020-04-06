@@ -43,7 +43,7 @@ class ValidateDataUserRequestClient extends EhdaBaseRequest
     {
         $validationDataUserDTO = new ValidationDataUserDTO();
         $validationDataUserDTO->setNationalCode($this['national_code'])
-            ->setRoleId(config('user.client_role_id'));
+            ->setRoleType(config('user.client_role_type'));
 
         return $validationDataUserDTO;
     }

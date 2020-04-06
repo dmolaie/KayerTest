@@ -86,9 +86,13 @@ class NewsRepository
         return $this->entityName::where('slug', '=', $slug)->firstOrFail();
     }
 
+    public function findOrFailUuid(string $uuid)
+    {
+        return $this->entityName::where('uuid', '=', $uuid)->firstOrFail();
+    }
+
     function filter(NewsFilterDTO $newsFilterDTO)
     {
-
         $baseQuery = $this->entityName
             ::when($newsFilterDTO->getNewsRealStatus(), function ($query) use ($newsFilterDTO) {
                 if ($newsFilterDTO->getNewsRealStatus() == config('news.news_convert_to_real_status.delete')) {
