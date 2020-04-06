@@ -1,5 +1,6 @@
 <?php
 
+use Domains\Location\Entities\Province;
 use Domains\Role\Entities\Role;
 use Illuminate\Database\Seeder;
 
@@ -14,33 +15,42 @@ class RoleTableSeeder extends Seeder
     {
         Role::insert([
             [
-                'id' => 1,
-                'name' => 'admin',
-                'label' => 'ادمین',
+                'id'         => 1,
+                'name'       => 'admin',
+                'label'      => 'ادمین',
+                'type'       => 'admin',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
             [
-                'id' => 2,
-                'name' => 'manager',
-                'label' => 'مدیر',
+                'id'         => 2,
+                'name'       => 'manager',
+                'type'       => 'manager',
+                'label'      => 'مدیر',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
+
             [
-                'id' => 3,
-                'name' => 'legate',
-                'label' => 'سفیر',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id' => 4,
+                'id'   => 4,
                 'name' => 'client',
-                'label' => 'کاربر عادی',
+                'type' => 'client',
+                'label'      => 'کاربر عادی',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ]
         ]);
+
+        foreach (Province::all() as $province){
+
+            Role::insert([
+                'name'       => 'legate_' . $province->slug,
+                'type'       => 'legate',
+                'label'      => 'سفیر '. $province->name,
+                'province_id'=> $province->id,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
+        }
     }
 }

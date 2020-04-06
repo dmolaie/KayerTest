@@ -35,19 +35,6 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.structure-and-organization');
     }
 
-    static function getNewsCategories($categories, $gap = 0)
-    {
-        return array_reduce($categories, function ($flatArray, $item) use ($gap) {
-            $item->gap = 16 * $gap;
-            ( !empty($item->getChildren()) ) ? (
-                array_push($flatArray, $item, ...self::getNewsCategories($item->getChildren()->all(), $gap + 1))
-            ) : (
-                array_push($flatArray, $item)
-            );
-            return $flatArray;
-        }, []);
-    }
-
     public function newsListIran(Request $request,CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('iran-news')->getItems();
@@ -60,10 +47,8 @@ class PagesController extends Controller
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('world-news')->getItems();
-        $categories = $this->siteServices->getActiveCategoryByType('news');
-        $categories = self::getNewsCategories($categories);
-//        $categories = $categoryInfoPresenter->transformMany(
-//            $this->siteServices->getActiveCategoryByType('news'));
+        $categories = $categoryInfoPresenter->transformMany(
+            $this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list' ,compact('news','categories'));
     }
 
