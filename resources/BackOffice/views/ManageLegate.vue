@@ -545,7 +545,7 @@
             },
             isLegateTab() {
                 let { query } = this.$route;
-                return query.role_id !== void 0;
+                return query.role_type !== void 0;
             },
             isRecycleTab() {
                 let { query } = this.$route;
@@ -583,7 +583,7 @@
             },
             onClickLegateUserTab() {
                 this.switchBetweenTabs({
-                    role_id: 3
+                    role_type: 'legate'
                 })
             },
             onClickRecycleUserTab() {
