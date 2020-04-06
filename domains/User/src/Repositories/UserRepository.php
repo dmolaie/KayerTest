@@ -163,10 +163,10 @@ class UserRepository
 
                 return $query->where('national_code', $userSearchDTO->getNationalCode());
             })
-            ->when($userSearchDTO->getRoleId(), function ($query) use ($userSearchDTO) {
+            ->when($userSearchDTO->getRoleType(), function ($query) use ($userSearchDTO) {
                 return $query->whereHas(
                     'roles', function ($query) use ($userSearchDTO) {
-                    $query->where('roles.id', $userSearchDTO->getRoleId());
+                    $query->where('roles.type', $userSearchDTO->getRoleType());
                 });
             })
             ->paginate(config('user.user_paginate_count'));
