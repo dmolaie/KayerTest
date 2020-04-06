@@ -1,10 +1,26 @@
-/*!************************************************************!*\
+/*!*******************************************************************************!*\
   !*** toJalaali && toGregorian source: https://github.com/jalaali/jalaali-js ***!
-  \*************************************************************/
+  \*****************************************************************************/
 
 const breaks =  [
     -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210,
     1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178
+];
+
+const MONTH = [
+    '',
+    'فروردین',
+    'اردیبهشت',
+    'خرداد',
+    'تیر',
+    'مرداد',
+    'شهریور',
+    'مهر',
+    'آبان',
+    'آذر',
+    'دی',
+    'بهمن',
+    'اسفند',
 ];
 
 export default class DateService {
@@ -19,6 +35,21 @@ export default class DateService {
 
     static toGregorian( jy = 0, jm = 0, jd = 0 ) {
         return DateService.d2g( DateService.j2d( jy, jm, jd ) );
+    }
+
+    static getJalaaliDate( timestamp ) {
+        try {
+            const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(parseInt( timestamp ) * 1e3).toLocaleDateString('fa-IR', OPTIONS);
+        } catch (e) {
+            const TIME_STAMP = (parseInt( timestamp ) * 1e3);
+            const DATE = new Date( TIME_STAMP );
+            let day   = DATE.getDate(),
+                month = DATE.getMonth(),
+                year  = DATE.getFullYear();
+            const JALAALI = DateService.toJalaali(year, (month + 1), day);
+            return `${JALAALI.jd} ${MONTH[JALAALI.jm]} ${JALAALI.jy}`
+        }
     }
 
     static jalaaliToTimestamp(jy = 0, jm = 0, jd = 0) {

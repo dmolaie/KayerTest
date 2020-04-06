@@ -4,10 +4,18 @@
             <div class="m-post__tabs">
                 <div class="inline-flex items-stretch">
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
-                            :class="{ 'm-post__tab--active': true }"
+                            :class="{ 'm-post__tab--active': isAllUserTab }"
+                            @click.prevent="onClickAllUserTab"
                             v-text="'همه'"
                     > </button>
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                            :class="{ 'm-post__tab--active': isLegateTab }"
+                            @click.prevent="onClickLegateUserTab"
+                            v-text="'سفیران اهدای عضو'"
+                    > </button>
+                    <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                            :class="{ 'm-post__tab--active': isRecycleTab }"
+                            @click.prevent="onClickRecycleUserTab"
                             v-text="'زباله‌دان'"
                     > </button>
                 </div>
@@ -82,9 +90,10 @@
                                     />
                                 </div>
                                 <div class="table__td table__td:l flex flex-col cursor-default">
-                                    <p class="font-xs font-bold m-b-auto"
-                                       v-text="item.full_name"
-                                    > </p>
+                                    <button class="text-blue-800 font-xs font-bold m-b-auto text-right l:transition-color l:hover:text-blue--200"
+                                            v-text="item.full_name"
+                                            @click.stop="onClickShowUserInfoModal( item.id )"
+                                    > </button>
                                     <div class="w-full flex items-start flex-col">
                                         <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                               :class="[ item.has_cart ? 'm-post__status--published' : 'm-post__status--recycle m-legate__status--recycle' ]"
@@ -98,50 +107,62 @@
                                         > </span>
                                     </div>
                                 </div>
-                                <div class="table__td table__td:l">
+                                <div class="table__td table__td:l inline-flex flex-wrap flex-col items-center justify-center">
+                                    <span class="block font-xs cursor-default text-right m-b-10"
+                                          v-if="!!item.job_title"
+                                          v-text="item.job_title"
+                                    > </span>
                                     <span class="m-legate__location block font-xs cursor-default text-right"
                                           v-text="item.location"
                                     > </span>
                                 </div>
-                                <div class="table__td table__td:l">
+                                <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
                                     <div class="flex flex-wrap items-start cursor-default"
                                     >
-                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
-                                              v-for="(role, i) in item.roles"
-                                              :key="'status-' + i"
-                                              :class="{
-                                                  'm-post__status--accept': role.is_active,
-                                                  'm-post__status--pending': role.is_pending,
-                                                  'm-post__status--reject': role.is_inactive,
-                                              }"
+                                        <button class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
+                                                v-for="(role, i) in item.roles"
+                                                :key="'status-' + i"
+                                                :class="{
+                                                    'm-post__status--accept': role.is_active,
+                                                    'm-post__status--pending': role.is_pending,
+                                                    'm-post__status--reject': role.is_inactive,
+                                                }"
+                                                @click.stop="onClickShowUserAccessLevelModal( item )"
                                         >
                                             {{ role.label + ' ' + item.province_name }}: {{ role.status_fa }}
-                                        </span>
-                                        <div class="w-full">
-                                            <button class="m-legate__t-button table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
-
-                                                    v-text="'مدیریت نقش‌ها'"
-                                            > </button>
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="table__td flex-1">
+                                <div class="table__td flex-1 inline-flex items-center justify-center">
                                     <div class="relative w-full flex items-center justify-center">
                                         <button class="table__button block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
                                                 @click.stop="onClickActionButton( item )"
                                                 v-text="'عملیات'"
+                                                :disabled="!isAdmin"
                                         > </button>
                                         <dropdown-cm :visibility="item.is_opened"
                                                      :clickOutside="true"
                                                      @onClickOutside="onClickActionButton( item )"
                                                      class="table__dropdown"
                                         >
-                                            <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                    v-text="'ویرایش اطلاعات'"
-                                            > </button>
-                                            <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                    v-text="'تغییر گذرواژه'"
-                                            > </button>
+                                            <template v-if="isAdmin">
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        v-text="'ویرایش اطلاعات'"
+                                                > </button>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click.stop="onClickManageUserRoleButton( item )"
+                                                        v-text="'نقش کاربری'"
+                                                > </button>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click.stop="onClickChangeUserPassword( item )"
+                                                        v-text="'تغییر گذرواژه'"
+                                                > </button>
+                                                <span class="dropdown__divider"> </span>
+                                                <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click="onClickBlockUserButton( item )"
+                                                        v-text="'مسدود سازی'"
+                                                > </button>
+                                            </template>
                                         </dropdown-cm>
                                     </div>
                                 </div>
@@ -161,18 +182,318 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="accessLevel"
+                  @close="onClickCloseUserAccessLevelModal"
+        >
+            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         سطح دسترسی
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseUserAccessLevelModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <template v-if="accessLevel.isPending">
+                        <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                            <span class="confirm__spinner spinner-loading"> </span>
+                            در حال دریافت اطلاعات...
+                        </p>
+                    </template>
+                    <div v-else
+                         class="confirm__container cursor-default"
+                    >
+                        <p class="confirm__label w-full text-bayoux font-base font-bold"
+                           v-text="selectedItem.full_name"
+                        > </p>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                نقش کاربری:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="'سفیر'"
+                            > </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </modal-cm>
+        <modal-cm ref="userInfo"
+                  @close="onClickCloseUserInformationModal"
+        >
+            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         اطلاعات کاربر
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseUserInformationModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <template v-if="userInfo.isPending">
+                        <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                            <span class="confirm__spinner spinner-loading"> </span>
+                            در حال دریافت اطلاعات...
+                        </p>
+                    </template>
+                    <div v-else
+                         class="confirm__container cursor-default"
+                    >
+                        <p class="confirm__label w-full text-bayoux font-base font-bold"
+                           v-text="userInfo.data.full_name"
+                        > </p>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تلفن همراه:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.mobile"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center"
+                           v-if="!!userInfo.data.email"
+                        >
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                ایمیل:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.email"
+                            > </span>
+                        </p>
+                        <span class="confirm__divider w-full block"> </span>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                کد ملی:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.national_code"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-if="!!userInfo.data.identity_number"
+                                  v-text="`(شماره شناسنامه: ${userInfo.data.identity_number})`"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تولد:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.date_of_birth.fa"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.city_of_birth.name"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center"
+                           v-if="!!userInfo.data.last_education_degree"
+                        >
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تحصیلات:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.last_education_degree"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="userInfo.data.education_field"
+                            > </span>
+                        </p>
+                        <p class="confirm__label w-full flex items-center"
+                           v-if="!!userInfo.data.phone || !!userInfo.data.current_address"
+                        >
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                محل سکونت:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-if="!!userInfo.data.phone"
+                                  v-text="userInfo.data.phone"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-if="!!userInfo.data.current_address"
+                                  v-text="userInfo.data.current_address"
+                            > </span>
+                        </p>
+                        <template v-if="!!userInfo.data.field_of_activities.length || !!userInfo.data.day_of_cooperation">
+                            <span class="confirm__divider w-full block"> </span>
+                            <div class="confirm__label w-full flex items-start">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    حوزه‌های فعالیت:
+                                </span>
+                                <div class="text-blue-700 font-xs font-bold flex-1">
+                                    <span class="w-full block p-0-15"
+                                          v-if="!!userInfo.data.field_of_activities.length"
+                                    >
+                                        {{ userInfo.data.field_of_activities.join('،') }}
+                                    </span>
+                                    <span class="w-full block p-0-15"
+                                          v-if="!!userInfo.data.day_of_cooperation"
+                                          :class="{'m-t-6': !!userInfo.data.field_of_activities}"
+                                          v-text="`فرصت همکاری: ${userInfo.data.day_of_cooperation}`"
+                                    > </span>
+                                </div>
+                            </div>
+                        </template>
+                        <span class="confirm__divider w-full block"> </span>
+                        <div class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                 نقش کاربری:
+                            </span>
+                            <div class="inline-flex flex-wrap items-start flex-1">
+                                <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-xs"
+                                      v-for="(role, index) in userInfo.data.roles"
+                                      :key="'r-' + index"
+                                      v-text="role.label"
+                                > </span>
+                                <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-xs"
+                                      v-if="userInfo.data.has_card"
+                                >
+                                    کارت اهدای عضو
+                                </span>
+                            </div>
+                        </div>
+                        <span class="confirm__divider w-full block"> </span>
+                        <div class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                عضویت:
+                            </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                  v-text="'۱۵ فروردین ۱۳۹۹ ۲۳:۰۳'"
+                            > </span>
+                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15">
+                                به‌روز‌رسانی << ۱۵ فروردین ۱۳۹۹ ۲۳:۱۴ >> توسط مریم روشندل
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-cm>
+        <modal-cm ref="userRole"
+                  @close="onClickCloseManageUserRoleModal"
+        >
+            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         نقش کاربری
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseManageUserRoleModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <template v-if="userRole.isPending">
+                        <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                            <span class="confirm__spinner spinner-loading"> </span>
+                            در حال دریافت اطلاعات...
+                        </p>
+                    </template>
+                    <div v-else
+                          class="confirm__container"
+                    >
+                        <div class="confirm__label w-full flex items-center">
+                            <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 p-l-14 cursor-default">
+                                نام
+                            </span>
+                            <span class="text-blue-800 font-sm font-medium flex-1 cursor-default"
+                                  v-text="selectedItem.full_name"
+                            > </span>
+                        </div>
+                        <div class="confirm__label w-full flex items-center"
+                             v-for="role in roles"
+                             :key="'role-' + role.id"
+                        >
+                            <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 text-right p-l-14 cursor-default"
+                                  v-text="role.name"
+                            > </span>
+                            <button class="font-xs font-bold"
+                                    v-text=" role.name === 'به عنوان سفیر تهران' ? 'اکنون این نقش را دارد.' :  'اکنون چنین نقشی ندارد'"
+                                    :class="[ role.name === 'به عنوان سفیر تهران' ? 'r-confirm__active' : 'r-confirm__disabled' ]"
+                                    @click.prevent="onClickUserRoleItem"
+                            > </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-cm>
+        <modal-cm ref="changePassword"
+                  @close="onClickCloseChangePasswordModal"
+        >
+            <div class="confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                        تغییر گذرواژه
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseChangePasswordModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <form @submit="onClickSubmitChangePasswordModal"
+                          class="confirm__container">
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                نام
+                            </span>
+                            <input type="text"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1"
+                                   placeholder="نام کاربر" readonly="readonly" disabled="disabled"
+                                   :value="selectedItem.full_name"
+                            >
+                        </label>
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تلفن همراه
+                            </span>
+                            <input type="text"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr"
+                                   placeholder="تلفن همراه کاربر" readonly="readonly" disabled="disabled"
+                                   :value="selectedItem.mobile"
+                            >
+                        </label>
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-required text-blue-800 font-sm font-bold flex-shrink-0">
+                                گذرواژه
+                            </span>
+                            <input type="password"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr"
+                                   placeholder="گذرواژه کاربر" autocomplete="off"
+                                   v-model="changePassword.value"
+                            >
+                        </label>
+                    </form>
+                </div>
+                <div class="modal__footer confirm__footer w-full text-left">
+                    <button class="confirm__f-button confirm__f-button--submit font-base font-medium rounded text-center l:transition-bg"
+                            :class="{ 'spinner-loading': ( changePassword.isPending ) }"
+                            @click.prevent="onClickSubmitChangePasswordModal"
+                            v-text="'تایید'"
+                    > </button>
+                    <button class="confirm__f-button confirm__f-button--discard font-base font-medium rounded text-center l:transition-bg"
+                            @click.prevent="onClickCloseChangePasswordModal"
+                            v-text="'لغو'"
+                    > </button>
+                </div>
+            </div>
+        </modal-cm>
     </div>
 </template>
 
 <script>
     import {
-        mapState
+        mapState, mapGetters
     } from 'vuex';
+    import {
+        IS_ADMIN
+    } from '@services/store/Login';
+    import {
+        Length, HasLength
+    } from "@vendor/plugin/helper";
     import ManageLegateService from '@services/service/ManageLegate';
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
+    import ModalCm from '@vendor/components/modal/Index.vue';
     import StatusService from '@services/service/Status';
 
     let Service = null;
@@ -184,6 +505,21 @@
             filter: {
                 search: ''
             },
+            selectedItem: {},
+            accessLevel: {
+                isPending: false
+            },
+            userInfo: {
+                isPending: true,
+                data: {}
+            },
+            userRole: {
+                isPending: false,
+            },
+            changePassword: {
+                value: '',
+                isPending: false,
+            },
             isPending: true,
             paginateKeyCounter: false,
             isModuleRegistered: false,
@@ -191,15 +527,70 @@
         }),
         components: {
             DropdownCm, TableCm,
-            ImageCm, PaginationCm
+            ImageCm, PaginationCm,
+            ModalCm
         },
         computed: {
+            ...mapGetters({
+                isAdmin: IS_ADMIN
+            }),
             ...mapState({
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
+                roles: ({ ManageLegateStore }) => ManageLegateStore.roles,
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination
-            })
+            }),
+            isAllUserTab() {
+                let { query } = this.$route;
+                return !HasLength( query )
+            },
+            isLegateTab() {
+                let { query } = this.$route;
+                return query.role_id !== void 0;
+            },
+            isRecycleTab() {
+                let { query } = this.$route;
+                return ( HasLength(this.$route.query) ) ? (
+                    query.status === StatusService.RECYCLE_STATUS
+                ) : false
+            },
+        },
+        watch: {
+            $route({ query }) {
+                this.$set(this, 'isPending', true);
+                this.onClickToggleSearchButton();
+                Service.getVolunteersListFilterBy( query )
+                    .then(this.$nextTick)
+                    .then(() => {
+                        setTimeout(() => {
+                            this.$set(this, 'isPending', false);
+                        }, 70);
+                    });
+            }
         },
         methods: {
+            /**
+             * @param query { Object }
+             */
+            switchBetweenTabs( query  = {} ) {
+                this.$router.push({
+                    name: "MANAGE_LEGATE",
+                    query
+                }).catch(err => {});
+                this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
+            },
+            onClickAllUserTab() {
+                this.switchBetweenTabs()
+            },
+            onClickLegateUserTab() {
+                this.switchBetweenTabs({
+                    role_id: 3
+                })
+            },
+            onClickRecycleUserTab() {
+                this.switchBetweenTabs({
+                    status: StatusService.RECYCLE_STATUS
+                })
+            },
             onClickToggleSearchButton() {
                 this.$set(this.filter, 'search', '');
                 this.$set(this, 'shouldBeShowSearchField', !this.shouldBeShowSearchField);
@@ -220,13 +611,113 @@
             onChangePagination( page ) {
                 try {
                     this.backToTop();
-                    Service.getVolunteersListFilterBy( page )
+                    this.$set(this, 'isPending', true);
+                    Service.HandelPagination( page, this.$route )
                         .then(this.$nextTick)
                         .then(() => {
                             setTimeout(() => {
                                 this.$set(this, 'isPending', false)
                             }, 70);
                         });
+                } catch (e) {}
+            },
+            async onClickShowUserAccessLevelModal( item ) {
+                try {
+                    this.$refs['accessLevel'].visible();
+                    this.$set(this.accessLevel, 'isPending', true);
+                    this.$set(this, 'selectedItem', item);
+                    let response = await Service.getUserInformationByID( item.id );
+                    console.log(response);
+                    // this.$set(this.userInfo, 'data', response);
+                    this.$set(this.accessLevel, 'isPending', false);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            onClickCloseUserAccessLevelModal() {
+                this.$refs['accessLevel']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedItem', {});
+                });
+            },
+            async onClickShowUserInfoModal( user_id ) {
+                try {
+                    this.$refs['userInfo']?.visible();
+                    this.$set(this.userInfo, 'isPending', true);
+                    let response = await Service.getUserInformationByID( user_id );
+                    this.$set(this.userInfo, 'data', response);
+                    this.$set(this.userInfo, 'isPending', false);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            onClickCloseUserInformationModal() {
+                this.$refs['userInfo']?.hidden();
+            },
+            async onClickManageUserRoleButton( item ) {
+                try {
+                    this.$set(this.userRole, 'isPending', true);
+                    this.$set(this, 'selectedItem', item);
+                    this.onClickActionButton( item );
+                    this.$refs['userRole']?.visible();
+                    await Service.getAllUserRoles();
+                    this.$set(this.userRole, 'isPending', false);
+                } catch ( error_message ) {
+                    this.displayNotification(error_message, { type: 'error' });
+                }
+            },
+            onClickCloseManageUserRoleModal() {
+                this.$refs['userRole']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedItem', {});
+                });
+            },
+            async onClickUserRoleItem() {
+                this.displayNotification('این قابلیت در حال حاضر فعال نمی‌باشد.', {
+                    type: 'warn'
+                })
+            },
+            onClickChangeUserPassword( item ) {
+                try {
+                    this.$set(this, 'selectedItem', item);
+                    this.onClickActionButton( item );
+                    this.$refs['changePassword']?.visible();
+                } catch (e) {}
+            },
+            checkChangePasswordFormValidation() {
+                let { value } = this.changePassword;
+                let isValidPassword = !!value && ( Length(value.trim()) >= 8 );
+                if ( !isValidPassword ) this.displayNotification('حداقل هشت کاراکتر حساس به کوچکی و بزرگی حروف.', { type: 'error' });
+                return isValidPassword;
+            },
+            async onClickSubmitChangePasswordModal() {
+                try {
+                    this.$set(this.changePassword, 'isPending', true);
+                    let isValid = this.checkChangePasswordFormValidation();
+                    if ( isValid ) {
+                        let response = await Service.changePasswordByAdmin( this.selectedItem.id, this.changePassword.value );
+                        this.displayNotification(response, { type: 'success' });
+                        this.onClickCloseChangePasswordModal();
+                    }
+                } catch ( error_message ) {
+                    this.displayNotification(error_message, { type: 'error' });
+                } finally {
+                    this.$set(this.changePassword, 'isPending', false);
+                }
+            },
+            onClickCloseChangePasswordModal() {
+                this.$refs['changePassword']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedItem', {});
+                    this.$set(this.changePassword, 'value', '');
+                });
+            },
+            async onClickBlockUserButton( item ) {
+                try {
+                    this.onClickActionButton( item );
+                    this.displayNotification('این قابلیت در حال حاضر فعال نمی‌باشد.', {
+                        type: 'warn'
+                    })
                 } catch (e) {}
             }
         },

@@ -8,7 +8,7 @@
                     'notification__item--out': !( item.option.visibility )
                 }
              ]"
-             @click.prevent="onClickNotificationItem( item )"
+             @click.stop="onClickNotificationItem( item )"
         >
             <p class="notification__label font-base font-bold user-select-none"
                :class="{ 'cursor-pointer': ( item.option.closeWithClick ) }"

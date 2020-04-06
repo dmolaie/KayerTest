@@ -53,7 +53,7 @@
                                         <input type="radio"
                                                class="dnt-page__radio none"
                                                name="gender" required="required" autocomplete="off"
-                                               value="0"
+                                               value="1"
                                         />
                                         <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 خانم
@@ -63,7 +63,7 @@
                                         <input type="radio"
                                                class="dnt-page__radio none"
                                                name="gender" required="required" autocomplete="off"
-                                               value="1"
+                                               value="0"
                                         />
                                         <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                                 آقا

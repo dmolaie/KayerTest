@@ -364,6 +364,14 @@
   &-decoration
     &-underline
       text-decoration-line: underline
+  &-required
+    &::after
+      content: "*"
+      color: $red
+      display: inline-block
+      font:
+        size: 14px
+        weight: bold
 
 .bg
   &-white
