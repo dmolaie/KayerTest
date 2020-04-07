@@ -7,6 +7,7 @@ use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
 use Domains\Role\Repositories\RoleRepository;
 use Domains\Role\Services\Contracts\DTOs\DTOMakers\RoleInfoDTOMaker;
+use Domains\Role\Services\Contracts\DTOs\PermissionRoleInfoDTO;
 
 class RoleServices
 {
@@ -36,6 +37,11 @@ class RoleServices
     {
         $role = $this->roleRepository->getRoleById($roleId);
         return $this->roleInfoDTOMaker->convert($role);
+    }
+
+    public function assignPermissionRoleToUser(PermissionRoleInfoDTO $permissionRoleInfoDTO)
+    {
+        return $this->roleRepository->assignPermissionRole($permissionRoleInfoDTO);
     }
 
 }
