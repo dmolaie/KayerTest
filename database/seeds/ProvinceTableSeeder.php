@@ -134,7 +134,7 @@ class ProvinceTableSeeder extends Seeder
                 "name" => 'زنجان',
             ],
             [
-                "slug" => 'Ilam',
+                "slug" => 'yazd',
                 "name" => 'یزد',
             ],
 
