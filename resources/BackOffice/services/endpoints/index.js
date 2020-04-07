@@ -17,6 +17,7 @@ const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 const GET_USER_LIST = "GET_USER_LIST";
 const GET_USER_INFO_ADMIN = "GET_USER_INFO_ADMIN";
 const EDIT_USER_PASSWORD = "EDIT_USER_PASSWORD";
+const GET_USER_BASIC_REGISTER_INFO = "GET_USER_BASIC_REGISTER_INFO";
 const GET_MENU_LIST = "GET_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
@@ -52,6 +53,7 @@ endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 endpoints[GET_USER_LIST] = `/user/${VER_1_0}/admin/user-search`;
 endpoints[GET_USER_INFO_ADMIN] = `/user/${VER_1_0}/admin/user-info-for-admin`;
 endpoints[EDIT_USER_PASSWORD] = `/user/${VER_1_0}/admin/change-password-by-admin`;
+endpoints[GET_USER_BASIC_REGISTER_INFO] = `/user/${VER_1_0}/admin/user-basic-register-info`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
@@ -128,6 +130,10 @@ export default class Endpoint {
 
     static get EDIT_USER_PASSWORD() {
         return endpoints[EDIT_USER_PASSWORD]
+    }
+
+    static get GET_USER_BASIC_REGISTER_INFO() {
+        return endpoints[GET_USER_BASIC_REGISTER_INFO]
     }
 
     static get GET_MENU_LIST() {
