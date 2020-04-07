@@ -22,7 +22,7 @@ export class UserService {
     static async getBasicRegisterInfo() {
         try {
             // return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_REGISTER_INFO))
-            return 
+            return 'salam'
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }

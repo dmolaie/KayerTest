@@ -161,6 +161,9 @@ export class UserInformationPresenter extends BasePresenter {
             roles: Array,
             card_id: String,
             has_card: Boolean,
+            created_at: Number,
+            updated_at: Number,
+            created_by: Object,
         })
     }
 
@@ -353,5 +356,28 @@ export class UserInformationPresenter extends BasePresenter {
 
     roles() {
         return new UserRolePresenter( this.item.roles )
+    }
+
+    created_at() {
+        return ({
+            timestamp: (parseFloat(this.item.created_at) * 1e3),
+            fa: DateService.getLocalString( this.item.created_at )
+        })
+    }
+
+    updated_at() {
+        return ({
+            timestamp: (parseFloat(this.item.updated_at) * 1e3),
+            fa: DateService.getLocalString( this.item.updated_at )
+        })
+    }
+
+    created_by() {
+        let { created_by } = this.item;
+        return (!!created_by && HasLength( created_by )) ? ({
+            id: created_by.id,
+            name: created_by.name,
+            label: `توسط ${created_by.name}`
+        }) : ({})
     }
 }

@@ -358,10 +358,10 @@
                                 عضویت:
                             </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
-                                  v-text="'۱۵ فروردین ۱۳۹۹ ۲۳:۰۳'"
+                                  v-text="userInfo.data.created_at.fa"
                             > </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15">
-                                به‌روز‌رسانی << ۱۵ فروردین ۱۳۹۹ ۲۳:۱۴ >> توسط مریم روشندل
+                                به‌روز‌رسانی << {{ userInfo.data.updated_at.fa }} >> {{ userInfo.data.created_by.label }}
                             </span>
                         </div>
                     </div>
