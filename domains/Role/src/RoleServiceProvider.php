@@ -35,6 +35,7 @@ class RoleServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Domains\Role\Http\Controllers',
+            'prefix'    => 'role/v1',
         ];
     }
 

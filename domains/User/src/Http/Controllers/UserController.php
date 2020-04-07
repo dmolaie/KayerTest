@@ -5,6 +5,7 @@ namespace Domains\User\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
+use Domains\Role\Entities\Role;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBaseProfileInfo;
@@ -14,6 +15,7 @@ use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Requests\AddRoleToUserRequest;
+use Domains\User\Http\Requests\AssignPermissionToUserRequest;
 use Domains\User\Http\Requests\ChangeAdminPasswordRequest;
 use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
 use Domains\User\Http\Requests\ChangeUserRoleStatusRequest;
