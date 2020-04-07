@@ -37,6 +37,21 @@ export default class DateService {
         return DateService.d2g( DateService.j2d( jy, jm, jd ) );
     }
 
+    static getLocalString( timestamp, locales = 'fa-IR' ) {
+        try {
+            const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
+            return new Date(parseInt( timestamp ) * 1e3).toLocaleDateString(locales, OPTIONS);
+        } catch (e) {
+            const TIME_STAMP = (parseInt( timestamp ) * 1e3);
+            const DATE = new Date( TIME_STAMP );
+            let day   = DATE.getDate(),
+                month = DATE.getMonth(),
+                year  = DATE.getFullYear();
+            const JALAALI = DateService.toJalaali(year, (month + 1), day);
+            return `${JALAALI.jd} ${MONTH[JALAALI.jm]} ${JALAALI.jy}`
+        }
+    }
+
     static getJalaaliDate( timestamp ) {
         try {
             const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric' };
