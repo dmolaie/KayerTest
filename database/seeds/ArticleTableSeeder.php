@@ -26,7 +26,7 @@ class ArticleTableSeeder extends Seeder
             ->setLanguage('fa')
             ->setFirstTitle('first_title')
             ->setPublishDate(
-                Carbon::now()->format('Y-m-d h:m:s')
+                Carbon::now()->format('Y-m-d H:i:s')
             )
             ->setSecondTitle('second_title')
             ->setThirdTitle('third_title')

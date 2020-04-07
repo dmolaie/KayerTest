@@ -34,7 +34,7 @@ class NewsTableSeeder extends Seeder
                 [
                     "first_title" => ' تست ' . $status . 'خبر ' . rand(100, 10000),
                     'uuid' => \App\Http\Controllers\UuIdTrait::randomStrings(8),
-                    "publish_date" => Carbon::now()->format('Y-m-d h:m:s'),
+                    "publish_date" => Carbon::now()->format('Y-m-d H:i:s'),
                     'status' => $status,
                     'province_id' => Province::first()->id,
                     'language' => 'fa',
