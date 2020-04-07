@@ -147,6 +147,7 @@
                                         >
                                             <template v-if="isAdmin">
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click.stop="onClickEditUserButton( item.id )"
                                                         v-text="'ویرایش اطلاعات'"
                                                 > </button>
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
@@ -654,6 +655,14 @@
             },
             onClickCloseUserInformationModal() {
                 this.$refs['userInfo']?.hidden();
+            },
+            onClickEditUserButton( user_id ) {
+                this.pushRouter({
+                    name: 'EDIT_USERS',
+                    params: {
+                        id: user_id
+                    }
+                });
             },
             async onClickManageUserRoleButton( item ) {
                 try {

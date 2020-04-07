@@ -21,8 +21,21 @@ import {
 export class UserService {
     static async getBasicRegisterInfo() {
         try {
-            // return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_REGISTER_INFO))
-            return 'salam'
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_REGISTER_INFO))
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    static async getUserInfoByUserID( user_id = 1 ) {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN), { user_id });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    static async getCitiesByProvinceId( id ) {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID, { id }));
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
@@ -60,8 +73,8 @@ export default class ManageLegateService extends BaseService {
             } = this.$vm.$route;
             await Promise.all([
                 this.getVolunteersListFilterBy( query ),
-                this.getBasicRegisterInfo()
             ]);
+            //this.getBasicRegisterInfo()
         } catch ( message ) {
             this.$vm.displayNotification(message, { type: 'error' })
         }
@@ -122,10 +135,10 @@ export default class ManageLegateService extends BaseService {
 
     async getUserInformationByID( user_id ) {
         try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN), { user_id });
+            let response = await UserService.getUserInfoByUserID( user_id );
             return new UserInformationPresenter( response.data );
         } catch ( exception ) {
-            throw ExceptionService._GetErrorMessage( exception );
+            throw exception;
         }
     }
 

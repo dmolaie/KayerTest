@@ -18,6 +18,7 @@ export const MANAGE_ARTICLE = 'MANAGE_ARTICLE';
 export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
 export const MANAGE_LEGATE = 'MANAGE_LEGATE';
+export const EDIT_USERS = 'EDIT_USERS';
 export const PROFILE = 'PROFILE';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -200,6 +201,27 @@ const Routes = new VueRouter({
                     },
                     {
                         name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: EDIT_USERS,
+            path: '/manage/users/edit/:id(\\d+)',
+            component: GetViews('EditUsers'),
+            meta: {
+                title: 'ویرایش کاربران',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_LEGATE,
+                        name: 'کاربران'
+                    },
+                    {
+                        name: 'ویرایش'
                     },
                 ]
             }

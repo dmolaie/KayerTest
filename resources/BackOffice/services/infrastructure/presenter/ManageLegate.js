@@ -381,3 +381,42 @@ export class UserInformationPresenter extends BasePresenter {
         }) : ({})
     }
 }
+
+export class EducationDegreePresenter extends BasePresenter {
+    constructor( data ) {
+        super( data );
+
+        return (!!data && HasLength( data )) ? (
+            data.map((item, index) => ({
+                id: index,
+                name: item
+            }))
+        ) : ([])
+    }
+}
+
+export class FieldOfActivitiesPresenter extends BasePresenter {
+    constructor( data ) {
+        super( data );
+
+        return (!!data && HasLength( data )) ? (
+            data.map((item, index) => ({
+                id: index,
+                name: item
+            }))
+        ) : ([])
+    }
+}
+
+export class KnowCommunityByPresenter extends BasePresenter {
+    constructor( data ) {
+        super( data );
+
+        return (!!data && HasLength( data )) ? (
+            data.map((item, index) => ({
+                id: index,
+                name: item
+            }))
+        ) : ([])
+    }
+}
