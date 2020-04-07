@@ -129,7 +129,7 @@
                                                 }"
                                                 @click.stop="onClickShowUserAccessLevelModal( item )"
                                         >
-                                            {{ role.label + ' ' + item.province_name }}: {{ role.status_fa }}
+                                            {{ role.label }}: {{ role.status_fa }}
                                         </button>
                                     </div>
                                 </div>
@@ -545,7 +545,7 @@
             },
             isLegateTab() {
                 let { query } = this.$route;
-                return query.role_id !== void 0;
+                return query.role_type !== void 0;
             },
             isRecycleTab() {
                 let { query } = this.$route;
@@ -557,7 +557,8 @@
         watch: {
             $route({ query }) {
                 this.$set(this, 'isPending', true);
-                this.onClickToggleSearchButton();
+                this.$set(this.filter, 'search', '');
+                this.$set(this, 'shouldBeShowSearchField', false);
                 Service.getVolunteersListFilterBy( query )
                     .then(this.$nextTick)
                     .then(() => {
@@ -583,7 +584,7 @@
             },
             onClickLegateUserTab() {
                 this.switchBetweenTabs({
-                    role_id: 3
+                    role_type: 'legate'
                 })
             },
             onClickRecycleUserTab() {
