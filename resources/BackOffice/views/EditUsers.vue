@@ -137,23 +137,22 @@
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="e-user__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
                             تاریخ تولد
-                            &&&&
                         </span>
                         <div class="e-user__date w-full flex items-stretch text-center user-select-none">
-                            <select-cm class="e-user__date--year w-1/3"
-                                       :options="year"
-                                       label="name" :value="form.birth.year || ''"
-                                       @onChange="updateYearOfBirthDateField"
+                            <select-cm class="e-user__date--day w-1/3"
+                                       :options="day"
+                                       label="name" :value="form.birth.day || ''"
+                                       @onChange="updateDayOfBirthDateField"
                             />
                             <select-cm class="e-user__date--month w-1/3"
                                        :options="month"
                                        label="name" :value="form.birth.month || ''"
                                        @onChange="updateMonthOfBirthDateField"
                             />
-                            <select-cm class="e-user__date--day w-1/3"
-                                       :options="day"
-                                       label="name" :value="form.birth.day || ''"
-                                       @onChange="updateDayOfBirthDateField"
+                            <select-cm class="e-user__date--year w-1/3"
+                                       :options="year"
+                                       label="name" :value="form.birth.year || ''"
+                                       @onChange="updateYearOfBirthDateField"
                             />
                         </div>
                     </div>
@@ -244,7 +243,7 @@
                         </label>
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
-                        <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                        <span class="e-user__text block text-blue-800 text-required font-sm font-bold text-right cursor-default">
                             تلفن همراه
                         </span>
                         <label class="relative w-full block"
@@ -254,7 +253,7 @@
                                    placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                    v-model="form.mobile"
                                    @focus="hiddenValidationError('mobile')"
-                                   @blur="mobileValidator('mobile', 'تلفن همراه')"
+                                   @blur="mobileValidator('mobile', 'تلفن همراه', true)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
@@ -825,12 +824,12 @@
             }),
             lastEducationValue() {
                 let { last_education_degree } = this.form;
-                if ( !!last_education_degree ) return Object.values( this.education ).find(({ id }) => id === last_education_degree).name ?? '';
+                if ( typeof last_education_degree === 'number' ) return Object.values( this.education ).find(({ id }) => id === last_education_degree).name ?? '';
                 return ''
             },
             knowCommunityValue() {
                 let { know_community_by } = this.form;
-                if ( !!know_community_by ) return Object.values( this.knowCommunity ).find(({ id }) => id === know_community_by).name ?? '';
+                if ( typeof know_community_by === 'number' ) return Object.values( this.knowCommunity ).find(({ id }) => id === know_community_by).name ?? '';
                 return ''
             },
             day: () => {
@@ -922,15 +921,25 @@
                     );
                 } else this.hiddenValidationError();
             },
-            mobileValidator(name, message) {
+            mobileValidator(name, message, required = false) {
                 let field = this.form[name];
-                if ( HasLength( field ) ) {
-                    ( PhoneNumberValidator( field ) ) ? (
-                        this.hiddenValidationError()
-                    ) : (
-                        this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                    );
-                } else this.hiddenValidationError();
+                if ( required ) {
+                    if ( HasLength(field) ) {
+                        PhoneNumberValidator(field) ? (
+                            this.hiddenValidationError( name )
+                        ) : (
+                            this.setValidationError(name, `${message} را با حروف فارسی وارد نمایید.`)
+                        )
+                    } else this.setValidationError(name, `فیلد ${message} ضروری است.`)
+                } else {
+                    if ( HasLength( field ) ) {
+                        ( PhoneNumberValidator( field ) ) ? (
+                            this.hiddenValidationError()
+                        ) : (
+                            this.setValidationError(name, `فرمت ${message} اشتباه است.`)
+                        );
+                    } else this.hiddenValidationError();
+                }
             },
             postalCodeValidate(name, message) {
                 let field = this.form[name];

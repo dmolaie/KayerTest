@@ -2,6 +2,10 @@
   !*** toJalaali && toGregorian source: https://github.com/jalaali/jalaali-js ***!
   \*****************************************************************************/
 
+import {
+    ZeroPad
+} from "@vendor/plugin/helper";
+
 const breaks =  [
     -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210,
     1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178
@@ -75,10 +79,8 @@ export default class DateService {
             gd: day
         } = DateService.toGregorian( jy, jm, jd );
 
-        console.log(Math.round(Date.parse(`${month}/${day}/${year}`) / 1e3));
-
         return (
-            Date.parse(`${month}/${day}/${year}`) / 1e3
+            Date.parse(`${year}-${ZeroPad(month)}-${ZeroPad(day)}T12:00:00`) / 1e3
         )
     }
 
