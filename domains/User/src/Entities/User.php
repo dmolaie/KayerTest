@@ -3,6 +3,7 @@
 namespace Domains\User\Entities;
 
 use App\Http\Controllers\UuIdTrait;
+use Domains\Event\Entities\Event;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Role\Entities\Role;
@@ -108,5 +109,10 @@ class User extends Authenticatable
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'creator_id', 'id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id', 'id');
     }
 }
