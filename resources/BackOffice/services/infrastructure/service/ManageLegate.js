@@ -26,6 +26,7 @@ export class UserService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
     static async getUserInfoByUserID( user_id = 1 ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN), { user_id });
@@ -33,9 +34,18 @@ export class UserService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
     static async getCitiesByProvinceId( id ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID, { id }));
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
+    static async AddRoleToUser( user_id = 0, role_id = 0 ) {
+        try {
+            return HTTPService.postRequest(Endpoint.get(Endpoint.ADD_ROLE_TO_USER), { user_id, role_id })
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }

@@ -71,6 +71,11 @@
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {
+                    route: 'USER_SETTING',
+                    title: 'تنظیمات حساب',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
                     route: 'LOGOUT',
                     title: 'خروج',
                     icon: 'ic__logout-blue.svg'

@@ -20,6 +20,7 @@ export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
 export const MANAGE_LEGATE = 'MANAGE_LEGATE';
 export const EDIT_USERS = 'EDIT_USERS';
 export const PROFILE = 'PROFILE';
+export const USER_SETTING = 'USER_SETTING';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -233,6 +234,23 @@ const Routes = new VueRouter({
             meta: {
                 guess: true,
                 title: LOGIN_PAGE_TITLE
+            }
+        },
+        {
+            name: USER_SETTING,
+            path: '/account',
+            component: GetViews('UserSettings'),
+            meta: {
+                title: 'تنظیمات حساب',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'تنظیمات حساب'
+                    },
+                ]
             }
         },
         {

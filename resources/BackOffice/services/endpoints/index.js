@@ -17,9 +17,11 @@ const UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION";
 const GET_USER_LIST = "GET_USER_LIST";
 const GET_USER_INFO_ADMIN = "GET_USER_INFO_ADMIN";
 const EDIT_USER_PASSWORD = "EDIT_USER_PASSWORD";
+const EDIT_USER_PASSWORD_BY_USER = "EDIT_USER_PASSWORD_BY_USER";
 const GET_USER_BASIC_PROFILE_INFO = "GET_USER_BASIC_PROFILE_INFO";
 const GET_USER_BASIC_REGISTER_INFO = "GET_USER_BASIC_REGISTER_INFO";
 const EDIT_USER_BY_ADMIN = "EDIT_USER_BY_ADMIN";
+const ADD_ROLE_TO_USER = "ADD_ROLE_TO_USER";
 const GET_MENU_LIST = "GET_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
@@ -58,9 +60,11 @@ endpoints[UPDATE_USER_INFORMATION] = `/user/${VER_1_0}/update-info`;
 endpoints[GET_USER_LIST] = `/user/${VER_1_0}/admin/user-search`;
 endpoints[GET_USER_INFO_ADMIN] = `/user/${VER_1_0}/admin/user-info-for-admin`;
 endpoints[EDIT_USER_PASSWORD] = `/user/${VER_1_0}/admin/change-password-by-admin`;
+endpoints[EDIT_USER_PASSWORD_BY_USER] = `/user/${VER_1_0}/admin/change-admin-password`;
 endpoints[GET_USER_BASIC_PROFILE_INFO] = `/user/${VER_1_0}/admin/user-base-profile-info`;
 endpoints[GET_USER_BASIC_REGISTER_INFO] = `/user/${VER_1_0}/user-basic-register-info`;
 endpoints[EDIT_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/edit-user-by-admin`;
+endpoints[ADD_ROLE_TO_USER] = `/user/${VER_1_0}/admin/add-role-to-user`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
@@ -143,6 +147,10 @@ export default class Endpoint {
         return endpoints[EDIT_USER_PASSWORD]
     }
 
+    static get EDIT_USER_PASSWORD_BY_USER() {
+        return endpoints[EDIT_USER_PASSWORD_BY_USER]
+    }
+
     static get GET_USER_BASIC_PROFILE_INFO() {
         return endpoints[GET_USER_BASIC_PROFILE_INFO]
     }
@@ -153,6 +161,10 @@ export default class Endpoint {
 
     static get EDIT_USER_BY_ADMIN() {
         return endpoints[EDIT_USER_BY_ADMIN]
+    }
+
+    static get ADD_ROLE_TO_USER() {
+        return endpoints[ADD_ROLE_TO_USER]
     }
 
     static get GET_MENU_LIST() {
