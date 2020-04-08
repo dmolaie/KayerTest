@@ -32,6 +32,7 @@ class EditEventRequest extends EhdaBaseRequest
             'source_link_image'         => 'url',
             'source_link_video'         => 'url',
             'location'                  => 'string',
+            'slug'                      => 'string|unique:events',
             'province_id'               => 'required|integer|exists:provinces,id',
             'language'                  => ['required', Rule::in(config('event.event_language'))],
             'images.*'                  => 'image'
@@ -69,6 +70,7 @@ class EditEventRequest extends EhdaBaseRequest
             ->setAttachmentFiles($this['images'])
             ->setSourceLinkText($this['source_link_text'])
             ->setSourceLinkImage($this['source_link_image'])
+            ->setSlug($this['slug'])
             ->setSourceLinkVideo($this['source_link_video']);
 
         return $newsEditDTO;

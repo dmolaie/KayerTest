@@ -99,5 +99,9 @@ class EventBaseSaveDTO
      * @var null|string
      */
     protected $uuid;
+    /**
+     * @var string
+     */
+    protected $slug;
 
 }

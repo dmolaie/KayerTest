@@ -385,5 +385,23 @@ class EventEditDTO extends EventBaseSaveDTO
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param null|string $slug
+     * @return EventEditDTO
+     */
+    public function setSlug(?string $slug): EventEditDTO
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
 }

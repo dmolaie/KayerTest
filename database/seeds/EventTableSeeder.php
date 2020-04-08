@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UuIdTrait;
 use Carbon\Carbon;
 use Domains\Category\Entities\Category;
 use Domains\Event\Repositories\EventRepository;
@@ -25,6 +26,7 @@ class EventTableSeeder extends Seeder
             ->setPublisher(User::first())
             ->setLanguage('fa')
             ->setTitle('title')
+            ->setSlug(UuIdTrait::randomStrings(8))
             ->setLocation('location')
             ->setPublishDate(Carbon::now()->format('Y-m-d H:i:s'))
             ->setEventStartDate(Carbon::now()->format('Y-m-d H:i:s'))

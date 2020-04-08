@@ -41,6 +41,7 @@ class EventInfoDTOMaker
             ->setPublisher($event->publisher)
             ->setRelationEventId($this->getRelationEventId($event))
             ->setEditor($event->editor)
+            ->setSlug($event->slug)
             ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
             ->setProvince($event->province);
         return $EventInfoDTO;
