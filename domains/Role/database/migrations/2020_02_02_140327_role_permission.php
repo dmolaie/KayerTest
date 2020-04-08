@@ -17,7 +17,7 @@ class RolePermission extends Migration
             $table->unsignedBigInteger('role_id')->index();
             $table->unsignedBigInteger('permission_id')->index();
             $table->unsignedBigInteger('user_id')->index();
-            $table->primary(['role_id', 'permission_id']);
+            $table->primary(['role_id', 'permission_id','user_id']);
         });
     }
 

@@ -5,6 +5,7 @@ namespace Domains\Role\Repositories;
 
 use Domains\Role\Entities\Role;
 use Domains\Role\Services\Contracts\DTOs\PermissionRoleInfoDTO;
+use Domains\User\Entities\User;
 use Illuminate\Support\Facades\DB;
 
 class RoleRepository
@@ -28,8 +29,9 @@ class RoleRepository
     public function assignPermissionRole(PermissionRoleInfoDTO $permissionRoleInfoDTO)
     {
         return DB::transaction(function () use ($permissionRoleInfoDTO) {
-            $role = Role::find($permissionRoleInfoDTO->getRoleId());
-            $role->permissions()->sync($permissionRoleInfoDTO->getPermission(), ['user_id' => $permissionRoleInfoDTO->getUserId()], ['condition' => $permissionRoleInfoDTO->getCondition()]);
+            $user = User::find($permissionRoleInfoDTO->getUserId());
+            $user->permissions()->wherePivot('role_id','=',$permissionRoleInfoDTO->getRoleId())->sync([]);
+            $user->permissions()->attach( $permissionRoleInfoDTO->getPermission(), ['role_id' => $permissionRoleInfoDTO->getRoleId()], ['condition' => $permissionRoleInfoDTO->getCondition()]);
         });
     }
 
