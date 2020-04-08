@@ -60,6 +60,7 @@ class UserFullInfoDTOMaker
             ->setReceiveEmail($user->receive_email)
             ->setCardId($user->card_id)
             ->setUpdatedAt($user->updated_at)
+            ->setEvent($this->getEventInfo($user))
             ->setCreatedBy($user->createdBy ? [
                 'name' => $user->createdBy->name,
                 'id'   => $user->createdBy->id,
@@ -80,6 +81,17 @@ class UserFullInfoDTOMaker
                 'status' => $role->pivot->status
             ];
         })->toArray();
+    }
+
+    private function getEventInfo(User $user)
+    {
+        if ($user->event) {
+            return [
+                'id'    => $user->event->id,
+                'title' => $user->event->title
+            ];
+        }
+        return;
     }
 
 

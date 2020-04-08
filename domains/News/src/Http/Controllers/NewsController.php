@@ -29,7 +29,7 @@ class NewsController extends EhdaBaseController
         $this->newsService = $newsService;
     }
 
-    public function createNews(CreateNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
+    public function create(CreateNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
     {
 
         $newsCreateDTO = $request->createNewsCreateDTO();
@@ -42,7 +42,7 @@ class NewsController extends EhdaBaseController
 
     }
 
-    public function editNews(EditNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
+    public function edit(EditNewsRequest $request, NewsInfoPresenter $newsInfoPresenter)
     {
         try {
             $newsEditDTO = $request->createNewsEditDTO();
@@ -70,7 +70,7 @@ class NewsController extends EhdaBaseController
         );
     }
 
-    public function deleteNews(int $newsId)
+    public function delete(int $newsId)
     {
         try {
             $this->newsService->destroyNews($newsId);
@@ -83,7 +83,7 @@ class NewsController extends EhdaBaseController
         }
     }
 
-    public function changeNewsStatus(ChangeNewsStatusRequest $request, NewsInfoPresenter $newsInfoPresenter)
+    public function changeStatus(ChangeNewsStatusRequest $request, NewsInfoPresenter $newsInfoPresenter)
     {
         try {
             $newsInfoDTO = $this->newsService->changeStatus(
@@ -105,7 +105,7 @@ class NewsController extends EhdaBaseController
 
     }
 
-    public function getNewsDetail(int $id, NewsInfoPresenter $newsInfoPresenter)
+    public function getDetail(int $id, NewsInfoPresenter $newsInfoPresenter)
     {
         try {
             $newsInfoDTO = $this->newsService->getNewsDetail($id);
