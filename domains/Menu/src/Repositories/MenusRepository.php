@@ -91,8 +91,11 @@ class MenusRepository
             ->when($activeList, function ($query) {
                 return $query->where('active', true);
             })->orderBy('priority')->with([
-                'child' => function ($q) {
-                    $q->orderBy('priority');
+                'child' => function ($q)use($activeList) {
+                    $q->orderBy('priority')
+                    ->when($activeList,function ($query) {
+                        return $query->where('active', true);
+                    });
                 }
             ])->get();
     }
