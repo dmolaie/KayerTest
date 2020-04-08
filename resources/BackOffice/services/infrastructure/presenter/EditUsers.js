@@ -53,7 +53,8 @@ export default class UserPresenter extends BasePresenter {
             city_of_work_name: String,
             date_of_birth: String,
             birth: Object,
-            event_id: Object,
+            event_id: Number,
+            event_name: String,
         })
     }
 
@@ -238,7 +239,11 @@ export default class UserPresenter extends BasePresenter {
     }
 
     event_id() {
-        return this.item.event_id ?? ''
+        return this.item.event?.id ?? ''
+    }
+
+    event_name() {
+        return this.item.event?.title ?? ''
     }
 }
 

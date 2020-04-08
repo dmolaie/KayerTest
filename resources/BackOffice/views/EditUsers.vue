@@ -214,7 +214,7 @@
                         <select-cm :options="event"
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEventField"
-                                   label="name"
+                                   label="name" :value="form.event_name"
                         />
                     </div>
                 </div>
@@ -442,7 +442,7 @@
                         <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
                             شغل
                         </span>
-                        <label class="w-full block"
+                        <label class="relative w-full block"
                                :class="{ 'e-user__has-error': validationErrors.job_title.show }"
                         >
                             <input type="text" autocomplete="off"
@@ -746,6 +746,7 @@
             },
             form: {
                 event_id: '',
+                event_name: '',
                 date_of_birth: String,
                 birth: {day: '', month: '', year: ''},
                 province_of_work: '',
@@ -1018,7 +1019,12 @@
             dayOfCooperationValidate() {
                 let { day_of_cooperation } = this.form;
                 ( HasLength( day_of_cooperation ) ) ? (
-                    ( /\b([1-9]|[12][0-9]|3[0])\b/.test( toEnglishDigits(day_of_cooperation) ) ) ? this.hiddenValidationError('day_of_cooperation') : this.setValidationError('day_of_cooperation', 'فرصت همکاری باید عددی بین ۱ تا ۳۰ باشد.')
+                    (
+                        OnlyNumber( toEnglishDigits(day_of_cooperation) ) &&
+                        /\b([1-9]|[12][0-9]|3[0])\b/.test( toEnglishDigits(day_of_cooperation) )
+                    ) ? this.hiddenValidationError('day_of_cooperation') : (
+                        this.setValidationError('day_of_cooperation', 'فرصت همکاری باید عددی بین ۱ تا ۳۰ باشد.')
+                    )
                 ) : (
                     this.hiddenValidationError('day_of_cooperation')
                 )
@@ -1029,11 +1035,27 @@
             hiddenValidationError( name ) {
                 this.$set(this.validationErrors, `${name}`, {text: '', show: false});
             },
+            checkFormValidation() {
+                try {
+                    let findInvalidField = (
+                        Object.values( this.validationErrors )
+                            .filter(({ show }) => show)
+                    );
+                    if ( HasLength( findInvalidField ) ) {
+                        this.displayNotification(findInvalidField[0].text, {type: 'error'});
+                        return false
+                    }
+                    return true;
+                } catch (e) {}
+            },
             async onClickSubmitButton() {
                 try {
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
-                    let response = await Service.SaveEditUserByAdmin();
-                    this.displayNotification(response, {type: 'success'});
+                    let formIsValid = this.checkFormValidation();
+                    if ( formIsValid ) {
+                        let response = await Service.SaveEditUserByAdmin();
+                        this.displayNotification(response, {type: 'success'});
+                    }
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
                 } finally {

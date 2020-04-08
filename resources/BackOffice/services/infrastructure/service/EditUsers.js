@@ -16,7 +16,7 @@ import {
     EventService
 } from '@services/service/ManageEvent';
 import {
-    CopyOf, HasLength,
+    CopyOf, HasLength, toEnglishDigits
 } from "@vendor/plugin/helper";
 
 export default class EditUserService extends BaseService {
@@ -93,11 +93,17 @@ export default class EditUserService extends BaseService {
             if (!HasLength( form['field_of_activities'] ))
                 delete form['field_of_activities'];
 
-            Object.keys( form )
-                .forEach( key => {
+            Object.entries( form )
+                .forEach(([key, value]) => {
                     if ( !form[key] && typeof form[key] === 'string' )
-                        delete form[key]
+                        delete form[key];
+                    else if ( typeof form[key] === 'string' )
+                        form[key] = toEnglishDigits( value )
                 });
+
+            if ( !!form['day_of_cooperation'] )
+                form['day_of_cooperation'] = parseInt(form['day_of_cooperation']);
+
             return form;
         } catch (e) {}
     }
