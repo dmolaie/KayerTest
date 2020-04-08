@@ -79,14 +79,14 @@ class UpdateUserInfoByAdminRequest extends EhdaBaseRequest
             ->setCityOfBirth($this['city_of_birth'])
             ->setDateOfBirth(Carbon::createFromTimestamp($this['date_of_birth'])->toDateString())
             ->setJobTitle($this['job_title'])
-            ->setLastEducationDegree($this['last_education_degree'] ? config('user.education_degree')[$this['last_education_degree']] : null)
+            ->setLastEducationDegree(isset($this['last_education_degree']) ? config('user.education_degree')[$this['last_education_degree']] : null)
             ->setPhone($this['phone'])
             ->setMobile($this['mobile'])
             ->setEssentialMobile($this['essential_mobile'])
             ->setCurrentCityId($this['current_city_id'])
             ->setCurrentProvinceId($this['current_province_id'])
             ->setEmail($this['email'])
-            ->setMaritalStatus($this['marital_status'] ? config('user.user_marital_statuses')[$this['marital_status']] : null)
+            ->setMaritalStatus(isset($this['marital_status']) ? config('user.user_marital_statuses')[$this['marital_status']] : null)
             ->setEducationField($this['education_field'])
             ->setEducationProvinceId($this['education_province_id'])
             ->setEducationCityId($this['education_city_id'])
@@ -97,13 +97,14 @@ class UpdateUserInfoByAdminRequest extends EhdaBaseRequest
             ->setAddressOfWork($this['address_of_work'])
             ->setWorkPhone($this['work_phone'])
             ->setWorkPostalCode($this['work_postal_code'])
-            ->setKnowCommunityBy($this['know_community_by'] ? config('user.know_community_by')[$this['know_community_by']] : null)
+            ->setKnowCommunityBy(isset($this['know_community_by']) ? config('user.know_community_by')[$this['know_community_by']] : null)
             ->setMotivationForCooperation($this['motivation_for_cooperation'])
             ->setDayOfCooperation($this['day_of_cooperation'])
-            ->setFieldOfActivities($this['field_of_activities'] ? implode(',', $this['field_of_activities']) : null)
+            ->setFieldOfActivities(isset($this['field_of_activities']) ? implode(',',
+                $this['field_of_activities']) : null)
             ->setEventId($this['event_id'])
             ->setReceiveEmail($this['receive_email'])
-            ->setPassword($this['password_change']?$this['mobile']:null);
+            ->setPassword(isset($this['password_change']) ? $this['mobile'] : null);
 
         return $userEditInfoDTO;
     }
