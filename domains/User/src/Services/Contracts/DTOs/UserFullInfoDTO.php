@@ -141,9 +141,9 @@ class UserFullInfoDTO
      */
     protected $fieldOfActivities;
     /**
-     * @var null|integer
+     * @var null|array
      */
-    protected $eventId;
+    protected $event;
     /**
      * @var null|boolean
      */
@@ -749,20 +749,20 @@ class UserFullInfoDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getEventId(): ?int
+    public function getEvent(): ?array
     {
-        return $this->eventId;
+        return $this->event;
     }
 
     /**
-     * @param int|null $eventId
+     * @param array|null $event
      * @return UserFullInfoDTO
      */
-    public function setEventId(?int $eventId): UserFullInfoDTO
+    public function setEvent(?array $event): UserFullInfoDTO
     {
-        $this->eventId = $eventId;
+        $this->event = $event;
         return $this;
     }
 

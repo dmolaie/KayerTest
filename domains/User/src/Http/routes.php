@@ -23,5 +23,4 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/change-user-role-status', 'UserController@changeUserRoleStatus')->middleware('auth:api')->name('change-user-role-status');
 });
 
-Route::get('/user-basic-register-info',
-    'UserController@userBasicRegisterInfo')->name('user-basic-register-info');
+Route::get('/user-basic-register-info', 'UserController@userBasicRegisterInfo')->name('user-basic-register-info');

@@ -149,9 +149,9 @@ class EventFilterDTO
         $this->eventRealStatus = config('event.event_convert_to_real_status.' . $eventInputStatus);
 
         if ($this->eventInputStatus == config('event.event_publish_status')) {
-            $this->maxPublishDate = Carbon::now()->format('Y-m-d H:m:s');
+            $this->maxPublishDate = Carbon::now()->format('Y-m-d H:i:s');
         } elseif ($this->eventInputStatus == config('event.event_ready_to_publish_status')) {
-            $this->minPublishDate = Carbon::now()->format('Y-m-d H:m:s');
+            $this->minPublishDate = Carbon::now()->format('Y-m-d H:i:s');
         }
         return $this;
     }

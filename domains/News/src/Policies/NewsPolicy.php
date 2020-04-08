@@ -18,7 +18,7 @@ class NewsPolicy
         }
     }
 
-    public function createNews($user)
+    public function create($user)
     {
         $roleActiveUser = $user->roles()->wherePivot('status', '=', config('user.user_role_active_status'))->pluck('type')->toArray();
         if (in_array(config('role.roles.admin.name'), $roleActiveUser) || in_array(config('role.roles.legate.name'), $roleActiveUser)) {
@@ -36,7 +36,7 @@ class NewsPolicy
         return $this->deny(trans('user::response.authenticate.user_cant_access'), 403);
     }
 
-    public function getNewsDetail($user)
+    public function getDetail($user)
     {
         $newsId = request()->segment(count(request()->segments()));
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
@@ -47,7 +47,7 @@ class NewsPolicy
         return $this->deny(trans('user::response.authenticate.user_cant_access'), 403);
     }
 
-    public function changeNewsStatus($user)
+    public function changeStatus($user)
     {
         $newsId = request()->input('news_id');
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
@@ -58,7 +58,7 @@ class NewsPolicy
         return $this->deny(trans('user::response.authenticate.user_cant_access'), 403);
     }
 
-    public function editNews($user)
+    public function edit($user)
     {
         $newsId = request()->input('news_id');
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
@@ -69,7 +69,7 @@ class NewsPolicy
         return $this->deny(trans('user::response.authenticate.user_cant_access'), 403);
     }
 
-    public function deleteNews($user)
+    public function delete($user)
     {
         $newsId = request()->segment(count(request()->segments()));
         $publiserId = News::where('id', '=', $newsId)->first('publisher_id');
