@@ -2,6 +2,10 @@
   !*** toJalaali && toGregorian source: https://github.com/jalaali/jalaali-js ***!
   \*****************************************************************************/
 
+import {
+    ZeroPad
+} from "@vendor/plugin/helper";
+
 const breaks =  [
     -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210,
     1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178
@@ -37,6 +41,21 @@ export default class DateService {
         return DateService.d2g( DateService.j2d( jy, jm, jd ) );
     }
 
+    static getLocalString( timestamp, locales = 'fa-IR' ) {
+        try {
+            const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
+            return new Date(parseInt( timestamp ) * 1e3).toLocaleDateString(locales, OPTIONS);
+        } catch (e) {
+            const TIME_STAMP = (parseInt( timestamp ) * 1e3);
+            const DATE = new Date( TIME_STAMP );
+            let day   = DATE.getDate(),
+                month = DATE.getMonth(),
+                year  = DATE.getFullYear();
+            const JALAALI = DateService.toJalaali(year, (month + 1), day);
+            return `${JALAALI.jd} ${MONTH[JALAALI.jm]} ${JALAALI.jy}`
+        }
+    }
+
     static getJalaaliDate( timestamp ) {
         try {
             const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -60,10 +79,8 @@ export default class DateService {
             gd: day
         } = DateService.toGregorian( jy, jm, jd );
 
-        console.log(Math.round(Date.parse(`${month}/${day}/${year}`) / 1e3));
-
         return (
-            Date.parse(`${month}/${day}/${year}`) / 1e3
+            Date.parse(`${year}-${ZeroPad(month)}-${ZeroPad(day)}T12:00:00`) / 1e3
         )
     }
 

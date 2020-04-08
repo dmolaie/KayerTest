@@ -37,6 +37,11 @@
                         @click.prevent="onClickOptions( option )"
                         role="option"
                 > </button>
+                <p class="select__option w-full block text-bayoux font-xs font-bold cursor-pointer user-select-none text-right pointer-event-none"
+                   v-if="!Object.values(options).length"
+                >
+                    آیتمی برای انتخاب وجود ندارد.
+                </p>
             </div>
         </div>
     </div>

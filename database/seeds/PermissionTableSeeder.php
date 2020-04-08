@@ -1,11 +1,8 @@
 <?php
 
-use Carbon\Carbon;
-use Domains\Category\Entities\Category;
-use Domains\Menu\Repositories\MenusRepository;
-use Domains\Menu\Services\Contracts\DTOs\MenusCreateDTO;
-use Domains\User\Entities\User;
+use Domains\Role\Enitites\Permission;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class PermissionTableSeeder extends Seeder
 {
@@ -17,28 +14,55 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissionList = [
-            [
-                'name'     => 'createCategory',
-                'label'    => 'ایجاد دسته بندی',
-                'role_id'  => 2
-                ],
-            ];
+            'news',
+            'article',
+            'event'
+        ];
         $this->makePermission($permissionList);
 
     }
 
     private function makePermission(array $permissionList)
     {
-        $permission = new \App\Domains\Role\Enitites\Permission();
+        $baseMethods = [
+            [
+                'name'  => 'create',
+                'label' => 'ایجاد'
+            ],
+            [
+                'name'  => 'edit',
+                'label' => 'ویرایش'
+            ],
+            [
+                'name'  => 'changeStatus',
+                'label' => 'تغییر وضعیت'
+            ],
+            [
+                'name'  => 'getListForAdmin',
+                'label' => '‌گزارش‌گیری'
+            ],
+            [
+                'name'  => 'delete',
+                'label' => 'حذف'
+            ],
+        ];
+        $this->truncatePermission();
+        $permission = new Permission();
         foreach ($permissionList as $item) {
-            $itemCreate['name'] = $item['name'];
-            $itemCreate['$itemCreate'] = $item['label'];
-            $permissionCreated = $permission->create($itemCreate);
-            $permission->attach([
-                'role_id' => $item['role_id'],
-                'permission_id' => $permissionCreated->id
-            ]);
+            foreach ($baseMethods as $baseMethod) {
+                $permission->create([
+                    'name'  => $item . '-' . $baseMethod['name'],
+                    'label' => $baseMethod['label'],
+                ]);
+            }
         }
 
+    }
+
+    private function truncatePermission()
+    {
+        Schema::disableForeignKeyConstraints();
+        Permission::truncate();
+        Schema::enableForeignKeyConstraints();
     }
 }

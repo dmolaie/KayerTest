@@ -31,7 +31,7 @@ class ArticleController extends EhdaBaseController
         $this->articleService = $articleService;
     }
 
-    public function createArticle(CreateArticleRequest $request, ArticleInfoPresenter $articleInfoPresenter)
+    public function create(CreateArticleRequest $request, ArticleInfoPresenter $articleInfoPresenter)
     {
 
         $articleCreateDTO = $request->createArticleCreateDTO();
@@ -44,7 +44,7 @@ class ArticleController extends EhdaBaseController
 
     }
 
-    public function editArticle(EditArticleRequest $request, ArticleInfoPresenter $articleInfoPresenter)
+    public function edit(EditArticleRequest $request, ArticleInfoPresenter $articleInfoPresenter)
     {
         $articleEditDTO = $request->createArticleEditDTO();
         $articleInfoDTO = $this->articleService->editArticle($articleEditDTO);
@@ -66,7 +66,7 @@ class ArticleController extends EhdaBaseController
         );
     }
 
-    public function deleteArticle(int $articleId)
+    public function delete(int $articleId)
     {
         try {
             $this->articleService->destroyArticle($articleId);
@@ -79,7 +79,7 @@ class ArticleController extends EhdaBaseController
         }
     }
 
-    public function changeArticleStatus(ChangeArticleStatusRequest $request, ArticleInfoPresenter $articleInfoPresenter)
+    public function changeStatus(ChangeArticleStatusRequest $request, ArticleInfoPresenter $articleInfoPresenter)
     {
         try {
             $articleInfoDTO = $this->articleService->changeStatus(
@@ -102,7 +102,7 @@ class ArticleController extends EhdaBaseController
 
     }
 
-    public function getArticleDetail(int $id, ArticleInfoPresenter $articleInfoPresenter)
+    public function getDetail(int $id, ArticleInfoPresenter $articleInfoPresenter)
     {
         try {
             $articleInfoDTO = $this->articleService->getArticleDetail($id);

@@ -5,6 +5,7 @@ try {
     const ACTIVE_DROPDOWN_USER_MENU = 'show';
     const DROPDOWN_USER_MENU_CONTAINER = document.querySelector('.header__user--active');
     const DROPDOWN_USER_MENU = document.querySelector('.header__user--active .header__user_link');
+    const DROPDOWN_USER_MENU_LINK = document.querySelector('.header__user--active .header__nav_btn--user');
 
     const onClickOutsideUserDropdown = ({ target }) => {
         if ( !DROPDOWN_USER_MENU.contains( target ) )
@@ -27,6 +28,20 @@ try {
         DROPDOWN_USER_MENU.addEventListener(
             'click',
             () => {
+                (!DROPDOWN_USER_MENU_CONTAINER.classList.contains( ACTIVE_DROPDOWN_USER_MENU )) ? (
+                    TOGGLE_DROPDOWN_USER_MENU.visible()
+                ) : (
+                    TOGGLE_DROPDOWN_USER_MENU.hidden()
+                )
+            }
+        )
+    }
+    if ( !!DROPDOWN_USER_MENU_LINK ) {
+        DROPDOWN_USER_MENU_LINK.href = "javascript:void(0)";
+        DROPDOWN_USER_MENU_LINK.addEventListener(
+            'click',
+            event => {
+                event.stopPropagation();
                 (!DROPDOWN_USER_MENU_CONTAINER.classList.contains( ACTIVE_DROPDOWN_USER_MENU )) ? (
                     TOGGLE_DROPDOWN_USER_MENU.visible()
                 ) : (

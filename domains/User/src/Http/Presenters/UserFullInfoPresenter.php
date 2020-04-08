@@ -48,6 +48,7 @@ class UserFullInfoPresenter
             'current_address'            => $userFullInfoDTO->getCurrentAddress(),
             'roles'                      => $userFullInfoDTO->getRoles(),
             'receive_email'              => $userFullInfoDTO->getReceiveEmail(),
+            'event'                      => $userFullInfoDTO->getEvent(),
             'card_id'                    => $this->getCardId($userFullInfoDTO),
             'created_by'                 => $userFullInfoDTO->getCreatedBy(),
             'created_at'                 => strtotime($userFullInfoDTO->getCreatedAt()),
