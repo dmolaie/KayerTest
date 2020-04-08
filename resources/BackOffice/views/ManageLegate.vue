@@ -147,6 +147,7 @@
                                         >
                                             <template v-if="isAdmin">
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                        @click.stop="onClickEditUserButton( item.id )"
                                                         v-text="'ویرایش اطلاعات'"
                                                 > </button>
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
@@ -358,10 +359,10 @@
                                 عضویت:
                             </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
-                                  v-text="'۱۵ فروردین ۱۳۹۹ ۲۳:۰۳'"
+                                  v-text="userInfo.data.created_at.fa"
                             > </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15">
-                                به‌روز‌رسانی << ۱۵ فروردین ۱۳۹۹ ۲۳:۱۴ >> توسط مریم روشندل
+                                به‌روز‌رسانی << {{ userInfo.data.updated_at.fa }} >> {{ userInfo.data.created_by.label }}
                             </span>
                         </div>
                     </div>
@@ -654,6 +655,14 @@
             },
             onClickCloseUserInformationModal() {
                 this.$refs['userInfo']?.hidden();
+            },
+            onClickEditUserButton( user_id ) {
+                this.pushRouter({
+                    name: 'EDIT_USERS',
+                    params: {
+                        id: user_id
+                    }
+                });
             },
             async onClickManageUserRoleButton( item ) {
                 try {

@@ -18,6 +18,30 @@ import {
     toEnglishDigits
 } from "@vendor/plugin/helper";
 
+export class UserService {
+    static async getBasicRegisterInfo() {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_REGISTER_INFO))
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    static async getUserInfoByUserID( user_id = 1 ) {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN), { user_id });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    static async getCitiesByProvinceId( id ) {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID, { id }));
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+}
+
 export default class ManageLegateService extends BaseService {
     constructor( layout ) {
         super();
@@ -47,28 +71,38 @@ export default class ManageLegateService extends BaseService {
             let {
                 query
             } = this.$vm.$route;
-            await this.getVolunteersListFilterBy( query );
-        } catch ({ message }) {
-            this.$vm.displayNotification(message, {
-                type: 'error'
-            })
+            await Promise.all([
+                this.getVolunteersListFilterBy( query ),
+            ]);
+            //this.getBasicRegisterInfo()
+        } catch ( message ) {
+            this.$vm.displayNotification(message, { type: 'error' })
+        }
+    }
+
+    async getBasicRegisterInfo() {
+        try {
+            let response = await UserService.getBasicRegisterInfo();
+            console.log(response);
+        } catch (e) {
+            throw e
         }
     }
 
     async getVolunteersListFilterBy( querystring = {} ) {
         try {
-            // console.log(StatusService.RECYCLE_STATUS);
             let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_LIST), querystring);
             BaseService.commitToStore(this.$store, M_LEGATE_SET_DATA, response);
-        } catch (e) {
-            throw e;
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
         }
     }
 
     async HandelSearchAction(searchValue, { query }) {
         try {
+            let QUERY_STRING = null;
             if (Length( searchValue.trim() ) >= 3) {
-                const QUERY_STRING = query;
+                QUERY_STRING = query;
                 if ( NationalCodeValidator( searchValue ) ) {
                     delete QUERY_STRING['name'];
                     QUERY_STRING['national_code'] = toEnglishDigits( searchValue.trim() )
@@ -76,14 +110,15 @@ export default class ManageLegateService extends BaseService {
                     delete QUERY_STRING['national_code'];
                     QUERY_STRING['name'] = toEnglishDigits( searchValue.trim() )
                 }
-                await this.getVolunteersListFilterBy( QUERY_STRING );
             } else {
-                const QUERY_STRING = query;
+                QUERY_STRING = query;
                 delete QUERY_STRING['name'];
                 delete QUERY_STRING['national_code'];
-                await this.getVolunteersListFilterBy( QUERY_STRING );
             }
-        } catch (e) {}
+            await this.getVolunteersListFilterBy( QUERY_STRING );
+        } catch ( exception ) {
+            this.$vm.displayNotification(exception, { type: 'error' });
+        }
     }
 
     async HandelPagination(page, { query }) {
@@ -94,17 +129,16 @@ export default class ManageLegateService extends BaseService {
             };
             await this.getVolunteersListFilterBy( REQUEST_BODY )
         } catch ( exception ) {
-            let message = ExceptionService._GetErrorMessage( exception );
-            this.$vm.displayNotification(message, { type: 'error' });
+            this.$vm.displayNotification(exception, { type: 'error' });
         }
     }
 
     async getUserInformationByID( user_id ) {
         try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN), { user_id });
+            let response = await UserService.getUserInfoByUserID( user_id );
             return new UserInformationPresenter( response.data );
         } catch ( exception ) {
-            throw ExceptionService._GetErrorMessage( exception );
+            throw exception;
         }
     }
 
