@@ -69,3 +69,23 @@
       background-color: transparentize($c, (1 - .2))
       &::before
         color: #9ba9ab
+  &__date
+    .select__input
+      padding: 0
+      text-align: center
+    &--year
+      .select__input
+        border:
+          top-left-radius: 0
+          bottom-left-radius: 0
+    &--month
+      .select__input
+        border:
+          right: none
+          left: none
+          radius: 0
+    &--day
+      .select__input
+        border:
+          top-right-radius: 0
+          bottom-right-radius: 0

@@ -51,7 +51,7 @@
                             جنسیت
                         </span>
                         <div class="w-full flex items-stretch text-center user-select-none">
-                            <label class="w-1/3 input input--blue p-0 border  border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                            <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
@@ -75,7 +75,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       value="3" v-model="form.gender"
+                                       value="2" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     سایر
@@ -137,13 +137,25 @@
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="e-user__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
                             تاریخ تولد
-                            **********
+                            &&&&
                         </span>
-                        <label class="w-full block">
-                            <input type="text"
-                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                            >
-                        </label>
+                        <div class="e-user__date w-full flex items-stretch text-center user-select-none">
+                            <select-cm class="e-user__date--year w-1/3"
+                                       :options="year"
+                                       label="name" :value="form.birth.year || ''"
+                                       @onChange="updateYearOfBirthDateField"
+                            />
+                            <select-cm class="e-user__date--month w-1/3"
+                                       :options="month"
+                                       label="name" :value="form.birth.month || ''"
+                                       @onChange="updateMonthOfBirthDateField"
+                            />
+                            <select-cm class="e-user__date--day w-1/3"
+                                       :options="day"
+                                       label="name" :value="form.birth.day || ''"
+                                       @onChange="updateDayOfBirthDateField"
+                            />
+                        </div>
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
@@ -194,6 +206,16 @@
                                 </span>
                             </label>
                         </div>
+                    </div>
+                    <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            رویداد
+                        </span>
+                        <select-cm :options="event"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateEventField"
+                                   label="name"
+                        />
                     </div>
                 </div>
                 <span class="e-user__divider w-full block"> </span>
@@ -363,7 +385,7 @@
                         <select-cm :options="education"
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEducationField"
-                                   :value="form.last_education_degree || ''"
+                                   :value="lastEducationValue"
                                    label="name"
                         />
                     </div>
@@ -465,7 +487,7 @@
                         <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
                             نشانی محل کار
                         </span>
-                        <label class="w-full block"
+                        <label class="relative w-full block"
                                :class="{ 'e-user__has-error': validationErrors.address_of_work.show }"
                         >
                             <input type="text" autocomplete="off"
@@ -533,7 +555,7 @@
                         <select-cm :options="knowCommunity"
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateKnowCommunityField"
-                                   :value="form.know_community_by || ''"
+                                   :value="knowCommunityValue"
                                    label="name"
                         />
                     </div>
@@ -658,8 +680,60 @@
     } from "@vendor/plugin/helper";
     import SelectCm from '@vendor/components/select/Index.vue';
     import EditUserService from '@services/service/EditUsers';
+    import DateService from '@vendor/plugin/date';
 
     let Service = null;
+
+    let MOUTH = [
+        {
+            id: 1,
+            name: 'فروردین'
+        },
+        {
+            id: 2,
+            name: 'اردیبهشت'
+        },
+        {
+            id: 3,
+            name: 'خرداد'
+        },
+        {
+            id: 4,
+            name: 'تیر'
+        },
+        {
+            id: 5,
+            name: 'مرداد'
+        },
+        {
+            id: 6,
+            name: 'شهریور'
+        },
+        {
+            id: 7,
+            name: 'مهر'
+        },
+        {
+            id: 8,
+            name: 'آبان'
+        },
+        {
+            id: 9,
+            name: 'آذر'
+        },
+        {
+            id: 10,
+            name: 'دی'
+        },
+        {
+            id: 11,
+            name: 'بهمن'
+        },
+        {
+            id: 12,
+            name: 'اسفند'
+        },
+    ];
 
     export default {
         name: "EditUsers",
@@ -671,6 +745,9 @@
                 work: {},
             },
             form: {
+                event_id: '',
+                date_of_birth: String,
+                birth: {day: '', month: '', year: ''},
                 province_of_work: '',
                 province_of_work_name: '',
                 city_of_work: '',
@@ -739,11 +816,45 @@
         computed: {
             ...mapState({
                 user: ({ EditUserStore }) => EditUserStore.user,
+                event: ({ EditUserStore }) => EditUserStore.event,
                 education: ({ EditUserStore }) => EditUserStore.education,
                 provinces: ({ EditUserStore }) => EditUserStore.provinces,
                 activities: ({ EditUserStore }) => EditUserStore.activities,
                 knowCommunity: ({ EditUserStore }) => EditUserStore.knowCommunity,
             }),
+            lastEducationValue() {
+                let { last_education_degree } = this.form;
+                if ( !!last_education_degree ) return Object.values( this.education ).find(({ id }) => id === last_education_degree).name ?? '';
+                return ''
+            },
+            knowCommunityValue() {
+                let { know_community_by } = this.form;
+                if ( !!know_community_by ) return Object.values( this.knowCommunity ).find(({ id }) => id === know_community_by).name ?? '';
+                return ''
+            },
+            day: () => {
+                let arr = [];
+                for (let i = 1; i < 31; i ++) {
+                    arr.push({
+                        id: i,
+                        name: i
+                    })
+                }
+                return arr
+            },
+            month: () => {
+                return MOUTH
+            },
+            year: () => {
+                let arr = [];
+                for (let i = 30; i < 82; i ++) {
+                    arr.push({
+                        id: parseFloat(('13' + i)),
+                        name: parseFloat(('13' + i))
+                    })
+                }
+                return arr
+            },
         },
         watch: {
             async 'form.province_of_birth'( id ) {
@@ -840,6 +951,9 @@
                     );
                 } else this.hiddenValidationError();
             },
+            updateEventField({ id }) {
+                this.$set(this.form, 'event_id', id)
+            },
             updateProvinceOfBirthField({ id }) {
                 this.$set(this.form, 'province_of_birth', id);
                 this.$set(this.form, 'city_of_birth', '');
@@ -851,7 +965,7 @@
             },
             updateCurrentProvinceField({ id }) {
                 this.$set(this.form, 'current_province_id', id);
-                this.$set(this.form, 'current_city', '');
+                this.$set(this.form, 'current_city_id', '');
                 this.$set(this.form, 'current_city_name', '');
                 this.$refs['currentCity']?.resetValue();
             },
@@ -868,7 +982,7 @@
                 this.$set(this.form, 'education_city_id', id);
             },
             updateEducationField({ id }) {
-                this.$set(this, 'last_education_degree', id)
+                this.$set(this.form, 'last_education_degree', id)
             },
             updateWorkProvinceField({ id }) {
                 this.$set(this.form, 'province_of_work', id);
@@ -882,6 +996,25 @@
             updateKnowCommunityField({ id }) {
                 this.$set(this.form, 'know_community_by', id);
             },
+            updateYearOfBirthDateField({ id }) {
+                this.$set(this.form.birth, 'year', id);
+                this.updateBirthDateField();
+            },
+            updateMonthOfBirthDateField({ id }) {
+                this.$set(this.form.birth, 'month', id);
+                this.updateBirthDateField();
+            },
+            updateDayOfBirthDateField({ id }) {
+                this.$set(this.form.birth, 'day', id);
+                this.updateBirthDateField();
+            },
+            updateBirthDateField() {
+                let {day, month, year} = this.form.birth;
+                let findItem = MOUTH.find(({name}) => month);
+                let jm = !!findItem ? findItem.id : month;
+                let date = DateService.jalaaliToTimestamp(parseInt(toEnglishDigits(year)), parseInt(toEnglishDigits(jm)), parseInt(toEnglishDigits(day)));
+                this.$set(this.form, 'date_of_birth', date);
+            },
             dayOfCooperationValidate() {
                 let { day_of_cooperation } = this.form;
                 ( HasLength( day_of_cooperation ) ) ? (
@@ -892,7 +1025,6 @@
             },
             setValidationError( name, text = '' ) {
                 this.$set(this.validationErrors, `${name}`, {text, show: true});
-                console.log(JSON.stringify(this.validationErrors));
             },
             hiddenValidationError( name ) {
                 this.$set(this.validationErrors, `${name}`, {text: '', show: false});
@@ -900,9 +1032,10 @@
             async onClickSubmitButton() {
                 try {
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
-                    console.log(JSON.stringify(this.form));
-                } catch (e) {
-                    console.log('onClickSaveEditUserProfile', e);
+                    let response = await Service.SaveEditUserByAdmin();
+                    this.displayNotification(response, {type: 'success'});
+                } catch ( exception ) {
+                    this.displayNotification(exception, {type: 'error'});
                 } finally {
                     this.$set(this, 'shouldBeShowSpinnerLoading', false);
                 }

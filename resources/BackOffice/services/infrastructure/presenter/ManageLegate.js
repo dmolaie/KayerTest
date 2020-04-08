@@ -388,7 +388,7 @@ export class EducationDegreePresenter extends BasePresenter {
 
         return (!!data && HasLength( data )) ? (
             data.map((item, index) => ({
-                id: index,
+                id: (index + 1),
                 name: item
             }))
         ) : ([])
@@ -401,7 +401,7 @@ export class FieldOfActivitiesPresenter extends BasePresenter {
 
         return (!!data && HasLength( data )) ? (
             data.map((item, index) => ({
-                id: index,
+                id: (index + 1),
                 name: item
             }))
         ) : ([])
@@ -414,7 +414,7 @@ export class KnowCommunityByPresenter extends BasePresenter {
 
         return (!!data && HasLength( data )) ? (
             data.map((item, index) => ({
-                id: index,
+                id: (index + 1),
                 name: item
             }))
         ) : ([])

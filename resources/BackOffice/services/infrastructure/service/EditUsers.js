@@ -7,12 +7,17 @@ import {
 } from '@services/service/ManageLegate';
 import EditUser, {
     E_USER_SET_DATA, E_USER_SET_BASIC_DATA,
-    E_USER_SET_PROVINCES
+    E_USER_SET_PROVINCES, E_USER_SET_EVENT
 } from '@services/store/EditUsers';
 import {
     ProvincesPresenter,
 } from '@vendor/infrastructure/presenter/MainPresenter';
-
+import {
+    EventService
+} from '@services/service/ManageEvent';
+import {
+    CopyOf, HasLength,
+} from "@vendor/plugin/helper";
 
 export default class EditUserService extends BaseService {
     constructor( layout ) {
@@ -42,27 +47,75 @@ export default class EditUserService extends BaseService {
             let response = await Promise.all([
                 UserService.getUserInfoByUserID( this.$vm.$route.params.id ),
                 UserService.getBasicRegisterInfo(),
-                HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES))
+                HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES)),
+                EventService.getEventList()
             ]);
             BaseService.commitToStore(this.$store, E_USER_SET_DATA, response[0]);
             BaseService.commitToStore(this.$store, E_USER_SET_BASIC_DATA, response[1]);
             BaseService.commitToStore(this.$store, E_USER_SET_PROVINCES, response[2]);
+            BaseService.commitToStore(this.$store, E_USER_SET_EVENT, response[3]);
         } catch ( exception ) {
             const EXCEPTION = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(EXCEPTION, { type: 'error' });
+            this.$vm.pushRouter({ name: 'MANAGE_LEGATE' });
         }
     }
 
     async getCityByProvincesId( province_id ) {
         try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), {
-                province_id
-            });
-            return { ...new ProvincesPresenter( response.data ) }
+            if ( !!province_id ) {
+                let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), {
+                    province_id
+                });
+                return { ...new ProvincesPresenter( response.data ) }
+            }
         } catch ( exception ) {
             const EXCEPTION = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(EXCEPTION, { type: 'error' });
         }
     }
 
+    get _RequestBody() {
+        try {
+            let form = CopyOf(this.$vm.form);
+            delete form['province_of_birth_name'];
+            delete form['city_of_birth_name'];
+            delete form['current_province_name'];
+            delete form['current_city_name'];
+            delete form['province_of_work_name'];
+            delete form['city_of_work_name'];
+            delete form['education_province_name'];
+            delete form['education_city_name'];
+            delete form['birth'];
+            delete form['national_code'];
+            form['gender'] = parseInt(form['gender']);
+            form['marital_status'] = parseInt(form['marital_status']);
+            if (!HasLength( form['field_of_activities'] ))
+                delete form['field_of_activities'];
+
+            Object.keys( form )
+                .forEach( key => {
+                    if ( !form[key] && typeof form[key] === 'string' )
+                        delete form[key]
+                });
+            return form;
+        } catch (e) {}
+    }
+
+    async SaveEditUserByAdmin() {
+        try {
+            let REQUEST_BODY = this._RequestBody;
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), REQUEST_BODY);
+            return response.message
+        } catch ( exception ) {
+            if ( exception?.errors ) {
+                Object.entries( exception?.errors )
+                    .forEach( ([key, val]) => {
+                        if ( this.$vm.validationErrors[key] )
+                            this.$vm.setValidationError(key, val[0])
+                    });
+            }
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
 }
