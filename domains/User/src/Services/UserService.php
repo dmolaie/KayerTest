@@ -200,7 +200,7 @@ class UserService
     private function getCitiesInfo(User $user)
     {
         $citySearchDTO = new SearchCityDTO();
-        $citySearchDTO = $user->city_of_work ? $citySearchDTO->addCityId($user->city_of_birth) : $citySearchDTO;
+        $citySearchDTO = $user->city_of_work ? $citySearchDTO->addCityId($user->city_of_work) : $citySearchDTO;
         $citySearchDTO = $user->city_of_birth ? $citySearchDTO->addCityId($user->city_of_birth) : $citySearchDTO;
         $citySearchDTO = $user->current_city_id ? $citySearchDTO->addCityId($user->current_city_id) : $citySearchDTO;
         $citySearchDTO = $user->education_city_id ? $citySearchDTO->addCityId($user->education_city_id) : $citySearchDTO;
@@ -211,7 +211,7 @@ class UserService
     private function getProvincesInfo(User $user)
     {
         $provinceSearchDTO = new SearchProvinceDTO();
-        $provinceSearchDTO = $user->province_of_work ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
+        $provinceSearchDTO = $user->province_of_work ? $provinceSearchDTO->addProvinceId($user->province_of_work) : $provinceSearchDTO;
         $provinceSearchDTO = $user->province_of_birth ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
         $provinceSearchDTO = $user->current_province_id ? $provinceSearchDTO->addProvinceId($user->current_province_id) : $provinceSearchDTO;
         $provinceSearchDTO = $user->education_province_id ? $provinceSearchDTO->addProvinceId($user->education_province_id) : $provinceSearchDTO;
