@@ -5,6 +5,7 @@
                 <div class="inline-flex items-stretch min-w-full">
                     <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
                             :class="{ 'm-post__tab--active': isEditProfileTab }"
+                            @click.prevent="onClickProfileTab"
                     >
                         مشخصات فردی
                     </button>
@@ -167,7 +168,8 @@
         },
         computed: {
             isEditProfileTab() {
-                return false
+                let { query } = this.$route;
+                return !HasLength( query )
             },
             isPasswordTab() {
                 let { query } = this.$route;
@@ -189,6 +191,9 @@
                         query
                     }).catch(err => {});
             },
+            onClickProfileTab() {
+                this.switchBetweenTabs({})
+            },
             onClickPasswordTab() {
                 this.switchBetweenTabs({
                     tab: PASSWORD_TAB
@@ -200,7 +205,12 @@
                 })
             },
             async onClickChangeUserPasswordButton() {
-
+                try {
+                    let response = await Service.changeUserPassword( this.password );
+                    this.displayNotification(response, { type: 'success' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
             },
             async onClickRegisterDonationCardButton() {
                 try {
