@@ -30,13 +30,22 @@
     &_input
       height: 32px
       color: #6d7278
-      padding: 0 18px
+      padding: 0 10px 0 35px
+      font-size: 13px
+    &_loading
+      @include Size( 15px )
+      @include SpinnerLoading(100%, 2px, #359be0)
+      position: absolute
+      top: 50%
+      left: 10px
+      transform: translateY(-50%)
   &__options
     overflow: auto
     max-height: 175px
   &__option
     color: #6d7278
     font-size: 13px
+    min-height: 32px
     padding: 6px 15px
     transition: background-color .14s ease-in-out, color .14s ease-in-out
     &:first-of-type

@@ -89,9 +89,9 @@ export default class EditUserService extends BaseService {
             delete form['birth'];
             delete form['national_code'];
             form['gender'] = parseInt(form['gender']);
-            form['marital_status'] = parseInt(form['marital_status']);
-            if (!HasLength( form['field_of_activities'] ))
-                delete form['field_of_activities'];
+            ( typeof form['marital_status'] !== 'object' ) ? (
+                form['marital_status'] = parseInt(form['marital_status'])
+            ) : delete form['marital_status'];
 
             Object.entries( form )
                 .forEach(([key, value]) => {

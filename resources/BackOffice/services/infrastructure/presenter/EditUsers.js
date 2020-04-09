@@ -51,7 +51,7 @@ export default class UserPresenter extends BasePresenter {
             province_of_work_name: String,
             city_of_work: Number,
             city_of_work_name: String,
-            date_of_birth: String,
+            date_of_birth: Number,
             birth: Object,
             event_id: Number,
             event_name: String,
@@ -59,7 +59,7 @@ export default class UserPresenter extends BasePresenter {
     }
 
     date_of_birth() {
-        return this.item.date_of_birth * 1e3
+        return this.item.date_of_birth
     }
 
     birth() {
@@ -151,6 +151,7 @@ export default class UserPresenter extends BasePresenter {
     }
 
     marital_status() {
+        console.log(this.item.marital_status);
         return this.item.marital_status
     }
 
@@ -203,7 +204,7 @@ export default class UserPresenter extends BasePresenter {
     }
 
     job_title() {
-        return this.item.job_title
+        return this.item.job_title || ''
     }
 
     address_of_work() {
@@ -235,7 +236,7 @@ export default class UserPresenter extends BasePresenter {
     }
 
     receive_email() {
-        return this.item.receive_email
+        return !!this.item.receive_email
     }
 
     event_id() {
