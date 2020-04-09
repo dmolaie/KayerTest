@@ -151,7 +151,6 @@ export default class UserPresenter extends BasePresenter {
     }
 
     marital_status() {
-        console.log(this.item.marital_status);
         return this.item.marital_status
     }
 

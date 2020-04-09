@@ -75,6 +75,15 @@ export default class EditUserService extends BaseService {
         }
     }
 
+    async handelEventFieldSearch( title ) {
+        try {
+            let response = await EventService.getEventList({ title });
+            BaseService.commitToStore(this.$store, E_USER_SET_EVENT, response);
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
     get _RequestBody() {
         try {
             let form = CopyOf(this.$vm.form);

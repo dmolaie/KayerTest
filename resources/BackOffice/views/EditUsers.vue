@@ -174,7 +174,7 @@
                         <select-cm :options="cities.birth"
                                    placeholder="انتخاب کنید..." ref="cityOfBirth"
                                    @onChange="updateCityOfBirthField"
-                                   :value="form.city_of_birth_name":disabled="!form.province_of_birth"
+                                   :value="form.city_of_birth_name" :disabled="!form.province_of_birth"
                                    label="name" :required="false" :searchable="true"
                         />
                     </div>
@@ -213,7 +213,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEventField"
                                    :value="form.event_name"
-                                   label="name" :required="false"
+                                   label="name" :required="false" :searchable="true" :filterBy="handelEventFieldSearch"
                         />
                     </div>
                 </div>
@@ -1070,6 +1070,13 @@
             },
             onClickDiscardButton() {
                 this.pushRouter({ name: 'MANAGE_LEGATE' });
+            },
+            async handelEventFieldSearch( value ) {
+                try {
+                    await Service.handelEventFieldSearch( value );
+                } catch ( exception ) {
+                    this.displayNotification(exception, {type: 'error'});
+                }
             }
         },
         created() {
