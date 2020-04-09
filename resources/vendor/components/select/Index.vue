@@ -24,7 +24,7 @@
                 > </span>
                 <input type="text"
                        class="select__search_input w-full font-medium rounded rounded-tr-none rounded-br-none"
-                       @input="onChangeFilterField"
+                       @input="onChangeFilterField" placeholder="جستجو..."
                        v-model="search.value"
                 />
                 <span class="select__search_loading pointer-event-none spinner-loading"
