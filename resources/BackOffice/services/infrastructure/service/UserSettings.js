@@ -19,6 +19,7 @@ import {
     HasLength, Length, toEnglishDigits, CopyOf
 } from "@vendor/plugin/helper";
 import RoleService from '@services/service/Roles'
+import {GET_USER_ID} from "../store/Login";
 
 export default class UserSettingsService extends BaseService {
     constructor( layout ) {
@@ -46,7 +47,7 @@ export default class UserSettingsService extends BaseService {
     async processFetchAsyncData() {
         try {
             let response = await Promise.all([
-                UserService.getUserInfoByUserID( this.$vm.$route.params.id ),
+                UserService.getUserInfoByUserID( this.$store.getters.GET_USER_ID ),
                 UserService.getBasicRegisterInfo(),
                 EventService.getEventList(),
                 HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES))
@@ -58,7 +59,7 @@ export default class UserSettingsService extends BaseService {
         } catch ( exception ) {
             const EXCEPTION = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(EXCEPTION, { type: 'error' });
-            // this.$vm.pushRouter({ name: 'DASHBOARD' });
+            this.$vm.pushRouter({ name: 'DASHBOARD' });
         }
     }
 
@@ -136,7 +137,9 @@ export default class UserSettingsService extends BaseService {
             if (!HasLength( password_confirmation ) && Length( password_confirmation ) < 8) throw ERROR_MESSAGE('تکرار گذرواژه');
             if (password !== password_confirmation) throw new Error('فیلد گذرواژه‌ی جدید و تکرار گذرواژه با یکدیگر تطابق ندارد.');
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_PASSWORD_BY_USER), {
-                current_password, password, password_confirmation
+                current_password: toEnglishDigits( current_password ),
+                password: toEnglishDigits( password ),
+                password_confirmation: toEnglishDigits( password_confirmation ),
             });
             return response.message;
         } catch ( exception ) {
@@ -147,8 +150,8 @@ export default class UserSettingsService extends BaseService {
     async registerDonationCardForUser( user_id ) {
         try {
             this.$vm.$set(this.$vm.cart, 'isPending', true);
+            let response = await UserService.AddRoleToUser( user_id, RoleService.CLIENT_ID );
             this.$vm.$set(this.$vm.form, 'has_card', true);
-            let response = UserService.AddRoleToUser( user_id, RoleService.CLIENT_ID );
             this.$vm.displayNotification(response.message, { type: 'success' })
         } catch ( exception ) {
             throw exception;

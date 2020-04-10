@@ -434,8 +434,8 @@
                         </div>
                         <div class="p-account__e-field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                             <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
-                            شهر محل تحصیل
-                        </span>
+                                شهر محل تحصیل
+                            </span>
                             <select-cm :options="cities.education"
                                        placeholder="انتخاب کنید..." ref="educationCity"
                                        @onChange="updateEducationCityField"
@@ -724,15 +724,15 @@
                                     <span class="p-account__c-text text-blue-800 text-required font-sm font-bold flex-shrink-0">
                                         نام
                                     </span>
-                                    <input type="text"
+                                    <input type="text" :value="full_name"
                                            placeholder="نام کاربر" readonly="readonly" disabled="disabled"
-                                           class="p-account__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr">
+                                           class="p-account__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1">
                                 </label>
                                 <label class="p-account__field w-full flex items-center">
                                     <span class="p-account__c-text text-blue-800 text-required font-sm font-bold flex-shrink-0">
                                         کدملی
                                     </span>
-                                    <input type="text"
+                                    <input type="text" :value="form.national_code"
                                            placeholder="کدملی کاربر" readonly="readonly" disabled="disabled"
                                            class="p-account__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr">
                                 </label>
@@ -961,6 +961,9 @@
             isCardTab() {
                 let { query } = this.$route;
                 return HasLength( query ) && query.tab === DONATION_CARD_TAB
+            },
+            full_name() {
+                return this.form.name + ' ' + this.form.last_name
             },
             lastEducationValue() {
                 let { last_education_degree } = this.form;
