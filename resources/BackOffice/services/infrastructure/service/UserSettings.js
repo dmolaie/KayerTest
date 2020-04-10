@@ -140,7 +140,7 @@ export default class UserSettingsService extends BaseService {
                 current_password: toEnglishDigits( current_password ),
                 password: toEnglishDigits( password ),
                 password_confirmation: toEnglishDigits( password_confirmation ),
-            });
+            }, {}, true);
             return response.message;
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
