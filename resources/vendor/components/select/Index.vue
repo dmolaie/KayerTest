@@ -181,5 +181,8 @@
                 } catch (e) {}
             },
         },
+        mounted() {
+            this.data = { ...this.options }
+        }
     }
 </script>
