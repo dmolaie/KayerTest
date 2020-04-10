@@ -7,6 +7,7 @@ import {
     LoginPresenter,
     UserInformationPresenter
 } from '@services/presenter/Login';
+import RoleService from '@services/service/Roles'
 
 export const SET_USER = "LOGIN_SET_USER";
 export const SET_LOGOUT = "SET_LOGOUT";
@@ -53,7 +54,7 @@ const UserStore = {
         ),
         [GET_IS_USER_LOGGED_IN]: state => ( !!state.token ),
         [HAS_USER_INFORMATION]: state => state.id,
-        [IS_ADMIN]: () => parseInt( TokenService._GetRoleId ) === ADMIN_ROLE_ID,
+        [IS_ADMIN]: state => parseInt( state.roleId ) === RoleService.ADMIN_ID,
         [GET_USER_ID]: state => state.id
     }
 };

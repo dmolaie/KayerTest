@@ -18,8 +18,7 @@ import {
 import {
     HasLength, Length, toEnglishDigits, CopyOf
 } from "@vendor/plugin/helper";
-import RoleService from '@services/service/Roles'
-import {GET_USER_ID} from "../store/Login";
+import RoleService from '@services/service/Roles';
 
 export default class UserSettingsService extends BaseService {
     constructor( layout ) {
