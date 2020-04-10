@@ -23,10 +23,6 @@ export default class LogoutService extends BaseService {
             });
             TokenService._ClearToken();
             BaseService.commitToStore( this.$store, SET_LOGOUT );
-            this.$vm.displayNotification( response.message, {
-                type: 'success',
-                duration: 4000
-            });
             this.$vm.pushReplace({ name: 'LOGIN' })
         } catch ({ message }) {
             this.$vm.displayNotification( message, {

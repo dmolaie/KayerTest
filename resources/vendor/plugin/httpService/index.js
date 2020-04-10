@@ -49,7 +49,9 @@ export default class HTTPService {
 
 
     static onUnauthorizedUser( exception ) {
-        if ( Routes?.currentRoute?.name !== 'LOGIN' ) Routes.push( { name: LOGIN } );
+        if ( Routes?.currentRoute?.name !== 'LOGOUT' )
+            Routes.replace( { name: 'LOGOUT' } )
+                .catch(err => {});
 
         throw ({
             status: ( exception?.status_code ?? 401 ),
