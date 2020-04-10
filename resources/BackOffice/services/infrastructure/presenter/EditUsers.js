@@ -55,6 +55,8 @@ export default class UserPresenter extends BasePresenter {
             birth: Object,
             event_id: Number,
             event_name: String,
+            card_id: String,
+            has_card: Boolean,
         })
     }
 
@@ -244,6 +246,14 @@ export default class UserPresenter extends BasePresenter {
 
     event_name() {
         return this.item.event?.title ?? ''
+    }
+
+    card_id() {
+        return this.item.card_id
+    }
+
+    has_card() {
+        return !!this.item.card_id
     }
 }
 
