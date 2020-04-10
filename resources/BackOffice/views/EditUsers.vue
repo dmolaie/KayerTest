@@ -925,7 +925,7 @@
                         PhoneNumberValidator(field) ? (
                             this.hiddenValidationError( name )
                         ) : (
-                            this.setValidationError(name, `${message} را با حروف فارسی وارد نمایید.`)
+                            this.setValidationError(name, `فرمت ${message} اشتباه است.`)
                         )
                     } else this.setValidationError(name, `فیلد ${message} ضروری است.`)
                 } else {

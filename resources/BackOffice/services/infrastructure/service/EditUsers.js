@@ -97,6 +97,8 @@ export default class EditUserService extends BaseService {
             delete form['education_city_name'];
             delete form['birth'];
             delete form['national_code'];
+            delete form['card_id'];
+            delete form['has_card'];
             form['gender'] = parseInt(form['gender']);
             ( typeof form['marital_status'] !== 'object' ) ? (
                 form['marital_status'] = parseInt(form['marital_status'])
