@@ -18,6 +18,9 @@ import {
 import {
     CopyOf, HasLength, toEnglishDigits
 } from "@vendor/plugin/helper";
+import {
+    UPDATE_USER, GET_USER_ID
+}  from '@services/store/Login';
 
 export default class EditUserService extends BaseService {
     constructor( layout ) {
@@ -123,7 +126,9 @@ export default class EditUserService extends BaseService {
         try {
             let REQUEST_BODY = this._RequestBody;
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), REQUEST_BODY);
-            return response.message
+            if (response?.data?.id === this.$store.getters[GET_USER_ID])
+                BaseService.commitToStore(this.$store, UPDATE_USER, response);
+            return response.message;
         } catch ( exception ) {
             if ( exception?.errors ) {
                 Object.entries( exception?.errors )

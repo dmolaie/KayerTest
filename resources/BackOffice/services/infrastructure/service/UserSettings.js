@@ -19,6 +19,9 @@ import {
     HasLength, Length, toEnglishDigits, CopyOf
 } from "@vendor/plugin/helper";
 import RoleService from '@services/service/Roles';
+import {
+    UPDATE_USER
+}  from '@services/store/Login';
 
 export default class UserSettingsService extends BaseService {
     constructor( layout ) {
@@ -115,7 +118,8 @@ export default class UserSettingsService extends BaseService {
         try {
             let REQUEST_BODY = this._RequestPayload;
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), REQUEST_BODY);
-            return response.message
+            BaseService.commitToStore(this.$store, UPDATE_USER, response);
+            return response.message;
         } catch ( exception ) {
             if ( exception?.errors ) {
                 Object.entries( exception?.errors )
