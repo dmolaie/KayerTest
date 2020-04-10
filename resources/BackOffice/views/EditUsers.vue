@@ -1061,6 +1061,7 @@
                     if ( formIsValid ) {
                         let response = await Service.SaveEditUserByAdmin();
                         this.displayNotification(response, {type: 'success'});
+                        this.pushRouter({ name: 'MANAGE_LEGATE' });
                     }
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
