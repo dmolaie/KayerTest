@@ -213,7 +213,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEventField"
                                    :value="form.event_name"
-                                   label="name" :required="false" :searchable="true" :filterBy="handelEventFieldSearch"
+                                   label="name" :required="false" :filterBy="handelEventFieldSearch"
                         />
                     </div>
                 </div>

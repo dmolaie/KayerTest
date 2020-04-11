@@ -51,13 +51,13 @@ export default class UserSettingsService extends BaseService {
             let response = await Promise.all([
                 UserService.getUserInfoByUserID( this.$store.getters.GET_USER_ID ),
                 UserService.getBasicRegisterInfo(),
-                EventService.getEventList(),
                 HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES))
             ]);
+            // EventService.getEventList(),
             BaseService.commitToStore(this.$store, E_USER_SET_DATA, response[0]);
             BaseService.commitToStore(this.$store, E_USER_SET_BASIC_DATA, response[1]);
-            BaseService.commitToStore(this.$store, E_USER_SET_EVENT, response[2]);
-            BaseService.commitToStore(this.$store, E_USER_SET_PROVINCES, response[3]);
+            // BaseService.commitToStore(this.$store, E_USER_SET_EVENT, response[2]);
+            BaseService.commitToStore(this.$store, E_USER_SET_PROVINCES, response[2]);
         } catch ( exception ) {
             const EXCEPTION = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(EXCEPTION, { type: 'error' });
