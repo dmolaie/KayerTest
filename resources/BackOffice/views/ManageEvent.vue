@@ -75,12 +75,12 @@
                                      @onClickOutside="shouldBeShowCreatedDropdown = !shouldBeShowCreatedDropdown"
                                      :clickOutside="true"
                         >
-                            <router-link :to="{ name: 'CREATE_NEWS', params: { lang: 'fa' } }"
+                            <router-link :to="{ name: 'CREATE_EVENT', params: { lang: 'fa' } }"
                                          class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                             >
                                 زبان فارسی
                             </router-link>
-                            <router-link :to="{ name: 'CREATE_NEWS', params: { lang: 'en' } }"
+                            <router-link :to="{ name: 'CREATE_EVENT', params: { lang: 'en' } }"
                                          class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                             >
                                 زبان انگلیسی

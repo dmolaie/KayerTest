@@ -15,6 +15,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_EVENT = 'MANAGE_EVENT';
+export const CREATE_EVENT = 'CREATE_EVENT';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
@@ -125,6 +126,27 @@ const Routes = new VueRouter({
                     },
                     {
                         name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
+            name: CREATE_EVENT,
+            path: '/manage/event/:lang(fa|en)/edit/:id(\\d+)',
+            component: GetViews('CreateEvent' ),
+            meta: {
+                title: 'ایجاد رویداد',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_EVENT,
+                        name: 'رویدادها',
+                    },
+                    {
+                        name: 'ایجاد'
                     }
                 ]
             }
