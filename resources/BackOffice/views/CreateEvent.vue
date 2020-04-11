@@ -218,7 +218,7 @@
                                    placeholder="دامنه مورد نظر خود را انتخاب کنید"
                                    @onChange="onChangeDomainsField"
                                    :value="defaultProvinces.name || ''"
-                                   label="name"
+                                   label="name" ref="provinces"
                         />
                     </div>
                     <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
@@ -287,7 +287,6 @@
         }),
         components: {
             TextEditorCm,
-
             PublishCm, DatePickerCm, LocationCm,
             CategoryCm, ImagePanelCm, SelectCm
         },
@@ -319,6 +318,17 @@
             }
         },
         methods: {
+            setInitialState() {
+                try {
+                    Object.assign(this.form, INITIAL_FORM.apply( this ));
+                    this.setDataFromParamsRouter();
+                    this.$refs['textEditor']?.clearContent();
+                    this.$refs['imagePanel']?.onClickRemoveImageButton();
+                    this.$refs['categoryCm']?.reset();
+                    this.$set(this, 'datePickerKey', this.datePickerKey + 1);
+                    this.$refs['provinces']?.resetValue();
+                } catch (e) {}
+            },
             calculateDateMinValue( date ) {
                 try {
                     const DATE = !!date ? new Date(date * 1e3) : new Date(),
@@ -375,10 +385,12 @@
                 this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
-
+                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'fa' } });
+                this.setInitialState();
             },
             onClickEnglishLang() {
-
+                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'en' } });
+                this.setInitialState();
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
