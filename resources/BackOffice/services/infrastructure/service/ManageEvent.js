@@ -6,7 +6,7 @@ import ManageEvent, {
     M_EVENT_SET_DATA
 } from '@services/store/ManageEvent';
 import {
-    CopyOf
+    CopyOf, HasLength
 } from '@vendor/plugin/helper';
 
 export class EventService {
@@ -67,6 +67,33 @@ export default class ManageEventService extends BaseService {
         } catch ( exception ) {
             const MESSAGE = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(MESSAGE, { type:'error' })
+        }
+    }
+
+    async HandelSearchAction(searchValue, { query }) {
+        try {
+            let QUERY_STRING = query;
+            (HasLength( searchValue.trim() )) ? (
+                QUERY_STRING['title'] = searchValue.trim()
+            ) : delete QUERY_STRING['title'];
+            await this.getEventListFilterBy( QUERY_STRING );
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
+    async HandleFilterAction(create_date_start, create_date_end, { query }) {
+        try {
+            let QUERY_STRING = query;
+            (!!create_date_start) ? (
+                QUERY_STRING['create_date_start'] = create_date_start
+            ) : delete QUERY_STRING['create_date_start'];
+            (!!create_date_end) ? (
+                QUERY_STRING['create_date_end'] = create_date_end
+            ) : delete QUERY_STRING['create_date_end'];
+            await this.getEventListFilterBy( QUERY_STRING );
+        } catch ( exception ) {
+            throw exception;
         }
     }
 

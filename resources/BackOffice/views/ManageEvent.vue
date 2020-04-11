@@ -93,6 +93,60 @@
                         جست‌وجو
                     </button>
                 </div>
+                <div class="w-full"
+                     v-if="search.visibility"
+                >
+                    <label class="w-3/4 flex items-stretch m-post__search border border-solid rounded">
+                        <span class="m-post__search_label flex-shrink-0 rounded rounded-tl-none rounded-bl-none"
+                        > </span>
+                        <input type="text"
+                               placeholder="جست‌وجو..."
+                               class="m-post__search_input bg-transparent flex-1 font-base font-bold"
+                               v-model="search.value"
+                               @input="onInputSearchField"
+                        />
+                    </label>
+                </div>
+                <div class="m-post__filter w-full flex flex-wrap items-start"
+                     v-if="filter.visibility"
+                >
+                    <div class="m-post__filter_col w-1/3">
+                        <p class="m-post__filter_title w-full text-blue-800 font-sm font-bold cursor-default">
+                            تاریخ شروع:
+                        </p>
+                        <date-picker-cm placeholder="تاریخ شروع را انتخاب کنید"
+                                        :wrapper-submit="true"
+                                        :key="'start-date-' + filter.datePickerKey"
+                                        @onChange="onChangeDateStartField"
+                        />
+                    </div>
+                    <div class="m-post__filter_col w-1/3">
+                        <p class="m-post__filter_title w-full text-blue-800 font-sm font-bold cursor-default">
+                            تاریخ پایان:
+                        </p>
+                        <date-picker-cm placeholder="تاریخ پایان را انتخاب کنید"
+                                        :wrapper-submit="true"
+                                        :key="'end-date-' +  filter.datePickerKey"
+                                        @onChange="onChangeDateEndField"
+                                        :disabled="!filter.create_date_start"
+                                        :min="minValueDatePicker"
+                        />
+                    </div>
+                    <div class="w-full text-left">
+                        <button class="m-post__filter_button m-post__filter_button--green font-base font-bold border border-solid rounded"
+                                :class="{ 'spinner-loading': filter.submitIsPending }"
+                                @click.prevent="onClickSubmitFiltersButton"
+                        >
+                            اعمال فیلترها
+                        </button>
+                        <button class="m-post__filter_button m-post__filter_button--white font-base font-bold border border-solid rounded"
+                                :class="{ 'spinner-loading': filter.discardIsPending }"
+                                @click.prevent="onClickDiscardFiltersButton"
+                        >
+                            حذف فیلترها
+                        </button>
+                    </div>
+                </div>
                 <div class="m-post__table">
                     <table-cm :data="items"
                               :isPending="isPending"
@@ -268,6 +322,19 @@
     export default {
         name: "ManageEvent",
         data: () => ({
+            search: {
+                value: '',
+                timeout: null,
+                visibility: false,
+            },
+            filter: {
+                submitIsPending: false,
+                discardIsPending: false,
+                visibility: false,
+                datePickerKey: 0,
+                create_date_start: '',
+                create_date_end: ''
+            },
             isPending: true,
             paginateKeyCounter: 0,
             isModuleRegistered: false,
@@ -314,6 +381,15 @@
             isMyPostTab() {
                 let { query } = this.$route;
                 return HasLength( query ) && query.status === MY_POST_STATUS;
+            },
+            minValueDatePicker() {
+                try {
+                    const DATE = !!date ? new Date(this.filter.create_date_start * 1e3) : new Date(),
+                        LOCALE_DATE = DATE.toLocaleString('fa');
+                    return toEnglishDigits(
+                        LOCALE_DATE.replace('،', ' ').slice(0, Length( LOCALE_DATE ) - 3)
+                    )
+                } catch (e) { return '' }
             }
         },
         components: {
@@ -369,16 +445,58 @@
                     status: MY_POST_STATUS
                 })
             },
-            onClickToggleFiltersButton() {
-
-            },
             onClickCreatedNewItemButton() {
                 this.$set(this, 'shouldBeShowCreatedDropdown', !this.shouldBeShowCreatedDropdown);
             },
             onClickToggleSearchButton() {
-
+                this.$set(this.search, 'value', '');
+                this.$set(this.search, 'visibility', !this.visibility);
             },
-
+            onInputSearchField() {
+                try {
+                    let { timeout } = this.search;
+                    clearTimeout( timeout );
+                    timeout = setTimeout(async () => {
+                        await Service.HandelSearchAction(this.search.value, this.$route);
+                        this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
+                    }, 350)
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
+            },
+            onClickToggleFiltersButton() {
+                this.$set(this.filter, 'visibility', !this.filter.visibility);
+            },
+            onChangeDateStartField( unix ) {
+                this.$set(this.filter, 'create_date_start', unix)
+            },
+            onChangeDateEndField( unix ) {
+                this.$set(this.filter, 'create_date_end', unix)
+            },
+            async onClickSubmitFiltersButton() {
+                try {
+                    let {
+                        create_date_start, create_date_end
+                    } = this.filter;
+                    this.$set(this.filter, 'submitIsPending', false);
+                    await Service.HandleFilterAction(create_date_start, create_date_end, this.$route);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this.filter, 'submitIsPending', false);
+                }
+            },
+            async onClickDiscardFiltersButton() {
+                try {
+                    this.$set(this.filter, 'discardIsPending', false);
+                    await Service.HandleFilterAction(null, null, this.$route);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this.filter, 'submitIsPending', false);
+                    this.$set(this.filter, 'discardIsPending', this.filter.datePickerKey + 1);
+                }
+            },
             onChangePagination( page ){
                 try {
                     this.backToTop();
