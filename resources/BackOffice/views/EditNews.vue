@@ -116,7 +116,7 @@
                         >
                             بروزرسانی
                         </button>
-                        <template v-if="form.is_pending || form.is_ready_to_publish">
+                        <template v-if="form.is_pending">
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
                             >
