@@ -53,6 +53,7 @@ class PermissionTableSeeder extends Seeder
                 $permission->create([
                     'name'  => $item . '-' . $baseMethod['name'],
                     'label' => $baseMethod['label'],
+                    'model' => $item,
                 ]);
             }
         }

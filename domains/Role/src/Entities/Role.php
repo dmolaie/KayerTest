@@ -22,6 +22,7 @@ class Role extends Model
         'label',
         'type',
         'province_id',
+        'priority',
     ];
 
     /**

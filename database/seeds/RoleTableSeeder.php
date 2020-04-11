@@ -19,6 +19,7 @@ class RoleTableSeeder extends Seeder
                 'name'       => 'admin',
                 'label'      => 'ادمین',
                 'type'       => 'admin',
+                'priority'   => '1',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
@@ -27,29 +28,32 @@ class RoleTableSeeder extends Seeder
                 'name'       => 'manager',
                 'type'       => 'manager',
                 'label'      => 'مدیر',
+                'priority'   => '2',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
 
             [
-                'id'   => 4,
-                'name' => 'client',
-                'type' => 'client',
+                'id'         => 4,
+                'name'       => 'client',
+                'type'       => 'client',
                 'label'      => 'کاربر عادی',
+                'priority'   => '4',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ]
         ]);
 
-        foreach (Province::all() as $province){
+        foreach (Province::all() as $province) {
 
             Role::insert([
-                'name'       => 'legate_' . $province->slug,
-                'type'       => 'legate',
-                'label'      => 'سفیر '. $province->name,
-                'province_id'=> $province->id,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
+                'name'        => 'legate_' . $province->slug,
+                'type'        => 'legate',
+                'label'       => 'سفیر ' . $province->name,
+                'priority'    => '3',
+                'province_id' => $province->id,
+                'created_at'  => \Carbon\Carbon::now(),
+                'updated_at'  => \Carbon\Carbon::now()
             ]);
         }
     }
