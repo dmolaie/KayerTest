@@ -1,17 +1,22 @@
-import ManageLegatePresenter from '@services/presenter/ManageLegate';
+import ManageLegatePresenter, {
+    EducationDegreePresenter,
+    FieldOfActivitiesPresenter
+} from '@services/presenter/ManageLegate';
 
 export const M_LEGATE_SET_DATA = 'M_LEGATE_SET_DATA';
 export const M_LEGATE_SET_USER_ROLES = 'M_LEGATE_SET_USER_ROLES';
+export const M_USER_SET_BASIC_DATA = 'M_USER_SET_BASIC_DATA';
 
 const ManageLegate = {
     state: {
         items: {},
         roles: {},
-        pagination: {}
+        pagination: {},
+        education: {},
+        activities: {}
     },
     mutations: {
         [M_LEGATE_SET_DATA](state, { data }) {
-            console.log(new ManageLegatePresenter(data.items));
             state.items = { ...new ManageLegatePresenter( data.items ) };
             state.pagination = {
                 ... {
@@ -19,6 +24,10 @@ const ManageLegate = {
                     total: data.total || 0,
                 }
             }
+        },
+        [M_USER_SET_BASIC_DATA]: (state, { data: { education_degree, field_of_activities } }) => {
+            state.education = { ...new EducationDegreePresenter( education_degree ) };
+            state.activities = { ...new FieldOfActivitiesPresenter( field_of_activities ) };
         },
         [M_LEGATE_SET_USER_ROLES](state, { data }) {
             state.roles = { ...[

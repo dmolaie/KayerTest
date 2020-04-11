@@ -4,7 +4,7 @@ import {
 
 const DEFAULT_OPTION = {
     path: '/',
-    expires: 3
+    expires: 1
 };
 
 export default class Cookies {

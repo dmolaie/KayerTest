@@ -5,7 +5,9 @@ import TokenService, {
 } from '@services/service/Token';
 import {
     LoginPresenter,
+    UserInformationPresenter
 } from '@services/presenter/Login';
+import RoleService from '@services/service/Roles'
 
 export const SET_USER = "LOGIN_SET_USER";
 export const SET_LOGOUT = "SET_LOGOUT";
@@ -13,8 +15,11 @@ export const GET_USER_HAS_ACCESS = "GET_USER_HAS_ACCESS";
 export const GET_IS_USER_LOGGED_IN = "GET_IS_USER_LOGGED_IN";
 export const IS_ADMIN = "IS_ADMIN";
 export const GET_USER_ID = "GET_USER_ID";
+export const UPDATE_USER = 'UPDATE_USER';
+export const HAS_USER_INFORMATION = "HAS_USER_INFORMATION";
 
 const GetDefaultState = () => ({
+    id: null,
     token: null,
     userId: null,
     roleId: null,
@@ -23,10 +28,10 @@ const GetDefaultState = () => ({
 
 const UserStore = {
     state: {
-        id: TokenService._GetUserId || null,
+        id: '',
+        roleId: '',
+        username: '',
         token: TokenService._GetToken || null,
-        roleId: TokenService._GetRoleId || null,
-        username: TokenService._GetUsername || null,
     },
     mutations: {
         [SET_USER]( state, payload ) {
@@ -34,15 +39,22 @@ const UserStore = {
         },
         [SET_LOGOUT] ( state ) {
             Object.assign(state, GetDefaultState());
+        },
+        [UPDATE_USER](state, { data }) {
+            Object.assign(state, {
+                ...new UserInformationPresenter( data ),
+                token: TokenService._GetToken,
+            });
         }
     },
     getters: {
-        GET_USER_HAS_ACCESS: state => (
+        [GET_USER_HAS_ACCESS]: state => (
             !!state.token &&
             parseInt( state.roleId ) !== USER_ROLE_ID
         ),
-        GET_IS_USER_LOGGED_IN: state => ( !!state.token ),
-        [IS_ADMIN]: () => parseInt( TokenService._GetRoleId ) === ADMIN_ROLE_ID,
+        [GET_IS_USER_LOGGED_IN]: state => ( !!state.token ),
+        [HAS_USER_INFORMATION]: state => state.id,
+        [IS_ADMIN]: state => parseInt( state.roleId ) === RoleService.ADMIN_ID,
         [GET_USER_ID]: state => state.id
     }
 };

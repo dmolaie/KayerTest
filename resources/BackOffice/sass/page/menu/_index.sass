@@ -74,14 +74,14 @@ $gap: 0
       transition: filter $duration
       &--unvisible
         background:
-          image: url("/../images/ic_unvisibility--orange.svg")
+          image: url("/../images/ic_visibility--orange.svg")
           size: 32px auto
         @include L_Screen
           &:hover
             filter: drop-shadow(0 0 7px transparentize(#fa6400, (1 - .79)))
       &--visible
         background:
-          image: url("/../images/ic_visibility--orange.svg")
+          image: url("/../images/ic_unvisibility--orange.svg")
           size: 32px auto
         @include L_Screen
           &:hover

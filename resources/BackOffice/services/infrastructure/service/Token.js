@@ -4,7 +4,8 @@ import {
 import Cookies from '@vendor/plugin/cookie';
 import {
     RedirectRoute
-} from '@vendor/plugin/helper'
+} from '@vendor/plugin/helper';
+import RoleService from '@services/service/Roles';
 
 const TOKEN_COOKIE_KEY = 'JWT-Token';
 const USERNAME_COOKIE_KEY = 'a19140228cd';
@@ -59,16 +60,16 @@ export default class TokenService {
 
     _SetData() {
         this._SetToken();
-        this._SetRoleId();
-        this._SetUsername();
-        this._SetUserId();
+        // this._SetRoleId();
+        // this._SetUsername();
+        // this._SetUserId();
     }
 
     static _ClearToken() {
         Cookies.delete( TOKEN_COOKIE_KEY );
-        Cookies.delete( ROLE_COOKIE_KEY );
-        Cookies.delete( USER_ID_COOKIE_KEY );
-        Cookies.delete( USERNAME_COOKIE_KEY );
+        // Cookies.delete( ROLE_COOKIE_KEY );
+        // Cookies.delete( USER_ID_COOKIE_KEY );
+        // Cookies.delete( USERNAME_COOKIE_KEY );
     }
 
     redirectToWebsite() {

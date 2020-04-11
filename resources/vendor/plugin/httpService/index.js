@@ -49,7 +49,9 @@ export default class HTTPService {
 
 
     static onUnauthorizedUser( exception ) {
-        if ( Routes?.currentRoute?.name !== 'LOGIN' ) Routes.push( { name: LOGIN } );
+        if ( Routes?.currentRoute?.name !== 'LOGIN')
+            Routes.push( { name: 'LOGOUT' } )
+                .catch(err => {});
 
         throw ({
             status: ( exception?.status_code ?? 401 ),
@@ -83,11 +85,11 @@ export default class HTTPService {
         return requestInit;
     }
 
-    static async onRequestFailed( exception ) {
+    static async onRequestFailed( exception, disableInterceptor ) {
         try {
             const EXCEPTION = await exception;
 
-            if ( EXCEPTION?.status_code === 401 || EXCEPTION?.status_code === 403 )
+            if ( !disableInterceptor && (EXCEPTION?.status_code === 401 || EXCEPTION?.status_code === 403) )
                 this.onUnauthorizedUser( EXCEPTION );
             else throw ({
                 status: ( EXCEPTION?.status_code ?? '' ),
@@ -100,7 +102,7 @@ export default class HTTPService {
         }
     }
 
-    static Request( requestInfo = '' , requestInit = {}, is_file = false ) {
+    static Request( requestInfo = '' , requestInit = {}, disableInterceptor, is_file = false ) {
         return new Promise(
             ( resolve, reject ) => {
                 let init = this.onBeforeRequest( requestInit, is_file );
@@ -116,7 +118,7 @@ export default class HTTPService {
             }
         )
         .then( response => response )
-        .catch( async exception => await this.onRequestFailed( exception ) )
+        .catch( async exception => await this.onRequestFailed( exception, disableInterceptor ) )
     }
 
     static _QueryString( route, obj ) {
@@ -131,7 +133,7 @@ export default class HTTPService {
         )
     }
 
-    static async getRequest( route, query= {} ) {
+    static async getRequest( route, query= {}, disableInterceptor = false ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -139,10 +141,10 @@ export default class HTTPService {
             method: 'GET',
         };
 
-        return await this.Request( route, init );
+        return await this.Request( route, init, disableInterceptor );
     }
 
-    static async uploadRequest( route, payload = {}, query= {} ) {
+    static async uploadRequest( route, payload = {}, query= {}, disableInterceptor = false ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -152,10 +154,10 @@ export default class HTTPService {
 
         init.body = payload;
 
-        return await this.Request( route, init, true );
+        return await this.Request( route, init, disableInterceptor, true );
     }
 
-    static async postRequest( route, payload = {}, query= {} ) {
+    static async postRequest( route, payload = {}, query= {}, disableInterceptor = false ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -168,10 +170,10 @@ export default class HTTPService {
         // if ( HasLength( payload ) )
         // init.body = payload;
 
-        return await this.Request( route, init );
+        return await this.Request( route, init, disableInterceptor );
     }
 
-    static async putRequest( route, payload = {}, query= {} ) {
+    static async putRequest( route, payload = {}, query= {}, disableInterceptor = false ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -182,10 +184,10 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        return await this.Request( route, init );
+        return await this.Request( route, init, disableInterceptor );
     }
 
-    static async deleteRequest( route, payload = {}, query= {} ) {
+    static async deleteRequest( route, payload = {}, query= {}, disableInterceptor = false ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
@@ -196,6 +198,6 @@ export default class HTTPService {
         if ( HasLength( payload ) )
             init.body = JSON.stringify( payload );
 
-        return await this.Request( route, init );
+        return await this.Request( route, init, disableInterceptor );
     }
 }

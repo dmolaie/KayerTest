@@ -56,8 +56,8 @@
                     icon: 'ic__menu--blue.svg'
                 },
                 {
-                    route: 'MANAGE_ARTICLE',
-                    title: 'صفحات ایستا',
+                    route: 'MANAGE_EVENT',
+                    title: 'رویدادها',
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {
@@ -66,8 +66,18 @@
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {
+                    route: 'MANAGE_ARTICLE',
+                    title: 'صفحات ایستا',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
                     route: 'MANAGE_LEGATE',
                     title: 'کاربران',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
+                    route: 'USER_SETTING',
+                    title: 'تنظیمات حساب',
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {

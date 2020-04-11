@@ -3,7 +3,8 @@ import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import ManageLegate, {
     M_LEGATE_SET_DATA,
-    M_LEGATE_SET_USER_ROLES
+    M_LEGATE_SET_USER_ROLES,
+    M_USER_SET_BASIC_DATA
 } from '@services/store/ManageLegate';
 import {
     UserInformationPresenter
@@ -26,6 +27,7 @@ export class UserService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
     static async getUserInfoByUserID( user_id = 1 ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_INFO_ADMIN), { user_id });
@@ -33,9 +35,18 @@ export class UserService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
     static async getCitiesByProvinceId( id ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID, { id }));
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
+    static async AddRoleToUser( user_id = 0, role_id = 0 ) {
+        try {
+            return HTTPService.postRequest(Endpoint.get(Endpoint.ADD_ROLE_TO_USER), { user_id, role_id })
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
@@ -80,15 +91,6 @@ export default class ManageLegateService extends BaseService {
         }
     }
 
-    async getBasicRegisterInfo() {
-        try {
-            let response = await UserService.getBasicRegisterInfo();
-            console.log(response);
-        } catch (e) {
-            throw e
-        }
-    }
-
     async getVolunteersListFilterBy( querystring = {} ) {
         try {
             let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_LIST), querystring);
@@ -130,6 +132,29 @@ export default class ManageLegateService extends BaseService {
             await this.getVolunteersListFilterBy( REQUEST_BODY )
         } catch ( exception ) {
             this.$vm.displayNotification(exception, { type: 'error' });
+        }
+    }
+
+    async getDataForUserInfoModal( user_id ) {
+        try {
+            let response = await Promise.all([
+                this.getUserInformationByID( user_id ),
+                this.getBasicRegisterInfo()
+            ]);
+            return response[0]
+        } catch (e) {
+            throw e
+        }
+    };
+
+    async getBasicRegisterInfo() {
+        try {
+            if (!HasLength( this.$store.state['ManageLegateStore']?.education || {} )) {
+                let response = await UserService.getBasicRegisterInfo();
+                BaseService.commitToStore(this.$store, M_USER_SET_BASIC_DATA, response)
+            }
+        } catch (e) {
+            throw e
         }
     }
 

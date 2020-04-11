@@ -9,6 +9,9 @@ import {
 import UserPresenter, {
     EventPresenter
 } from '@services/presenter/EditUsers';
+import {
+    HasLength
+} from "@vendor/plugin/helper";
 
 export const E_USER_SET_DATA = 'E_USER_SET_DATA';
 export const E_USER_SET_BASIC_DATA = 'E_USER_SET_BASIC_DATA';

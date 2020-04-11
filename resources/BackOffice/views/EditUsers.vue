@@ -164,7 +164,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateProvinceOfBirthField"
                                    :value="form.province_of_birth_name"
-                                   label="name"
+                                   label="name" :required="false" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -172,11 +172,10 @@
                             شهر محل تولد
                         </span>
                         <select-cm :options="cities.birth"
-                                   placeholder="انتخاب کنید..."
+                                   placeholder="انتخاب کنید..." ref="cityOfBirth"
                                    @onChange="updateCityOfBirthField"
-                                   :value="form.city_of_birth_name"
-                                   :disabled="!form.province_of_birth"
-                                   label="name" ref="cityOfBirth"
+                                   :value="form.city_of_birth_name" :disabled="!form.province_of_birth"
+                                   label="name" :required="false" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -213,7 +212,8 @@
                         <select-cm :options="event"
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEventField"
-                                   label="name" :value="form.event_name"
+                                   :value="form.event_name"
+                                   label="name" :required="false" :filterBy="handelEventFieldSearch"
                         />
                     </div>
                 </div>
@@ -296,7 +296,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateCurrentProvinceField"
                                    :value="form.current_province_name"
-                                   label="name"
+                                   label="name" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -304,11 +304,10 @@
                             شهر محل سکونت
                         </span>
                         <select-cm :options="cities.current"
-                                   placeholder="انتخاب کنید..."
+                                   placeholder="انتخاب کنید..." ref="currentCity"
                                    @onChange="updateCurrentCityField"
-                                   :value="form.current_city_name"
-                                   :disabled="!form.current_province_id"
-                                   label="name" ref="currentCity"
+                                   :value="form.current_city_name" :disabled="!form.current_province_id"
+                                   label="name" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -385,7 +384,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEducationField"
                                    :value="lastEducationValue"
-                                   label="name"
+                                   label="name" :required="false"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -416,7 +415,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEducationProvinceField"
                                    :value="form.education_province_name"
-                                   label="name"
+                                   label="name" :required="false" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -424,11 +423,10 @@
                             شهر محل تحصیل
                         </span>
                         <select-cm :options="cities.education"
-                                   placeholder="انتخاب کنید..."
+                                   placeholder="انتخاب کنید..." ref="educationCity"
                                    @onChange="updateEducationCityField"
-                                   :value="form.education_city_name"
-                                   :disabled="!form.education_province_id"
-                                   label="name" ref="educationCity"
+                                   :value="form.education_city_name" :disabled="!form.education_province_id"
+                                   label="name" :required="false" :searchable="true"
                         />
                     </div>
                 </div>
@@ -465,7 +463,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateWorkProvinceField"
                                    :value="form.province_of_work_name"
-                                   label="name"
+                                   label="name" :required="false" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -473,11 +471,10 @@
                             شهر محل کار
                         </span>
                         <select-cm :options="cities.work"
-                                   placeholder="انتخاب کنید..."
+                                   placeholder="انتخاب کنید..." ref="workCity"
                                    @onChange="updateWorkCityField"
-                                   :value="form.city_of_work_name"
-                                   :disabled="!form.province_of_work"
-                                   label="name" ref="workCity"
+                                   :value="form.city_of_work_name" :disabled="!form.province_of_work"
+                                   label="name" :required="false" :searchable="true"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0"
@@ -555,7 +552,7 @@
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateKnowCommunityField"
                                    :value="knowCommunityValue"
-                                   label="name"
+                                   label="name":required="false"
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
@@ -859,7 +856,7 @@
         watch: {
             async 'form.province_of_birth'( id ) {
                 let response = await Service.getCityByProvincesId( id );
-                this.$set(this.cities, 'birth', response);
+                if ( !!response ) this.$set(this.cities, 'birth', response);
             },
             async 'form.current_province_id'( id ) {
                 let response = await Service.getCityByProvincesId( id );
@@ -867,11 +864,11 @@
             },
             async 'form.education_province_id'( id ) {
                 let response = await Service.getCityByProvincesId( id );
-                this.$set(this.cities, 'education', response);
+                if ( !!response ) this.$set(this.cities, 'education', response);
             },
             async 'form.province_of_work'( id ) {
                 let response = await Service.getCityByProvincesId( id );
-                this.$set(this.cities, 'work', response);
+                if ( !!response ) this.$set(this.cities, 'work', response);
             },
         },
         components: {
@@ -928,7 +925,7 @@
                         PhoneNumberValidator(field) ? (
                             this.hiddenValidationError( name )
                         ) : (
-                            this.setValidationError(name, `${message} را با حروف فارسی وارد نمایید.`)
+                            this.setValidationError(name, `فرمت ${message} اشتباه است.`)
                         )
                     } else this.setValidationError(name, `فیلد ${message} ضروری است.`)
                 } else {
@@ -1020,7 +1017,7 @@
             },
             updateBirthDateField() {
                 let {day, month, year} = this.form.birth;
-                let findItem = MOUTH.find(({name}) => month);
+                let findItem = MOUTH.find(({name}) => name === month);
                 let jm = !!findItem ? findItem.id : month;
                 let date = DateService.jalaaliToTimestamp(parseInt(toEnglishDigits(year)), parseInt(toEnglishDigits(jm)), parseInt(toEnglishDigits(day)));
                 this.$set(this.form, 'date_of_birth', date);
@@ -1064,6 +1061,7 @@
                     if ( formIsValid ) {
                         let response = await Service.SaveEditUserByAdmin();
                         this.displayNotification(response, {type: 'success'});
+                        this.pushRouter({ name: 'MANAGE_LEGATE' });
                     }
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
@@ -1073,6 +1071,13 @@
             },
             onClickDiscardButton() {
                 this.pushRouter({ name: 'MANAGE_LEGATE' });
+            },
+            async handelEventFieldSearch( value ) {
+                try {
+                    await Service.handelEventFieldSearch( value );
+                } catch ( exception ) {
+                    this.displayNotification(exception, {type: 'error'});
+                }
             }
         },
         created() {

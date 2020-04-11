@@ -1,15 +1,20 @@
 import VueRouter from "vue-router";
 import Store from './../store';
 import {
+    UPDATE_USER,
     GET_USER_HAS_ACCESS,
-    GET_IS_USER_LOGGED_IN
+    GET_IS_USER_LOGGED_IN,
 } from '@services/store/Login';
+import Endpoint from "@endpoints";
+import TokenService from '@services/service/Token';
+import HTTPService from "@vendor/plugin/httpService";
 
 const APP_NAME = 'اهدا | ';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
+export const MANAGE_EVENT = 'MANAGE_EVENT';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
@@ -20,16 +25,14 @@ export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
 export const MANAGE_LEGATE = 'MANAGE_LEGATE';
 export const EDIT_USERS = 'EDIT_USERS';
 export const PROFILE = 'PROFILE';
+export const USER_SETTING = 'USER_SETTING';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
 export const LOGIN_PAGE_TITLE = 'ورود به حساب کاربری';
 
 const GetViews = component => () =>
-    import(
-        /* webpackChunkName: "[request]" */
-        `@views/${component}.vue`
-    );
+    import(/* webpackChunkName: "[request]" */ `@views/${component}.vue`);
 
 const Routes = new VueRouter({
     mode: "hash",
@@ -105,6 +108,26 @@ const Routes = new VueRouter({
                     }
                 ]
             },
+        },
+        {
+            name: MANAGE_EVENT,
+            path: '/manage/event',
+            component: GetViews('ManageEvent' ),
+            meta: {
+                title: 'رویدادها',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'رویدادها'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
         },
         {
             name: MANAGE_ARTICLE,
@@ -236,6 +259,23 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: USER_SETTING,
+            path: '/account',
+            component: GetViews('UserSettings'),
+            meta: {
+                title: 'تنظیمات حساب',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'تنظیمات حساب'
+                    },
+                ]
+            }
+        },
+        {
             name: PROFILE,
             path: '/profile',
             component: GetViews( 'Profile'),
@@ -277,32 +317,45 @@ const backToTop = () => {
     } catch (e) {}
 };
 
-Routes.beforeEach(
-    (to, from, next) => {
-        let routeTitle = to.meta?.title,
-            isGuessRoute = to.meta?.guess;
-        backToTop();
-        SetPageTitle( routeTitle );
-        if ( !isGuessRoute ) {
-            if ( Store?.getters[GET_USER_HAS_ACCESS] ) {
-                next()
-            } else {
-                ( Store?.getters[GET_IS_USER_LOGGED_IN] ) ? (
-                    next({ name: PROFILE })
-                ) : (
-                    next({ name: LOGIN })
-                );
-                SetPageTitle( LOGIN_PAGE_TITLE );
-            }
+const getUserProfile = async () => {
+    try {
+        if ( !Store?.getters['HAS_USER_INFORMATION'] &&
+             !!TokenService._GetToken &&
+             Routes?.history?.pending?.name !== 'LOGOUT' ) {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_PROFILE_INFO), {}, true);
+            Store.commit(UPDATE_USER, response)
+        }
+    } catch ( exception ) {
+        Routes.push( { name: 'LOGOUT' } )
+            .catch(err => {});
+    }
+};
+
+Routes.beforeEach(async (to, from, next) => {
+    await getUserProfile();
+    let routeTitle = to.meta?.title,
+        isGuessRoute = to.meta?.guess;
+    backToTop();
+    SetPageTitle( routeTitle );
+    if ( !isGuessRoute ) {
+        if ( Store?.getters[GET_USER_HAS_ACCESS] ) {
+            next()
         } else {
-            if ( Store?.getters[GET_USER_HAS_ACCESS] && to.name === LOGIN ) {
-                next({ name: DASHBOARD });
-                SetPageTitle( DASHBOARD_PAGE_TITLE );
-            } else {
-                next()
-            }
+            ( Store?.getters[GET_IS_USER_LOGGED_IN] ) ? (
+                next({ name: PROFILE })
+            ) : (
+                next({ name: LOGIN })
+            );
+            SetPageTitle( LOGIN_PAGE_TITLE );
+        }
+    } else {
+        if ( Store?.getters[GET_USER_HAS_ACCESS] && to.name === LOGIN ) {
+            next({ name: DASHBOARD });
+            SetPageTitle( DASHBOARD_PAGE_TITLE );
+        } else {
+            next()
         }
     }
-);
+});
 
 export default Routes;

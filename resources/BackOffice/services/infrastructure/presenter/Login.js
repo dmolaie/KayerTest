@@ -64,3 +64,35 @@ export class LoginNotificationPresenter extends BasePresenter {
         return this.message()
     }
 }
+
+export class UserInformationPresenter extends BasePresenter {
+    constructor( data ) {
+        super( data );
+        this.payload = data;
+
+        return (
+            this.mapProps({
+                id: Number,
+                roleId: Number,
+                roleName: String,
+                username: String
+            })
+        )
+    }
+
+    id() {
+        return this.payload.id;
+    }
+
+    username() {
+        return this.payload.name;
+    }
+
+    roleId() {
+        return this.payload?.roles[0]?.id
+    }
+
+    roleName() {
+        return this.payload?.roles[0]?.type
+    }
+}

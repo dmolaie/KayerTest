@@ -11,26 +11,38 @@
              :aria-placeholder="placeholder"
              role="combobox"
         >
-            <template v-if="(!multiple && !!selected[label]) || !!value"
+            <template v-if="!!selected[label] || !!value"
             >
                 {{ !!selected[label] ? selected[label] : value }}
             </template>
         </div>
         <div class="select__body absolute none w-full bg-white rounded opacity-0 visibility-hidden pointer-event-none transition-opacity z-10">
-            <div class="select__search flex items-stretch border border-solid rounded"
-                 v-if="searchable"
+            <div class="select__search relative flex items-stretch border border-solid rounded"
+                 v-if="searchable && optionsHasValue"
             >
                 <span class="select__search_label flex-shrink-0 relative rounded rounded-tl-none rounded-bl-none"
                 > </span>
                 <input type="text"
-                       class="select__search_input flex-1 font-sm font-bold rounded rounded-tr-none rounded-br-none"
-                       @input="onChangeFilterField"
-                       v-model="searchField"
+                       class="select__search_input w-full font-medium rounded rounded-tr-none rounded-br-none"
+                       @input="onChangeFilterField" placeholder="جستجو..."
+                       v-model="search.value"
                 />
+                <span class="select__search_loading pointer-event-none spinner-loading"
+                        v-show="search.isPending"
+                > </span>
             </div>
             <div class="select__options w-full">
+                <template v-if="!required && optionsHasValue && dataHasValue">
+                    <button class="select__option w-full block text-bayoux font-xs font-bold cursor-pointer user-select-none text-right"
+                            @click.prevent="onClickOptions( {[label]: ' ', id: ''} )"
+                            role="option"
+
+                    >
+                        هیچکدام...
+                    </button>
+                </template>
                 <button class="select__option w-full block text-bayoux font-xs font-bold cursor-pointer user-select-none text-right"
-                        v-for="(option, index) in options"
+                        v-for="(option, index) in data"
                         :key="index"
                         v-text="option[label]"
                         :class="{ 'select__option--selected': ( option.selected ) }"
@@ -38,7 +50,7 @@
                         role="option"
                 > </button>
                 <p class="select__option w-full block text-bayoux font-xs font-bold cursor-pointer user-select-none text-right pointer-event-none"
-                   v-if="!Object.values(options).length"
+                   v-if="!optionsHasValue || !dataHasValue"
                 >
                     آیتمی برای انتخاب وجود ندارد.
                 </p>
@@ -49,15 +61,19 @@
 
 <script>
     import {
-        CopyOf
+        CopyOf, HasLength
     } from "@vendor/plugin/helper";
 
     export default {
-        name: "Index",
+        name: "Select",
         data: () => ({
+            data: {},
             timer: null,
-            searchField: '',
             selected: {},
+            search: {
+                value: '',
+                isPending: false
+            },
             CLASSNAME: {
                 select: 'select',
                 body: 'select__body',
@@ -77,16 +93,16 @@
             disabled: {
                 type: Boolean,
             },
-            multiple: {
-                type: Boolean,
-            },
             searchable: {
                 type: Boolean,
+                default: false
             },
             filterBy: {
                 type: Function,
-                default(option, search) {
-                    return (option.text | "").toLowerCase().includes( search.toLowerCase() );
+                default( search ) {
+                    let filteredOptions = Object.values(CopyOf( this.options ))
+                        .filter(item => item[this.label].toLowerCase().includes(search.toLowerCase()));
+                    this.data = {...filteredOptions};
                 }
             },
             placeholder: {
@@ -96,47 +112,77 @@
             label: {
                 type: String,
                 default: 'text'
+            },
+            required: {
+                Type: Boolean,
+                default: true
+            }
+        },
+        computed: {
+            optionsHasValue() {
+                return HasLength( this.options )
+            },
+            dataHasValue() {
+                return HasLength( this.data )
+            },
+        },
+        watch: {
+            options( newVal ) {
+                this.data = { ...newVal }
             }
         },
         methods: {
             resetValue() {
                 this.$set(this, 'selected', {});
             },
+            resetFilter() {
+                this.data = { ...this.options };
+                this.$set(this.search, 'value', '');
+            },
             onClickOutside() {
                 this.$set( this, 'shouldBeShowOption', false );
+                this.resetFilter();
             },
             onClickInputField() {
                 this.$set( this, 'shouldBeShowOption', !this.shouldBeShowOption );
             },
             /**
-             * @param  { Object }  option
+             * @return  { Object }
              */
             onClickOptions( option ) {
-                let {
-                    options, multiple
-                } = this;
-                if ( !multiple ) {
-                    let prevSelectedOption =
-                        (
-                            Array.isArray( options ) ? options : Object.keys( options )
-                        ).find( item => item.selected );
-                    if ( prevSelectedOption )
-                        this.$set( prevSelectedOption, 'selected', false );
-                }
-                this.$set( option, 'selected', true );
                 this.$set( this, 'selected', option);
                 this.$emit('onChange', CopyOf(option));
                 this.onClickOutside();
+                // let {
+                //     options
+                // } = this;
+                // if ( ! ) {
+                //     let prevSelectedOption =
+                //         (
+                //             Array.isArray( options ) ? options : Object.keys( options )
+                //         ).find( item => item.selected );
+                //     if ( prevSelectedOption )
+                //         this.$set( prevSelectedOption, 'selected', false );
+                // }
+                // this.$set( option, 'selected', true );
+                // this.$set( this, 'selected', option);
+                // this.$emit('onChange', CopyOf(option));
+                // this.onClickOutside();
             },
             onChangeFilterField() {
                 try {
                     clearTimeout( this.timer );
                     this.$set(this, 'timer', null);
                     this.timer = setTimeout( async () => {
-                        await this.filterBy( this.searchField );
-                    }, 350);
+                        this.$set(this.search, 'isPending', true);
+                        await this.filterBy(this.search.value);
+                        this.$set(this.search, 'isPending', false);
+                    }, 300);
                 } catch (e) {}
             },
         },
+        mounted() {
+            this.data = { ...this.options }
+        }
     }
 </script>

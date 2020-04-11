@@ -232,7 +232,7 @@ export class UserInformationPresenter extends BasePresenter {
     }
 
     last_education_degree() {
-        return this.item.last_education_degree || ''
+        return this.item.last_education_degree ?? ''
     }
 
     phone() {

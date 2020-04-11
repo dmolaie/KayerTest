@@ -51,15 +51,17 @@ export default class UserPresenter extends BasePresenter {
             province_of_work_name: String,
             city_of_work: Number,
             city_of_work_name: String,
-            date_of_birth: String,
+            date_of_birth: Number,
             birth: Object,
             event_id: Number,
             event_name: String,
+            card_id: String,
+            has_card: Boolean,
         })
     }
 
     date_of_birth() {
-        return this.item.date_of_birth * 1e3
+        return this.item.date_of_birth
     }
 
     birth() {
@@ -203,7 +205,7 @@ export default class UserPresenter extends BasePresenter {
     }
 
     job_title() {
-        return this.item.job_title
+        return this.item.job_title || ''
     }
 
     address_of_work() {
@@ -235,7 +237,7 @@ export default class UserPresenter extends BasePresenter {
     }
 
     receive_email() {
-        return this.item.receive_email
+        return !!this.item.receive_email
     }
 
     event_id() {
@@ -244,6 +246,14 @@ export default class UserPresenter extends BasePresenter {
 
     event_name() {
         return this.item.event?.title ?? ''
+    }
+
+    card_id() {
+        return this.item.card_id
+    }
+
+    has_card() {
+        return !!this.item.card_id
     }
 }
 

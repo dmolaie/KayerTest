@@ -119,7 +119,7 @@
                                 <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
                                     <div class="flex flex-wrap items-start cursor-default"
                                     >
-                                        <button class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-0"
+                                        <button class=" m-legate__role m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                                 v-for="(role, i) in item.roles"
                                                 :key="'status-' + i"
                                                 :class="{
@@ -284,17 +284,17 @@
                                   v-text="userInfo.data.date_of_birth.fa"
                             > </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
-                                  v-text="userInfo.data.city_of_birth.name"
+                                  v-text="userInfo.data.province_of_birth.name"
                             > </span>
                         </p>
                         <p class="confirm__label w-full flex items-center"
-                           v-if="!!userInfo.data.last_education_degree"
+                           v-if="typeof userInfo.data.last_education_degree === 'number'"
                         >
                             <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
                                 تحصیلات:
                             </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
-                                  v-text="userInfo.data.last_education_degree"
+                                  v-text="lastEducationValue"
                             > </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
                                   v-text="userInfo.data.education_field"
@@ -325,11 +325,11 @@
                                     <span class="w-full block p-0-15"
                                           v-if="!!userInfo.data.field_of_activities.length"
                                     >
-                                        {{ userInfo.data.field_of_activities.join('،') }}
+                                        {{ selectedActivity.join('، ') }}
                                     </span>
                                     <span class="w-full block p-0-15"
                                           v-if="!!userInfo.data.day_of_cooperation"
-                                          :class="{'m-t-6': !!userInfo.data.field_of_activities}"
+                                          :class="{'m-b-6': !userInfo.data.field_of_activities.length}"
                                           v-text="`فرصت همکاری: ${userInfo.data.day_of_cooperation}`"
                                     > </span>
                                 </div>
@@ -538,7 +538,9 @@
             ...mapState({
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
                 roles: ({ ManageLegateStore }) => ManageLegateStore.roles,
-                pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination
+                pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination,
+                education: ({ ManageLegateStore }) => ManageLegateStore.education,
+                activities: ({ ManageLegateStore }) => ManageLegateStore.activities,
             }),
             isAllUserTab() {
                 let { query } = this.$route;
@@ -554,6 +556,18 @@
                     query.status === StatusService.RECYCLE_STATUS
                 ) : false
             },
+            lastEducationValue() {
+                let lastEducationID = this.userInfo?.data?.last_education_degree;
+                return (lastEducationID !== void 0 ) ? (this.education[lastEducationID]?.name || '') : ''
+            },
+            selectedActivity() {
+                let field_of_activities = this.userInfo?.data?.field_of_activities ?? [];
+                return (
+                    Object.values(this.activities)
+                        .filter(({ id }) => field_of_activities.includes( id ))
+                            .map(({ name }) => name)
+                )
+            }
         },
         watch: {
             $route({ query }) {
@@ -629,7 +643,6 @@
                     this.$set(this.accessLevel, 'isPending', true);
                     this.$set(this, 'selectedItem', item);
                     let response = await Service.getUserInformationByID( item.id );
-                    console.log(response);
                     // this.$set(this.userInfo, 'data', response);
                     this.$set(this.accessLevel, 'isPending', false);
                 } catch ( exception ) {
@@ -646,7 +659,7 @@
                 try {
                     this.$refs['userInfo']?.visible();
                     this.$set(this.userInfo, 'isPending', true);
-                    let response = await Service.getUserInformationByID( user_id );
+                    let response = await Service.getDataForUserInfoModal( user_id );
                     this.$set(this.userInfo, 'data', response);
                     this.$set(this.userInfo, 'isPending', false);
                 } catch ( exception ) {

@@ -1,0 +1,60 @@
+.p-account
+  &__warn
+    $c: #ffe5be
+    $c2: #eaa02f
+    color: $c2
+    border:
+      color: lighten($c2, 24%)
+    background: $c
+    padding: 12px 0
+    margin-bottom: 20px
+  &__wrapper
+    padding-bottom: 50px
+  &__text
+    margin-bottom: 4px
+    padding-right: 7px
+  &__field
+    padding-bottom: 14px
+  &__label
+    margin-bottom: 12px
+  &__input
+    padding: 11px 15px
+    &::placeholder
+      direction: rtl
+    &:disabled
+      opacity: .7
+      border-color: #cfd2d5
+      filter: brightness(0.94)
+      pointer-events: none
+  &__button
+    min-width: 170px
+    line-height: 42px
+    &--submit
+      $c: #a7cd3c
+      color: $white
+      background-color: $c
+      border-color: darken($c, 5%)
+      @include SpinnerLoading(22px, 2px, $white)
+      &:hover
+        background-color: darken($c, 5%)
+    &:disabled
+      opacity: 0.7
+      color: #adadad
+      background: #f1f1f1
+      border-color: #d5d6d8
+  &__p
+    &-text
+      width: 120px
+    &-btn
+      margin: 12px auto 0
+  &__c
+    &-form
+      padding: 0 8px
+    &-text
+      width: 70px
+    &-btn
+      margin: 22px auto 0
+  &__e
+    &-field
+      padding: 0 8px
+      margin-bottom: 14px
