@@ -56,6 +56,11 @@
                     icon: 'ic__menu--blue.svg'
                 },
                 {
+                    route: 'MANAGE_EVENT',
+                    title: 'رویدادها',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
                     route: 'MANAGE_NEWS',
                     title: 'اخبار',
                     icon: 'ic_newspaper--blue.svg'
