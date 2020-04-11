@@ -18,24 +18,25 @@ class CreateEventRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'abstract' => 'string',
-            'description' => 'string',
-            'event_start_date' => 'required|numeric',
-            'event_end_date' => 'required|numeric',
+            'title'                     => 'required|string',
+            'abstract'                  => 'string',
+            'description'               => 'string',
+            'event_start_date'          => 'required|numeric',
+            'event_end_date'            => 'required|numeric',
             'event_start_register_date' => 'required|numeric',
-            'event_end_register_date' => 'required|numeric',
-            'category_ids'  => 'array|exists:categories,id',
-            'main_category_id'  => 'integer|exists:categories,id',
-            'publish_date' => 'required|numeric',
-            'source_link_text' => 'url',
-            'source_link_image' => 'url',
-            'source_link_video' => 'url',
-            'location' => 'string',
-            'province_id' => 'required|integer|exists:provinces,id',
-            'parent_id'    => 'integer|exists:events,id|unique:events',
-            'language' => ['required', Rule::in(config('event.event_language'))],
-            'images.*' => 'image'
+            'event_end_register_date'   => 'required|numeric',
+            'category_ids'              => 'array|exists:categories,id',
+            'main_category_id'          => 'integer|exists:categories,id',
+            'publish_date'              => 'required|numeric',
+            'source_link_text'          => 'url',
+            'source_link_image'         => 'url',
+            'source_link_video'         => 'url',
+            'location'                  => 'string',
+            'province_id'               => 'required|integer|exists:provinces,id',
+            'parent_id'                 => 'integer|exists:events,id|unique:events',
+            'language'                  => ['required', Rule::in(config('event.event_language'))],
+            'images.*'                  => 'image',
+            'slug'                      => 'string|required|unique:events'
         ];
     }
 
@@ -70,6 +71,7 @@ class CreateEventRequest extends EhdaBaseRequest
             ->setSourceLinkText($this['source_link_text'])
             ->setSourceLinkImage($this['source_link_image'])
             ->setSourceLinkVideo($this['source_link_video'])
+            ->setSlug($this['slug'])
             ->setParentId($this['parent_id']);
         return $eventCreateDTO;
     }

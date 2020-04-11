@@ -40,6 +40,7 @@ class Event extends Model
         'publisher_id',
         'language',
         'uuid',
+        'slug',
     ];
 
     public static function boot()

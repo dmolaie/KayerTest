@@ -404,4 +404,22 @@ class EventCreateDTO extends EventBaseSaveDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return EventCreateDTO
+     */
+    public function setSlug(string $slug): EventCreateDTO
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 }

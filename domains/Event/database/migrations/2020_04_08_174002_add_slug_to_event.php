@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddConditionToRolePermission extends Migration
+class AddSlugToEvent extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddConditionToRolePermission extends Migration
      */
     public function up()
     {
-        Schema::table('permission_role', function (Blueprint $table) {
-            $table->json('condition')->after('user_id')->nullable();
+        Schema::table('events', function (Blueprint $table) {
+            $table->string('slug')->after('description')->unique();
         });
     }
 
@@ -25,8 +25,7 @@ class AddConditionToRolePermission extends Migration
      */
     public function down()
     {
-        Schema::table('permission_role', function (Blueprint $table) {
-            $table->dropColumn('condition');
-        });
-    }
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });    }
 }

@@ -14,7 +14,7 @@ class EventFilterDTO
     /**
      * @var string|null
      */
-    protected $title;
+    protected $firstTitle;
     /**
      * @var string|null
      */
@@ -32,7 +32,7 @@ class EventFilterDTO
      */
     protected $eventInputStatus;
     /**
-     * @var null|string
+     * @var string
      */
     protected $eventRealStatus;
     /**
@@ -55,22 +55,34 @@ class EventFilterDTO
      * @var string|null
      */
     protected $language;
+    /**
+     * @var string|null
+     */
+    protected $slug;
+    /**
+     * @var string
+     */
+    protected $sort = 'DESC';
+    /**
+     * @var int|null
+     */
+    protected $paginationCount;
 
     /**
      * @return string|null
      */
-    public function getTitle(): ?string
+    public function getFirstTitle(): ?string
     {
-        return $this->title;
+        return $this->firstTitle;
     }
 
     /**
-     * @param string|null $title
+     * @param string|null $firstTitle
      * @return EventFilterDTO
      */
-    public function setTitle(?string $title): EventFilterDTO
+    public function setFirstTitle(?string $firstTitle): EventFilterDTO
     {
-        $this->title = $title;
+        $this->firstTitle = $firstTitle;
         return $this;
     }
 
@@ -129,9 +141,9 @@ class EventFilterDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getEventInputStatus(): string
+    public function getEventInputStatus(): ?string
     {
         return $this->eventInputStatus;
     }
@@ -231,6 +243,60 @@ class EventFilterDTO
     public function setLanguage(?string $language): EventFilterDTO
     {
         $this->language = $language;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSort(): string
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param string $sort
+     * @return EventFilterDTO
+     */
+    public function setSort(string $sort): EventFilterDTO
+    {
+        $this->sort = $sort;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPaginationCount(): int
+    {
+        return $this->paginationCount ?? config('event.event_paginate_count');
+    }
+
+    /**
+     * @param int|null $paginationCount
+     * @return EventFilterDTO
+     */
+    public function setPaginationCount(?int $paginationCount): EventFilterDTO
+    {
+        $this->paginationCount = $paginationCount;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     * @return EventFilterDTO
+     */
+    public function setSlug(?string $slug): EventFilterDTO
+    {
+        $this->slug = $slug;
         return $this;
     }
 

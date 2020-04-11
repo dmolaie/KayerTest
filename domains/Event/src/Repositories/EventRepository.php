@@ -32,6 +32,7 @@ class EventRepository
         $event->publisher_id = $eventCreateDTO->getPublisher()->id;
         $event->parent_id = $eventCreateDTO->getParentId();
         $event->language = $eventCreateDTO->getLanguage();
+        $event->slug = $eventCreateDTO->getSlug();
         $event->save();
         if ($eventCreateDTO->getCategoryIds() || $eventCreateDTO->getCategoryIsMain()) {
             $mainCategory = $eventCreateDTO->getCategoryIsMain() ?? $eventCreateDTO->getCategoryIds()[0];
@@ -61,6 +62,7 @@ class EventRepository
         $event->status = $eventEditDTO->getStatus();
         $event->province_id = $eventEditDTO->getProvinceId();
         $event->language = $eventEditDTO->getLanguage();
+        $event->slug = $eventEditDTO->getSlug() ?? $event->slug;
         $getDirty = $event->getDirty();
         if (!empty($getDirty)) {
             $event->save();
@@ -84,13 +86,19 @@ class EventRepository
     {
         $baseQuery = $this->entityName
             ::when($eventFilterDTO->getEventRealStatus(), function ($query) use ($eventFilterDTO) {
+                if ($eventFilterDTO->getEventRealStatus() == config('event.event_convert_to_real_status.delete')) {
+                    return $query->onlyTrashed();
+                }
                 return $query->where('status', $eventFilterDTO->getEventRealStatus());
             })
             ->when($eventFilterDTO->getPublisherId(), function ($query) use ($eventFilterDTO) {
                 return $query->where('publisher_id', $eventFilterDTO->getPublisherId());
             })
-            ->when($eventFilterDTO->getTitle(), function ($query) use ($eventFilterDTO) {
-                return $query->where('title', 'like', '%' . $eventFilterDTO->getTitle() . '%');
+            ->when($eventFilterDTO->getSlug(), function ($query) use ($eventFilterDTO) {
+                return $query->where('slug', $eventFilterDTO->getSlug());
+            })
+            ->when($eventFilterDTO->getFirstTitle(), function ($query) use ($eventFilterDTO) {
+                return $query->where('title', 'like', '%' . $eventFilterDTO->getFirstTitle() . '%');
             })
             ->when($eventFilterDTO->getCreateDateEnd(), function ($query) use ($eventFilterDTO) {
                 return $query->where('created_at', '<=', $eventFilterDTO->getCreateDateEnd());
@@ -116,8 +124,8 @@ class EventRepository
                 return $query->where('province_id', $eventFilterDTO->getProvinceId());
 
             })
-            ->paginate(config('event.event_paginate_count'));
-
+            ->orderBy('created_at', $eventFilterDTO->getSort())
+            ->paginate($eventFilterDTO->getPaginationCount());
         return $baseQuery;
     }
 
@@ -129,6 +137,17 @@ class EventRepository
     public function findOrFailUuid(string $uuid)
     {
         return $this->entityName::where('uuid', '=', $uuid)->firstOrFail();
+    }
+
+    public function changeStatus(int $eventId, string $status)
+    {
+        $event = $this->findOrFail($eventId);
+        $event->status = $status;
+        $getDirty = $event->getDirty();
+        if (!empty($getDirty)) {
+            $event->save();
+        }
+        return $event;
     }
 
 

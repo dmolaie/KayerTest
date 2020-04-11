@@ -19,38 +19,39 @@ class EventInfoPresenter
     public function transform(EventInfoDTO $eventInfoDTO)
     {
         return [
-            'id' => $eventInfoDTO->getId(),
-            'title' => $eventInfoDTO->getTitle(),
-            'abstract' => $eventInfoDTO->getAbstract(),
-            'description' => $eventInfoDTO->getDescription(),
-            'category' => $eventInfoDTO->getCategory() ? $eventInfoDTO->getCategory() : null,
-            'publish_date' => strtotime($eventInfoDTO->getPublishDate()),
-            'event_start_date' => strtotime($eventInfoDTO->getEventStartDate()),
-            'event_end_date' => strtotime($eventInfoDTO->getEventEndDate()),
+            'id'                        => $eventInfoDTO->getId(),
+            'title'                     => $eventInfoDTO->getTitle(),
+            'abstract'                  => $eventInfoDTO->getAbstract(),
+            'description'               => $eventInfoDTO->getDescription(),
+            'category'                  => $eventInfoDTO->getCategory() ? $eventInfoDTO->getCategory() : null,
+            'publish_date'              => strtotime($eventInfoDTO->getPublishDate()),
+            'event_start_date'          => strtotime($eventInfoDTO->getEventStartDate()),
+            'event_end_date'            => strtotime($eventInfoDTO->getEventEndDate()),
             'event_start_register_date' => strtotime($eventInfoDTO->getEventStartRegisterDate()),
-            'event_end_register_date' => strtotime($eventInfoDTO->getEventEndRegisterDate()),
-            'source_link_test' => $eventInfoDTO->getSourceLinkText(),
-            'source_link_image' => $eventInfoDTO->getSourceLinkImage(),
-            'source_link_video' => $eventInfoDTO->getSourceLinkVideo(),
-            'location' => $eventInfoDTO->getLocation(),
-            'status' => $this->getStatus($eventInfoDTO),
-            'province' => [
-                'id' => $eventInfoDTO->getProvince()->id,
+            'event_end_register_date'   => strtotime($eventInfoDTO->getEventEndRegisterDate()),
+            'source_link_test'          => $eventInfoDTO->getSourceLinkText(),
+            'source_link_image'         => $eventInfoDTO->getSourceLinkImage(),
+            'source_link_video'         => $eventInfoDTO->getSourceLinkVideo(),
+            'location'                  => $eventInfoDTO->getLocation(),
+            'status'                    => $this->getStatus($eventInfoDTO),
+            'province'                  => [
+                'id'   => $eventInfoDTO->getProvince()->id,
                 'name' => $eventInfoDTO->getProvince()->name,
             ],
-            'publisher' => [
-                'id' => $eventInfoDTO->getPublisher()->id,
-                'name' => $eventInfoDTO->getPublisher()->name,
+            'publisher'                 => [
+                'id'        => $eventInfoDTO->getPublisher()->id,
+                'name'      => $eventInfoDTO->getPublisher()->name,
                 'last_name' => $eventInfoDTO->getPublisher()->last_name
             ],
-            'editor' => $eventInfoDTO->getEditor() ? [
-                'id' => $eventInfoDTO->getEditor()->id,
-                'name' => $eventInfoDTO->getEditor()->name,
+            'editor'                    => $eventInfoDTO->getEditor() ? [
+                'id'        => $eventInfoDTO->getEditor()->id,
+                'name'      => $eventInfoDTO->getEditor()->name,
                 'last_name' => $eventInfoDTO->getEditor()->last_name
             ] : null,
-            'language' => $eventInfoDTO->getLanguage(),
-            'relation_id' => $eventInfoDTO->getRelationEventId(),
-            'image_paths' => $eventInfoDTO->getAttachmentFiles() ?? []
+            'language'                  => $eventInfoDTO->getLanguage(),
+            'relation_id'               => $eventInfoDTO->getRelationEventId(),
+            'image_paths'               => $eventInfoDTO->getAttachmentFiles() ?? [],
+            'slug'                      => $eventInfoDTO->getSlug()
         ];
     }
 
