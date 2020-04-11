@@ -14,6 +14,7 @@ const APP_NAME = 'اهدا | ';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DASHBOARD = 'DASHBOARD';
+export const MANAGE_EVENT = 'MANAGE_EVENT';
 export const MANAGE_MENU = 'MANAGE_MENU';
 export const MANAGE_NEWS = 'MANAGE_NEWS';
 export const CREATE_NEWS = 'CREATE_NEWS';
@@ -107,6 +108,26 @@ const Routes = new VueRouter({
                     }
                 ]
             },
+        },
+        {
+            name: MANAGE_EVENT,
+            path: '/manage/event',
+            component: GetViews('ManageEvent' ),
+            meta: {
+                title: 'رویدادها',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'رویدادها'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
         },
         {
             name: MANAGE_ARTICLE,
