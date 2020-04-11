@@ -6,8 +6,10 @@ use App\Http\Controllers\UuIdTrait;
 use Domains\Event\Entities\Event;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
+use Domains\Role\Enitites\Permission;
 use Domains\Role\Entities\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -88,6 +90,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')
             ->withPivot('status', 'created_at', 'updated_at');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permission_role')->withPivot('user_id');
     }
 
     /**

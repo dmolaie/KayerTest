@@ -120,6 +120,8 @@ export const CopyOf = payload => (
     JSON.parse(JSON.stringify( payload ))
 );
 
+export const ZeroPad = num => ('0' + num).slice(-2);
+
 /**
  * @returns formatted html as string.
  */
