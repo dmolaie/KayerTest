@@ -43,6 +43,7 @@ const EDIT_NEWS_ITEM = "EDIT_NEWS_ITEM";
 const EDIT_STATUS_NEWS_ITEM = "EDIT_STATUS_NEWS_ITEM";
 const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";
 const GET_EVENT_LIST = "GET_EVENT_LIST";
+const CREATE_EVENT_LIST = "CREATE_EVENT_LIST";
 const GET_ALL_PROVINCES = "GET_ALL_PROVINCES";
 const GET_ALL_CITY = "GET_ALL_CITY";
 const GET_CITY_BY_PROVINCES_ID = "GET_CITY_BY_PROVINCES_ID";
@@ -91,6 +92,7 @@ endpoints[EDIT_STATUS_NEWS_ITEM] = `/news/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_NEWS_ITEM] = `/news/${VER_1_0}/admin/delete/:id`;
 
 endpoints[GET_EVENT_LIST] = `/event/${VER_1_0}/admin/list`;
+endpoints[CREATE_EVENT_LIST] = `/event/${VER_1_0}/admin/create`;
 
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
 endpoints[GET_ALL_CITY] = `/location/${VER_1_0}/all-cities`;
@@ -237,6 +239,10 @@ export default class Endpoint {
 
     static get GET_EVENT_LIST() {
         return endpoints[GET_EVENT_LIST]
+    }
+
+    static get CREATE_EVENT_LIST() {
+        return endpoints[CREATE_EVENT_LIST]
     }
 
     static get EDIT_STATUS_NEWS_ITEM() {

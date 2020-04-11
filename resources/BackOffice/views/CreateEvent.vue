@@ -63,7 +63,7 @@
                     </div>
                     <div class="c-news__abstract w-full">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            تنظیمات ثبت نام
+                            تنظیمات ثبت‌نام
                         </p>
                         <div class="flex flex items-center">
                             <div class="w-1/2">
@@ -113,15 +113,6 @@
                         <input type="text" placeholder="لینک گزارش تصویری"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-ltr"
                                v-model="form.source_link_image"
-                        />
-                    </label>
-                    <label class="w-full block m-b-16">
-                        <span class="block text-rum font-sm font-bold m-b-8 cursor-default m-b-8">
-                             لینک گزارش ویدیویی
-                        </span>
-                        <input type="text" placeholder="لینک گزارش ویدیویی"
-                               class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-ltr"
-                               v-model="form.source_link_video"
                         />
                     </label>
                     <label class="w-full block m-b-16">
@@ -313,11 +304,9 @@
                 return this.calculateDateMinValue();
             },
             minValueEndDate() {
-                console.log('s Date', this.form.event_start_date);
                 return this.calculateDateMinValue( this.form.event_start_date );
             },
             minValueEndRegisterDate() {
-                console.log(this.calculateDateMinValue(this.form.event_start_register_date));
                 return this.calculateDateMinValue( this.form.event_start_register_date );
             },
             currentLang() {
@@ -361,13 +350,20 @@
             onChangeEndRegisterDateField( unix ) {
                 this.$set(this.form, 'event_end_register_date', unix)
             },
-
-
             onClickChangeReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowReleaseDatePicker', !this.shouldBeShowReleaseDatePicker);
             },
-            onClickReleaseButton() {
-
+            async onClickReleaseButton() {
+                try {
+                    this.$set(this, 'isPending', true);
+                    let result = await Service.onClickReleaseEventButton();
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_EVENT' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this, 'isPending', false);
+                }
             },
             onClickRemoveButton() {
                 this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });

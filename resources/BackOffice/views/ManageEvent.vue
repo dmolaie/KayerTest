@@ -325,11 +325,8 @@
              * @param query { Object }
              */
             switchBetweenTabs( query  = {} ) {
-                this.$router.push(
-                    {
-                        name: "MANAGE_NEWS",
-                        query
-                    }).catch(err => {});
+                this.$router.push( { name: "MANAGE_EVENT", query } )
+                    .catch(err => {});
                 this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
             },
             onClickPublishTab() {
