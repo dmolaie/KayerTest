@@ -17,6 +17,15 @@ export class EventService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+    static async getEventCategories() {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
+                category_type: 'event'
+            });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
 }
 
 export default class ManageEventService extends BaseService {

@@ -132,7 +132,7 @@ const Routes = new VueRouter({
         },
         {
             name: CREATE_EVENT,
-            path: '/manage/event/:lang(fa|en)/edit/:id(\\d+)',
+            path: '/manage/event/:lang(fa|en)/create/:parent_id(\\d+)?',
             component: GetViews('CreateEvent' ),
             meta: {
                 title: 'ایجاد رویداد',
