@@ -86,7 +86,7 @@ class UserRepository
         return $this->entityName::findOrFail($userId)
             ->roles()->where('status', config('user.user_role_active_status'))
             ->where('role_id', config('user.admin_role_id'))
-            ->orderBy('role_id')
+            ->orderBy('priority')
             ->exists();
     }
 
@@ -100,7 +100,7 @@ class UserRepository
                 config('user.user_role_wait_for_documents'),
                 config('user.user_role_wait_for_exam'),
             ])
-            ->orderBy('role_id')->first();
+            ->orderBy('priority')->first();
     }
 
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)

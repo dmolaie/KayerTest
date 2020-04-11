@@ -17,14 +17,6 @@ class UserRoleRepository
         );
     }
 
-    public function allActiveRoleByUserId(int $userId)
-    {
-        return $this->entityName::where('user_id', $userId)
-            ->where('status', config('user.user_role_active_status'))
-            ->orderBy('role_id')
-            ->get();
-    }
-
     public function changeUserRoleStatus(int $id, string $status)
     {
         return $this->entityName::where('id', $id)
