@@ -118,6 +118,10 @@ class EventInfoDTO
      */
     protected $editor;
 
+    /**
+     * @var string
+     */
+    protected $slug;
 
     /**
      * @return User|null
@@ -514,4 +518,23 @@ class EventInfoDTO
         $this->language = $language;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return EventInfoDTO
+     */
+    public function setSlug(string $slug): EventInfoDTO
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 }

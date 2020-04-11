@@ -93,7 +93,7 @@ return array(
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-    'attributes'                    => [
+    'attributes'            => [
         "category_id"               => "نوع دسته‌بندی",
         "event_id"                  => "شماره رویداد",
         "title"                     => "عنوان",
@@ -112,6 +112,7 @@ return array(
         "parent_id"                 => "رویداد مرتبط",
         "status"                    => "وضعیت رویداد",
         "editor_id"                 => "مالک رویداد",
+        "slug"                      => "اسلاگ رویداد",
         "publish_date_end"          => "تاریخ شروع ایجاد رویداد",
         "publish_date_start"        => "تاریخ پایان ایجاد رویداد",
     ],

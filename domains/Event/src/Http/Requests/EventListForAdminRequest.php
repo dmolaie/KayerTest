@@ -3,6 +3,7 @@
 namespace Domains\Event\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
+use Carbon\Carbon;
 use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Illuminate\Validation\Rule;
 
@@ -17,11 +18,13 @@ class EventListForAdminRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'title' => 'string',
+            'title'       => 'string',
             'create_date_start' => 'numeric',
-            'create_date_end' => 'numeric',
-            'publisher_id' => 'integer',
-            'status' => [Rule::in(config('event.event_list_status'))]
+            'create_date_end'   => 'numeric',
+            'publisher_id'      => 'integer',
+            'slug'              => 'string',
+            'status'            => [Rule::in(config('event.event_list_status'))],
+            'sort'              => [Rule::in('DESC', 'ASC')]
         ];
     }
 
@@ -47,8 +50,9 @@ class EventListForAdminRequest extends EhdaBaseRequest
                     $this['create_date_start'])->toDateTimeString() : null)
             ->setPublisherId($this['publisher_id'])
             ->setEventInputStatus($this['status'])
-            ->setTitle($this['first_title']);
-
+            ->setSort($this['sort'] ?? 'DESC')
+            ->setSlug($this['slug'])
+            ->setFirstTitle($this['title']);
         return $eventFilterDTO;
     }
 }

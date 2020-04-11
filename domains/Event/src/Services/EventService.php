@@ -207,6 +207,7 @@ class EventService
      */
     public function destroyEvent(int $eventId)
     {
+        $this->changeStatus($eventId, config('news.news_delete_status'));
         $result = $this->eventRepository->destroyEvent($eventId);
         if (!$result) {
             throw new EventNotFoundErrorException(trans('event::response.event_not_found'));
@@ -218,6 +219,22 @@ class EventService
     {
         $event = $this->eventRepository->findOrFailUuid($uuid);
         $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(Event::class), [$event->id]);
+        $images = $attachmentInfoDto->getImages()[$event->id];
+        return $this->eventInfoDTOMaker->convert($event, $images);
+    }
+
+    public function changeStatus(int $eventId,string $status)
+    {
+        $event = $this->eventRepository->changeStatus($eventId, $status);
+        $attachmentInfoDto = $this->getAttachmentInfoEvent(class_basename(Event::class), [$event->id]);
+        $images = $attachmentInfoDto->getImages()[$event->id];
+        return $this->eventInfoDTOMaker->convert($event, $images);
+    }
+
+    public function getEventDetail(int $id)
+    {
+        $event = $this->eventRepository->findOrFail($id);
+        $attachmentInfoDto = $this->getAttachmentInfoEvent(class_basename(Event::class), [$event->id]);
         $images = $attachmentInfoDto->getImages()[$event->id];
         return $this->eventInfoDTOMaker->convert($event, $images);
     }
