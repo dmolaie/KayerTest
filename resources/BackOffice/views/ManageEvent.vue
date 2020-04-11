@@ -155,9 +155,9 @@
                                     </p>
                                     <p class="text-blue-100 font-1xs font-bold">
                                         ثبت نام از
-                                        {{ item.event_start_date_fa }}
+                                        {{ item.event_start_register_date_fa }}
                                         تا
-                                        {{ item.event_end_date_fa }}
+                                        {{ item.event_end_register_date_fa }}
                                     </p>
                                     <div class="w-full flex items-stretch">
                                         <span class="m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
