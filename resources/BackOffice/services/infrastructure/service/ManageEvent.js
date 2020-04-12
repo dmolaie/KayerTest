@@ -130,10 +130,10 @@ export default class ManageEventService extends BaseService {
         }
     }
 
-    removeItemFromStore( article_id ) {
+    removeItemFromStore( event_id ) {
         try {
             let newData = CopyOf( Object.values( this.$vm.items ) );
-            let findIndex = newData.findIndex( item => item.event_id === article_id );
+            let findIndex = newData.findIndex( item => item.event_id === event_id );
             if ( findIndex >= 0 ) newData.splice(findIndex, 1);
             BaseService.commitToStore(this.$store, M_EVENT_UPDATE_DATA, newData);
         } catch ( exception ) {}

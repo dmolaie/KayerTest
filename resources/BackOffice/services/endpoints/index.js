@@ -1,7 +1,6 @@
 import {
     HasLength
 } from "@vendor/plugin/helper";
-import {EDIT_EVENT} from "../routes";
 
 let endpoints = {};
 
