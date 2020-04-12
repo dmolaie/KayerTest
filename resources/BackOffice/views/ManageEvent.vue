@@ -307,6 +307,7 @@
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
+    import exception from "../services/infrastructure/service/exception";
 
     const PUBLISH_STATUS = StatusService.PUBLISH_STATUS;
     const READY_TO_PUBLISH_STATUS =  StatusService.READY_TO_PUBLISH_STATUS;
@@ -340,6 +341,25 @@
             isModuleRegistered: false,
             shouldBeShowCreatedDropdown: false,
         }),
+        watch: {
+            $route({ query }) {
+                let queryString = ( HasLength( query ) ) ? query : ({
+                    status: PUBLISH_STATUS
+                });
+                this.$set(this, 'isPending', true);
+                this.$set(this.search, 'value', '');
+                this.$set(this.search, 'visibility', false);
+                this.$set(this.filter, 'visibility', false);
+                Service.getEventListFilterBy( queryString )
+                    .then(this.$nextTick)
+                    .then(() => {
+                        setTimeout(() => {
+                            this.$set(this, 'isPending', false)
+                        }, 70);
+                    })
+                    .catch(exception => { this.displayNotification(exception, { type: 'error' }) })
+            }
+        },
         computed: {
             ...mapGetters({
                 isAdmin: IS_ADMIN
@@ -384,7 +404,7 @@
             },
             minValueDatePicker() {
                 try {
-                    const DATE = !!date ? new Date(this.filter.create_date_start * 1e3) : new Date(),
+                    const DATE = new Date(this.filter.create_date_start * 1e3),
                         LOCALE_DATE = DATE.toLocaleString('fa');
                     return toEnglishDigits(
                         LOCALE_DATE.replace('،', ' ').slice(0, Length( LOCALE_DATE ) - 3)
@@ -454,9 +474,8 @@
             },
             onInputSearchField() {
                 try {
-                    let { timeout } = this.search;
-                    clearTimeout( timeout );
-                    timeout = setTimeout(async () => {
+                    clearTimeout( this.search.timeout );
+                    this.search.timeout = setTimeout(async () => {
                         await Service.HandelSearchAction(this.search.value, this.$route);
                         this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                     }, 350)
@@ -484,6 +503,7 @@
                     this.displayNotification(exception, { type: 'error' })
                 } finally {
                     this.$set(this.filter, 'submitIsPending', false);
+                    this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                 }
             },
             async onClickDiscardFiltersButton() {
@@ -493,8 +513,9 @@
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {
-                    this.$set(this.filter, 'submitIsPending', false);
-                    this.$set(this.filter, 'discardIsPending', this.filter.datePickerKey + 1);
+                    this.$set(this.filter, 'discardIsPending', false);
+                    this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
+                    this.$set(this.filter, 'datePickerKey', this.filter.datePickerKey + 1);
                 }
             },
             onChangePagination( page ){

@@ -2,12 +2,20 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import ExceptionService from '@services/service/exception';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import {
+    GET_USER_ID
+} from '@services/store/Login';
 import ManageEvent, {
     M_EVENT_SET_DATA
 } from '@services/store/ManageEvent';
 import {
     CopyOf, HasLength
 } from '@vendor/plugin/helper';
+import StatusService from '@services/service/Status';
+
+const DEFAULT_STATUS = {
+    status: StatusService.PUBLISH_STATUS
+};
 
 export class EventService {
     static async getEventList( querystring = {} ) {
@@ -54,7 +62,12 @@ export default class ManageEventService extends BaseService {
 
     async getEventListFilterBy( querystring = {} ) {
         try {
-            let response = await EventService.getEventList( querystring );
+            const QUERY_STRING = CopyOf( querystring );
+            if ( QUERY_STRING['status'] === StatusService.MY_POST_STATUS ) {
+                delete QUERY_STRING['status'];
+                QUERY_STRING['publisher_id'] = this.$store.getters[GET_USER_ID]
+            }
+            let response = await EventService.getEventList( QUERY_STRING );
             BaseService.commitToStore(this.$store, M_EVENT_SET_DATA, response);
         } catch ( exception ) {
             throw exception;
@@ -63,7 +76,9 @@ export default class ManageEventService extends BaseService {
 
     async processFetchAsyncData() {
         try {
-            await this.getEventListFilterBy();
+            let { query } = this.$vm.$route;
+            let QUERY_STRING = HasLength( query ) ? query : DEFAULT_STATUS;
+            await this.getEventListFilterBy( QUERY_STRING );
         } catch ( exception ) {
             const MESSAGE = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(MESSAGE, { type:'error' })
