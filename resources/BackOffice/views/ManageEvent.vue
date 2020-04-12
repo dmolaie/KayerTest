@@ -293,7 +293,7 @@
                                                 <template v-else-if="!item.is_delete">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'ویرایش'"
-                                                            @click.prevent="onClickEditActionButton( item.id, item.lang )"
+                                                            @click.prevent="onClickEditActionButton( item.id, item.language )"
                                                     > </button>
                                                     <span class="dropdown__divider"> </span>
                                                     <template v-if="isAdmin">
@@ -349,7 +349,6 @@
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
-    import exception from "../services/infrastructure/service/exception";
 
     const PUBLISH_STATUS = StatusService.PUBLISH_STATUS;
     const READY_TO_PUBLISH_STATUS =  StatusService.READY_TO_PUBLISH_STATUS;
@@ -595,7 +594,14 @@
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            onClickEditActionButton() {
+            onClickEditActionButton(event_id, language) {
+                this.pushRouter({
+                    name: 'EDIT_EVENT',
+                    params: {
+                        id: event_id,
+                        lang: language
+                    }
+                });
                 this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
             },
             onClickReportButton() {

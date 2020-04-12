@@ -23,9 +23,11 @@ export class SingleEventPresenter extends BasePresenter {
 
         return this.mapProps({
             id: Number,
+            event_id: Number,
             title: String,
             abstract: String,
             description: String,
+            category_ids: Array,
             category: Array,
             publish_date: Number,
             event_start_date: Number,
@@ -36,7 +38,7 @@ export class SingleEventPresenter extends BasePresenter {
             event_start_register_date_fa: String,
             event_end_register_date: Number,
             event_end_register_date_fa: String,
-            source_link_test: String,
+            source_link_text: String,
             source_link_image: String,
             source_link_video: String,
             location: String,
@@ -60,11 +62,16 @@ export class SingleEventPresenter extends BasePresenter {
             relation_id: Number,
             has_relation: Boolean,
             image: String,
+            image_paths: Object,
             slug: String,
         })
     }
 
     id() {
+        return this.item.id
+    }
+
+    event_id() {
         return this.item.id
     }
 
@@ -81,16 +88,23 @@ export class SingleEventPresenter extends BasePresenter {
         return !!description ? DecodeHTML( description ) : '';
     }
 
+    category_ids() {
+        return (
+            new SelectedCategoriesPresenter( this.item.category )
+                .map(({ id }) => id)
+        )
+    }
+
     category() {
         return new SelectedCategoriesPresenter( this.item.category );
     }
 
     publish_date() {
-        return this.item.publish_date * 1e3
+        return this.item.publish_date
     }
 
     event_start_date() {
-        return this.item.event_start_date * 1e3
+        return this.item.event_start_date
     }
 
     event_start_date_fa() {
@@ -98,7 +112,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     event_end_date() {
-        return this.item.event_start_date * 1e3
+        return this.item.event_start_date
     }
 
     event_end_date_fa() {
@@ -106,7 +120,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     event_start_register_date() {
-        return this.item.event_start_register_date * 1e3
+        return this.item.event_start_register_date
     }
 
     event_start_register_date_fa() {
@@ -114,7 +128,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     event_end_register_date() {
-        return this.item.event_end_register_date * 1e3
+        return this.item.event_end_register_date
     }
 
     event_end_register_date_fa() {
@@ -123,15 +137,15 @@ export class SingleEventPresenter extends BasePresenter {
 
 
     source_link_text() {
-        return this.item.source_link_test || ''
+        return this.item.source_link_test || this.item.source_link_text || ''
     }
 
     source_link_image() {
-        return this.item.source_link_image
+        return this.item.source_link_image || ''
     }
 
     source_link_video() {
-        return this.item.source_link_video
+        return this.item.source_link_video || ''
     }
 
     status() {
@@ -155,7 +169,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     is_ready_to_publish() {
-        return this.item.status?.en === "ready_to_publish"
+        return this.item.status?.en === "accept"
     }
 
     is_recycle() {
@@ -217,6 +231,11 @@ export class SingleEventPresenter extends BasePresenter {
     image() {
         let images = new ImagesPresenter( this.item.image_paths );
         return HasLength( images ) ? images[0].path : '';
+    }
+
+    image_paths() {
+        let images = new ImagesPresenter( this.item.image_paths );
+        return HasLength( images ) ? images[0] : {}
     }
 
     slug() {

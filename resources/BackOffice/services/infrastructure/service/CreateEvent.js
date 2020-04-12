@@ -59,14 +59,14 @@ export default class CreateEventService extends BaseService {
         }
     }
 
-    checkFormValidation() {
+    static checkFormValidation( form ) {
         try {
             const ERROR_MESSAGE = (field = '') => new Error(`فیلد ${field} اجباری می‌باشد.`);
             let {
                 title, slug,
                 event_start_date, event_end_date,
                 event_start_register_date, event_end_register_date
-            } = this.$vm.form;
+            } = form;
 
             if (!title && !HasLength( title.trim() ) ) throw ERROR_MESSAGE('عنوان');
             if (!slug && !HasLength( slug.trim() ) ) throw ERROR_MESSAGE('نامک');
@@ -113,7 +113,7 @@ export default class CreateEventService extends BaseService {
 
     async onClickReleaseEventButton() {
         try {
-            this.checkFormValidation();
+            CreateEventService.checkFormValidation( this.$vm.form );
             const REQUEST_PAYLOAD = this.createRequestPayload;
             let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_EVENT_LIST), REQUEST_PAYLOAD);
             return response?.message

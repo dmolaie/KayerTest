@@ -1,6 +1,7 @@
 import {
     HasLength
 } from "@vendor/plugin/helper";
+import {EDIT_EVENT} from "../routes";
 
 let endpoints = {};
 
@@ -43,7 +44,9 @@ const EDIT_NEWS_ITEM = "EDIT_NEWS_ITEM";
 const EDIT_STATUS_NEWS_ITEM = "EDIT_STATUS_NEWS_ITEM";
 const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";
 const GET_EVENT_LIST = "GET_EVENT_LIST";
+const GET_EVENT_ITEM = "GET_EVENT_ITEM";
 const CREATE_EVENT_LIST = "CREATE_EVENT_LIST";
+const EDIT_EVENT_ITEM = "EDIT_EVENT_ITEM";
 const EDIT_STATUS_EVENT_ITEM = "EDIT_STATUS_EVENT_ITEM";
 const DELETE_EVENT_ITEM = "DELETE_EVENT_ITEM";
 const GET_ALL_PROVINCES = "GET_ALL_PROVINCES";
@@ -94,7 +97,9 @@ endpoints[EDIT_STATUS_NEWS_ITEM] = `/news/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_NEWS_ITEM] = `/news/${VER_1_0}/admin/delete/:id`;
 
 endpoints[GET_EVENT_LIST] = `/event/${VER_1_0}/admin/list`;
+endpoints[GET_EVENT_ITEM] = `/event/${VER_1_0}/admin/detail/:id`;
 endpoints[CREATE_EVENT_LIST] = `/event/${VER_1_0}/admin/create`;
+endpoints[EDIT_EVENT_ITEM] = `/event/${VER_1_0}/admin/edit`;
 endpoints[EDIT_STATUS_EVENT_ITEM] = `/event/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_EVENT_ITEM] = `/event/${VER_1_0}/admin/delete`;
 
@@ -245,8 +250,16 @@ export default class Endpoint {
         return endpoints[GET_EVENT_LIST]
     }
 
+    static get GET_EVENT_ITEM() {
+        return endpoints[GET_EVENT_ITEM]
+    }
+
     static get CREATE_EVENT_LIST() {
         return endpoints[CREATE_EVENT_LIST]
+    }
+
+    static get EDIT_EVENT_ITEM() {
+        return endpoints[EDIT_EVENT_ITEM]
     }
 
     static get EDIT_STATUS_EVENT_ITEM() {

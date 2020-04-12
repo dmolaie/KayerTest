@@ -1,7 +1,6 @@
 <template>
     <div class="datepicker">
-        <date-picker v-model="date"
-                     :value="value"
+        <date-picker :value="value"
                      :initialValue="initialValue"
                      :displayFormat="displayFormat"
                      :format="format"
