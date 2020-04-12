@@ -22,7 +22,6 @@ export class SingleEventPresenter extends BasePresenter {
         this.item = data;
 
         return this.mapProps({
-            id: Number,
             event_id: Number,
             title: String,
             abstract: String,
@@ -65,10 +64,6 @@ export class SingleEventPresenter extends BasePresenter {
             image_paths: Object,
             slug: String,
         })
-    }
-
-    id() {
-        return this.item.id
     }
 
     event_id() {

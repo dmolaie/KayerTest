@@ -175,13 +175,13 @@
                         <template #body="{ data }">
                             <div class="table__row flex"
                                  v-for="item in data"
-                                 :key="item.id"
+                                 :key="item.event_id"
                                  :class="{ 'table__row--delete pointer-event-none': item.is_delete }"
                             >
                                 <div class="table__td inline-flex items-center justify-center">
                                     <label class="cursor-pointer">
                                         <input type="checkbox"
-                                               :value="item.id"
+                                               :value="item.event_id"
                                                class="none"
                                         />
                                         <span class="table__checkbox block relative border border-solid rounded-1/2 bg-white"
@@ -283,28 +283,28 @@
                                                 <template v-if="item.is_recycle && isAdmin">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'بازیابی از زباله دان'"
-                                                            @click.prevent="onClickPendingActionButton( item.id )"
+                                                            @click.prevent="onClickPendingActionButton( item.event_id )"
                                                     > </button>
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'حذف رویداد'"
-                                                            @click.prevent="onClickDeleteActionButton( item.id )"
+                                                            @click.prevent="onClickDeleteActionButton( item.event_id )"
                                                     > </button>
                                                 </template>
                                                 <template v-else-if="!item.is_delete">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'ویرایش'"
-                                                            @click.prevent="onClickEditActionButton( item.id, item.language )"
+                                                            @click.prevent="onClickEditActionButton( item.event_id, item.language )"
                                                     > </button>
                                                     <span class="dropdown__divider"> </span>
                                                     <template v-if="isAdmin">
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'بازگشت به نویسنده (رد)'"
-                                                                @click.prevent="onClickRejectActionButton( item.id )"
+                                                                @click.prevent="onClickRejectActionButton( item.event_id )"
                                                                 v-if="item.is_pending"
                                                         > </button>
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'انتقال به زباله دان'"
-                                                                @click.prevent="onClickRecycleActionButton( item.id )"
+                                                                @click.prevent="onClickRecycleActionButton( item.event_id )"
                                                                 v-else
                                                         > </button>
                                                     </template>
@@ -602,7 +602,6 @@
                         lang: language
                     }
                 });
-                this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
             },
             onClickReportButton() {
                 this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });

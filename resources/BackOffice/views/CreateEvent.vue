@@ -38,10 +38,10 @@
                                         زمان آغاز...
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                                    format="jYYYY/jMM/jDD HH:mm"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
                                                     @onChange="onChangeStartDateField"
                                                     :key="'startDate' + datePickerKey" placeholder="زمان آغاز رویداد را انتخاب کنید"
+                                                    :value="`${form.event_start_date * 1e3 || ''}`" :initialValue="minValuePublishDate"
                                     />
                                 </div>
                             </div>
@@ -49,13 +49,14 @@
                                 <div class="w-full p-r-8">
                                     <span class="c-event__s-title block text-black-50 font-xs font-bold cursor-default">
                                         زمان پایان...
+                                        &&
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                                    format="jYYYY/jMM/jDD HH:mm"
-                                                    @onChange="onChangeEndDateField"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                                    @onChange="onChangeEndDateField" :min="`${form.event_start_date * 1e3 || ''}`"
                                                     :key="'endDate' + datePickerKey" placeholder="زمان پایان رویداد را انتخاب کنید"
-                                                    :disabled="!form.event_start_date" :min="minValueEndDate"
+                                                    :disabled="!form.event_start_date" :initialValue="minValuePublishDate"
+                                                    :value="`${form.event_end_date * 1e3 || ''}`"
                                     />
                                 </div>
                             </div>
@@ -72,10 +73,10 @@
                                         زمان آغاز...
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                                    format="jYYYY/jMM/jDD HH:mm"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
                                                     @onChange="onChangeStartRegisterDateField"
                                                     :key="'startRegisterDate' + datePickerKey" placeholder="زمان آغاز ثبت‌نام را انتخاب کنید"
+                                                    :value="`${form.event_start_register_date * 1e3 || ''}`" :initialValue="minValuePublishDate"
                                     />
                                 </div>
                             </div>
@@ -85,11 +86,11 @@
                                         زمان پایان...
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                                    format="jYYYY/jMM/jDD HH:mm"
-                                                    @onChange="onChangeEndRegisterDateField" :min="minValueEndRegisterDate"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                                    @onChange="onChangeEndRegisterDateField" :min="`${form.event_start_register_date * 1e3 || ''}`"
                                                     :key="'endRegister' + datePickerKey" placeholder="زمان پایان ثبت‌نام را انتخاب کنید"
-                                                    :disabled="!form.event_start_register_date"
+                                                    :disabled="!form.event_start_register_date" :initialValue="minValuePublishDate"
+                                                    :value="`${form.event_end_register_date * 1e3 || ''}`"
                                     />
                                 </div>
                             </div>
@@ -167,9 +168,9 @@
                         زمان انتشار
                     </p>
                     <date-picker-cm type="datetime"
-                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                    format="jYYYY/jMM/jDD HH:mm"
+                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
                                     @onChange="onChangePublishDateField" :min="minValuePublishDate"
+                                    :value="minValuePublishDate"
                                     :key="'publishDate' + datePickerKey" placeholder="زمان انتشار را انتخاب کنید"
                     />
                 </div>
@@ -300,13 +301,8 @@
                 categories: ({ CreateEventStore }) => CreateEventStore.categories,
             }),
             minValuePublishDate() {
-                return this.calculateDateMinValue();
-            },
-            minValueEndDate() {
-                return this.calculateDateMinValue( this.form.event_start_date );
-            },
-            minValueEndRegisterDate() {
-                return this.calculateDateMinValue( this.form.event_start_register_date );
+                const NOW_TIMESTAMP = new Date().getTime();
+                return NOW_TIMESTAMP.toString()
             },
             currentLang() {
                 return this.$route?.params?.lang
@@ -327,16 +323,8 @@
                     this.$refs['categoryCm']?.reset();
                     this.$set(this, 'datePickerKey', this.datePickerKey + 1);
                     this.$refs['provinces']?.resetValue();
+                    this.$set(this, 'shouldBeShowReleaseDatePicker', false);
                 } catch (e) {}
-            },
-            calculateDateMinValue( date ) {
-                try {
-                    const DATE = !!date ? new Date(date * 1e3) : new Date(),
-                          LOCALE_DATE = DATE.toLocaleString('fa');
-                    return toEnglishDigits(
-                        LOCALE_DATE.replace('،', ' ').slice(0, Length( LOCALE_DATE ) - 3)
-                    )
-                } catch (e) { return '' }
             },
             setDataFromParamsRouter() {
                 let { onlyEnLang, onlyFaLang, parent_id } = this.$route.params;
@@ -349,18 +337,21 @@
                 this.$set(this.form, 'description', HTML);
             },
             onChangeStartDateField( unix ) {
-                this.$set(this.form, 'event_start_date', unix)
+                this.$set(this.form, 'event_start_date', unix);
+                this.$set(this.form, 'event_end_date', '')
             },
             onChangeEndDateField( unix ) {
                 this.$set(this.form, 'event_end_date', unix)
             },
             onChangeStartRegisterDateField( unix ) {
-                this.$set(this.form, 'event_start_register_date', unix)
+                this.$set(this.form, 'event_start_register_date', unix);
+                this.$set(this.form, 'event_end_register_date', '');
             },
             onChangeEndRegisterDateField( unix ) {
                 this.$set(this.form, 'event_end_register_date', unix)
             },
             onClickChangeReleaseTimeButton() {
+                this.$set(this.form, 'publish_date', '');
                 this.$set(this, 'shouldBeShowReleaseDatePicker', !this.shouldBeShowReleaseDatePicker);
             },
             async onClickReleaseButton() {

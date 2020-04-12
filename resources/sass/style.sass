@@ -10,6 +10,13 @@
   url("/../fonts/IRANSansWeb(FaNum).woff") format('woff'),
   url("/../fonts/IRANSansWeb(FaNum).ttf") format('truetype')
 
+@font-face
+  font-family: "Zar"
+  font-display: fallback
+  src: url("/../fonts/FarZar.ttf") format("truetype"),
+  url("/../fonts/FarZar.woff") format("woff"),
+  url("/../fonts/FarZar.woff2") format("woff2")
+
 body
   direction: rtl
   font:
@@ -26,6 +33,7 @@ body
 // end   --> fix element
 
 // start --> vendor
+@import "pages/d-cart"
 @import "pages/v-cart"
 @import "pages/h-cart"
 @import "pages/i-cart"
