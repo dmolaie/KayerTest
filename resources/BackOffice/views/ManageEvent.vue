@@ -240,7 +240,7 @@
                                           v-text="item.province_name"
                                     > </span>
                                 </div>
-                                <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
+                                <div class="table__td table__td:l inline-flex flex-wrap flex-col items-center justify-center">
                                     <template v-if="item.category.length">
                                         <span v-for="category in item.category.slice(0, 1)"
                                               :key="'cat-' + category.id"
@@ -260,15 +260,57 @@
                                         </span>
                                     </template>
                                 </div>
-                                <div class="table__td table__td:l flex flex-col cursor-default">
-
+                                <div class="table__td table__td:l flex items-center justify-center flex-col cursor-default">
+                                    <button class="table__button inline-flex items-center justify-center text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
+                                            v-text="'گزارش'"
+                                            @click.stop="onClickReportButton( item )"
+                                            :disabled="!(item.is_owner || isAdmin) || item.is_delete"
+                                    > </button>
                                 </div>
                                 <div class="table__td flex-1 inline-flex items-center justify-center">
                                     <div class="relative w-full flex items-center justify-center">
                                         <button class="table__button flex items-center text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center"
                                                 v-text="'عملیات'"
+                                                @click.stop="onClickActionButton( item )"
                                                 :disabled="!(item.is_owner || isAdmin) || item.is_delete"
                                         > </button>
+                                        <dropdown-cm :visibility="item.is_opened"
+                                                     @onClickOutside="onClickActionButton( item )"
+                                                     :clickOutside="true"
+                                                     class="table__dropdown"
+                                        >
+                                            <template v-if="item.is_owner || isAdmin">
+                                                <template v-if="item.is_recycle && isAdmin">
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'بازیابی از زباله دان'"
+                                                            @click.prevent="onClickPendingActionButton( item.id )"
+                                                    > </button>
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'حذف رویداد'"
+                                                            @click.prevent="onClickDeleteActionButton( item.id )"
+                                                    > </button>
+                                                </template>
+                                                <template v-else-if="!item.is_delete">
+                                                    <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                            v-text="'ویرایش'"
+                                                            @click.prevent="onClickEditActionButton( item.id, item.lang )"
+                                                    > </button>
+                                                    <span class="dropdown__divider"> </span>
+                                                    <template v-if="isAdmin">
+                                                        <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                                v-text="'بازگشت به نویسنده (رد)'"
+                                                                @click.prevent="onClickRejectActionButton( item.id )"
+                                                                v-if="item.is_pending"
+                                                        > </button>
+                                                        <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
+                                                                v-text="'انتقال به زباله دان'"
+                                                                @click.prevent="onClickRecycleActionButton( item.id )"
+                                                                v-else
+                                                        > </button>
+                                                    </template>
+                                                </template>
+                                            </template>
+                                        </dropdown-cm>
                                     </div>
                                 </div>
                             </div>
@@ -517,6 +559,47 @@
                     this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                     this.$set(this.filter, 'datePickerKey', this.filter.datePickerKey + 1);
                 }
+            },
+            onClickActionButton( item ) {
+                this.$set(item, 'is_opened', !item.is_opened)
+            },
+            async onClickPendingActionButton( event_id ) {
+                try {
+                    let result = await Service.changeEventStatus(event_id, PENDING_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
+            },
+            async onClickRejectActionButton( event_id ) {
+                try {
+                    let result = await Service.changeEventStatus(event_id, REJECT_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
+            },
+            async onClickRecycleActionButton( event_id ) {
+                try {
+                    let result = await Service.changeEventStatus(event_id, RECYCLE_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
+            },
+            async onClickDeleteActionButton( event_id ) {
+                try {
+                    let result = await Service.deleteEventItem( event_id );
+                    this.displayNotification(result, { type: 'success' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
+            },
+            onClickEditActionButton() {
+                this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
+            },
+            onClickReportButton() {
+                this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
             },
             onChangePagination( page ){
                 try {

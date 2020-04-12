@@ -48,6 +48,7 @@ export class SingleEventPresenter extends BasePresenter {
             is_ready_to_publish: Boolean,
             is_recycle: Boolean,
             is_cancel: Boolean,
+            is_delete: Boolean,
             province_id: Number,
             province_name: String,
             publisher_id: Number,
@@ -163,6 +164,10 @@ export class SingleEventPresenter extends BasePresenter {
 
     is_cancel() {
         return this.item.status?.en === "cancel"
+    }
+
+    is_delete() {
+        return this.item.status?.en === "delete"
     }
 
     location() {

@@ -6,7 +6,7 @@ import {
     GET_USER_ID
 } from '@services/store/Login';
 import ManageEvent, {
-    M_EVENT_SET_DATA
+    M_EVENT_SET_DATA, M_EVENT_UPDATE_DATA
 } from '@services/store/ManageEvent';
 import {
     CopyOf, HasLength
@@ -29,6 +29,24 @@ export class EventService {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
                 category_type: 'event'
+            });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    static async changeEventStatus(event_id, status) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_EVENT_ITEM), {
+                event_id, status
+            });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    static async deleteEventItem( event_id ) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_EVENT_ITEM), {
+                event_id
             });
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
@@ -107,6 +125,35 @@ export default class ManageEventService extends BaseService {
                 QUERY_STRING['create_date_end'] = create_date_end
             ) : delete QUERY_STRING['create_date_end'];
             await this.getEventListFilterBy( QUERY_STRING );
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
+    removeItemFromStore( article_id ) {
+        try {
+            let newData = CopyOf( Object.values( this.$vm.items ) );
+            let findIndex = newData.findIndex( item => item.id === article_id );
+            if ( findIndex >= 0 ) newData.splice(findIndex, 1);
+            BaseService.commitToStore(this.$store, M_EVENT_UPDATE_DATA, newData);
+        } catch ( exception ) {}
+    }
+
+    async changeEventStatus(event_id, status) {
+        try {
+            let response = await EventService.changeEventStatus(event_id, status);
+            this.removeItemFromStore( event_id );
+            return response.message;
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
+    async deleteEventItem( event_id ) {
+        try {
+            let response = await EventService.deleteEventItem(event_id, status);
+            this.removeItemFromStore( event_id );
+            return response.message;
         } catch ( exception ) {
             throw exception;
         }
