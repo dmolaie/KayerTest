@@ -480,7 +480,7 @@
                                 شما سفیر اهدای عضو هستید. لطفا از پروفایل خود جهت ثبت نام به عنوان کارت اهدای عضو اقدام
                                 کنید.
                             </p>
-                            <a href="#"
+                            <a href="/user?fa#/account?tab=donation-card"
                                class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
                                 ثبت نام کارت اهدای عضو
                             </a>
