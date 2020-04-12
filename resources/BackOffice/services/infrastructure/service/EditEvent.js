@@ -87,7 +87,7 @@ export default class EditEventService extends BaseService {
             BaseService.commitToStore(this.$store, E_EVENT_SET_CATEGORIES, response[2]);
         } catch ( exception ) {
             this.$vm.displayNotification(exception, { type: 'error' });
-            //this.$vm.pushRouter( { name: 'MANAGE_EVENT' } );
+            this.$vm.pushRouter( { name: 'MANAGE_EVENT' } );
         }
     }
 
@@ -140,7 +140,8 @@ export default class EditEventService extends BaseService {
             delete duplicateFrom['slug'];
             delete duplicateFrom['category_ids'];
             delete duplicateFrom['images'];
-            (duplicateFrom['is_ready_to_publish']) ? (
+
+            (this.$vm.form['is_ready_to_publish']) ? (
                 formData.append('publish_date', (this.$vm.custom_publish_date || duplicateFrom['publish_date']))
             ) : (
                 formData.append('publish_date', (this.$vm.custom_publish_date || NOW_TIMESTAMP))

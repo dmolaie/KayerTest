@@ -19,7 +19,6 @@ const EditEvent = {
     },
     mutations: {
         [E_EVENT_SET_DATA](state, { data }) {
-            console.log(new SingleEventPresenter(data));
             state.detail = { ...new SingleEventPresenter( data ) };
         },
         [E_EVENT_SET_PROVINCES](state, { data }) {

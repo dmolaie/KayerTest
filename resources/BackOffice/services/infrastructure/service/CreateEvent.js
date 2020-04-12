@@ -53,9 +53,8 @@ export default class CreateEventService extends BaseService {
             BaseService.commitToStore(this.$store, C_EVENT_SET_PROVINCES, response[0]);
             BaseService.commitToStore(this.$store, C_EVENT_SET_CATEGORIES, response[1]);
         } catch ( exception ) {
-            console.log(exception);
             this.$vm.displayNotification(exception, { type: 'error' });
-            //this.$vm.pushRouter( { name: 'MANAGE_EVENT' } );
+            this.$vm.pushRouter( { name: 'MANAGE_EVENT' } );
         }
     }
 

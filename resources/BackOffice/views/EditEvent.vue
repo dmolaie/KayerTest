@@ -164,13 +164,6 @@
                                 بازگشت به نویسنده (رد)
                             </button>
                         </template>
-                        <template v-if="form.is_pending">
-                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                    @click.prevent="() => {onClickChangeReleaseTimeButton(); hiddenDropdown();}"
-                            >
-                                تنظیم زمان انتشار
-                            </button>
-                        </template>
                         <template v-else>
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
@@ -389,7 +382,7 @@
                     this.$set(this, 'isPending', true);
                     let result = await Service.editEventItem();
                     this.displayNotification(result, { type: 'success' });
-                    // this.pushRouter({ name: 'MANAGE_EVENT' });
+                    this.pushRouter({ name: 'MANAGE_EVENT' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {
