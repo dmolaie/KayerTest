@@ -246,7 +246,7 @@
                                               :key="'cat-' + category.id"
                                               class="m-post__category inline-block font-1xs text-medium text-blue-100 bg-white border border-solid cursor-default"
                                         >
-                                            {{ item.lang === 'fa' ? category.name_fa : category.name_en }}
+                                            {{ item.language === 'fa' ? category.name_fa : category.name_en }}
                                         </span>
                                         <template v-if="item.category.length > 1">
                                             <span class="m-post__category--more text-blue-100 font-lg font-bold line-height-1 cursor-default">
