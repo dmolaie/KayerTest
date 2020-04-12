@@ -164,7 +164,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     is_ready_to_publish() {
-        return this.item.status?.en === "accept"
+        return this.item.status?.en === "ready_to_publish"
     }
 
     is_recycle() {
