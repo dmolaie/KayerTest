@@ -91,6 +91,15 @@ export default class EditEventService extends BaseService {
         }
     }
 
+    async getRelationDetails() {
+        try {
+            let response = await this.getEventDetailsById( this.$vm.$route.params.id );
+            BaseService.commitToStore(this.$store, E_EVENT_SET_DATA, response);
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
     async changeEventStatus(event_id, status) {
         try {
             let response = await EventService.changeEventStatus(event_id, status);

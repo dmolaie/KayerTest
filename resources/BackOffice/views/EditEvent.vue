@@ -310,6 +310,22 @@
                 return this.form.has_relation ? 'ویرایش' : 'ایجاد'
             },
         },
+        watch: {
+            $route() {
+                this.$set(this, 'isPending', true);
+                Service.getRelationDetails()
+                    .then(this.$nextTick)
+                    .then(() => {
+                        this.setInitialState();
+                        this.setDataIntoForm();
+                        this.$set(this, 'isPending', false);
+                    })
+                    .catch(exception => {
+                        this.displayNotification(exception, { type: 'error' });
+                        this.pushRouter({ name: 'MANAGE_EVENT' });
+                    })
+            }
+        },
         methods: {
             setInitialState() {
                 try {
@@ -318,6 +334,7 @@
                     this.$refs['imagePanel']?.onClickRemoveImageButton();
                     this.$refs['categoryCm']?.reset();
                     this.$set(this, 'datePickerKey', this.datePickerKey + 1);
+                    this.$set(this, 'removedImages', []);
                     this.$refs['provinces']?.resetValue();
                 } catch (e) {}
             },
@@ -351,12 +368,46 @@
                 this.$set(this, 'custom_publish_date', unix)
             },
             onClickPersianLang() {
-                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'fa' } });
-                this.setInitialState();
+                if ( this.form.has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_EVENT',
+                        params: {
+                            lang: 'fa',
+                            id: this.form.relation_id,
+                        }
+                    });
+                }
+                else {
+                    this.pushRouter({
+                        name: 'CREATE_EVENT',
+                        params: {
+                            lang: 'fa',
+                            onlyFaLang: true,
+                            parent_id: this.form.event_id,
+                        }
+                    });
+                }
             },
             onClickEnglishLang() {
-                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'en' } });
-                this.setInitialState();
+                if ( this.form.has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_EVENT',
+                        params: {
+                            lang: 'en',
+                            id: this.form.relation_id,
+                        }
+                    });
+                }
+                else {
+                    this.pushRouter({
+                        name: 'CREATE_EVENT',
+                        params: {
+                            lang: 'en',
+                            onlyEnLang: true,
+                            parent_id: this.form.event_id,
+                        }
+                    });
+                }
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
