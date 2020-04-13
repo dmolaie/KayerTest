@@ -57,17 +57,22 @@ class EventInfoPresenter
 
     private function getStatus(EventInfoDTO $eventInfoDTO)
     {
-        $status = [
-            'fa' => trans('event::event.event_statuses.' . $eventInfoDTO->getStatus()),
-            'en' => $eventInfoDTO->getStatus()
-        ];
-        if ($eventInfoDTO->getStatus() == 'accept' && $eventInfoDTO->getPublishDate() <= Carbon::now()) {
-            $status = [
+        if ($eventInfoDTO->getStatus() != 'accept') {
+            return [
+                'fa' => trans('event::event.event_statuses.' . $eventInfoDTO->getStatus()),
+                'en' => $eventInfoDTO->getStatus()
+            ];
+        }
+        if (Carbon::parse($eventInfoDTO->getPublishDate())->lessThanOrEqualTo(Carbon::now())) {
+            return [
                 'fa' => trans('event::event.event_statuses.published'),
                 'en' => 'published'
             ];
 
         }
-        return $status;
+        return [
+            'fa' => trans('event::event.event_statuses.ready_to_publish'),
+            'en' => 'ready_to_publish'
+        ];
     }
 }

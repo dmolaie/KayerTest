@@ -56,6 +56,7 @@ class EventInfoDTOMaker
     {
         return $categories->map(function ($category) {
             $data['name_en'] = $category->name_en;
+            $data['name_fa'] = $category->name_fa;
             $data['id'] = $category->id;
             $data['is_main'] = $category->pivot->is_main ? true : false;
             return $data;
