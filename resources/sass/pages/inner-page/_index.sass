@@ -1,6 +1,8 @@
 .i-page
   padding: 48px 0 98px
   background: #ecf8fd
+  @include Sm_Screen
+    padding: 0
   .m
     &-r
       &-10
@@ -27,7 +29,11 @@
     border:
       color: #bde8fa
     background: #eff3f7
+    @include Sm_Screen
+      padding: 12px 15px
   &__head
+    @include Sm_Screen
+      padding: 15px 0
     &::before, &::after
       content: " "
       flex: 1
@@ -36,24 +42,28 @@
         radius: 2px
       background: #c1ecfc
       pointer-events: none
+      @include Sm_Screen
+        display: none
   &__title
     min-width: 40%
     @include Xl_Screen
       min-width: 45%
-    //cursor: default
-    //margin: -6px 50px 0
-    //@include Md_Screen
-    //  margin: -6px 35px 0
-    //@include Sm_Screen
-    //  margin: -6px 25px 0
+    @include Md_Screen
+      min-width: 50%
   &__text
     cursor: default
     line-height: 1.94
   &__social
     @include Size( 16px )
+    @include Sm_Screen
+      @include Size( 28px )
     &:not(:last-of-type)
-      margin:
-        left: 20px
+      margin-left: 20px
+      @include Sm_Screen
+        margin-left: 36px
+  &__short
+    @include Sm_Screen
+      margin: 10px 0 35px !important
   &__list
     &_item
       &:not(:last-of-type)
@@ -156,8 +166,9 @@
           top: 15px
           transform: rotate(180deg)
   .inner-box
-    margin:
-      top: 45px
+    margin-top: 45px
+    @include Sm_Screen
+      margin-top: 0
   .clipboard
     @include L_Screen
       &:hover

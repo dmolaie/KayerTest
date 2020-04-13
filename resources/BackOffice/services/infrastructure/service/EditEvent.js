@@ -145,7 +145,7 @@ export default class EditEventService extends BaseService {
             }
             if (HasLength( duplicateFrom['description'] )) duplicateFrom['description'] = EncodeHTML(duplicateFrom['description']);
             if ( this.$vm.detail['slug'] !== duplicateFrom['slug'].trim() )
-                formData.append('slug', duplicateFrom['slug'].replace(/ /, '-'));
+                formData.append('slug', duplicateFrom['slug'].replace(/ /g, '-'));
             delete duplicateFrom['slug'];
             delete duplicateFrom['category_ids'];
             delete duplicateFrom['images'];

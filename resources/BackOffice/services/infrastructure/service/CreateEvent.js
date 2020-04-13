@@ -91,7 +91,7 @@ export default class CreateEventService extends BaseService {
             }
             delete duplicateFrom['category_ids'];
             if (HasLength( duplicateFrom['description'] )) duplicateFrom['description'] = EncodeHTML(duplicateFrom['description']);
-            duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /, '-');
+            duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /g, '-');
             Object.keys( duplicateFrom )
                 .forEach( key => {
                     if (

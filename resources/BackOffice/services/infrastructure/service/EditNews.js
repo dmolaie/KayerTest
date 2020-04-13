@@ -123,7 +123,7 @@ export default class EditNewsService extends BaseService {
             }
 
             if ( !(this.$vm.detail['slug'] === duplicateFrom['slug'].trim()) )
-                formData.append('slug', duplicateFrom['slug'].replace(/ /, '-'));
+                formData.append('slug', duplicateFrom['slug'].replace(/ /g, '-'));
 
             if ( !!this.$vm.images.main.data )
                 formData.append('images[]', this.$vm.images.main.data.get('images'));
