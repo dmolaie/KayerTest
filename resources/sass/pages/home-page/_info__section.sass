@@ -1,6 +1,9 @@
 .info
   &__section
     padding: 48px 0 36px
+    @include Md_Screen
+      order: 8
+      padding: 15px 0 56px
     .section__title
       margin:
         bottom: 19px
@@ -18,14 +21,26 @@
         width: calc(20% - #{$SpaceBetweenItem})
         margin:
           left: $SpaceBetweenItem
+      @include Sm_Screen
+        width: 128px
+        &:first-of-type
+          margin-right: $mPadding
+        &:last-of-type
+          margin-left: $mPadding
+    .carousel__pagination
+      margin: 35px 0 0
   &__title
-    margin:
-      bottom: (29px - 4)
+    margin-bottom: (29px - 4)
+    @include Sm_Screen
+      margin-bottom: 14px
   &__container
     display: flex
   &__cart
     border-color: #d2e3f4
     padding: 38px 15px 31px 15px
+    @include Sm_Screen
+      padding: 18px 8px 21px 8px
+      background-color: #ecf8fd
     &::before
       box-shadow: 0 2px 4px 0 #f2f2f5
     &::after
@@ -40,3 +55,6 @@
     &_image
       @include Size( 94px )
       margin-bottom: 29px
+      @include Md_Screen
+        @include Size( 45px )
+        margin-bottom: 14px

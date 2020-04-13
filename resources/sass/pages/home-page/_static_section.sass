@@ -5,6 +5,10 @@
     attachment: fixed
   @include L_Screen
     background-size: 800px
+  @include Sm_Screen
+    padding: 20px 0 60px
+    background: #d4f6ff url("/../images/img_flower--w.svg") no-repeat center
+      size: calc(100% - #{16px * 2})
   .section
     &__title
       letter-spacing: -.12px
@@ -12,13 +16,20 @@
         letter-spacing: -.15px
     &__image
       margin: 25px 0 16px
+      @include Sm_Screen
+        margin: 18px 0 16px
   .progress_bar__container
     margin:
       top: 20px
   .progress_bar__item
+    @include Sm_Screen
+      &:not(:first-of-type)
+        margin-bottom: 15px
     .c-progress
       @include Size( 78px )
       transform: rotate(-90deg)
+      @include Sm_Screen
+        @include Size( 45px )
       &_body
         fill: white
         stroke: #bde8fa
@@ -42,10 +53,15 @@
           size: contain
         animation: heartbeatCenter 1.4s cubic-bezier(.455, .03, .515, .955) infinite
         z-index: 1
+        @include Sm_Screen
+          @include Size( 17px )
   .ic_person
     margin: 0 .6vw
     pointer-events: none
     @include UserSelect( none )
+    @include Sm_Screen
+      width: 12px
+      margin: 0 1vw
   .blue_symbol
     @include fontSize( 40px )
     font:
@@ -53,3 +69,6 @@
     margin: 18px 3vw 0
     letter-spacing: -.3px
     pointer-events: none
+    @include Sm_Screen
+      font-size: 26px
+      margin: 5px 3vw 0

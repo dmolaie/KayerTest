@@ -485,9 +485,9 @@
   @include Xl_Screen
     padding: 0 150px
   @include Md_Screen
-    padding: 0 30px
+    padding: 0 40px
   @include Sm_Screen
-    padding: 0 12px
+    padding: 0 20px
 
 .has-skeleton
   background: #eaeaea
@@ -567,6 +567,25 @@
       &::before
         background: url("/../images/ic_angle--white.svg") no-repeat center
           size: contain
+
+.carousel__pagination
+  &--blue
+    .swiper-pagination-bullet
+      background-color: #d4f6ff
+  &--white
+    .swiper-pagination-bullet
+      background-color: $white
+  .swiper-pagination-bullet
+    @include Size(14px)
+    margin: 0 4px
+    border-radius: 50px
+    transition: background-color $duration
+    &:focus, &:active
+      outline: none
+      box-shadow: none
+    &-active
+      background-color: $blue
+
 
 .has_notebook--gray
   &::before
@@ -853,3 +872,6 @@
     background: url("/../images/ic_flower.svg") no-repeat center
       size: contain
     vertical-align: sub
+    @include Sm_Screen
+      width: 35px
+      height: 35px

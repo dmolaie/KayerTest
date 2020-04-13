@@ -167,10 +167,18 @@ try {
                     nextEl: '.info__section .carousel-btn--right',
                     prevEl: '.info__section .carousel-btn--left',
                 },
+                pagination: {
+                    clickable: true,
+                    el: '.info__section .carousel__pagination'
+                },
                 breakpoints: {
                     0: {
-                        slidesPerView: 1,
-                        spaceBetween: 11,
+                        freeMode: true,
+                        freeModeMomentumBounce: false,
+                        freeModeMinimumVelocity: 0.06,
+                        longSwipesMs: 1000,
+                        slidesPerView: 'auto',
+                        spaceBetween: 14,
                     },
                     520: {
                         slidesPerView: 2,
@@ -204,10 +212,18 @@ try {
                     nextEl: '.events__section .carousel-btn--right',
                     prevEl: '.events__section .carousel-btn--left',
                 },
+                pagination: {
+                    clickable: true,
+                    el: '.events__section .carousel__pagination'
+                },
                 breakpoints: {
                     0: {
-                        slidesPerView: 1,
-                        spaceBetween: 11,
+                        freeMode: true,
+                        freeModeMomentumBounce: false,
+                        freeModeMinimumVelocity: 0.06,
+                        longSwipesMs: 1000,
+                        slidesPerView: 'auto',
+                        spaceBetween: 14,
                     },
                     520: {
                         slidesPerView: 2,
@@ -243,10 +259,15 @@ try {
                     nextEl: '.ehda-news__section .carousel-btn--right',
                     prevEl: '.ehda-news__section .carousel-btn--left',
                 },
+                pagination: {
+                    clickable: true,
+                    el: '.ehda-news__section .carousel__pagination'
+                },
                 breakpoints: {
                     0: {
                         slidesPerView: 1,
-                        spaceBetween: 11,
+                        spaceBetween: 0,
+                        longSwipesMs: 1000,
                     },
                     520: {
                         slidesPerView: 2,
@@ -288,13 +309,14 @@ try {
 
             const Canvas = document.querySelector('.heartbeat__canvas'),
                 CTX =  Canvas.getContext("2d"),
-                WindowsWidth = window.innerWidth,
-                CanvasWidth  = 115;
+                WindowsWidth = window.innerWidth;
+            let CanvasWidth  = 0;
 
             Canvas.width = WindowsWidth;
-            Canvas.height = 80;
 
-            let beat = [
+            let beat = [], X = 1;
+
+            const DESKTOP_BEAT = [
                     40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
                     38, 36, 34, 32, 30, 32, 34, 36, 38, 40,
                     42, 44, 46, 48, 50, 52, 50, 48, 46, 44, 42, 40,
@@ -308,8 +330,36 @@ try {
                     38, 36, 34, 32, 34, 36, 38, 40,
                     40, 40, 40, 40, 40, 40,
                     38, 36, 34, 32, 30, 32, 34, 36, 38, 40, 40,
-                ],
-                X = 1;
+                ];
+
+            const MOBILE_BEAT = [
+                24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+                22, 20, 18, 16, 14, 16, 18, 20, 22, 24,
+                26, 28, 30, 32, 34, 36, 34, 32, 30, 28, 26, 24,
+                24, 24, 24, 24, 24, 24, 24,
+                22, 20, 18, 20, 22, 24,
+                24, 24, 24, 24, 24, 24, 24, 24, 24,
+                21, 18, 15, 12, 9, 6, 3,
+                2, 6, 13, 19, 26, 33, 40, 45,
+                42, 40, 36, 33, 29, 26,
+                24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+                22, 20, 18, 16, 18, 20, 22, 24,
+                24, 24, 24, 24, 24, 24,
+                22, 20, 18, 16, 14, 16, 18, 20, 22, 24, 24,
+            ];
+
+            const MOBILE_MQ = window.matchMedia( "(max-width: 640px)" );
+
+            if ( MOBILE_MQ.matches ) {
+                CanvasWidth  = 113;
+                Canvas.height = 48;
+                beat = [...MOBILE_BEAT];
+            }
+            else {
+                CanvasWidth  = 115;
+                Canvas.height = 80;
+                beat = [...DESKTOP_BEAT];
+            }
 
             let points = [];
 
