@@ -107,7 +107,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     event_end_date() {
-        return this.item.event_start_date
+        return this.item.event_end_date
     }
 
     event_end_date_fa() {
