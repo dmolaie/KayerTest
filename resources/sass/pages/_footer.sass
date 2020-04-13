@@ -8,6 +8,8 @@
     height: 3px
     background: linear-gradient(to left, #3a7bd5, #00d2ff)
     pointer-events: none
+    @include Sm_Screen
+      display: none
   &__middle
     @include L_Screen
       padding: 63px 0 38px
@@ -20,12 +22,14 @@
       padding: 27px 0 23px
   &__nav
     &_title
-      margin:
-        bottom: 21px
+      margin-bottom: 21px
+      @include Sm_Screen
+        margin-bottom: 14px
     &_item
       &:not(:last-of-type)
-        margin:
-          bottom: 14px
+        margin-bottom: 14px
+      @include Sm_Screen
+        margin-bottom: 12px
     @include Md_Screen
       &:nth-of-type(2)
         margin-right: 15%
