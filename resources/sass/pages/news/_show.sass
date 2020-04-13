@@ -57,10 +57,9 @@
             vertical-align: middle
     &__release
       @include L_Screen
-        margin:
-          bottom: 55px
+        margin-bottom: 30px
       @include Md_Screen
-        margin: 20px 0 30px
+        margin: 20px 0 10px
     &__title
       align-self: flex-start
       @include Truncate( 2 )
@@ -75,11 +74,15 @@
       @include Md_Screen
         width: 100%
   .relative-news
-    margin:
-      top: 35px
+    margin-top: 35px
+    @include Sm_Screen
+      margin-top: 5px
     &__title
-      margin:
-        top: 65px
+      margin-top: 45px
+      @include Md_Screen
+        margin-top: 35px
+      @include Sm_Screen
+        margin-top: 15px
     &__cart
       border:
         color: transparentize(#d2e3f4, ( 1 - .79 ))
@@ -96,6 +99,8 @@
             opacity: 1
       &_cover
         height: 170px
+        @include Sm_Screen
+          height: 112px
       &_body
         padding: 16px 18px
       &_link
@@ -112,13 +117,33 @@
             left: 10px
           pointer-events: none
           vertical-align: middle
+          @include Sm_Screen
+            width: 22px
+            height: 12px
+            margin-left: 6px
   .swiper-slide
     padding: 10px 0
     @include L_Screen
-      width: calc(34.222% - #{$SpaceBetweenItem})
+      width: calc(33.33333% - #{$SpaceBetweenItem})
       margin:
         left: ($SpaceBetweenItem + 3)
     @include Xl_Screen
-      width: calc(25.5% - #{$SpaceBetweenItem})
+      width: calc(25% - #{$SpaceBetweenItem})
       margin:
         left: $SpaceBetweenItem
+    @include Xxl_Screen
+      width: calc(20% - #{$SpaceBetweenItem})
+      margin:
+        left: $SpaceBetweenItem
+    @include Md_Screen
+      width: calc(50% - #{$SpaceBetweenItem})
+      margin-left: $SpaceBetweenItem
+    @include Sm_Screen
+      width: 178px
+      margin-left: 0
+      &:first-of-type
+        margin-right: $mPadding
+      &:last-of-type
+        margin-left: $mPadding
+  .carousel__pagination
+    margin: 35px 0
