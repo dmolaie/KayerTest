@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\News\Http\Presenters;
+namespace Domains\Role\Http\Presenters;
 
 
 use Domains\Role\Services\Contracts\DTOs\PermissionRoleUserInfoDTO;
