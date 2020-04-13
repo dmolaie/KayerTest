@@ -143,16 +143,16 @@ return [
         ],
 
     ],
-    'mongodb' => [
-        'driver'   => 'mongodb',
-        'host'     => 'mongo-report',
-        'port'     => 7071,
-        'database' => env('DB_DATABASE_REPORT'),
-        'username' => env('DB_USERNAME_REPORT'),
-        'password' => env('DB_PASSWORD_REPORT'),
-        'options'  => [
-            'database' => 'admin' // sets the authentication database required by mongo 3
-        ]
-    ],
+//    'mongodb' => [
+//        'driver'   => 'mongodb',
+//        'host'     => 'mongo-report',
+//        'port'     => 7071,
+//        'database' => env('DB_DATABASE_REPORT'),
+//        'username' => env('DB_USERNAME_REPORT'),
+//        'password' => env('DB_PASSWORD_REPORT'),
+//        'options'  => [
+//            'database' => 'admin' // sets the authentication database required by mongo 3
+//        ]
+//    ],
 
 ];
