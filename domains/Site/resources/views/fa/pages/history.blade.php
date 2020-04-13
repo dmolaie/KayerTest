@@ -1,14 +1,14 @@
 @extends('fa.template.master')
 @section('content')
     <div class="i-page history-page">
-        <div class="container">
-            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+        <div class="container sm:p-0">
+            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                 <span class="i-page__title text-center cursor-default">
                     تاریخچه انجمن
                 </span>
             </h1>
             <div class="inner-box inner-box--white">
-                <p class="i-page__text md:font-sm text-bayoux font-base text-justify m-b-20">
+                <p class="i-page__text md:font-sm text-bayoux font-base text-justify m-b-20 sm:font-base">
                     با توجه به اینکه پیشرفت در برخی ابعاد اهدای عضو و پیوند اعضا در هر کشور توسط سیستم‌های دولتی مانند
                     بیمارستان و مرکز فراهم‌‌آوری و وزارت بهداشت بسیار پرهزینه، زمان‌بر و مشکل بوده و حتی در برخی موارد
                     با توجه به سنگینی بدنه این سیستم‌ها غیرعملی است. در اکثر کشورهای جهان سازمان‌های مردم‌نهاد به کمک
@@ -16,7 +16,7 @@
                 </p>
                 <div class="flex items-start m-b-85 md:flex-col-reverse">
                     <div class="flex-1">
-                        <p class="i-page__text md:font-sm text-bayoux font-base text-justify">
+                        <p class="i-page__text md:font-sm text-bayoux font-base text-justify sm:font-base">
                             امکان پیشرفت هر چه سریع‌تر اهدای عضو و پیوند اعضا را در آن کشورها فراهم می‌نمایند. در همین
                             راستا در سال 1394 بانیان این انجمن که در زمینه فراهم‌آوری و پیوند اعضا در کشور و حتی در سایر
                             کشورها شناخته شده بودند،
@@ -64,11 +64,10 @@
                 </div>
                 <div class="counter">
                     <div class="w-full relative m-b-85 counter-increment">
-                        <p class="cursor-default flex items-end text-bayoux text-right font-20-bold counter-item md:m-b-20">
-                            <span class="i-page__sub-title order--1 m-l-4 pointer-event-none"></span>
+                        <p class="cursor-default flex items-end text-bayoux text-right font-20-bold counter-item md:m-b-20 sm:font-sm">
                             اهداف اصلی:
                         </p>
-                        <figure class="block max-w-full m-0-auto xl:w-1/3 l:w-1/2">
+                        <figure class="history-page__chart block max-w-full m-0-auto xl:w-1/3 l:w-1/2 sm:w-full">
                             <img src="/images/img_history--1.png"
                                  alt="اهداف اصلی"
                                  class="block object-contain md:max-w-100 m-0-auto"
@@ -76,11 +75,10 @@
                         </figure>
                     </div>
                     <div class="w-full relative counter-increment">
-                        <p class="cursor-default flex items-end text-bayoux text-right font-20-bold counter-item md:m-b-20">
-                            <span class="i-page__sub-title order--1 m-l-4 pointer-event-none"></span>
+                        <p class="cursor-default flex items-end text-bayoux text-right font-20-bold counter-item md:m-b-20 sm:font-sm">
                             اهداف فرعی:
                         </p>
-                        <figure class="block max-w-full m-0-auto xl:w-1/3 l:w-1/2">
+                        <figure class="history-page__chart block max-w-full m-0-auto xl:w-1/3 l:w-1/2 sm:w-full">
                             <img src="/images/img_history--2.png"
                                  alt="اهداف فرعی"
                                  class="block object-contain md:max-w-100 m-0-auto"
@@ -93,7 +91,7 @@
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
                             انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
                         </p>
-                        <div class="inline-flex items-center l:m-r-auto md:m-b-20">
+                        <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20">
                             <span class="text-bayoux font-sm-bold cursor-default">
                                 لینک کوتاه:
                             </span>
