@@ -1,21 +1,21 @@
 @extends('fa.template.master')
     @section('content')
         <div class="int-shw-page i-page">
-            <div class="container">
-                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+            <div class="container sm:p-0">
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">
                         تعاملات
                     </span>
                 </h1>
                 <div class="inner-box inner-box--white text-right">
-                    <h1 class="i-page__sub-title text-blue-800 relative block w-full font-20 sm:font-18 font-bold m-b-20 cursor-default text-justify">
+                    <h1 class="i-page__sub-title text-blue-800 relative block w-full font-20 sm:font-18 font-bold m-b-20 cursor-default text-justify sm:font-sm">
                         تعامل انجمن اهدای عضو ایرانیان با سازمان‌ها و نهادها  :
                     </h1>
-                    <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm text-justify">
+                    <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm text-justify sm:font-base">
                         در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد:
                     </p>
                     <div class="relative">
-                        <ul class="int-shw-page__list text-bayoux font-base font-medium">
+                        <ul class="int-shw-page__list text-bayoux font-base font-medium sm:font-base">
                             <li class="int-shw-page__list_item cursor-default">
                                 ۱- وزارت بهداشت، درمان و آموزش پزشکی
                             </li>
@@ -71,7 +71,7 @@
                             <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
                                 انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
                             </p>
-                            <div class="inline-flex items-center l:m-r-auto md:m-b-20">
+                            <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20">
                                 <span class="text-bayoux font-sm-bold cursor-default">
                                     لینک کوتاه:
                                 </span>
