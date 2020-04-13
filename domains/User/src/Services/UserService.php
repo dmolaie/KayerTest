@@ -25,7 +25,7 @@ use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
-use Domains\User\src\Services\Contracts\DTOs\UserProfileDTO;
+use Domains\User\Services\Contracts\DTOs\UserProfileDTO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\User\src\Services\Contracts\DTOs;
+namespace Domains\User\Services\Contracts\DTOs;
 
 
 class UserProfileDTO
