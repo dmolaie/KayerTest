@@ -11,9 +11,13 @@
   &__middle
     @include L_Screen
       padding: 63px 0 38px
+    @include Md_Screen
+      padding: 27px 0 45px
   &__bottom
     @include L_Screen
       height: 70px
+    @include Md_Screen
+      padding: 27px 0 23px
   &__nav
     &_title
       margin:
@@ -22,12 +26,21 @@
       &:not(:last-of-type)
         margin:
           bottom: 14px
+    @include Md_Screen
+      &:nth-of-type(2)
+        margin-right: 15%
+      &:last-of-type
+        order: 5
   &__map
     width: 400px
     height: 120px
     @include Xl_Screen
       width: 60%
+    @include Md_Screen
+      margin: 30px 0 28px
   &_form-newsletter
+    @include Md_Screen
+      margin-bottom: 20px
     &_input
       color: $black-50
       @include L_Screen
@@ -37,6 +50,8 @@
       &::placeholder
         color: $black-50
         opacity: 1
+      @include Md_Screen
+        min-height: 30px
     &__btn
       width: 50px
       background:
