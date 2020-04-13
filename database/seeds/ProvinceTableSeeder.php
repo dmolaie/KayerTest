@@ -14,7 +14,7 @@ class ProvinceTableSeeder extends Seeder
     {
         Province::insert([
             [
-                "slug" => 'tehran',
+                "slug" => 'Tehran',
                 "name" => 'تهران',
             ],
             [

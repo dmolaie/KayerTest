@@ -5,8 +5,8 @@ namespace Domains\Role\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
-use Domains\News\Http\Presenters\PermissionRoleUserPresenter;
-use Domains\Role\Entities\Role;
+use Domains\Role\Http\Presenters\AllRoleWithUserPresenter;
+use Domains\Role\Http\Presenters\PermissionRoleUserPresenter;
 use Domains\Role\Http\Requests\AssignPermissionToUserRequest;
 use Domains\Role\Http\Requests\GetPermissionToUserRequest;
 use Domains\Role\Services\Contracts\DTOs\PermissionRoleInfoDTO;
@@ -59,5 +59,15 @@ class RoleController extends EhdaBaseController
         {
             return $this->response([], $exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function legateRoles(int $id, AllRoleWithUserPresenter $allRoleWithUserPresenter)
+    {
+        $allRoleWithUserDTO = $this->roleServices->getRolesByType(
+            $id, config('role.legate_role_type')
+        );
+        return $this->response($allRoleWithUserPresenter->transform($allRoleWithUserDTO),
+            Response::HTTP_OK
+        );
     }
 }

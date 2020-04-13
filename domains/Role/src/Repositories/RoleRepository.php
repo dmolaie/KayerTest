@@ -14,13 +14,13 @@ class RoleRepository
 {
     protected $entityName = Role::class;
 
-    public function getRoleByType(string $type, ?int $provinceId)
+    public function getRoleByType(string $type, ?int $provinceId=null)
     {
         return $this->entityName::where('type', $type)
             ->when($provinceId, function ($query) use ($provinceId) {
                 return $query->where('province_id', $provinceId);
             })
-            ->firstOrFail();
+            ->get();
     }
 
     public function getRoleById(int $roleId)
@@ -47,5 +47,15 @@ class RoleRepository
     public function getPermissionsList()
     {
         return Permission::get()->groupBy('model');
+    }
+
+    public function getUserRoleByType($type, int $userId)
+    {
+        return $this->entityName::where('type', $type)->
+        whereHas('users',
+            function ($q) use ($userId) {
+                $q->where('users.id', '=', $userId);
+
+            })->get();
     }
 }
