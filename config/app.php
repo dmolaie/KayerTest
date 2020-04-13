@@ -179,6 +179,7 @@ return [
          * Package Add in Project
          */
         Intervention\Image\ImageServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
 
 
         /*

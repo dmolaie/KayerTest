@@ -1,25 +1,26 @@
 <?php
 return [
-    'roles' => [
-        'admin' => [
-            'id' => 1,
-            'name' => 'admin',
+    'roles'            => [
+        'admin'   => [
+            'id'    => 1,
+            'name'  => 'admin',
             'label' => 'ادمین'
         ],
         'manager' => [
-            'id' => 2,
-            'name' => 'manager',
+            'id'    => 2,
+            'name'  => 'manager',
             'label' => 'مدیر'
         ],
-        'legate' => [
-            'id' => 3,
-            'name' => 'legate',
+        'legate'  => [
+            'id'    => 3,
+            'name'  => 'legate',
             'label' => 'سفیر'
         ],
-        'client' => [
-            'id' => 4,
-            'name' => 'client',
+        'client'  => [
+            'id'    => 4,
+            'name'  => 'client',
             'label' => 'اهداکننده'
         ]
-    ]
+    ],
+    'legate_role_type' => 'legate'
 ];

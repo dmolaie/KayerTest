@@ -24,3 +24,4 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/user-basic-register-info', 'UserController@userBasicRegisterInfo')->name('user-basic-register-info');
+Route::post('/check-user-national-code', 'SmsRegisterController@checkUserNationalCode')->name('check-user-national-code');
