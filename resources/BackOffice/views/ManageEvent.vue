@@ -175,13 +175,13 @@
                         <template #body="{ data }">
                             <div class="table__row flex"
                                  v-for="item in data"
-                                 :key="item.id"
+                                 :key="item.event_id"
                                  :class="{ 'table__row--delete pointer-event-none': item.is_delete }"
                             >
                                 <div class="table__td inline-flex items-center justify-center">
                                     <label class="cursor-pointer">
                                         <input type="checkbox"
-                                               :value="item.id"
+                                               :value="item.event_id"
                                                class="none"
                                         />
                                         <span class="table__checkbox block relative border border-solid rounded-1/2 bg-white"
@@ -246,7 +246,7 @@
                                               :key="'cat-' + category.id"
                                               class="m-post__category inline-block font-1xs text-medium text-blue-100 bg-white border border-solid cursor-default"
                                         >
-                                            {{ item.lang === 'fa' ? category.name_fa : category.name_en }}
+                                            {{ item.language === 'fa' ? category.name_fa : category.name_en }}
                                         </span>
                                         <template v-if="item.category.length > 1">
                                             <span class="m-post__category--more text-blue-100 font-lg font-bold line-height-1 cursor-default">
@@ -283,28 +283,28 @@
                                                 <template v-if="item.is_recycle && isAdmin">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'بازیابی از زباله دان'"
-                                                            @click.prevent="onClickPendingActionButton( item.id )"
+                                                            @click.prevent="onClickPendingActionButton( item.event_id )"
                                                     > </button>
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'حذف رویداد'"
-                                                            @click.prevent="onClickDeleteActionButton( item.id )"
+                                                            @click.prevent="onClickDeleteActionButton( item.event_id )"
                                                     > </button>
                                                 </template>
                                                 <template v-else-if="!item.is_delete">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'ویرایش'"
-                                                            @click.prevent="onClickEditActionButton( item.id, item.lang )"
+                                                            @click.prevent="onClickEditActionButton( item.event_id, item.language )"
                                                     > </button>
                                                     <span class="dropdown__divider"> </span>
                                                     <template v-if="isAdmin">
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'بازگشت به نویسنده (رد)'"
-                                                                @click.prevent="onClickRejectActionButton( item.id )"
+                                                                @click.prevent="onClickRejectActionButton( item.event_id )"
                                                                 v-if="item.is_pending"
                                                         > </button>
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'انتقال به زباله دان'"
-                                                                @click.prevent="onClickRecycleActionButton( item.id )"
+                                                                @click.prevent="onClickRecycleActionButton( item.event_id )"
                                                                 v-else
                                                         > </button>
                                                     </template>
@@ -349,7 +349,6 @@
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
-    import exception from "../services/infrastructure/service/exception";
 
     const PUBLISH_STATUS = StatusService.PUBLISH_STATUS;
     const READY_TO_PUBLISH_STATUS =  StatusService.READY_TO_PUBLISH_STATUS;
@@ -595,8 +594,14 @@
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            onClickEditActionButton() {
-                this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
+            onClickEditActionButton(event_id, language) {
+                this.pushRouter({
+                    name: 'EDIT_EVENT',
+                    params: {
+                        id: event_id,
+                        lang: language
+                    }
+                });
             },
             onClickReportButton() {
                 this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });

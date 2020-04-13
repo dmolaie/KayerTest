@@ -56,11 +56,23 @@ return [
             'collation'      => 'utf8mb4_unicode_ci',
             'prefix'         => '',
             'prefix_indexes' => true,
-            'strict'         => true,
-            'engine'         => null,
-            'options'        => extension_loaded('pdo_mysql') ? array_filter([
+            'strict' => false,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => explode(',',env('DB_HOST_MONGO', 'localhost')),
+            'port' => env('DB_PORT_MONGO', '27017'),
+            'database' => env('DB_DATABASE_MONGO'),
+            'username' => env('DB_USERNAME_MONGO'),
+            'password' => env('DB_PASSWORD_MONGO'),
+            'options' => [
+                'database' => 'admin' // sets the authentication database required by mongo 3
+            ]
         ],
 
         'pgsql' => [
@@ -143,16 +155,5 @@ return [
         ],
 
     ],
-//    'mongodb' => [
-//        'driver'   => 'mongodb',
-//        'host'     => 'mongo-report',
-//        'port'     => 7071,
-//        'database' => env('DB_DATABASE_REPORT'),
-//        'username' => env('DB_USERNAME_REPORT'),
-//        'password' => env('DB_PASSWORD_REPORT'),
-//        'options'  => [
-//            'database' => 'admin' // sets the authentication database required by mongo 3
-//        ]
-//    ],
-
+    
 ];

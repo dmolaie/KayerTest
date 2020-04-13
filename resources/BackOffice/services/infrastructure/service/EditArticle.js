@@ -107,7 +107,7 @@ export default class EditArticleService {
         if ( !!duplicateFrom['language'] )
             formData.append('language', duplicateFrom['language']);
         if ( !(this.$vm.detail['slug'] === duplicateFrom['slug'].trim()) )
-            formData.append('slug', duplicateFrom['slug'].replace(/ /, '-'));
+            formData.append('slug', duplicateFrom['slug'].replace(/ /g, '-'));
 
         if ( !!this.$vm.images.data )
             formData.append('images[]', this.$vm.images.data.get('images'));

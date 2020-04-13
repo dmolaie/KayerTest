@@ -6,7 +6,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
+                               :class="{ 'direction-ltr': ( form.language === 'en' ) }"
                                placeholder="عنوان را اینجا وارد کنید"
                                v-model="form.title"
                         />
@@ -22,7 +22,7 @@
                         </p>
                         <label class="w-full block">
                             <textarea class="textarea textarea--white w-full block border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                      :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
+                                      :class="{ 'direction-ltr': ( form.language === 'en' ) }"
                                       v-model="form.abstract"
                             > </textarea>
                         </label>
@@ -38,10 +38,10 @@
                                         زمان آغاز...
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm"
+                                                    format="unix" :value="`${form.event_start_date * 1e3 || ''}`"
                                                     @onChange="onChangeStartDateField"
                                                     :key="'startDate' + datePickerKey" placeholder="زمان آغاز رویداد را انتخاب کنید"
-                                                    :value="`${form.event_start_date * 1e3 || ''}`" :initialValue="minValuePublishDate"
                                     />
                                 </div>
                             </div>
@@ -49,14 +49,13 @@
                                 <div class="w-full p-r-8">
                                     <span class="c-event__s-title block text-black-50 font-xs font-bold cursor-default">
                                         زمان پایان...
-                                        &&
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
-                                                    @onChange="onChangeEndDateField" :min="`${form.event_start_date * 1e3 || ''}`"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm"
+                                                    format="unix" :value="`${form.event_end_date * 1e3 || ''}`"
+                                                    :min="`${form.event_start_date}`"
+                                                    @onChange="onChangeEndDateField" :disabled="!form.event_start_date"
                                                     :key="'endDate' + datePickerKey" placeholder="زمان پایان رویداد را انتخاب کنید"
-                                                    :disabled="!form.event_start_date" :initialValue="minValuePublishDate"
-                                                    :value="`${form.event_end_date * 1e3 || ''}`"
                                     />
                                 </div>
                             </div>
@@ -73,10 +72,10 @@
                                         زمان آغاز...
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm"
+                                                    format="unix" :value="`${form.event_start_register_date * 1e3 || ''}`"
                                                     @onChange="onChangeStartRegisterDateField"
                                                     :key="'startRegisterDate' + datePickerKey" placeholder="زمان آغاز ثبت‌نام را انتخاب کنید"
-                                                    :value="`${form.event_start_register_date * 1e3 || ''}`" :initialValue="minValuePublishDate"
                                     />
                                 </div>
                             </div>
@@ -86,11 +85,11 @@
                                         زمان پایان...
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
-                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
-                                                    @onChange="onChangeEndRegisterDateField" :min="`${form.event_start_register_date * 1e3 || ''}`"
+                                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm"
+                                                    format="unix" :value="`${form.event_end_register_date * 1e3 || ''}`"
+                                                    :min="`${form.event_start_register_date}`"
+                                                    @onChange="onChangeEndRegisterDateField" :disabled="!form.event_start_register_date"
                                                     :key="'endRegister' + datePickerKey" placeholder="زمان پایان ثبت‌نام را انتخاب کنید"
-                                                    :disabled="!form.event_start_register_date" :initialValue="minValuePublishDate"
-                                                    :value="`${form.event_end_register_date * 1e3 || ''}`"
                                     />
                                 </div>
                             </div>
@@ -137,28 +136,42 @@
                 </div>
             </div>
             <div class="c-post__panel w-1/3 xl:w-1/4">
-                <publish-cm statusLabel="ذخیره‌نشده"
-                            :isNotPublished="true"
-                            :showDraftButton="true"
-                            @onClickDraftButton="onClickDraftButton"
+                <publish-cm :isPublished="form.is_published"
+                            :isPending="form.is_pending"
+                            :isReject="form.is_reject"
+                            :isAccept="form.is_accept"
+                            :isCancel="form.is_cancel"
+                            :isReadyPublished="form.is_ready_to_publish"
+                            :statusLabel="form.status || ''"
+                            buttonLabel="بروزرسانی"
                 >
                     <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickChangeReleaseTimeButton(); hiddenDropdown();}"
+                                @click.prevent="() => {onClickUpdateEventButton(); hiddenDropdown()}"
                         >
-                            تنظیم زمان انتشار
+                            بروزرسانی
                         </button>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickReleaseButton(); hiddenDropdown()}"
-                        >
-                            {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
-                        </button>
-                        <span class="dropdown__divider"> </span>
-                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                @click.prevent="() => {onClickRemoveButton(); hiddenDropdown()}"
-                        >
-                            انتقال به زباله‌دان
-                        </button>
+                        <template v-if="form.is_pending || form.is_ready_to_publish">
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickChangeReleaseTimeButton(); hiddenDropdown();}"
+                            >
+                                تنظیم زمان انتشار
+                            </button>
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickRejectEventButton(); hiddenDropdown()}"
+                            >
+                                بازگشت به نویسنده (رد)
+                            </button>
+                        </template>
+                        <template v-else>
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickPendingEventButton(); hiddenDropdown()}"
+                            >
+                                لغو انتشار
+                            </button>
+                        </template>
                     </template>
                 </publish-cm>
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
@@ -168,31 +181,28 @@
                         زمان انتشار
                     </p>
                     <date-picker-cm type="datetime"
-                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                    displayFormat="jDD jMMMM jYYYY HH:mm"
+                                    format="unix" :value="`${form.publish_date * 1e3}`"
                                     @onChange="onChangePublishDateField" :min="minValuePublishDate"
-                                    :value="minValuePublishDate"
                                     :key="'publishDate' + datePickerKey" placeholder="زمان انتشار را انتخاب کنید"
                     />
                 </div>
-                <location-cm :lang="currentLang"
+                <location-cm :lang="form.language"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
-                             disabledLabel="قبلا ایجاد شده"
-                             :disabledEn="disabledEnLang"
-                             :disabledFa="disabledFaLang"
+                             :defaultLabel="LocationPanelTitle"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
                         دسته‌بندی
                     </p>
                     <category-cm :list="categories"
-                                 :lang="currentLang"
-                                 ref="categoryCm"
-                                 @change="onChangeCategoryField"
+                                 :value="selectedCategory" :lang="form.language"
+                                 ref="categoryCm" @change="onChangeCategoryField"
                     />
                 </div>
                 <image-panel-cm @onChange="onChangeImageField"
-                                ref="imagePanel"
+                                ref="imagePanel" :value="form.image_paths || {}"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -201,7 +211,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
-                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
+                               :class="{ 'direction-ltr': ( form.language === 'en' ) }"
                                placeholder="نامک را اینجا وارد کنید"
                                v-model="form.slug"
                         />
@@ -218,12 +228,12 @@
                         <select-cm :options="provinces"
                                    placeholder="دامنه مورد نظر خود را انتخاب کنید"
                                    @onChange="onChangeDomainsField"
-                                   :value="defaultProvinces.name || ''"
+                                   :value="form.province_name || ''"
                                    label="name" ref="provinces"
                         />
                     </div>
                     <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
-                        مالک مطلب: {{ username }}
+                        مالک مطلب: {{ form.publisher_name }}
                     </p>
                 </div>
             </div>
@@ -241,9 +251,12 @@
         mapGetters, mapState
     } from 'vuex';
     import {
-        HasLength, toEnglishDigits, Length
+        CopyOf, toEnglishDigits, Length, HasLength
     } from '@vendor/plugin/helper';
-    import CreateEventService from '@services/service/CreateEvent';
+    import StatusService from '@services/service/Status';
+    import EditEventService, {
+        INITIAL_FORM
+    } from '@services/service/EditEvent';
     import TextEditorCm from '@components/TextEditor.vue';
     import DatePickerCm from '@components/DatePicker.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
@@ -252,35 +265,16 @@
     import ImagePanelCm from '@components/ImagePanel.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
 
-    const INITIAL_FORM = () => ({
-        title: '',
-        description: '',
-        abstract: '',
-        event_start_date: '',
-        event_end_date: '',
-        event_start_register_date: '',
-        event_end_register_date: '',
-        source_link_text: '',
-        source_link_image: '',
-        source_link_video: '',
-        location: '',
-        parent_id: '',
-        publish_date: '',
-        language: '',
-        category_ids: [],
-        images: null,
-        slug: '',
-        province_id: '',
-    });
-
     let Service = null;
 
     export default {
-        name: "CreateEvent",
+        name: "EditEvent",
         data: () => ({
             form: INITIAL_FORM(),
+            removedImages: [],
             datePickerKey: 0,
             isPending: true,
+            custom_publish_date: '',
             isModuleRegistered: false,
             disabledFaLang: false,
             disabledEnLang: false,
@@ -296,49 +290,66 @@
                 isAdmin: 'IS_ADMIN',
             }),
             ...mapState({
-                username: ({ UserStore }) => UserStore.username,
-                provinces: ({ CreateEventStore }) => CreateEventStore.provinces,
-                categories: ({ CreateEventStore }) => CreateEventStore.categories,
+                detail: ({ EditEventStore }) => EditEventStore.detail,
+                provinces: ({ EditEventStore }) => EditEventStore.provinces,
+                categories: ({ EditEventStore }) => EditEventStore.categories,
             }),
             minValuePublishDate() {
                 const NOW_TIMESTAMP = new Date().getTime();
                 return NOW_TIMESTAMP.toString()
             },
-            currentLang() {
-                return this.$route?.params?.lang
+            selectedCategory() {
+                return ( !!this.form.category_ids && HasLength( this.form.category_ids ) ) ? (
+                    this.form.category_ids
+                ) : ([])
             },
-            defaultProvinces() {
-                return ( HasLength( this.provinces ) ) ? (
-                    (Object.values( this.provinces ))[0]
-                ) : ({})
+            /**
+             * @return {string}
+             */
+            LocationPanelTitle() {
+                return this.form.has_relation ? 'ویرایش' : 'ایجاد'
+            },
+        },
+        watch: {
+            $route() {
+                this.$set(this, 'isPending', true);
+                Service.getRelationDetails()
+                    .then(this.$nextTick)
+                    .then(() => {
+                        this.setInitialState();
+                        this.setDataIntoForm();
+                        this.$set(this, 'isPending', false);
+                    })
+                    .catch(exception => {
+                        this.displayNotification(exception, { type: 'error' });
+                        this.pushRouter({ name: 'MANAGE_EVENT' });
+                    })
             }
         },
         methods: {
             setInitialState() {
                 try {
                     Object.assign(this.form, INITIAL_FORM.apply( this ));
-                    this.setDataFromParamsRouter();
                     this.$refs['textEditor']?.clearContent();
                     this.$refs['imagePanel']?.onClickRemoveImageButton();
                     this.$refs['categoryCm']?.reset();
                     this.$set(this, 'datePickerKey', this.datePickerKey + 1);
+                    this.$set(this, 'removedImages', []);
                     this.$refs['provinces']?.resetValue();
-                    this.$set(this, 'shouldBeShowReleaseDatePicker', false);
                 } catch (e) {}
             },
-            setDataFromParamsRouter() {
-                let { onlyEnLang, onlyFaLang, parent_id } = this.$route.params;
-                this.$set(this.form, 'parent_id', parent_id || "");
-                this.$set(this.form, 'language', this.currentLang);
-                this.$set(this, 'disabledEnLang', !!onlyFaLang);
-                this.$set(this, 'disabledFaLang', !!onlyEnLang);
+            setDataIntoForm() {
+                try {
+                    this.$set(this, 'form', CopyOf(this.detail));
+                    this.$refs['textEditor'].setContent( this.form.description );
+                } catch (e) {}
             },
             onUpdateTextEditor( HTML ) {
                 this.$set(this.form, 'description', HTML);
             },
             onChangeStartDateField( unix ) {
                 this.$set(this.form, 'event_start_date', unix);
-                this.$set(this.form, 'event_end_date', '')
+                this.$set(this.form, 'event_end_date', '');
             },
             onChangeEndDateField( unix ) {
                 this.$set(this.form, 'event_end_date', unix)
@@ -351,13 +362,76 @@
                 this.$set(this.form, 'event_end_register_date', unix)
             },
             onClickChangeReleaseTimeButton() {
-                this.$set(this.form, 'publish_date', '');
                 this.$set(this, 'shouldBeShowReleaseDatePicker', !this.shouldBeShowReleaseDatePicker);
             },
-            async onClickReleaseButton() {
+            onChangePublishDateField( unix ) {
+                this.$set(this, 'custom_publish_date', unix)
+            },
+            onClickPersianLang() {
+                if ( this.form.has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_EVENT',
+                        params: {
+                            lang: 'fa',
+                            id: this.form.relation_id,
+                        }
+                    });
+                }
+                else {
+                    this.pushRouter({
+                        name: 'CREATE_EVENT',
+                        params: {
+                            lang: 'fa',
+                            onlyFaLang: true,
+                            parent_id: this.form.event_id,
+                        }
+                    });
+                }
+            },
+            onClickEnglishLang() {
+                if ( this.form.has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_EVENT',
+                        params: {
+                            lang: 'en',
+                            id: this.form.relation_id,
+                        }
+                    });
+                }
+                else {
+                    this.pushRouter({
+                        name: 'CREATE_EVENT',
+                        params: {
+                            lang: 'en',
+                            onlyEnLang: true,
+                            parent_id: this.form.event_id,
+                        }
+                    });
+                }
+            },
+            onChangeCategoryField( payload ) {
+                this.$set(this.form, 'category_ids', payload);
+            },
+            removeSelectedImage() {
+                let {
+                    image_paths
+                } = this.form;
+                if ( HasLength( image_paths ) ) {
+                    this.removedImages.push( image_paths.id );
+                    this.$set(this.form, 'image_paths', {});
+                }
+            },
+            onChangeImageField( payload ) {
+                this.removeSelectedImage();
+                this.$set(this.form, 'images', payload)
+            },
+            onChangeDomainsField({ id }) {
+                this.$set( this.form, 'province_id', id );
+            },
+            async onClickUpdateEventButton() {
                 try {
                     this.$set(this, 'isPending', true);
-                    let result = await Service.onClickReleaseEventButton();
+                    let result = await Service.editEventItem();
                     this.displayNotification(result, { type: 'success' });
                     this.pushRouter({ name: 'MANAGE_EVENT' });
                 } catch ( exception ) {
@@ -366,40 +440,38 @@
                     this.$set(this, 'isPending', false);
                 }
             },
-            onClickRemoveButton() {
-                this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
+            async onClickRejectEventButton() {
+                try {
+                    this.$set(this, 'isPending', true);
+                    let result = Service.changeEventStatus(this.form.event_id, StatusService.REJECT_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_EVENT' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this, 'isPending', false);
+                }
             },
-            onClickDraftButton() {
-                this.displayNotification('این قابلیت در حال حاضر فعال نیست.', { type: 'warn' });
-            },
-            onChangePublishDateField( unix ) {
-                this.$set(this.form, 'publish_date', unix)
-            },
-            onClickPersianLang() {
-                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'fa' } });
-                this.setInitialState();
-            },
-            onClickEnglishLang() {
-                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'en' } });
-                this.setInitialState();
-            },
-            onChangeCategoryField( payload ) {
-                this.$set(this.form, 'category_ids', payload);
-            },
-            onChangeImageField( payload ) {
-                this.$set(this.form, 'images', payload)
-            },
-            onChangeDomainsField({ id }) {
-                this.$set( this.form, 'province_id', id );
-            },
+            async onClickPendingEventButton() {
+                try {
+                    this.$set(this, 'isPending', true);
+                    let result = Service.changeEventStatus(this.form.event_id, StatusService.PENDING_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_EVENT' });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this, 'isPending', false);
+                }
+            }
         },
         created() {
-            Service = new CreateEventService( this );
+            Service = new EditEventService( this );
             Service.processFetchAsyncData()
                 .then(this.$nextTick)
                 .then(() => {
+                    this.setDataIntoForm();
                     this.$set(this, 'isPending', false);
-                    this.setDataFromParamsRouter();
                 })
         },
         beforeDestroy() {

@@ -14,8 +14,12 @@
         opacity: 0
       &::after
         opacity: 1
+  @include Sm_Screen
+    min-height: 210px
   &__cover
     height: 168px
+    @include Sm_Screen
+      height: 112px
     &_img
       box-shadow: 0 2px 6px 0 transparentize(#2f5397, (1 - .1))
   &__title

@@ -98,6 +98,13 @@
         width: 100%
       &-screen
         width: 100vw
+    &none
+      display: none
+    &font
+      &-22
+        @include fontSize( 22px )
+      &-24
+        @include fontSize( 24px )
 
 .md\:
   @include Md_Screen
@@ -133,6 +140,9 @@
           flex-direction: column-reverse
       &-wrap
         flex-wrap: wrap
+    &justify
+      &-center
+        justify-content: center
     &items
       &-start
         align-items: flex-start
@@ -153,9 +163,24 @@
         @include fontSize( 20px )
       &-22
         @include fontSize( 22px )
+    &none
+      display: none
+    &p-0
+      padding: 0 !important
+    &m
+      &-0
+        margin: 0 !important
+      &-t-40
+        margin-top: 40px
+    &rounded-0
+      border-radius: 0
 
 .sm\:
-  @include Md_Screen
+  @include Sm_Screen
+    &border-0
+      border-width: 0 !important
+    &rounded-0
+      border-radius: 0
     &w
       &-#{1}\/#{6}
         width: 16.666667%
@@ -172,7 +197,10 @@
       &-#{3}\/#{4}
         width: 75%
       &-full
-        width: 100%
+        width: 100% !important
+    &h
+      &-full
+        height: 100% !important
     &font
       &-2xs
         @include fontSize( 8px )
@@ -184,8 +212,36 @@
         @include fontSize( 14px )
       &-base
         @include fontSize( 16px )
-      &-#{18}
+      &-lg
         @include fontSize( 18px )
+    &flex
+      display: flex !important
+      &-col
+        @include Sm_Screen
+          flex-direction: column
+        &-reverse
+          flex-direction: column-reverse
+      &wrap
+        flex-wrap: wrap
+    &justify
+      &-center
+        justify-content: center
+    &none
+      display: none
+    &block
+      display: block !important
+    &m
+      &-r
+        &-auto
+          margin-right: auto
+      &-b
+        &-2
+          margin-bottom: -1px
+    &p
+      &-0
+        padding: 0 !important
+      &-0-20
+        padding: 0 20px
 
 .xl\:
   @include Xl_Screen

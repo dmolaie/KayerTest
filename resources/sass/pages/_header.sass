@@ -103,13 +103,13 @@ $navBg: #bde8fa
         background: url("/../images/ic_home--gray.svg") no-repeat center
     &_lang
       $h: 30px
+      color: #797c94
       width: (57px * 2)
       height: $h
       line-height: $h
       background: transparentize($white, (1 - .56))
-      &--en
-        color: #797c94
-      &--fa
+      &--active
+        color: $black
         background: $white
       @include L_Screen
         &--fa, &--en
