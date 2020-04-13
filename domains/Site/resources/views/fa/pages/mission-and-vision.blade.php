@@ -1,7 +1,7 @@
 @extends('fa.template.master')
     @section('content')
         <div class="miv-page i-page">
-            <div class="container">
+            <div class="container sm:p-0">
                 <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">
                         ماموریت و چشم‌انداز
