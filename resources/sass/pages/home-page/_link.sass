@@ -5,10 +5,14 @@
     width: 390px
     line-height: 71px
     letter-spacing: -.13px
+    @include Md_Screen
+      line-height: 45px
     &--blue
       $c: #44bce7
       background-color: $c
       border-top-left-radius: 10px
+      @include Md_Screen
+        border-radius: 0
       &::before
         content: " "
         position: absolute
@@ -19,6 +23,8 @@
         background: url("/../images/ic__flower.svg") no-repeat center
           size: contain
         pointer-events: none
+        @include Md_Screen
+          height: 41px
       @include L_Screen
         &:hover
           background-color: darken($c, 8%)
@@ -26,6 +32,8 @@
       $c: #b9d948
       background-color: $c
       border-top-right-radius: 10px
+      @include Md_Screen
+        border-radius: 0
       @include L_Screen
         &:hover
           background-color: darken($c, 8%)

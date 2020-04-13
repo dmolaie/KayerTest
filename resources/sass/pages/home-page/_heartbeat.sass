@@ -1,8 +1,12 @@
 .heartbeat
   $h: 80px
+  $h_m: 48px
   &__section
     height: $h
     line-height: $h
+    @include Sm_Screen
+      height: $h_m
+      line-height: $h_m
   &__canvas
     top: 0
     left: 0

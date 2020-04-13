@@ -53,20 +53,19 @@ export default class CreateEventService extends BaseService {
             BaseService.commitToStore(this.$store, C_EVENT_SET_PROVINCES, response[0]);
             BaseService.commitToStore(this.$store, C_EVENT_SET_CATEGORIES, response[1]);
         } catch ( exception ) {
-            console.log(exception);
             this.$vm.displayNotification(exception, { type: 'error' });
-            //this.$vm.pushRouter( { name: 'MANAGE_EVENT' } );
+            this.$vm.pushRouter( { name: 'MANAGE_EVENT' } );
         }
     }
 
-    checkFormValidation() {
+    static checkFormValidation( form ) {
         try {
             const ERROR_MESSAGE = (field = '') => new Error(`فیلد ${field} اجباری می‌باشد.`);
             let {
                 title, slug,
                 event_start_date, event_end_date,
                 event_start_register_date, event_end_register_date
-            } = this.$vm.form;
+            } = form;
 
             if (!title && !HasLength( title.trim() ) ) throw ERROR_MESSAGE('عنوان');
             if (!slug && !HasLength( slug.trim() ) ) throw ERROR_MESSAGE('نامک');
@@ -92,7 +91,7 @@ export default class CreateEventService extends BaseService {
             }
             delete duplicateFrom['category_ids'];
             if (HasLength( duplicateFrom['description'] )) duplicateFrom['description'] = EncodeHTML(duplicateFrom['description']);
-            duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /, '-');
+            duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /g, '-');
             Object.keys( duplicateFrom )
                 .forEach( key => {
                     if (
@@ -113,7 +112,7 @@ export default class CreateEventService extends BaseService {
 
     async onClickReleaseEventButton() {
         try {
-            this.checkFormValidation();
+            CreateEventService.checkFormValidation( this.$vm.form );
             const REQUEST_PAYLOAD = this.createRequestPayload;
             let response = await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_EVENT_LIST), REQUEST_PAYLOAD);
             return response?.message
