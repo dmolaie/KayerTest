@@ -3,6 +3,7 @@
 namespace Domains\SmsRegister\Http\Requests;
 
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\User\Http\Requests\NationalCodeRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
