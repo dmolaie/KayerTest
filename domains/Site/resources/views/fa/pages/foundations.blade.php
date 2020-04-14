@@ -1,15 +1,15 @@
 @extends('fa.template.master')
     @section('content')
         <div class="fou-page i-page">
-            <div class="container">
+            <div class="container sm:p-0">
                 <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
                     <span class="i-page__title text-center cursor-default">
                         ارکان انجمن
                     </span>
                 </h1>
                 <div class="inner-box inner-box--white text-right">
-                    <div class="fou-page__tab w-full flex items-stretch justify-between">
-                        <button class="fou-page__tab_item fou-page__tab_item--volunteers w-1/5 xl:w-1/6 text-white font-bold"
+                    <div class="fou-page__tab w-full flex items-stretch justify-between sm:flex-wrap">
+                        <button class="fou-page__tab_item fou-page__tab_item--volunteers text-white font-bold w-1/5 xl:w-1/6 sm:font-base"
                                 data-tab="volunteers" role="tab"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@
                             </svg>
                             سفیران
                         </button>
-                        <button class="fou-page__tab_item fou-page__tab_item--sponsors w-1/5 xl:w-1/6 text-white font-bold"
+                        <button class="fou-page__tab_item fou-page__tab_item--sponsors text-white font-bold w-1/5 xl:w-1/6 sm:font-base"
                                 data-tab="sponsors" role="tab"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@
                             </svg>
                             حامیان
                         </button>
-                        <button class="fou-page__tab_item fou-page__tab_item--members w-1/5 xl:w-1/6 text-white font-bold"
+                        <button class="fou-page__tab_item fou-page__tab_item--members text-white font-bold w-1/5 xl:w-1/6 sm:font-base"
                                 data-tab="members" role="tab"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@
                             </svg>
                             اعضا
                         </button>
-                        <button class="fou-page__tab_item fou-page__tab_item--committees w-1/5 xl:w-1/6 text-white font-bold"
+                        <button class="fou-page__tab_item fou-page__tab_item--committees text-white font-bold w-1/5 xl:w-1/6 sm:font-base"
                                 data-tab="committees" role="tab"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -76,14 +76,14 @@
                              data-tab="volunteers"
                         >
                             <div class="fou-page__volunteers">
-                                <p class="i-page__sub-title text-blue-800 font-lg font-bold m-b-20">
+                                <p class="i-page__sub-title text-blue-800 font-lg font-bold m-b-20 sm:font-sm">
                                     سفیران اهدای عضو :
                                 </p>
-                                <p class="text-bayoux font-base text-justify">
+                                <p class="text-bayoux font-base text-justify sm:font-base">
                                     بدیهی است فعالیت‌های انجمن بالاخص فعالیت‌های عظیم فرهنگی و آموزشی نمی‌تواند تنها توسط ۱۲ نفر پرسنل آن انجام گردد. در این راستا نیروهای داوطلب همیشه از ارکان مهم انجمن بوده و بخش اعظمی از کار زیر نظر مدیران انجمن توسط این نیروها صورت می‌گیرد. سفیر اهدای عضو نیروی داوطلبی است که با هر شغل و سمتی که دارد در کنار انجمن پاره‌ای از مسئولیت‌ها را در رشته تخصصی خود و گاهی کاملاً دور از آن به عهده گرفته و یکرنگ و خالصانه در کنار دیگر سفیران و پرسنل انجمن حماسه‌های مختلف را در کشور ایجاد می‌نماید.
                                     (<a href="" class="font-bold">سفیران اهدای عضو</a>)
                                 </p>
-                                <p class="relative text-bayoux font-base text-has-flower text-justify">
+                                <p class="relative text-bayoux font-base text-has-flower text-justify sm:font-base">
                                     بسیاری از سفیران انجمن هنرمندان، ورزشکاران، روحانیون و مقاماتی هستند که بودنشان در کنار انجمن موجب تاثیر بسیار مثبت در ارتقای فرهنگ مقدس اهدای عضو و جلب مردم گشته و هر چه بیشتر موجب نهادینه شدن این نهال نوپا می‌گردد. این افراد همیشه بدون چشمداشت در فعالیت‌های مختلف در کنار ما حضور پیدا کرده و با تبلیغ اهدای عضو بخصوص در فضای مجازی مردم را با مسئله مرگ مغزی و اهدای عضو آشناتر می‌کنند.
                                 </p>
                                 <p class="fou-page__volunteers__title relative flex items-center text-blue-800 font-lg font-bold m-b-20">

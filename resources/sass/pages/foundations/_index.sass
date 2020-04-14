@@ -2,6 +2,8 @@
   &__tab
     padding: 42px 7px
     transition: padding-top $duration
+    @include Sm_Screen
+      padding: 0 6%
     &_item
       padding: 23px 12px 13px
       font:
@@ -10,12 +12,18 @@
         radius: 8px
       box-shadow: 0 2px 9px 0 transparentize(#9b9b9b, ( 1 - .65 ))
       transition: background $duration, opacity $duration
+      @include Sm_Screen
+        $gap: 20px
+        width: calc(50% - #{$gap})
+        margin: $gap 0
       &:focus
         box-shadow: 0 2px 9px 0 transparentize(#9b9b9b, ( 1 - .65 ))
       &_icon
         fill: $white
         display: block
         margin: 0 auto 12px
+        @include Sm_Screen
+          height: 46px !important
       &--volunteers
         $c: #a6ce38
         background: $c
