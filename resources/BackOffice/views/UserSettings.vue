@@ -758,10 +758,7 @@
                         </div>
                     </template>
                     <template v-else>
-                        <image-cm src="/images/test/test-image.png"
-                                  alt="alt"
-                                  className="block w-full rounded-inherit object-contain"
-                                  class="block w-1/2 border border-solid border-sail rounded-1/2 m-0-auto"
+                        <donation-card-cm :label="donationCardLabel"
                         />
                     </template>
                 </div>
@@ -787,6 +784,7 @@
     import UserSettingsService from '@services/service/UserSettings';
     import ImageCm from '@vendor/components/image/Index.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
+    import DonationCardCm from '@components/DonationCard.vue';
 
     const PASSWORD_TAB = 'password';
     const DONATION_CARD_TAB = 'donation-card';
@@ -939,7 +937,7 @@
             isPending: true
         }),
         components: {
-            ImageCm, SelectCm
+            ImageCm, SelectCm, DonationCardCm
         },
         computed: {
             ...mapState({
@@ -998,6 +996,9 @@
                 }
                 return arr
             },
+            donationCardLabel() {
+                return `${this.full_name} - ${this.form.card_id}`
+            }
         },
         watch: {
             async 'form.province_of_birth'( id ) {
@@ -1252,7 +1253,7 @@
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
-            }
+            },
         },
         created() {
             Service = new UserSettingsService( this );

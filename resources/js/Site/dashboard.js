@@ -165,23 +165,25 @@ try {
         ]
     });
 
-    (async () => {
-        try {
-            const LOADING_CLASS = 'image_loading';
-            const CARD_LABEL = document.querySelector('#card_info span').textContent.trim();
-            let response = await Promise.all([
-                donationCard(CARD_LABEL),
-                donationCard(CARD_LABEL, 'mini'),
-                donationCard(CARD_LABEL, 'social'),
-            ]);
-            document.querySelector('.single_cart').src = response[0].base64;
-            document.querySelector('.d-single_cart').href = response[0].download;
-            document.querySelector('.mini_cart').src = response[1].base64;
-            document.querySelector('.d-mini_cart').href = response[1].download;
-            document.querySelector('.social_cart').src = response[2].base64;
-            document.querySelector('.d-social_cart').href = response[2].download;
-            document.querySelectorAll('.' + LOADING_CLASS)
-                .forEach(item => item.classList.remove( LOADING_CLASS ))
-        } catch (e) {}
-    })();
+    window.addEventListener(
+        'load',
+        async () => {
+            try {
+                const LOADING_CLASS = 'image_loading';
+                const CARD_LABEL = document.querySelector('#card_info span').textContent.trim();
+                let response = await Promise.all([
+                    donationCard(CARD_LABEL),
+                    donationCard(CARD_LABEL, 'mini'),
+                    donationCard(CARD_LABEL, 'social'),
+                ]);
+                document.querySelector('.single_cart').src = response[0].base64;
+                document.querySelector('.d-single_cart').href = response[0].download;
+                document.querySelector('.mini_cart').src = response[1].base64;
+                document.querySelector('.d-mini_cart').href = response[1].download;
+                document.querySelector('.social_cart').src = response[2].base64;
+                document.querySelector('.d-social_cart').href = response[2].download;
+                document.querySelectorAll('.' + LOADING_CLASS)
+                    .forEach(item => item.classList.remove( LOADING_CLASS ))
+            } catch (e) {}
+        })
 } catch (e) {}
