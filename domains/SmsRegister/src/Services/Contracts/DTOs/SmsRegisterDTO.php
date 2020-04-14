@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\User\Services\Contracts\DTOs;
+namespace Domains\SmsRegister\Services\Contracts\DTOs;
 
 
 /**
@@ -20,7 +20,11 @@ class SmsRegisterDTO
     /**
      * @var array
      */
-    protected $requestContent;
+    protected $firstRequestContent;
+    /**
+     * @var array
+     */
+    protected $secondRequestContent;
     /**
      * @var string
      */
@@ -65,18 +69,18 @@ class SmsRegisterDTO
     /**
      * @return array
      */
-    public function getRequestContent(): array
+    public function getFirstRequestContent(): array
     {
-        return $this->requestContent;
+        return $this->firstRequestContent;
     }
 
     /**
-     * @param array $requestContent
+     * @param array $firstRequestContent
      * @return SmsRegisterDTO
      */
-    public function setRequestContent(array $requestContent): SmsRegisterDTO
+    public function setFirstRequestContent(array $firstRequestContent): SmsRegisterDTO
     {
-        $this->requestContent = $requestContent;
+        $this->firstRequestContent = $firstRequestContent;
         return $this;
     }
 
@@ -95,6 +99,24 @@ class SmsRegisterDTO
     public function setBirthDate(string $birthDate): SmsRegisterDTO
     {
         $this->birthDate = $birthDate;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSecondRequestContent(): array
+    {
+        return $this->secondRequestContent;
+    }
+
+    /**
+     * @param array $secondRequestContent
+     * @return SmsRegisterDTO
+     */
+    public function setSecondRequestContent(array $secondRequestContent): SmsRegisterDTO
+    {
+        $this->secondRequestContent = $secondRequestContent;
         return $this;
     }
 

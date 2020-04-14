@@ -6,7 +6,6 @@ namespace Domains\Role\Services;
 use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
 use Domains\Role\Repositories\RoleRepository;
-use Domains\Role\Services\Contracts\DTOs\AllRoleWithUserDTO;
 use Domains\Role\Services\Contracts\DTOs\DTOMakers\PermissionInfoDTOMaker;
 use Domains\Role\Services\Contracts\DTOs\DTOMakers\PermissionUserInfoDTOMaker;
 use Domains\Role\Services\Contracts\DTOs\DTOMakers\RoleInfoDTOMaker;
@@ -26,13 +25,16 @@ class RoleServices
      */
     private $roleInfoDTOMaker;
 
-    public function __construct(RoleRepository $roleRepository, RoleInfoDTOMaker $roleInfoDTOMaker)
-    {
+
+    public function __construct(
+        RoleRepository $roleRepository,
+        RoleInfoDTOMaker $roleInfoDTOMaker
+    ) {
         $this->roleRepository = $roleRepository;
         $this->roleInfoDTOMaker = $roleInfoDTOMaker;
     }
 
-    public function getRoleWithRoleType(string $roleType,?int $provinceId=null)
+    public function getRoleWithRoleType(string $roleType, ?int $provinceId = null)
     {
         $roles = $this->roleRepository->getRoleByType($roleType, $provinceId);
         if ($role = $roles->first()) {
@@ -63,17 +65,10 @@ class RoleServices
         return $permissions;
     }
 
-    public function getRolesByType(int $userId, string $type)
+    public function getRoles()
     {
-       $roles = $this->roleRepository->getRoleByType($type);
-       $allRoles = $this->roleInfoDTOMaker->convertMany($roles);
-       $userRolesId = $this->roleRepository->getUserRoleByType($type, $userId)
-           ->keyBy('id')->keys();
-       $allRoleWithUserDTO = new AllRoleWithUserDTO();
-       $allRoleWithUserDTO->setAllRoles($allRoles)
-           ->setUserRoleIds($userRolesId->toArray());
-
-       return $allRoleWithUserDTO;
+        return $this->roleInfoDTOMaker->convertMany(
+            $this->roleRepository->getAllRoles());
     }
 
 }

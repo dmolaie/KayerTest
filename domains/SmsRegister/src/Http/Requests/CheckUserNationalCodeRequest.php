@@ -1,8 +1,8 @@
 <?php
 
-namespace Domains\User\Http\Requests;
+namespace Domains\SmsRegister\Http\Requests;
 
-use Domains\User\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
@@ -46,7 +46,7 @@ class CheckUserNationalCodeRequest extends FormRequest
         $smsRegisterDTO = new SmsRegisterDTO();
         $smsRegisterDTO->setNationalCode($this['Content'])
             ->setMobileNumber($this['UserPhoneNumber'])
-            ->setRequestContent($this->all());
+            ->setFirstRequestContent($this->all());
         return $smsRegisterDTO;
     }
 

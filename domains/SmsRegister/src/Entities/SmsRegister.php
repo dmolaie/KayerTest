@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\User\Entities;
+namespace Domains\SmsRegister\Entities;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 

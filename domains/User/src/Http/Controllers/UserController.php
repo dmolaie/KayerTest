@@ -5,7 +5,6 @@ namespace Domains\User\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
-use Domains\Role\Entities\Role;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBaseProfileInfo;
@@ -14,6 +13,7 @@ use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
+use Domains\User\Http\Presenters\UserRoleInfoPresenter;
 use Domains\User\Http\Requests\AddRoleToUserRequest;
 use Domains\User\Http\Requests\AssignPermissionToUserRequest;
 use Domains\User\Http\Requests\ChangeAdminPasswordRequest;
@@ -365,5 +365,23 @@ class UserController extends EhdaBaseController
             $infoPresenter->transform(),
             Response::HTTP_OK
         );
+    }
+
+    public function userRoles(int $id, UserRoleInfoPresenter $roleInfoPresenter)
+    {
+        try {
+            $userRoleDTOs = $this->userService->getUserAllRoles($id);
+            return $this->response(
+                $roleInfoPresenter->transformMany($userRoleDTOs),
+                Response::HTTP_OK
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('user::response.user_not_found')
+            );
+        }
+
     }
 }
