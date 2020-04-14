@@ -58,4 +58,9 @@ class RoleRepository
 
             })->get();
     }
+
+    public function getAllRoles()
+    {
+        return $this->entityName::all();
+    }
 }

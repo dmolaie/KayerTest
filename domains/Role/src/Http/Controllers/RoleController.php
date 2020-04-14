@@ -5,7 +5,7 @@ namespace Domains\Role\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
-use Domains\Role\Http\Presenters\AllRoleWithUserPresenter;
+use Domains\Role\Http\Presenters\AllRolePresenter;
 use Domains\Role\Http\Presenters\PermissionRoleUserPresenter;
 use Domains\Role\Http\Requests\AssignPermissionToUserRequest;
 use Domains\Role\Http\Requests\GetPermissionToUserRequest;
@@ -61,12 +61,10 @@ class RoleController extends EhdaBaseController
         }
     }
 
-    public function legateRoles(int $id, AllRoleWithUserPresenter $allRoleWithUserPresenter)
+    public function allRoles( AllRolePresenter $allRoleWithUserPresenter)
     {
-        $allRoleWithUserDTO = $this->roleServices->getRolesByType(
-            $id, config('role.legate_role_type')
-        );
-        return $this->response($allRoleWithUserPresenter->transform($allRoleWithUserDTO),
+        $allRoleWithUserDTO = $this->roleServices->getRoles();
+        return $this->response($allRoleWithUserPresenter->transformMany($allRoleWithUserDTO),
             Response::HTTP_OK
         );
     }

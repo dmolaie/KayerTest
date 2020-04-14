@@ -17,6 +17,7 @@ use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
+use Domains\User\Services\Contracts\DTOs\DTOMakers\UserRoleInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserChangeRoleDTO;
@@ -60,6 +61,10 @@ class UserService
      * @var PaginationDTOMaker
      */
     private $paginationDTOMaker;
+    /**
+     * @var UserRoleInfoDTOMaker
+     */
+    private $userRoleInfoDTOMaker;
 
     /**
      * UserService constructor.
@@ -70,6 +75,7 @@ class UserService
      * @param ProvinceService $provinceService
      * @param UserBriefInfoDTOMaker $userBriefInfoDTOMaker
      * @param PaginationDTOMaker $paginationDTOMaker
+     * @param UserRoleInfoDTOMaker $userRoleInfoDTOMaker
      */
     public function __construct(
         RoleServices $roleServices,
@@ -78,7 +84,8 @@ class UserService
         CityServices $cityServices,
         ProvinceService $provinceService,
         UserBriefInfoDTOMaker $userBriefInfoDTOMaker,
-        PaginationDTOMaker $paginationDTOMaker
+        PaginationDTOMaker $paginationDTOMaker,
+        UserRoleInfoDTOMaker $userRoleInfoDTOMaker
     ) {
 
         $this->roleServices = $roleServices;
@@ -88,6 +95,7 @@ class UserService
         $this->provinceService = $provinceService;
         $this->userBriefInfoDTOMaker = $userBriefInfoDTOMaker;
         $this->paginationDTOMaker = $paginationDTOMaker;
+        $this->userRoleInfoDTOMaker = $userRoleInfoDTOMaker;
     }
 
     /**
@@ -311,5 +319,11 @@ class UserService
             $userChangeRoleDTO->getRoleStatus()
         );
         return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function getUserAllRoles(int $id)
+    {
+        $user = $this->userRepository->findOrFail($id);
+        return $this->userRoleInfoDTOMaker->convertMany($user);
     }
 }

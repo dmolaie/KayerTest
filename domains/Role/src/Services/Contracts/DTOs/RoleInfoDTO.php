@@ -4,9 +4,6 @@
 namespace Domains\Role\Services\Contracts\DTOs;
 
 
-use Domains\Location\Services\Contracts\DTOs\ProvinceDTO;
-use phpDocumentor\Reflection\Types\Null_;
-
 /**
  * Class RoleInfoDTO
  */
