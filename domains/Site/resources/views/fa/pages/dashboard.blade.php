@@ -58,10 +58,10 @@
                             <div class="content__container content__container--0">
                                 <div class="flex flex-start">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0">
-                                        <figure class="content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/test/test-image.png') }}"
-                                                 alt="بهاره حاجیان"
-                                                 class="w-full block object-contain"
+                                        <figure class="image_loading content__image w-full block border border-solid">
+                                            <img src="{{ asset('/images/cards/single_overlay.jpg') }}"
+                                                 alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
+                                                 class="single_cart w-full block object-contain"
                                             />
                                         </figure>
                                     </div>
@@ -70,9 +70,8 @@
                                             فقط روی کارت با وضوح تصویری قابل قبول برای چاپ در این نسخه مهیا است.
                                         </p>
                                         <div class="flex w-full items-center justify-space">
-                                            <a  href="{{ asset('/images/test/test-image.png') }}"
-                                                target="_blank" download
-                                                class="content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center">
+                                            <a  href="" target="_blank" download="کارت-اهدا-عضو-{{ auth()->user()->name .'-'. auth()->user()->last_name }}.png"
+                                                class="d-single_cart content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center">
                                                 دانلود
                                             </a>
                                             <button class="content__button content__button--print text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center print-tab">
@@ -92,10 +91,10 @@
                             <div class="content__container content__container--1">
                                 <div class="flex flex-start">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0">
-                                        <figure class="content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/test/test-image-2.png') }}"
-                                                 alt="بهاره حاجیان"
-                                                 class="w-full block object-contain"
+                                        <figure class="image_loading content__image w-full block border border-solid">
+                                            <img src="{{ asset('/images/cards/mini_overlay.jpg') }}"
+                                                 alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
+                                                 class="mini_cart w-full block object-contain"
                                             />
                                         </figure>
                                     </div>
@@ -110,9 +109,8 @@
                                             فقط روی کارت با وضوح تصویری قابل قبول برای چاپ در این نسخه مهیا است.
                                         </div>
                                         <div class="flex w-full items-center justify-space">
-                                            <a  href="{{ asset('/images/test/test-image-2.png') }}"
-                                                target="_blank" download
-                                                class="content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center">
+                                            <a  href="" target="_blank" download="کارت-اهدا-عضو-{{ auth()->user()->name .'-'. auth()->user()->last_name }}.png"
+                                                class="d-mini_cart content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center">
                                                 دانلود
                                             </a>
                                             <button class="content__button content__button--print text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center print-tab">
@@ -132,10 +130,10 @@
                             <div class="content__container content__container--2">
                                 <div class="flex flex-start">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0">
-                                        <figure class="content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/test/test-image-1.png') }}"
-                                                 alt="بهاره حاجیان"
-                                                 class="w-full block object-contain"
+                                        <figure class="image_loading content__image w-full block border border-solid">
+                                            <img src="{{ asset('/images/cards/social_overlay.jpg') }}"
+                                                 alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
+                                                 class="social_cart w-full block object-contain"
                                             />
                                         </figure>
                                     </div>
@@ -150,9 +148,8 @@
                                             در این نسخه از کارت اهدای عضو اطلاعات محرمانه‌ی شما حذف شده و آماده‌ی هم‌رسانی در شبکه‌های اجتماعی است.
                                         </div>
                                         <div class="flex w-full items-center justify-space m-b-20">
-                                            <a  href="{{ asset('/images/test/test-image-1.png') }}"
-                                                target="_blank" download
-                                                class="content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center">
+                                            <a  href="" target="_blank" download="کارت-اهدا-عضو-{{ auth()->user()->name .'-'. auth()->user()->last_name }}.png"
+                                                class="d-social_cart content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center">
                                                 دانلود
                                             </a>
                                             <button class="content__button content__button--print text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center print-tab">
@@ -219,6 +216,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="h-0 overflow-hidden"
+                 id="card_info"
+            >
+                <span class="font-zar">
+                    {{ auth()->user()->name .' '. auth()->user()->last_name.' - '. auth()->user()->card_id }}
+                </span>
             </div>
         </div>
     @endsection
