@@ -1,11 +1,16 @@
 import ManageLegatePresenter, {
     EducationDegreePresenter,
-    FieldOfActivitiesPresenter
+    FieldOfActivitiesPresenter,
+    UserRolesPresenter,
 } from '@services/presenter/ManageLegate';
+import {
+    UserRolePresenter
+} from '@vendor/infrastructure/presenter/MainPresenter';
 
 export const M_LEGATE_SET_DATA = 'M_LEGATE_SET_DATA';
 export const M_LEGATE_SET_USER_ROLES = 'M_LEGATE_SET_USER_ROLES';
 export const M_USER_SET_BASIC_DATA = 'M_USER_SET_BASIC_DATA';
+export const M_MANAGE_USER_ROLE = 'M_MANAGE_USER_ROLE';
 
 const ManageLegate = {
     state: {
@@ -17,6 +22,7 @@ const ManageLegate = {
     },
     mutations: {
         [M_LEGATE_SET_DATA](state, { data }) {
+            console.log(({...new ManageLegatePresenter(data.items)}));
             state.items = { ...new ManageLegatePresenter( data.items ) };
             state.pagination = {
                 ... {
@@ -29,69 +35,18 @@ const ManageLegate = {
             state.education = { ...new EducationDegreePresenter( education_degree ) };
             state.activities = { ...new FieldOfActivitiesPresenter( field_of_activities ) };
         },
-        [M_LEGATE_SET_USER_ROLES](state, { data }) {
-            state.roles = { ...[
-                    {
-                        id: 1,
-                        name: 'به عنوان مدیر',
-                    },
-                    {
-                        id: 2,
-                        name: 'به عنوان سفیر بابل',
-                    },
-                    {
-                        id: 3,
-                        name: 'به عنوان سفیر آذربایجان شرقی',
-                    },
-                    {
-                        id: 4,
-                        name: 'به عنوان سفیر آذربایجان غربی',
-                    },
-                    {
-                        id: 5,
-                        name: 'به عنوان سفیر اردبیل',
-                    },
-                    {
-                        id: 6,
-                        name: 'به عنوان سفیر ایلام',
-                    },
-                    {
-                        id: 7,
-                        name: 'به عنوان سفیر اصفهان',
-                    },
-                    {
-                        id: 8,
-                        name: 'به عنوان سفیر البرز',
-                    },
-                    {
-                        id: 9,
-                        name: 'به عنوان سفیر بوشهر',
-                    },
-                    {
-                        id: 10,
-                        name: 'به عنوان سفیر تهران',
-                    },
-                    {
-                        id: 11,
-                        name: 'به عنوان سفیر چهار محال و بختیاری',
-                    },
-                    {
-                        id: 12,
-                        name: 'به عنوان سفیر خراسان جنوبی ',
-                    },
-                    {
-                        id: 13,
-                        name: ' به عنوان سفیر خراسان رضوی',
-                    },
-                    {
-                        id: 14,
-                        name: 'به عنوان سفیر خراسان شمالی',
-                    },
-                    {
-                        id: 15,
-                        name: 'به عنوان سفیر خوزستان',
-                    },
-                ] }
+        // [M_LEGATE_SET_USER_ROLES](state, {data: { user_role_ids, roles }}) {
+        [M_LEGATE_SET_USER_ROLES](state, {data: { user_role_ids, roles }}) {
+            state.roles = { ...new UserRolesPresenter( roles ) }
+        },
+        [M_MANAGE_USER_ROLE](state, { data: { id: user_id, roles} }) {
+            // const USER_ROLES = new UserRolePresenter( roles );
+            // state.roles.user_role = [...USER_ROLES.map(({ id }) => id)];
+            // const DATA = Object.values( state.items );
+            // const FIND_ITEM = DATA.find(({ id }) => id === user_id);
+            // if ( !!FIND_ITEM ) FIND_ITEM.roles = [...USER_ROLES];
+            // state.items = { ...DATA };
+            // console.log(state.roles.user_role);
         }
     }
 };

@@ -20,8 +20,10 @@ const EDIT_USER_PASSWORD = "EDIT_USER_PASSWORD";
 const EDIT_USER_PASSWORD_BY_USER = "EDIT_USER_PASSWORD_BY_USER";
 const GET_USER_BASIC_PROFILE_INFO = "GET_USER_BASIC_PROFILE_INFO";
 const GET_USER_BASIC_REGISTER_INFO = "GET_USER_BASIC_REGISTER_INFO";
+const GET_USER_ROLES = "GET_USER_ROLES";
 const EDIT_USER_BY_ADMIN = "EDIT_USER_BY_ADMIN";
 const ADD_ROLE_TO_USER = "ADD_ROLE_TO_USER";
+const CHANGE_USER_ROLE_STATUS = "CHANGE_USER_ROLE_STATUS";
 const GET_MENU_LIST = "GET_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
@@ -68,8 +70,10 @@ endpoints[EDIT_USER_PASSWORD] = `/user/${VER_1_0}/admin/change-password-by-admin
 endpoints[EDIT_USER_PASSWORD_BY_USER] = `/user/${VER_1_0}/admin/change-admin-password`;
 endpoints[GET_USER_BASIC_PROFILE_INFO] = `/user/${VER_1_0}/admin/user-base-profile-info`;
 endpoints[GET_USER_BASIC_REGISTER_INFO] = `/user/${VER_1_0}/user-basic-register-info`;
+endpoints[GET_USER_ROLES] = `/role/${VER_1_0}/admin/legate-roles/:user_id`;
 endpoints[EDIT_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/edit-user-by-admin`;
 endpoints[ADD_ROLE_TO_USER] = `/user/${VER_1_0}/admin/add-role-to-user`;
+endpoints[CHANGE_USER_ROLE_STATUS] = `/user/${VER_1_0}/admin/change-user-role-status`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
@@ -169,12 +173,20 @@ export default class Endpoint {
         return endpoints[GET_USER_BASIC_REGISTER_INFO]
     }
 
+    static get GET_USER_ROLES() {
+        return endpoints[GET_USER_ROLES]
+    }
+
     static get EDIT_USER_BY_ADMIN() {
         return endpoints[EDIT_USER_BY_ADMIN]
     }
 
     static get ADD_ROLE_TO_USER() {
         return endpoints[ADD_ROLE_TO_USER]
+    }
+
+    static get CHANGE_USER_ROLE_STATUS() {
+        return endpoints[CHANGE_USER_ROLE_STATUS]
     }
 
     static get GET_MENU_LIST() {

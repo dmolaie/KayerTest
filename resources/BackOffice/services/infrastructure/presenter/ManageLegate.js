@@ -3,7 +3,7 @@ import {
     HasLength
 } from "@vendor/plugin/helper";
 import {
-    ImagesPresenter,
+    RolePresenter,
     UserRolePresenter
 } from '@vendor/infrastructure/presenter/MainPresenter';
 import DateService from '@vendor/plugin/date';
@@ -34,6 +34,7 @@ export class SingleLegatePresenter extends BasePresenter {
             national_code: String,
             identity_number: String,
             roles: Array,
+            user_roles: Object,
             city_name: String,
             province_id: Number,
             province_name: String,
@@ -83,6 +84,17 @@ export class SingleLegatePresenter extends BasePresenter {
 
     roles() {
         return new UserRolePresenter( this.data.roles )
+    }
+
+    user_roles() {
+        try {
+            let payload = {};
+            // if (!!this.data.roles && HasLength( this.data.roles ))
+            //     this.data.roles.forEach(item => {
+            //         payload[item.name] = new RolePresenter( item )
+            //     });
+            return payload;
+        } catch (e) {}
     }
 
     city_id() {
@@ -418,5 +430,48 @@ export class KnowCommunityByPresenter extends BasePresenter {
                 name: item
             }))
         ) : ([])
+    }
+}
+
+export class UserRolesPresenter {
+    constructor( data ) {
+        return !!data && HasLength( data ) ? (
+            data.map(item => new SingleUserRolesPresenter( item ))
+        ) : ([])
+    }
+}
+
+export class SingleUserRolesPresenter extends BasePresenter {
+    constructor( payload ) {
+        super( payload );
+        this.item = payload;
+
+        return this.mapProps({
+            id: Number,
+            type: String,
+            name: String,
+            name_fa: String,
+            is_legate: Boolean,
+        })
+    }
+
+    id() {
+        return this.item.id
+    }
+
+    name_fa() {
+        return this.item.label
+    }
+
+    name() {
+        return this.item.name
+    }
+
+    type() {
+        return this.item.type;
+    }
+
+    is_legate() {
+        return this.item.type === 'legate'
     }
 }
