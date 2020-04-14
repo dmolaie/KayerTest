@@ -16,6 +16,7 @@
                             </div>
                             <form method="post" action="#"
                                   class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none">
+                                @csrf
                                 <p class="text-blue font-base font-bold m-b-4 cursor-default">
                                     اطلاعات فردی
                                 </p>
