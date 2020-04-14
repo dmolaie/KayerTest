@@ -1,7 +1,8 @@
 import ManageLegatePresenter, {
     EducationDegreePresenter,
     FieldOfActivitiesPresenter,
-    UserRolesPresenter,
+    RolesPresenter,
+    UserRolesPresenter
 } from '@services/presenter/ManageLegate';
 import {
     UserRolePresenter
@@ -16,13 +17,13 @@ const ManageLegate = {
     state: {
         items: {},
         roles: {},
+        userRole: {},
         pagination: {},
         education: {},
         activities: {}
     },
     mutations: {
         [M_LEGATE_SET_DATA](state, { data }) {
-            console.log(({...new ManageLegatePresenter(data.items)}));
             state.items = { ...new ManageLegatePresenter( data.items ) };
             state.pagination = {
                 ... {
@@ -35,17 +36,26 @@ const ManageLegate = {
             state.education = { ...new EducationDegreePresenter( education_degree ) };
             state.activities = { ...new FieldOfActivitiesPresenter( field_of_activities ) };
         },
-        // [M_LEGATE_SET_USER_ROLES](state, {data: { user_role_ids, roles }}) {
         [M_LEGATE_SET_USER_ROLES](state, {data: { user_role_ids, roles }}) {
-            state.roles = { ...new UserRolesPresenter( roles ) }
+            let rrr = [
+                {id: 8, type: "legate", status: "active"},
+                {id: 9, type: "legate", status: "active"},
+                {id: 10,type: "legate", status: "active"},
+                {id: 7, type: "legate", status: "active"},
+                {id: 6, type: "legate", status: "active"},
+                {id: 5, type: "legate", status: "deleted"},
+            ];
+            // console.log(new UserRolesPresenter(rrr));
+            state.userRole = { ...new UserRolesPresenter( rrr ) };
+            state.roles = { ...new RolesPresenter( roles ) };
         },
         [M_MANAGE_USER_ROLE](state, { data: { id: user_id, roles} }) {
-            // const USER_ROLES = new UserRolePresenter( roles );
-            // state.roles.user_role = [...USER_ROLES.map(({ id }) => id)];
-            // const DATA = Object.values( state.items );
-            // const FIND_ITEM = DATA.find(({ id }) => id === user_id);
-            // if ( !!FIND_ITEM ) FIND_ITEM.roles = [...USER_ROLES];
-            // state.items = { ...DATA };
+            const USER_ROLES = new UserRolePresenter( roles );
+            state.roles.user_role = [...USER_ROLES.map(({ id }) => id)];
+            const DATA = Object.values( state.items );
+            const FIND_ITEM = DATA.find(({ id }) => id === user_id);
+            if ( !!FIND_ITEM ) FIND_ITEM.roles = [...USER_ROLES];
+            state.items = { ...DATA };
             // console.log(state.roles.user_role);
         }
     }

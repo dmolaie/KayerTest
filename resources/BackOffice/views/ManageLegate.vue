@@ -405,15 +405,29 @@
                              :key="'role-' + role.id"
                         >
                             <div class="flex items-center">
-<!--                                <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 text-right p-l-14 cursor-default"-->
-<!--                                      v-text="role.name_fa"-->
-<!--                                > </span>-->
-<!--                                <button class="font-xs font-bold"-->
-<!--                                        v-text=" checkUserRole(role) ? 'اکنون این نقش را دارد.' :  'اکنون چنین نقشی ندارد'"-->
-<!--                                        :class="[checkUserRole(role) ? 'r-confirm__active' : 'r-confirm__disabled' ]"-->
-<!--                                        @click.prevent="onClickUserRoleItem(selectedItem.id, role.id)"-->
-<!--                                > </button>-->
+                                <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 text-right p-l-14 cursor-default"
+                                      v-text="role.name"
+                                > </span>
+                                <button class="font-xs font-bold"
+                                        v-text=" userRoles[role.id] ? 'اکنون این نقش را دارد.' :  'اکنون چنین نقشی ندارد'"
+                                        :class="[userRoles[role.id] ? 'r-confirm__active' : 'r-confirm__disabled' ]"
+                                        @click.stop="toggleRolesComboBox( role )"
+                                > </button>
                             </div>
+                            <template v-if="!!role.isOpen">
+                                <div class="r-confirm__form flex items-center">
+                                    <span class="w-1/4 xl:w-1/5"> </span>
+                                    <select-cm :options="userRoles[role.id] ? rolesStatus : addedRoleStatus"
+                                               label="name" :required="!!userRoles[role.id]"
+                                               class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                               @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
+                                    > </select-cm>
+                                    <button class="r-confirm__button--discard e-user__button e-user__button--discard border border-solid rounded font-base font-bold text-center l:transition-bg"
+                                            @click.stop="toggleRolesComboBox( role )"
+                                            v-text="'انصراف'"
+                                    > </button>
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -492,12 +506,16 @@
     import {
         Length, HasLength
     } from "@vendor/plugin/helper";
+    import {
+        ACTIVE_ROLE_STATUS, ROLE_STATUS, ACTIVE_CLIENT_ROLE_STATUS, CLIENT_ROLE_STATUS
+    } from '@services/service/Roles';
     import ManageLegateService from '@services/service/ManageLegate';
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
     import ModalCm from '@vendor/components/modal/Index.vue';
+    import SelectCm from '@vendor/components/select/Index.vue';
     import StatusService from '@services/service/Status';
 
     let Service = null;
@@ -528,11 +546,13 @@
             paginateKeyCounter: false,
             isModuleRegistered: false,
             shouldBeShowSearchField: false,
+            addedRoleStatus: ACTIVE_ROLE_STATUS,
+            rolesStatus: ROLE_STATUS,
         }),
         components: {
             DropdownCm, TableCm,
             ImageCm, PaginationCm,
-            ModalCm
+            ModalCm, SelectCm
         },
         computed: {
             ...mapGetters({
@@ -541,6 +561,7 @@
             ...mapState({
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
                 roles: ({ ManageLegateStore }) => ManageLegateStore.roles,
+                userRoles: ({ ManageLegateStore }) => ManageLegateStore.userRole,
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination,
                 education: ({ ManageLegateStore }) => ManageLegateStore.education,
                 activities: ({ ManageLegateStore }) => ManageLegateStore.activities,
@@ -680,13 +701,16 @@
                     }
                 });
             },
+            toggleRolesComboBox( item ) {
+                this.$set(item, 'isOpen', !item.isOpen);
+            },
             async onClickManageUserRoleButton( item ) {
                 try {
                     this.$set(this.userRole, 'isPending', true);
                     this.$set(this, 'selectedItem', item);
                     this.onClickActionButton( item );
                     this.$refs['userRole']?.visible();
-                    await Service.getAllUserRoles( item.id );
+                    await Service.getUserRoles( item.id );
                     this.$set(this.userRole, 'isPending', false);
                 } catch ( error_message ) {
                     this.displayNotification(error_message, { type: 'error' });
@@ -698,13 +722,16 @@
                     this.$set(this, 'selectedItem', {});
                 });
             },
-            async onClickUserRoleItem(user_id, role_id) {
-                // try {
-                //     let result = await Service.handelUserRoleAction(user_id, role_id);
-                //     this.displayNotification(result, { type: 'success' });
-                // } catch ( exception ) {
-                //     this.displayNotification(exception, { type: 'error' })
-                // }
+            async changeUserRoleStatus({ id }, user_id, role_id) {
+                console.log('role:', id, 'user_id: ', user_id, 'role_id: ', role_id);
+                try {
+                    if ( !!id ) {
+                        let result = await Service.handelUserRoleAction(user_id, role_id, id);
+                        this.displayNotification(result, { type: 'success' });
+                    }
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
             },
             onClickChangeUserPassword( item ) {
                 try {

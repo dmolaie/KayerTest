@@ -4,7 +4,7 @@ import {
 } from "@vendor/plugin/helper";
 import {
     ROLE_STATUS, ACTIVE_STATUS, PENDING_STATUS, INACTIVE_STATUS,
-    DELETE_STATUS, WAIT_FOR_DOCUMENTS_STATUS, WAIT_FOR_EXAM_STATUS
+    DELETE_STATUS, WAIT_FOR_DOCUMENTS_STATUS, WAIT_FOR_EXAM_STATUS, CLIENT
 } from '@services/service/Roles';
 
 export class ImagesPresenter {
@@ -201,6 +201,7 @@ export class RolePresenter extends BasePresenter {
             is_deleted: Boolean,
             is_wait_document: Boolean,
             is_wait_exam: Boolean,
+            is_client: Boolean
         })
     }
 
@@ -209,11 +210,11 @@ export class RolePresenter extends BasePresenter {
     }
 
     name() {
-        return this.data.name
+        return this.data.name || ''
     }
 
     label() {
-        return this.data.label
+        return this.data.label || ''
     }
 
     status() {
@@ -246,5 +247,9 @@ export class RolePresenter extends BasePresenter {
 
     is_wait_exam() {
         return this.data.status === WAIT_FOR_EXAM_STATUS
+    }
+
+    is_client() {
+        return this.data.status === CLIENT
     }
 }

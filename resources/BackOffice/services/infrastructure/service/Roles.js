@@ -2,18 +2,38 @@ export const ADMIN_ID   = 1;
 export const MANAGER_ID = 2;
 export const LEGATE_ID  = 3;
 export const CLIENT_ID  = 4;
+export const ADMIN = 'admin';
+export const MANAGER = 'manager';
+export const LEGATE = 'legate';
+export const CLIENT = 'client';
 
 export default class RoleService {
+    static get ADMIN() {
+        return ADMIN
+    }
+
     static get ADMIN_ID() {
         return ADMIN_ID
+    }
+
+    static get MANAGER() {
+        return MANAGER
     }
 
     static get MANAGER_ID() {
         return MANAGER_ID
     }
 
+    static get LEGATE() {
+        return LEGATE;
+    }
+
     static get LEGATE_ID() {
         return LEGATE_ID
+    }
+
+    static get CLIENT() {
+        return CLIENT
     }
 
     static get CLIENT_ID() {
@@ -82,5 +102,20 @@ export const ROLE_STATUS = {
     ['deleted']: {
         name: 'حذف',
         id: DELETE_STATUS
+    },
+};
+
+export const ACTIVE_CLIENT_ROLE_STATUS = {
+    ['active']: {
+        name: 'فعال',
+        id: ACTIVE_STATUS
+    },
+};
+
+export const CLIENT_ROLE_STATUS = {
+    ...ACTIVE_CLIENT_ROLE_STATUS,
+    ['inactive']: {
+        name: 'مسدود',
+        id: INACTIVE_STATUS
     },
 };

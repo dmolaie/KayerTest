@@ -34,7 +34,6 @@ export class SingleLegatePresenter extends BasePresenter {
             national_code: String,
             identity_number: String,
             roles: Array,
-            user_roles: Object,
             city_name: String,
             province_id: Number,
             province_name: String,
@@ -84,17 +83,6 @@ export class SingleLegatePresenter extends BasePresenter {
 
     roles() {
         return new UserRolePresenter( this.data.roles )
-    }
-
-    user_roles() {
-        try {
-            let payload = {};
-            // if (!!this.data.roles && HasLength( this.data.roles ))
-            //     this.data.roles.forEach(item => {
-            //         payload[item.name] = new RolePresenter( item )
-            //     });
-            return payload;
-        } catch (e) {}
     }
 
     city_id() {
@@ -433,15 +421,15 @@ export class KnowCommunityByPresenter extends BasePresenter {
     }
 }
 
-export class UserRolesPresenter {
+export class RolesPresenter {
     constructor( data ) {
         return !!data && HasLength( data ) ? (
-            data.map(item => new SingleUserRolesPresenter( item ))
+            data.map(item => new SingleRolesPresenter( item ))
         ) : ([])
     }
 }
 
-export class SingleUserRolesPresenter extends BasePresenter {
+export class SingleRolesPresenter extends BasePresenter {
     constructor( payload ) {
         super( payload );
         this.item = payload;
@@ -450,7 +438,6 @@ export class SingleUserRolesPresenter extends BasePresenter {
             id: Number,
             type: String,
             name: String,
-            name_fa: String,
             is_legate: Boolean,
         })
     }
@@ -459,12 +446,8 @@ export class SingleUserRolesPresenter extends BasePresenter {
         return this.item.id
     }
 
-    name_fa() {
-        return this.item.label
-    }
-
     name() {
-        return this.item.name
+        return this.item.label
     }
 
     type() {
@@ -473,5 +456,22 @@ export class SingleUserRolesPresenter extends BasePresenter {
 
     is_legate() {
         return this.item.type === 'legate'
+    }
+
+    isOpen() {
+
+    }
+}
+
+export class UserRolesPresenter {
+    constructor( payload ) {
+        try {
+            let roles = {};
+            if (!!payload && HasLength(payload))
+                payload.forEach(item => {
+                    roles[item.id] = new RolePresenter( item )
+                });
+            return roles;
+        } catch (e) {}
     }
 }
