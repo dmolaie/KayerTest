@@ -417,11 +417,20 @@
                             <template v-if="!!role.isOpen">
                                 <div class="r-confirm__form flex items-center">
                                     <span class="w-1/4 xl:w-1/5"> </span>
-                                    <select-cm :options="userRoles[role.id] ? rolesStatus : addedRoleStatus"
-                                               label="name" :required="!!userRoles[role.id]"
-                                               class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
-                                               @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
-                                    > </select-cm>
+                                    <template v-if="!role.is_client">
+                                        <select-cm :options="userRoles[role.id] ? rolesStatus : addedRoleStatus"
+                                                   label="name" :required="!!userRoles[role.id]"
+                                                   class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                                   @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
+                                        > </select-cm>
+                                    </template>
+                                    <template v-else>
+                                        <select-cm :options="userRoles[role.id] ? clientRoleStatus : addedClientRoleStatus"
+                                                   label="name" :required="!!userRoles[role.id]"
+                                                   class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                                   @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
+                                        > </select-cm>
+                                    </template>
                                     <button class="r-confirm__button--discard e-user__button e-user__button--discard border border-solid rounded font-base font-bold text-center l:transition-bg"
                                             @click.stop="toggleRolesComboBox( role )"
                                             v-text="'انصراف'"
@@ -548,6 +557,8 @@
             shouldBeShowSearchField: false,
             addedRoleStatus: ACTIVE_ROLE_STATUS,
             rolesStatus: ROLE_STATUS,
+            addedClientRoleStatus: ACTIVE_CLIENT_ROLE_STATUS,
+            clientRoleStatus: CLIENT_ROLE_STATUS
         }),
         components: {
             DropdownCm, TableCm,
@@ -723,7 +734,6 @@
                 });
             },
             async changeUserRoleStatus({ id }, user_id, role_id) {
-                console.log('role:', id, 'user_id: ', user_id, 'role_id: ', role_id);
                 try {
                     if ( !!id ) {
                         let result = await Service.handelUserRoleAction(user_id, role_id, id);

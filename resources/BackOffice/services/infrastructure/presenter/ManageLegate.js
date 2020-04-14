@@ -7,6 +7,9 @@ import {
     UserRolePresenter
 } from '@vendor/infrastructure/presenter/MainPresenter';
 import DateService from '@vendor/plugin/date';
+import {
+    CLIENT
+} from '@services/service/Roles';
 
 const DEFAULT_AVATAR = '/images/img_avatar-default.jpg';
 
@@ -438,7 +441,7 @@ export class SingleRolesPresenter extends BasePresenter {
             id: Number,
             type: String,
             name: String,
-            is_legate: Boolean,
+            is_client: Boolean
         })
     }
 
@@ -454,12 +457,8 @@ export class SingleRolesPresenter extends BasePresenter {
         return this.item.type;
     }
 
-    is_legate() {
-        return this.item.type === 'legate'
-    }
-
-    isOpen() {
-
+    is_client() {
+        return this.item.name === CLIENT
     }
 }
 

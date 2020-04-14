@@ -5,7 +5,8 @@ import ManageLegate, {
     M_LEGATE_SET_DATA,
     M_LEGATE_SET_USER_ROLES,
     M_USER_SET_BASIC_DATA,
-    M_MANAGE_USER_ROLE
+    M_MANAGE_USER_ROLE,
+    M_LEGATE_SET_ROLES
 } from '@services/store/ManageLegate';
 import {
     UserInformationPresenter
@@ -176,31 +177,42 @@ export default class ManageLegateService extends BaseService {
         }
     }
 
-    async getUserRoles( user_id ) {
+    async getAllUserRoles() {
         try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_ROLES, {
-                user_id
-            }));
+            // if (!HasLength( this.$vm.roles )) {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_USER));
+            BaseService.commitToStore(this.$store, M_LEGATE_SET_ROLES, response)
+            // }
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
+    async getUserRolesWithID( user_id ) {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_ROLES, { user_id }));
             BaseService.commitToStore(this.$store, M_LEGATE_SET_USER_ROLES, response)
         } catch ( exception ) {
-            console.log(exception);
-            throw ExceptionService._GetErrorMessage( exception );
+            throw ExceptionService._GetErrorMessage( exception )
+        }
+    }
+
+    async getUserRoles( user_id ) {
+        try {
+            await Promise.all([
+                this.getAllUserRoles(),
+                this.getUserRolesWithID( user_id )
+            ]);
+        } catch ( exception ) {
+            throw exception;
         }
     }
 
     async handelUserRoleAction(user_id, role_id, role_status) {
         try {
-
-            let response = await UserService.changeUserRoleStatus(user_id, role_id, role_status)
-            console.log('response', response);
+            let response = await UserService.changeUserRoleStatus(user_id, role_id, role_status);
             BaseService.commitToStore(this.$store, M_MANAGE_USER_ROLE, response);
             return response.message
-            // UserService.changeUserRoleStatus
-            // let response = await UserService.AddRoleToUser(user_id, role_id);
-            // // console.log(response);
-            // // let response = await UserService.removeUserRole(user_id, role_id);
-            // // console.log(response);
-            // return response.message
         } catch ( exception ) {
             throw exception;
         }
