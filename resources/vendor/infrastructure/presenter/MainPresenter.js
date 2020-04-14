@@ -2,6 +2,10 @@ import BasePresenter from '@vendor/infrastructure/presenter/BasePresenter';
 import {
     HasLength, CopyOf
 } from "@vendor/plugin/helper";
+import {
+    ROLE_STATUS, ACTIVE_STATUS, PENDING_STATUS, INACTIVE_STATUS,
+    DELETE_STATUS, WAIT_FOR_DOCUMENTS_STATUS, WAIT_FOR_EXAM_STATUS
+} from '@services/service/Roles';
 
 export class ImagesPresenter {
     constructor( images ) {
@@ -186,6 +190,7 @@ export class RolePresenter extends BasePresenter {
         this.data = data;
 
         return this.mapProps({
+            id: Number,
             name: String,
             label: String,
             status: String,
@@ -193,7 +198,14 @@ export class RolePresenter extends BasePresenter {
             is_active: Boolean,
             is_pending: Boolean,
             is_inactive: Boolean,
+            is_deleted: Boolean,
+            is_wait_document: Boolean,
+            is_wait_exam: Boolean,
         })
+    }
+
+    id() {
+        return this.data?.id || 0
     }
 
     name() {
@@ -209,20 +221,30 @@ export class RolePresenter extends BasePresenter {
     }
 
     status_fa() {
-        if ( this.data.status === 'active' ) return 'فعال';
-        if ( this.data.status === 'pending' ) return 'در انتظار تایید';
-        if ( this.data.status === 'inactive' ) return 'غیرفعال';
+        return ROLE_STATUS[this.data.status]?.name || ''
     }
 
     is_active() {
-        return this.data.status === "active"
+        return this.data.status === ACTIVE_STATUS
     }
 
     is_pending() {
-        return this.data.status === "pending"
+        return this.data.status === PENDING_STATUS
     }
 
     is_inactive() {
-        return this.data.status === "inactive"
+        return this.data.status === INACTIVE_STATUS
+    }
+
+    is_deleted() {
+        return this.data.status === DELETE_STATUS
+    }
+
+    is_wait_document() {
+        return this.data.status === WAIT_FOR_DOCUMENTS_STATUS
+    }
+
+    is_wait_exam() {
+        return this.data.status === WAIT_FOR_EXAM_STATUS
     }
 }
