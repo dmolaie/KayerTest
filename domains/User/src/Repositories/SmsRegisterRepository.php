@@ -19,10 +19,17 @@ class SmsRegisterRepository
         $smsRegister = $smsRegister ?? new $this->entityName;
         $smsRegister->mobile_number = $smsRegisterDTO->getMobileNumber();
         $smsRegister->national_code = $smsRegisterDTO->getNationalCode();
-        $smsRegister->request_content = $smsRegisterDTO->getRequestContent();
-        if($smsRegister->getDirty()){
+        $smsRegister->request_content = $smsRegisterDTO->getFirstRequestContent();
+        if ($smsRegister->getDirty()) {
             $smsRegister->save();
         }
-        return $smsRegister;
+        return;
+    }
+
+    public function getUserNationalCode(SmsRegisterDTO $smsRegisterDTO)
+    {
+        return $this->entityName::where(
+            'mobile_number', $smsRegisterDTO->getMobileNumber())
+            ->firstOrFail()->national_code;
     }
 }

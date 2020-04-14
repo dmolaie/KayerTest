@@ -6,7 +6,7 @@ use Domains\User\Services\Contracts\DTOs\SmsRegisterDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class CheckUserNationalCodeRequest extends FormRequest
+class CheckUserInfoWithBirthDateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class CheckUserNationalCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
+            'Content'         => 'required|numeric',
             'UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
         ];
     }
@@ -44,9 +44,9 @@ class CheckUserNationalCodeRequest extends FormRequest
     public function createSmsRegisterDTO(): SmsRegisterDTO
     {
         $smsRegisterDTO = new SmsRegisterDTO();
-        $smsRegisterDTO->setNationalCode($this['Content'])
+        $smsRegisterDTO->setBirthDate($this['Content'])
             ->setMobileNumber($this['UserPhoneNumber'])
-            ->setFirstRequestContent($this->all());
+            ->setSecondRequestContent($this->all());
         return $smsRegisterDTO;
     }
 

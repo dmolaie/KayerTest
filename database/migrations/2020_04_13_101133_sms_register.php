@@ -17,9 +17,10 @@ class SmsRegister extends Migration
     {
         Schema::connection($this->connection)->create('sms_registers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mobile')->index();
+            $table->string('mobile_number')->index();
             $table->string('national_code')->index();
             $table->string('birth_date')->index();
+            $table->json('request_content');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class SmsRegister extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sms_registers');
+        Schema::connection($this->connection)->drop('sms_registers');
     }
 }
