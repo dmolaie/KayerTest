@@ -178,7 +178,7 @@ export default class EditNewsService extends BaseService {
 
     async onClickChangeStatusButton( news_id ) {
         try {
-            let response = await NewsService.changeStatusNewsItem(news_id, StatusService.PENDING_STATUS);
+            let response = await NewsService.changeStatusNewsItem(news_id, StatusService.CANCEL_STATUS);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
             });

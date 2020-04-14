@@ -26,7 +26,7 @@
                             :class="{ 'm-post__tab--active': is_cancelTab }"
                             @click.prevent="onClickCancelItemTab"
                     >
-                        کنسل شده
+                        لغو شده
                     </button>
                     <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
                             :class="{ 'm-post__tab--active': is_rejectTab }"
