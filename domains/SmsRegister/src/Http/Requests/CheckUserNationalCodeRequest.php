@@ -1,8 +1,8 @@
 <?php
 
-namespace Domains\User\Http\Requests;
+namespace Domains\SmsRegister\Http\Requests;
 
-use Domains\User\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 

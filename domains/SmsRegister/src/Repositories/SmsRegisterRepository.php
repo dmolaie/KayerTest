@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Domains\User\Repositories;
+namespace Domains\SmsRegister\Repositories;
 
 
-use Domains\User\Entities\SmsRegister;
-use Domains\User\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\SmsRegister\Entities\SmsRegister;
+use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
 
 class SmsRegisterRepository
 {
@@ -28,8 +28,13 @@ class SmsRegisterRepository
 
     public function getUserNationalCode(SmsRegisterDTO $smsRegisterDTO)
     {
-        return $this->entityName::where(
+        $smsRegister = $this->entityName::where(
             'mobile_number', $smsRegisterDTO->getMobileNumber())
-            ->firstOrFail()->national_code;
+            ->firstOrFail();
+        $smsRegister->second_request_content = $smsRegisterDTO->getSecondRequestContent();
+        if ($smsRegister->getDirty()) {
+            $smsRegister->save();
+        }
+        return $smsRegister->national_code;
     }
 }

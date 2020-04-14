@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Domains\User\Http\Controllers;
+namespace Domains\SmsRegister\Http\Controllers;
 
 
-use Domains\User\Http\Requests\CheckUserInfoWithBirthDateRequest;
-use Domains\User\Http\Requests\CheckUserNationalCodeRequest;
-use Domains\User\Services\SmsRegisterService;
+use Domains\SmsRegister\Http\Requests\CheckUserInfoWithBirthDateRequest;
+use Domains\SmsRegister\Http\Requests\CheckUserNationalCodeRequest;
+use Domains\SmsRegister\Services\SmsRegisterService;
 use Illuminate\Http\Response;
 
 class SmsRegisterController

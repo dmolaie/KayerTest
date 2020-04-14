@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domains\User\Services\Contracts\DTOs;
+namespace Domains\SmsRegister\Services\Contracts\DTOs;
 
 
 /**

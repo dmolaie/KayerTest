@@ -196,6 +196,7 @@ return [
         \Domains\Event\EventServiceProvider::class,
         \Domains\Article\ArticleServiceProvider::class,
         \Domains\Menu\MenusServiceProvider::class,
+        \Domains\SmsRegister\SmsRegisterServiceProvider::class,
 
 
     ],
