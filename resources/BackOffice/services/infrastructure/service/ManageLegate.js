@@ -94,7 +94,7 @@ export default class ManageLegateService extends BaseService {
                 query
             } = this.$vm.$route;
             await Promise.all([
-                this.getVolunteersListFilterBy( {...query} ),
+                this.getVolunteersListFilterBy( query ),
             ]);
         } catch ( message ) {
             this.$vm.displayNotification(message, { type: 'error' })

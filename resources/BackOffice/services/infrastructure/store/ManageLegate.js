@@ -2,7 +2,8 @@ import ManageLegatePresenter, {
     EducationDegreePresenter,
     FieldOfActivitiesPresenter,
     RolesPresenter,
-    UserRolesPresenter
+    UserRolesPresenter,
+    SingleLegatePresenter
 } from '@services/presenter/ManageLegate';
 import {
     UserRolePresenter
@@ -43,13 +44,15 @@ const ManageLegate = {
         [M_LEGATE_SET_USER_ROLES](state, { data }) {
             state.userRole = { ...new UserRolesPresenter( data ) };
         },
-        [M_MANAGE_USER_ROLE](state, { data: { id: user_id, roles} }) {
-            const USER_ROLES = new UserRolePresenter( roles );
-            state.roles.user_role = [...USER_ROLES.map(({ id }) => id)];
+        // [M_MANAGE_USER_ROLE](state, { data: { id: user_id, roles, } }) {
+        [M_MANAGE_USER_ROLE](state, { data }) {
+            // const USER_ROLES = new UserRolePresenter( data.roles );
+            // state.roles.user_role = [...USER_ROLES.map(({ id }) => id)];
             const DATA = Object.values( state.items );
-            const FIND_ITEM = DATA.find(({ id }) => id === user_id);
-            if ( !!FIND_ITEM ) FIND_ITEM.roles = [...USER_ROLES];
-            state.userRole = { ...new UserRolesPresenter( roles ) };
+            const FIND_ITEM = DATA.find(({ id }) => id === data.id );
+            // if ( !!FIND_ITEM ) FIND_ITEM.roles = [...USER_ROLES];
+            if ( !!FIND_ITEM ) Object.assign(FIND_ITEM, new SingleLegatePresenter( data ));
+            state.userRole = { ...new UserRolesPresenter( data.roles ) };
             state.items = { ...DATA };
         }
     }
