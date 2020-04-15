@@ -154,6 +154,7 @@ export default class UserSettingsService extends BaseService {
         try {
             this.$vm.$set(this.$vm.cart, 'isPending', true);
             let response = await UserService.AddRoleToUser( user_id, RoleService.CLIENT_ID );
+            this.$vm.$set(this.$vm.form, 'card_id', response?.data?.card_id);
             this.$vm.$set(this.$vm.form, 'has_card', true);
             this.$vm.displayNotification(response.message, { type: 'success' })
         } catch ( exception ) {

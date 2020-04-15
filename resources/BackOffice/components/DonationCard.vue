@@ -46,12 +46,16 @@
         components: {
             ImageCm,
         },
-        created() {
-            donationCardService(this.label)
-                .then(({ base64 }) => {
-                    this.$set(this, 'card', base64);
-                    this.$set(this, 'isPending', false);
-                })
+        mounted() {
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    donationCardService(this.label)
+                        .then(({ base64 }) => {
+                            this.$set(this, 'card', base64);
+                            this.$set(this, 'isPending', false);
+                        })
+                }, 200)
+            })
         }
     }
 </script>

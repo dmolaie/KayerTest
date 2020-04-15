@@ -934,7 +934,7 @@
             },
             isModuleRegistered: false,
             shouldBeShowSpinnerLoading: false,
-            isPending: true
+            isPending: true,
         }),
         components: {
             ImageCm, SelectCm, DonationCardCm
@@ -1245,11 +1245,11 @@
             },
             async onClickRegisterDonationCardButton() {
                 try {
-                    ( this.cart.checkbox ) ? (
+                    if( this.cart.checkbox ) {
                         await Service.registerDonationCardForUser( this.form.user_id )
-                    ) : (
+                    } else {
                         this.displayNotification('اول اون تیک رو بزن', { type: 'error' })
-                    )
+                    }
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
