@@ -21,11 +21,26 @@ class PermissionRoleInfoDTO
     /**
      * @var array
      */
-    protected $permission;
+    protected $permissionData;
+
     /**
-     * @var string
+     * @return object
      */
-    protected $condition;
+    public function getPermissionData(): array
+    {
+        return $this->permissionData;
+    }
+
+    /**
+     * @param array $permissionData
+     * @return PermissionRoleInfoDTO
+     */
+    public function setPermissionData(array $permissionData): PermissionRoleInfoDTO
+    {
+        $this->permissionData = $permissionData;
+        return $this;
+    }
+
 
     /**
      * @return int
@@ -60,42 +75,6 @@ class PermissionRoleInfoDTO
     public function setRoleId(int $roleId): PermissionRoleInfoDTO
     {
         $this->roleId = $roleId;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPermission(): array
-    {
-        return $this->permission;
-    }
-
-    /**
-     * @param array $permission
-     * @return PermissionRoleInfoDTO
-     */
-    public function setPermission(array $permission): PermissionRoleInfoDTO
-    {
-        $this->permission = $permission;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCondition(): string
-    {
-        return $this->condition;
-    }
-
-    /**
-     * @param string $condition
-     * @return PermissionRoleInfoDTO
-     */
-    public function setCondition(string $condition): PermissionRoleInfoDTO
-    {
-        $this->condition = $condition;
         return $this;
     }
 

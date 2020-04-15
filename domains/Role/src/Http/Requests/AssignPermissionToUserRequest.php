@@ -26,9 +26,8 @@ class AssignPermissionToUserRequest extends EhdaBaseRequest
     {
         return [
             'user_id' => 'required|integer|exists:users,id',
-            'role_id.*' => 'required|integer|exists:roles,id',
-            'permission_id.*' => 'required|integer|exists:permissions,id',
-            'condition' => 'json',
+            'role_id' => 'required|integer|exists:roles,id',
+            'permission_data' => 'required',
         ];
     }
 
@@ -47,8 +46,7 @@ class AssignPermissionToUserRequest extends EhdaBaseRequest
         $menusCreateDTO = new PermissionRoleInfoDTO();
         $menusCreateDTO->setRoleId($this['role_id'])
             ->setUserId($this['user_id'])
-            ->setPermission($this['permission_id'])
-            ->setCondition($this['condition']);
+            ->setPermissionData($this['permission_data']);
         return $menusCreateDTO;
     }
 }
