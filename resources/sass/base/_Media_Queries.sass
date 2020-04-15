@@ -120,7 +120,7 @@
       &-#{1}\/#{4}
         width: 25%
       &-#{1}\/#{2}
-        width: 50%
+        width: 50% !important
       &-#{2}\/#{3}
         width: 66.666667%
       &-#{3}\/#{4}
@@ -170,6 +170,8 @@
     &m
       &-0
         margin: 0 !important
+      &-0-auto
+        margin: 0 auto
       &-t-40
         margin-top: 40px
     &rounded-0
@@ -214,6 +216,10 @@
         @include fontSize( 16px )
       &-lg
         @include fontSize( 18px )
+      &-medium
+        font-weight: 500
+      &-bold
+        font-weight: 700
     &flex
       display: flex !important
       &-col
@@ -235,6 +241,8 @@
     &m
       &-0
         margin: 0 !important
+      &-0-auto
+        margin: 0 auto
       &-r
         &-auto
           margin-right: auto

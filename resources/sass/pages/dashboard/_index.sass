@@ -6,6 +6,8 @@ $paddingLeftDesktop: 36px
     margin-bottom: 30px
   .p__container
     padding: 30px $paddingRightDesktop 30px $paddingLeftDesktop
+    @include Sm_Screen
+      padding: 23px 20px 50px
   .anchor
     margin: 28px 0 0
     &__item
@@ -52,6 +54,8 @@ $paddingLeftDesktop: 36px
       padding: 0 #{76 - $paddingRightDesktop} 0 #{80 - $paddingRightDesktop}
       @include Xl_Screen
         padding: 0 #{96 - $paddingRightDesktop} 0 #{100 - $paddingRightDesktop}
+      @include Sm_Screen
+        padding: 32px 20px 74px
       &--0
         .content__caption
           padding-top: 50px
@@ -87,6 +91,8 @@ $paddingLeftDesktop: 36px
         pointer-events: none
       &:not(:last-child)
         margin-left: 30px
+        @include Sm_Screen
+          margin: 0 0 30px
       @include L_Screen
         &:hover
           border-color: $blue-100
@@ -110,3 +116,11 @@ $paddingLeftDesktop: 36px
       height: 100%
       border-radius: inherit
       background-color: transparentize(#f7f7f7, (1 - .5))
+  @include Md_Screen
+    .md\:
+      &m-t-40
+        margin-top: 40px
+  @include Sm_Screen
+    .sm\:
+      &m-b-25
+        margin-bottom: 25px
