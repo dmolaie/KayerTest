@@ -21,8 +21,7 @@
                 </div>
             </div>
             <div class="m-post__wrapper">
-                <div class="m-post__header flex"
-                >
+                <div class="m-post__header flex">
                     <button class="m-post__button m-post__button--search inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg m-r-auto"
                             @click.prevent="onClickToggleSearchButton"
                     >
@@ -119,13 +118,15 @@
                                 <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
                                     <div class="flex flex-wrap items-start cursor-default"
                                     >
+<!--                                        {{item.roles}}-->
                                         <button class=" m-legate__role m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                                 v-for="(role, i) in item.roles"
                                                 :key="'status-' + i"
                                                 :class="{
                                                     'm-post__status--accept': role.is_active,
-                                                    'm-post__status--pending': role.is_pending,
                                                     'm-post__status--reject': role.is_inactive,
+                                                    'm-post__status--delete': role.is_deleted,
+                                                    'm-post__status--pending': (role.is_pending || role.is_wait_exam || role.is_wait_document),
                                                 }"
                                                 @click.stop="onClickShowUserAccessLevelModal( item )"
                                         >
@@ -399,18 +400,43 @@
                                   v-text="selectedItem.full_name"
                             > </span>
                         </div>
-                        <div class="confirm__label w-full flex items-center"
+                        <div class="confirm__label w-full"
                              v-for="role in roles"
                              :key="'role-' + role.id"
                         >
-                            <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 text-right p-l-14 cursor-default"
-                                  v-text="role.name"
-                            > </span>
-                            <button class="font-xs font-bold"
-                                    v-text=" role.name === 'به عنوان سفیر تهران' ? 'اکنون این نقش را دارد.' :  'اکنون چنین نقشی ندارد'"
-                                    :class="[ role.name === 'به عنوان سفیر تهران' ? 'r-confirm__active' : 'r-confirm__disabled' ]"
-                                    @click.prevent="onClickUserRoleItem"
-                            > </button>
+                            <div class="flex items-center">
+                                <span class="w-1/4 xl:w-1/5 text-blue-800 font-sm font-bold flex-shrink-0 text-right p-l-14 cursor-default"
+                                      v-text="role.name"
+                                > </span>
+                                <button class="font-xs font-bold"
+                                        v-text=" userRoles[role.id] ? 'اکنون این نقش را دارد.' :  'اکنون چنین نقشی ندارد'"
+                                        :class="[userRoles[role.id] ? 'r-confirm__active' : 'r-confirm__disabled' ]"
+                                        @click.stop="toggleRolesComboBox( role )"
+                                > </button>
+                            </div>
+                            <template v-if="!!role.isOpen">
+                                <div class="r-confirm__form flex items-center">
+                                    <span class="w-1/4 xl:w-1/5"> </span>
+                                    <template v-if="!role.is_client">
+                                        <select-cm :options="userRoles[role.id] ? rolesStatus : addedRoleStatus"
+                                                   label="name" :required="!!userRoles[role.id]"
+                                                   class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                                   @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
+                                        > </select-cm>
+                                    </template>
+                                    <template v-else>
+                                        <select-cm :options="userRoles[role.id] ? clientRoleStatus : addedClientRoleStatus"
+                                                   label="name" :required="!!userRoles[role.id]"
+                                                   class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                                   @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
+                                        > </select-cm>
+                                    </template>
+                                    <button class="r-confirm__button--discard e-user__button e-user__button--discard border border-solid rounded font-base font-bold text-center l:transition-bg"
+                                            @click.stop="toggleRolesComboBox( role )"
+                                            v-text="'انصراف'"
+                                    > </button>
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -489,12 +515,16 @@
     import {
         Length, HasLength
     } from "@vendor/plugin/helper";
+    import {
+        ACTIVE_ROLE_STATUS, ROLE_STATUS, ACTIVE_CLIENT_ROLE_STATUS, CLIENT_ROLE_STATUS
+    } from '@services/service/Roles';
     import ManageLegateService from '@services/service/ManageLegate';
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
     import ModalCm from '@vendor/components/modal/Index.vue';
+    import SelectCm from '@vendor/components/select/Index.vue';
     import StatusService from '@services/service/Status';
 
     let Service = null;
@@ -525,11 +555,15 @@
             paginateKeyCounter: false,
             isModuleRegistered: false,
             shouldBeShowSearchField: false,
+            addedRoleStatus: ACTIVE_ROLE_STATUS,
+            rolesStatus: ROLE_STATUS,
+            addedClientRoleStatus: ACTIVE_CLIENT_ROLE_STATUS,
+            clientRoleStatus: CLIENT_ROLE_STATUS
         }),
         components: {
             DropdownCm, TableCm,
             ImageCm, PaginationCm,
-            ModalCm
+            ModalCm, SelectCm
         },
         computed: {
             ...mapGetters({
@@ -538,6 +572,7 @@
             ...mapState({
                 items: ({ ManageLegateStore }) => ManageLegateStore.items,
                 roles: ({ ManageLegateStore }) => ManageLegateStore.roles,
+                userRoles: ({ ManageLegateStore }) => ManageLegateStore.userRole,
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination,
                 education: ({ ManageLegateStore }) => ManageLegateStore.education,
                 activities: ({ ManageLegateStore }) => ManageLegateStore.activities,
@@ -677,13 +712,16 @@
                     }
                 });
             },
+            toggleRolesComboBox( item ) {
+                this.$set(item, 'isOpen', !item.isOpen);
+            },
             async onClickManageUserRoleButton( item ) {
                 try {
                     this.$set(this.userRole, 'isPending', true);
                     this.$set(this, 'selectedItem', item);
                     this.onClickActionButton( item );
                     this.$refs['userRole']?.visible();
-                    await Service.getAllUserRoles();
+                    await Service.getUserRoles( item.id );
                     this.$set(this.userRole, 'isPending', false);
                 } catch ( error_message ) {
                     this.displayNotification(error_message, { type: 'error' });
@@ -691,14 +729,19 @@
             },
             onClickCloseManageUserRoleModal() {
                 this.$refs['userRole']?.hidden();
-                this.$nextTick(() => {
+                this.$refs['userRole'].$nextTick(() => {
                     this.$set(this, 'selectedItem', {});
                 });
             },
-            async onClickUserRoleItem() {
-                this.displayNotification('این قابلیت در حال حاضر فعال نمی‌باشد.', {
-                    type: 'warn'
-                })
+            async changeUserRoleStatus({ id }, user_id, role_id) {
+                try {
+                    if ( !!id ) {
+                        let result = await Service.handelUserRoleAction(user_id, role_id, id);
+                        this.displayNotification(result, { type: 'success' });
+                    }
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
             },
             onClickChangeUserPassword( item ) {
                 try {
@@ -742,7 +785,7 @@
                         type: 'warn'
                     })
                 } catch (e) {}
-            }
+            },
         },
         created() {
             Service = new ManageLegateService( this );

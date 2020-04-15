@@ -3,10 +3,13 @@ import {
     HasLength
 } from "@vendor/plugin/helper";
 import {
-    ImagesPresenter,
+    RolePresenter,
     UserRolePresenter
 } from '@vendor/infrastructure/presenter/MainPresenter';
 import DateService from '@vendor/plugin/date';
+import {
+    CLIENT
+} from '@services/service/Roles';
 
 const DEFAULT_AVATAR = '/images/img_avatar-default.jpg';
 
@@ -418,5 +421,56 @@ export class KnowCommunityByPresenter extends BasePresenter {
                 name: item
             }))
         ) : ([])
+    }
+}
+
+export class RolesPresenter {
+    constructor( data ) {
+        return !!data && HasLength( data ) ? (
+            data.map(item => new SingleRolesPresenter( item ))
+        ) : ([])
+    }
+}
+
+export class SingleRolesPresenter extends BasePresenter {
+    constructor( payload ) {
+        super( payload );
+        this.item = payload;
+
+        return this.mapProps({
+            id: Number,
+            type: String,
+            name: String,
+            is_client: Boolean
+        })
+    }
+
+    id() {
+        return this.item.id
+    }
+
+    name() {
+        return this.item.label
+    }
+
+    type() {
+        return this.item.type;
+    }
+
+    is_client() {
+        return this.item.name === CLIENT
+    }
+}
+
+export class UserRolesPresenter {
+    constructor( payload ) {
+        try {
+            let roles = {};
+            if (!!payload && HasLength(payload))
+                payload.forEach(item => {
+                    roles[item.id] = new RolePresenter( item )
+                });
+            return roles;
+        } catch (e) {}
     }
 }

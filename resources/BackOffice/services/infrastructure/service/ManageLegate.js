@@ -4,12 +4,13 @@ import BaseService from '@vendor/infrastructure/service/BaseService';
 import ManageLegate, {
     M_LEGATE_SET_DATA,
     M_LEGATE_SET_USER_ROLES,
-    M_USER_SET_BASIC_DATA
+    M_USER_SET_BASIC_DATA,
+    M_MANAGE_USER_ROLE,
+    M_LEGATE_SET_ROLES
 } from '@services/store/ManageLegate';
 import {
     UserInformationPresenter
 } from '@services/presenter/ManageLegate';
-import StatusService from '@services/service/Status';
 import {
     HasLength, CopyOf, Length
 } from '@vendor/plugin/helper';
@@ -51,6 +52,16 @@ export class UserService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
+    static async changeUserRoleStatus(user_id = 0, role_id = 0, role_status = '') {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.CHANGE_USER_ROLE_STATUS), {
+                user_id, role_id, role_status,
+            })
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
 }
 
 export default class ManageLegateService extends BaseService {
@@ -85,7 +96,6 @@ export default class ManageLegateService extends BaseService {
             await Promise.all([
                 this.getVolunteersListFilterBy( query ),
             ]);
-            //this.getBasicRegisterInfo()
         } catch ( message ) {
             this.$vm.displayNotification(message, { type: 'error' })
         }
@@ -169,10 +179,42 @@ export default class ManageLegateService extends BaseService {
 
     async getAllUserRoles() {
         try {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES));
-            BaseService.commitToStore(this.$store, M_LEGATE_SET_USER_ROLES, response)
+            // if (!HasLength( this.$vm.roles )) {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_USER));
+            BaseService.commitToStore(this.$store, M_LEGATE_SET_ROLES, response)
+            // }
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
+    async getUserRolesWithID( user_id ) {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_ROLES, { user_id }));
+            BaseService.commitToStore(this.$store, M_LEGATE_SET_USER_ROLES, response)
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception )
+        }
+    }
+
+    async getUserRoles( user_id ) {
+        try {
+            await Promise.all([
+                this.getAllUserRoles(),
+                this.getUserRolesWithID( user_id )
+            ]);
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
+    async handelUserRoleAction(user_id, role_id, role_status) {
+        try {
+            let response = await UserService.changeUserRoleStatus(user_id, role_id, role_status);
+            BaseService.commitToStore(this.$store, M_MANAGE_USER_ROLE, response);
+            return response.message
+        } catch ( exception ) {
+            throw exception;
         }
     }
     

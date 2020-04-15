@@ -49,17 +49,18 @@
     @include Xl_Screen
       min-width: 45%
     @include Md_Screen
-      min-width: 50%
+      min-width: 45%
   &__text
     cursor: default
     line-height: 1.94
   &__social
     @include Size( 16px )
-    @include Sm_Screen
-      @include Size( 28px )
     &:not(:last-of-type)
       margin-left: 20px
-      @include Sm_Screen
+    @include Sm_Screen
+      @include Size( 28px )
+      background-size: contain
+      &:not(:last-of-type)
         margin-left: 36px
   &__short
     @include Sm_Screen

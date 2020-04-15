@@ -1,8 +1,8 @@
 @extends('fa.template.master')
 @section('content')
     <div class="i-page n-show-page">
-        <div class="container">
-            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+        <div class="container sm:p-0">
+            <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                 <span class="i-page__title text-center cursor-default">
                     اخبار
                 </span>
@@ -17,14 +17,12 @@
                         />
                     </figure>
                     <div class="n-show__details relative flex flex-row flex-wrap items-end flex-1">
-                        <h1 class="n-show__title w-full text-blue-800 font-base cursor-default">
+                        <h1 class="n-show__title w-full text-blue-800 font-base cursor-default sm:font-sm">
                             {{$content->getFirstTitle()}}
                         </h1>
-                        <time class="n-show__release w-full block color-black text-left font-xs-bold cursor-default">
+                        <time class="n-show__release w-full block color-black text-left font-xs-bold cursor-default sm:font-1xs">
                             انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()))->format(' %d %B %Y')}}
-
                         </time>
-                        <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                     </div>
                 </div>
                 @if(!!$content->getAbstract())
@@ -32,7 +30,7 @@
                         {!! html_entity_decode($content->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
                     </div>
                 @endif
-                <div class="n-show__caption text-bayoux font-base cursor-default md:font-sm">
+                <div class="n-show__caption text-bayoux font-base cursor-default md:font-base">
                     {!! html_entity_decode($content->getDescription(), ENT_QUOTES, 'UTF-8') !!}
                 </div>
                 <div class="i-page__footer relative">
@@ -40,7 +38,7 @@
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
                             انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()))->format('H:i /  %d %B %Y')}}
                         </p>
-                        <div class="inline-flex items-center l:m-r-auto md:m-b-20">
+                        <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20">
                             <span class="text-bayoux font-sm-bold cursor-default">
                                 لینک کوتاه:
                             </span>
@@ -71,12 +69,10 @@
                     </div>
                 </div>
             </div>
-            <h2 class="relative-news__title flex text-blue font-24 md:font-22 text-center">
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 reverse-item m-0"></span>
-                <span class="i-page__title">
-                     از دست ندهید
+            <h2 class="relative-news__title i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
+                <span class="i-page__title text-center cursor-default">
+                    از دست ندهید
                 </span>
-                <span class="flower_line flower_line--blue--200 relative flex items-end justify-end flex-1 m-0"></span>
             </h2>
             <div class="block w-full relative-news">
                 <div class="max-w-full overflow-x-hidden">
@@ -93,11 +89,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -114,11 +110,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -135,11 +131,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -156,11 +152,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -177,11 +173,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -198,11 +194,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -219,11 +215,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -240,11 +236,11 @@
                                         />
                                     </figure>
                                     <div class="relative-news__cart_body block w-full">
-                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold">
+                                        <p class="relative-news__cart_title w-full text-black-300 font-xs-bold sm:font-1xs">
                                             حضرت حجت‌الاسلام والمسلمین عابدینی امام جمعه قزوین: نماز جمعه فرصت خوبی برای
                                             تبیین فرهنگ اهدای عضو است
                                         </p>
-                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left">
+                                        <p class="relative-news__cart_link text-blue font-xs-bold text-left sm:font-1xs">
                                             بیشتر
                                         </p>
                                     </div>
@@ -252,6 +248,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="carousel__pagination carousel__pagination--white none sm:flex justify-center"></div>
                 </div>
             </div>
         </div>

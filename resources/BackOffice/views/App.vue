@@ -17,6 +17,11 @@
             </div>
         </div>
         <Notification-cm />
+        <div class="h-0 w-0 opacity-0">
+            <span class="font-zar">
+                انجمن‌اهدای‌عضو‌ایرانیان
+            </span>
+        </div>
     </div>
 </template>
 

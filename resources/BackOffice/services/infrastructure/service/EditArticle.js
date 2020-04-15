@@ -163,9 +163,9 @@ export default class EditArticleService {
         }
     }
 
-    async onClickChangeStatusArticleToPendingButton( article_id ) {
+    async onClickChangeStatusArticleToCancelButton( article_id ) {
         try {
-            let response = await ArticleService.changeStatusArticleItem(article_id, StatusService.PENDING_STATUS);
+            let response = await ArticleService.changeStatusArticleItem(article_id, StatusService.CANCEL_STATUS);
             this.$vm.displayNotification(response.message, {
                 type: 'success',
             });

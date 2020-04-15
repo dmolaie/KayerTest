@@ -11,8 +11,12 @@
         background: #c1ecfc
     &_sub-title
       margin: 12px 30px 5px
+      @include Sm_Screen
+        margin: 6px 20px 0
     &_cover
       width: 245px
+      @include Sm_Screen
+        width: 125px
   .bg-sky-blue
     background: #bde8fa
   .s-cart
@@ -30,8 +34,9 @@
     &__aside
       width: 260px
       flex-shrink: 0
-      margin:
-        left: 28px
+      margin-left: 28px
+      @include Md_Screen
+        margin: 0 0 20px
   .swiper-slide
     width: 260px
     &:not(:last-of-type)
@@ -40,5 +45,6 @@
           left: 1px solid #bde8fa
   .h-cart
     &:not(:last-of-type)
-      margin:
-        bottom: 32px
+      margin-bottom: 32px
+      @include Md_Screen
+        margin-bottom: 21px

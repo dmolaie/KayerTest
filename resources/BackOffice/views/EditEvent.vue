@@ -164,10 +164,10 @@
                                 بازگشت به نویسنده (رد)
                             </button>
                         </template>
-                        <template v-else>
+                        <template v-else-if="!form.is_cancel">
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                    @click.prevent="() => {onClickPendingEventButton(); hiddenDropdown()}"
+                                    @click.prevent="() => {onClickCancelEventButton(); hiddenDropdown()}"
                             >
                                 لغو انتشار
                             </button>
@@ -452,10 +452,10 @@
                     this.$set(this, 'isPending', false);
                 }
             },
-            async onClickPendingEventButton() {
+            async onClickCancelEventButton() {
                 try {
                     this.$set(this, 'isPending', true);
-                    let result = Service.changeEventStatus(this.form.event_id, StatusService.PENDING_STATUS);
+                    let result = await Service.changeEventStatus(this.form.event_id, StatusService.CANCEL_STATUS);
                     this.displayNotification(result, { type: 'success' });
                     this.pushRouter({ name: 'MANAGE_EVENT' });
                 } catch ( exception ) {

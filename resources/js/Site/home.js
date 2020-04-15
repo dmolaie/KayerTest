@@ -168,7 +168,7 @@ try {
                     prevEl: '.info__section .carousel-btn--left',
                 },
                 pagination: {
-                    clickable: true,
+                    clickable: false,
                     el: '.info__section .carousel__pagination'
                 },
                 breakpoints: {
@@ -213,7 +213,7 @@ try {
                     prevEl: '.events__section .carousel-btn--left',
                 },
                 pagination: {
-                    clickable: true,
+                    clickable: false,
                     el: '.events__section .carousel__pagination'
                 },
                 breakpoints: {
@@ -260,7 +260,7 @@ try {
                     prevEl: '.ehda-news__section .carousel-btn--left',
                 },
                 pagination: {
-                    clickable: true,
+                    clickable: false,
                     el: '.ehda-news__section .carousel__pagination'
                 },
                 breakpoints: {
