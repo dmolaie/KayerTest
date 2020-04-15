@@ -33,14 +33,16 @@ class RoleRepository
         return DB::transaction(function () use ($permissionRoleInfoDTO) {
             $user = User::find($permissionRoleInfoDTO->getUserId());
             $user->permissions()->wherePivot('role_id', '=', $permissionRoleInfoDTO->getRoleId())->sync([]);
-            $user->permissions()->attach($permissionRoleInfoDTO->getPermission(), ['role_id' => $permissionRoleInfoDTO->getRoleId()], ['condition' => $permissionRoleInfoDTO->getCondition()]);
+            foreach ($permissionRoleInfoDTO->getPermissionData() as $permissionData){
+                $user->permissions()->attach($permissionData['permission_id'],[ 'role_id' => $permissionRoleInfoDTO->getRoleId(), 'condition' => json_encode($permissionData['permission_condition']) ]);
+            }
         });
     }
 
     public function getPermissionRoleUser(PermissionRoleUserInfoDTO $permissionRoleUserInfoDTO)
     {
         $user = User::find($permissionRoleUserInfoDTO->getUserId());
-        return $user->permissions()->wherePivot('role_id', '=', $permissionRoleUserInfoDTO->getRoleId())->withPivot('role_id')->get()->groupBy('model');
+        return $user->permissions()->wherePivot('role_id', '=', $permissionRoleUserInfoDTO->getRoleId())->withPivot('role_id','condition')->get()->groupBy('model');
 
     }
 
