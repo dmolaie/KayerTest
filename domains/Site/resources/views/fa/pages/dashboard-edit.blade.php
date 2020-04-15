@@ -1,17 +1,17 @@
 @extends('fa.template.master')
     @section('content')
         <div class="p-edit dnt-page i-page p-edit__pre-loading">
-            <div class="container">
+            <div class="container sm:p-0">
                 <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
                     <span class="i-page__title text-center cursor-default">
                         پروفایل
                     </span>
                 </h1>
                 <form method="POST"
-                      class="p-edit__box inner-box w-full block"
+                      class="p-edit__box inner-box w-full block sm:p-0"
                 >
-                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2">
-                        <div class="dnt-page__input block md:w-full">
+                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2 sm:m-0 sm:border-0">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 نام
                             </span>
@@ -24,7 +24,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 نام خانوادگی
                             </span>
@@ -37,7 +37,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 کد ملی
                             </span>
@@ -51,7 +51,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شماره شناسنامه
                             </span>
@@ -64,7 +64,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 جنسیت
                             </span>
@@ -99,7 +99,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 نام پدر
                             </span>
@@ -113,7 +113,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 تاریخ تولد
                             </span>
@@ -163,7 +163,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 استان محل تولد
                             </span>
@@ -183,7 +183,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شهر محل تولد
                             </span>
@@ -203,7 +203,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شغل
                             </span>
@@ -218,8 +218,8 @@
                         </div>
                     </div>
 
-                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2">
-                        <div class="dnt-page__input block md:w-full">
+                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2 sm:m-0 sm:border-0">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 تلفن همراه
                             </span>
@@ -232,7 +232,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 ایمیل
                             </span>
@@ -247,8 +247,8 @@
                         </div>
                     </div>
 
-                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2">
-                        <div class="dnt-page__input block md:w-full">
+                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2 sm:m-0 sm:border-0">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 استان محل سکونت
                             </span>
@@ -268,7 +268,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 شهر محل سکونت
                             </span>
@@ -288,7 +288,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 آدرس محل سکونت
                             </span>
@@ -301,7 +301,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 تلفن منزل
                             </span>
@@ -314,7 +314,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 کدپستی منزل
                             </span>
@@ -329,8 +329,8 @@
                         </div>
                     </div>
 
-                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2">
-                        <div class="dnt-page__input block md:w-full">
+                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2 sm:m-0 sm:border-0">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                 میزان تحصیلات
                             </span>
@@ -350,7 +350,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 رشته تحصیلی
                             </span>
@@ -363,7 +363,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 استان محل تحصیل
                             </span>
@@ -383,7 +383,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 شهر محل تحصیل
                             </span>
@@ -405,8 +405,8 @@
                         </div>
                     </div>
 
-                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2">
-                        <div class="dnt-page__input block md:w-full">
+                    <div class="p-edit__row flex flex-wrap w-full bg-white border border-solid rounded-1/2 sm:border-0">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                 گذرواژه‌ی جدید
                             </span>
@@ -419,7 +419,7 @@
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </label>
                         </div>
-                        <div class="dnt-page__input block md:w-full">
+                        <div class="dnt-page__input block sm:w-full">
                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold">
                                 تکرار گذرواژه‌ی جدید
                             </span>
@@ -434,12 +434,12 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap w-full">
-                        <button class="p-edit__submit p-edit__submit--green text-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center">
+                    <div class="flex w-full sm:flex-wrap">
+                        <button class="p-edit__submit p-edit__submit--green text-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center sm:font-lg">
                             ذخیره
                         </button>
                         <a href="/"
-                            class="p-edit__submit p-edit__submit--white bg-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center"
+                            class="p-edit__submit p-edit__submit--white bg-white block font-24 font-bold md:w-full border border-solid rounded-10 text-center sm:font-lg"
                         >
                             انصراف
                         </a>
