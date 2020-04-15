@@ -131,9 +131,7 @@
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
-                             disabledLabel="قبلا ایجاد شده"
-                             :disabledEn="disabledEnLang"
-                             :disabledFa="disabledFaLang"
+                             :defaultLabel="locationPanelTitle"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -298,6 +296,12 @@
                 return ( HasLength( this.provinces ) ) ? (
                     (Object.values( this.provinces ))[0]
                 ) : ({})
+            },
+            parentID() {
+                return !!this.$route.params.parent_id;
+            },
+            locationPanelTitle() {
+                return this.parentID ? 'ویرایش' : 'ایجاد'
             }
         },
         methods: {
@@ -330,22 +334,32 @@
                 this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
-                this.pushRouter({
-                    name: 'CREATE_NEWS',
-                    params: {
-                        lang: 'fa',
-                    }
-                });
-                this.setInitialState();
+                if ( this.parentID ) {
+                    this.pushRouter({
+                        name: 'EDIT_NEWS',
+                        params: { lang: 'fa', id: this.$route.params.parent_id }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: 'CREATE_NEWS',
+                        params: { lang: 'fa', }
+                    });
+                    this.setInitialState();
+                }
             },
             onClickEnglishLang() {
-                this.pushRouter({
-                    name: 'CREATE_NEWS',
-                    params: {
-                        lang: 'en',
-                    }
-                });
-                this.setInitialState();
+                if ( this.parentID ) {
+                    this.pushRouter({
+                        name: 'EDIT_NEWS',
+                        params: { lang: 'en', id: this.$route.params.parent_id, }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: 'CREATE_NEWS',
+                        params: { lang: 'en', }
+                    });
+                    this.setInitialState();
+                }
             },
             onClickReleaseTimeButton() {
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);

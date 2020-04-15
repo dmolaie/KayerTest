@@ -177,9 +177,7 @@
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
-                             disabledLabel="قبلا ایجاد شده"
-                             :disabledEn="disabledEnLang"
-                             :disabledFa="disabledFaLang"
+                             :defaultLabel="locationPanelTitle"
                 />
                 <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
@@ -311,6 +309,9 @@
                 return ( HasLength( this.provinces ) ) ? (
                     (Object.values( this.provinces ))[0]
                 ) : ({})
+            },
+            locationPanelTitle() {
+                return !!this.$route.params.parent_id ? 'ویرایش' : 'ایجاد'
             }
         },
         methods: {
@@ -376,12 +377,22 @@
                 this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
-                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'fa' } });
-                this.setInitialState();
+                let { parent_id } = this.$route.params;
+                if ( !!parent_id ) {
+                    this.pushRouter({ name: 'EDIT_EVENT', params: { lang: 'fa', id: parent_id } });
+                } else {
+                    this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'fa' } });
+                    this.setInitialState();
+                }
             },
             onClickEnglishLang() {
-                this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'en' } });
-                this.setInitialState();
+                let { parent_id } = this.$route.params;
+                if ( !!parent_id ) {
+                    this.pushRouter({ name: 'EDIT_EVENT', params: { lang: 'en', id: parent_id } });
+                } else {
+                    this.pushRouter({ name: 'CREATE_EVENT', params: { lang: 'en' } });
+                    this.setInitialState();
+                }
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
