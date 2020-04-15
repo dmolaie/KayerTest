@@ -162,7 +162,7 @@ export default class ManageEventService extends BaseService {
     async HandelPagination(page, { query }) {
         try {
             const QUERYSTRING = { page, ...CopyOf( query ) };
-            this.getEventListFilterBy( QUERYSTRING )
+            await this.getEventListFilterBy( QUERYSTRING )
         } catch ( exception ) {
             throw exception;
         }
