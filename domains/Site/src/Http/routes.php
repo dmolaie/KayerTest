@@ -18,6 +18,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/mission-and-vision', 'PagesController@missionAndVision')->name('mission-and-vision');
         Route::get('/iran_news', 'PagesController@newsListIran')->name('news-list-iran');
         Route::get('/world-news', 'PagesController@newsListWorld')->name('news-list-world');
+        Route::get('/events', 'PagesController@eventsList')->name('events-list');
 
 
         Route::get('/{slug}', 'PagesController@pages')->name('pages');
@@ -26,11 +27,20 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
     Route::prefix('archive')->name('archive.')->group(function () {
         Route::get('/news', 'PagesController@newsList')->name('news-list');
         Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
+        Route::get('/events/show/{slug}', 'PagesController@showDetailEvents')->name('showDetailEvents');
     });
 
 });
+
+Route::domain('{account}.dev.ehdacenter.io')->group(function () {
+    Route::get('user/{id}', function ($account, $id) {
+        dd('dd');
+    })->name('domain');
+});
+
 Route::get('/news/{uuid}', 'PagesController@newsShortLink')->name('news-short-link');
-Route::get('/even/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
+Route::get('/event/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
 Route::get('/article/{uuid}', 'PagesController@articleShortLink')->name('article-short-link');
+
 
 

@@ -239,4 +239,21 @@ class EventService
         return $this->eventInfoDTOMaker->convert($event, $images);
     }
 
+
+    public function getEventsDetailWithSlug(string $slug)
+    {
+        $news = $this->eventRepository->findOrFailSlug($slug);
+        $attachmentInfoDto = $this->getAttachmentInfoEvent(class_basename(Event::class), [$news->id]);
+        $images = $attachmentInfoDto->getImages()[$news->id];
+        return $this->eventInfoDTOMaker->convert($news, $images);
+    }
+
+    public function getEventsDetailWithUuid(string $uuid)
+    {
+        $news = $this->eventRepository->findOrFailUuid($uuid);
+        $attachmentInfoDto = $this->getAttachmentInfoEvent(class_basename(Event::class), [$news->id]);
+        $images = $attachmentInfoDto->getImages()[$news->id];
+        return $this->eventInfoDTOMaker->convert($news, $images);
+    }
+
 }
