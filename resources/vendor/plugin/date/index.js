@@ -27,6 +27,14 @@ const MONTH = [
     'اسفند',
 ];
 
+const PERIODS = {
+    ['month']: 30 * 24 * 60 * 60 * 1000,
+    ['week']: 7 * 24 * 60 * 60 * 1000,
+    ['day']: 24 * 60 * 60 * 1000,
+    ['hour']: 60 * 60 * 1000,
+    ['minute']: 60 * 1000
+};
+
 export default class DateService {
     static toJalaali(gy = 0, gm = 0, gd = 0) {
         if (Object.prototype.toString.call(gy) === '[object Date]') {
@@ -39,6 +47,23 @@ export default class DateService {
 
     static toGregorian( jy = 0, jm = 0, jd = 0 ) {
         return DateService.d2g( DateService.j2d( jy, jm, jd ) );
+    }
+
+    static timeSince( timestamp ) {
+        const DIFF = Date.now() - timestamp;
+        if (DIFF > PERIODS['month'])
+            return Math.floor(DIFF / PERIODS['month']) + ' ماه پیش';
+        if (DIFF > PERIODS['week'])
+            return Math.floor(DIFF / PERIODS['week']) + ' هفته پیش';
+        if (DIFF > PERIODS['day'])
+            return Math.floor(DIFF / PERIODS['day']) + ' روز پیش';
+        if (DIFF > PERIODS['hour'])
+            return Math.floor(DIFF / PERIODS['hour']) + ' ساعت پیش';
+        if (DIFF > PERIODS['hour'])
+            return Math.floor(DIFF / PERIODS['hour']) + ' ساعت پیش';
+        if (DIFF > PERIODS['minute'])
+            return Math.floor(DIFF / PERIODS['minute']) + ' دقیقه پیش';
+        return 'همین الان';
     }
 
     static getLocalString( timestamp, locales = 'fa-IR' ) {
