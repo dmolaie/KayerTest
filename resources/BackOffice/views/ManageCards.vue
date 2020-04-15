@@ -9,7 +9,7 @@
             <div class="m-post__wrapper">
                 <div class="m-post__header flex justify-end">
                     <div class="m-post__button--added relative">
-                        <router-link :to="{ name: 'CREATE_EVENT', params: { lang: 'fa' } }"
+                        <router-link :to="{ name: 'CREATE_CARDS' }"
                                      class="m-post__button inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
                         >
                             <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" id="icon--remove">
