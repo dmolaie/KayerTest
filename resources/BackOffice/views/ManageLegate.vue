@@ -118,8 +118,7 @@
                                 <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
                                     <div class="flex flex-wrap items-start cursor-default"
                                     >
-<!--                                        {{item.roles}}-->
-                                        <button class=" m-legate__role m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
+                                        <button class="m-legate__role m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                                 v-for="(role, i) in item.roles"
                                                 :key="'status-' + i"
                                                 :class="{
@@ -127,8 +126,9 @@
                                                     'm-post__status--reject': role.is_inactive,
                                                     'm-post__status--delete': role.is_deleted,
                                                     'm-post__status--pending': (role.is_pending || role.is_wait_exam || role.is_wait_document),
+                                                    'cursor-default pointer-event-none': !role.is_legate
                                                 }"
-                                                @click.stop="onClickShowUserAccessLevelModal( item )"
+                                                @click.stop="onClickShowUserAccessLevelModal(role, item.id, item.full_name)"
                                         >
                                             {{ role.label }}: {{ role.status_fa }}
                                         </button>
@@ -206,17 +206,28 @@
                     <div v-else
                          class="confirm__container cursor-default"
                     >
-                        <p class="confirm__label w-full text-bayoux font-base font-bold"
-                           v-text="selectedItem.full_name"
-                        > </p>
-                        <p class="confirm__label w-full flex items-center">
-                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
-                                نقش کاربری:
-                            </span>
-                            <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
-                                  v-text="'سفیر'"
-                            > </span>
-                        </p>
+                        <template v-if="false">
+                            <p class="confirm__label w-full text-bayoux font-base font-bold"
+                               v-text="selectedItem.full_name"
+                            > </p>
+                            <p class="confirm__label w-full flex items-center">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    نقش کاربری:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-text="selectedItem.label"
+                                > </span>
+                            </p>
+                            <select-cm :options="rolesStatus"
+                                       label="name" class="w-1/3"
+                                       :value="selectedItem.status_fa"
+                                       @onChange="changeUserRoleStatus($event, selectedItem.user_id, selectedItem.id)"
+                            />
+                        </template>
+                        <template>
+                            <permissions-cm :data="permissions"
+                            />
+                        </template>
                     </div>
                 </div>
             </div>
@@ -525,6 +536,7 @@
     import PaginationCm from '@vendor/components/pagination/Index.vue';
     import ModalCm from '@vendor/components/modal/Index.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
+    import PermissionsCm from '@components/ManageUser/Permissions.vue';
     import StatusService from '@services/service/Status';
 
     let Service = null;
@@ -563,7 +575,7 @@
         components: {
             DropdownCm, TableCm,
             ImageCm, PaginationCm,
-            ModalCm, SelectCm
+            ModalCm, SelectCm, PermissionsCm
         },
         computed: {
             ...mapGetters({
@@ -576,6 +588,7 @@
                 pagination: ({ ManageLegateStore }) => ManageLegateStore.pagination,
                 education: ({ ManageLegateStore }) => ManageLegateStore.education,
                 activities: ({ ManageLegateStore }) => ManageLegateStore.activities,
+                permissions: ({ ManageLegateStore }) => ManageLegateStore.permissions
             }),
             isAllUserTab() {
                 let { query } = this.$route;
@@ -672,14 +685,25 @@
                         });
                 } catch (e) {}
             },
-            async onClickShowUserAccessLevelModal( item ) {
+            // async onClickShowUserAccessLevelModal(item, role_id) {
+            async onClickShowUserAccessLevelModal(role, user_id, username) {
                 try {
-                    this.$refs['accessLevel'].visible();
-                    this.$set(this.accessLevel, 'isPending', true);
-                    this.$set(this, 'selectedItem', item);
-                    let response = await Service.getUserInformationByID( item.id );
-                    // this.$set(this.userInfo, 'data', response);
-                    this.$set(this.accessLevel, 'isPending', false);
+                    if ( this.isAdmin && role.is_legate ) {
+                        this.$set(this, 'selectedItem', {
+                            user_id, full_name: username,
+                            ...role
+                        });
+                        this.$set(this.accessLevel, 'isPending', true);
+                        this.$refs['accessLevel'].visible();
+                        await Service.getUserPermission(user_id, role.id);
+                        this.$set(this.accessLevel, 'isPending', false);
+                    }
+                    //
+                    //
+                    // this.$set(this, 'selectedItem', item);
+                    // let response =
+                    // // this.$set(this.userInfo, 'data', response);
+                    //
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }

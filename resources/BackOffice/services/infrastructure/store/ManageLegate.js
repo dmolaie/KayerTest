@@ -6,7 +6,7 @@ import ManageLegatePresenter, {
     SingleLegatePresenter
 } from '@services/presenter/ManageLegate';
 import {
-    UserRolePresenter
+    UserRolePresenter, UserPermissionPresenter
 } from '@vendor/infrastructure/presenter/MainPresenter';
 
 export const M_LEGATE_SET_DATA = 'M_LEGATE_SET_DATA';
@@ -14,6 +14,7 @@ export const M_LEGATE_SET_ROLES = 'M_LEGATE_SET_ROLES';
 export const M_LEGATE_SET_USER_ROLES = 'M_LEGATE_SET_USER_ROLES';
 export const M_USER_SET_BASIC_DATA = 'M_USER_SET_BASIC_DATA';
 export const M_MANAGE_USER_ROLE = 'M_MANAGE_USER_ROLE';
+export const M_MANAGE_USER_PERMISSION = 'M_MANAGE_USER_PERMISSION';
 
 const ManageLegate = {
     state: {
@@ -22,10 +23,15 @@ const ManageLegate = {
         userRole: {},
         pagination: {},
         education: {},
-        activities: {}
+        activities: {},
+        permissions: {
+            user: {},
+            list: {}
+        }
     },
     mutations: {
         [M_LEGATE_SET_DATA](state, { data }) {
+            console.log(new ManageLegatePresenter(data.items));
             state.items = { ...new ManageLegatePresenter( data.items ) };
             state.pagination = {
                 ... {
@@ -44,16 +50,16 @@ const ManageLegate = {
         [M_LEGATE_SET_USER_ROLES](state, { data }) {
             state.userRole = { ...new UserRolesPresenter( data ) };
         },
-        // [M_MANAGE_USER_ROLE](state, { data: { id: user_id, roles, } }) {
         [M_MANAGE_USER_ROLE](state, { data }) {
-            // const USER_ROLES = new UserRolePresenter( data.roles );
-            // state.roles.user_role = [...USER_ROLES.map(({ id }) => id)];
             const DATA = Object.values( state.items );
             const FIND_ITEM = DATA.find(({ id }) => id === data.id );
-            // if ( !!FIND_ITEM ) FIND_ITEM.roles = [...USER_ROLES];
             if ( !!FIND_ITEM ) Object.assign(FIND_ITEM, new SingleLegatePresenter( data ));
             state.userRole = { ...new UserRolesPresenter( data.roles ) };
             state.items = { ...DATA };
+        },
+        [M_MANAGE_USER_PERMISSION](state, { data: { user, list } }) {
+            console.log('getUserPermission: ',new UserPermissionPresenter(list));
+            state.permissions.list = { ...new UserPermissionPresenter(list) }
         }
     }
 };

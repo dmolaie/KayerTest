@@ -3,6 +3,7 @@ import {
     HasLength, CopyOf
 } from "@vendor/plugin/helper";
 import {
+    ADMIN, MANAGER, LEGATE, CLIENT,
     ROLE_STATUS, ACTIVE_STATUS, PENDING_STATUS, INACTIVE_STATUS,
     DELETE_STATUS, WAIT_FOR_DOCUMENTS_STATUS, WAIT_FOR_EXAM_STATUS,
 } from '@services/service/Roles';
@@ -184,6 +185,12 @@ export class UserRolePresenter {
     }
 }
 
+const PERMISSION_FA_KEY = {
+    ['news']: 'اخبار',
+    ['event']: 'رویدادها',
+    ['article']: 'صفحات ایستا',
+};
+
 export class RolePresenter extends BasePresenter {
     constructor( data ) {
         super( data );
@@ -201,6 +208,10 @@ export class RolePresenter extends BasePresenter {
             is_deleted: Boolean,
             is_wait_document: Boolean,
             is_wait_exam: Boolean,
+            is_admin: Boolean,
+            is_manage: Boolean,
+            is_legate: Boolean,
+            is_client: Boolean,
         })
     }
 
@@ -246,5 +257,60 @@ export class RolePresenter extends BasePresenter {
 
     is_wait_exam() {
         return this.data.status === WAIT_FOR_EXAM_STATUS
+    }
+
+    is_admin() {
+        return this.data.type === ADMIN
+    }
+
+    is_manage() {
+        return this.data.type === MANAGER
+    }
+
+    is_legate() {
+        return this.data.type === LEGATE
+    }
+
+    is_client() {
+        return this.data.type === CLIENT
+    }
+}
+
+export class UserPermissionPresenter {
+    constructor( data ) {
+        return !!data && HasLength( data ) ? (
+            Object.entries( data ).reduce((permission, [key, val]) => {
+                permission[key] = {
+                    name: PERMISSION_FA_KEY[key] || '',
+                    items: val.map(item => new SingleUserPermissionPresenter( item )),
+                };
+                return permission;
+            }, {})
+        ) : ({})
+    }
+}
+
+export class SingleUserPermissionPresenter extends BasePresenter {
+    constructor( data ) {
+        super( data );
+        this.item = data;
+
+        return this.mapProps({
+            id: Number,
+            name_en: String,
+            name_fa: String,
+        })
+    }
+
+    id() {
+        return this.item.id
+    }
+
+    name_en() {
+        return this.item.name || ''
+    }
+
+    name_fa() {
+        return this.item.label || ''
     }
 }
