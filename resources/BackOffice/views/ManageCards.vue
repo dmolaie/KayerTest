@@ -88,7 +88,7 @@
                                 <div class="table__td table__td:l flex flex-col cursor-default">
                                     <button class="text-blue-800 font-xs font-bold text-right l:transition-color l:hover:text-blue--200"
                                             v-text="item.full_name"
-                                            @click.stop="onClickShowUserInfoModal( item.id )"
+                                            @click.stop="onClickShowUserInfoModal( item.user_id )"
                                     > </button>
                                     <div class="w-full flex items-start flex-col">
                                         <span class="m-legate__status m-post__status--published m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs">
@@ -150,6 +150,115 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="cardInfo">
+            <div class="confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                         اطلاعات کارت اهدای عضو
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseUserInfoModal"
+                    > </button>
+                </div>
+                <template v-if="cardInfo.isPending">
+                    <p class="confirm__pending text-gray-200 font-base font-bold text-center cursor-default">
+                        <span class="confirm__spinner spinner-loading"> </span>
+                        در حال دریافت اطلاعات...
+                    </p>
+                </template>
+                <template v-else>
+                    <div class="modal__content confirm__content">
+                        <div class="confirm__container cursor-default">
+                            <p class="confirm__label w-full text-bayoux font-base font-bold"
+                               v-text="selectedUser.full_name"
+                            > </p>
+                            <p class="confirm__label w-full flex items-center text-blue-800 font-sm font-bold">
+                                کارت اهدای عضو شماره {{ selectedUser.card_id }}
+                            </p>
+                            <p class="confirm__label w-full flex items-center">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    تلفن همراه:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-text="selectedUser.mobile"
+                                > </span>
+                            </p>
+                            <p class="confirm__label w-full flex items-center"
+                               v-if="!!selectedUser.email"
+                            >
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    ایمیل:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-text="selectedUser.email"
+                                > </span>
+                            </p>
+                            <span class="confirm__divider w-full block"> </span>
+                            <p class="confirm__label w-full flex items-center">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    کد ملی:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-text="selectedUser.national_code"
+                                > </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-if="!!selectedUser.identity_number"
+                                      v-text="`(شماره شناسنامه: ${selectedUser.identity_number})`"
+                                > </span>
+                            </p>
+                            <p class="confirm__label w-full flex items-center">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    تولد:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-text="selectedUser.date_of_birth"
+                                > </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-if="!!selectedUser.city_of_birth"
+                                      v-text="`(شماره شناسنامه: ${selectedUser.city_of_birth})`"
+                                > </span>
+                            </p>
+                            <p class="confirm__label w-full flex items-center"
+                               v-if="!!selectedUser.phone || !!selectedUser.current_address"
+                            >
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    محل سکونت:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-if="!!selectedUser.phone"
+                                      v-text="selectedUser.phone"
+                                > </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-if="!!selectedUser.current_address"
+                                      v-text="selectedUser.current_address"
+                                > </span>
+                            </p>
+                            <span class="confirm__divider w-full block"> </span>
+                            <div class="confirm__label w-full flex items-center">
+                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                    عضویت:
+                                </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                      v-text="selectedUser.created_at"
+                                > </span>
+                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15">
+                                    به‌روز‌رسانی {{ selectedUser.updated_at }}
+                                </span>
+                            </div>
+                            <span class="confirm__divider w-full block"> </span>
+                            <donation-card-cm :label="`${selectedUser.full_name} - ${selectedUser.card_id}`"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal__footer confirm__footer w-full text-left">
+                        <button class="confirm__f-button confirm__f-button--submit font-base font-medium rounded text-center l:transition-bg"
+                                v-text="'چاپ کارت'"
+                                @click.prevent="onClickPrintDonationCardButton"
+                        > </button>
+                    </div>
+                </template>
+            </div>
+        </modal-cm>
         <modal-cm ref="changePassword"
                   @close="onClickCloseChangePasswordModal"
         >
@@ -226,6 +335,7 @@
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
+    import DonationCardCm from '@components/DonationCard.vue';
 
     let Service = null;
 
@@ -233,6 +343,7 @@
         name: "ManageCards",
         data: () => ({
             selectedUser: {},
+            cardInfo: { isPending: true },
             password: { value: '', isPending: false },
             isPending: true,
             search: { timeout: null, value: '', visibility: false },
@@ -241,7 +352,8 @@
         }),
         components: {
             TableCm, ImageCm, ModalCm,
-            DropdownCm, PaginationCm
+            DropdownCm, PaginationCm,
+            DonationCardCm
         },
         computed: {
             ...mapGetters({
@@ -288,8 +400,25 @@
                     this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                 }, 350);
             },
-            onClickShowUserInfoModal( user_id ) {
-
+            async onClickShowUserInfoModal( user_id ) {
+                try {
+                    this.$set(this.cardInfo, 'isPending', true);
+                    this.$refs['cardInfo'].visible();
+                    let result = await Service.getUserInformation( user_id );
+                    this.$set(this, 'selectedUser', result);
+                    this.$set(this.cardInfo, 'isPending', false);
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                }
+            },
+            onClickPrintDonationCardButton() {
+                this.displayNotification('این قابلیت در حال حاضر فعال نمی‌باشد.', { type: 'warn' })
+            },
+            onClickCloseUserInfoModal() {
+                this.$refs['cardInfo']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedUser', {});
+                });
             },
             onClickActionButton( item ) {
                 this.$set(item, 'is_opened', !item.is_opened);

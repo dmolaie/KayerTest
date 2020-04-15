@@ -51,6 +51,7 @@ export class SingleManageCardsPresenter extends BasePresenter {
     last_name() {
         return this.data.last_name
     }
+
     full_name() {
         return this.data.name + ' ' + this.data.last_name;
     }
@@ -65,5 +66,77 @@ export class SingleManageCardsPresenter extends BasePresenter {
 
     mobile() {
         return this.data.mobile || '09215162087'
+    }
+}
+
+export class CardInformation extends BasePresenter {
+    constructor({ data }) {
+        super( data );
+        this.data = data;
+
+        return this.mapProps({
+            full_name: String,
+            card_id: String,
+            email: String,
+            mobile: String,
+            national_code: String,
+            identity_number: String,
+            date_of_birth: String,
+            city_of_birth: String,
+            phone: String,
+            created_at: String,
+            updated_at: String,
+        })
+    }
+
+    full_name() {
+        return this.data.name + ' ' + this.data.last_name;
+    }
+
+    card_id() {
+        return this.data.card_id || ''
+    }
+
+    email() {
+        return this.data.email || ''
+    }
+
+    mobile() {
+        return this.data.mobile || ''
+    }
+
+    national_code() {
+        return this.data.national_code
+    }
+
+    identity_number() {
+        return this.data.identity_number || ''
+    }
+
+    date_of_birth() {
+        return DateService.getJalaaliDate( this.data.date_of_birth )
+    }
+
+    city_of_birth() {
+        return this.data.city_of_birth?.name || ""
+    }
+
+    phone() {
+        return this.data.phone || ''
+    }
+
+    current_address() {
+        return this.data.current_address || ''
+    }
+
+    created_at() {
+        return DateService.getLocalString( this.data.created_at )
+    }
+
+    updated_at() {
+        let { updated_at } = this.data;
+        return !!updated_at ? (
+            DateService.getLocalString( updated_at )
+        ) : ''
     }
 }

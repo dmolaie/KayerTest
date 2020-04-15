@@ -2,6 +2,12 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import ExceptionService from '@services/service/exception';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import {
+    UserService
+} from '@services/service/ManageLegate';
+import {
+    CardInformation
+} from '@services/presenter/ManageCards';
 import ManageCardsStore, {
     M_CARDS_SET_DATA
 } from '@services/store/ManageCards';
@@ -95,6 +101,13 @@ export default class ManageCardsService extends BaseService {
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
+    }
+
+    async getUserInformation( user_id ) {
+        try {
+            let response = await UserService.getUserInfoByUserID( user_id );
+            return new CardInformation( response );
+        } catch ( exception ) { throw exception }
     }
 
     async handelPagination(page, { query }) {
