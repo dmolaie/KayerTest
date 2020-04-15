@@ -27,7 +27,8 @@ export class SingleManageCardsPresenter extends BasePresenter {
             last_name: String,
             full_name: String,
             created_at: String,
-            location: String
+            location: String,
+            mobile: String,
         })
     }
 
@@ -60,5 +61,9 @@ export class SingleManageCardsPresenter extends BasePresenter {
 
     created_at() {
         return DateService.timeSince(this.data.created_at * 1e3)
+    }
+
+    mobile() {
+        return this.data.mobile || '09215162087'
     }
 }

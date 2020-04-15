@@ -77,6 +77,26 @@ export default class ManageCardsService extends BaseService {
         }
     }
 
+    checkChangeUserPasswordValidation( password ) {
+        try {
+            if (!password || Length(password.trim()) < 8)
+                throw new Error('حداقل هشت کاراکتر حساس به کوچکی و بزرگی حروف.')
+        } catch ( exception ) { throw exception }
+    }
+
+    async changeUserPassword(user_id, password) {
+        try {
+            this.checkChangeUserPasswordValidation( password );
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_PASSWORD), {
+                user_id, password,
+                password_confirmation: password
+            });
+            return response.message;
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
     async handelPagination(page, { query }) {
         try {
             const QUERYSTRING = {page, ...CopyOf(query)};

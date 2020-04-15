@@ -123,7 +123,7 @@
                                         >
                                             <template v-if="isAdmin">
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                        @click.stop="onClickEditUserButton( item.id )"
+                                                        @click.stop="onClickEditUserButton( item.user_id )"
                                                         v-text="'ویرایش اطلاعات'"
                                                 > </button>
                                                 <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
@@ -150,6 +150,66 @@
                 </div>
             </div>
         </div>
+        <modal-cm ref="changePassword"
+                  @close="onClickCloseChangePasswordModal"
+        >
+            <div class="confirm modal__body w-full bg-white rounded">
+                <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
+                    <span class="text-blue-800 font-base font-bold cursor-default">
+                        تغییر گذرواژه
+                    </span>
+                    <button class="confirm__button relative"
+                            @click.prevent="onClickCloseChangePasswordModal"
+                    > </button>
+                </div>
+                <div class="modal__content confirm__content">
+                    <form @submit="onClickSubmitChangePasswordModal"
+                          class="confirm__container">
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                نام
+                            </span>
+                            <input type="text"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1"
+                                   placeholder="نام کاربر" readonly="readonly" disabled="disabled"
+                                   :value="selectedUser.full_name"
+                            >
+                        </label>
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                تلفن همراه
+                            </span>
+                            <input type="text"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr"
+                                   placeholder="تلفن همراه کاربر" readonly="readonly" disabled="disabled"
+                                   :value="selectedUser.mobile"
+                            >
+                        </label>
+                        <label class="confirm__label w-full flex items-center">
+                            <span class="confirm__text text-required text-blue-800 font-sm font-bold flex-shrink-0">
+                                گذرواژه
+                            </span>
+                            <input type="password"
+                                   class="modal__input confirm__input input input--white text-blue-800 border border-solid rounded font-xs font-light flex-1 direction-ltr"
+                                   placeholder="گذرواژه کاربر" autocomplete="off"
+                                   v-model="password.value"
+                            >
+                        </label>
+                    </form>
+                </div>
+                <div class="modal__footer confirm__footer w-full text-left">
+                    <button class="confirm__f-button confirm__f-button--submit font-base font-medium rounded text-center l:transition-bg"
+                            :class="{ 'spinner-loading': ( password.isPending ) }"
+                            @click.prevent="onClickSubmitChangePasswordModal"
+                            v-text="'تایید'"
+                    > </button>
+                    <button class="confirm__f-button confirm__f-button--discard font-base font-medium rounded text-center l:transition-bg"
+                            @click.prevent="onClickCloseChangePasswordModal"
+                            v-text="'لغو'"
+                    > </button>
+                </div>
+            </div>
+        </modal-cm>
     </div>
 </template>
 
@@ -161,6 +221,7 @@
         IS_ADMIN
     } from '@services/store/Login';
     import ManageCardsService from '@services/service/ManageCards';
+    import ModalCm from '@vendor/components/modal/Index.vue';
     import TableCm from '@vendor/components/table/Index.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import DropdownCm from '@vendor/components/dropdown/Index.vue';
@@ -171,13 +232,15 @@
     export default {
         name: "ManageCards",
         data: () => ({
+            selectedUser: {},
+            password: { value: '', isPending: false },
             isPending: true,
             search: { timeout: null, value: '', visibility: false },
             paginateKeyCounter: 0,
             isModuleRegistered: false,
         }),
         components: {
-            TableCm, ImageCm,
+            TableCm, ImageCm, ModalCm,
             DropdownCm, PaginationCm
         },
         computed: {
@@ -228,14 +291,39 @@
             onClickShowUserInfoModal( user_id ) {
 
             },
-            onClickActionButton() {
-
+            onClickActionButton( item ) {
+                this.$set(item, 'is_opened', !item.is_opened);
             },
-            onClickEditUserButton() {
-
+            onClickEditUserButton( user_id ) {
+                this.pushRouter({ name: 'EDIT_USERS', params: { id: user_id } });
             },
-            onClickChangeUserPassword() {
-
+            onClickChangeUserPassword( item ) {
+                this.$set(this, 'selectedUser', {
+                    user_id: item.user_id,
+                    mobile: item.mobile,
+                    full_name: item.full_name
+                });
+                this.onClickActionButton( item );
+                this.$refs['changePassword']?.visible();
+            },
+            async onClickSubmitChangePasswordModal() {
+                try {
+                    this.$set(this.password, 'isPending', true);
+                    let result = await Service.changeUserPassword(this.selectedUser.user_id, this.password.value);
+                    this.displayNotification(result, { type: 'success' });
+                    this.onClickCloseChangePasswordModal();
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this.password, 'isPending', false);
+                }
+            },
+            onClickCloseChangePasswordModal() {
+                this.$refs['changePassword']?.hidden();
+                this.$nextTick(() => {
+                    this.$set(this, 'selectedUser', {});
+                    this.$set(this.password, 'value', '');
+                });
             },
             onChangePagination( page ) {
                 try {
