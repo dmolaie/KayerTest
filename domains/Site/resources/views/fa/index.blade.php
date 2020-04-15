@@ -298,78 +298,26 @@
                 <div class="max-w-full overflow-x-hidden">
                     <div class="carousel__container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="v-cart__cover w-full has-skeleton rounded">
-                                        <img src=""
-                                             data-src="https://images.unsplash.com/photo-1580408745615-1f0592484c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                             alt=""
-                                             class="v-cart__cover_img w-full h-full rounded object-cover"
-                                        />
-                                    </figure>
-                                    <p class="v-cart__title w-full text-blue-800 font-xs-medium sm:font-1xs">
-                                        سومین جشنواره فیلم ۱۸۰ ثانیه‌ای بانک پاسارگاد برگزار شد
-                                    </p>
-                                    <time class="v-cart__release w-full has_notebook--gray text-gray-200 font-1xs text-left m-t-auto">
-                                        ۱۷ آذر ۹۸
-                                    </time>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="v-cart__cover w-full has-skeleton rounded">
-                                        <img src=""
-                                             data-src="https://images.unsplash.com/photo-1580408745615-1f0592484c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                             alt=""
-                                             class="v-cart__cover_img w-full h-full rounded object-cover"
-                                        />
-                                    </figure>
-                                    <p class="v-cart__title w-full text-blue-800 font-xs-medium sm:font-1xs">
-                                        سومین جشنواره فیلم ۱۸۰ ثانیه‌ای بانک پاسارگاد برگزار شد
-                                    </p>
-                                    <time class="v-cart__release w-full has_notebook--gray text-gray-200 font-1xs text-left m-t-auto">
-                                        ۱۷ آذر ۹۸
-                                    </time>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="v-cart__cover w-full has-skeleton rounded">
-                                        <img src=""
-                                             data-src="https://images.unsplash.com/photo-1580356885468-fb9a86a110a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                             alt=""
-                                             class="v-cart__cover_img w-full h-full rounded object-cover"
-                                        />
-                                    </figure>
-                                    <p class="v-cart__title w-full text-blue-800 font-xs-medium sm:font-1xs">
-                                        اعطای جایزه MBE به یک پرستار به دلیل تشویق اقلیت‌ها به اهدای اعضا
-                                    </p>
-                                    <time class="v-cart__release w-full has_notebook--gray text-gray-200 font-1xs text-left m-t-auto">
-                                        ۱۶ آذر ۹۸
-                                    </time>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="v-cart__cover w-full has-skeleton rounded">
-                                        <img src=""
-                                             data-src="https://images.unsplash.com/photo-1580401226724-be91c0cbe68e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                             alt=""
-                                             class="v-cart__cover_img w-full h-full rounded object-cover rounded object-cover"
-                                        />
-                                    </figure>
-                                    <p class="v-cart__title w-full text-blue-800 font-xs-medium sm:font-1xs">
-                                        نوری رئیس کمیته ورزش انجمن اهدای عضو ایران شد
-                                    </p>
-                                    <time class="v-cart__release w-full has_notebook--gray text-gray-200 font-1xs text-left m-t-auto">
-                                        ۱۲ آذر ۹۸
-                                    </time>
-                                </a>
-                            </div>
+                            @foreach($event as $item)
+                                <div class="swiper-slide">
+                                    <a href="{{route('archive.showDetailEvents',[config('app.locale'),$item->getSlug()])}}"
+                                       class="v-cart relative flex flex-col rounded-3 border border-solid bg-white w-full has-shadow">
+                                        <figure class="v-cart__cover w-full has-skeleton rounded">
+                                            <img src=""
+                                                 data-src="{{$item->getAttachmentFiles() ? current($item->getAttachmentFiles())['path'] : ''}}"
+                                                 alt=""
+                                                 class="v-cart__cover_img w-full h-full rounded object-cover"
+                                            />
+                                        </figure>
+                                        <p class="v-cart__title w-full text-blue-800 font-xs-medium sm:font-1xs">
+                                            {{$item->getTitle()}}
+                                        </p>
+                                        <time class="v-cart__release w-full has_notebook--gray text-gray-200 font-1xs text-left m-t-auto">
+                                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($item->getPublishDate()))->format(' %d %B %Y')}}
+                                        </time>
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
                         <div class="carousel__pagination carousel__pagination--white none sm:flex justify-center"></div>
                     </div>

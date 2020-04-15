@@ -82,6 +82,11 @@ class EventRepository
         return $this->entityName::findOrFail($id);
     }
 
+    public function findOrFailSlug(string $slug)
+    {
+        return $this->entityName::where('slug', '=', $slug)->firstOrFail();
+    }
+
     function filter(EventFilterDTO $eventFilterDTO)
     {
         $baseQuery = $this->entityName

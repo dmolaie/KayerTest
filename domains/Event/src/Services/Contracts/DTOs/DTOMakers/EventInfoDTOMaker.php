@@ -42,7 +42,8 @@ class EventInfoDTOMaker
             ->setRelationEventId($this->getRelationEventId($event))
             ->setEditor($event->editor)
             ->setSlug($event->slug)
-            ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
+            ->setUuid($event->uuid)
+        ->setAttachmentFiles($attachment ? $attachment->getPaths() : [])
             ->setProvince($event->province);
         return $EventInfoDTO;
     }
