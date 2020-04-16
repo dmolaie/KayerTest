@@ -100,9 +100,8 @@
             filterBy: {
                 type: Function,
                 default( search ) {
-                    let filteredOptions = Object.values(CopyOf( this.options ))
+                    return  Object.values(CopyOf( this.options ))
                         .filter(item => item[this.label].toLowerCase().includes(search.toLowerCase()));
-                    this.data = {...filteredOptions};
                 }
             },
             placeholder: {
@@ -175,7 +174,8 @@
                     this.$set(this, 'timer', null);
                     this.timer = setTimeout( async () => {
                         this.$set(this.search, 'isPending', true);
-                        await this.filterBy(this.search.value);
+                        let newData = await this.filterBy(this.search.value);
+                        this.data = {...newData};
                         this.$set(this.search, 'isPending', false);
                     }, 300);
                 } catch (e) {}

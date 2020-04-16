@@ -26,6 +26,7 @@ const GET_PERMISSION_USER = "GET_PERMISSION_USER";
 const EDIT_USER_BY_ADMIN = "EDIT_USER_BY_ADMIN";
 const ADD_ROLE_TO_USER = "ADD_ROLE_TO_USER";
 const CHANGE_USER_ROLE_STATUS = "CHANGE_USER_ROLE_STATUS";
+const REGISTER_USER_BY_ADMIN = "REGISTER_USER_BY_ADMIN";
 const GET_MENU_LIST = "GET_MENU_LIST";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
@@ -79,6 +80,7 @@ endpoints[GET_PERMISSION_USER] = `/role/${VER_1_0}/admin/get-permission-user`;
 endpoints[EDIT_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/edit-user-by-admin`;
 endpoints[ADD_ROLE_TO_USER] = `/user/${VER_1_0}/admin/add-role-to-user`;
 endpoints[CHANGE_USER_ROLE_STATUS] = `/user/${VER_1_0}/admin/change-user-role-status`;
+endpoints[REGISTER_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/register-user-by-admin`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
@@ -200,6 +202,10 @@ export default class Endpoint {
 
     static get CHANGE_USER_ROLE_STATUS() {
         return endpoints[CHANGE_USER_ROLE_STATUS]
+    }
+
+    static get REGISTER_USER_BY_ADMIN() {
+        return endpoints[REGISTER_USER_BY_ADMIN]
     }
 
     static get GET_MENU_LIST() {
