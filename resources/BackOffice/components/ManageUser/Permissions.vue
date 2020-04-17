@@ -141,7 +141,7 @@
                         if (CONDITION.length)
                             data.push({
                                 'permission_id': item['id'],
-                                "permission_condision": CONDITION,
+                                "permission_condition": CONDITION,
                             });
                         return data;
                     }, [])

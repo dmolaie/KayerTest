@@ -232,11 +232,11 @@ export default class ManageLegateService extends BaseService {
 
     async assignPermissionToUser(user_id, role_id, permission_data) {
         try {
-            // let response = await HTTPService.postRequest(Endpoint.get(Endpoint.ASSIGN_PERMISSION_USER), {
-            //     user_id, role_id,
-            //     permission_data: JSON.stringify( permission_data )
-            // });
-            // return response.message;
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.ASSIGN_PERMISSION_USER), {
+                user_id, role_id,
+                permission_data: permission_data
+            });
+            return response.message;
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }

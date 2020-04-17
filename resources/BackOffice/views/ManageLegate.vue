@@ -718,13 +718,13 @@
                 try {
                     this.$set(this.accessLevel, 'shouldBeShowSpinner', true);
                     let permission_data = this.$refs['permissions']?.getUserPermissions();
-                    if (HasLength( permission_data )) {
+                    // if (HasLength( permission_data )) {
                         let result = await Service.assignPermissionToUser(user_id, role_id, permission_data);
                         this.displayNotification(result, { type: 'success' });
                         this.onClickCloseUserAccessLevelModal();
-                    } else {
-                        this.displayNotification('هیچ سطح دسترسی ای انتخاب نشده است.', { type: 'error' })
-                    }
+                    // } else {
+                    //     this.displayNotification('هیچ سطح دسترسی ای انتخاب نشده است.', { type: 'error' })
+                    // }
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {

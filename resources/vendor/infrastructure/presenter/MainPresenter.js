@@ -185,7 +185,7 @@ export class UserRolePresenter {
     }
 }
 
-const PERMISSION_FA_KEY = {
+export const PERMISSION_FA_KEY = {
     ['news']: 'اخبار',
     ['event']: 'رویدادها',
     ['article']: 'صفحات ایستا',

@@ -3,11 +3,16 @@ import ManageLegatePresenter, {
     FieldOfActivitiesPresenter,
     RolesPresenter,
     UserRolesPresenter,
-    SingleLegatePresenter
+    SingleLegatePresenter,
+    SelectedUserPermissionPresenter,
+    UserPermissionPresenter
 } from '@services/presenter/ManageLegate';
+// import {
+//     UserRolePresenter, UserPermissionPresenter
+// } from '@vendor/infrastructure/presenter/MainPresenter';
 import {
-    UserRolePresenter, UserPermissionPresenter
-} from '@vendor/infrastructure/presenter/MainPresenter';
+    Flatten
+} from "@vendor/plugin/helper";
 
 export const M_LEGATE_SET_DATA = 'M_LEGATE_SET_DATA';
 export const M_LEGATE_SET_ROLES = 'M_LEGATE_SET_ROLES';
@@ -57,8 +62,8 @@ const ManageLegate = {
             state.items = { ...DATA };
         },
         [M_MANAGE_USER_PERMISSION](state, { data: { user, list } }) {
-            console.log('getUserPermission: ',new UserPermissionPresenter(list));
-            state.permissions.list = { ...new UserPermissionPresenter(list) }
+            const USER = new SelectedUserPermissionPresenter(user);
+            state.permissions.list = { ...new UserPermissionPresenter(list, USER) }
         }
     }
 };
