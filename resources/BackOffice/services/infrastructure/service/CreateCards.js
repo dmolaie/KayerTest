@@ -157,9 +157,8 @@ export default class CreateCardsService extends BaseService {
         try {
             this.checkFormValidation();
             const REQUEST_PAYLOAD = this.createRequestPayload;
-            console.log('REQUEST_PAYLOAD: ', REQUEST_PAYLOAD);
-            // let response = HTTPService.postRequest(Endpoint.get(Endpoint.REGISTER_USER_BY_ADMIN), REQUEST_PAYLOAD);
-            // return response.message;
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.REGISTER_USER_BY_ADMIN), REQUEST_PAYLOAD);
+            return response.message;
         } catch ( exception ) {
             if ( exception?.errors ) {
                 Object.entries( exception?.errors )

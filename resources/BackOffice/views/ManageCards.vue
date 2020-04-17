@@ -215,7 +215,7 @@
                                 > </span>
                                 <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
                                       v-if="!!selectedUser.city_of_birth"
-                                      v-text="`(شماره شناسنامه: ${selectedUser.city_of_birth})`"
+                                      v-text="selectedUser.city_of_birth"
                                 > </span>
                             </p>
                             <p class="confirm__label w-full flex items-center"

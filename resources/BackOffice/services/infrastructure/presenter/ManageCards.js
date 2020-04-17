@@ -118,7 +118,7 @@ export class CardInformation extends BasePresenter {
     }
 
     city_of_birth() {
-        return this.data.city_of_birth?.name || ""
+        return this.data.city_of_birth?.name || this.data.province_of_birth?.name || ""
     }
 
     phone() {

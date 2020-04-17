@@ -461,6 +461,11 @@
                 </div>
             </div>
         </div>
+        <transition name="fade">
+            <div class="loading fixed w-full h-full z-10"
+                 v-if="isPending"
+            ></div>
+        </transition>
     </div>
 </template>
 
@@ -489,17 +494,16 @@
     ];
 
     let Service = null;
-    // 0520696042
 
     /**
-     * TODO: Refactor methods
+     * TODO: Refactor date_of_birth methods
      */
 
     export default {
         name: "CreateCards",
         data: () => ({
             step: 1,
-            isPending: false,
+            isPending: true,
             form: {
                 national_code: '',
                 name: '',
@@ -761,7 +765,7 @@
             Service.processFetchAsyncData()
                 .then(this.$nextTick)
                 .then(() => {
-                    //0520696042
+                    this.$set(this, 'isPending', false);
                 })
         },
         beforeDestroy() {
