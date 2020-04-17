@@ -22,6 +22,13 @@
       @include L_Screen
         &:hover
           background-color: darken($c, 5%)
+    &--blue
+      color: $blue-200
+      background: transparentize($sail, (1 - .64))
+      @include SpinnerLoading(22px, 2px, $blue-200)
+      @include L_Screen
+        &:hover
+          background-color: $sail
   &__hasError
     .input
       color: transparent
@@ -34,6 +41,10 @@
     right: 0
     padding: 0 10px
     transform: translateY(-50%)
+  &__buttons
+    margin: 30px 0 15px
   &__step--1
     .c-card__field
       margin: 20px 0 15px
+  .m-r-20
+    margin-right: 20px
