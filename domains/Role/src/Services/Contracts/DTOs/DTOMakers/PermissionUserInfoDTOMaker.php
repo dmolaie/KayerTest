@@ -31,6 +31,7 @@ class PermissionUserInfoDTOMaker
                     'id' => $permission->id,
                     'name' => $permission->name,
                     'label' => $permission->label,
+                    'condition' => json_decode( $permission->pivot->condition)
                 ];
         });
     }

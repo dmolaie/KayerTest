@@ -5,14 +5,12 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use ArieTimmerman\Laravel\URLShortener\URLShortener;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\NewsService;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
-use Gallib\ShortUrl\Facades\ShortUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -48,8 +46,16 @@ class PagesController extends Controller
     {
         $news = $this->siteServices->getFilterNews('world-news')->getItems();
         $categories = $categoryInfoPresenter->transformMany(
-            $this->siteServices->getActiveCategoryByType('news'));
+            $this->siteServices->getActiveCategoryByType('events'));
         return view('site::' . $request->language . '.pages.news-list' ,compact('news','categories'));
+    }
+
+    public function eventsList(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
+    {
+        $events = $this->siteServices->getFilterEvent()->getItems();
+        $categories = $categoryInfoPresenter->transformMany(
+            $this->siteServices->getActiveCategoryByType('event'));
+        return view('site::' . $request->language . '.pages.events-list' ,compact('events','categories'));
     }
 
     public function interactions(Request $request)
@@ -157,6 +163,15 @@ class PagesController extends Controller
         }
         $content = $this->siteServices->getDetailNews($slug);
         return view('site::' . $language . '.pages.news-show', compact('content'));
+    }
+
+    public function showDetailEvents($language, $slug)
+    {
+        if (!$slug) {
+            abort(404);
+        }
+        $content = $this->siteServices->getDetailEvents($slug);
+        return view('site::' . $language . '.pages.events-show', compact('content'));
     }
 
     public function newsShortLink($uuid)
