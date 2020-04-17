@@ -226,9 +226,21 @@
                         </template>
                         <template>
                             <permissions-cm :data="permissions"
+                                            ref="permissions"
                             />
                         </template>
                     </div>
+                </div>
+                <div class="modal__footer confirm__footer w-full text-left">
+                    <button class="confirm__f-button confirm__f-button--submit font-base font-medium rounded text-center l:transition-bg"
+                            :class="{ 'spinner-loading': ( accessLevel.shouldBeShowSpinner ) }"
+                            @click.prevent="onClickAssignUserPermission(selectedItem.user_id, selectedItem.id)"
+                            v-text="'تایید'"
+                    > </button>
+                    <button class="confirm__f-button confirm__f-button--discard font-base font-medium rounded text-center l:transition-bg"
+                            @click.prevent="onClickCloseUserAccessLevelModal"
+                            v-text="'انصراف'"
+                    > </button>
                 </div>
             </div>
         </modal-cm>
@@ -550,7 +562,8 @@
             },
             selectedItem: {},
             accessLevel: {
-                isPending: false
+                isPending: false,
+                shouldBeShowSpinner: false
             },
             userInfo: {
                 isPending: true,
@@ -685,7 +698,6 @@
                         });
                 } catch (e) {}
             },
-            // async onClickShowUserAccessLevelModal(item, role_id) {
             async onClickShowUserAccessLevelModal(role, user_id, username) {
                 try {
                     if ( this.isAdmin && role.is_legate ) {
@@ -698,14 +710,25 @@
                         await Service.getUserPermission(user_id, role.id);
                         this.$set(this.accessLevel, 'isPending', false);
                     }
-                    //
-                    //
-                    // this.$set(this, 'selectedItem', item);
-                    // let response =
-                    // // this.$set(this.userInfo, 'data', response);
-                    //
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            async onClickAssignUserPermission(user_id, role_id) {
+                try {
+                    this.$set(this.accessLevel, 'shouldBeShowSpinner', true);
+                    let permission_data = this.$refs['permissions']?.getUserPermissions();
+                    if (HasLength( permission_data )) {
+                        let result = await Service.assignPermissionToUser(user_id, role_id, permission_data);
+                        this.displayNotification(result, { type: 'success' });
+                        this.onClickCloseUserAccessLevelModal();
+                    } else {
+                        this.displayNotification('هیچ سطح دسترسی ای انتخاب نشده است.', { type: 'error' })
+                    }
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this.accessLevel, 'shouldBeShowSpinner', false);
                 }
             },
             onClickCloseUserAccessLevelModal() {

@@ -31,7 +31,6 @@ const ManageLegate = {
     },
     mutations: {
         [M_LEGATE_SET_DATA](state, { data }) {
-            console.log(new ManageLegatePresenter(data.items));
             state.items = { ...new ManageLegatePresenter( data.items ) };
             state.pagination = {
                 ... {
