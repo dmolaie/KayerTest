@@ -1,6 +1,6 @@
 import ImageLazyLoading from "@vendor/plugin/imageLazyLoading";
 import CopyToClipboard from "@vendor/plugin/copyToClipboard";
-import set from "@babel/runtime/helpers/esm/set";
+import Dropdown from '@vendor/plugin/dropdown';
 
 try {
     const NONE_CLASSNAME = 'none';
@@ -157,6 +157,76 @@ try {
             }
         }
     );
-} catch (e) {
-    //
-}
+} catch (e) { }
+
+try {
+    const DISPLAY_NONE_CLASS = 'none';
+    const OPENED_CLASSNAME = 's-domain--opened';
+    const CLOSED_CLASSNAME = 's-domain--closed';
+    const SUB_DOMAIN  = document.querySelector('.s-domain');
+    const SUB_DOMAIN_BODY  = document.querySelector('.s-domain .s-domain__container');
+    const SUB_DOMAIN_BUTTON  = document.querySelector('.header .s-domain__button');
+    const SUB_DOMAIN_CLOSE  = document.querySelector('.s-domain .s-domain__close');
+    const SUB_DOMAIN_A_TAG  = document.querySelector('.s-domain .s-domain__link');
+    const SUB_DOMAIN_SELECT = document.querySelector('.s-domain .s-domain__select');
+    const SUB_DOMAIN_LINK   = document.querySelector('.s-domain .s-domain__row--link');
+
+    if( !!SUB_DOMAIN_SELECT ) {
+        SUB_DOMAIN_SELECT.MountDropdown({
+            hasFilterItem: true,
+            filterPlaceholder: 'جستجو...',
+            dropdownClass: 'w-full unselected',
+            filterClass: 'font-xs text-bayoux',
+            optionClass: 'font-xs text-bayoux text-right',
+            inputClass: 'input input--blue border border-solid rounded',
+            onSelected(dropdown, option) {
+                try {
+                    dropdown.classList.remove('unselected');
+                    SUB_DOMAIN_LINK.classList.remove( DISPLAY_NONE_CLASS );
+                    SUB_DOMAIN_A_TAG.href = option.getAttribute('data-url') || '';
+                    SUB_DOMAIN_A_TAG.querySelector('.s-domain__link--text').textContent = `شعبه ${option.textContent}`;
+                } catch (e) {
+                    SUB_DOMAIN_LINK.classList.add( DISPLAY_NONE_CLASS );
+                }
+            }
+        })
+    }
+
+    const onClickHiddenModal = event => {
+        event.stopPropagation();
+        toggleSubDomain.hidden();
+    };
+
+    const onClickOutSideOfModal = ({ target }) => {
+        if (!SUB_DOMAIN_BODY.contains( target )) toggleSubDomain.hidden();
+    };
+
+    const toggleSubDomain = {
+        visible() {
+            SUB_DOMAIN.classList.remove( DISPLAY_NONE_CLASS );
+            SUB_DOMAIN.classList.remove( CLOSED_CLASSNAME );
+            SUB_DOMAIN.classList.add(OPENED_CLASSNAME);
+            SUB_DOMAIN.addEventListener('click', onClickOutSideOfModal);
+            if ( !!SUB_DOMAIN_CLOSE ) SUB_DOMAIN_CLOSE.addEventListener('click', onClickHiddenModal);
+        },
+        hidden() {
+            SUB_DOMAIN.classList.add( CLOSED_CLASSNAME );
+            SUB_DOMAIN.removeEventListener('click', onClickOutSideOfModal);
+            if ( !!SUB_DOMAIN_CLOSE ) SUB_DOMAIN_CLOSE.removeEventListener('click', onClickHiddenModal);
+            setTimeout(() => {
+                SUB_DOMAIN.classList.remove( OPENED_CLASSNAME );
+                SUB_DOMAIN.classList.add( DISPLAY_NONE_CLASS );
+            }, 320)
+        }
+    };
+
+    if ( !!SUB_DOMAIN_BUTTON ) {
+        SUB_DOMAIN_BUTTON.addEventListener(
+            'click',
+            event => {
+                event.stopPropagation();
+                toggleSubDomain.visible();
+            }
+        )
+    }
+} catch (e) {}
