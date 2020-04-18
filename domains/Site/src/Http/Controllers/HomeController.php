@@ -5,15 +5,10 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use Cassandra\Uuid;
-use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Domains\Event\Services\EventService;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
-use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\News\Services\NewsService;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
+use Domains\Site\Services\SiteServices;
 
 class HomeController extends Controller
 {
@@ -21,36 +16,26 @@ class HomeController extends Controller
      * @var NewsService
      */
     private $newsService;
-
-    /**
-     * @var NewsFilterDTO
-     */
-    private $newsFilterDTO;
     /**
      * @var EventService
      */
     private $eventService;
     /**
-     * @var EventFilterDTO
+     * @var SiteServices
      */
-    private $eventFilterDTO;
+    private $siteServices;
 
-    public function __construct(NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO)
+    public function __construct(SiteServices $siteServices,NewsService $newsService, EventService $eventService)
     {
         $this->newsService = $newsService;
-        $this->newsFilterDTO = $newsFilterDTO;
         $this->eventService = $eventService;
-        $this->eventFilterDTO = $eventFilterDTO;
+        $this->siteServices = $siteServices;
     }
 
     public function index(NewsListForAdminRequest $request)
     {
-        $this->newsFilterDTO->setNewsInputStatus('accept');
-        $this->newsFilterDTO->setSort('DESC');
-        $this->eventFilterDTO->setEventInputStatus('accept');
-        $this->eventFilterDTO->setSort('DESC');
-        $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        $event = $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+        $news = $this->siteServices->getNews($status = 'accept', $sort = 'DESC');
+        $event = $this->siteServices->getEvent($status = 'accept', $sort = 'DESC',$slugCategory = 'main-page');
         return view('site::' . $request->language . '.index', compact('news', 'event'));
     }
 
