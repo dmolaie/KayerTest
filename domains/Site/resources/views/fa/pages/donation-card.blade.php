@@ -1,16 +1,16 @@
 @extends('fa.template.master')
 @section('content')
     <div class="dnt-page i-page">
-        <div class="container">
+        <div class="container sm:p-0">
             <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
-                    <span class="i-page__title text-center cursor-default">
-                        کارت اهدای عضو
-                    </span>
+                <span class="i-page__title text-center cursor-default">
+                    کارت اهدای عضو
+                </span>
             </h1>
-            <div class="p-t-35 w-full flex items-start">
+            <div class="p-t-35 w-full flex items-start md:flex-wrap sm:p-0">
                 @if(!auth()->check())
-                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
-                        <div class="dnt-page__panel border border-solid rounded-2">
+                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
+                        <div class="dnt-page__panel border border-solid rounded-2 sm:border-0 sm:rounded-0">
                             <div class="dnt-page__panel_header bg-blue-100 font-lg font-bold text-white rounded-inherit rounded-bl-none rounded-br-none text-center cursor-default">
                                 اطلاعات فردی
                             </div>
@@ -462,8 +462,8 @@
                         </div>
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('type')->toArray()))
-                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
-                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
+                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
+                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
                             <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
                                 شما پروفایل دارید و هم‌اکنون دارای کارت اهدای عضو هستید.
                             </p>
@@ -473,10 +473,9 @@
                             </a>
                         </div>
                     </aside>
-
                 @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
-                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30">
-                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2">
+                    <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
+                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
                             <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base text-justify">
                                 شما سفیر اهدای عضو هستید. لطفا از پروفایل خود جهت ثبت نام به عنوان کارت اهدای عضو اقدام
                                 کنید.
@@ -490,10 +489,10 @@
                 @endif
                 <div class="flex-1">
                     <div class="dnt-page__box inner-box inner-box--white">
-                        <h1 class="i-page__sub-title text-blue-800 font-24 font-bold cursor-default m-b-20">
+                        <h1 class="i-page__sub-title text-blue-800 font-24 font-bold cursor-default m-b-20 sm:font-sm">
                             تاریخچه و اهمیت کارت اهدای عضو
                         </h1>
-                        <div class="dnt-page__caption text-bayoux cursor-default font-base text-justify">
+                        <div class="dnt-page__caption text-bayoux cursor-default font-base text-justify sm:font-base">
                             <p>
                                 کارت اهدای عضو یکی از بزرگترین نمادهای فرهنگی در زمینه ارتقای فرهنگ اهدای عضو می باشد.
                             </p>
