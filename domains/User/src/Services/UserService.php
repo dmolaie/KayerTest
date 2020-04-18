@@ -157,6 +157,8 @@ class UserService
         $userLoginDTO = new UserLoginDTO();
         $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
             ->setRole($role)
+            ->setGender($user->gender)
+            ->setLastName($user->last_name)
             ->setToken($user->createToken('ehda')->accessToken)
             ->setId($user->id)
             ->setCardId($user->card_id)

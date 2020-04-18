@@ -1,20 +1,26 @@
 <?php
 
+
 namespace Domains\SmsRegister;
+
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-
 
 class SmsRegisterServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        $this->app->register(EventServiceProvider::class);
+
         $this->registerRoutes();
 
         $this->loadAssetsFrom();
 
+        $this->setConfig();
+
         $this->registerPublishing();
+
     }
 
     /**
@@ -29,12 +35,14 @@ class SmsRegisterServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return array
+     */
     private function routeConfiguration()
     {
         return [
             'namespace' => 'Domains\SmsRegister\Http\Controllers',
-            'prefix' => 'sms-register/v1',
-
+            'prefix'    => 'sms-register/v1',
         ];
     }
 
@@ -44,7 +52,9 @@ class SmsRegisterServiceProvider extends ServiceProvider
     protected function loadAssetsFrom(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'smsRegister');
+
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'smsRegister');
     }
 
@@ -57,7 +67,7 @@ class SmsRegisterServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../resources/lang' => resource_path('lang/vendor/smsRegister'),
-        ], 'lang');
+        ]);
 
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/smsRegister'),
@@ -71,9 +81,10 @@ class SmsRegisterServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function getConfig(): string
+    protected function setConfig()
     {
-        return __DIR__ . '/../config/config.php';
-    }
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'smsRegister');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('smsRegister.php')], 'config');
 
+    }
 }

@@ -17,8 +17,8 @@ class NationalAuthenticationService
         $userRegisterDTO = new UserRegisterInfoDTO();
         $userRegisterDTO->setNationalCode($nationalAuthenticationDTO->getNationalCode())
             ->setGender(config('user.user_genders')[1])
-            ->setName('test')
-            ->setLastName('last_test')
+            ->setName('مطهره')
+            ->setLastName('قتبس')
             ->setFatherName('father_name')
             ->setProvinceOfBirth(1)
             ->setCityOfBirth(1)

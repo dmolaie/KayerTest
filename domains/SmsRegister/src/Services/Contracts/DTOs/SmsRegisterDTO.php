@@ -29,6 +29,14 @@ class SmsRegisterDTO
      * @var string
      */
     protected $birthDate;
+    /**
+     * @var string
+     */
+    protected $accountId;
+    /**
+     * @var string
+     */
+    protected $content;
 
     /**
      * @return string
@@ -117,6 +125,42 @@ class SmsRegisterDTO
     public function setSecondRequestContent(array $secondRequestContent): SmsRegisterDTO
     {
         $this->secondRequestContent = $secondRequestContent;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountId(): string
+    {
+        return $this->accountId;
+    }
+
+    /**
+     * @param string $accountId
+     * @return SmsRegisterDTO
+     */
+    public function setAccountId(string $accountId): SmsRegisterDTO
+    {
+        $this->accountId = $accountId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     * @return SmsRegisterDTO
+     */
+    public function setContent(string $content): SmsRegisterDTO
+    {
+        $this->content = $content;
         return $this;
     }
 

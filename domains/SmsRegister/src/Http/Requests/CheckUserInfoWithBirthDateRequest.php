@@ -2,7 +2,9 @@
 
 namespace Domains\SmsRegister\Http\Requests;
 
+use Domains\SmsRegister\Events\SmsRegisterEvent;
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
@@ -33,7 +35,12 @@ class CheckUserInfoWithBirthDateRequest extends FormRequest
 
     public function messages()
     {
-        return trans('user::validation');
+        return [
+            'Content.required'  => 'تاریخ تولد الزامی است.',
+            'Content.numeric'  => 'فرمت تاریخ تولد نادرست است.',
+            'UserPhoneNumber.regex'  => 'فرمت شماره موبایل نادرست است.',
+            'UserPhoneNumber.required' => 'شماره موبایل الزامی است.',
+        ];
     }
 
     public function attributes()
@@ -46,12 +53,14 @@ class CheckUserInfoWithBirthDateRequest extends FormRequest
         $smsRegisterDTO = new SmsRegisterDTO();
         $smsRegisterDTO->setBirthDate($this['Content'])
             ->setMobileNumber($this['UserPhoneNumber'])
+            ->setAccountId($this['AccountId'])
             ->setSecondRequestContent($this->all());
         return $smsRegisterDTO;
     }
 
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    protected function failedValidation(Validator $validator)
     {
+        $this->sendMessageToUser($validator);
 
         $response = response()->json([
             'data'        => [],
@@ -62,4 +71,22 @@ class CheckUserInfoWithBirthDateRequest extends FormRequest
 
         throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
+
+    /**
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     */
+    protected function sendMessageToUser(Validator $validator): void
+    {
+        if (isset($this['UserPhoneNumber'])) {
+            $smsRegister = $this->createSmsRegisterDTO();
+            $smsRegister->setContent(
+                implode(',', array_column(
+                    array_values($validator->errors()->messages()),
+                    '0'
+                )));
+            event(new SmsRegisterEvent($smsRegister));
+        }
+        return;
+    }
+
 }
