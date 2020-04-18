@@ -11,6 +11,9 @@
   &__box
     margin-top: 0 !important
     padding: 32px 40px 70px 35px
+    @include Sm_Screen
+      padding: 23px 20px 80px
+      border-top: 1px solid $blue
   &__caption
     line-height: 1.88
   &__text
@@ -100,7 +103,13 @@
       margin-bottom: 8px
   .empty-box
     padding: 18px 25px 23px
+    @include Sm_Screen
+      padding: 18px 20px 23px
     &__title
       margin-bottom: 20px
     &__button
       line-height: 40px
+  @include Md_Screen
+    .md\:
+      &m-b-30
+        margin-bottom: 30px

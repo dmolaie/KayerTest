@@ -6,7 +6,7 @@ import ManageLegate, {
     M_LEGATE_SET_USER_ROLES,
     M_USER_SET_BASIC_DATA,
     M_MANAGE_USER_ROLE,
-    M_LEGATE_SET_ROLES
+    M_LEGATE_SET_ROLES, M_MANAGE_USER_PERMISSION
 } from '@services/store/ManageLegate';
 import {
     UserInformationPresenter
@@ -208,6 +208,18 @@ export default class ManageLegateService extends BaseService {
         }
     }
 
+    async getUserPermission(user_id, role_id) {
+        try {
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_PERMISSION_USER), {
+                user_id, role_id
+            });
+            BaseService.commitToStore(this.$store, M_MANAGE_USER_PERMISSION, response);
+            // console.log('getUserPermission: ', response);
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception )
+        }
+    }
+
     async handelUserRoleAction(user_id, role_id, role_status) {
         try {
             let response = await UserService.changeUserRoleStatus(user_id, role_id, role_status);
@@ -217,7 +229,19 @@ export default class ManageLegateService extends BaseService {
             throw exception;
         }
     }
-    
+
+    async assignPermissionToUser(user_id, role_id, permission_data) {
+        try {
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.ASSIGN_PERMISSION_USER), {
+                user_id, role_id,
+                permission_data: permission_data
+            });
+            return response.message;
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
     async changePasswordByAdmin(user_id = 0, password = '') {
         try {
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_PASSWORD), {

@@ -27,6 +27,8 @@ export const EDIT_ARTICLE   = 'EDIT_ARTICLE';
 export const MANAGE_LEGATE = 'MANAGE_LEGATE';
 export const EDIT_USERS = 'EDIT_USERS';
 export const PROFILE = 'PROFILE';
+export const MANAGE_CARDS = 'MANAGE_CARDS';
+export const CREATE_CARDS = 'CREATE_CARDS';
 export const USER_SETTING = 'USER_SETTING';
 export const NOT_FOUND = 'NOT_FOUND';
 
@@ -248,6 +250,47 @@ const Routes = new VueRouter({
                     },
                     {
                         name: 'مدیریت منو'
+                    },
+                ]
+            }
+        },
+        {
+            name: MANAGE_CARDS,
+            path: '/manage/cards',
+            component: GetViews( 'ManageCards' ),
+            meta: {
+                title: 'کارت‌های اهدای عضو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'کارت‌های اهدای عضو'
+                    },
+                    {
+                        name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: CREATE_CARDS,
+            path: '/manage/cards/create',
+            component: GetViews( 'CreateCards' ),
+            meta: {
+                title: 'افزودن کارت تازه',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_CARDS,
+                        name: 'کارت‌های اهدای عضو'
+                    },
+                    {
+                        name: 'افزودن کارت تازه'
                     },
                 ]
             }

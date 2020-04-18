@@ -1,13 +1,13 @@
 @extends('fa.template.master')
 @section('content')
     <div class="vnt-page dnt-page i-page">
-        <div class="container">
+        <div class="container sm:p-0">
             <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
                 <span class="i-page__title text-center cursor-default">
                     ثبت نام سفیر
                 </span>
             </h1>
-            <div class="p-t-35 w-full">
+            <div class="p-t-35 w-full sm:p-0">
                 <div class="vnt-page__box inner-box inner-box--white">
                     <form method="post"
                           class="vnt-page__form block w-full"

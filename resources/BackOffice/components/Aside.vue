@@ -71,6 +71,11 @@
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {
+                    route: 'MANAGE_CARDS',
+                    title: 'کارت‌های اهدای عضو',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
                     route: 'MANAGE_LEGATE',
                     title: 'کاربران',
                     icon: 'ic_newspaper--blue.svg'
