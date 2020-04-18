@@ -128,7 +128,6 @@ class SiteServices
         $this->newsFilterDTO->setNewsInputStatus($status);
         $this->newsFilterDTO->setSort($sort);
         return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-
     }
 
     public function getEvent($status, $sort, $slugCategory)
