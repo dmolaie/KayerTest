@@ -386,7 +386,7 @@
                                   v-text="userInfo.data.created_at.fa"
                             > </span>
                             <span class="text-blue-700 font-xs font-bold flex-1 p-0-15">
-                                به‌روز‌رسانی << {{ userInfo.data.updated_at.fa }} >> {{ userInfo.data.created_by.label }}
+                                به‌روز‌رسانی {{ userInfo.data.updated_at.fa }}
                             </span>
                         </div>
                     </div>
