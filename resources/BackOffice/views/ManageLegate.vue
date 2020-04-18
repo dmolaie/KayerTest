@@ -187,7 +187,7 @@
         <modal-cm ref="accessLevel"
                   @close="onClickCloseUserAccessLevelModal"
         >
-            <div class="confirm r-confirm modal__body w-full bg-white rounded">
+            <div class="confirm p-confirm r-confirm modal__body w-full bg-white rounded">
                 <div class="modal__header confirm__header flex items-center justify-between rounded-inherit rounded-bl-none rounded-br-none">
                     <span class="text-blue-800 font-base font-bold cursor-default">
                          سطح دسترسی
@@ -204,34 +204,57 @@
                         </p>
                     </template>
                     <div v-else
-                         class="confirm__container cursor-default"
+                         class="p-confirm__container cursor-default"
                     >
-                        <template v-if="false">
-                            <p class="confirm__label w-full text-bayoux font-base font-bold"
-                               v-text="selectedItem.full_name"
-                            > </p>
-                            <p class="confirm__label w-full flex items-center">
-                                <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
-                                    نقش کاربری:
-                                </span>
-                                <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
-                                      v-text="selectedItem.label"
-                                > </span>
-                            </p>
-                            <select-cm :options="rolesStatus"
-                                       label="name" class="w-1/3"
-                                       :value="selectedItem.status_fa"
-                                       @onChange="changeUserRoleStatus($event, selectedItem.user_id, selectedItem.id)"
-                            />
-                        </template>
-                        <template>
-                            <permissions-cm :data="permissions"
-                                            ref="permissions"
-                            />
-                        </template>
+                        <div class="p-confirm__tabs inline-flex items-stretch min-w-full">
+                            <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                                    :class="{ 'm-post__tab--active': (accessLevel.tab === 1) }"
+                                    v-text="'کاربر'"
+                                    @click.prevent="onClickPermissionTabs( 1 )"
+                            > </button>
+                            <button class="m-post__tab relative font-sm font-bold transition-bg text-nowrap"
+                                    :class="{ 'm-post__tab--active': (accessLevel.tab === 2) }"
+                                    v-text="'مدیریت محتوا'"
+                                    @click.prevent="onClickPermissionTabs( 2 )"
+                            > </button>
+                        </div>
+                        <div class="p-confirm__body w-full block">
+                            <template v-if="accessLevel.tab === 1">
+                                <p class="confirm__label w-full text-bayoux font-base font-bold"
+                                   v-text="selectedItem.full_name"
+                                > </p>
+                                <p class="confirm__label w-full flex items-center">
+                                    <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                        نقش کاربری:
+                                    </span>
+                                    <span class="text-blue-700 font-xs font-bold flex-1 p-0-15"
+                                          v-text="selectedItem.label"
+                                    > </span>
+                                </p>
+                                <div class="confirm__label w-full flex items-center m-20-0">
+                                    <span class="confirm__text text-blue-800 font-sm font-bold flex-shrink-0">
+                                        وضعیت
+                                    </span>
+                                    <div class="flex-1 p-0-15">
+                                        <select-cm :options="rolesStatus"
+                                                   label="name" class="w-1/3"
+                                                   :value="selectedItem.status_fa"
+                                                   @onChange="changeUserRoleStatus($event, selectedItem.user_id, selectedItem.id)"
+                                        />
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="accessLevel.tab === 2">
+                                <permissions-cm :data="permissions"
+                                                ref="permissions"
+                                />
+                            </template>
+                        </div>
                     </div>
                 </div>
-                <div class="modal__footer confirm__footer w-full text-left">
+                <div class="modal__footer confirm__footer w-full text-left"
+                     v-if="accessLevel.tab === 2"
+                >
                     <button class="confirm__f-button confirm__f-button--submit font-base font-medium rounded text-center l:transition-bg"
                             :class="{ 'spinner-loading': ( accessLevel.shouldBeShowSpinner ) }"
                             @click.prevent="onClickAssignUserPermission(selectedItem.user_id, selectedItem.id)"
@@ -562,6 +585,7 @@
             },
             selectedItem: {},
             accessLevel: {
+                tab: 1,
                 isPending: false,
                 shouldBeShowSpinner: false
             },
@@ -714,6 +738,9 @@
                     this.displayNotification(exception, { type: 'error' });
                 }
             },
+            onClickPermissionTabs( tab_index ) {
+                this.$set(this.accessLevel, 'tab', tab_index)
+            },
             async onClickAssignUserPermission(user_id, role_id) {
                 try {
                     this.$set(this.accessLevel, 'shouldBeShowSpinner', true);
@@ -735,6 +762,7 @@
                 this.$refs['accessLevel']?.hidden();
                 this.$nextTick(() => {
                     this.$set(this, 'selectedItem', {});
+                    this.onClickPermissionTabs( 1 );
                 });
             },
             async onClickShowUserInfoModal( user_id ) {
