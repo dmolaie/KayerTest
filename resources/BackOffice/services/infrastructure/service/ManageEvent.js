@@ -117,7 +117,7 @@ export default class ManageEventService extends BaseService {
 
     async HandleFilterAction(create_date_start, create_date_end, { query }) {
         try {
-            let QUERY_STRING = query;
+            let QUERY_STRING = HasLength( query ) ? query : DEFAULT_STATUS;
             (!!create_date_start) ? (
                 QUERY_STRING['create_date_start'] = create_date_start
             ) : delete QUERY_STRING['create_date_start'];
