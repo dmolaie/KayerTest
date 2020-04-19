@@ -9,6 +9,9 @@
                      class="header__logo_image block object-contain"
                 />
             </a>
+            <button class="s-domain__button text-blue font-sm font-bold">
+                پرتال استان‌ها
+            </button>
         </div>
     </div>
     <nav class="header__nav">

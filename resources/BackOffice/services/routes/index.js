@@ -30,6 +30,7 @@ export const PROFILE = 'PROFILE';
 export const MANAGE_CARDS = 'MANAGE_CARDS';
 export const CREATE_CARDS = 'CREATE_CARDS';
 export const USER_SETTING = 'USER_SETTING';
+export const MANAGE_REPORT = 'MANAGE_REPORT';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -378,6 +379,23 @@ const Routes = new VueRouter({
             meta: {
                 title: 'خروج از حساب کاربری',
                 guess: true,
+            }
+        },
+        {
+            name: MANAGE_REPORT,
+            path: '/manage/report',
+            component: GetViews('ManageReport'),
+            meta: {
+                title: 'گزارش گیری',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'گزارش گیری'
+                    },
+                ]
             }
         },
         {
