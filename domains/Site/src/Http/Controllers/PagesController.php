@@ -221,5 +221,16 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.events-list', compact('events', 'categories'));
     }
 
+    public function socialUrlFirstCart(Request $request)
+    {
+        $userData = $this->siteServices->getInfoUserWithUuid($request->uuid);
+        return view('site::fa.cards.social',compact('userData'));
+    }
+
+    public function socialUrlSecondCart(Request $request)
+    {
+        $userData = $this->siteServices->getInfoUserWithUuid($request->uuid);
+        return view('site::fa.cards.single',compact('userData'));
+    }
 
 }
