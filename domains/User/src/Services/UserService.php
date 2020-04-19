@@ -311,6 +311,11 @@ class UserService
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 
+    public function getUserBaseInfoWithUuid($uuid)
+    {
+        return $this->userRepository->findByUuid($uuid);
+    }
+
     public function changeUserRoleStatus(UserChangeRoleDTO $userChangeRoleDTO)
     {
         $user = $this->userRepository->addNewRoleToUser(
