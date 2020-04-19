@@ -72,7 +72,7 @@
                                 <label class="w-1/3 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
                                     <input type="radio"
                                            class="dnt-page__radio none"
-                                           name="gender" value="{{$data['gender'][0]}}"
+                                           name="gender" value="{{$data['gender'][1]}}"
                                     />
                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                         خانم
@@ -81,7 +81,7 @@
                                 <label class="w-1/3 input input--blue p-0 border border-r-0 border-l-0 border-solid cursor-pointer">
                                     <input type="radio"
                                            class="dnt-page__radio none"
-                                           name="gender" value="{{$data['gender'][1]}}"
+                                           name="gender" value="{{$data['gender'][0]}}"
                                     />
                                     <span class="dnt-page__radio_label w-full h-full block text-bayoux font-normal">
                                         آقا
