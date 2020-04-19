@@ -28,4 +28,35 @@ try {
     TAB_ITEMS.forEach(item => {
         item.addEventListener('click', onClickTabItem)
     });
+
+    const TABLE_MEDIA_QUERY = window.matchMedia( "(max-width: 900px)" );
+
+    if ( TABLE_MEDIA_QUERY.matches ) {
+        const HEADER_PANEL_ACTIVE = 'ga-page__panel_header--opened';
+        const HEADER_PANEL = document.querySelectorAll('.ga-page .ga-page__panel_header');
+
+        const collapseToggle = {
+            visible(tab, collapse) {
+                tab.classList.add( HEADER_PANEL_ACTIVE );
+                if ( !!collapse.children[0] ) collapse.style.height = `${collapse.children[0].offsetHeight}px`;
+            },
+            hidden(tab, collapse) {
+                collapse.style = null;
+                tab.classList.remove( HEADER_PANEL_ACTIVE );
+            }
+        };
+
+        const onClickHeaderPanel = event => {
+            event.preventDefault();
+            const TARGET = event.target || event.srcElement;
+            const COLLAPSE_ELEMENT = TARGET.nextElementSibling;
+            if ( !!COLLAPSE_ELEMENT ) {
+                TARGET.classList.contains( HEADER_PANEL_ACTIVE ) ? (
+                    collapseToggle.hidden(TARGET, COLLAPSE_ELEMENT)
+                ) : collapseToggle.visible(TARGET, COLLAPSE_ELEMENT)
+            }
+        };
+
+        HEADER_PANEL.forEach(item => item.addEventListener('click', onClickHeaderPanel))
+    }
 } catch (e) {}

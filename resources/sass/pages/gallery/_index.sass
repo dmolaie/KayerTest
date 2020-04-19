@@ -7,6 +7,10 @@ $gap: 15px
     height: 55px
     fill: $blue
     margin-left: 17px
+    @include Md_Screen
+      margin: 0 0 10px
+    @include Sm_Screen
+      @include Size( 40px )
   &__tab
     padding: 17px 0
     background-color: transparentize(#f1fbff, (1 - .55))
@@ -17,6 +21,8 @@ $gap: 15px
       border: 0
     &:not(:last-of-type)
       border-left: 1px solid #32c5ff
+    @include Sm_Screen
+      padding: 10px 0
     &--active, &:hover
       background-color: $blue
       .ga-page__icon
@@ -25,15 +31,23 @@ $gap: 15px
         color: $white
   &__body
     padding: 55px 40px (63px - ($gap * 2)) (82px - $gap)
+    @include Md_Screen
+      padding: 50px 35px 60px
+    @include Sm_Screen
+      padding: 30px 20px 45px
   &__aside
     margin-left: (40px - $gap)
     @include Xl_Screen
       margin-left: (60px - $gap)
+    @include Md_Screen
+      margin: 0 0 40px
   &__published
     $size: 13px
     margin-bottom: 14px
     border-color: #c4edfe
     padding: 7px 22px 7px 18px
+    @include Md_Screen
+      padding: 12px 22px 12px 18px
     &::before
       box-shadow: 0 0 33px 0 transparentize(#1e3651, (1 - .05))
     &::after
@@ -57,14 +71,35 @@ $gap: 15px
       border-color: transparent transparent $blue transparent
   &__panel
     border-color: #c4edfe
+    &_collapse
+      @include Md_Screen
+        height: 0
+        overflow: hidden
+        transition: height .18s ease-in-out
     &_header
       padding: 8px 18px
       background-color: #ecf8fd
       border-bottom: 1px solid #c4edfe
+      @include Md_Screen
+        padding: 12px 18px
+        border-bottom: none
+        background: transparent
+        &::after
+          $size: 13px
+          content: " "
+          width: 0
+          height: 0
+          border:
+            style: solid
+            width: $size ($size - 2) 0
+            color: $blue transparent transparent transparent
+          margin-right: auto
     &_icon
       fill: $blue
       height: 15px
       margin-left: 10px
+      @include Md_Screen
+        display: none
     &_label
       width: calc(100% - 8px)
       margin: 0 8px 12px 0
@@ -142,3 +177,9 @@ $gap: 15px
       &:hover
         &:before
           opacity: 1
+  [role="tab"], [role="tabpanel"]
+    &:focus, &:active
+      outline: none
+      box-shadow: none
+    &::-moz-focus-inner
+      border: 0
