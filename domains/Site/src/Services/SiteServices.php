@@ -165,4 +165,14 @@ class SiteServices
         return $this->provinceService->finBySlug($slug);
     }
 
+    public function getSubdomain($url)
+    {
+        $urlPart = explode('.',$url);
+        $categoryList = $this->getLocations($urlPart[0]);
+        if($categoryList){
+            return $categoryList;
+        }
+        return null;
+    }
+
 }
