@@ -18,22 +18,24 @@
             </button>
         </div>
         <div class="aside__menu">
-            <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
-                 v-for="(item, index) in menu"
-                 :key="index"
-                 :to="{name: item.route}"
-            >
-                <image-cm
-                    class="aside__menu_item_icon"
-                    :src="$asset( item.icon )"
-                    alt="انجمن اهدای عضو ایرانیان"
-                    objectFit="contain"
-                    className="block"
-                />
-                <span class="aside__menu_item_title font-sm font-medium">
-                    {{ item.title }}
-                </span>
-            </router-link>
+            <div class="w-full">
+                <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+                     v-for="(item, index) in menu"
+                     :key="index"
+                     :to="{name: item.route}"
+                >
+                    <image-cm
+                        class="aside__menu_item_icon"
+                        :src="$asset( item.icon )"
+                        alt="انجمن اهدای عضو ایرانیان"
+                        objectFit="contain"
+                        className="block"
+                    />
+                    <span class="aside__menu_item_title font-sm font-medium">
+                        {{ item.title }}
+                    </span>
+                </router-link>
+            </div>
         </div>
     </aside>
 </template>
@@ -83,6 +85,11 @@
                 {
                     route: 'USER_SETTING',
                     title: 'تنظیمات حساب',
+                    icon: 'ic_newspaper--blue.svg'
+                },
+                {
+                    route: 'MANAGE_REPORT',
+                    title: 'گزارش گیری',
                     icon: 'ic_newspaper--blue.svg'
                 },
                 {
