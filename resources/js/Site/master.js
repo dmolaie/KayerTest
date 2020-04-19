@@ -1,6 +1,9 @@
 import ImageLazyLoading from "@vendor/plugin/imageLazyLoading";
 import CopyToClipboard from "@vendor/plugin/copyToClipboard";
 import Dropdown from '@vendor/plugin/dropdown';
+import {
+    hideScrollbar, showScrollbar
+} from '@vendor/plugin/helper';
 
 try {
     const NONE_CLASSNAME = 'none';
@@ -203,6 +206,7 @@ try {
 
     const toggleSubDomain = {
         visible() {
+            hideScrollbar();
             SUB_DOMAIN.classList.remove( DISPLAY_NONE_CLASS );
             SUB_DOMAIN.classList.remove( CLOSED_CLASSNAME );
             SUB_DOMAIN.classList.add(OPENED_CLASSNAME);
@@ -210,6 +214,7 @@ try {
             if ( !!SUB_DOMAIN_CLOSE ) SUB_DOMAIN_CLOSE.addEventListener('click', onClickHiddenModal);
         },
         hidden() {
+            showScrollbar();
             SUB_DOMAIN.classList.add( CLOSED_CLASSNAME );
             SUB_DOMAIN.removeEventListener('click', onClickOutSideOfModal);
             if ( !!SUB_DOMAIN_CLOSE ) SUB_DOMAIN_CLOSE.removeEventListener('click', onClickHiddenModal);
