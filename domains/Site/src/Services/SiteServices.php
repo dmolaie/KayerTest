@@ -48,7 +48,7 @@ class SiteServices
     private $eventFilterDTO;
 
 
-    public function __construct(MenusContentService $menusService,CategoryService $categoryService,NewsService $newsService,NewsFilterDTO $newsFilterDTO,EventService $eventService,EventFilterDTO $eventFilterDTO,ArticleService $articleService)
+    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService)
     {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
@@ -72,11 +72,6 @@ class SiteServices
         return $this->menusService->getPageContent($pageSlug);
     }
 
-    private function getIdCategoryNews($categorySlug)
-    {
-        return $this->categoryService->getCategoryBySlug($categorySlug);
-    }
-
     public function getFilterNews($categories)
     {
         $categoryId = $this->getIdCategoryNews($categories);
@@ -84,6 +79,11 @@ class SiteServices
         $this->newsFilterDTO->setNewsInputStatus('accept');
         $this->newsFilterDTO->setSort('DESC');
         return $this->newsService->filterNews($this->newsFilterDTO);
+    }
+
+    private function getIdCategoryNews($categorySlug)
+    {
+        return $this->categoryService->getCategoryBySlug($categorySlug);
     }
 
     public function getFilterEvent()
@@ -117,8 +117,25 @@ class SiteServices
     {
         return $this->eventService->getEventDetailWithUuid($uuid);
     }
+
     public function getArticleWithUuid($uuid)
     {
         return $this->articleService->getArticleDetailWithUuid($uuid);
     }
+
+    public function getNews($status, $sort)
+    {
+        $this->newsFilterDTO->setNewsInputStatus($status);
+        $this->newsFilterDTO->setSort($sort);
+        return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
+    }
+
+    public function getEvent($status, $sort, $slugCategory)
+    {
+        $this->eventFilterDTO->setEventInputStatus($status);
+        $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
+        $this->eventFilterDTO->setSort($sort);
+        return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+    }
+
 }

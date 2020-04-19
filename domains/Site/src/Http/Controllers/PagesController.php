@@ -8,16 +8,15 @@ use App\Http\Controllers\Controller;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Menu\Services\MenusContentService;
-use Domains\News\Services\NewsService;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
     protected $siteServices;
+
     public function __construct(SiteServices $siteServices)
     {
         $this->siteServices = $siteServices;
@@ -33,13 +32,13 @@ class PagesController extends Controller
         return view('site::' . $request->language . '.pages.structure-and-organization');
     }
 
-    public function newsListIran(Request $request,CategoryInfoPresenter $categoryInfoPresenter)
+    public function newsListIran(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $news = $this->siteServices->getFilterNews('iran-news')->getItems();
         $categories = $categoryInfoPresenter->transformMany(
             $this->siteServices->getActiveCategoryByType('news'));
 
-        return view('site::' . $request->language . '.pages.news-list',compact('news','categories'));
+        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
 
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
@@ -47,7 +46,7 @@ class PagesController extends Controller
         $news = $this->siteServices->getFilterNews('world-news')->getItems();
         $categories = $categoryInfoPresenter->transformMany(
             $this->siteServices->getActiveCategoryByType('events'));
-        return view('site::' . $request->language . '.pages.news-list' ,compact('news','categories'));
+        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
 
     public function eventsList(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
@@ -55,7 +54,7 @@ class PagesController extends Controller
         $events = $this->siteServices->getFilterEvent()->getItems();
         $categories = $categoryInfoPresenter->transformMany(
             $this->siteServices->getActiveCategoryByType('event'));
-        return view('site::' . $request->language . '.pages.events-list' ,compact('events','categories'));
+        return view('site::' . $request->language . '.pages.events-list', compact('events', 'categories'));
     }
 
     public function interactions(Request $request)
@@ -152,7 +151,8 @@ class PagesController extends Controller
             case $menuTyps['list_event_type'] :
                 return view('site::' . $language . '.pages.event-list', compact('menusContent'));
 
-            default: abort(404);
+            default:
+                abort(404);
         }
     }
 
