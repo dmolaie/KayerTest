@@ -177,6 +177,16 @@ class NewsFilterDTO
     }
 
     /**
+     * @param string|null $newsRealStatus
+     * @return NewsFilterDTO
+     */
+    public function setNewsRealStatus(?string $newsRealStatus): NewsFilterDTO
+    {
+        $this->newsRealStatus = $newsRealStatus;
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getMinPublishDate(): ?string

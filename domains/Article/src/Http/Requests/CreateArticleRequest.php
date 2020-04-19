@@ -30,7 +30,7 @@ class CreateArticleRequest extends EhdaBaseRequest
             'province_id'      => 'integer|exists:provinces,id',
             'parent_id'        => 'integer|exists:articles,id|unique:articles',
             'language'         => ['required', Rule::in(config('article.article_language'))],
-            'images.*'         => 'image|size:500'
+            'images.*'         => 'image|max:500'
         ];
     }
 
