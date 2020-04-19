@@ -5,7 +5,7 @@
                  پرتال استان‌ها
             </span>
             <button class="s-domain__close relative"
-            > </button>
+            ></button>
         </div>
         <div class="s-domain__body">
             <div class="s-domain__row w-full flex items-center">
@@ -16,26 +16,11 @@
                     <option value="">
                         انتخاب کنید...
                     </option>
-                    <option value="1" data-url="https://tehran.ehda.center"
-                    >
-                        تهران
+                    @foreach($provinces as $province)
+                    <option value="{{$province->getId()}}" data-url="http://{{$province->getSlug().".".request()->getHttpHost()}}">
+                        {{$province->getName()}}
                     </option>
-                    <option value="2" data-url="https://zanjan.ehda.center"
-                    >
-                        زنجان
-                    </option>
-                    <option value="3" data-url="https://sb.ehda.center"
-                    >
-                        سیستان و بلوچستان
-                    </option>
-                    <option value="4" data-url="https://yazd.ehda.center"
-                    >
-                        یزد
-                    </option>
-                    <option value="5" data-url="https://semnan.ehda.center"
-                    >
-                        سمنان
-                    </option>
+                    @endforeach
                 </select>
             </div>
             <div class="s-domain__row--link w-full flex items-center none">
