@@ -197,6 +197,7 @@ return [
         \Domains\Article\ArticleServiceProvider::class,
         \Domains\Menu\MenusServiceProvider::class,
         \Domains\SmsRegister\SmsRegisterServiceProvider::class,
+        \Domains\NationalAuthentication\NationalAuthenticationServiceProvider::class,
 
 
     ],
