@@ -62,6 +62,28 @@ class UserBriefInfoDTO
      * @var null|array
      */
     protected $createdBy;
+    /**
+     * @var null|string
+     */
+    protected $uuid;
+
+    /**
+     * @return string|null
+     */
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string|null $uuid
+     * @return UserBriefInfoDTO
+     */
+    public function setUuid(?string $uuid): UserBriefInfoDTO
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
 
     /**
      * @return string

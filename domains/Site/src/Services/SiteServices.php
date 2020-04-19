@@ -13,6 +13,7 @@ use Domains\Locations\Transformers\CityTransformer;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\News\Services\NewsService;
+use Domains\User\Services\UserService;
 
 class SiteServices
 {
@@ -55,9 +56,13 @@ class SiteServices
      * @var ProvinceService
      */
     private $provinceService;
+    /**
+     * @var UserService
+     */
+    private $userService;
 
 
-    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService, ProvinceService $provinceService)
+    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService, ProvinceService $provinceService,UserService $userService)
     {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
@@ -67,6 +72,7 @@ class SiteServices
         $this->articleService = $articleService;
         $this->eventFilterDTO = $eventFilterDTO;
         $this->provinceService = $provinceService;
+        $this->userService = $userService;
     }
 
     public function getAll()
@@ -173,6 +179,11 @@ class SiteServices
             return $categoryList;
         }
         return null;
+    }
+
+    public function getInfoUserWithUuid($uuid)
+    {
+        return $this->userService->getUserBaseInfoWithUuid($uuid);
     }
 
 }

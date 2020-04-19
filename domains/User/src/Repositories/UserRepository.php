@@ -76,6 +76,11 @@ class UserRepository
         return $this->entityName::find($id);
     }
 
+    public function findByUuid(string $uuid)
+    {
+        return $this->entityName::where('uuid','=',$uuid)->firstOrFail();
+    }
+
     public function findOrFail(int $id)
     {
         return $this->entityName::findOrFail($id);
