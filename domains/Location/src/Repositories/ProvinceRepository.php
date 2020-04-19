@@ -34,4 +34,9 @@ class ProvinceRepository
         return $this->entityName::whereIn('id', $provinceIds)
             ->get();
     }
+
+    public function finBySlug($slug)
+    {
+        return $this->entityName::where('slug','=',$slug)->first();
+    }
 }

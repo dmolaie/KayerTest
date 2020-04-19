@@ -11,7 +11,7 @@
                         <span class="flower_line relative flex items-end justify-end block w-full"></span>
                     </div>
                     <p class="n-list__header_sub-title text-white font-20 font-bold cursor-default md:font-base">
-                        {{current(current($events)->getCategory())['name_fa']}}
+                        {{$events ? current(current($events)->getCategory())['name_fa'] : ''}}
                     </p>
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
