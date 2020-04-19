@@ -10,8 +10,13 @@ $gap: 15px
   &__tab
     padding: 17px 0
     background-color: transparentize(#f1fbff, (1 - .55))
+    &:focus, &:active
+      box-shadow: none
+      outline: none
+    &::-moz-focus-inner
+      border: 0
     &:not(:last-of-type)
-      border-left: 1px solid $blue
+      border-left: 1px solid #32c5ff
     &--active, &:hover
       background-color: $blue
       .ga-page__icon
@@ -19,7 +24,11 @@ $gap: 15px
       span
         color: $white
   &__body
-    padding: 55px 40px 63px (82px - $gap)
+    padding: 55px 40px (63px - ($gap * 2)) (82px - $gap)
+  &__aside
+    margin-left: (40px - $gap)
+    @include Xl_Screen
+      margin-left: (60px - $gap)
   &__published
     $size: 13px
     margin-bottom: 14px
@@ -46,3 +55,90 @@ $gap: 15px
     &--asc
       border-width: 0 ($size - 2) $size
       border-color: transparent transparent $blue transparent
+  &__panel
+    border-color: #c4edfe
+    &_header
+      padding: 8px 18px
+      background-color: #ecf8fd
+      border-bottom: 1px solid #c4edfe
+    &_icon
+      fill: $blue
+      height: 15px
+      margin-left: 10px
+    &_label
+      width: calc(100% - 8px)
+      margin: 0 8px 12px 0
+      border-color: #f8feff
+      background-color: transparentize(#ecf8fd, (1 - .72))
+    &_icon
+      fill: $blue
+      @include Size( 16px )
+      margin: 0 14px
+    &_input
+      color: #9ba9ab
+      padding: 8px
+      &::placeholder
+        color: #9ba9ab
+    &_body
+      padding: 10px 10px 40px
+    &_divider
+      width: calc(100% - 36px)
+      height: 1px
+      margin: 25px auto 20px
+      background-color: #cfcad7
+  &__item
+    padding: 0 $gap ($gap * 2)
+  &__card
+    border-color: #74d6ff
+    &::before
+      box-shadow: 0 2px 12px 0 transparentize(black, (1 - .4))
+      opacity: 0
+      transition: opacity $duration
+    &_camera
+      top: 12px
+      right: 15px
+      @include Size( 28px )
+      filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5))
+      background: url("/../images/ic__camera.svg") no-repeat center
+        size: contain
+    &_play
+      top: 13px
+      right: 12px
+      @include Size( 28px )
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5)
+      &::before
+        content: " "
+        position: absolute
+        top: 50%
+        left: 54%
+        width: 0
+        height: 0
+        border:
+          right: 7px solid transparent
+          top: 9px solid $blue
+          left: 7px solid transparent
+        transform: translate(-50%, -50%) rotate(-90deg)
+    &_image
+      height: 125px
+    &_body
+      padding: 8px 15px 0
+    &_category
+      color: #74d6ff
+      margin-bottom: 6px
+      svg
+        fill: #74d6ff
+        height: 14px
+        margin-left: 2px
+    &_title
+      @include Truncate(1)
+    &_iTitle
+      min-height: 42px
+    &_link
+      color: #0066a6
+      padding: 7px
+      margin-top: 22px
+      border-top: 1px solid #74d6ff
+    @include L_Screen
+      &:hover
+        &:before
+          opacity: 1
