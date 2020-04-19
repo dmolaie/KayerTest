@@ -1,0 +1,48 @@
+$gap: 15px
+
+.ga-page
+  &__header
+    background-color: #bde8fa
+  &__icon
+    height: 55px
+    fill: $blue
+    margin-left: 17px
+  &__tab
+    padding: 17px 0
+    background-color: transparentize(#f1fbff, (1 - .55))
+    &:not(:last-of-type)
+      border-left: 1px solid $blue
+    &--active, &:hover
+      background-color: $blue
+      .ga-page__icon
+        fill: $white
+      span
+        color: $white
+  &__body
+    padding: 55px 40px 63px (82px - $gap)
+  &__published
+    $size: 13px
+    margin-bottom: 14px
+    border-color: #c4edfe
+    padding: 7px 22px 7px 18px
+    &::before
+      box-shadow: 0 0 33px 0 transparentize(#1e3651, (1 - .05))
+    &::after
+      box-shadow: 0 0 33px 0 transparentize(#1e3651, (1 - .1))
+      opacity: 0
+    @include L_Screen
+      &:hover
+        &::before
+          opacity: 0
+        &::after
+          opacity: 1
+    &--desc, &--asc
+      width: 0
+      height: 0
+      border-style: solid
+    &--desc
+      border-width: $size ($size - 2) 0
+      border-color: $blue transparent transparent transparent
+    &--asc
+      border-width: 0 ($size - 2) $size
+      border-color: transparent transparent $blue transparent
