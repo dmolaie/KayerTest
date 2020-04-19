@@ -3,14 +3,21 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Domains\Location\Services\ProvinceService;
 use Domains\Menu\Services\MenusService;
 
 class DataNecessaryInBlades
 {
     private $menuService;
-    public function __construct(MenusService $menusService)
+    /**
+     * @var ProvinceService
+     */
+    private $provinceService;
+
+    public function __construct(MenusService $menusService,ProvinceService $provinceService)
     {
         $this->menuService = $menusService;
+        $this->provinceService = $provinceService;
     }
 
     /**
@@ -23,7 +30,8 @@ class DataNecessaryInBlades
     public function handle($request, Closure $next)
     {
         $listOfMenu = $this->menuService->getListSite(true);
-        \View::share('menus', $listOfMenu);
+        $listOfProvince = $this->provinceService->getAll();
+        \View::share(['menus' => $listOfMenu, 'provinces' => $listOfProvince]);
         return $next($request);
     }
 }

@@ -69,4 +69,9 @@ class ProvinceService
         $provices = $this->provinceRepository->searchProvinces($provinceSearchDTO->getProvinceIds());
         return $this->provinceDTOMaker->convertMany($provices);
     }
+
+    public function finBySlug($slug)
+    {
+        return $this->provinceRepository->finBySlug($slug);
+    }
 }

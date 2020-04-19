@@ -2,6 +2,17 @@
 
 Route::redirect('/', app()->getLocale());
 
+Route::domain('{subdomain}.dev.ehdacenter.io')->group(function () {
+    Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')]], function () {
+        Route::prefix('page')->name('page.domain.')->group(function () {
+            Route::get('/iran_news', 'PagesController@newsListIranDomain')->name('news-list-iran');
+            Route::get('/world-news', 'PagesController@newsListWorldDomain')->name('news-list-world');
+            Route::get('/events', 'PagesController@eventsListDomain')->name('events-list');
+
+        });
+    });
+});
+
 Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')], 'name' => 'site.'], function () {
     Route::get('/', 'HomeController@index')->name('index');
     Route::prefix('page')->name('page.')->group(function () {
@@ -32,11 +43,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
 
 });
 
-Route::domain('{account}.dev.ehdacenter.io')->group(function () {
-    Route::get('user/{id}', function ($account, $id) {
-        dd('dd');
-    })->name('domain');
-});
+
 
 Route::get('/news/{uuid}', 'PagesController@newsShortLink')->name('news-short-link');
 Route::get('/event/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
