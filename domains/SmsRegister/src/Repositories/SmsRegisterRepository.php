@@ -18,7 +18,7 @@ class SmsRegisterRepository
         )->first();
         $smsRegister = $smsRegister ?? new $this->entityName;
         $smsRegister->mobile_number = $smsRegisterDTO->getMobileNumber();
-        $smsRegister->account_id = $smsRegisterDTO->getAccountId();
+        $smsRegister->channelType = $smsRegisterDTO->getChannelType();
         $smsRegister->national_code = $smsRegisterDTO->getNationalCode();
         $smsRegister->request_content = $smsRegisterDTO->getFirstRequestContent();
         if ($smsRegister->getDirty()) {

@@ -9,10 +9,10 @@ use Domains\NationalAuthentication\Services\NationalAuthenticationService;
 use Domains\SmsRegister\Events\SmsRegisterEvent;
 use Domains\SmsRegister\Repositories\SmsRegisterRepository;
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\UserService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use mysql_xdevapi\Exception;
 
 /**
  * Class SmsRegisterService
@@ -55,14 +55,15 @@ class SmsRegisterService
      */
     public function createOrUpdateRegister(SmsRegisterDTO $smsRegisterDTO)
     {
-        return $this->smsRegisterRepository
+        $this->smsRegisterRepository
             ->createOrUpdateRegister($smsRegisterDTO);
+        $smsRegisterDTO->setContent(trans('smsRegister::response.send_birth_date'));
+        event(new SmsRegisterEvent($smsRegisterDTO));
+        return;
     }
 
     /**
      * @param SmsRegisterDTO $smsRegisterDTO
-     * @throws \Domains\User\Exceptions\UserDoseNotHaveActiveRole
-     * @throws \Domains\User\Exceptions\UserUnAuthorizedException
      */
     public function registerUser(SmsRegisterDTO $smsRegisterDTO)
     {
@@ -78,10 +79,20 @@ class SmsRegisterService
             $userInfoDTO = $this->userService->register($userRegisterDTO);
             $smsRegisterDTO->setContent($this->makeMessageContent($userInfoDTO));
             event(new SmsRegisterEvent($smsRegisterDTO));
-        } catch (Exception $exception) {
+        } catch (ModelNotFoundException $exception) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_national_code'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+        } catch (UserUnAuthorizedException $exception) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.validation.national_code_unique'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+        } catch (\Exception $exception) {
             // TODO add log
         }
-
+        return;
     }
 
     /**

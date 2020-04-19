@@ -32,7 +32,7 @@ class SmsRegisterDTO
     /**
      * @var string
      */
-    protected $accountId;
+    protected $channelType;
     /**
      * @var string
      */
@@ -75,9 +75,9 @@ class SmsRegisterDTO
     }
 
     /**
-     * @return array
+     * @return null|array
      */
-    public function getFirstRequestContent(): array
+    public function getFirstRequestContent(): ?array
     {
         return $this->firstRequestContent;
     }
@@ -131,18 +131,18 @@ class SmsRegisterDTO
     /**
      * @return string
      */
-    public function getAccountId(): string
+    public function getChannelType(): string
     {
-        return $this->accountId;
+        return $this->channelType;
     }
 
     /**
-     * @param string $accountId
+     * @param string $channelType
      * @return SmsRegisterDTO
      */
-    public function setAccountId(string $accountId): SmsRegisterDTO
+    public function setChannelType(string $channelType): SmsRegisterDTO
     {
-        $this->accountId = $accountId;
+        $this->channelType = $channelType;
         return $this;
     }
 
