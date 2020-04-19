@@ -34,9 +34,20 @@ class HomeController extends Controller
 
     public function index(NewsListForAdminRequest $request)
     {
-        $news = $this->siteServices->getNews($status = 'accept', $sort = 'DESC');
-        $event = $this->siteServices->getEvent($status = 'accept', $sort = 'DESC',$slugCategory = 'main-page');
+        $subdomain = $this->getSubdomain($request->getHttpHost());
+        $news = $this->siteServices->getNews($status = 'accept', $sort = 'DESC',$subdomain);
+        $event = $this->siteServices->getEvent($status = 'accept', $sort = 'DESC',$slugCategory = 'main-page',$subdomain);
         return view('site::' . $request->language . '.index', compact('news', 'event'));
+    }
+
+    private function getSubdomain($url)
+    {
+        $urlPart = explode('.',$url);
+        $categoryList = $this->siteServices->getLocations($urlPart[0]);
+        if($categoryList){
+            return $categoryList;
+        }
+        return null;
     }
 
 }

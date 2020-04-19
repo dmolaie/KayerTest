@@ -7,6 +7,7 @@ use Domains\Article\Services\ArticleService;
 use Domains\Category\Services\CategoryService;
 use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Domains\Event\Services\EventService;
+use Domains\Location\Services\ProvinceService;
 use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
 use Domains\Menu\Services\MenusContentService;
@@ -34,21 +35,29 @@ class SiteServices
      * @var NewsService
      */
     private $newsService;
+
     /**
      * @var EventService
      */
     private $eventService;
+
     /**
      * @var ArticleService
      */
     private $articleService;
+
     /**
      * @var EventFilterDTO
      */
     private $eventFilterDTO;
 
+    /**
+     * @var ProvinceService
+     */
+    private $provinceService;
 
-    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService)
+
+    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService, ProvinceService $provinceService)
     {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
@@ -57,6 +66,7 @@ class SiteServices
         $this->eventService = $eventService;
         $this->articleService = $articleService;
         $this->eventFilterDTO = $eventFilterDTO;
+        $this->provinceService = $provinceService;
     }
 
     public function getAll()
@@ -72,12 +82,15 @@ class SiteServices
         return $this->menusService->getPageContent($pageSlug);
     }
 
-    public function getFilterNews($categories)
+    public function getFilterNews($categories,$subdomain = null)
     {
         $categoryId = $this->getIdCategoryNews($categories);
         $this->newsFilterDTO->setCategoryIds([$categoryId]);
         $this->newsFilterDTO->setNewsInputStatus('accept');
         $this->newsFilterDTO->setSort('DESC');
+        if($subdomain){
+            $this->newsFilterDTO->setProvinceId($subdomain->id);
+        }
         return $this->newsService->filterNews($this->newsFilterDTO);
     }
 
@@ -86,10 +99,13 @@ class SiteServices
         return $this->categoryService->getCategoryBySlug($categorySlug);
     }
 
-    public function getFilterEvent()
+    public function getFilterEvent($subdomain = null)
     {
         $this->eventFilterDTO->setEventInputStatus('accept');
         $this->eventFilterDTO->setSort('DESC');
+        if($subdomain){
+            $this->eventFilterDTO->setProvinceId($subdomain->id);
+        }
         return $this->eventService->filterEvent($this->eventFilterDTO);
     }
 
@@ -123,19 +139,30 @@ class SiteServices
         return $this->articleService->getArticleDetailWithUuid($uuid);
     }
 
-    public function getNews($status, $sort)
+    public function getNews($status, $sort, $subdomain = null)
     {
         $this->newsFilterDTO->setNewsInputStatus($status);
         $this->newsFilterDTO->setSort($sort);
+        if($subdomain){
+            $this->newsFilterDTO->setProvinceId($subdomain->id);
+        }
         return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
     }
 
-    public function getEvent($status, $sort, $slugCategory)
+    public function getEvent($status, $sort, $slugCategory, $subdomain = null)
     {
         $this->eventFilterDTO->setEventInputStatus($status);
         $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
         $this->eventFilterDTO->setSort($sort);
+        if($subdomain){
+            $this->eventFilterDTO->setProvinceId($subdomain->id);
+        }
         return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+    }
+
+    public function getLocations($slug)
+    {
+        return $this->provinceService->finBySlug($slug);
     }
 
 }
