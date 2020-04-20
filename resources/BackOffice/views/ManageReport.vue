@@ -187,9 +187,10 @@
                     >
                         خروجی اکسل
                     </button>
+                    df
                     <excel-cm :fields="fields" :fetch="getAllUserReport"
-                              class="m-report__button m-report__button--blue block text-white font-base font-bold rounded m-0-auto m-t-40"
-                              :class="{ 'spinner-loading': (excel.isPending) }"
+                              class="text-center" className="m-report__button m-report__button--blue inline-block text-center text-white font-base font-bold rounded m-0-auto m-t-40 cursor-pointer"
+                              :isPending="excel.isPending"
                     />
                 </div>
             </div>

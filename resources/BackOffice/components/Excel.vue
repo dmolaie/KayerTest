@@ -2,7 +2,7 @@
     <div class="excel w-full">
         <json-excel :fetch="fetch" :fields="fields"
                     :meta="meta" :name="name" :title="title"
-                    v-bind="$attrs"
+                    v-bind="$attrs" :class="[className, isPending ? 'spinner-loading' : '']"
         >
             {{ buttonTitle }}
         </json-excel>
@@ -18,34 +18,6 @@
         name: "Excel",
         data: () => ({
             title: 'انجمن اهدای‌ عضو ‌ایرانیان',
-            json_fields: {
-                'نام': 'name',
-                'شهر': 'city',
-                'Telephone': 'country',
-                'Telephone 2' : 'birthdate',
-            },
-            json_data: [
-                {
-                    'name': 'محمد سلیمانیان',
-                    'city': '&#8203;09013040633',
-                    'country': '&#8203;0521141966',
-                    'birthdate': '78/01/25',
-                    'phone': {
-                        'mobile': '1-541-754-3010',
-                        'landline': '(541) 754-3010'
-                    }
-                },
-                {
-                    'name': 'Thessaloniki',
-                    'city': 'Athens',
-                    'country': 'Greece',
-                    'birthdate': '1987-11-23',
-                    'phone': {
-                        'mobile': '+1 855 275 5071',
-                        'landline': '(2741) 2621-244'
-                    }
-                }
-            ],
         }),
         props: {
             fetch: {
@@ -70,6 +42,14 @@
             buttonTitle: {
                 type: String,
                 default: 'خروجی اکسل'
+            },
+            className: {
+                type: String,
+                default: ''
+            },
+            isPending: {
+                type: Boolean,
+                default: false
             }
         },
         components: { JsonExcel },
