@@ -17,6 +17,7 @@ use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
+use Domains\User\Services\Contracts\DTOs\DTOMakers\UserInfoReportDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserRoleInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
@@ -25,6 +26,7 @@ use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
+use Domains\User\Services\Contracts\DTOs\UsersRegisterReportDTO;
 use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
 use Domains\User\Services\Contracts\DTOs\UserProfileDTO;
 use Illuminate\Support\Facades\Auth;
@@ -330,5 +332,32 @@ class UserService
     {
         $user = $this->userRepository->findOrFail($id);
         return $this->userRoleInfoDTOMaker->convertMany($user);
+    }
+
+    public function userReport(UsersRegisterReportDTO $usersRegisterReportDTO)
+    {
+        $usersClient = [];
+        $usersLegate = [];
+        if(in_array(config('user.client_role_type'),$usersRegisterReportDTO->getType())){
+            $usersClient = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(),$usersRegisterReportDTO->getSort(),$usersRegisterReportDTO->getStatusClient(),$usersRegisterReportDTO->getRegisterFromClient(),$usersRegisterReportDTO->getRegisterEndClient(),$usersRegisterReportDTO->getPaginate());
+        }
+
+        if(in_array(config('user.legate_role_type'),$usersRegisterReportDTO->getType())){
+            $usersLegate = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(),$usersRegisterReportDTO->getSort(),$usersRegisterReportDTO->getStatusLegate(),$usersRegisterReportDTO->getRegisterFromLegate(),$usersRegisterReportDTO->getRegisterEndLegate(),$usersRegisterReportDTO->getPaginate());
+        }
+
+        if(!empty($usersClient) && !empty($usersLegate)){
+            $users = $usersClient->union($usersLegate);
+        }elseif(!empty($usersLegate)){
+            $users = $usersLegate;
+        }elseif (!empty($usersClient)){
+            $users = $usersClient;
+        }
+        $users = $users->orderBy('created_at',$usersRegisterReportDTO->getSort())
+        ->groupBy('id')->paginate($usersRegisterReportDTO->getPaginate());
+        return $this->paginationDTOMaker->perform(
+            $users,
+            UserInfoReportDTOMaker::class
+        );
     }
 }

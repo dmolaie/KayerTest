@@ -6,6 +6,7 @@ namespace Domains\User\Repositories;
 use Domains\User\Entities\User;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
+use Domains\User\Services\Contracts\DTOs\UsersRegisterReportDTO;
 
 class UserRepository
 {
@@ -78,7 +79,7 @@ class UserRepository
 
     public function findByUuid(string $uuid)
     {
-        return $this->entityName::where('uuid','=',$uuid)->firstOrFail();
+        return $this->entityName::where('uuid', '=', $uuid)->firstOrFail();
     }
 
     public function findOrFail(int $id)
@@ -210,12 +211,34 @@ class UserRepository
         int $userId,
         int $roleId,
         string $roleStatus
-    ) {
+    )
+    {
         $user = $this->entityName::findOrFail($userId);
         $user->roles()->detach($roleId);
         $user->roles()->attach(
             $roleId,
             ['status' => $roleStatus]);
         return $user;
+    }
+
+    public function getUserReport($type,$sort,$status,$registerFrom,$registerEnd)
+    {
+        $baseQuery = $this->entityName
+            ::whereHas('roles', function ($query) use ($type) {
+                $query->when(!empty($type), function ($query) use ($type) {
+                    $query->whereIn('type', $type);
+                })->where('status', '=', config('user.user_role_active_status'));
+            })
+            ->when($registerFrom, function ($query) use ($registerFrom) {
+                return $query->where('created_at','<=', $registerFrom);
+            })
+            ->when($registerEnd, function ($query) use ($registerEnd) {
+                return $query->where('created_at','>=', $registerEnd);
+            })
+            ->when($status, function ($query) use ($status) {
+                return $query->where('is_active', $status);
+            });;
+
+        return $baseQuery;
     }
 }

@@ -92,7 +92,7 @@ class SiteServices
     {
         $categoryId = $this->getIdCategoryNews($categories);
         $this->newsFilterDTO->setCategoryIds([$categoryId]);
-        $this->newsFilterDTO->setNewsRealStatus('accept');
+        $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
         if($subdomain){
             $this->newsFilterDTO->setProvinceId($subdomain->id);
@@ -107,7 +107,7 @@ class SiteServices
 
     public function getFilterEvent($subdomain = null)
     {
-        $this->eventFilterDTO->setEventsRealStatus('accept');
+        $this->eventFilterDTO->setEventInputStatus('published');
         $this->eventFilterDTO->setSort('DESC');
         if($subdomain){
             $this->eventFilterDTO->setProvinceId($subdomain->id);
@@ -147,7 +147,7 @@ class SiteServices
 
     public function getNews($status, $sort, $subdomain = null)
     {
-        $this->newsFilterDTO->setNewsRealStatus($status);
+        $this->newsFilterDTO->setNewsInputStatus($status);
         $this->newsFilterDTO->setSort($sort);
         if($subdomain){
             $this->newsFilterDTO->setProvinceId($subdomain->id);
@@ -157,7 +157,7 @@ class SiteServices
 
     public function getEvent($status, $sort, $slugCategory, $subdomain = null)
     {
-        $this->eventFilterDTO->setEventsRealStatus($status);
+        $this->eventFilterDTO->setEventInputStatus($status);
         $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
         $this->eventFilterDTO->setSort($sort);
         if($subdomain){

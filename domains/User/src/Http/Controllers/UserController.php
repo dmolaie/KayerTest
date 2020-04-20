@@ -5,12 +5,14 @@ namespace Domains\User\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
+use Domains\News\Http\Presenters\UsersReportPaginateInfoPresenter;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Http\Presenters\UserBaseProfileInfo;
 use Domains\User\Http\Presenters\UserBasicRegisterInfoPresenter;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
 use Domains\User\Http\Presenters\UserFullInfoPresenter;
+use Domains\User\Http\Presenters\UserInfoReportPresenter;
 use Domains\User\Http\Presenters\UserPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserRegisterPresenter;
 use Domains\User\Http\Presenters\UserRoleInfoPresenter;
@@ -26,6 +28,7 @@ use Domains\User\Http\Requests\UpdateUserInfoRequest;
 use Domains\User\Http\Requests\UserInfoByAdminRequest;
 use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
+use Domains\User\Http\Requests\UserReportRequest;
 use Domains\User\Http\Requests\ValidateDataUserRequestClient;
 use Domains\User\Http\Requests\ValidateDataUserRequestLegate;
 use Domains\User\Services\UserService;
@@ -382,6 +385,22 @@ class UserController extends EhdaBaseController
                 trans('user::response.user_not_found')
             );
         }
+    }
 
+    public function userReport(UserReportRequest $request,UsersReportPaginateInfoPresenter $usersReportPaginateInfoPresenter)
+    {
+        try {
+            $users =  $this->userService->userReport($request->getReportUserRegister());
+            return $this->response(
+                $usersReportPaginateInfoPresenter->transform($users),
+                Response::HTTP_OK
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('user::response.user_not_found')
+            );
+        }
     }
 }

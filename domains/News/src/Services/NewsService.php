@@ -172,7 +172,6 @@ class NewsService
             NewsInfoDTOMaker::class,
             $attachmentInfoDto
         );
-
     }
 
     public function destroyNews(int $newsId)
