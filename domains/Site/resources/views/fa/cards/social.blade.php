@@ -1,14 +1,25 @@
 @include('fa.template.part-theme.head')
-<div class="d-cart d-cart__social font-zar">
-    <span class="d-cart__social_title">
-        <span>
-            {{$userData->name.' '.$userData->last_name}}
-        </span>
-        <span>
-            {{$userData->uuid}}
-        </span>
-    </span>
-</div>
+    <div class="d-cart profile-p">
+        <br>
+        <p class="text-black-300 font-zar font-24 w-full text-center cursor-default sm:font-base">
+            کارت اهدا عضو:
+            {{ $userData->name.' '.$userData->last_name }}
+        </p>
+        <br>
+        <figure class="max-w-1200 m-0-auto image_loading">
+            <img src="{{ asset('/images/cards/social_overlay.jpg') }}"
+                 alt="{{ $userData->name .'-'. $userData->last_name }}"
+                 class="single_cart w-full block object-contain"
+            />
+        </figure>
+        <br>
+        <div class="w-0 h-0 overflow-hidden">
+                <span id="label">
+                    {{ $userData->name .' '. $userData->last_name.' - '. $userData->card_id }}
+                </span>
+        </div>
+    </div>
 
-<script src="{{ asset('js/site/runtime.js') }}" defer ></script>
-<script src="{{ asset('js/site/master.js') }}" defer ></script>
+    <script src="{{ asset('js/site/runtime.js') }}" defer ></script>
+    <script src="{{ asset('js/site/card-single~card-social~dashboard.js') }}" defer ></script>
+    <script src="{{ asset('js/site/card-social.js') }}" defer ></script>
