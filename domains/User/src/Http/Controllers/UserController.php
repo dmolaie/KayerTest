@@ -403,4 +403,21 @@ class UserController extends EhdaBaseController
             );
         }
     }
+
+    public function AllUserReport(UserReportRequest $request,UserInfoReportPresenter $userInfoReportPresenter)
+    {
+        try {
+            $users =  $this->userService->AllUserReport($request->getReportUserRegister());
+            return $this->response(
+                $userInfoReportPresenter->transformMany($users),
+                Response::HTTP_OK
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('user::response.user_not_found')
+            );
+        }
+    }
 }
