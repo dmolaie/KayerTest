@@ -118,6 +118,10 @@
                 <div class="m-report__table w-full"
                      v-if="hasLength"
                 >
+                    <p class="text-gray-200 font-sm font-bold cursor-default m-b-10">
+                        تعداد کل کاربران یافت شده :
+                        5454
+                    </p>
                     <table ref="table"
                            v-show="false"
                     >
@@ -209,6 +213,16 @@
                             </div>
                         </template>
                     </table-cm>
+                    <div class="w-full m-post__pagination"
+                         v-if="!!Object.values(items)"
+                    >
+                        <pagination-cm :isPending="isPending"
+                                       @input="onChangePagination"
+                                       :currentPage="pagination.current_page"
+                                       :total="pagination.total || 0"
+                                       :key="'paginate-' + paginateKeyCounter"
+                        />
+                    </div>
                     <button class="m-report__button m-report__button--blue block text-white font-base font-bold rounded m-0-auto m-t-40"
                             :class="{ 'spinner-loading': (excel.isPending) }"
                             @click.prevent="exportAsExcel"
@@ -228,6 +242,7 @@
     import TableCm from '@vendor/components/table/Index.vue';
     import DatePickerCm from '@components/DatePicker.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
+    import PaginationCm from '@vendor/components/pagination/Index.vue';
     import exportExcel from '@vendor/plugin/excel';
 
     let Service = null;
@@ -244,6 +259,7 @@
             excel: { isPending: false },
             isPending: false,
             isModuleRegistered: false,
+            paginateKeyCounter: 0,
             data: [
                 {
                     full_name: 'محمد سلیمانیان',
@@ -318,7 +334,7 @@
             ],
             items: {},
         }),
-        components: { TableCm, SelectCm, DatePickerCm },
+        components: { TableCm, SelectCm, DatePickerCm, PaginationCm },
         computed: {
             clientUserStatus() {
                 return {
@@ -366,9 +382,26 @@
             },
             async onClickFilterUserBy() {
                 try {
-                    this.items = { ...this.data }
+                    this.items = { ...this.data };
+                    await Service.getUserListFilterBy();
+                    this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            onChangePagination( page ){
+                try {
+                    this.backToTop();
+                    this.$set(this, 'isPending', true);
+                    Service.handelPagination( page )
+                        .then(this.$nextTick)
+                        .then(() => {
+                            setTimeout(() => {
+                                this.$set(this, 'isPending', false)
+                            }, 70);
+                        });
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
                 }
             },
             async exportAsExcel() {

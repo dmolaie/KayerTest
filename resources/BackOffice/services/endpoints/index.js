@@ -23,6 +23,7 @@ const GET_USER_BASIC_REGISTER_INFO = "GET_USER_BASIC_REGISTER_INFO";
 const GET_USER_ROLES = "GET_USER_ROLES";
 const GET_ALL_USER = "GET_ALL_USER";
 const GET_PERMISSION_USER = "GET_PERMISSION_USER";
+const GET_USERS_REPORT = "GET_USERS_REPORT";
 const ASSIGN_PERMISSION_USER = "ASSIGN_PERMISSION_USER";
 const EDIT_USER_BY_ADMIN = "EDIT_USER_BY_ADMIN";
 const ADD_ROLE_TO_USER = "ADD_ROLE_TO_USER";
@@ -78,6 +79,7 @@ endpoints[GET_USER_ROLES] = `/user/${VER_1_0}/admin/user-roles/:user_id`;
 // endpoints[GET_USER_ROLES] = `/role/${VER_1_0}/admin/legate-roles/:user_id`;
 endpoints[GET_ALL_USER] = `/role/${VER_1_0}/admin/all-roles`;
 endpoints[GET_PERMISSION_USER] = `/role/${VER_1_0}/admin/get-permission-user`;
+endpoints[GET_USERS_REPORT] = `/user/${VER_1_0}/admin/user-report`;
 endpoints[ASSIGN_PERMISSION_USER] = `/role/${VER_1_0}/admin/assign-permission-user`;
 endpoints[EDIT_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/edit-user-by-admin`;
 endpoints[ADD_ROLE_TO_USER] = `/user/${VER_1_0}/admin/add-role-to-user`;
@@ -192,6 +194,10 @@ export default class Endpoint {
 
     static get GET_PERMISSION_USER() {
         return endpoints[GET_PERMISSION_USER]
+    }
+
+    static get GET_USERS_REPORT() {
+        return endpoints[GET_USERS_REPORT]
     }
 
     static get ASSIGN_PERMISSION_USER() {
