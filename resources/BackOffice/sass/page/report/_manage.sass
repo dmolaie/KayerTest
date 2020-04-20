@@ -20,6 +20,11 @@ $c: #bde8fa
       @include L_Screen
         &:hover
           background-color: darken($c, 5%)
+      &:disabled
+        opacity: 0.8
+        color: #adadad
+        background: #f1f1f1
+        border-color: #d5d6d8
     &--blue
       color: $blue-200
       background: transparentize($sail, (1 - .64))

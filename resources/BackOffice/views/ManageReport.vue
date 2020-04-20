@@ -109,9 +109,10 @@
                         </div>
                     </div>
                 </div>
-                <button class="m-report__button m-report__button--submit block text-white font-base font-bold rounded m-0-auto m-t-40"
-                        :class="{ 'spinner-loading': isPending }"
+                <button class="m-report__button m-report__button--submit block text-white font-base font-bold border border-solid rounded m-0-auto m-t-40"
+                        :class="{ 'spinner-loading': isPending, 'pointer-event-none': (!clientUser.checked && !legateUser.checked) }"
                         @click.prevent="onClickFilterUserBy"
+                        :disabled="!clientUser.checked && !legateUser.checked"
                 >
                     ثبت
                 </button>
@@ -120,51 +121,8 @@
                 >
                     <p class="text-gray-200 font-sm font-bold cursor-default m-b-10">
                         تعداد کل کاربران یافت شده :
-                        5454
+                        {{ pagination.total }}
                     </p>
-                    <table ref="table"
-                           v-show="false"
-                    >
-                        <thead>
-                            <tr>
-                                <th>
-                                    ردیف
-                                </th>
-                                <th>
-                                    نام و نام خانوادگی
-                                </th>
-                                <th>
-                                    شماره موبایل
-                                </th>
-                                <th>
-                                    ایمیل
-                                </th>
-                                <th>
-                                    تاریخ تولد
-                                </th>
-                                <th>
-                                    شماره ملی
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in items">
-                                <td v-text="+index + 1"
-                                    class="text-center"
-                                > </td>
-                                <td v-text="item.full_name"
-                                > </td>
-                                <td v-text="item.mobile"
-                                > </td>
-                                <td v-text="item.email"
-                                > </td>
-                                <td v-text="item.birth_of_day"
-                                > </td>
-                                <td v-text="item.national_code"
-                                > </td>
-                            </tr>
-                        </tbody>
-                    </table>
                     <table-cm :data="items"
                               :isPending="isPending"
                     >
@@ -229,6 +187,10 @@
                     >
                         خروجی اکسل
                     </button>
+                    <excel-cm :fields="fields" :fetch="getAllUserReport"
+                              class="m-report__button m-report__button--blue block text-white font-base font-bold rounded m-0-auto m-t-40"
+                              :class="{ 'spinner-loading': (excel.isPending) }"
+                    />
                 </div>
             </div>
         </div>
@@ -236,6 +198,7 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import { HasLength } from "@vendor/plugin/helper";
     import { CLIENT_ROLE_STATUS, ROLE_STATUS } from '@services/service/Roles';
     import ManageReportService from '@services/service/ManageReport';
@@ -243,7 +206,7 @@
     import DatePickerCm from '@components/DatePicker.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
-    import exportExcel from '@vendor/plugin/excel';
+    import ExcelCm from '@components/Excel.vue';
 
     let Service = null;
 
@@ -260,82 +223,21 @@
             isPending: false,
             isModuleRegistered: false,
             paginateKeyCounter: 0,
-            data: [
-                {
-                    full_name: 'محمد سلیمانیان',
-                    mobile: '09013040633',
-                    email: 'm_soleimanian@yahoo.com',
-                    birth_of_day: '78/01/25',
-                    national_code: '0521141966'
-                },
-                {
-                    full_name: 'محمدرضا فرزام یار',
-                    mobile: '۸۹۷۷ ۵۱۲ ۰۹۳۶',
-                    email: 'Mohammad.farzam2014@jmail.com',
-                    birth_of_day: '۶۵/۰۵/۱۳',
-                    national_code: '۰۰۷۷۹۶۱۲۵۰'
-                },
-                {
-                    full_name: 'امیرحامد پاینده',
-                    mobile: '۹۳۸۷ ۲۳۶ ۰۹۱۱',
-                    email: 'hamedpayandeh@gmail.com',
-                    birth_of_day: '۵۹/۰۷/۰۱',
-                    national_code: '۲۶۹۰۳۱۸۴۹۰'
-                },
-                {
-                    full_name: 'محمدرضا فرزام یار',
-                    mobile: '۸۹۷۷ ۵۱۲ ۰۹۳۶',
-                    email: 'Mohammad.farzam2014@jmail.com',
-                    birth_of_day: '۶۵/۰۵/۱۳',
-                    national_code: '۰۰۷۷۹۶۱۲۵۰'
-                },
-                {
-                    full_name: 'عاطفه قاسمیان',
-                    mobile: '۲۳۸۳ ۰۱۹ ۰۹۱۳',
-                    email: 'atefeh.ghasemian2383@gmail.com',
-                    birth_of_day: '۷۴/۰۹/۱۹',
-                    national_code: '۱۲۷۲۰۷۱۱۷۰'
-                },
-                {
-                    full_name: 'بهاره خوش مهر',
-                    mobile: '۵۰۱۴ ۹۶۱ ۰۹۱۲',
-                    email: 'Baharkhoshmehe@gmail.com',
-                    birth_of_day: '۶۶/۰۲/۰۱',
-                    national_code: '۳۸۷۵۵۰۰۲۶۱'
-                },
-                {
-                    full_name: 'سعید درجاتیانی',
-                    mobile: '۵۷۴۳ ۹۰۱ ۰۹۱۵',
-                    email: 'Darajatiansaeed@yahoo.com',
-                    birth_of_day: '۵۶/۰۲/۰۹',
-                    national_code: '۰۹۴۳۳۳۲۴۳۵'
-                },
-                {
-                    full_name: 'عباس موذن',
-                    mobile: '۵۶۷۴ ۲۱۵ ۰۹۱۱',
-                    email: 'Abbasmoazen91@gmail.com',
-                    birth_of_day: '۶۰/۰۶/۲۷',
-                    national_code: '۲۱۶۲۳۷۰۵۱۴'
-                },
-                {
-                    full_name: 'سویل قبادی',
-                    mobile: '۶۲۲۷ ۹۲۳ ۰۹۰۳',
-                    email: 'Sevilhobadi@gmail.com',
-                    birth_of_day: '۸۰/۰۸/۲۰',
-                    national_code: '۵۰۴۰۴۷۹۲۳۹'
-                },
-                {
-                    full_name: 'برزین علیجانی',
-                    mobile: '۶۵۳۰ ۰۶۶ ۰۹۳۶',
-                    email: 'Barzin_alijani@gmail.com',
-                    birth_of_day: '۶۷/۱۲/۲۴',
-                    national_code: '۲۱۹۰۰۰۳۹۱۱'
-                }
-            ],
-            items: {},
+            fields: {
+                'نام': 'name',
+                'نام خانوادگی': 'last_name',
+                'شماره ملی': 'national_code',
+                'تاریخ تولد': 'date_of_birth',
+                'شماره موبایل': 'mobile',
+                'ایمیل': 'email',
+            },
         }),
-        components: { TableCm, SelectCm, DatePickerCm, PaginationCm },
+        components: { TableCm, SelectCm, DatePickerCm, PaginationCm, ExcelCm },
         computed: {
+            ...mapState({
+                items: ({ ManageReportStore }) => ManageReportStore.items,
+                pagination: ({ ManageReportStore }) => ManageReportStore.pagination
+            }),
             clientUserStatus() {
                 return {
                     ['all']: { id: '', name: 'همه' },
@@ -382,11 +284,13 @@
             },
             async onClickFilterUserBy() {
                 try {
-                    this.items = { ...this.data };
+                    this.$set(this, 'isPending', true);
                     await Service.getUserListFilterBy();
                     this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
+                } finally {
+                    this.$set(this, 'isPending', false);
                 }
             },
             onChangePagination( page ){
@@ -404,10 +308,10 @@
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            async exportAsExcel() {
+            async getAllUserReport() {
                 try {
                     this.$set(this.excel, 'isPending', true);
-                    await exportExcel( this.$refs['table'] )
+                    return await Service.getAllUsersReport();
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {

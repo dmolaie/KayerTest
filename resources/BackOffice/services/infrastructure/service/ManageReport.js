@@ -2,7 +2,10 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import ExceptionService from '@services/service/exception';
-import ManageReportStore from '@services/store/ManageReport';
+import ManageReportStore, {
+    M_REPORT_SET_DATA
+} from '@services/store/ManageReport';
+import { UserReportPresenter } from '@services/presenter/ManageReport';
 
 export default class ManageReportService extends BaseService {
     constructor( layout ) {
@@ -28,13 +31,15 @@ export default class ManageReportService extends BaseService {
         } catch (e) {}
     }
 
-    // async getUsersReportList() {
-    //     try {
-    //         return await HTTPService.post(Endpoint.get(Endpoint.GET_USERS_REPORT));
-    //     } catch ( exception ) {
-    //         throw exception;
-    //     }
-    // }
+    async getAllUsersReport() {
+        try {
+            const REQUEST_PAYLOAD = this.requestPayload;
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ALL_USERS_REPORT), REQUEST_PAYLOAD);
+            return new UserReportPresenter( response.data )
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
 
     get requestPayload() {
         try {
@@ -43,15 +48,15 @@ export default class ManageReportService extends BaseService {
                   TYPE = [];
             if ( clientUser.checked ) {
                 TYPE.push('client');
-                if ( !!clientUser.start_date ) PAYLOAD['register_from_client'] = clientUser.start_date;
-                if ( !!clientUser.end_date ) PAYLOAD['register_end_client'] = clientUser.end_date;
-                if ( !!clientUser.status ) PAYLOAD['status_client'] = clientUser.status;
+                if ( !!clientUser.start_date ) PAYLOAD['register_from_client'] = `${clientUser.start_date}`;
+                if ( !!clientUser.end_date ) PAYLOAD['register_end_client'] = `${clientUser.end_date}`;
+                if ( !!clientUser.status ) PAYLOAD['status_client'] = `${clientUser.status}`;
             }
             if ( legateUser.checked ) {
                 TYPE.push('legate');
-                if ( !!legateUser.start_date ) PAYLOAD['register_from_legate'] = legateUser.start_date;
-                if ( !!legateUser.start_date ) PAYLOAD['register_end_legate'] = legateUser.start_date;
-                if ( !!legateUser.start_date ) PAYLOAD['status_legate'] = legateUser.start_date;
+                if ( !!legateUser.start_date ) PAYLOAD['register_from_legate'] = `${legateUser.start_date}`;
+                if ( !!legateUser.start_date ) PAYLOAD['register_end_legate'] = `${legateUser.end_date}`;
+                if ( !!legateUser.start_date ) PAYLOAD['status_legate'] = `${legateUser.status}`;
             }
             PAYLOAD['type'] = TYPE;
             return PAYLOAD
@@ -61,12 +66,10 @@ export default class ManageReportService extends BaseService {
     async getUserListFilterBy( page = 1 ) {
         try {
             const REQUEST_PAYLOAD = this.requestPayload;
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_USERS_REPORT), {
-                REQUEST_PAYLOAD
-            }, {
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_USERS_REPORT), REQUEST_PAYLOAD, {
                 page
             });
-            console.log('response: ', response);
+            BaseService.commitToStore(this.$store, M_REPORT_SET_DATA, response);
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
