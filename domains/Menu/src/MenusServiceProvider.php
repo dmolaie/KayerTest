@@ -45,7 +45,7 @@ class MenusServiceProvider extends ServiceProvider
         return [
             'namespace' => 'Domains\Menu\Http\Controllers',
             'prefix' => 'menu/v1',
-            'middleware' => ['auth:api','can:list,Domains\Menu\Entities\Menus']
+
         ];
     }
 

@@ -6,6 +6,7 @@ namespace Domains\Menu\Http\Controllers;
 use App\Http\Controllers\EhdaBaseController;
 use Auth;
 use Domains\Menu\Exceptions\MenuNotFoundErrorException;
+use Domains\Menu\Http\Presenters\AdminMenuPresenter;
 use Domains\Menu\Http\Presenters\MenusInfoPresenter;
 use Domains\Menu\Http\Requests\CreateMenuRequest;
 use Domains\Menu\Http\Requests\DestroyMenuRequest;
@@ -105,5 +106,22 @@ class MenusController extends EhdaBaseController
             array_values(config('menus.menus_type')),
             Response::HTTP_OK
         );
+    }
+
+    public function getAdminMenuList(AdminMenuPresenter $adminMenuPresenter)
+    {
+        $userId = \Auth::id();
+        try {
+            return $this->response($adminMenuPresenter->transform(
+                $this->menusService->getAdminMenuList($userId)),
+                Response::HTTP_OK);
+        } catch (ModelNotFoundException $exception) {
+            return $this->response(
+                [],
+                Response::HTTP_NOT_FOUND,
+                trans('menus::response.menu_not_found')
+            );
+        }
+
     }
 }

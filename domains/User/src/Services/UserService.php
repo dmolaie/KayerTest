@@ -23,10 +23,10 @@ use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserChangeRoleDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
+use Domains\User\Services\Contracts\DTOs\UserProfileDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 use Domains\User\Services\Contracts\DTOs\ValidationDataUserDTO;
-use Domains\User\Services\Contracts\DTOs\UserProfileDTO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -132,7 +132,13 @@ class UserService
      */
     protected function getUserImportantActiveOrPendingRole($user): Role
     {
-        $role = $this->userRepository->getActiveAndPendingRoles($user);
+        $status = [
+            config('user.user_role_active_status'),
+            config('user.user_role_pending_status'),
+            config('user.user_role_wait_for_documents'),
+            config('user.user_role_wait_for_exam'),
+        ];
+        $role = $this->userRepository->getActiveAndPendingRoles($user, $status);
 
         if (!$role) {
             throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
@@ -331,6 +337,17 @@ class UserService
     public function getUserAllRoles(int $id)
     {
         $user = $this->userRepository->findOrFail($id);
-        return $this->userRoleInfoDTOMaker->convertMany($user);
+        return $this->userRoleInfoDTOMaker->convertMany($user->roles);
+    }
+
+    public function getUserImportantActiveRoleInfo(int $userId)
+    {
+        $user = $this->userRepository->findOrFail($userId);
+
+        $status = [
+            config('user.user_role_active_status'),
+        ];
+        $role = $this->userRepository->getActiveAndPendingRoles($user, $status);
+        return $role ? $this->userRoleInfoDTOMaker->convert($role) : null;
     }
 }

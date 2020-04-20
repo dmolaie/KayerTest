@@ -78,7 +78,7 @@ class UserRepository
 
     public function findByUuid(string $uuid)
     {
-        return $this->entityName::where('uuid','=',$uuid)->firstOrFail();
+        return $this->entityName::where('uuid', '=', $uuid)->firstOrFail();
     }
 
     public function findOrFail(int $id)
@@ -95,16 +95,11 @@ class UserRepository
             ->exists();
     }
 
-    public function getActiveAndPendingRoles(User $user)
+    public function getActiveAndPendingRoles(User $user,array $status)
     {
         return $user->roles()->whereIn(
-            'status',
-            [
-                config('user.user_role_active_status'),
-                config('user.user_role_pending_status'),
-                config('user.user_role_wait_for_documents'),
-                config('user.user_role_wait_for_exam'),
-            ])
+            'status', $status
+        )
             ->orderBy('priority')->first();
     }
 
