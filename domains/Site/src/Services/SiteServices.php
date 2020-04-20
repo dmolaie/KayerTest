@@ -92,7 +92,7 @@ class SiteServices
     {
         $categoryId = $this->getIdCategoryNews($categories);
         $this->newsFilterDTO->setCategoryIds([$categoryId]);
-        $this->newsFilterDTO->setNewsInputStatus('accept');
+        $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
         if($subdomain){
             $this->newsFilterDTO->setProvinceId($subdomain->id);
@@ -107,7 +107,7 @@ class SiteServices
 
     public function getFilterEvent($subdomain = null)
     {
-        $this->eventFilterDTO->setEventInputStatus('accept');
+        $this->eventFilterDTO->setEventInputStatus('published');
         $this->eventFilterDTO->setSort('DESC');
         if($subdomain){
             $this->eventFilterDTO->setProvinceId($subdomain->id);

@@ -131,7 +131,6 @@ class NewsRepository
             })
             ->when($newsFilterDTO->getProvinceId(), function ($query) use ($newsFilterDTO) {
                 return $query->where('province_id', $newsFilterDTO->getProvinceId());
-
             })
             ->orderBy('created_at', $newsFilterDTO->getSort())
             ->paginate($newsFilterDTO->getPaginationCount());

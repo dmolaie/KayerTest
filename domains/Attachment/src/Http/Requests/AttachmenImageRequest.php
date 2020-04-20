@@ -25,7 +25,7 @@ class AttachmenImageRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'images.*' => 'image|size:500',
+            'images.*' => 'image|max:500',
 
         ];
     }
