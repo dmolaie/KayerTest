@@ -30,7 +30,7 @@ class EditNewsRequest extends EhdaBaseRequest
             'source_link'      => 'url',
             'province_id'      => 'required|integer|exists:provinces,id',
             'language'         => ['required', Rule::in(config('news.news_language'))],
-            'images.*'         => 'image|size:500'
+            'images.*'         => 'image|max:500'
         ];
     }
 

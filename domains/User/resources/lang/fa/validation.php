@@ -159,5 +159,11 @@ return array(
         'event_id'                    => 'رویداد',
         'receive_email'               => 'خبرنامه',
         'password_change'             => 'گذرواژه',
+        'register_from_client'        => 'تاریخ شروع ثبت نام کاربر',
+        'register_end_client'         => 'تاریخ پایان ثبت نام کاربر',
+        'status_client'               => 'وضعیت کاربران',
+        'register_from_legate'        => 'تاریخ شروع ثبت نام سفیر',
+        'register_end_legate'         => 'تاریخ شروع ثبت نام سفیر',
+        'status_legate'               => 'وضعیت کاربران',
     ),
 );

@@ -16,7 +16,7 @@
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
                     <img src="/images/img_news-list.png"
-                         alt="اخبار ایران"
+                         alt="رویداد"
                          class="block w-full h-full object-contain"
                     />
                 </figure>
@@ -61,7 +61,7 @@
                             <label class="i-page__panel_label flex items-center w-full border border-solid rounded">
                                 <input type="text"
                                        class="i-page__panel_input w-full bg-transparent text-blue-100"
-                                       placeholder="جستجو در خبرها"
+                                       placeholder="جستجو در رویدادها"
                                        autocomplete="off"
                                 />
                             </label>

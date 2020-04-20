@@ -177,6 +177,16 @@ class EventFilterDTO
     }
 
     /**
+     * @param string|null $eventRealStatus
+     * @return EventFilterDTO
+     */
+    public function setEventsRealStatus(?string $eventRealStatus): EventFilterDTO
+    {
+        $this->eventRealStatus = $eventRealStatus;
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getMinPublishDate(): ?string
