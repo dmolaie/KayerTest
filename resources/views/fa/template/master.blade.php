@@ -7,6 +7,7 @@
     @yield('content')
 </main>
 @include('fa.template.part-theme.footer')
+@include('fa.template.part-theme.subdomain')
 <script src="{{ asset('js/site/runtime.js') }}" defer ></script>
 <script src="{{ asset('js/site/master.js') }}" defer ></script>
 @yield('scripts')

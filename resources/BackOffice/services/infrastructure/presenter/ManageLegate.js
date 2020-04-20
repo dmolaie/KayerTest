@@ -10,6 +10,9 @@ import DateService from '@vendor/plugin/date';
 import {
     CLIENT
 } from '@services/service/Roles';
+import {
+    PERMISSION_FA_KEY
+} from "@vendor/infrastructure/presenter/MainPresenter";
 
 const DEFAULT_AVATAR = '/images/img_avatar-default.jpg';
 
@@ -472,5 +475,52 @@ export class UserRolesPresenter {
                 });
             return roles;
         } catch (e) {}
+    }
+}
+
+export class SelectedUserPermissionPresenter {
+    constructor( data ) {
+        if (!!data && HasLength( data )) {
+            const USER_PERMISSION = [].concat.apply([], Object.values( data ));
+            return USER_PERMISSION.reduce((permission, item) => {
+                permission[item.id] = {
+                    has_en: item.condition.includes('en'),
+                    has_fa: item.condition.includes('fa'),
+                };
+                return permission;
+            }, {})
+        }
+        return []
+    }
+}
+
+export class UserPermissionPresenter {
+    constructor(data, user) {
+        return (!!data && HasLength( data )) ? (
+            Object.entries( data ).reduce((permission, [key, val]) => {
+                const ITEMS = val.map(item => {
+                    const SELECTED_ITEM = user[item.id],
+                          HAS_EN = !!(SELECTED_ITEM && SELECTED_ITEM.has_en),
+                          HAS_FA = !!(SELECTED_ITEM && SELECTED_ITEM.has_fa);
+                    return ({
+                        id: item.id,
+                        name_en: item.name,
+                        name_fa: item.label,
+                        checked: HAS_FA && HAS_EN,
+                        checked_en: HAS_EN,
+                        checked_fa: HAS_FA,
+                    })
+                });
+                const CHECKED = ITEMS.every(nested => !!nested.checked);
+                const INDETERMINATE = ITEMS.some(nested => !!nested.checked_fa || !!nested.checked_en);
+                permission[key] = {
+                    name: PERMISSION_FA_KEY[key] || '',
+                    items: ITEMS,
+                    checked: CHECKED,
+                    indeterminate: INDETERMINATE
+                };
+                return permission;
+            }, {})
+        ) : ([])
     }
 }

@@ -2,6 +2,17 @@
 
 Route::redirect('/', app()->getLocale());
 
+Route::domain('{subdomain}.dev.ehdacenter.io')->group(function () {
+    Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')]], function () {
+        Route::prefix('page')->name('page.domain.')->group(function () {
+            Route::get('/iran_news', 'PagesController@newsListIranDomain')->name('news-list-iran');
+            Route::get('/world-news', 'PagesController@newsListWorldDomain')->name('news-list-world');
+            Route::get('/events', 'PagesController@eventsListDomain')->name('events-list');
+
+        });
+    });
+});
+
 Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')], 'name' => 'site.'], function () {
     Route::get('/', 'HomeController@index')->name('index');
     Route::prefix('page')->name('page.')->group(function () {
@@ -18,6 +29,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/mission-and-vision', 'PagesController@missionAndVision')->name('mission-and-vision');
         Route::get('/iran_news', 'PagesController@newsListIran')->name('news-list-iran');
         Route::get('/world-news', 'PagesController@newsListWorld')->name('news-list-world');
+        Route::get('/events', 'PagesController@eventsList')->name('events-list');
 
 
         Route::get('/{slug}', 'PagesController@pages')->name('pages');
@@ -26,11 +38,16 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
     Route::prefix('archive')->name('archive.')->group(function () {
         Route::get('/news', 'PagesController@newsList')->name('news-list');
         Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
+        Route::get('/events/show/{slug}', 'PagesController@showDetailEvents')->name('showDetailEvents');
     });
 
 });
+
+
+
 Route::get('/news/{uuid}', 'PagesController@newsShortLink')->name('news-short-link');
-Route::get('/even/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
+Route::get('/event/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
 Route::get('/article/{uuid}', 'PagesController@articleShortLink')->name('article-short-link');
 
-
+Route::get('/cart-first/process/social/{uuid}', 'PagesController@socialUrlFirstCart')->name('social-url-first');
+Route::get('/cart-secound/process/social/{uuid}', 'PagesController@socialUrlSecondCart')->name('social-url-secound');

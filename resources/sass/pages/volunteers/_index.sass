@@ -28,12 +28,18 @@
   &__box
     margin-top: 0 !important
     padding: 32px 30px 70px 25px
+    @include Sm_Screen
+      padding: 32px 10px 80px
   &__btn
     margin: 30px auto -20px
     padding: 9px 20px 5px
     @include SpinnerLoading(22px, 3px, $white)
     @include L_Screen
       min-width: 300px
+    @include Md_Screen
+      min-width: 42%
+    @include Sm_Screen
+      width: calc(100% - 10px)
   .field
     &__gender, &__marital
       &.has-error

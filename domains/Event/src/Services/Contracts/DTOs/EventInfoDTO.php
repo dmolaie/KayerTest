@@ -124,6 +124,29 @@ class EventInfoDTO
     protected $slug;
 
     /**
+     * @var string
+     */
+    protected $uuid;
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return EventInfoDTO
+     */
+    public function setUuid(string $uuid): EventInfoDTO
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
+
+    /**
      * @return User|null
      */
     public function getEditor(): ?User

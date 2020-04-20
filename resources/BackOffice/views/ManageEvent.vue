@@ -511,7 +511,7 @@
             },
             onClickToggleSearchButton() {
                 this.$set(this.search, 'value', '');
-                this.$set(this.search, 'visibility', !this.visibility);
+                this.$set(this.search, 'visibility', !this.search.visibility);
             },
             onInputSearchField() {
                 try {

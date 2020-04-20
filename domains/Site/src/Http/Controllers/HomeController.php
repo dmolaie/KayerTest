@@ -5,13 +5,10 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use Cassandra\Uuid;
+use Domains\Event\Services\EventService;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
-use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\News\Services\NewsService;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
+use Domains\Site\Services\SiteServices;
 
 class HomeController extends Controller
 {
@@ -19,24 +16,28 @@ class HomeController extends Controller
      * @var NewsService
      */
     private $newsService;
-
     /**
-     * @var NewsFilterDTO
+     * @var EventService
      */
-    private $newsFilterDTO;
+    private $eventService;
+    /**
+     * @var SiteServices
+     */
+    private $siteServices;
 
-    public function __construct(NewsService $newsService, NewsFilterDTO $newsFilterDTO)
+    public function __construct(SiteServices $siteServices,NewsService $newsService, EventService $eventService)
     {
         $this->newsService = $newsService;
-        $this->newsFilterDTO = $newsFilterDTO;
+        $this->eventService = $eventService;
+        $this->siteServices = $siteServices;
     }
 
     public function index(NewsListForAdminRequest $request)
     {
-        $this->newsFilterDTO->setNewsInputStatus('accept');
-        $this->newsFilterDTO->setSort('DESC');
-        $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        return view('site::' . $request->language . '.index', compact('news'));
+        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $news = $this->siteServices->getNews($status = 'accept', $sort = 'DESC',$subdomain);
+        $event = $this->siteServices->getEvent($status = 'accept', $sort = 'DESC',$slugCategory = 'main-page',$subdomain);
+        return view('site::' . $request->language . '.index', compact('news', 'event'));
     }
 
 }

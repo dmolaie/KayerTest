@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#03b6f9">
     <meta name="msapplication-navbutton-color" content="#03b6f9">
+    <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="#03b6f9">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">

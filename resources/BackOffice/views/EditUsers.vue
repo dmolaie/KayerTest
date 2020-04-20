@@ -1061,7 +1061,8 @@
                     if ( formIsValid ) {
                         let response = await Service.SaveEditUserByAdmin();
                         this.displayNotification(response, {type: 'success'});
-                        this.pushRouter({ name: 'MANAGE_LEGATE' });
+                        this.goBack();
+                        // this.pushRouter({ name: 'MANAGE_LEGATE' });
                     }
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
@@ -1070,7 +1071,8 @@
                 }
             },
             onClickDiscardButton() {
-                this.pushRouter({ name: 'MANAGE_LEGATE' });
+                this.goBack();
+                // this.pushRouter({ name: 'MANAGE_LEGATE' });
             },
             async handelEventFieldSearch( value ) {
                 try {

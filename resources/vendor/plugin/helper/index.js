@@ -136,6 +136,21 @@ export const DecodeHTML = html => (
     html.replace(/&#([0-9]{1,3});/gi, ( _, n ) => String.fromCharCode( parseInt(n) ))
 );
 
+export const hideScrollbar = () => {
+    try {
+        const SCROLLBAR_WIDTH = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.marginRight = SCROLLBAR_WIDTH + "px";
+        document.body.classList.add('overflow-hidden')
+    } catch (e) {}
+};
+
+export const showScrollbar = () => {
+    try {
+        document.body.style = null;
+        document.body.classList.remove('overflow-hidden');
+    } catch (e) {}
+};
+
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
 export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
 export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;
