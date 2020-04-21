@@ -215,4 +215,13 @@ class NewsService
         $images = $attachmentInfoDto->getImages()[$news->id];
         return $this->newsInfoDTOMaker->convert($news, $images);
     }
+
+    public function filterAdminNews(NewsFilterDTO $newsFilterDTO,int $userId)
+    {
+        $userProvinces = $this->userService->getProvinceIds($userId);
+        if(!empty($userProvinces)){
+            $newsFilterDTO->setProvinceIds($userProvinces);
+        }
+        return $this->filterNews($newsFilterDTO);
+    }
 }

@@ -5,7 +5,6 @@ namespace Domains\User\Services\Contracts\DTOs;
 
 
 use Domains\Location\Services\Contracts\DTOs\CityDTO;
-use Domains\Location\Services\Contracts\DTOs\ProvinceDTO;
 
 /**
  * Class UserFullInfoDTO
@@ -41,7 +40,7 @@ class UserFullInfoDTO
      */
     protected $identityNumber;
     /**
-     * @var null|ProvinceDTO
+     * @var null|array
      */
     protected $provinceOfBirth;
     /**
@@ -73,7 +72,7 @@ class UserFullInfoDTO
      */
     protected $essentialMobile;
     /**
-     * @var ProvinceDTO
+     * @var array
      */
     protected $currentProvince;
     /**
@@ -93,7 +92,7 @@ class UserFullInfoDTO
      */
     protected $educationField;
     /**
-     * @var null|ProvinceDTO
+     * @var null|array
      */
     protected $educationProvince;
     /**
@@ -105,7 +104,7 @@ class UserFullInfoDTO
      */
     protected $homePostalCode;
     /**
-     * @var null|ProvinceDTO
+     * @var null|array
      */
     protected $provinceOfWork;
     /**
@@ -299,18 +298,18 @@ class UserFullInfoDTO
     }
 
     /**
-     * @return ProvinceDTO|null
+     * @return array|null
      */
-    public function getProvinceOfBirth(): ?ProvinceDTO
+    public function getProvinceOfBirth(): ?array
     {
         return $this->provinceOfBirth;
     }
 
     /**
-     * @param ProvinceDTO|null $provinceOfBirth
+     * @param array|null $provinceOfBirth
      * @return UserFullInfoDTO
      */
-    public function setProvinceOfBirth(?ProvinceDTO $provinceOfBirth): UserFullInfoDTO
+    public function setProvinceOfBirth(?array $provinceOfBirth): UserFullInfoDTO
     {
         $this->provinceOfBirth = $provinceOfBirth;
         return $this;
@@ -443,18 +442,18 @@ class UserFullInfoDTO
     }
 
     /**
-     * @return ProvinceDTO
+     * @return array
      */
-    public function getCurrentProvince(): ProvinceDTO
+    public function getCurrentProvince(): array
     {
         return $this->currentProvince;
     }
 
     /**
-     * @param ProvinceDTO $currentProvince
+     * @param array $currentProvince
      * @return UserFullInfoDTO
      */
-    public function setCurrentProvince(ProvinceDTO $currentProvince): UserFullInfoDTO
+    public function setCurrentProvince(array $currentProvince): UserFullInfoDTO
     {
         $this->currentProvince = $currentProvince;
         return $this;
@@ -533,18 +532,18 @@ class UserFullInfoDTO
     }
 
     /**
-     * @return ProvinceDTO|null
+     * @return array|null
      */
-    public function getEducationProvince():?ProvinceDTO
+    public function getEducationProvince():?array
     {
         return $this->educationProvince;
     }
 
     /**
-     * @param ProvinceDTO|null $educationProvince
+     * @param array|null $educationProvince
      * @return UserFullInfoDTO
      */
-    public function setEducationProvince(?ProvinceDTO $educationProvince): UserFullInfoDTO
+    public function setEducationProvince(?array $educationProvince): UserFullInfoDTO
     {
         $this->educationProvince = $educationProvince;
         return $this;
@@ -587,18 +586,18 @@ class UserFullInfoDTO
     }
 
     /**
-     * @return ProvinceDTO|null
+     * @return array|null
      */
-    public function getProvinceOfWork(): ?ProvinceDTO
+    public function getProvinceOfWork(): ?array
     {
         return $this->provinceOfWork;
     }
 
     /**
-     * @param ProvinceDTO|null $provinceOfWork
+     * @param array|null $provinceOfWork
      * @return UserFullInfoDTO
      */
-    public function setProvinceOfWork(?ProvinceDTO $provinceOfWork): UserFullInfoDTO
+    public function setProvinceOfWork(?array $provinceOfWork): UserFullInfoDTO
     {
         $this->provinceOfWork = $provinceOfWork;
         return $this;

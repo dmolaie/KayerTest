@@ -1,10 +1,11 @@
 <?php
 
+
 namespace Domains\NationalAuthentication;
+
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-
 
 class NationalAuthenticationServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,10 @@ class NationalAuthenticationServiceProvider extends ServiceProvider
 
         $this->loadAssetsFrom();
 
+        $this->setConfig();
+
         $this->registerPublishing();
+
     }
 
     /**
@@ -29,10 +33,14 @@ class NationalAuthenticationServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return array
+     */
     private function routeConfiguration()
     {
         return [
             'namespace' => 'Domains\NationalAuthentication\Http\Controllers',
+            'prefix'    => 'authentication/v1',
         ];
     }
 
@@ -42,7 +50,9 @@ class NationalAuthenticationServiceProvider extends ServiceProvider
     protected function loadAssetsFrom(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nationalAuthentication');
+
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'nationalAuthentication');
     }
 
@@ -55,7 +65,7 @@ class NationalAuthenticationServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../resources/lang' => resource_path('lang/vendor/nationalAuthentication'),
-        ], 'lang');
+        ]);
 
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/nationalAuthentication'),
@@ -69,9 +79,10 @@ class NationalAuthenticationServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function getConfig(): string
+    protected function setConfig()
     {
-        return __DIR__ . '/../config/config.php';
-    }
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'nationalAuthentication');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('nationalAuthentication.php')], 'config');
 
+    }
 }

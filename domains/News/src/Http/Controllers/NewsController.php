@@ -63,7 +63,8 @@ class NewsController extends EhdaBaseController
         NewsListForAdminRequest $request,
         NewsPaginateInfoPresenter $newsPaginateInfoPresenter
     ) {
-        $newsPaginateInfoDTO = $this->newsService->filterNews($request->createNewsFilterDTO());
+        $userId = \Auth::id();
+        $newsPaginateInfoDTO = $this->newsService->filterAdminNews($request->createNewsFilterDTO(), $userId);
         return $this->response(
             $newsPaginateInfoPresenter->transform($newsPaginateInfoDTO),
             Response::HTTP_OK

@@ -125,8 +125,8 @@ class EventRepository
                     $query->whereIn('categories.id', $eventFilterDTO->getCategoryIds());
                 });
             })
-            ->when($eventFilterDTO->getProvinceId(), function ($query) use ($eventFilterDTO) {
-                return $query->where('province_id', $eventFilterDTO->getProvinceId());
+            ->when($eventFilterDTO->getProvinceIds(), function ($query) use ($eventFilterDTO) {
+                return $query->whereIn('province_id', $eventFilterDTO->getProvinceIds());
 
             })
             ->orderBy('created_at', $eventFilterDTO->getSort())

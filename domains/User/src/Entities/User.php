@@ -113,7 +113,7 @@ class User extends Authenticatable
      */
     public function currentProvince()
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class,'current_province_id','id');
     }
 
     public function createdBy()
@@ -124,5 +124,29 @@ class User extends Authenticatable
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function educationProvince()
+    {
+        return $this->belongsTo(Province::class,'education_province_id','id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function workProvince()
+    {
+        return $this->belongsTo(Province::class,'province_of_work','id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function birthProvince()
+    {
+        return $this->belongsTo(Province::class,'province_of_birth','id');
     }
 }

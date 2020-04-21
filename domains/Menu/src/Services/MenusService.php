@@ -8,6 +8,7 @@ use Domains\Menu\Repositories\MenusRepository;
 use Domains\Menu\Services\Contracts\DTOs\DTOMakers\MenusInfoDTOMaker;
 use Domains\Menu\Services\Contracts\DTOs\MenusCreateDTO;
 use Domains\Menu\Services\Contracts\DTOs\MenusEditDTO;
+use Domains\User\Services\UserService;
 
 /**
  * Class EventsService
@@ -23,19 +24,26 @@ class MenusService
      * @var MenusInfoDTOMaker
      */
     private $menusInfoDTOMaker;
+    /**
+     * @var UserService
+     */
+    private $userService;
 
 
     /**
      * NewsService constructor.
      * @param MenusRepository $menusRepository
      * @param MenusInfoDTOMaker $menusInfoDTOMaker
+     * @param UserService $userService
      */
     public function __construct(
         MenusRepository $menusRepository,
-        MenusInfoDTOMaker $menusInfoDTOMaker
+        MenusInfoDTOMaker $menusInfoDTOMaker,
+        UserService $userService
     ) {
         $this->menusRepository = $menusRepository;
         $this->menusInfoDTOMaker = $menusInfoDTOMaker;
+        $this->userService = $userService;
     }
 
     public function createMenu(MenusCreateDTO $createDTO)
@@ -80,5 +88,10 @@ class MenusService
     {
         $menus = $this->menusRepository->savePriority($priorityDTOs);
         return $this->menusInfoDTOMaker->convertMany($menus);
+    }
+
+    public function getAdminMenuList(int $userId)
+    {
+        return $this->userService->getUserImportantActiveRoleInfo($userId);
     }
 }

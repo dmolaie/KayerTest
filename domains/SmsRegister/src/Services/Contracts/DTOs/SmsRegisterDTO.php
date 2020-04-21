@@ -29,6 +29,14 @@ class SmsRegisterDTO
      * @var string
      */
     protected $birthDate;
+    /**
+     * @var string
+     */
+    protected $channelType;
+    /**
+     * @var string
+     */
+    protected $content;
 
     /**
      * @return string
@@ -67,9 +75,9 @@ class SmsRegisterDTO
     }
 
     /**
-     * @return array
+     * @return null|array
      */
-    public function getFirstRequestContent(): array
+    public function getFirstRequestContent(): ?array
     {
         return $this->firstRequestContent;
     }
@@ -117,6 +125,42 @@ class SmsRegisterDTO
     public function setSecondRequestContent(array $secondRequestContent): SmsRegisterDTO
     {
         $this->secondRequestContent = $secondRequestContent;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChannelType(): string
+    {
+        return $this->channelType;
+    }
+
+    /**
+     * @param string $channelType
+     * @return SmsRegisterDTO
+     */
+    public function setChannelType(string $channelType): SmsRegisterDTO
+    {
+        $this->channelType = $channelType;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     * @return SmsRegisterDTO
+     */
+    public function setContent(string $content): SmsRegisterDTO
+    {
+        $this->content = $content;
         return $this;
     }
 

@@ -48,9 +48,9 @@ class EventFilterDTO
      */
     protected $categoryIds;
     /**
-     * @var int|null
+     * @var array|null
      */
-    protected $provinceId;
+    protected $provinceIds;
     /**
      * @var string|null
      */
@@ -221,23 +221,32 @@ class EventFilterDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getProvinceId(): ?int
+    public function getProvinceIds(): ?array
     {
-        return $this->provinceId;
+        return $this->provinceIds;
     }
 
     /**
      * @param int|null $provinceId
      * @return EventFilterDTO
      */
-    public function setProvinceId(?int $provinceId): EventFilterDTO
+    public function addProvinceId(?int $provinceId): EventFilterDTO
     {
-        $this->provinceId = $provinceId;
+        $this->provinceIds[] = $provinceId;
         return $this;
     }
 
+    /**
+     * @param array|null $provinceIds
+     * @return EventFilterDTO
+     */
+    public function setProvinceIds(?array $provinceIds): EventFilterDTO
+    {
+        $this->provinceIds[] = $provinceIds;
+        return $this;
+    }
     /**
      * @return string|null
      */
