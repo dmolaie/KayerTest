@@ -15,7 +15,7 @@ return [
     ],
     'admin_menu'    => [
 
-        "counter"      => [
+        "dashboard"      => [
             'admin'   => ['active', 'pending', 'inactive',],
             'manager' => ['active', 'pending', 'inactive',],
             'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
@@ -41,6 +41,9 @@ return [
         ],
         "user" => [
             'admin'   => ['active']
+        ],
+        "report" => [
+            'admin'   => ['active',]
         ],
         "profile_setting" => [
             'admin'   => ['active', 'pending', 'inactive',],
