@@ -128,7 +128,7 @@ class CheckUserNationalCodeRequest extends FormRequest
                         array_values($validator->errors()->messages()),
                         '0'
                     )))
-                ->setChannelType($this["ChannelType"] ?? '‫‪Imi‬‬');;
+                ->setChannelType($this["ChanelType"] ?? '‫‪Imi‬‬');;
             event(new SmsRegisterEvent($smsRegister));
         }
         return;
