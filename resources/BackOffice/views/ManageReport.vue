@@ -53,7 +53,7 @@
                                 وضعیت کاربران...
                             </span>
                             <select-cm :options="clientUserStatus" label="name"
-                                       placeholder="انتخاب کنید..." :disabled="!clientUser.checked"
+                                       value="همه" :disabled="!clientUser.checked"
                                        @onChange="onChangeClientStatusField"
                             />
                         </div>
@@ -103,7 +103,7 @@
                                 وضعیت سفیران...
                             </span>
                             <select-cm :options="legateUserStatus" label="name"
-                                       placeholder="انتخاب کنید..." :disabled="!legateUser.checked"
+                                       value="همه" :disabled="!legateUser.checked"
                                        @onChange="onChangeLegateStatusField"
                             />
                         </div>
