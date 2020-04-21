@@ -230,7 +230,7 @@ class PagesController extends Controller
     public function socialUrlSecondCart(Request $request)
     {
         $userData = $this->siteServices->getInfoUserWithUuid($request->uuid);
-        return view('site::fa.cards.single',compact('userData'));
+        return view('site::fa.cards.mini',compact('userData'));
     }
 
 }

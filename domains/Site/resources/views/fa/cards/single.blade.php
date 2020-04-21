@@ -21,5 +21,5 @@
     </div>
 
     <script src="{{ asset('js/site/runtime.js') }}" defer ></script>
-    <script src="{{ asset('js/site/card-single~card-social~dashboard.js') }}" defer ></script>
+    <script src="{{ asset('js/site/card-mini~card-single~card-social~dashboard.js') }}" defer ></script>
     <script src="{{ asset('js/site/card-single.js') }}" defer ></script>
