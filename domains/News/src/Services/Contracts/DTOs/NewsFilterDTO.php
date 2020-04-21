@@ -48,9 +48,9 @@ class NewsFilterDTO
      */
     protected $categoryIds;
     /**
-     * @var int|null
+     * @var array|null
      */
-    protected $provinceId;
+    protected $provinceIds;
     /**
      * @var string|null
      */
@@ -211,23 +211,32 @@ class NewsFilterDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getProvinceId(): ?int
+    public function getProvinceIds(): ?array
     {
-        return $this->provinceId;
+        return $this->provinceIds;
     }
 
     /**
      * @param int|null $provinceId
      * @return NewsFilterDTO
      */
-    public function setProvinceId(?int $provinceId): NewsFilterDTO
+    public function addProvinceId(?int $provinceId): NewsFilterDTO
     {
-        $this->provinceId = $provinceId;
+        $this->provinceIds[] = $provinceId;
         return $this;
     }
 
+    /**
+     * @param array|null $provinceIds
+     * @return NewsFilterDTO
+     */
+    public function setProvinceIds(?array $provinceIds): NewsFilterDTO
+    {
+        $this->provinceIds = $provinceIds;
+        return $this;
+    }
     /**
      * @return string|null
      */

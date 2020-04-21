@@ -95,7 +95,7 @@ class SiteServices
         $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
         if($subdomain){
-            $this->newsFilterDTO->setProvinceId($subdomain->id);
+            $this->newsFilterDTO->addProvinceId($subdomain->id);
         }
         return $this->newsService->filterNews($this->newsFilterDTO);
     }
@@ -150,7 +150,7 @@ class SiteServices
         $this->newsFilterDTO->setNewsInputStatus($status);
         $this->newsFilterDTO->setSort($sort);
         if($subdomain){
-            $this->newsFilterDTO->setProvinceId($subdomain->id);
+            $this->newsFilterDTO->addProvinceId($subdomain->id);
         }
         return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
     }
