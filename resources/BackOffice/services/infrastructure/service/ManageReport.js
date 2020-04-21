@@ -77,7 +77,7 @@ export default class ManageReportService extends BaseService {
 
     async handelPagination( page ) {
         try {
-
+            await this.getUserListFilterBy( page )
         } catch ( exception ) {
             throw exception;
         }
