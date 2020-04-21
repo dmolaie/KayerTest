@@ -124,7 +124,7 @@
                             تعداد کل کاربران یافت شده :
                             {{ pagination.total }}
                         </p>
-                        <table class="table w-full block border border-solid rounded text-blue-800">
+                        <table class="table w-full border border-solid rounded text-blue-800">
                             <thead class="table__header w-full">
                                 <tr>
                                     <th class="m-report__tTh font-sm font-bold cursor-default text-center">
@@ -152,7 +152,7 @@
                                      v-for="(item, index) in items"
                                 >
                                     <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
-                                         v-text="+index + 1"
+                                         v-text="(+index + 1) + ((pagination.current_page - 1) * 10)"
                                     > </td>
                                     <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
                                          v-text="item.full_name"
