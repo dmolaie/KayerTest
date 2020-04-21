@@ -96,12 +96,12 @@ class UserRepository
             ->exists();
     }
 
-    public function getActiveAndPendingRoles(User $user,array $status)
+    public function getUserRolesByStatus(User $user,array $status)
     {
         return $user->roles()->whereIn(
             'status', $status
         )
-            ->orderBy('priority')->first();
+            ->orderBy('priority')->get();
     }
 
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)

@@ -9,6 +9,7 @@ use Domains\Location\Services\Contracts\DTOs\SearchProvinceDTO;
 use Domains\Location\Transformers\ProvinceTransformer;
 use Domains\Location\Services\Contracts\DTOs\ProvinceDTO;
 use Domains\Location\Contracts\DTOs\Converters\ProvinceConverter;
+use Domains\User\Services\UserService;
 
 /**
  * Class ProvinceServices
@@ -23,16 +24,26 @@ class ProvinceService
      * @var ProvinceDTOMaker
      */
     private $provinceDTOMaker;
+    /**
+     * @var UserService
+     */
+    private $userService;
 
     /**
      * ProvinceServices constructor.
      * @param provinceRepository $provinceRepository
      * @param ProvinceDTOMaker $provinceDTOMaker
+     * @param UserService $userService
      */
-    public function __construct(provinceRepository $provinceRepository, ProvinceDTOMaker $provinceDTOMaker)
+    public function __construct(
+        provinceRepository $provinceRepository,
+        ProvinceDTOMaker $provinceDTOMaker,
+        UserService $userService
+    )
     {
         $this->provinceRepository = $provinceRepository;
         $this->provinceDTOMaker = $provinceDTOMaker;
+        $this->userService = $userService;
     }
 
     /**
@@ -55,23 +66,32 @@ class ProvinceService
     }
 
     /**
-     * @param $province_id
+     * @param $provinceIds
      * @return array
      */
-    public function getProvincesByProvinceId($province_id)
+    public function getProvincesByProvinceIds(array $provinceIds)
     {
-        $cities = $this->provinceRepository->findWithProvinceId($province_id);
-        return $this->provinceDTOMaker->convertMany($cities);
+        $provinces = $this->provinceRepository->findWithProvinceIds($provinceIds);
+        return $this->provinceDTOMaker->convertMany($provinces);
     }
 
     public function searchProvinces(SearchProvinceDTO $provinceSearchDTO)
     {
-        $provices = $this->provinceRepository->searchProvinces($provinceSearchDTO->getProvinceIds());
-        return $this->provinceDTOMaker->convertMany($provices);
+        $provinces = $this->provinceRepository->searchProvinces($provinceSearchDTO->getProvinceIds());
+        return $this->provinceDTOMaker->convertMany($provinces);
     }
 
     public function finBySlug($slug)
     {
         return $this->provinceRepository->finBySlug($slug);
+    }
+
+    public function getUserProvinces(int $userId)
+    {
+        $provinceIds =  $this->userService->getProvinceId($userId);
+        if(empty($provinceIds)){
+            return $this->getAll();
+        }
+        return $this->getProvincesByProvinceIds($provinceIds);
     }
 }

@@ -11,6 +11,9 @@ use Domains\Location\Services\CityServices;
 use Domains\Location\Services\ProvinceService;
 use Illuminate\Http\Response;
 
+/**
+ * Class LocationController
+ */
 class LocationController extends EhdaBaseController
 {
     /**
@@ -50,6 +53,11 @@ class LocationController extends EhdaBaseController
         );
     }
 
+    /**
+     * @param CityWithProvinceIdRequest $request
+     * @param CityPresenter $cityPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCitiesByProvinceId(
         CityWithProvinceIdRequest $request,
         CityPresenter $cityPresenter
@@ -75,5 +83,19 @@ class LocationController extends EhdaBaseController
             $provincePresenter->transformMany($provinces),
             Response::HTTP_OK
         );
+    }
+
+    /**
+     * @param ProvincePresenter $provincePresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserProvinces(ProvincePresenter $provincePresenter){
+        $userId =\Auth::id();
+        $provinces = $this->provinceService->getUserProvinces($userId);
+        return $this->response(
+            $provincePresenter->transformMany($provinces),
+            Response::HTTP_OK
+        );
+
     }
 }
