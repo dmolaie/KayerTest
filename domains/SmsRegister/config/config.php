@@ -1,14 +1,14 @@
 <?php
 return [
 
-    'publicKey'  =>
+    'publicKey'      =>
         '-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDyGDAEQj+al0SAYSU6d35q/L+E
 7gdbLTVY1hP2KYblpwRhREuOscVqdG8KSOhMj1fgXp1C5ZMh995Mu7FD31yhzYEv
 oBLU5h/FXUQslQe9gDYx1tbZWpBnPPLwjHoA6xRewsKy8cIPRzjVQ76ME86ZReV5
 5mfPILMrqXOztKhlHQIDAQAB
 -----END PUBLIC KEY-----',
-    'privateKey' =>
+    'privateKey'     =>
         "-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQDyGDAEQj+al0SAYSU6d35q/L+E7gdbLTVY1hP2KYblpwRhREuO
 scVqdG8KSOhMj1fgXp1C5ZMh995Mu7FD31yhzYEvoBLU5h/FXUQslQe9gDYx1tbZ
@@ -24,4 +24,8 @@ hjJBZ0gPZ9d3i5hfKQCf8f3vREqJ+UrRXkw2iC6t28zijitNpUgGNJrfYinkNxts
 Ztey5u4S3eh/6k3g0hECQQC9TCC6HICfofcBxwCeNsmN8gmCr6+VyhoXBJ9cvPBI
 6Tc+u9ZRH6rLYB3fFV5TfvWAhbv0d0tMXTfhehD8CLft
 -----END RSA PRIVATE KEY-----",
+    'sendMessageUrl' => 'https://xcp.fanap.plus/api/v6.0/message/post',
+    'MtnSid'         => 'd770e9d862ff45bdafbe22bfa2b389c3',
+    'ImiSid'         => '1785317599f444449e550e7c93956de6',
+    'appId'          => '94852FB1-27EC-48D2-80D6-5167AA452BD4',
 ];

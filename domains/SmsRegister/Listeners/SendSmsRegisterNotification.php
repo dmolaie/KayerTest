@@ -21,7 +21,7 @@ class SendSmsRegisterNotification
     public function handle(SmsRegisterEvent $event)
     {
         try{
-            $sendMessageUrl = "https://xcp.fanap.plus/api/v6.0/message/post";
+            $sendMessageUrl = config('smsRegister.sendMessageUrl');
             $jsonToSend = $this->makeRequestBody($event);
             $this->sendNotification($jsonToSend, $sendMessageUrl);
             return;
@@ -41,10 +41,10 @@ class SendSmsRegisterNotification
         $uid = (string)Str::uuid();
         $dateMessage = Carbon::now()->format('Y-m-d\TH:i:s.v\Z');
         $channelType = $event->smsRegisterDTO->getChannelType();
-        $sid = ($channelType == "Imi") ? "1785317599f444449e550e7c93956de6": "d770e9d862ff45bdafbe22bfa2b389c3";
+        $sid = ($channelType == "Imi") ? config('smsRegister.ImiSid'): config('smsRegister.MtnSid');
         $messageType = "Content";
         $mobileNumber = $event->smsRegisterDTO->getMobileNumber();
-        $appId = '94852FB1-27EC-48D2-80D6-5167AA452BD4';
+        $appId = config('smsRegister.appId');
         $signatureMessage = $dateMessage . "," . $uid . "," . $sid . "," . $channelType . "," . $messageType . "," . $mobileNumber . "," . $content;
         openssl_sign(
             $signatureMessage,
@@ -69,6 +69,7 @@ class SendSmsRegisterNotification
                 ]
             ],
         ];
+
         return $jsonToSend;
     }
 
