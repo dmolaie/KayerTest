@@ -2,7 +2,7 @@ import BasePresenter from '@vendor/infrastructure/presenter/BasePresenter'
 import { HasLength } from "@vendor/plugin/helper";
 
 export const menus = {
-    ['counter']: {
+    ['dashboard']: {
         route: 'DASHBOARD',
         icon: 'ic__dashboard--blue.svg'
     },
@@ -32,6 +32,10 @@ export const menus = {
     },
     ['profile_setting']: {
         route: 'USER_SETTING',
+        icon: 'ic_newspaper--blue.svg'
+    },
+    ['report']: {
+        route: 'MANAGE_REPORT',
         icon: 'ic_newspaper--blue.svg'
     },
 };
