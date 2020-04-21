@@ -8,6 +8,7 @@ use Domains\SmsRegister\Http\Requests\CheckUserInfoWithBirthDateRequest;
 use Domains\SmsRegister\Http\Requests\CheckUserNationalCodeRequest;
 use Domains\SmsRegister\Services\SmsRegisterService;
 use Illuminate\Http\Response;
+use Morilog\Jalali\Jalalian;
 
 class SmsRegisterController
 {
@@ -22,17 +23,14 @@ class SmsRegisterController
         $this->smsRegisterService = $smsRegisterService;
     }
 
-    public function checkUserNationalCode(CheckUserNationalCodeRequest $request)
+    public function registerUserWithSms(CheckUserNationalCodeRequest $request)
     {
         $smsRegisterDTO = $request->createSmsRegisterDTO();
-        $this->smsRegisterService->createOrUpdateRegister($smsRegisterDTO);
-        return response([],Response::HTTP_OK);
-    }
-
-    public function registerUserWithSms(CheckUserInfoWithBirthDateRequest $request)
-    {
-        $smsRegisterDTO = $request->createSmsRegisterDTO();
-        $this->smsRegisterService->registerUser($smsRegisterDTO);
+        if ($smsRegisterDTO->getFirstRequestContent()) {
+            $this->smsRegisterService->createOrUpdateRegister($smsRegisterDTO);
+        } else {
+            $this->smsRegisterService->registerUser($smsRegisterDTO);
+        }
         return response([], Response::HTTP_OK);
     }
 }

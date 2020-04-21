@@ -36,7 +36,14 @@ class UserLoginDTO
      * @var string
      */
     protected $cardId;
-
+    /**
+     * @var string
+     */
+    protected $gender;
+    /**
+     * @var string
+     */
+    protected $lastName;
     /**
      * @return string
      */
@@ -163,4 +170,41 @@ class UserLoginDTO
         $this->password = $password;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getGender(): string
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param string $gender
+     * @return UserLoginDTO
+     */
+    public function setGender(string $gender): UserLoginDTO
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return UserLoginDTO
+     */
+    public function setLastName(string $lastName): UserLoginDTO
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
 }

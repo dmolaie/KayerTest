@@ -54,7 +54,8 @@ class EventController extends EhdaBaseController
 
     public function getListForAdmin(EventListForAdminRequest $request, EventPaginateInfoPresenter $eventPaginateInfoPresenter)
     {
-        $eventPaginateInfoDTO = $this->eventService->filterEvent($request->createEventFilterDTO());
+        $userId = \Auth::id();
+        $eventPaginateInfoDTO = $this->eventService->filterAdminEvents($request->createEventFilterDTO(),$userId);
         return $this->response(
             $eventPaginateInfoPresenter->transform($eventPaginateInfoDTO),
             Response::HTTP_OK

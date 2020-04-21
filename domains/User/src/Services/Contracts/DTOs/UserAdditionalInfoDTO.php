@@ -13,10 +13,6 @@ class UserAdditionalInfoDTO
      * @var array
      */
     protected $cities;
-    /**
-     * @var array
-     */
-    protected $provinces;
 
     /**
      * @return array
@@ -36,21 +32,4 @@ class UserAdditionalInfoDTO
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getProvinces(): array
-    {
-        return $this->provinces;
-    }
-
-    /**
-     * @param array $provinces
-     * @return UserAdditionalInfoDTO
-     */
-    public function setProvinces(array $provinces): UserAdditionalInfoDTO
-    {
-        $this->provinces = $provinces;
-        return $this;
-    }
 }

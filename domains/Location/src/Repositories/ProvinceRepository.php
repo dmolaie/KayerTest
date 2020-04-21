@@ -23,9 +23,9 @@ class ProvinceRepository
         return $this->entityName::findOrFail($id);
     }
 
-    public function findWithProvinceId($province_id)
+    public function findWithProvinceIds(array $provinceIds)
     {
-        return $this->entityName::where('province_id', '=', $province_id)
+        return $this->entityName::whereIn('id', $provinceIds)
             ->get();
     }
 

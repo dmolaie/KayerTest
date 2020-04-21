@@ -256,4 +256,12 @@ class EventService
         return $this->eventInfoDTOMaker->convert($news, $images);
     }
 
+    public function filterAdminEvents(EventFilterDTO $eventFilterDTO, int $userId)
+    {
+        $userProvinces = $this->userService->getProvinceIds($userId);
+        if (!empty($userProvinces)) {
+            $eventFilterDTO->setProvinceIds($userProvinces);
+        }
+        return $this->filterEvent($eventFilterDTO);
+    }
 }

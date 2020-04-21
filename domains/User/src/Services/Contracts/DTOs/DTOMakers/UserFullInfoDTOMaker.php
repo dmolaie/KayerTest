@@ -4,6 +4,7 @@
 namespace Domains\User\Services\Contracts\DTOs\DTOMakers;
 
 
+use Domains\Location\Entities\Province;
 use Domains\User\Entities\User;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
@@ -20,7 +21,6 @@ class UserFullInfoDTOMaker
     public function convert(User $user, UserAdditionalInfoDTO $userAdditionalInfoDTO)
     {
         $cities = $userAdditionalInfoDTO->getCities();
-        $provinces = $userAdditionalInfoDTO->getProvinces();
         $userFullInfoDTO = new UserFullInfoDTO();
         $userFullInfoDTO
             ->setId($user->id)
@@ -30,7 +30,7 @@ class UserFullInfoDTOMaker
             ->setLastName($user->last_name)
             ->setFatherName($user->father_name)
             ->setIdentityNumber($user->identity_number)
-            ->setProvinceOfBirth($provinces[$user->province_of_birth] ?? null)
+            ->setProvinceOfBirth($user->birthProvince ? $this->getProvinceInfo($user->birthProvince) : null)
             ->setCityOfBirth($cities[$user->city_of_birth] ?? null)
             ->setDateOfBirth(strtotime($user->date_of_birth))
             ->setJobTitle($user->job_title)
@@ -38,15 +38,15 @@ class UserFullInfoDTOMaker
             ->setPhone($user->phone)
             ->setMobile($user->mobile)
             ->setEssentialMobile($user->essential_mobile)
-            ->setCurrentProvince($provinces[$user->current_province_id] ?? null)
+            ->setCurrentProvince( $this->getProvinceInfo($user->currentProvince))
             ->setCurrentCity($cities[$user->current_city_id] ?? null)
             ->setEmail($user->email)
             ->setMaritalStatus($user->marital_status)
             ->setEducationField($user->education_field)
-            ->setEducationProvince($provinces[$user->education_province_id] ?? null)
+            ->setEducationProvince($user->educationProvince ? $this->getProvinceInfo($user->educationProvince) : null)
             ->setEducationCity($cities[$user->education_city_id] ?? null)
             ->setHomePostalCode($user->home_postal_code)
-            ->setProvinceOfWork($provinces[$user->province_of_work] ?? null)
+            ->setProvinceOfWork($user->workProvince?$this->getProvinceInfo($user->workProvince):null)
             ->setCityOfWork($cities[$user->city_of_work] ?? null)
             ->setAddressOfWork($user->address_of_work)
             ->setWorkPhone($user->work_phone)
@@ -95,5 +95,13 @@ class UserFullInfoDTOMaker
         return;
     }
 
+    private function getProvinceInfo(Province $province)
+    {
+        return [
+            'name' => $province->name,
+            'id'   => $province->id,
+            'slug' => $province->slug
+        ];
+    }
 
 }

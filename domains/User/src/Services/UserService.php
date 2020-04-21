@@ -6,8 +6,6 @@ namespace Domains\User\Services;
 use App\Http\Controllers\Auth\LoginController;
 use Domains\Location\Services\CityServices;
 use Domains\Location\Services\Contracts\DTOs\SearchCityDTO;
-use Domains\Location\Services\Contracts\DTOs\SearchProvinceDTO;
-use Domains\Location\Services\ProvinceService;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\Role\Entities\Role;
 use Domains\Role\Services\RoleServices;
@@ -52,10 +50,6 @@ class UserService
      */
     private $cityServices;
     /**
-     * @var ProvinceService
-     */
-    private $provinceService;
-    /**
      * @var UserBriefInfoDTOMaker
      */
     private $userBriefInfoDTOMaker;
@@ -74,7 +68,6 @@ class UserService
      * @param UserRepository $userRepository
      * @param UserFullInfoDTOMaker $userFullInfoDTOMaker
      * @param CityServices $cityServices
-     * @param ProvinceService $provinceService
      * @param UserBriefInfoDTOMaker $userBriefInfoDTOMaker
      * @param PaginationDTOMaker $paginationDTOMaker
      * @param UserRoleInfoDTOMaker $userRoleInfoDTOMaker
@@ -84,7 +77,6 @@ class UserService
         UserRepository $userRepository,
         UserFullInfoDTOMaker $userFullInfoDTOMaker,
         CityServices $cityServices,
-        ProvinceService $provinceService,
         UserBriefInfoDTOMaker $userBriefInfoDTOMaker,
         PaginationDTOMaker $paginationDTOMaker,
         UserRoleInfoDTOMaker $userRoleInfoDTOMaker
@@ -95,7 +87,6 @@ class UserService
         $this->userRepository = $userRepository;
         $this->userFullInfoDTOMaker = $userFullInfoDTOMaker;
         $this->cityServices = $cityServices;
-        $this->provinceService = $provinceService;
         $this->userBriefInfoDTOMaker = $userBriefInfoDTOMaker;
         $this->paginationDTOMaker = $paginationDTOMaker;
         $this->userRoleInfoDTOMaker = $userRoleInfoDTOMaker;
@@ -135,7 +126,13 @@ class UserService
      */
     protected function getUserImportantActiveOrPendingRole($user): Role
     {
-        $role = $this->userRepository->getActiveAndPendingRoles($user);
+        $status = [
+            config('user.user_role_active_status'),
+            config('user.user_role_pending_status'),
+            config('user.user_role_wait_for_documents'),
+            config('user.user_role_wait_for_exam'),
+        ];
+        $role = $this->userRepository->getUserRolesByStatus($user, $status)->first();
 
         if (!$role) {
             throw new UserDoseNotHaveActiveRole(trans('user::response.user_dose_not_have_active_role'));
@@ -160,6 +157,8 @@ class UserService
         $userLoginDTO = new UserLoginDTO();
         $userLoginDTO->setNationalCode($userRegisterInfoDTO->getNationalCode())
             ->setRole($role)
+            ->setGender($user->gender)
+            ->setLastName($user->last_name)
             ->setToken($user->createToken('ehda')->accessToken)
             ->setId($user->id)
             ->setCardId($user->card_id)
@@ -201,8 +200,7 @@ class UserService
     {
         $user = $this->userRepository->findOrFail($userId);
         $userAdditionalInfo = new UserAdditionalInfoDTO();
-        $userAdditionalInfo->setCities($this->getCitiesInfo($user))
-            ->setProvinces($this->getProvincesInfo($user));
+        $userAdditionalInfo->setCities($this->getCitiesInfo($user));
         $userFullInfoDTO = $this->userFullInfoDTOMaker
             ->convert($user, $userAdditionalInfo);
         return $userFullInfoDTO;
@@ -217,16 +215,6 @@ class UserService
         $citySearchDTO = $user->education_city_id ? $citySearchDTO->addCityId($user->education_city_id) : $citySearchDTO;
         $cities = $this->cityServices->searchCities($citySearchDTO);
         return $cities;
-    }
-
-    private function getProvincesInfo(User $user)
-    {
-        $provinceSearchDTO = new SearchProvinceDTO();
-        $provinceSearchDTO = $user->province_of_work ? $provinceSearchDTO->addProvinceId($user->province_of_work) : $provinceSearchDTO;
-        $provinceSearchDTO = $user->province_of_birth ? $provinceSearchDTO->addProvinceId($user->province_of_birth) : $provinceSearchDTO;
-        $provinceSearchDTO = $user->current_province_id ? $provinceSearchDTO->addProvinceId($user->current_province_id) : $provinceSearchDTO;
-        $provinceSearchDTO = $user->education_province_id ? $provinceSearchDTO->addProvinceId($user->education_province_id) : $provinceSearchDTO;
-        return $this->provinceService->searchProvinces($provinceSearchDTO);
     }
 
     public function editUserInfo(int $userId, UserRegisterInfoDTO $userEditDTO)
@@ -332,7 +320,18 @@ class UserService
     public function getUserAllRoles(int $id)
     {
         $user = $this->userRepository->findOrFail($id);
-        return $this->userRoleInfoDTOMaker->convertMany($user);
+        return $this->userRoleInfoDTOMaker->convertMany($user->roles);
+    }
+
+    public function getUserImportantActiveRoleInfo(int $userId)
+    {
+        $user = $this->userRepository->findOrFail($userId);
+
+        $status = [
+            config('user.user_role_active_status'),
+        ];
+        $role = $this->userRepository->getUserRolesByStatus($user, $status)->first();
+        return $role ? $this->userRoleInfoDTOMaker->convert($role) : null;
     }
 
     public function userReport(UsersRegisterReportDTO $usersRegisterReportDTO)
@@ -390,5 +389,20 @@ class UserService
 
         return $userInfoReportDTO->convertMany($users);
 
+    }
+
+    public function getProvinceIds(int $userId)
+    {
+        $user = $this->userRepository->findOrFail($userId);
+
+        $status = [
+            config('user.user_role_active_status'),
+        ];
+        $roles = $this->userRepository->getUserRolesByStatus($user, $status);
+        $provinceIds = [];
+        foreach ($roles as $role) {
+            $provinceIds[] = $role->province_id;
+        }
+        return in_array(null, $provinceIds, true) ? [] :array_unique($provinceIds);
     }
 }

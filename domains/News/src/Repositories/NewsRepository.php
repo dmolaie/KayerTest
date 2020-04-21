@@ -129,8 +129,8 @@ class NewsRepository
                     $query->whereIn('categories.id', $newsFilterDTO->getCategoryIds());
                 });
             })
-            ->when($newsFilterDTO->getProvinceId(), function ($query) use ($newsFilterDTO) {
-                return $query->where('province_id', $newsFilterDTO->getProvinceId());
+            ->when($newsFilterDTO->getProvinceIds(), function ($query) use ($newsFilterDTO) {
+                return $query->whereIn('province_id', $newsFilterDTO->getProvinceIds());
             })
             ->orderBy('created_at', $newsFilterDTO->getSort())
             ->paginate($newsFilterDTO->getPaginationCount());
