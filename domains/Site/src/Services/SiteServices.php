@@ -110,7 +110,7 @@ class SiteServices
         $this->eventFilterDTO->setEventInputStatus('published');
         $this->eventFilterDTO->setSort('DESC');
         if($subdomain){
-            $this->eventFilterDTO->setProvinceId($subdomain->id);
+            $this->eventFilterDTO->addProvinceId($subdomain->id);
         }
         return $this->eventService->filterEvent($this->eventFilterDTO);
     }
@@ -161,7 +161,7 @@ class SiteServices
         $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
         $this->eventFilterDTO->setSort($sort);
         if($subdomain){
-            $this->eventFilterDTO->setProvinceId($subdomain->id);
+            $this->eventFilterDTO->addProvinceId($subdomain->id);
         }
         return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
     }
