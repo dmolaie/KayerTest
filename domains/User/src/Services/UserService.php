@@ -401,7 +401,6 @@ class UserService
         $roles = $this->userRepository->getUserRolesByStatus($user, $status);
         $provinceIds = [];
         foreach ($roles as $role) {
-            if($role->type)
             $provinceIds[] = $role->province_id;
         }
         return in_array(null, $provinceIds, true) ? [] :array_unique($provinceIds);
