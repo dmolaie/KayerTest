@@ -38,14 +38,13 @@ export default class LoginService extends BaseService {
 
             if ( USER_HAS_ACCESS ) {
                 BaseService.commitToStore( this.$store, SET_USER, response );
-
                 response = new LoginNotificationPresenter( response );
-
                 this.$vm.displayNotification( response['welcomeMessage'], {
                     type: 'success',
                     duration: 4000
                 });
-
+                let menus = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_MENU));
+                BaseService.commitToStore(this.$store, 'MENUS_SET_DATA', menus);
                 this.$vm.pushRouter( { name: 'DASHBOARD' } );
             }
         } catch ( { message } ) {

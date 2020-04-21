@@ -20,6 +20,11 @@ $c: #bde8fa
       @include L_Screen
         &:hover
           background-color: darken($c, 5%)
+      &:disabled
+        opacity: 0.8
+        color: #adadad
+        background: #f1f1f1
+        border-color: #d5d6d8
     &--blue
       color: $blue-200
       background: transparentize($sail, (1 - .64))
@@ -65,3 +70,9 @@ $c: #bde8fa
       color: #9ba9ab
   .m-t-40
     margin-top: 40px
+  .m-b-10
+    margin-bottom: 10px
+  &__tTh
+    padding: 15px 10px
+  .table
+    border-collapse: collapse

@@ -23,12 +23,15 @@ const GET_USER_BASIC_REGISTER_INFO = "GET_USER_BASIC_REGISTER_INFO";
 const GET_USER_ROLES = "GET_USER_ROLES";
 const GET_ALL_USER = "GET_ALL_USER";
 const GET_PERMISSION_USER = "GET_PERMISSION_USER";
+const GET_USERS_REPORT = "GET_USERS_REPORT";
+const GET_ALL_USERS_REPORT = "GET_ALL_USERS_REPORT";
 const ASSIGN_PERMISSION_USER = "ASSIGN_PERMISSION_USER";
 const EDIT_USER_BY_ADMIN = "EDIT_USER_BY_ADMIN";
 const ADD_ROLE_TO_USER = "ADD_ROLE_TO_USER";
 const CHANGE_USER_ROLE_STATUS = "CHANGE_USER_ROLE_STATUS";
 const REGISTER_USER_BY_ADMIN = "REGISTER_USER_BY_ADMIN";
 const GET_MENU_LIST = "GET_MENU_LIST";
+const GET_USER_MENU = "GET_USER_MENU";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
 const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
@@ -55,6 +58,7 @@ const EDIT_EVENT_ITEM = "EDIT_EVENT_ITEM";
 const EDIT_STATUS_EVENT_ITEM = "EDIT_STATUS_EVENT_ITEM";
 const DELETE_EVENT_ITEM = "DELETE_EVENT_ITEM";
 const GET_ALL_PROVINCES = "GET_ALL_PROVINCES";
+const GET_USER_PROVINCES = "GET_USER_PROVINCES";
 const GET_ALL_CITY = "GET_ALL_CITY";
 const GET_CITY_BY_PROVINCES_ID = "GET_CITY_BY_PROVINCES_ID";
 const UPLOAD_IMAGES_ITEM = "UPLOAD_IMAGES_ITEM";
@@ -78,6 +82,8 @@ endpoints[GET_USER_ROLES] = `/user/${VER_1_0}/admin/user-roles/:user_id`;
 // endpoints[GET_USER_ROLES] = `/role/${VER_1_0}/admin/legate-roles/:user_id`;
 endpoints[GET_ALL_USER] = `/role/${VER_1_0}/admin/all-roles`;
 endpoints[GET_PERMISSION_USER] = `/role/${VER_1_0}/admin/get-permission-user`;
+endpoints[GET_USERS_REPORT] = `/user/${VER_1_0}/admin/user-report`;
+endpoints[GET_ALL_USERS_REPORT] = `/user/${VER_1_0}/admin/all-user-report`;
 endpoints[ASSIGN_PERMISSION_USER] = `/role/${VER_1_0}/admin/assign-permission-user`;
 endpoints[EDIT_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/edit-user-by-admin`;
 endpoints[ADD_ROLE_TO_USER] = `/user/${VER_1_0}/admin/add-role-to-user`;
@@ -85,6 +91,7 @@ endpoints[CHANGE_USER_ROLE_STATUS] = `/user/${VER_1_0}/admin/change-user-role-st
 endpoints[REGISTER_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/register-user-by-admin`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
+endpoints[GET_USER_MENU] = `/menu/${VER_1_0}/admin/dynamic-list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
 endpoints[CREATE_MENU_LIST] = `/menu/${VER_1_0}/admin/create`;
 endpoints[EDIT_MENU_ITEM] = `/menu/${VER_1_0}/admin/edit`;
@@ -116,6 +123,7 @@ endpoints[EDIT_STATUS_EVENT_ITEM] = `/event/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_EVENT_ITEM] = `/event/${VER_1_0}/admin/delete`;
 
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
+endpoints[GET_USER_PROVINCES] = `/location/${VER_1_0}/user-provinces`;
 endpoints[GET_ALL_CITY] = `/location/${VER_1_0}/all-cities`;
 endpoints[GET_CITY_BY_PROVINCES_ID] = `/location/${VER_1_0}/get-cities-by-province-id`;
 endpoints[UPLOAD_IMAGES_ITEM] = `/attachment/attach_image`;
@@ -194,6 +202,14 @@ export default class Endpoint {
         return endpoints[GET_PERMISSION_USER]
     }
 
+    static get GET_USERS_REPORT() {
+        return endpoints[GET_USERS_REPORT]
+    }
+
+    static get GET_ALL_USERS_REPORT() {
+        return endpoints[GET_ALL_USERS_REPORT]
+    }
+
     static get ASSIGN_PERMISSION_USER() {
         return endpoints[ASSIGN_PERMISSION_USER]
     }
@@ -216,6 +232,10 @@ export default class Endpoint {
 
     static get GET_MENU_LIST() {
         return endpoints[GET_MENU_LIST];
+    }
+
+    static get GET_USER_MENU() {
+        return endpoints[GET_USER_MENU]
     }
 
     static get CREATE_MENU_LIST() {
@@ -316,6 +336,10 @@ export default class Endpoint {
 
     static get GET_ALL_PROVINCES() {
         return endpoints[GET_ALL_PROVINCES]
+    }
+
+    static get GET_USER_PROVINCES() {
+        return endpoints[GET_USER_PROVINCES]
     }
 
     static get GET_ALL_CITY() {

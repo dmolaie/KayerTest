@@ -10,7 +10,9 @@ const SOCIAL_MEDIA = {
     },
 
     telegram: {
-        shareUrl: "tg://msg?text={url} {content}",
+        // shareUrl: "tg://msg?text={url} {content}",
+        // shareUrl: "tg://msg_url?url={url}&text={content}",
+        shareUrl: "tg://share?url={url}&text={content}",
     },
 
     twitter: {

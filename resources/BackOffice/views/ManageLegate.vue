@@ -89,7 +89,7 @@
                                     />
                                 </div>
                                 <div class="table__td table__td:l flex flex-col cursor-default">
-                                    <button class="text-blue-800 font-xs font-bold m-b-auto text-right l:transition-color l:hover:text-blue--200"
+                                    <button class="text-blue-800 font-xs font-bold text-right l:transition-color l:hover:text-blue--200"
                                             v-text="item.full_name"
                                             @click.stop="onClickShowUserInfoModal( item.id )"
                                     > </button>
@@ -465,15 +465,13 @@
                                     <span class="w-1/4 xl:w-1/5"> </span>
                                     <template v-if="!role.is_client">
                                         <select-cm :options="userRoles[role.id] ? rolesStatus : addedRoleStatus"
-                                                   label="name" :required="!!userRoles[role.id]"
-                                                   class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                                   label="name" class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
                                                    @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
                                         > </select-cm>
                                     </template>
                                     <template v-else>
                                         <select-cm :options="userRoles[role.id] ? clientRoleStatus : addedClientRoleStatus"
-                                                   label="name" :required="!!userRoles[role.id]"
-                                                   class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
+                                                   label="name" class="w-1/3" :value="userRoles[role.id] && userRoles[role.id].status_fa || ''"
                                                    @onChange="changeUserRoleStatus($event, selectedItem.id, role.id)"
                                         > </select-cm>
                                     </template>

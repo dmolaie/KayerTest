@@ -43,7 +43,7 @@ export default class EditNewsService extends BaseService {
         try {
             let responses = await Promise.all([
                 NewsService.getNewsCategories(),
-                NewsService.getProvincesList(),
+                HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_PROVINCES)),
                 EditNewsService.getDetailsOfNewsItem( this.$vm.$route.params.id )
             ]);
 
@@ -99,9 +99,8 @@ export default class EditNewsService extends BaseService {
         try {
             let duplicateFrom = CopyOf( this.$vm.form );
             const formData = new FormData();
-            let publish_date = duplicateFrom['publish_date'] || (new Date().getTime() / 1e3);
+            const NOW_TIMESTAMP = new Date().getTime() / 1e3;
 
-            formData.append('publish_date', publish_date);
             formData.append('news_id', duplicateFrom['news_id']);
             formData.append('first_title', duplicateFrom['first_title']);
             formData.append('province_id', duplicateFrom['province_id']);
@@ -121,6 +120,12 @@ export default class EditNewsService extends BaseService {
                     formData.append('category_ids[]', id);
                 });
             }
+
+            (this.$vm.form['is_ready_to_publish']) ? (
+                formData.append('publish_date', (this.$vm.custom_publish_date || duplicateFrom['publish_date']))
+            ) : (
+                formData.append('publish_date', (this.$vm.custom_publish_date || NOW_TIMESTAMP))
+            );
 
             if ( !(this.$vm.detail['slug'] === duplicateFrom['slug'].trim()) )
                 formData.append('slug', duplicateFrom['slug'].replace(/ /g, '-'));

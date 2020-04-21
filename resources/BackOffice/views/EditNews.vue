@@ -116,25 +116,27 @@
                         >
                             بروزرسانی
                         </button>
-                        <template v-if="form.is_pending">
+                        <template v-if="!form.is_published && !form.is_recycle">
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickReleaseTimeButton(); hiddenDropdown();}"
                             >
                                 تنظیم زمان انتشار
                             </button>
-                            <span class="dropdown__divider"> </span>
-                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                    @click.prevent="() => {onClickRejectItemButton(); hiddenDropdown()}"
-                            >
-                                بازگشت به نویسنده (رد)
-                            </button>
                         </template>
-                        <template v-else-if="!form.is_cancel">
+                        <template v-if="form.is_published">
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickUnPublishButton(); hiddenDropdown()}"
                             >
                                 لغو انتشار
+                            </button>
+                        </template>
+                        <template v-else>
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickRejectItemButton(); hiddenDropdown()}"
+                            >
+                                بازگشت به نویسنده (رد)
                             </button>
                         </template>
                     </template>
@@ -145,11 +147,9 @@
                     <p class="panel__title font-sm font-bold text-blue cursor-default">
                         زمان انتشار
                     </p>
-                    <date-picker-cm type="datetime"
-                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                    format="jYYYY/jMM/jDD HH:mm"
-                                    :min="DatePickerMinValue"
-                                    @onChange="onChangePublishDateField"
+                    <date-picker-cm displayFormat="jDD jMMMM jYYYY HH:mm"
+                                    format="unix" type="datetime" :value="`${form.publish_date * 1e3}`"
+                                    :min="DatePickerMinValue" @onChange="onChangePublishDateField"
                                     placeholder="زمان انتشار را انتخاب کنید"
                     />
                 </div>
@@ -274,6 +274,7 @@
                 second: GET_INITIAL_IMAGE(),
             },
             removedImages: [],
+            custom_publish_date: '',
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: true,
@@ -315,23 +316,9 @@
                     this.form.has_relation ? 'ویرایش' : 'ایجاد'
                 )
             },
-            /**
-             * @return {number | string}
-             */
             DatePickerMinValue() {
-                try {
-                    const DATE = new Date(),
-                        LOCALE_DATE = DATE.toLocaleString('fa');
-                    return (
-                        toEnglishDigits(
-                            LOCALE_DATE
-                                .replace('،', ' ')
-                                .slice(0, Length( LOCALE_DATE ) - 3)
-                        )
-                    )
-                } catch (e) {
-                    return ''
-                }
+                const NOW_TIMESTAMP = new Date().getTime();
+                return NOW_TIMESTAMP.toString()
             },
         },
         watch: {
@@ -382,7 +369,7 @@
                 } catch (e) {}
             },
             onChangePublishDateField( unix ) {
-                this.$set(this.form, 'publish_date', unix)
+                this.$set(this, 'custom_publish_date', unix)
             },
             onClickPersianLang() {
                 if ( this.form.has_relation ) {
@@ -425,7 +412,6 @@
                 }
             },
             onClickReleaseTimeButton() {
-                this.$set(this.form, 'publish_date', '');
                 this.$set(this, 'shouldBeShowDatePicker', !this.shouldBeShowDatePicker);
             },
             async onClickUpdateButton() {

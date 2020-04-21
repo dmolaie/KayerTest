@@ -228,6 +228,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/card-single~card-social~dashboard.js')}}" defer></script>
+        <script src="{{asset('js/site/card-mini~card-single~card-social~dashboard.js')}}" defer></script>
         <script src="{{asset('js/site/dashboard.js')}}" defer></script>
     @endsection
