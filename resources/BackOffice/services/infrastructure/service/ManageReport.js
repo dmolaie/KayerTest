@@ -55,8 +55,8 @@ export default class ManageReportService extends BaseService {
             if ( legateUser.checked ) {
                 TYPE.push('legate');
                 if ( !!legateUser.start_date ) PAYLOAD['register_from_legate'] = `${legateUser.start_date}`;
-                if ( !!legateUser.start_date ) PAYLOAD['register_end_legate'] = `${legateUser.end_date}`;
-                if ( !!legateUser.start_date ) PAYLOAD['status_legate'] = `${legateUser.status}`;
+                if ( !!legateUser.end_date ) PAYLOAD['register_end_legate'] = `${legateUser.end_date}`;
+                if ( !!legateUser.status ) PAYLOAD['status_legate'] = `${legateUser.status}`;
             }
             PAYLOAD['type'] = TYPE;
             return PAYLOAD

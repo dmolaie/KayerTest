@@ -29,7 +29,7 @@ export class SingleReportPresenter extends BasePresenter {
     }
 
     mobile() {
-        return this.data.mobile || ''
+        return this.data.mobile || '-'
     }
 
     email() {

@@ -116,83 +116,83 @@
                 >
                     ثبت
                 </button>
-                <div class="m-report__table w-full"
-                     v-if="hasLength"
-                >
-                    <p class="text-gray-200 font-sm font-bold cursor-default m-b-10">
-                        تعداد کل کاربران یافت شده :
-                        {{ pagination.total }}
-                    </p>
-                    <table-cm :data="items"
-                              :isPending="isPending"
+                <template v-if="!shouldBeHideTable">
+                    <div class="m-report__table w-full"
+                         v-if="hasLength"
                     >
-                        <template #head>
-                            <div class="table__th font-sm font-bold cursor-default text-center">
-                                ردیف
-                            </div>
-                            <div class="table__th table__th:l font-sm font-bold cursor-default text-center">
-                                نام و نام خانوادگی
-                            </div>
-                            <div class="table__th flex-1 font-sm font-bold cursor-default text-center">
-                                شماره موبایل
-                            </div>
-                            <div class="table__th table__th:l font-sm font-bold cursor-default text-center">
-                                ایمیل
-                            </div>
-                            <div class="table__th flex-1 font-sm font-bold cursor-default text-center">
-                                تاریخ تولد
-                            </div>
-                            <div class="table__th flex-1 font-sm font-bold cursor-default text-center">
-                                شماره ملی
-                            </div>
-                        </template>
-                        <template #body="{ data }">
-                            <div class="table__row flex"
-                                 v-for="(item, index) in data"
-                            >
-                                <div class="table__td font-xs font-medium cursor-default text-center"
-                                     v-text="+index + 1"
-                                ></div>
-                                <div class="table__td table__td:l font-xs font-medium cursor-default text-center"
-                                     v-text="item.full_name"
-                                ></div>
-                                <div class="table__td flex-1 font-xs font-medium cursor-default text-center"
-                                     v-text="item.mobile"
-                                ></div>
-                                <div class="table__td table__td:l font-xs font-medium cursor-default text-center"
-                                     v-text="item.email"
-                                ></div>
-                                <div class="table__td flex-1 font-xs font-medium cursor-default text-center"
-                                     v-text="item.birth_of_day"
-                                ></div>
-                                <div class="table__td flex-1 font-xs font-medium cursor-default text-center"
-                                     v-text="item.national_code"
-                                ></div>
-                            </div>
-                        </template>
-                    </table-cm>
-                    <div class="w-full m-post__pagination"
-                         v-if="!!Object.values(items)"
-                    >
-                        <pagination-cm :isPending="isPending"
-                                       @input="onChangePagination"
-                                       :currentPage="pagination.current_page"
-                                       :total="pagination.total || 0"
-                                       :key="'paginate-' + paginateKeyCounter"
+                        <p class="text-gray-200 font-sm font-bold cursor-default m-b-10">
+                            تعداد کل کاربران یافت شده :
+                            {{ pagination.total }}
+                        </p>
+                        <table class="table w-full block border border-solid rounded text-blue-800">
+                            <thead class="table__header w-full">
+                                <tr>
+                                    <th class="m-report__tTh font-sm font-bold cursor-default text-center">
+                                        ردیف
+                                    </th>
+                                    <th class="m-report__tTh font-sm font-bold cursor-default text-center">
+                                        نام و نام خانوادگی
+                                    </th>
+                                    <th class="m-report__tTh font-sm font-bold cursor-default text-center">
+                                        شماره موبایل
+                                    </th>
+                                    <th class="m-report__tTh font-sm font-bold cursor-default text-center">
+                                        ایمیل
+                                    </th>
+                                    <th class="m-report__tTh font-sm font-bold cursor-default text-center">
+                                        تاریخ تولد
+                                    </th>
+                                    <th class="m-report__tTh font-sm font-bold cursor-default text-center">
+                                        شماره ملی
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="w-full">
+                                <tr class="table__row"
+                                     v-for="(item, index) in items"
+                                >
+                                    <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
+                                         v-text="+index + 1"
+                                    > </td>
+                                    <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
+                                         v-text="item.full_name"
+                                    > </td>
+                                    <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
+                                         v-text="item.mobile"
+                                    > </td>
+                                    <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
+                                         v-text="item.email"
+                                    > </td>
+                                    <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
+                                         v-text="item.birth_of_day"
+                                    > </td>
+                                    <td class="table__td font-xs font-medium cursor-default text-center flex-shrink-0"
+                                         v-text="item.national_code"
+                                    > </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="w-full m-post__pagination"
+                             v-if="!!Object.values(items)"
+                        >
+                            <pagination-cm :isPending="isPending"
+                                           @input="onChangePagination"
+                                           :currentPage="pagination.current_page"
+                                           :total="pagination.total || 0"
+                                           :key="'paginate-' + paginateKeyCounter"
+                            />
+                        </div>
+                        <excel-cm :fields="fields" :fetch="getAllUserReport"
+                                  class="text-center" className="m-report__button m-report__button--blue inline-block text-center text-white font-base font-bold rounded m-0-auto m-t-40 cursor-pointer"
+                                  :isPending="excel.isPending"
                         />
                     </div>
-                    <button class="m-report__button m-report__button--blue block text-white font-base font-bold rounded m-0-auto m-t-40"
-                            :class="{ 'spinner-loading': (excel.isPending) }"
-                            @click.prevent="exportAsExcel"
+                    <div class="m-report__table text-gray-200 font-sm font-bold text-center cursor-default"
+                         v-else-if="!hasLength && !isPending"
                     >
-                        خروجی اکسل
-                    </button>
-                    df
-                    <excel-cm :fields="fields" :fetch="getAllUserReport"
-                              class="text-center" className="m-report__button m-report__button--blue inline-block text-center text-white font-base font-bold rounded m-0-auto m-t-40 cursor-pointer"
-                              :isPending="excel.isPending"
-                    />
-                </div>
+                        کاربری با این مشخصات پیدا نشد.
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -208,6 +208,7 @@
     import SelectCm from '@vendor/components/select/Index.vue';
     import PaginationCm from '@vendor/components/pagination/Index.vue';
     import ExcelCm from '@components/Excel.vue';
+    import Table from "../../vendor/components/table/Index";
 
     let Service = null;
 
@@ -224,6 +225,7 @@
             isPending: false,
             isModuleRegistered: false,
             paginateKeyCounter: 0,
+            shouldBeHideTable: true,
             fields: {
                 'نام': 'name',
                 'نام خانوادگی': 'last_name',
@@ -233,7 +235,7 @@
                 'ایمیل': 'email',
             },
         }),
-        components: { TableCm, SelectCm, DatePickerCm, PaginationCm, ExcelCm },
+        components: {Table, TableCm, SelectCm, DatePickerCm, PaginationCm, ExcelCm },
         computed: {
             ...mapState({
                 items: ({ ManageReportStore }) => ManageReportStore.items,
@@ -286,6 +288,7 @@
             async onClickFilterUserBy() {
                 try {
                     this.$set(this, 'isPending', true);
+                    this.$set(this, 'shouldBeHideTable', false);
                     await Service.getUserListFilterBy();
                     this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
                 } catch ( exception ) {
