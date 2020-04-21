@@ -31,18 +31,17 @@ class CheckUserNationalCodeRequest extends FormRequest
      */
     public function rules()
     {
-
-        if (!empty($this['Content']) && strlen($this['Content']) == 10) {
+        if (!empty($this[0]['Content']) && strlen($this[0]['Content']) == 10) {
             $this->firstStep = true;
             return [
-                'Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
-                'UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
+                '0.Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
+                '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
 
         return [
-            'Content'         => 'required|numeric|digits:8|min:10000000',
-            'UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
+            '0.Content'         => 'required|numeric|digits:8|min:10000000',
+            '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
         ];
     }
 
@@ -51,18 +50,18 @@ class CheckUserNationalCodeRequest extends FormRequest
         if ($this->firstStep) {
 
             return [
-                'Content.required'         => (trans('smsRegister::response.validation.national_code_required')),
-                'Content.unique'           => (trans('smsRegister::response.validation.national_code_unique')),
-                'Content.*'                => (trans('smsRegister::response.validation.national_code_all')),
-                'UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
-                'UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
+                '0.Content.required'         => (trans('smsRegister::response.validation.national_code_required')),
+                '0.Content.unique'           => (trans('smsRegister::response.validation.national_code_unique')),
+                '0.Content.*'                => (trans('smsRegister::response.validation.national_code_all')),
+                '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
+                '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
             ];
         }
         return [
-            'Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
-            'Content.*'                => (trans('smsRegister::response.validation.birth_date_all')),
-            'UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
-            'UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
+            '0.Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
+            '0.Content.*'                => (trans('smsRegister::response.validation.birth_date_all')),
+            '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
+            '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
         ];
     }
 
@@ -75,14 +74,14 @@ class CheckUserNationalCodeRequest extends FormRequest
     {
         $smsRegisterDTO = new SmsRegisterDTO();
         $smsRegisterDTO
-            ->setMobileNumber($this['UserPhoneNumber'])
-            ->setChannelType($this["ChannelType"]?? '‫‪Imi‬‬');
+            ->setMobileNumber($this[0]['UserPhoneNumber'])
+            ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');
         if ($this->firstStep) {
-            $smsRegisterDTO->setNationalCode($this['Content'])
+            $smsRegisterDTO->setNationalCode($this[0]['Content'])
                 ->setFirstRequestContent($this->all());
             return $smsRegisterDTO;
         }
-        $date = $this->convertDate($this['Content']);
+        $date = $this->convertDate($this[0]['Content']);
         $smsRegisterDTO->setBirthDate($date)
             ->setSecondRequestContent($this->all());
         return $smsRegisterDTO;
@@ -90,13 +89,22 @@ class CheckUserNationalCodeRequest extends FormRequest
 
     private function convertDate(string $date)
     {
-        $date = str_split($date, 4);
+        try {
+            $date = str_split($date, 4);
 
-        $year = $date[0];
-        $monthDay = str_split($date[1], 2);
-        $month = $monthDay[0];
-        $day = $monthDay[1];
-        return (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
+            $year = $date[0];
+            $monthDay = str_split($date[1], 2);
+            $month = $monthDay[0];
+            $day = $monthDay[1];
+            return (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
+        } catch (\Exception $exception) {
+            $smsRegister = new SmsRegisterDTO();
+            $smsRegister->setMobileNumber($this[0]['UserPhoneNumber'])
+                ->setContent((trans('smsRegister::response.validation.birth_date_all')))
+                ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');;
+            event(new SmsRegisterEvent($smsRegister));
+        }
+
 
     }
 
@@ -119,16 +127,16 @@ class CheckUserNationalCodeRequest extends FormRequest
      */
     protected function sendMessageToUser(Validator $validator): void
     {
-        if (isset($this['UserPhoneNumber'])) {
+        if (isset($this[0]['UserPhoneNumber'])) {
 
             $smsRegister = new SmsRegisterDTO();
-            $smsRegister->setMobileNumber($this['UserPhoneNumber'])
+            $smsRegister->setMobileNumber($this[0]['UserPhoneNumber'])
                 ->setContent(
                     implode(',', array_column(
                         array_values($validator->errors()->messages()),
                         '0'
                     )))
-                ->setChannelType($this["ChannelType"] ?? '‫‪Imi‬‬');;
+                ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');;
             event(new SmsRegisterEvent($smsRegister));
         }
         return;
