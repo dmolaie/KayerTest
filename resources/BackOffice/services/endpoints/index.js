@@ -58,6 +58,7 @@ const EDIT_EVENT_ITEM = "EDIT_EVENT_ITEM";
 const EDIT_STATUS_EVENT_ITEM = "EDIT_STATUS_EVENT_ITEM";
 const DELETE_EVENT_ITEM = "DELETE_EVENT_ITEM";
 const GET_ALL_PROVINCES = "GET_ALL_PROVINCES";
+const GET_USER_PROVINCES = "GET_USER_PROVINCES";
 const GET_ALL_CITY = "GET_ALL_CITY";
 const GET_CITY_BY_PROVINCES_ID = "GET_CITY_BY_PROVINCES_ID";
 const UPLOAD_IMAGES_ITEM = "UPLOAD_IMAGES_ITEM";
@@ -122,6 +123,7 @@ endpoints[EDIT_STATUS_EVENT_ITEM] = `/event/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_EVENT_ITEM] = `/event/${VER_1_0}/admin/delete`;
 
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
+endpoints[GET_USER_PROVINCES] = `/location/${VER_1_0}/user-provinces`;
 endpoints[GET_ALL_CITY] = `/location/${VER_1_0}/all-cities`;
 endpoints[GET_CITY_BY_PROVINCES_ID] = `/location/${VER_1_0}/get-cities-by-province-id`;
 endpoints[UPLOAD_IMAGES_ITEM] = `/attachment/attach_image`;
@@ -334,6 +336,10 @@ export default class Endpoint {
 
     static get GET_ALL_PROVINCES() {
         return endpoints[GET_ALL_PROVINCES]
+    }
+
+    static get GET_USER_PROVINCES() {
+        return endpoints[GET_USER_PROVINCES]
     }
 
     static get GET_ALL_CITY() {

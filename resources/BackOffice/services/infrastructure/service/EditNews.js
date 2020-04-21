@@ -43,7 +43,7 @@ export default class EditNewsService extends BaseService {
         try {
             let responses = await Promise.all([
                 NewsService.getNewsCategories(),
-                NewsService.getProvincesList(),
+                HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_PROVINCES)),
                 EditNewsService.getDetailsOfNewsItem( this.$vm.$route.params.id )
             ]);
 

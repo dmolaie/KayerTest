@@ -38,7 +38,7 @@ export default class CreateEventService extends BaseService {
 
     async provincesList() {
         try {
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES));
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_PROVINCES));
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
         }

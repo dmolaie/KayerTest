@@ -41,7 +41,7 @@ export default class CreateNewsService extends BaseService {
         try {
             let response = await Promise.all([
                 NewsService.getNewsCategories(),
-                NewsService.getProvincesList(),
+                HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_PROVINCES))
             ]);
 
             BaseService.commitToStore(this.$store, C_NEWS_SET_CATEGORY, response[0]);
