@@ -49,7 +49,6 @@
                                 <div class="w-full p-r-8">
                                     <span class="c-event__s-title block text-black-50 font-xs font-bold cursor-default">
                                         زمان پایان...
-                                        &&
                                     </span>
                                     <date-picker-cm type="datetime" class="c-event__p-date-picker"
                                                     displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
