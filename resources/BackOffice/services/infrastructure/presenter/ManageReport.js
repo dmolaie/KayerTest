@@ -81,7 +81,12 @@ export class SingleUserReportPresenter extends BasePresenter {
     }
 
     date_of_birth() {
-        return DateService.getJalaaliDate( this.data.date_of_birth )
+        try {
+            const DATE = new Date(parseInt(this.data.date_of_birth) * 1e3);
+            return DATE.toLocaleDateString('fa-ir')
+        } catch (e) {
+            return '-'
+        }
     }
 
     mobile() {
