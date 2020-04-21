@@ -40,6 +40,7 @@ export class NewsItemPresenter extends BasePresenter {
             has_relation: Boolean,
             is_owner: Boolean,
             slug: String,
+            publish_date: Number,
         })
     }
 
@@ -184,5 +185,9 @@ export class NewsItemPresenter extends BasePresenter {
         } = this.data;
 
         return !!slug ? slug.replace(/-/g, ' ') : ''
+    }
+
+    publish_date() {
+        return this.data.publish_date
     }
 }

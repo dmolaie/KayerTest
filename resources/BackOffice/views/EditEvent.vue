@@ -151,25 +151,27 @@
                         >
                             بروزرسانی
                         </button>
-                        <template v-if="form.is_pending || form.is_ready_to_publish">
+                        <template v-if="!form.is_published && !form.is_recycle">
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickChangeReleaseTimeButton(); hiddenDropdown();}"
                             >
                                 تنظیم زمان انتشار
                             </button>
-                            <span class="dropdown__divider"> </span>
-                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
-                                    @click.prevent="() => {onClickRejectEventButton(); hiddenDropdown()}"
-                            >
-                                بازگشت به نویسنده (رد)
-                            </button>
                         </template>
-                        <template v-else-if="!form.is_cancel">
+                        <template v-if="form.is_published">
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                     @click.prevent="() => {onClickCancelEventButton(); hiddenDropdown()}"
                             >
                                 لغو انتشار
+                            </button>
+                        </template>
+                        <template v-else>
+                            <span class="dropdown__divider"> </span>
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickRejectEventButton(); hiddenDropdown()}"
+                            >
+                                بازگشت به نویسنده (رد)
                             </button>
                         </template>
                     </template>
