@@ -36,7 +36,7 @@ export const menus = {
     },
 };
 
-export class MenusPresenter {
+export default class MenusPresenter {
     constructor( payload ) {
         return !!payload && HasLength( payload ) ? (
             payload.map(item => new MenuPresenter( item ))

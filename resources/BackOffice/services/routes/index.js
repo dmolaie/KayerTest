@@ -427,8 +427,12 @@ const getUserProfile = async () => {
         if ( !Store?.getters['HAS_USER_INFORMATION'] &&
              !!TokenService._GetToken &&
              Routes?.history?.pending?.name !== 'LOGOUT' ) {
-            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_PROFILE_INFO), {}, true);
-            Store.commit(UPDATE_USER, response)
+            let response = await Promise.all([
+                await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_BASIC_PROFILE_INFO), {}, true),
+                await HTTPService.getRequest(Endpoint.get(Endpoint.GET_USER_MENU), {}, true),
+            ]);
+            Store.commit(UPDATE_USER, response[0]);
+            Store.commit('MENUS_SET_DATA', response[1]);
         }
     } catch ( exception ) {
         Routes.push( { name: 'LOGOUT' } )

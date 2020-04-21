@@ -31,6 +31,7 @@ const ADD_ROLE_TO_USER = "ADD_ROLE_TO_USER";
 const CHANGE_USER_ROLE_STATUS = "CHANGE_USER_ROLE_STATUS";
 const REGISTER_USER_BY_ADMIN = "REGISTER_USER_BY_ADMIN";
 const GET_MENU_LIST = "GET_MENU_LIST";
+const GET_USER_MENU = "GET_USER_MENU";
 const GET_MENU_TYPE = "GET_MENU_TYPE";
 const CREATE_MENU_LIST = "CREATE_MENU_LIST";
 const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
@@ -89,6 +90,7 @@ endpoints[CHANGE_USER_ROLE_STATUS] = `/user/${VER_1_0}/admin/change-user-role-st
 endpoints[REGISTER_USER_BY_ADMIN] = `/user/${VER_1_0}/admin/register-user-by-admin`;
 
 endpoints[GET_MENU_LIST] = `/menu/${VER_1_0}/admin/list`;
+endpoints[GET_USER_MENU] = `/menu/${VER_1_0}/admin/dynamic-list`;
 endpoints[GET_MENU_TYPE] = `/menu/${VER_1_0}/admin/types`;
 endpoints[CREATE_MENU_LIST] = `/menu/${VER_1_0}/admin/create`;
 endpoints[EDIT_MENU_ITEM] = `/menu/${VER_1_0}/admin/edit`;
@@ -228,6 +230,10 @@ export default class Endpoint {
 
     static get GET_MENU_LIST() {
         return endpoints[GET_MENU_LIST];
+    }
+
+    static get GET_USER_MENU() {
+        return endpoints[GET_USER_MENU]
     }
 
     static get CREATE_MENU_LIST() {

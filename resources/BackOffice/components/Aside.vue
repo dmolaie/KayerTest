@@ -20,7 +20,7 @@
         <div class="aside__menu">
             <div class="w-full">
                 <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
-                     v-for="(item, index) in menu"
+                     v-for="(item, index) in items"
                      :key="index"
                      :to="{name: item.route}"
                 >
@@ -32,8 +32,22 @@
                         className="block"
                     />
                     <span class="aside__menu_item_title font-sm font-medium">
-                        {{ item.title }}
+                        {{ item.name_fa }}
                     </span>
+                </router-link>
+                <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+                             :to="{ name: 'LOGOUT' }"
+                >
+                    <image-cm
+                            class="aside__menu_item_icon"
+                            :src="$asset('ic__logout-blue.svg')"
+                            alt="انجمن اهدای عضو ایرانیان"
+                            objectFit="contain"
+                            className="block"
+                    />
+                    <span class="aside__menu_item_title font-sm font-medium"
+                          v-text="'خروج'"
+                    > </span>
                 </router-link>
             </div>
         </div>
@@ -41,66 +55,16 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import ImageCm from '@vendor/components/image/Index.vue'
 
     export default {
         name: "Aside",
-        data: () => ({
-            menu: [
-                {
-                    route: 'DASHBOARD',
-                    title: 'پیشخوان',
-                    icon: 'ic__dashboard--blue.svg',
-                },
-                {
-                    route: 'MANAGE_MENU',
-                    title: 'مدیریت منوها',
-                    icon: 'ic__menu--blue.svg'
-                },
-                {
-                    route: 'MANAGE_EVENT',
-                    title: 'رویدادها',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'MANAGE_NEWS',
-                    title: 'اخبار',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'MANAGE_ARTICLE',
-                    title: 'صفحات ایستا',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'MANAGE_CARDS',
-                    title: 'کارت‌های اهدای عضو',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'MANAGE_LEGATE',
-                    title: 'کاربران',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'USER_SETTING',
-                    title: 'تنظیمات حساب',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'MANAGE_REPORT',
-                    title: 'گزارش گیری',
-                    icon: 'ic_newspaper--blue.svg'
-                },
-                {
-                    route: 'LOGOUT',
-                    title: 'خروج',
-                    icon: 'ic__logout-blue.svg'
-                }
-            ]
-        }),
-        components: {
-            ImageCm
+        components: { ImageCm },
+        computed: {
+            ...mapState({
+                items: ({ MenusStore }) => MenusStore.items
+            })
         },
         methods: {
             onClickMenuItem( location ) {
