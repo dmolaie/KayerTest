@@ -88,7 +88,7 @@ class ProvinceService
 
     public function getUserProvinces(int $userId)
     {
-        $provinceIds =  $this->userService->getProvinceId($userId);
+        $provinceIds =  $this->userService->getProvinceIds($userId);
         if(empty($provinceIds)){
             return $this->getAll();
         }

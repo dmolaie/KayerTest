@@ -80,7 +80,8 @@ class UserService
         UserBriefInfoDTOMaker $userBriefInfoDTOMaker,
         PaginationDTOMaker $paginationDTOMaker,
         UserRoleInfoDTOMaker $userRoleInfoDTOMaker
-    ) {
+    )
+    {
 
         $this->roleServices = $roleServices;
         $this->userRepository = $userRepository;
@@ -182,7 +183,7 @@ class UserService
         $user = $this->userRepository->findByNationalCode($userRegisterInfoDTO->getNationalCode());
         if (!$user || Auth::attempt([
                 'national_code' => $userRegisterInfoDTO->getNationalCode(),
-                'password'      => $userRegisterInfoDTO->getPassword()
+                'password' => $userRegisterInfoDTO->getPassword()
             ])) {
             return $user;
         }
@@ -337,18 +338,13 @@ class UserService
     {
         $usersClient = [];
         $usersLegate = [];
+
         if (in_array(config('user.client_role_type'), $usersRegisterReportDTO->getType())) {
-            $usersClient = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(),
-                $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(),
-                $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(),
-                $usersRegisterReportDTO->getPaginate());
+            $usersClient = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
         }
 
         if (in_array(config('user.legate_role_type'), $usersRegisterReportDTO->getType())) {
-            $usersLegate = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(),
-                $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusLegate(),
-                $usersRegisterReportDTO->getRegisterFromLegate(), $usersRegisterReportDTO->getRegisterEndLegate(),
-                $usersRegisterReportDTO->getPaginate());
+            $usersLegate = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusLegate(), $usersRegisterReportDTO->getRegisterFromLegate(), $usersRegisterReportDTO->getRegisterEndLegate(), $usersRegisterReportDTO->getPaginate());
         }
 
         if (!empty($usersClient) && !empty($usersLegate)) {
@@ -366,7 +362,36 @@ class UserService
         );
     }
 
-    public function getProvinceId(int $userId)
+    public function AllUserReport(UsersRegisterReportDTO $usersRegisterReportDTO)
+    {
+        $usersClient = [];
+        $usersLegate = [];
+
+        if (in_array(config('user.client_role_type'), $usersRegisterReportDTO->getType())) {
+            $usersClient = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
+        }
+
+        if (in_array(config('user.legate_role_type'), $usersRegisterReportDTO->getType())) {
+            $usersLegate = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusLegate(), $usersRegisterReportDTO->getRegisterFromLegate(), $usersRegisterReportDTO->getRegisterEndLegate(), $usersRegisterReportDTO->getPaginate());
+        }
+
+        if (!empty($usersClient) && !empty($usersLegate)) {
+            $users = $usersClient->union($usersLegate);
+        } elseif (!empty($usersLegate)) {
+            $users = $usersLegate;
+        } elseif (!empty($usersClient)) {
+            $users = $usersClient;
+        }
+
+        $userInfoReportDTO = new UserInfoReportDTOMaker();
+        $users = $users->orderBy('created_at', $usersRegisterReportDTO->getSort())
+            ->groupBy('id')->get();
+
+        return $userInfoReportDTO->convertMany($users);
+
+    }
+
+    public function getProvinceIds(int $userId)
     {
         $user = $this->userRepository->findOrFail($userId);
 

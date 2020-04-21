@@ -18,7 +18,7 @@
         <div class="header__nav_container container flex items-center">
             @foreach($menus as $menu)
                 <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
-                    <a class="text-nowrap text-black font-xs-bold" href="/{{config('app.locale')}}/page/{{$menu->alias}}">
+                    <a class="text-nowrap text-black font-xs-bold" href="{{ is_null($menu->parent_id) ?  !is_null($menu->link) ?  $menu->link : '#' : config('app.locale') .'/page/'.$menu->alias }}">
                         {{$menu->title}}
                     </a>
                     @if($menu->child->count() > 0)

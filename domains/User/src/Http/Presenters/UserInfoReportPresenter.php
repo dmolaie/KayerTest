@@ -7,11 +7,11 @@ use Domains\User\Services\Contracts\DTOs\UserInfoReportDTO;
 
 class UserInfoReportPresenter
 {
-    public function transformMany(array $userInfoDTO): array
+    public function transformMany(array $newsInfoDTOs): array
     {
-        return array_map(function ($userInfoDTO) {
-            return $this->transform($userInfoDTO);
-        }, $userInfoDTO);
+        return array_map(function ($newsInfoDTO) {
+            return $this->transform($newsInfoDTO);
+        }, $newsInfoDTOs);
     }
 
     public function transform(UserInfoReportDTO $userInfoReportDTO)
