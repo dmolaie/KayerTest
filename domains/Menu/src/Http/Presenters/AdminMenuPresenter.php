@@ -29,8 +29,8 @@ class AdminMenuPresenter
     {
         return [
             [
-                'en_name' => 'counter',
-                'fa_name' => trans('menus::menu.admin_menu.counter')
+                'en_name' => 'dashboard',
+                'fa_name' => trans('menus::menu.admin_menu.dashboard')
             ],
             [
                 'en_name' => 'profile_setting',
