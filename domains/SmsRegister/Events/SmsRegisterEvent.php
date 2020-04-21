@@ -22,7 +22,6 @@ class SmsRegisterEvent
      */
     public function __construct(SmsRegisterDTO $smsRegisterDTO)
     {
-
         $this->smsRegisterDTO = $smsRegisterDTO;
     }
 
