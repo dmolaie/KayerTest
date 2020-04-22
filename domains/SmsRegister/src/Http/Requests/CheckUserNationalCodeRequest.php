@@ -40,7 +40,7 @@ class CheckUserNationalCodeRequest extends FormRequest
         }
 
         return [
-            '0.Content'         => 'required|numeric|digits:8|min:10000000',
+            '0.Content'         => ['required', 'digits:8', 'numeric','min:10000000', new BirthDateRequest],
             '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
         ];
     }
@@ -59,7 +59,7 @@ class CheckUserNationalCodeRequest extends FormRequest
         }
         return [
             '0.Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
-            '0.Content.*'                => (trans('smsRegister::response.validation.birth_date_all')),
+            '0.Content.*'                => (trans('smsRegister::response.validation.incorrect_data_format')),
             '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
             '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
         ];
@@ -89,23 +89,13 @@ class CheckUserNationalCodeRequest extends FormRequest
 
     private function convertDate(string $date)
     {
-        try {
-            $date = str_split($date, 4);
+        $date = str_split($date, 4);
 
-            $year = $date[0];
-            $monthDay = str_split($date[1], 2);
-            $month = $monthDay[0];
-            $day = $monthDay[1];
-            return (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
-        } catch (\Exception $exception) {
-            $smsRegister = new SmsRegisterDTO();
-            $smsRegister->setMobileNumber($this[0]['UserPhoneNumber'])
-                ->setContent((trans('smsRegister::response.validation.birth_date_all')))
-                ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');;
-            event(new SmsRegisterEvent($smsRegister));
-        }
-
-
+        $year = $date[0];
+        $monthDay = str_split($date[1], 2);
+        $month = $monthDay[0];
+        $day = $monthDay[1];
+        return (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
     }
 
     protected function failedValidation(Validator $validator)

@@ -36,7 +36,7 @@
                 <div class="i-page__footer relative">
                     <div class="flex items-center md:flex-col">
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
-                            انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()))->format('H:i /  %d %B %Y')}}
+                            انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i /  %d %B %Y')}}
                         </p>
                         <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20">
                             <span class="text-bayoux font-sm-bold cursor-default">
