@@ -3,8 +3,10 @@ const path = require('path');
 const webpack = require('webpack');
 const MediaQueryPlugin = require('media-query-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 
 const ENV = fs.readFileSync('./.env', 'utf8').split('\n');
 
@@ -41,6 +43,28 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+                use: [ 'raw-loader' ]
+            },
+            {
+                test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: { singleton: true }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: styles.getPostCssConfig({
+                            themeImporter: {
+                                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+                            },
+                            minify: true
+                        })
+                    },
+                ]
+            },
             {
                 test: /\.s[a|c]ss$/,
                 use: [
@@ -79,6 +103,11 @@ module.exports = {
                 ]
             },
             {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+                exclude: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+            },
+            {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
@@ -109,9 +138,8 @@ module.exports = {
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/,
                 loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]',
-                },
+                options: { name: '[path][name].[ext]', },
+                exclude: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
             }
         ]
     },
@@ -126,6 +154,9 @@ module.exports = {
                 'js/office',
                 'css/office'
             ]
+        }),
+        new CKEditorWebpackPlugin( {
+            language: 'fa'
         }),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({

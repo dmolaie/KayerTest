@@ -96,7 +96,7 @@ export default class CreateNewsService extends BaseService {
             delete duplicateFrom['category_ids'];
 
             if ( HasLength( duplicateFrom['description'] ) )
-                duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
+                duplicateFrom['description'] = duplicateFrom['description'];
 
             duplicateFrom['slug'] = duplicateFrom['slug'].trim().replace(/ /g, '-');
 

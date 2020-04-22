@@ -32,9 +32,11 @@
                         </label>
                     </transition>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        <text-editor-cm @onUpdate="onUpdateTextEditor"
-                                        ref="textEditor"
+                        <text-cm v-model="form.description"
                         />
+<!--                        <text-editor-cm @onUpdate="onUpdateTextEditor"-->
+<!--                                        ref="textEditor"-->
+<!--                        />-->
                     </div>
                     <div class="c-news__abstract w-full">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
@@ -205,6 +207,7 @@
     import DatePickerCm from '@components/DatePicker.vue';
     import CategoryCm from '@components/Category.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
+    import TextCm from '@vendor/components/textEditor/Index.vue';
     import {
         Length, toEnglishDigits, HasLength
     } from "@vendor/plugin/helper";
@@ -260,7 +263,7 @@
             TextEditorCm,
             DatePickerCm,
             CategoryCm,
-            SelectCm
+            SelectCm, TextCm
         },
         computed: {
             ...mapGetters({
