@@ -4,20 +4,18 @@
 namespace Domains\User\Services\Contracts\DTOs\DTOMakers;
 
 
-use Domains\User\Entities\User;
-use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserInfoReportDTO;
 
 class UserInfoReportDTOMaker
 {
     public function convertMany($users)
     {
-        return $users->map(function ($user){
+        return $users->map(function ($user) {
             return $this->convert($user);
         })->toArray();
     }
 
-    public function convert(User $user )
+    public function convert($user)
     {
         $userFullInfoDTO = new UserInfoReportDTO();
         $userFullInfoDTO

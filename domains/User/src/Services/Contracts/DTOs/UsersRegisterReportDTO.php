@@ -50,27 +50,52 @@ class UsersRegisterReportDTO
     protected $paginate;
 
     /**
-     * @var array
+     * @var bool
      */
-    protected $type;
+    protected $typeClient;
 
     /**
-     * @return array
+     * @var bool
      */
-    public function getType(): array
+    protected $typeLegate;
+
+    /**
+     * @return bool
+     */
+    public function isTypeClient(): bool
     {
-        return $this->type;
+        return $this->typeClient;
     }
 
     /**
-     * @param array $type
+     * @param bool $typeClient
      * @return UsersRegisterReportDTO
      */
-    public function setType(array $type): UsersRegisterReportDTO
+    public function setTypeClient(bool $typeClient): UsersRegisterReportDTO
     {
-        $this->type = $type;
+        $this->typeClient = $typeClient;
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isTypeLegate(): bool
+    {
+        return $this->typeLegate;
+    }
+
+    /**
+     * @param bool $typeLegate
+     * @return UsersRegisterReportDTO
+     */
+    public function setTypeLegate(bool $typeLegate): UsersRegisterReportDTO
+    {
+        $this->typeLegate = $typeLegate;
+        return $this;
+    }
+
+
 
     /**
      * @return int
