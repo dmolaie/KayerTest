@@ -4,6 +4,8 @@ namespace Domains\SmsRegister\Listeners;
 
 use Carbon\Carbon;
 use Domains\SmsRegister\Events\SmsRegisterEvent;
+use Domains\SmsRegister\Events\TemporalLogEvent;
+use Domains\SmsRegister\Services\Contracts\DTOs\TemporalLogDTO;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -20,15 +22,37 @@ class SendSmsRegisterNotification
      */
     public function handle(SmsRegisterEvent $event)
     {
-        try{
+        $this->addLog('call event SmsRegisterEvent', [
+            $event->smsRegisterDTO->getMobileNumber(),
+            $event->smsRegisterDTO->getContent()
+        ]);
+
+        try {
             $sendMessageUrl = config('smsRegister.sendMessageUrl');
             $jsonToSend = $this->makeRequestBody($event);
             $this->sendNotification($jsonToSend, $sendMessageUrl);
             return;
-        }catch (\Exception $exception){
-            // TODO add log
+        } catch (\Exception $exception) {
+            $this->addLog('exception SmsRegisterEvent', [
+                $event->smsRegisterDTO->getMobileNumber(),
+                $event->smsRegisterDTO->getContent(),
+                $exception->getMessage()
+            ]);
         }
 
+    }
+
+    /**
+     * @param $title
+     * @param array $data
+     */
+    protected function addLog($title, $data = []): void
+    {
+        $temporalLog = new TemporalLogDTO();
+        $temporalLog->setLogTitle($title)
+            ->setLogData($data);
+        event(new TemporalLogEvent($temporalLog));
+        return;
     }
 
     /**
@@ -41,7 +65,7 @@ class SendSmsRegisterNotification
         $uid = (string)Str::uuid();
         $dateMessage = Carbon::now()->format('Y-m-d\TH:i:s.v\Z');
         $channelType = $event->smsRegisterDTO->getChannelType();
-        $sid = ($channelType == "Imi") ? config('smsRegister.ImiSid'): config('smsRegister.MtnSid');
+        $sid = ($channelType == "Imi") ? config('smsRegister.ImiSid') : config('smsRegister.MtnSid');
         $messageType = "Content";
         $mobileNumber = $event->smsRegisterDTO->getMobileNumber();
         $appId = config('smsRegister.appId');
@@ -87,10 +111,19 @@ class SendSmsRegisterNotification
                 "headers" => $headers,
                 "json"    => $jsonToSend
             ]);
-        if($response->getStatusCode()==Response::HTTP_OK){
+        if ($response->getStatusCode() == Response::HTTP_OK) {
+            $this->addLog('SmsRegisterEvent succeed', [
+                $response->getStatusCode(),
+                $jsonToSend,
+                $response->getBody()
+            ]);
             return;
-        }else{
-            // TODO add log
+        } else {
+            $this->addLog('curl fail SmsRegisterEvent', [
+                $response->getStatusCode(),
+                $jsonToSend,
+                $response->getBody()
+            ]);
         }
     }
 
