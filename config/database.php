@@ -65,7 +65,7 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'host' => explode(',',env('DB_HOST_MONGO', 'localhost')),
+            'host' => explode(',',env('DB_HOST_MONGO', '127.0.0.1')),
             'port' => env('DB_PORT_MONGO', '27017'),
             'database' => env('DB_DATABASE_MONGO'),
             'username' => env('DB_USERNAME_MONGO'),
