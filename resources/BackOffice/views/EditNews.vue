@@ -477,6 +477,7 @@
                     this.$refs['textEditor'].setContent( this.form.description );
                     if ( !!this.form.second_title )
                         this.$set(this, 'shouldBeShowSecondTitle', true);
+                    this.$set(this, 'shouldBeShowDatePicker', !this.form.is_published);
                 } catch (e) {}
             }
         },

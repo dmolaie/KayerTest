@@ -344,6 +344,7 @@
                 try {
                     this.$set(this, 'form', CopyOf(this.detail));
                     this.$refs['textEditor'].setContent( this.form.description );
+                    this.$set(this, 'shouldBeShowReleaseDatePicker', !this.form.is_published);
                 } catch (e) {}
             },
             onUpdateTextEditor( HTML ) {
