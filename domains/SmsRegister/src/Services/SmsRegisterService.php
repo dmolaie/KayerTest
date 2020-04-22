@@ -76,7 +76,7 @@ class SmsRegisterService
             $nationalAuthenticationDTO
                 ->setNationalCode($nationalCode)
                 ->setBirthDate($smsRegisterDTO->getBirthDate())
-                ->setMobileNumber($smsRegisterDTO->getBirthDate());
+                ->setMobileNumber($smsRegisterDTO->getMobileNumber());
             $userRegisterDTO = $this->nationalAuthenticationService->verify($nationalAuthenticationDTO);
             $userInfoDTO = $this->userService->register($userRegisterDTO);
             $smsRegisterDTO->setContent($this->makeMessageContent($userInfoDTO));
