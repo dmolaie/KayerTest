@@ -26,7 +26,8 @@ class UserReportRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'type' => 'array',
+            'type_client' => 'bool|required_if:type_legate,==,'.null,
+            'type_legate' => 'bool|required_if:type_client,==,'.null,
             'register_from_client' => 'string',
             'register_end_client' => 'string',
             'status_client' => 'string',
@@ -50,12 +51,13 @@ class UserReportRequest extends EhdaBaseRequest
     {
         $userRegisterReportDTO = new UsersRegisterReportDTO();
         $userRegisterReportDTO->setRegisterFromClient($this->register_from_client ? Carbon::createFromTimestamp($this->register_from_client) : '')
-            ->setRegisterEndClient($this->register_end_client ? Carbon::createFromTimestamp($this->register_end_client ) :'')
-            ->setRegisterFromLegate($this->register_from_legate ? Carbon::createFromTimestamp($this->register_from_legate ): '')
-            ->setRegisterEndLegate($this->register_end_legate ? Carbon::createFromTimestamp($this->register_end_legate ) : '')
+            ->setRegisterEndClient($this->register_end_client ? Carbon::createFromTimestamp($this->register_end_client) : '')
+            ->setRegisterFromLegate($this->register_from_legate ? Carbon::createFromTimestamp($this->register_from_legate) : '')
+            ->setRegisterEndLegate($this->register_end_legate ? Carbon::createFromTimestamp($this->register_end_legate) : '')
             ->setStatusClient($this->status_client ? $this->status_client : '')
             ->setStatusLegate($this->status_legate ? $this->status_legate : '')
-            ->setType($this->type ? $this->type : array())
+            ->setTypeClient($this->type_client ? $this->type_client : false)
+            ->setTypeLegate($this->type_legate ? $this->type_legate : false)
             ->setSort('DESC')
             ->setPaginate('10');
         return $userRegisterReportDTO;

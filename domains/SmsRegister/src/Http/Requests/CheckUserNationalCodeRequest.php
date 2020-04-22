@@ -31,18 +31,17 @@ class CheckUserNationalCodeRequest extends FormRequest
      */
     public function rules()
     {
-
-        if (!empty($this['Content']) && strlen($this['Content']) == 10) {
+        if (!empty($this[0]['Content']) && strlen($this[0]['Content']) == 10) {
             $this->firstStep = true;
             return [
-                'Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
-                'UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
+                '0.Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
+                '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
 
         return [
-            'Content'         => 'required|numeric|digits:8|min:10000000',
-            'UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
+            '0.Content'         => ['required', 'digits:8', 'numeric','min:10000000', new BirthDateRequest],
+            '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
         ];
     }
 
@@ -51,18 +50,18 @@ class CheckUserNationalCodeRequest extends FormRequest
         if ($this->firstStep) {
 
             return [
-                'Content.required'         => (trans('smsRegister::response.validation.national_code_required')),
-                'Content.unique'           => (trans('smsRegister::response.validation.national_code_unique')),
-                'Content.*'                => (trans('smsRegister::response.validation.national_code_all')),
-                'UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
-                'UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
+                '0.Content.required'         => (trans('smsRegister::response.validation.national_code_required')),
+                '0.Content.unique'           => (trans('smsRegister::response.validation.national_code_unique')),
+                '0.Content.*'                => (trans('smsRegister::response.validation.national_code_all')),
+                '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
+                '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
             ];
         }
         return [
-            'Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
-            'Content.*'                => (trans('smsRegister::response.validation.birth_date_all')),
-            'UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
-            'UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
+            '0.Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
+            '0.Content.*'                => (trans('smsRegister::response.validation.incorrect_data_format')),
+            '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
+            '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
         ];
     }
 
@@ -75,14 +74,14 @@ class CheckUserNationalCodeRequest extends FormRequest
     {
         $smsRegisterDTO = new SmsRegisterDTO();
         $smsRegisterDTO
-            ->setMobileNumber($this['UserPhoneNumber'])
-            ->setChannelType($this["ChannelType"]?? '‫‪Imi‬‬');
+            ->setMobileNumber($this[0]['UserPhoneNumber'])
+            ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');
         if ($this->firstStep) {
-            $smsRegisterDTO->setNationalCode($this['Content'])
+            $smsRegisterDTO->setNationalCode($this[0]['Content'])
                 ->setFirstRequestContent($this->all());
             return $smsRegisterDTO;
         }
-        $date = $this->convertDate($this['Content']);
+        $date = $this->convertDate($this[0]['Content']);
         $smsRegisterDTO->setBirthDate($date)
             ->setSecondRequestContent($this->all());
         return $smsRegisterDTO;
@@ -97,7 +96,6 @@ class CheckUserNationalCodeRequest extends FormRequest
         $month = $monthDay[0];
         $day = $monthDay[1];
         return (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
-
     }
 
     protected function failedValidation(Validator $validator)
@@ -106,10 +104,8 @@ class CheckUserNationalCodeRequest extends FormRequest
 
         $response = response()->json([
             'data'        => [],
-            'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
-            'message'     => trans('config.request_validation_invalid'),
-            'errors'      => $validator->errors()
-        ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            'status_code' => Response::HTTP_OK
+        ], Response::HTTP_OK);
 
         throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
@@ -119,16 +115,16 @@ class CheckUserNationalCodeRequest extends FormRequest
      */
     protected function sendMessageToUser(Validator $validator): void
     {
-        if (isset($this['UserPhoneNumber'])) {
+        if (isset($this[0]['UserPhoneNumber'])) {
 
             $smsRegister = new SmsRegisterDTO();
-            $smsRegister->setMobileNumber($this['UserPhoneNumber'])
+            $smsRegister->setMobileNumber($this[0]['UserPhoneNumber'])
                 ->setContent(
                     implode(',', array_column(
                         array_values($validator->errors()->messages()),
                         '0'
                     )))
-                ->setChannelType($this["ChannelType"] ?? '‫‪Imi‬‬');;
+                ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');;
             event(new SmsRegisterEvent($smsRegister));
         }
         return;

@@ -26,11 +26,11 @@ class ProvinceTableSeeder extends Seeder
                 "name" => 'اردبیل',
             ],
             [
-                "slug" => 'Azerbaijan East',
+                "slug" => 'Azerbaijan-East',
                 "name" => 'آذربایجان شرقی',
             ],
             [
-                "slug" => 'Azerbaijan West',
+                "slug" => 'Azerbaijan-West',
                 "name" => 'آذربایجان غربی',
             ],
             [
@@ -38,7 +38,7 @@ class ProvinceTableSeeder extends Seeder
                 "name" => 'بوشهر',
             ],
             [
-                "slug" => 'Chahar Mahaal and Bakhtiari',
+                "slug" => 'Chaharmahaal-and-Bakhtiari',
                 "name" => 'چهارمحال و بختیاری',
             ],
             [
@@ -78,15 +78,15 @@ class ProvinceTableSeeder extends Seeder
                 "name" => 'کرمانشاه',
             ],
             [
-                "slug" => 'Khorasan North',
+                "slug" => 'Khorasan-North',
                 "name" => 'خراسان شمالی',
             ],
             [
-                "slug" => 'Khorasan Razavi',
+                "slug" => 'Khorasan-Razavi',
                 "name" => 'خراسان رضوی',
             ],
             [
-                "slug" => 'Khorasan South',
+                "slug" => 'Khorasan-South',
                 "name" => 'خراسان شمالی',
             ],
             [
@@ -94,7 +94,7 @@ class ProvinceTableSeeder extends Seeder
                 "name" => 'خوزستان',
             ],
             [
-                "slug" => 'Kohgiluyeh and Boyer-Ahmad',
+                "slug" => 'Kohgiluyeh-and-Boyer-Ahmad',
                 "name" => 'کهگیلویه و بویراحمد',
             ],
             [
@@ -126,7 +126,7 @@ class ProvinceTableSeeder extends Seeder
                 "name" => 'سمنان',
             ],
             [
-                "slug" => 'Sistan and Baluchestan',
+                "slug" => 'Sistan-and-Baluchestan',
                 "name" => 'سیستان و بلوچستان',
             ],
             [

@@ -4,7 +4,9 @@ namespace Domains\SmsRegister;
 
 
 use Domains\SmsRegister\Events\SmsRegisterEvent;
+use Domains\SmsRegister\Events\TemporalLogEvent;
 use Domains\SmsRegister\Listeners\SendSmsRegisterNotification;
+use Domains\SmsRegister\Listeners\TemporalLogListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -17,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         SmsRegisterEvent::class => [
             SendSmsRegisterNotification::class
+        ],
+        TemporalLogEvent::class=>[
+            TemporalLogListener::class
         ]
     ];
 

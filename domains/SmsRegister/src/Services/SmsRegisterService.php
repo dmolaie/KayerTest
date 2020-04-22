@@ -7,8 +7,10 @@ namespace Domains\SmsRegister\Services;
 use Domains\NationalAuthentication\Services\Contracts\DTOs\NationalAuthenticationRequestDTO;
 use Domains\NationalAuthentication\Services\NationalAuthenticationService;
 use Domains\SmsRegister\Events\SmsRegisterEvent;
+use Domains\SmsRegister\Events\TemporalLogEvent;
 use Domains\SmsRegister\Repositories\SmsRegisterRepository;
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\SmsRegister\Services\Contracts\DTOs\TemporalLogDTO;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\UserService;
@@ -74,7 +76,7 @@ class SmsRegisterService
             $nationalAuthenticationDTO
                 ->setNationalCode($nationalCode)
                 ->setBirthDate($smsRegisterDTO->getBirthDate())
-                ->setMobileNumber($smsRegisterDTO->getBirthDate());
+                ->setMobileNumber($smsRegisterDTO->getMobileNumber());
             $userRegisterDTO = $this->nationalAuthenticationService->verify($nationalAuthenticationDTO);
             $userInfoDTO = $this->userService->register($userRegisterDTO);
             $smsRegisterDTO->setContent($this->makeMessageContent($userInfoDTO));
@@ -90,7 +92,17 @@ class SmsRegisterService
             );
             event(new SmsRegisterEvent($smsRegisterDTO));
         } catch (\Exception $exception) {
-            // TODO add log
+
+            $temporalLog = new TemporalLogDTO();
+            $temporalLog->setLogTitle('register user by sms failed')
+                ->setLogData([
+                    'content'              => $smsRegisterDTO->getContent(),
+                    'mobile'               => $smsRegisterDTO->getMobileNumber(),
+                    'secondRequestContent' => $smsRegisterDTO->getSecondRequestContent(),
+                    'message'              => $exception->getMessage()
+                ]);
+            event(new TemporalLogEvent($temporalLog));
+
         }
         return;
     }

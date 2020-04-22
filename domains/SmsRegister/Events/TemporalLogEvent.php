@@ -2,27 +2,27 @@
 
 namespace Domains\SmsRegister\Events;
 
-use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\SmsRegister\Services\Contracts\DTOs\TemporalLogDTO;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SmsRegisterEvent
+class TemporalLogEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
-     * @var SmsRegisterDTO
+     * @var TemporalLogDTO
      */
-    public $smsRegisterDTO;
+    public $temporalLogDto;
 
     /**
      * Create a new event instance.
-     *
-     * @param SmsRegisterDTO $smsRegisterDTO
+     * @param TemporalLogDTO $temporalLogDto
      */
-    public function __construct(SmsRegisterDTO $smsRegisterDTO)
+    public function __construct(TemporalLogDTO $temporalLogDto)
     {
-        $this->smsRegisterDTO = $smsRegisterDTO;
+
+        $this->temporalLogDto = $temporalLogDto;
     }
 
 }
