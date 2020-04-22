@@ -218,19 +218,18 @@ class UserRepository
     public function getUserReport($type, $sort, $status, $registerFrom, $registerEnd, $paginate)
     {
         return $this->entityName
-            ::whereHas('roles', function ($query) use ($type) {
-                $query->when(!empty($type), function ($query) use ($type) {
+            ::whereHas('roles', function ($query) use ($type,$status) {
+                $query->when(!empty($type), function ($query) use ($type,$status) {
                     $query->where('type', '=', $type);
-                })->where('status', '=', config('user.user_role_active_status'));
+                })->when($status, function ($query) use ($status) {
+                    return $query->where('status', '=', $status);
+                });
             })
             ->when($registerFrom, function ($query) use ($registerFrom) {
                 return $query->where('created_at', '<=', $registerFrom);
             })
             ->when($registerEnd, function ($query) use ($registerEnd) {
                 return $query->where('created_at', '>=', $registerEnd);
-            })
-            ->when($status, function ($query) use ($status) {
-                return $query->where('is_active', '=', $status);
             });
     }
 }
