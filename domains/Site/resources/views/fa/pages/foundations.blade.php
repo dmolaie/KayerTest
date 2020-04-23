@@ -8,7 +8,7 @@
                     </span>
                 </h1>
                 <div class="inner-box inner-box--white text-right">
-                    <div class="fou-page__tab w-full flex items-stretch justify-between sm:flex-wrap">
+                    <div class="fou-page__tab w-full flex items-stretch justify-between xl:justify-around sm:flex-wrap">
                         <button class="fou-page__tab_item fou-page__tab_item--volunteers text-white font-bold w-1/5 xl:w-1/6 sm:font-base"
                                 data-tab="volunteers" role="tab"
                         >
@@ -95,7 +95,7 @@
                                         بیشتر
                                     </a>
                                 </p>
-                                <div class="fou-page__volunteers__list flex flex-wrap items-start justify-between">
+                                <div class="fou-page__volunteers__list flex flex-wrap items-start justify-between xl:justify-around">
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
@@ -183,90 +183,1426 @@
                                 <p class="i-page__sub-title text-blue-800 font-20 font-bold m-b-17">
                                     حامیان :
                                 </p>
-                                <p class="text-blue-800 font-lg font-bold">
-                                    سازمانها و نهادها
+                                <p class="text-blue-800 font-lg font-bold m-b-5">
+                                    الف – سازمان‌ها و نهادها
+                                </p>
+                                <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm text-justify sm:font-base">
+                                    همانگونه که اعضای هیئت موسس، هیئت امنا و هیئت مدیره انجمن اهدای عضو ایرانیان بدون هیچگونه چشمداشت، با صرف انرژی، اعتبار و با تلاش بی‌شائبه خود مجدانه انجمن را در مسیر اهداف مقدس خود پیش برده‌اند، سازمان‌ها، نهادها و افراد زیادی با همراهی مادی و معنوی خود باعث عملی شدن این اهداف گردیده‌اند. در واقع می‌توان گفت که همه اقدامات موثر انجمن در ارتقای اهدای عضو کشور ماحصل همت جمعی همه این افراد، سازمان‌ها و ارگان‌ها و در کل ملت شریف ایران بوده و خواهد بود. از جمله سازمان‌ها و نهادهای همراه این انجمن می‌توان به موارد زیر اشاره کرد:
                                 </p>
                                 <div class="fou-page__sponsors">
-                                    <a href=""
-                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
-                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
+                                    <a href="https://www.bpi.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="https://ehda.center/uploads/default/image/1528646951_6mO5ZpmzwWGuxDZeHqChta2YbkKeNl_original.jpg"
-                                                 alt=""
-                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
+                                                 data-src="{{ asset('/images/sponsors/bpi.ir.jpg') }}"
+                                                 alt="بانک پاسارگاد"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
                                         </figure>
-                                        <div class="i-cart__details flex-1">
+                                        <div class="i-cart__details flex-1 sm:p-0">
                                             <p class="i-cart__title w-full text-blue-800 font-xs-bold">
                                                 بانک پاسارگاد
                                             </p>
                                             <p class="i-cart__caption w-full font-xs-medium text-justify">
-                                                در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد
+                                                حمایت‌های بی‌دریغ بانک پاسارگاد و به طور ویژه جناب آقای دکتر قاسمی مدیرعامل محترم این بانک از جمله: الف. در اختیار گذاردن محل موقت انجمن در دانشگاه خاتم - ب. در اختیار کذاشتن محل دائمی انجمن واقع در خیابان ولیعصر - ج. بازسازی و تجهیز ساختمان محل دائمی انجمن - د. کمک در برگزاری مراسم جشن نفس ۱۳۹۴ و ۱۳۹۵ - ه. چاپ کتاب آثار جشنواره تجسمی نفس – و تلاش در جهت تشکیل صندوق نیکوکاری برای انجمن اهدای عضو ایرانیان.
                                             </p>
                                         </div>
                                     </a>
-                                    <a href=""
-                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
-                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
+                                    <a href="http://www.behdasht.gov.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="https://ehda.center/uploads/default/image/1528809832_HtJwkv5rtncnEjMleIqJAoOuOiQvnm_original.jpg"
-                                                 alt=""
-                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
+                                                 data-src="{{ asset('/images/sponsors/behdasht.gov.jpg') }}"
+                                                 alt="وزارت بهداشت، درمان و آموزش پزشکی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
                                         </figure>
-                                        <div class="i-cart__details flex-1">
+                                        <div class="i-cart__details flex-1 sm:p-0">
                                             <p class="i-cart__title w-full text-blue-800 font-xs-bold">
-                                                بانک پاسارگاد
+                                                وزارت بهداشت، درمان و آموزش پزشکی
                                             </p>
                                             <p class="i-cart__caption w-full font-xs-medium text-justify">
-                                                پاسارگاد و به طور ویژه جناب آقای دکتر قاسمی مدیرعامل محترم این بانک: الف. در اختیار گذاردن محل موقت انجمن در دانشگاه خاتم - ب. در اختیار کذاشتن محل دائمی انجمن واقع در خیابان ولیعصر - ج. بازسازی و تجهیز ساختمان محل دائمی انجمن - د. کمک در برگزاری مراسم جشن نفس ۱۳۹۴ و ۱۳۹۵ - ه. چاپ کتاب اثار جشنواره تجسمی نفس - و. تشکیل صندوق نیکوکاری برای انجمن اهدای عضو ایرانیان
+                                                وزرای محترم بهداشت، معاونت‌های محترم وزارت بهداشت بالاخص معاونت اجتماعی، معاونت درمان، معاونت تحقیقات و فناوری، معاونت فناوری اطلاعات و همچنین روابط عمومی، حراست و دیگر بخش‌ها و معاونت‌های وزارت بهداشت همه ساله در مراسم‌ها، همایش‌ها و فعالیت‌های انجمن حامی و همراه همیشگی بودند.
                                             </p>
                                         </div>
                                     </a>
-                                    <a href=""
-                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
-                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
+                                    <a href="https://www.irib.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="https://ehda.center/uploads/default/image/1528646757_anNJoZflqD1aBDgdGg8hkwC11WZpXR_original.jpg"
-                                                 alt=""
-                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
+                                                 data-src="{{ asset('/images/sponsors/irib.ir.jpg') }}"
+                                                 alt="سازمان صدا و سیمای جمهوری اسلامی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
                                         </figure>
-                                        <div class="i-cart__details flex-1">
+                                        <div class="i-cart__details flex-1 sm:p-0">
                                             <p class="i-cart__title w-full text-blue-800 font-xs-bold">
-                                                اعطای جایزه MBE به یک پرستار  به دلیل تشویق اقلیت‌ها به اهدای اعضا
-                                                اعطای جایزه MBE به یک پرستار  به دلیل تشویق اقلیت‌ها به اهدای اعضا
-                                                اعطای جایزه MBE به یک پرستار  به دلیل تشویق اقلیت‌ها به اهدای اعضا
-                                                اعطای جایزه MBE به یک پرستار  به دلیل تشویق اقلیت‌ها به اهدای اعضا
-                                                اعطای جایزه MBE به یک پرستار  به دلیل تشویق اقلیت‌ها به اهدای اعضا
+                                                سازمان صدا و سیمای جمهوری اسلامی
                                             </p>
                                             <p class="i-cart__caption w-full font-xs-medium text-justify">
-                                                در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد
-                                                در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد
-                                                در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد
-                                                در راستای کمک به ارتقای اهدای عضو تعاملات زیادی بین انجمن با سازمانها، ارگانها و شرکت های مختلف به وقوع می پیوندد که در ذیل به پاره ای از آنها اشاره می گردد
+                                                صدا و سیمای جمهوری اسلامی ایران، سال هاست که صدا و سیمای جمهوری اسلامی ایران، فرهنگ سازی اهدای عضو را در اولویت امور تبلیغاتی خود در کشور، قرار داده است و با پخش رایگان  تیزر ، زیرنویس‌ ، پخش همه ساله خلاصه مراسم جشن نفس در تلویزیون، حمایت از تولید و پخش تله فیلمها و سریال ها، برنامه های مستند و مصاحبه محور و ... در ارتقای فرهنگ اهدای عضو ایران، مهم ترین نقش را ایفا نموده است.
                                             </p>
                                         </div>
                                     </a>
-                                    <a href=""
-                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow">
-                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton">
+                                    <a href="https://www.mporg.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="https://ehda.center/uploads/default/image/1530019067_aVAgH7EMzu5kmIrrUoxsxLy1n85maN_original.jpg"
-                                                 alt=""
-                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-cover"
+                                                 data-src="{{ asset('/images/sponsors/mporg.ir.jpg') }}"
+                                                 alt="سازمان برنامه و بودجه کشور"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
                                         </figure>
-                                        <div class="i-cart__details flex-1">
+                                        <div class="i-cart__details flex-1 sm:p-0">
                                             <p class="i-cart__title w-full text-blue-800 font-xs-bold">
-                                                بانک پاسارگاد
+                                                سازمان برنامه و بودجه کشور
                                             </p>
                                             <p class="i-cart__caption w-full font-xs-medium text-justify">
-                                                پاسارگاد و به طور ویژه جناب آقای دکتر قاسمی مدیرعامل محترم این بانک: الف. در اختیار گذاردن محل موقت انجمن در دانشگاه خاتم - ب. در اختیار کذاشتن محل دائمی انجمن واقع در خیابان ولیعصر - ج. بازسازی و تجهیز ساختمان محل دائمی انجمن - د. کمک در برگزاری مراسم جشن نفس ۱۳۹۴ و ۱۳۹۵ - ه. چاپ کتاب اثار جشنواره تجسمی نفس - و. تشکیل صندوق نیکوکاری برای انجمن اهدای عضو ایرانیان
+                                                یکی از حامیان اصلی نهادینه‌سازی فرهنگ اهدای عضو در کشور در طول سالیان گذشته، سازمان برنامه و بودجه بوده است که همواره با کمک به تامین هزینه‌ فعالیت‌های فرهنگی انجمن، مانند جشن نفس ، ضیافت نفس و ...  نقش به‌سزایی در آگاهی آحاد جامعه از این مقوله مهم نظام سلامت داشته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://fanap.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/fanap.ir.jpg') }}"
+                                                 alt="شرکت فناوری اطلاعات و ارتباطات پاسارگاد آریان (فناپ)"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت فناوری اطلاعات و ارتباطات پاسارگاد آریان (فناپ)
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                همراهی همیشگی در بخش‌های فنی و تخصصی IT، برندینگ، ارتباطات سازمانی با اپراتورهای تلفن همراه، طراحی و اجرای ربات فضای مجازی صدور کارت اهدای عضو.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://fanap.plus" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/fanap.plus.png') }}"
+                                                 alt="شرکت فناپ پلاس"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت فناپ پلاس
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                تدوین کتاب راهنمای برندینگ انجمن، طراحی ربات فضای مجازی ثبت نام کارت اهدای عضو، طراحی سامانه فرهنگی انجمن و کمک به فرایندهای مرتبط با برنامه‌نویسی سامانه‌ها و تدوین و اجرای کمپین‌ها.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://negah.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/negah.ir.jpg') }}"
+                                                 alt="آژانس تبلیغاتی نگاه شرقی سبز"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                آژانس تبلیغاتی نگاه شرقی سبز
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                شرکت نگاه شرقی سبز با مشاوره،  همراهی در اجرا و مستندسازی مراسم و رویدادهای انجمن و حتی کمک در تهیه و چاپ آثار فرهنگی، یار و یاور همیشگی انجمن بوده است. نکته مهم این است که تمام همراهی‌های بی‌دریغ و خالصانه این شرکت بدون هیچگونه چشم داشتی صورت گرفته و این شرکت یکی از موثرترین سازمان‌های همراه انجمن در مسیر سخت خود بوده است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://khatam.ac.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/khatam.ac.ir.png') }}"
+                                                 alt="دانشگاه خاتم"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                دانشگاه خاتم
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این دانشگاه که زیر مجموعه‌ای از بانک پاسارگاد است در طول سال‌های گذشته، یکی از بزرگترین حامیان انجمن اهدای عضو ایرانیان بوده است؛ در سال اول تأسیس انجمن، با در اختیار قرار دادن فضا و کلیه امکانات اداری و آموزشی، مکانی امن برای استقرار انجمن فراهم نمود و پس از آن با در اختیار قرار دادن سالن‌های اجتماعات با کلیه امکانات و حمایت بی‌نظیر، مأمنی شده است برای برگزاری مراسم مختلف انجمن اهدای عضو ایرانیان؛ به ویژه همایش‌های دوره‌ای سفیران.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.tehran.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/tehran.ir.jpg') }}"
+                                                 alt="شهرداری تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شهرداری تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                در اختیار قرار دادن رایگان و یا در نظر گرفتن تخفیف قابل توجه برای استفاده امکانات برج میلاد در برگزاری جشن نفس‎ها و حضور فعال شهرداران محترم تهران در مراسم جشن نفس، تخصیص بوستان نفس به منظور فعالیت‌های فرهنگی و مددکاری در حوزه اهدای عضو و همکاری خوب و پررنگ در برگزاری ضیافت نفس.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://ccia.tehran.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/ccia.tehran.jpg') }}"
+                                                 alt="مرکز ارتباطات و امور بین‌الملل شهرداری تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                مرکز ارتباطات و امور بین‌الملل شهرداری تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                مرکز ارتباطات و امور بین‌الملل شهرداری تهران با کمک در برگزاری ضیافت نفس در سال ۱۳۸۷ به مدت ده شب، کمک به تخصیص بوستان نفس به انجمن به منظور فعالیت‌های فرهنگی، کمک در برگزاری مراسم افتتاحیه بهره‌برداری از بوستان نفس و روز درختکاری و همچنین در برگزاری پویش شهر نفس، همراه موثر و فعال انجمن بوده‌اند به طوری که با همراهی این سازمان این حرکت‌های فرهنگی نمی‌توانست تا این حد باشکوه و موثر برگزار شود.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://farhangi.tehran.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/farhangi.tehran.jpg') }}"
+                                                 alt="معاونت امور اجتماعی و فرهنگی شهرداری تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                معاونت امور اجتماعی و فرهنگی شهرداری تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت اداره کل سلامت معاونت امور اجتماعی و فرهنگی شهرداری تهران از برگزاری جشن نفس‌ها.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.zibasazi.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/zibasazi.ir.jpg') }}"
+                                                 alt="سازمان زیباسازی شهر تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                سازمان زیباسازی شهر تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                عقد تفاهم‌نامه همکاری همه جانبه با انجمن اهدای عضو ایرانیان و در اختیار گذاردن فضاهای تبلیغاتی و طراحی و اجرای محتوای مرتبط با فرهنگ‌سازی اهدای عضو.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.farhangsara.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/farhangsara.ir.jpg') }}"
+                                                 alt="سازمان فرهنگی هنری شهرداری تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                سازمان فرهنگی هنری شهرداری تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                سازمان فرهنگی هنری شهرداری تهران طی تفاهم‌نامه‌ای با انجمن اهدای عضو ایرانیان، حامی معنوی فعالیت‌های فرهنگی و هنری اهدای عضو بوده و طی تفاهم‌نامه‌ای از طریق فرهنگسراهای تهران در برنامه‌های مختلف با این انجمن همکاری می‌نماید. از جمله این همکاری‌ها تخصیص رایگان سالن برای برگزاری نشست‌های ادبی نفس در فرهنگسراهای شفق (خانواده)، فردوس و نیاوران بوده است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://parks.tehran.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/parks.tehran.jpg') }}"
+                                                 alt="سازمان بوستان‌ها و فضای سبز شهر تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                سازمان بوستان‌ها و فضای سبز شهر تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                سازمان بوستان‌ها و فضای سبز تهران با تخصیص بوستان نفس به انجمن به منظور فعالیت‌های فرهنگی، کمک در برگزاری مراسم افتتاحیه بهره‌برداری از بوستان نفس و روز درختکاری و همچنین کمک در برگزاری ضیافت نفس به مدت ده شب در بوستان نفس، از مهمترین سازمان‌های همراه انجمن بوده است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://miladtower.tehran.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/miladtower.tehran.jpg') }}"
+                                                 alt="برج میلاد تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                برج میلاد تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                از همراهان همیشگی اهدای عضو کشور در ارتقای این فرهنگ مقدس، مسئولین برج میلاد تهران بوده‎اند که از سال ۱۳۹۴ با در اختیار گذاردن رایگان و یا در نظر گرفتن تخفیف قابل توجه برای تمام فضاهای مربوطه در راستای برگزاری مراسم جشن نفس، نقش به سزایی در نهادینه‌سازی این فرهنگ مهم داشته‌اند.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://metro.tehran.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/metro.tehran.png') }}"
+                                                 alt="شرکت بهره‌برداری قطار درون‌شهری تهران و حومه و فرهنگسرای مترو"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت بهره‌برداری قطار درون‌شهری تهران و حومه و فرهنگسرای مترو
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک به برگزاری شهر نفس ۱۳۹۸ با تخصیص فضای برپایی غرفه در چهار ایستگاه پرتردد مترو تهران، همکاری در برگزاری سه شب مراسم در شهر نفس ۱۳۹۸ در ایوان انتظار میدان ولیعصر
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://setad.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/setad.ir.jpg') }}"
+                                                 alt="ستاد اجرایی فرمان امام خمینی (ره)"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                ستاد اجرایی فرمان امام خمینی (ره)
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این ستاد با حمایت مالی در زمینه تامین هزینه‌های جشن نفس به صورتی بسیار موثر همراه انجمن بوده است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://aftabnetgroup.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/aftabnetgroup.com.jpg') }}"
+                                                 alt="شرکت تبلیغاتی آیینه آفتاب کیش"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت تبلیغاتی آیینه آفتاب کیش
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این شرکت از مشاورین فرهنگی هنری انجمن اهدای عضو ایرانیان می‌‎باشد و با در اختیار قرار دادن اتاق فکر مجموعه و هم چنین تولید رایگان محتوای فرهنگی اهدای عضو، نقش به سزایی در فرهنگسازی جامعه داشته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/dirin-dirin.jpg') }}"
+                                                 alt="شرکت نسل اندیشه سبز (دیرین دیرین)"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت نسل اندیشه سبز (دیرین دیرین)
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                مؤسسه دیرین دیرین با تخصیص رایگان حدود ۱۴ قسمت از مجموعه دیرین دیرین به اهدای عضو، نقش مؤثری در ارتقای فرهنگ اهدای عضو داشته است و مشاور فرهنگی هنری و سفیر همیشه همراه اهدای عضو کشور می‌باشد.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/s.d.jpg') }}"
+                                                 alt="استودیو دفتر"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                استودیو دفتر
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                یکی دیگر از حامیان همیشه همراه انجمن اهدای عضو ایرانیان و نامی آشنا در فرهنگسازی اهدای عضو به ویژه در مقوله طراحی و گرافیک، آقای مجید کاشانی است که هم از طریق طراحی پوستر و آثار گرافیکی، در کنار انجمن بوده‌اند و هم با اهدای عایدی حاصل از تولید یک فونت ویژه به انجمن، در زمره حامیان مالی قرار گرفتند.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://tashrifat-ghoreishi.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/tashrifat-ghoreishi.jpg') }}"
+                                                 alt="گروه غذایی قریشی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                گروه غذایی قریشی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                گروه غذایی قریشی حامی همیشه همراه انجمن اهدای عضو بوده است و با تهیه غذا و میان وعده خانواده‌های اهداکننده عضو، بیماران، تیم‌های درمانی، هنرمندان و مسئولین با تخفیف ویژه در مراسم جشن نفس و ضیافت نفس همواره در نهادینه‌سازی این فرهنگ مقدس حضور فعال داشته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://bmi.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/bmi.ir.jpg') }}"
+                                                 alt="بانک ملی ایران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بانک ملی ایران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                مشارکت در تامین هزینه‌های برگزاری جشن نفس سال  ۱۳۹۴
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.bsi.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/bsi.ir.jpg') }}"
+                                                 alt="بانک صادرات ایران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بانک صادرات ایران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت مالی در برگزاری جشن نفس ۱۳۹۶
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://iranartists.org" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/iranartists.org.jpg') }}"
+                                                 alt="خانه هنرمندان ایران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                خانه هنرمندان ایران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                خانه هنرمندان ایران پیرو مفاد تفاهم‌نامه منعقده با انجمن اهدای عضو ایرانیان با حمایت و در اختیار قرار دادن رایگان سالن‌ها و نگارخانه‌خانه هنرمندان ایران به منظور برگزاری نخستین جشنواره هنرهای تجسمی نفس، گالری آثار آن و شب شعر اهدای عضو (یادبود زنده‌یاد دکتر افشین یداللهی)، در کنار این انجمن حضور فعال داشته‌اند.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.mci.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/mci.ir.jpg') }}"
+                                                 alt="- شرکت ارتباطات سیار ایران - همراه اول"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت ارتباطات سیار ایران - همراه اول
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                ارسال رایگان پیامک‌های علمی و فرهنگی انجمن برای مشترکین همراه اول، ارائه رایگان سرشماره ۳۴۳۲ (فون واژه اهدا)، همکاری در طرح ثبت‌نام آسان کارت اهدای عضو با راه‌اندازی طرح ثبت‌نام کارت اهدای عضو از طریق پیامک و USSD برای مشترکین همراه اول.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://irancell.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/irancell.ir.jpg') }}"
+                                                 alt="شرکت ایرانسل"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت ایرانسل
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                ارسال رایگان پیامک‌های علمی و فرهنگی انجمن برای مشترکین ایرانسل، ارائه رایگان سرشماره ۳۴۳۲ (فون واژه اهدا)، همکاری در طرح ثبت‌نام آسان کارت اهدای عضو با راه‌اندازی طرح ثبت‌نام کارت اهدای عضو از طریق پیامک و USSD برای مشترکین ایرانسل.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.shatel.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/shatel.ir.jpg') }}"
+                                                 alt="گروه فناوری ارتباطات و اطلاعات شاتل"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                گروه فناوری ارتباطات و اطلاعات شاتل
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                از دیگر حامیانی که سالهاست داوطلبانه، دغدغه تأمین سرور برای سامانه‌های انجمن را برطرف نموده و بدون هرگونه چشمداشتی، همیشه در نهایت آرامش و بزرگواری در کنار انجمن بوده است، گروه فناوری ارتباطات و اطلاعات شاتل است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.asiatech.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/asiatech.ir.png') }}"
+                                                 alt="شرکت انتقال داده‌های آسیاتک"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت انتقال داده‌های آسیاتک
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                شرکت انتقال داده‌های آسیاتک با شعار "در برابر اجتماع مسئولیم" از طریق ارائه خدمات اینترنتی رایگان از جمله تخصیص سرور اختصاصی به انجمن اهدای عضو ایرانیان، نقش مؤثری در فرهنگ سازی اهدای عضو در کشور داشته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://tooska.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/tooska.ir.png') }}"
+                                                 alt="شرکت توسکا"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت توسکا
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                همکاری در راه‌اندازی طرح ثبت‌نام کارت اهدای عضو از طریق USSD برای مشترکین همراه اول از طریق تخصیص کد دستوری *3*3432#
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://shamimsoft.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/shamimsoft.ir.jpg') }}"
+                                                 alt="شرکت شمیم سافت"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت شمیم سافت
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                ساخت اپلیکشن آیروس
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.dayins.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/dayins.com.jpg') }}"
+                                                 alt="بیمه دی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بیمه دی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این شرکت بیمه‌گذار برای نخستین بار با طراحی بسته ی خدمات "جانبخش" (ویژه ی خانواده‌های ایثارگر اهداکننده اعضای پیوندی) و ارائه طرح بیمه تکمیلی درمان و حوادث به صورت رایگان قصد دارد در طول یک سال، با بیمه نمودن ۲۰ هزار نفر از اعضای درجه یک این خانواده‌ها، سهم به سزایی در حمایت از این فرایند معنوی داشته باشد که تاکنون برای حدود سه هزار نفر، این فرایند، اجرایی شده است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.insurancepasargad.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/insurancepasargad.com.jpg') }}"
+                                                 alt="بیمه پاسارگاد"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بیمه پاسارگاد
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                بیمه پاسارگاد از ضیافت نفس ۱۳۹۷ با ارائه رایگان بیمه مسئولیت و بیمه حوادث و آتش‌سوزی همایش و غرفه‌های بازارچه ضیافت به جمع حامیان انجمن پیوسته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.bimehasia.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/bimehasia.com.jpg') }}"
+                                                 alt="بیمه آسیا"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بیمه آسیا
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت از برگزاری ضیافت نفس ۱۳۹۷
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://snapp.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/snapp.ir.jpg') }}"
+                                                 alt="ایده گزین ارتباطات روماک (اسنپ)"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                ایده گزین ارتباطات روماک (اسنپ)
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت در برگزاری جشن نفس ۱۳۹۶ و ضیافت نفس ۱۳۹۷ با تامین رایگان خودروهای مورد نیاز
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/sghe.png') }}"
+                                                 alt="سازمان اقتصاد اسلامی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                سازمان اقتصاد اسلامی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                سازمان اقتصاد اسلامی از حامیان برجسته  اهدای عضو کشور می‌باشد که با کمک‌های مالی خود، نقش به سزایی در اجرای فعالیت‌های فرهنگی و نهادینه‌سازی این فرهنگ معنوی در جامعه داشته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.ghadyani.org" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/ghadyani.org.jpg') }}"
+                                                 alt="موسسه انتشارات قدیانی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                موسسه انتشارات قدیانی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                از جمله حامیانی است که نه تنها با کمک مالی در برگزاری مراسم فرهنگی مانند ضیافت نفس ۱۳۹۷، همراه ما در فرهنگسازی اهدای عضو بوده است، بلکه حامی و مددکار تعدادی از خانواده‌های ایثارگر اهداکننده نیز می‌باشد.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://tmoca.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/tmoca.com.jpg') }}"
+                                                 alt="موزه هنرهای معاصر تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                موزه هنرهای معاصر تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                موزه هنرهای معاصر تهران در برگزاری جشنواره هنرهای تجسمی نفس با این انجمن همکاری داشته و فعالیت‌های خوبی در ترویج هرچه بهتر فرهنگ مقدس اهدای عضو داشته است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://hearthotel.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/hearthotel.ir.jpg') }}"
+                                                 alt="هتل قلب تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                هتل قلب تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                اسکان رایگان خانواده‌های اهداکننده و پیوند شده برای مراسم مختلف انجمن اهدای عضو ایرانیان؛ مانند جشن نفس و ضیافت نفس و ...
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.behestandarou.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/behestandarou.com.png') }}"
+                                                 alt="شرکت بهستان دارو"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت بهستان دارو
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت مالی از طرح سامانه ثبت ملی اطلاعات فراهم‌آوری و پیوند اعضای کشور و حامی چندین نوبت برگزاری دوره آموزشی بین‌المللی TPM
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/sanofi.png') }}"
+                                                 alt="شرکت دارویی سانوفی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت دارویی سانوفی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت مالی از طرح سامانه ی ثبت ملی اطلاعات فراهم آوری و پیوند اعضای کشور
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/roche.png') }}"
+                                                 alt="شرکت دارویی رش پارس"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت دارویی رش پارس
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت مالی از طرح سامانه ثبت ملی اطلاعات فراهم‌آوری و پیوند اعضای کشور
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.novartis.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/novartis.com.jpg') }}"
+                                                 alt="شرکت دارویی نوارتیس"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت دارویی نوارتیس
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت مالی در برگزاری مراسم جشن نفس و دوره آموزشی بین‌المللی  TPM
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.vitanepharmed.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/vitanepharmed.com.jpg') }}"
+                                                 alt="شرکت دارویی ویتان فارمد"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت دارویی ویتان فارمد
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک در برگزاری مراسم جشن نفس و دوره آموزشی بین‌المللی  TPM
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.zahravi.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/zahravi.com.jpg') }}"
+                                                 alt="شرکت دارویی زهراوی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت دارویی زهراوی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک در برگزاری مراسم جشن نفس و دوره آموزشی بین‌المللی TPM
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/astellas.jpg') }}"
+                                                 alt="شرکت دارویی آستلاس"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت دارویی آستلاس
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک در برگزاری مراسم جشن نفس و دوره آموزشی بین‌المللی  TPM
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.fadaktrains.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/fadaktrains.com.jpg') }}"
+                                                 alt="شرکت قطارهای مسافربری فدک"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت قطارهای مسافربری فدک
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                همکاری و تامین بخشی از هزینه‌های سفر زیارتی خانواده‌های ایثارگر اهداکننده به مشهد مقدس (خانواده‌های منتخب در جشن نفس ۱۳۹۶)
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://chocologo.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/chocologo.ir.jpg') }}"
+                                                 alt="شرکت شوکولوگو"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت شوکولوگو
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                تامین شکلات با لوگوی انجمن جهت هدیه به هنرمندان و مسئولین در اعیاد، همایش‌ها و ...
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.sahlan.co" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/sahlan.co.jpg') }}"
+                                                 alt="گروه صنعتی سهلان"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                گروه صنعتی سهلان
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                در نظر گرفتن تخفیف قابل توجه برای برپایی غرفه و چادرهای مربوط به ثبت نام خانواده‌های اهداکننده، بیماران، خبرنگاران، صدور کارت اهدای عضو، غرفه انجمن‌های پیشگیری کننده از نیاز به پیوند در مراسم جشن نفس و ضیافت نفس
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.mums.ac.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/mums.ac.ir.jpg') }}"
+                                                 alt="دانشگاه علوم پزشکی مشهد"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                دانشگاه علوم پزشکی مشهد
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                همکاری در سفر زیارتی خانواده‌های ایثارگر اهداکننده (منتخب در جشن نفس ۱۳۹۵ و ۱۳۹۶)
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.tamin.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/tamin.ir.jpg') }}"
+                                                 alt="سازمان تامین اجتماعی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                سازمان تامین اجتماعی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                مشارکت در تامین هزینه‌های جشن نفس ۱۳۹۴
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.farbeyondidea.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/farbeyondidea.com.jpg') }}"
+                                                 alt="شرکت فار ورا ایده"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت فار ورا ایده
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این مجموعه از شرکت‌های فعال در عرصه تخصصی امنیت فناوری اطلاعات می‌باشد که با هدف ارائه خدمات تخصصی IT و مراکز ذخیره‌سازی اطلاعات (وب و دیتا سنتر) بنا نهاده شده و با ارائه لایسنس نرم‌افزار آنتی‌ویروس شرکت ESET و مشاوره فنی در زمینه‌های تخصصی IT از حامیان این انجمن می‌باشند.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://ostorehsazan.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/ostorehsazan.com.jpg') }}"
+                                                 alt="موسسه آموزشی اسطوره‌سازان"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                موسسه آموزشی اسطوره‌سازان
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این موسسه آموزشی ارائه‌دهنده خدمات آموزشی، روانشناسی و ... در سطح کشور، طی تفاهم‌نامه منعقد شده و به صورت داوطلبانه، خدمات مشاوره روانشناسی فردی و گروهی به خانواده‌های ایثارگر اهداکننده معرفی شده از سوی انجمن ارائه می‌نماید.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.ysp24.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/ysp24.ir.png') }}"
+                                                 alt="شرکت یلداسیستم"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                شرکت یلداسیستم
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این شرکت تجربه و توان فنی خود در زمینه سامانه آموزش آنلاین در اختیار این انجمن قرار داده است و با ارائه رایگان سامانه LMS به توسعه دوره‌های آموزشی اهدای عضو در کشور کمک نموده است.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://salamat-charity.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/salamat-charity.ir.jpg') }}"
+                                                 alt="مجمع خیرین سلامت"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                مجمع خیرین سلامت
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                حمایت مالی از فعالیت‌های انجمن اهدای عضو ایرانیان در راستای نهادینه‌سازی این فرهنگ مقدس در جامعه
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.emdad.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/emdad.ir.png') }}"
+                                                 alt="کمیته امداد امام خمینی (ره)"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                کمیته امداد امام خمینی (ره)
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                سازمان کمیته امداد پیرو مفاد تفاهم‌نامه منعقد شده با انجمن، خدمات ویژه‌ای را به خانواده‌های واجدالشرایط اهداکننده عضو معرفی شده از سوی انجمن، در سراسر کشور، ارائه می‌نماید.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.emamali-charity.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/emamali-charity.com.jpg') }}"
+                                                 alt="موسسه خیریه امام علی (ع) شهر ری"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                موسسه خیریه امام علی (ع) شهر ری
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                همکاری در مددکاری خانواده‌های نیازمند اهداکننده عضو؛ پیرو تفاهم‌نامه منعقد شده با انجمن
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://fatemehzahra.org" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/fatemehzahra.org.jpg') }}"
+                                                 alt="موسسه خیریه حضرت فاطمه زهرا (س)"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                موسسه خیریه حضرت فاطمه زهرا (س)
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این موسسه طی عقد تفاهم‌نامه‌ای جهت توان افزایی خانواده‌های ایتام معرفی شده از سوی انجمن، خدمات اجتماعی شامل جذب یاریگر، مشاوره در حوزه اشتغال، وام‌های قرض‌الحسنه و... را به مددجویان اعطا می‌نماید.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.uswr.ac.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/uswr.ac.ir.jpg') }}"
+                                                 alt="دانشگاه علوم بهزیستی و توانبخشی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                دانشگاه علوم بهزیستی و توانبخشی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                انعقاد تفاهم‌نامه در راستای هماهنگی، همکاری و همسویی در آشناسازی جامعه دانشگاهی با موضوع اهدای عضو، انجام پژوهش‌های دانشگاهی با موضوع اهدای عضو، کمک در آموزش عمومی و تخصصی، ارائه خدمات روانشناسی به خانواده‌های ایثارگر اهدا کننده عضو، بیماران لیست انتظار و گیرندگان اعضای پیوندی
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.childf.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/childf.com.png') }}"
+                                                 alt="بنیاد کودک"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بنیاد کودک
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                اعطای کمک هزینه تحصیلی به فرزندان تیزهوش خانواده‌های اهداکننده‌ای که ناتوان در تامین این هزینه هستند.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://www.iranms.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/iranms.ir.png') }}"
+                                                 alt="انجمن MS"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                انجمن MS
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                آموزش زنان بی‌سرپرست خانواده‌های اهداکننده در کارگاه خود اشتغالی چرم و میناکاری.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src=""
+                                                 alt="کلینیک دندانپزشکی دکتر حکیمی"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                کلینیک دندانپزشکی دکتر حکیمی
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                طی تفاهم‌نامه‌ای با انجمن، این کلینیک خدمات دندانپزشکی را با ارائه معرفی نامه از طرف انجمن به صورت ۲۰ الی ۳۰ درصد تخفیف از تعرفه‌های خدمات دندانپزشکی به خانواده‌های اهداکننده عضو ارائه می‌نماید.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src=""
+                                                 alt="درمانگاه فوق تخصصی جواد الائمه"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                درمانگاه فوق تخصصی جواد الائمه
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                تخصیص تخفیف ویژه در مورد خدمات پاراکلینیک و خدمات سرپایی برای خانواده‌های اهداکننده
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://basijasnaf.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/basijasnaf.ir.jpg') }}"
+                                                 alt="بسیج اصناف و بازاریان کشور"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بسیج اصناف و بازاریان کشور
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک در تهیه و ارسال وسایل اساسی (وسایل منزل) خانواده های اهداکننده، گیرنده و بیمار لیست انتظار پیوند عضو سیل زده ساکن استان‌های خوزستان، لرستان و غرب استان مرکزی در کمپین نبض دوبار‌ه
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://iccima.ir" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/iccima.ir.png') }}"
+                                                 alt="اتاق بازرگانی، صنایع، معادن و کشاورزی ایران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                اتاق بازرگانی، صنایع، معادن و کشاورزی ایران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک قابل توجه مالی به انجمن اهدای عضو ایرانیان در راستای انجام فعالیت‌های فرهنگی و مددکاری
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src=""
+                                                 alt="بازاریان بازار بزرگ تهران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بازاریان بازار بزرگ تهران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک در تهیه و ارسال وسایل اساسی (وسایل منزل) خانواده‌های اهداکننده، گیرنده و بیمار لیست انتظار پیوند عضو سیل زده ساکن استان‌های خوزستان، لرستان و غرب استان مرکزی در کمپین نبض دوبار‌ه
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="https://nidc.ir/fa-IR/DouranPortal/4989/page/%D8%A8%D8%B3%DB%8C%D8%AC" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/smh.png') }}"
+                                                 alt="بسیج شرکت حفاری ایران"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                بسیج شرکت حفاری ایران
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                کمک در تحویل وسایل اساسی (وسایل منزل) خانواده‌های اهداکننده، گیرنده و بیمار لیست انتظار پیوند عضو سیل زده ساکن استان خوزستان در کمپین نبض دوباره
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a href="http://jaamejamlab.com" target="_blank"
+                                       class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
+                                        <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
+                                            <img src=""
+                                                 data-src="{{ asset('/images/sponsors/jaamejamlab.com.jpg') }}"
+                                                 alt="آزمایشگاه پاتوبیولوژی جام جم"
+                                                 class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
+                                            />
+                                        </figure>
+                                        <div class="i-cart__details flex-1 sm:p-0">
+                                            <p class="i-cart__title w-full text-blue-800 font-xs-bold">
+                                                آزمایشگاه پاتوبیولوژی جام جم
+                                            </p>
+                                            <p class="i-cart__caption w-full font-xs-medium text-justify">
+                                                این آزمایشگاه پاتولوژی واقع در خیابان ولیعصر تهران و مجهز به دستگاه‌های پیشرفته آزمایشگاهی پذیرای خانواده‌های اهدا کننده عضو با تخفیف ویژه بوده است.
                                             </p>
                                         </div>
                                     </a>
                                 </div>
+                                <p class="text-blue-800 font-lg font-bold m-t-25 m-b-5">
+                                    ب - خیرین حقیقی
+                                </p>
+                                <p class="text-bayoux font-base font-medium cursor-default m-b-20 md:font-sm text-justify sm:font-base">
+                                    اسامی خیرینی که طی یک سال گذشته با کمک به خانواده‌های اهداکننده، واحد مددکاری انجمن اهدای عضو لیرانیان را همراهی نموده‌اند، به قرار زیر است:
+                                </p>
+                                <ul class="counter text-bayoux font-base font-medium sm:font-base cursor-default">
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای علا میرمحمد صادقی:
+                                        </span>
+                                        حمایت مستمر مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر ایرج فاضل:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر علی نوبخت:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر بهروز برومند:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر مسعود کنزی:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر مجتبی قدیانی:
+                                        </span>
+                                        حمایت مستمر مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای علی قیداری :
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای محمد ابوالحسنی:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای محمدحسین آقازمانی:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای حقیقی طلب:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر فریدون نوحی بزنجانی:
+                                        </span>
+                                        حمایت مالی و معنوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر سیف الله عبدی:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای محسن رفیق دوست:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر مجتبی کباری:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای سجاد میرزایی:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای احمد محمودیان:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای حسن نجفی:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر بصیری :
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم زهرا رفیعا:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر محمد عبده زاده:
+                                        </span>
+                                        حمایت مالی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای امیر حاجیعلی:
+                                        </span>
+                                        اعطای بسته حمایتی ارزاق و لوازم‌التحریر برای تعدادی از خانواده‌های اهداکننده
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای عباس براتی:
+                                        </span>
+                                        تحت پوشش قرار دادن خانواده اهداکننده به مدت ۶ ماه و پرداخت هزینه‌های توانمندسازی ایشان
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای محمدرضا براتی:
+                                        </span>
+                                        پرداخت هزینه‌های توانمندسازی یک خانواده اهداکننده برازجانی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم اعظم طالبی:
+                                        </span>
+                                        پرداخت هزینه‌های درمانی یک خانواده اهداکننده تهرانی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم هوشیار:
+                                        </span>
+                                        اعطای ۲ دستگاه اکسیژن‌ساز برای بیمار در انتظار ریه و خانواده اهداکننده دارای بیمار ریوی
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای رامین گبرلو:
+                                        </span>
+                                        پرداخت هزینه‌های درمان یک خانواده تهرانی و اعطای هدایا برای کودکان پیوند شده قلب
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم آزاده مقدم:
+                                        </span>
+                                        پرداخت هزینه‌های دارویی و ایاب و ذهاب یک بیمار در انتظار پیوند ساکن کنگاور
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم ناهید قدرتی:
+                                        </span>
+                                        پرداخت هزینه‌های درمانی تعدادی از خانواده‌های اهداکننده
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم شکوه طلوعی:
+                                        </span>
+                                        پرداخت هزینه‌های درمان و کمک در توانمندسازی تعدادی از خانواده‌های اهداکننده
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای دکتر مهدی آخوندی:
+                                        </span>
+                                        کمک در توانمندسازی تعدادی از خانواده‌های اهداکننده
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای سید حسین میرزاده واقفی:
+                                        </span>
+                                        کمک در توانمندسازی تعدادی از خانواده‌های اهداکننده
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            سرکار خانم آسیه مزینانی:
+                                        </span>
+                                        مدیر هنری خانه هنرمندان
+                                    </li>
+                                    <li class="fou-page__list counter-increment">
+                                        <span class="counter-item font-bold">
+                                            جناب آقای رجبی معمار:
+                                        </span>
+                                        مدیرعامل خانه هنرمندان
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="fou-page__content_item fou-page__content_item--members"
