@@ -17,9 +17,37 @@
                         />
                     </figure>
                     <div class="n-show__details relative flex flex-row flex-wrap items-end flex-1">
-                        <h1 class="n-show__title w-full text-blue-800 font-base cursor-default sm:font-sm">
+                        <h1 class="n-show__title w-full text-blue-800 font-base cursor-default sm:font-sm sm:m-b-10">
                             {{$content->getTitle()}}
                         </h1>
+                        <p class="w-full flex color-black font-sm font-medium cursor-default sm:flex-wrap m-b-10">
+                            <span class="font-bold m-l-8">
+                                تاریخ رویداد:
+                            </span>
+                            از
+                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventStartDate()),new \DateTimeZone('Asia/Tehran'))->format('%d %B')}}
+                            تا
+                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventEndDate()),new \DateTimeZone('Asia/Tehran'))->format('%d %B')}}
+                            <span class="m-r-auto">
+                                {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventStartDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i')}}
+                                -
+                                {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventEndDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i')}}
+                            </span>
+                        </p>
+                        <p class="w-full flex color-black font-sm font-medium cursor-default sm:flex-wrap m-b-auto">
+                            <span class="font-bold m-l-8">
+                                تاریخ ثبت‌نام:
+                            </span>
+                            از
+                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventStartRegisterDate()),new \DateTimeZone('Asia/Tehran'))->format('%d %B')}}
+                            تا
+                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventEndRegisterDate()),new \DateTimeZone('Asia/Tehran'))->format('%d %B')}}
+                            <span class="m-r-auto">
+                                {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventStartRegisterDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i')}}
+                                -
+                                {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getEventEndRegisterDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i')}}
+                            </span>
+                        </p>
                         <time class="n-show__release w-full block color-black text-left font-xs-bold cursor-default sm:font-1xs">
                             انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()))->format(' %d %B %Y')}}
                         </time>
