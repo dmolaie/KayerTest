@@ -31,21 +31,11 @@ export default class ManageReportService extends BaseService {
         } catch (e) {}
     }
 
-    async getAllUsersReport() {
-        try {
-            const REQUEST_PAYLOAD = this.requestPayload;
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ALL_USERS_REPORT), REQUEST_PAYLOAD);
-            return new UserReportPresenter( response.data )
-        } catch ( exception ) {
-            throw exception;
-        }
-    }
-
-    get requestPayload() {
+    get getAllUsersRequestPayload() {
         try {
             let { clientUser, legateUser } = this.$vm;
             const PAYLOAD = {},
-                  TYPE = [];
+                TYPE = [];
             if ( clientUser.checked ) {
                 TYPE.push('client');
                 if ( !!clientUser.start_date ) PAYLOAD['register_from_client'] = `${clientUser.start_date}`;
@@ -59,6 +49,37 @@ export default class ManageReportService extends BaseService {
                 if ( !!legateUser.status ) PAYLOAD['status_legate'] = `${legateUser.status}`;
             }
             PAYLOAD['type'] = TYPE;
+            return PAYLOAD
+        } catch ( exception ) { throw exception; }
+    }
+
+    async getAllUsersReport() {
+        try {
+            const REQUEST_PAYLOAD = this.getAllUsersRequestPayload;
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ALL_USERS_REPORT), REQUEST_PAYLOAD);
+            return new UserReportPresenter( response.data )
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
+    get requestPayload() {
+        try {
+            let { clientUser, legateUser } = this.$vm;
+            const PAYLOAD = {};
+
+            PAYLOAD['type_client'] = clientUser.checked;
+            if ( PAYLOAD['type_client'] ) {
+                if ( !!clientUser.start_date ) PAYLOAD['register_from_client'] = `${clientUser.start_date}`;
+                if ( !!clientUser.end_date ) PAYLOAD['register_end_client'] = `${clientUser.end_date}`;
+                if ( !!clientUser.status ) PAYLOAD['status_client'] = `${clientUser.status}`;
+            }
+            PAYLOAD['type_legate'] = legateUser.checked;
+            if ( PAYLOAD['type_legate'] ) {
+                if ( !!legateUser.start_date ) PAYLOAD['register_from_legate'] = `${legateUser.start_date}`;
+                if ( !!legateUser.end_date ) PAYLOAD['register_end_legate'] = `${legateUser.end_date}`;
+                if ( !!legateUser.status ) PAYLOAD['status_legate'] = `${legateUser.status}`;
+            }
             return PAYLOAD
         } catch ( exception ) { throw exception; }
     }
