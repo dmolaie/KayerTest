@@ -9,7 +9,6 @@ import Routes from "./services/routes";
 import App from '@views/App.vue';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import General from '@vendor/plugin/general';
-import Progress from '@vendor/components/progress';
 import Breadcrumb from '@vendor/components/breadcrumb';
 import Notification from '@vendor/components/notification';
 
@@ -19,7 +18,6 @@ Vue.config.productionTip = false;
 // Vue.use( Vuex );
 Vue.use( General );
 Vue.use( CKEditor );
-Vue.use( Progress );
 Vue.use( VueRouter );
 Vue.use( Breadcrumb );
 Vue.use( VueNestable );
