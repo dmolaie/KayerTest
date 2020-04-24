@@ -16,7 +16,7 @@ export class UploadAdapter {
                     HTTPService.uploadRequest( Endpoint.get( Endpoint.UPLOAD_IMAGES_ITEM ), REQUEST_PAYLOAD)
                         .then(response => {
                             resolve({
-                                default: response.data[0].path
+                                default: `/${response.data[0].path}`
                             })
                         })
                         .catch(exception => reject(ExceptionService._GetErrorMessage( exception )));
