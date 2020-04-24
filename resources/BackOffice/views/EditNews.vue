@@ -6,9 +6,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                               :class="{
-                                    'direction-ltr': ( currentLang === 'en' )
-                               }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="عنوان را اینجا وارد کنید"
                                v-model="form.first_title"
                         />
@@ -23,17 +21,16 @@
                         >
                             <input type="text"
                                    class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                   :class="{
-                                        'direction-ltr': ( currentLang === 'en' )
-                                   }"
+                                   :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                    placeholder="عنوان دوم را اینجا وارد کنید"
                                    v-model="form.second_title"
                             />
                         </label>
                     </transition>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        <text-editor-cm @onUpdate="onUpdateTextEditor"
-                                        ref="textEditor"
+                        <text-editor-cm v-model="form.description"
+                                        :lang="currentLang"
+                                        :key="'text-editor' + textEditorKey"
                         />
                     </div>
                     <div class="c-news__abstract w-full">
@@ -42,9 +39,7 @@
                         </p>
                         <label class="w-full block">
                             <textarea class="textarea textarea--white w-full block border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                      :class="{
-                                           'direction-ltr': ( currentLang === 'en' )
-                                      }"
+                                      :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                       v-model="form.abstract"
                             > </textarea>
                         </label>
@@ -180,9 +175,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
-                               :class="{
-                                   'direction-ltr': ( currentLang === 'en' )
-                               }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="نامک را اینجا وارد کنید"
                                v-model="form.slug"
                         />
@@ -200,7 +193,7 @@
                                    placeholder="دامنه مورد نظر خود را انتخاب کنید"
                                    @onChange="onUpdateDomainsField"
                                    :value="form.province_name || ''"
-                                   label="name"
+                                   label="name" ref="provinces"
                         />
                     </div>
                     <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
@@ -223,7 +216,7 @@
     } from 'vuex';
     import IconCm from '@components/Icon.vue';
     import EditNewsService from '@services/service/EditNews';
-    import TextEditorCm from '@components/TextEditor.vue';
+    import TextEditorCm from '@vendor/components/textEditor/Index.vue';
     import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
@@ -233,7 +226,7 @@
     import CategoryCm from '@components/Category.vue';
     import DatePickerCm from '@components/DatePicker.vue';
     import {
-        CopyOf, toEnglishDigits, Length, HasLength
+        CopyOf, HasLength
     } from "@vendor/plugin/helper";
     import {
         IS_ADMIN
@@ -278,6 +271,7 @@
             shouldBeShowSecondTitle: false,
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: true,
+            textEditorKey: 0,
         }),
         components: {
             IconCm,
@@ -337,9 +331,6 @@
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
-            },
-            onUpdateTextEditor( HTML ) {
-                this.$set(this.form, 'description', HTML);
             },
             onClickSecondImageButton() {
                 this.$refs['secondImageFiled']?.openFileDialog();
@@ -474,10 +465,11 @@
             setDataIntoForm() {
                 try {
                     this.$set(this, 'form', CopyOf(this.detail));
-                    this.$refs['textEditor'].setContent( this.form.description );
-                    if ( !!this.form.second_title )
-                        this.$set(this, 'shouldBeShowSecondTitle', true);
+                    if ( !!this.form.second_title ) this.$set(this, 'shouldBeShowSecondTitle', true);
                     this.$set(this, 'shouldBeShowDatePicker', !this.form.is_published);
+                    this.$nextTick(() => {
+                        this.$set(this, 'textEditorKey', this.textEditorKey + 1);
+                    })
                 } catch (e) {}
             }
         },

@@ -6,9 +6,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                               :class="{
-                                    'direction-ltr': ( currentLang === 'en' )
-                               }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="عنوان را اینجا وارد کنید"
                                v-model="form.first_title"
                         />
@@ -23,20 +21,17 @@
                         >
                             <input type="text"
                                    class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                   :class="{
-                                        'direction-ltr': ( currentLang === 'en' )
-                                   }"
+                                   :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                    placeholder="عنوان دوم را اینجا وارد کنید"
                                    v-model="form.second_title"
                             />
                         </label>
                     </transition>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        <text-cm v-model="form.description"
+                        <text-editor-cm v-model="form.description"
+                                        :lang="currentLang"
+                                        :key="'text-editor' + textEditorKey"
                         />
-<!--                        <text-editor-cm @onUpdate="onUpdateTextEditor"-->
-<!--                                        ref="textEditor"-->
-<!--                        />-->
                     </div>
                     <div class="c-news__abstract w-full">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
@@ -44,9 +39,7 @@
                         </p>
                         <label class="w-full block">
                             <textarea class="textarea textarea--white w-full block border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                      :class="{
-                                           'direction-ltr': ( currentLang === 'en' )
-                                      }"
+                                      :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                       v-model="form.abstract"
                             > </textarea>
                         </label>
@@ -123,10 +116,9 @@
                         زمان انتشار
                     </p>
                     <date-picker-cm type="datetime"
-                                    displayFormat="jYYYY/jMM/jDD HH:mm"
-                                    format="jYYYY/jMM/jDD HH:mm"
-                                    :min="DatePickerMinValue"
-                                    @onChange="onChangePublishDateField"
+                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                    :min="minValuePublishDate" :value="minValuePublishDate"
+                                    @onChange="onChangePublishDateField" :key="'startDate' + datePickerKey"
                                     placeholder="زمان انتشار را انتخاب کنید"
                     />
                 </div>
@@ -155,9 +147,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
-                               :class="{
-                                   'direction-ltr': ( currentLang === 'en' )
-                               }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="نامک را اینجا وارد کنید"
                                v-model="form.slug"
                         />
@@ -175,7 +165,7 @@
                                    placeholder="دامنه مورد نظر خود را انتخاب کنید"
                                    @onChange="onChangeDomainsField"
                                    :value="defaultProvinces.name || ''"
-                                   label="name"
+                                   label="name" ref="provinces"
                         />
                     </div>
                     <p class="panel__title font-sm font-bold text-bayoux cursor-default m-0">
@@ -196,9 +186,12 @@
     import {
         mapGetters, mapState
     } from 'vuex';
+    import {
+        Length, toEnglishDigits, HasLength
+    } from "@vendor/plugin/helper";
+    import { IS_ADMIN } from '@services/store/Login';
     import IconCm from '@components/Icon.vue';
     import CreateNewsService from '@services/service/CreateNews';
-    import TextEditorCm from '@components/TextEditor.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
@@ -207,13 +200,7 @@
     import DatePickerCm from '@components/DatePicker.vue';
     import CategoryCm from '@components/Category.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
-    import TextCm from '@vendor/components/textEditor/Index.vue';
-    import {
-        Length, toEnglishDigits, HasLength
-    } from "@vendor/plugin/helper";
-    import {
-        IS_ADMIN
-    } from '@services/store/Login';
+    import TextEditorCm from '@vendor/components/textEditor/Index.vue';
 
     let Service = null;
 
@@ -251,8 +238,8 @@
             shouldBeShowDatePicker: false,
             shouldBeShowLoading: false,
             isModuleRegistered: false,
-            disabledEnLang: false,
-            disabledFaLang: false,
+            textEditorKey: 0,
+            datePickerKey: 0
         }),
         components: {
             IconCm,
@@ -263,7 +250,7 @@
             TextEditorCm,
             DatePickerCm,
             CategoryCm,
-            SelectCm, TextCm
+            SelectCm
         },
         computed: {
             ...mapGetters({
@@ -277,20 +264,9 @@
             /**
              * @return {number | string}
              */
-            DatePickerMinValue() {
-                try {
-                    const DATE = new Date(),
-                        LOCALE_DATE = DATE.toLocaleString('fa');
-                    return (
-                        toEnglishDigits(
-                            LOCALE_DATE
-                                .replace('،', ' ')
-                                .slice(0, Length( LOCALE_DATE ) - 3)
-                        )
-                    )
-                } catch (e) {
-                    return ''
-                }
+            minValuePublishDate() {
+                const NOW_TIMESTAMP = new Date().getTime();
+                return NOW_TIMESTAMP.toString()
             },
             currentLang() {
                 return this.$route.params.lang
@@ -312,16 +288,17 @@
                 Object.assign(this.form, GET_INITIAL_FORM.apply( this ));
                 Object.assign(this.images.main, GET_INITIAL_IMAGE.apply( this ));
                 Object.assign(this.images.second, GET_INITIAL_IMAGE.apply( this ));
-                this.$refs['textEditor']?.clearContent();
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
                 this.$refs['categoryCm']?.reset();
+                this.$set(this, 'datePickerKey', this.datePickerKey + 1);
+                this.$refs['provinces']?.resetValue();
+                this.$nextTick(() => {
+                    this.$set(this, 'textEditorKey', this.textEditorKey + 1);
+                })
             },
             onClickToggleSecondTitleButton() {
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
-            },
-            onUpdateTextEditor( HTML ) {
-                this.$set(this.form, 'description', HTML);
             },
             onClickSecondImageButton() {
                 this.$refs['secondImageFiled']?.openFileDialog();
@@ -400,11 +377,9 @@
             },
             setDataFromParamsRouter() {
                 let {
-                    onlyEnLang, onlyFaLang, parent_id
+                    parent_id
                 } = this.$route.params;
                 this.$set(this.form, 'parent_id', parent_id || "");
-                this.$set(this, 'disabledEnLang', !!onlyFaLang);
-                this.$set(this, 'disabledFaLang', !!onlyEnLang);
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);

@@ -34,13 +34,14 @@ module.exports = {
         },
         extensions: ["*", ".js", ".vue", ".json"]
     },
-    devtool: "cheap-module-eval-source-map",
+    devtool: "inline-source-map",
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
             chunks: 'all',
         },
     },
+    performance: { hints: false },
     module: {
         rules: [
             {

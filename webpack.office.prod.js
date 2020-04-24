@@ -37,10 +37,9 @@ module.exports = {
     },
     optimization: {
         runtimeChunk: 'single',
-        splitChunks: {
-            chunks: 'all',
-        },
+        splitChunks: { chunks: 'all', },
     },
+    performance: { hints: false },
     module: {
         rules: [
             {

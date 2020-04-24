@@ -81,9 +81,6 @@ export default class CreateArticleService extends BaseService {
 
             duplicateFrom['publish_date'] = (new Date().getTime() / 1e3);
 
-            if ( HasLength( duplicateFrom['description'] ) )
-                duplicateFrom['description'] = EncodeHTML( duplicateFrom['description'] );
-
             if ( HasLength( duplicateFrom['category_ids'] ) ) {
                 duplicateFrom['main_category_id'] = duplicateFrom['category_ids'][0].id;
                 duplicateFrom['category_ids'].forEach(({ id }) => {
