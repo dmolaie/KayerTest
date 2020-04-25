@@ -1,23 +1,21 @@
 .progress
-  $c: darken(#8ca0b3, 4%)
   top: 0
-  right: 0
+  left: 0
   height: 3px
-  z-index: 100
-  background: $c
-  filter: blur(.7px)
-  box-shadow: 0 0 11px 0 $c
-  animation:
-    duration: 20s
-    timing-function: linear
-    iteration-count: infinite
-  //&__bar
-  //  width: 0
-  //  top: 0
-  //  left: 0
-    //animation:
-    //  name: progressBar
-    //  timing-function: linear
-    //  iteration-count: infinite
-    //  duration: 10s
-    //animation: progress 1.4s cubic-bezier(0.79, 0.07, 0.38, 0.54) infinite
+  background-color: transparentize($bayoux, (1 - .4))
+  box-shadow: 0 0 7px 0 transparentize($bayoux, (1 - .41))
+  z-index: 400
+  &__bar
+    &::before, &::after
+      content: " "
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      background-color: $bayoux
+    &::before
+      animation: progressBar1 2.1s cubic-bezier(.65, .81, .73, .4) infinite
+    &::after
+      animation: progressBar2 2.1s cubic-bezier(.16, .84, .44, 1) infinite
+        delay: 1.15s
+

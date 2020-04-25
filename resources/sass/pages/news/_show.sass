@@ -16,45 +16,8 @@
       background: #eff3f7
     &__caption
       padding: 1.45em 0
-      a
-        color: $blue-100
-        border-bottom: 1px solid transparent
-        transition: color $duration, border-bottom-color $duration
-        &:hover
-          color: $blue-200
-          border-bottom-color: $blue-200
-      div[dir="auto"], p[dir="auto"]
-        line-height: 2
       div:empty, p:empty
         min-height: 24px
-      pre
-        white-space: normal
-      blockquote
-        color: rgba(0, 0, 0, .8)
-        padding: .8rem
-        font-style: italic
-        border-right: 3px solid rgba(0, 0, 0, .1)
-        background: rgba(0, 0, 0, .026)
-        margin: 1rem 0
-      ol, ul
-        margin: 1rem 0
-      ol
-        padding: 0 1rem
-        & > li
-          list-style: inherit
-      ul
-        & > li
-          display: flex
-          align-items: flex-start
-          &::before
-            content: " "
-            flex-shrink: 0
-            @include Size( 10px )
-            border: 1px solid $blue
-              radius: 50%
-            margin: 10px 0 0 11px
-            background: #bde8fa
-            vertical-align: middle
     &__release
       @include L_Screen
         margin-bottom: 30px
@@ -147,3 +110,8 @@
         margin-left: $mPadding
   .carousel__pagination
     margin: 35px 0
+  .m-l-8
+      margin-left: 8px
+  @include Sm_Screen
+    .sm\:m-b-10
+      margin-bottom: 10px

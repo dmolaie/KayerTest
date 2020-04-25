@@ -30,7 +30,7 @@
                         {!! html_entity_decode($content->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
                     </div>
                 @endif
-                <div class="n-show__caption text-bayoux font-base cursor-default md:font-base">
+                <div class="userContent n-show__caption text-bayoux font-base cursor-default md:font-base">
                     {!! html_entity_decode($content->getDescription(), ENT_QUOTES, 'UTF-8') !!}
                 </div>
                 <div class="i-page__footer relative">

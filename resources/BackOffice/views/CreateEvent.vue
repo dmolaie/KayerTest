@@ -12,8 +12,9 @@
                         />
                     </label>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        <text-editor-cm @onUpdate="onUpdateTextEditor"
-                                        ref="textEditor"
+                        <text-editor-cm v-model="form.description"
+                                        :lang="currentLang"
+                                        :key="'text-editor' + textEditorKey"
                         />
                     </div>
                     <div class="c-news__abstract w-full">
@@ -237,17 +238,15 @@
     import {
         mapGetters, mapState
     } from 'vuex';
-    import {
-        HasLength, toEnglishDigits, Length
-    } from '@vendor/plugin/helper';
+    import { HasLength } from '@vendor/plugin/helper';
     import CreateEventService from '@services/service/CreateEvent';
-    import TextEditorCm from '@components/TextEditor.vue';
     import DatePickerCm from '@components/DatePicker.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import CategoryCm from '@components/Category.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
     import SelectCm from '@vendor/components/select/Index.vue';
+    import TextEditorCm from '@vendor/components/textEditor/Index.vue';
 
     const INITIAL_FORM = () => ({
         title: '',
@@ -279,9 +278,8 @@
             datePickerKey: 0,
             isPending: true,
             isModuleRegistered: false,
-            disabledFaLang: false,
-            disabledEnLang: false,
             shouldBeShowReleaseDatePicker: false,
+            textEditorKey: 0,
         }),
         components: {
             TextEditorCm,
@@ -318,23 +316,20 @@
                 try {
                     Object.assign(this.form, INITIAL_FORM.apply( this ));
                     this.setDataFromParamsRouter();
-                    this.$refs['textEditor']?.clearContent();
                     this.$refs['imagePanel']?.onClickRemoveImageButton();
                     this.$refs['categoryCm']?.reset();
                     this.$set(this, 'datePickerKey', this.datePickerKey + 1);
                     this.$refs['provinces']?.resetValue();
                     this.$set(this, 'shouldBeShowReleaseDatePicker', false);
+                    this.$nextTick(() => {
+                        this.$set(this, 'textEditorKey', this.textEditorKey + 1);
+                    })
                 } catch (e) {}
             },
             setDataFromParamsRouter() {
-                let { onlyEnLang, onlyFaLang, parent_id } = this.$route.params;
+                let { parent_id } = this.$route.params;
                 this.$set(this.form, 'parent_id', parent_id || "");
                 this.$set(this.form, 'language', this.currentLang);
-                this.$set(this, 'disabledEnLang', !!onlyFaLang);
-                this.$set(this, 'disabledFaLang', !!onlyEnLang);
-            },
-            onUpdateTextEditor( HTML ) {
-                this.$set(this.form, 'description', HTML);
             },
             onChangeStartDateField( unix ) {
                 this.$set(this.form, 'event_start_date', unix);

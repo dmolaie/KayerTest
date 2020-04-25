@@ -19,19 +19,22 @@
         opacity: 1
   &__cover
     height: 125px
-    margin:
-      left: 13px
+    margin-left: 13px
     border: solid 1px #d2e3f4
     box-shadow: 0 2px 6px 0 transparentize(#2f5397, ( 1 - .1 ))
+    @include Sm_Screen
+      margin: 0 0 14px !important
   &__details
     padding: 10px 0 9px 4px
   &__title
     line-height: 1.92
     letter-spacing: -.09px
-    @include Truncate( 1 )
+    @include L_Screen
+      @include Truncate( 1 )
   &__caption
     color: #575757
     line-height: 1.92
     letter-spacing: -.09px
     margin: 10px 0 7px
-    @include Truncate( 2 )
+    @include L_Screen
+      @include Truncate( 2 )

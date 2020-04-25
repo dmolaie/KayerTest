@@ -29,7 +29,7 @@
                 <div class="n-show__description text-bayoux font-base cursor-default rounded-3 md:font-sm">
                     {{$menusContent->getAbstract()}}
                 </div>
-                <div class="n-show__caption text-bayoux font-base cursor-default md:font-base">
+                <div class="userContent n-show__caption text-bayoux font-base cursor-default md:font-base">
                     {!! html_entity_decode($menusContent->getDescription(), ENT_QUOTES, 'UTF-8') !!}
                 </div>
                 <div class="i-page__footer relative">

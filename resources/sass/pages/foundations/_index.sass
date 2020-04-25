@@ -86,7 +86,10 @@
             margin:
               left: 24px
           &__caption
-            @include Truncate( 4 )
+            @include L_Screen
+              @include Truncate( 4 )
+            @include M_S_Screen
+              @include Truncate( 4 )
       &--active
         display: block
   &__volunteers
@@ -150,8 +153,8 @@
         top: 50px
     &__list
       margin: 25px 0
-      padding:
-        right: 85px
+      //padding:
+      //  right: 85px
       &_item
         line-height: 2.1
         &::before
@@ -165,8 +168,7 @@
           background: #bde8fa
           vertical-align: middle
       &_sub
-        padding:
-          right: 75px
+        padding-right: 45px
         margin: 10px 0 20px
         &_item
           line-height: 2.1
@@ -199,3 +201,16 @@
           color: #979797
       &_name
         margin: 16px 0 2px
+  &__list
+    margin-bottom: 14px
+  .counter-item
+    &::before
+      content: counter(counter)"."
+      margin: 0 0 2px
+      font-size: .94em
+      vertical-align: bottom
+  .m
+    &-t-25
+      margin-top: 25px
+    &-b-5
+      margin-bottom: 5px

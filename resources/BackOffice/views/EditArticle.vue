@@ -6,9 +6,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                               :class="{
-                                    'direction-ltr': ( currentLang === 'en' )
-                               }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="عنوان را اینجا وارد کنید"
                                v-model="form.first_title"
                         />
@@ -23,17 +21,15 @@
                         >
                             <input type="text"
                                    class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                   :class="{
-                                        'direction-ltr': ( currentLang === 'en' )
-                                   }"
+                                   :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                    placeholder="عنوان دوم را اینجا وارد کنید"
                                    v-model="form.second_title"
                             />
                         </label>
                     </transition>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        <text-editor-cm @onUpdate="onUpdateTextEditor"
-                                        ref="textEditor"
+                        <text-editor-cm v-model="form.description"
+                                        :lang="currentLang"
                         />
                     </div>
                     <div class="c-news__abstract w-full">
@@ -147,7 +143,7 @@
     import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
     import EditArticleService from '@services/service/EditArticle';
-    import TextEditorCm from '@components/TextEditor.vue';
+    import TextEditorCm from '@vendor/components/textEditor/Index.vue';
     import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
@@ -212,9 +208,6 @@
                 this.$set( this.form, 'second_title', '' );
                 this.$set( this, 'shouldBeShowSecondTitle', !this.shouldBeShowSecondTitle );
             },
-            onUpdateTextEditor( HTML ) {
-                this.$set(this.form, 'description', HTML);
-            },
             async onClickSaveChangeButton() {
                 try {
                     this.$set(this, 'shouldBeShowLoading', !this.shouldBeShowLoading);
@@ -269,7 +262,6 @@
             setDataIntoForm() {
                 try {
                     this.$set(this, 'form', CopyOf(this.detail));
-                    this.$refs['textEditor'].setContent( this.form.description );
                     if ( !!this.form.second_title )
                         this.$set(this, 'shouldBeShowSecondTitle', true);
                 } catch (e) {}

@@ -12,8 +12,9 @@
                         />
                     </label>
                     <div class="w-full border-blue-100-1 rounded m-t-15">
-                        <text-editor-cm @onUpdate="onUpdateTextEditor"
-                                        ref="textEditor"
+                        <text-editor-cm v-model="form.description"
+                                        :lang="form.language"
+                                        :key="'text-editor' + textEditorKey"
                         />
                     </div>
                     <div class="c-news__abstract w-full">
@@ -259,7 +260,7 @@
     import EditEventService, {
         INITIAL_FORM
     } from '@services/service/EditEvent';
-    import TextEditorCm from '@components/TextEditor.vue';
+    import TextEditorCm from '@vendor/components/textEditor/Index.vue';
     import DatePickerCm from '@components/DatePicker.vue';
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
@@ -275,11 +276,10 @@
             form: INITIAL_FORM(),
             removedImages: [],
             datePickerKey: 0,
+            textEditorKey: 0,
             isPending: true,
             custom_publish_date: '',
             isModuleRegistered: false,
-            disabledFaLang: false,
-            disabledEnLang: false,
             shouldBeShowReleaseDatePicker: false,
         }),
         components: {
@@ -332,7 +332,6 @@
             setInitialState() {
                 try {
                     Object.assign(this.form, INITIAL_FORM.apply( this ));
-                    this.$refs['textEditor']?.clearContent();
                     this.$refs['imagePanel']?.onClickRemoveImageButton();
                     this.$refs['categoryCm']?.reset();
                     this.$set(this, 'datePickerKey', this.datePickerKey + 1);
@@ -343,11 +342,11 @@
             setDataIntoForm() {
                 try {
                     this.$set(this, 'form', CopyOf(this.detail));
-                    this.$refs['textEditor'].setContent( this.form.description );
+                    this.$set(this, 'shouldBeShowReleaseDatePicker', !this.form.is_published);
+                    this.$nextTick(() => {
+                        this.$set(this, 'textEditorKey', this.textEditorKey + 1);
+                    })
                 } catch (e) {}
-            },
-            onUpdateTextEditor( HTML ) {
-                this.$set(this.form, 'description', HTML);
             },
             onChangeStartDateField( unix ) {
                 this.$set(this.form, 'event_start_date', unix);

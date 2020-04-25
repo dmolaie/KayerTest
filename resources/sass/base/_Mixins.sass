@@ -20,6 +20,10 @@
   @media (max-width: 900px)
     @content
 
+@mixin M_S_Screen
+  @media (max-width: 900px) and (min-width: 640px)
+    @content
+
 @mixin Sm_Screen
   @media (max-width: 640px)
     @content

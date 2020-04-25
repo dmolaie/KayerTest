@@ -109,7 +109,7 @@ export default class EditNewsService extends BaseService {
             if ( !!duplicateFrom['abstract'] )
                 formData.append('abstract', duplicateFrom['abstract']);
             if ( !!duplicateFrom['description'] )
-                formData.append('description', EncodeHTML( duplicateFrom['description'] ));
+                formData.append('description', duplicateFrom['description']);
             if ( !!duplicateFrom['source_link'] )
                 formData.append('source_link', duplicateFrom['source_link']);
             if ( !!duplicateFrom['language'] )
