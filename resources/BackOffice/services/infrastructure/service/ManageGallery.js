@@ -41,6 +41,16 @@ export class GalleryService {
         }
     }
 
+    static async getGalleryCategories() {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
+                category_type: 'news'
+            });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
     static async changeGalleryItemStatus(gallery_id, status) {
         try {
             // return await ''

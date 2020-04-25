@@ -262,6 +262,26 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: CREATE_GALLERY,
+            path: `/manage/gallery/create/:lang(fa|en)/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
+            component: GetViews('CreateGallery' ),
+            meta: {
+                title: 'سفیران اهدای عضو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: route => `گالری‌های ${GALLERY_TYPE[route.params.type].name_fa}`,
+                    },
+                    {
+                        name: 'افزودن'
+                    },
+                ]
+            }
+        },
+        {
             name: MANAGE_MENU,
             path: '/manage/menu',
             component: GetViews('ManageMenu' ),
