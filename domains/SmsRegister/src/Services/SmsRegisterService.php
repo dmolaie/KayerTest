@@ -122,7 +122,7 @@ class SmsRegisterService
             . ' ' . PHP_EOL .
             trans('smsRegister::response.ehda_card_address')
             . ' ' . PHP_EOL .
-            'http://dev.ehdacenter.io/sms-register/v1/test'
+            config('app.url')
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
             . ' ' . $userInfoDTO->getCardId();

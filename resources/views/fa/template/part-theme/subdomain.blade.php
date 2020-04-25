@@ -17,7 +17,7 @@
                         انتخاب کنید...
                     </option>
                     @foreach($provinces as $province)
-                    <option value="{{$province->getId()}}" data-url="http://{{$province->getSlug().".".request()->getHttpHost()}}">
+                    <option value="{{$province->getId()}}" data-url="{{ 'http://'.$province->getSlug() .'.'.config('app.url')}}">
                         {{$province->getName()}}
                     </option>
                     @endforeach
