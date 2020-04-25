@@ -470,6 +470,7 @@
                 </div>
                 <div class="c-card__buttons w-full text-center">
                     <button class="c-card__button c-card__button--submit text-white font-sm font-bold rounded"
+                            :class="{ 'spinner-loading': spinnerLoading.submit }"
                             @click.prevent="onClickRegisterDonationCard"
                     >
                         ذخیره
