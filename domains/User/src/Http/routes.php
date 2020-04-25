@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/change-user-role-status', 'UserController@changeUserRoleStatus')->middleware('auth:api')->name('change-user-role-status');
     Route::get('/user-roles/{id}', 'UserController@userRoles')->middleware('auth:api')->name('user-roles')->where('id', '[0-9]+');
     Route::post('/user-report', 'UserController@userReport')->middleware('auth:api')->name('user-report');
-    Route::post('/all-user-report', 'UserController@AllUserReport')->middleware('auth:api')->name('all-user-report');
+    Route::post('/all-user-report', 'UserController@allUserReport')->middleware('auth:api')->name('all-user-report');
 });
 
 Route::get('/user-basic-register-info', 'UserController@userBasicRegisterInfo')->name('user-basic-register-info');
