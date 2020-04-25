@@ -2,7 +2,7 @@
 
 Route::redirect('/', app()->getLocale());
 
-Route::domain('{subdomain}.dev.ehdacenter.io')->group(function () {
+Route::domain('{subdomain}.'.config('app.url'))->group(function () {
     Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')]], function () {
         Route::prefix('page')->name('page.domain.')->group(function () {
             Route::get('/iran_news', 'PagesController@newsListIranDomain')->name('news-list-iran');
