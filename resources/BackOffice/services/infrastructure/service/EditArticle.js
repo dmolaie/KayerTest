@@ -90,7 +90,7 @@ export default class EditArticleService {
         formData.append('article_id', duplicateFrom['article_id']);
         formData.append('publish_date', (new Date().getTime() / 1e3));
         if ( HasLength( duplicateFrom['description'] ) )
-            formData.append('description', EncodeHTML( duplicateFrom['description'] ));
+            formData.append('description', duplicateFrom['description']);
         if ( HasLength( duplicateFrom['category_ids'] ) ) {
             formData.append('main_category_id', duplicateFrom['category_ids'][0]?.id);
             duplicateFrom['category_ids'].forEach(({ id }) => {

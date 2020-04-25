@@ -1,6 +1,10 @@
 <template>
     <div class="app w-full h-full flex items-start overflow-hidden">
-<!--        <Progress-cm />-->
+        <template v-if="shouldBeShowProgress">
+            <div class="progress fixed w-full overflow-hidden pointer-event-none">
+                <div class="progress__bar"></div>
+            </div>
+        </template>
         <Aside v-if="shouldBeShowAside"
         />
         <div class="flex-1 h-full bg-snow overflow-auto"
@@ -47,7 +51,8 @@
         },
         computed: {
             ...mapState({
-                shouldBeShowAside: state => state.LayoutState.shouldBeShowAside
+                shouldBeShowAside: state => state.LayoutState.shouldBeShowAside,
+                shouldBeShowProgress: state => state.LayoutState.shouldBeShowProgress
             })
         },
     }

@@ -44,21 +44,20 @@ export default class ManageReportService extends BaseService {
     get requestPayload() {
         try {
             let { clientUser, legateUser } = this.$vm;
-            const PAYLOAD = {},
-                  TYPE = [];
-            if ( clientUser.checked ) {
-                TYPE.push('client');
+            const PAYLOAD = {};
+
+            PAYLOAD['type_client'] = clientUser.checked;
+            if ( PAYLOAD['type_client'] ) {
                 if ( !!clientUser.start_date ) PAYLOAD['register_from_client'] = `${clientUser.start_date}`;
                 if ( !!clientUser.end_date ) PAYLOAD['register_end_client'] = `${clientUser.end_date}`;
                 if ( !!clientUser.status ) PAYLOAD['status_client'] = `${clientUser.status}`;
             }
-            if ( legateUser.checked ) {
-                TYPE.push('legate');
+            PAYLOAD['type_legate'] = legateUser.checked;
+            if ( PAYLOAD['type_legate'] ) {
                 if ( !!legateUser.start_date ) PAYLOAD['register_from_legate'] = `${legateUser.start_date}`;
                 if ( !!legateUser.end_date ) PAYLOAD['register_end_legate'] = `${legateUser.end_date}`;
                 if ( !!legateUser.status ) PAYLOAD['status_legate'] = `${legateUser.status}`;
             }
-            PAYLOAD['type'] = TYPE;
             return PAYLOAD
         } catch ( exception ) { throw exception; }
     }

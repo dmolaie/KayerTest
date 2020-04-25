@@ -404,10 +404,10 @@ class UserController extends EhdaBaseController
         }
     }
 
-    public function AllUserReport(UserReportRequest $request,UserInfoReportPresenter $userInfoReportPresenter)
+    public function allUserReport(UserReportRequest $request,UserInfoReportPresenter $userInfoReportPresenter)
     {
         try {
-            $users =  $this->userService->AllUserReport($request->getReportUserRegister());
+            $users =  $this->userService->allUserReport($request->getReportUserRegister());
             return $this->response(
                 $userInfoReportPresenter->transformMany($users),
                 Response::HTTP_OK

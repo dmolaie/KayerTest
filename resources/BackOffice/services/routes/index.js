@@ -441,6 +441,7 @@ const getUserProfile = async () => {
 };
 
 Routes.beforeEach(async (to, from, next) => {
+    Store.commit('PROGRESS_BAR', true);
     await getUserProfile();
     let routeTitle = to.meta?.title,
         isGuessRoute = to.meta?.guess;
@@ -465,6 +466,10 @@ Routes.beforeEach(async (to, from, next) => {
             next()
         }
     }
+});
+
+Routes.afterEach(() => {
+    Store.commit('PROGRESS_BAR', false)
 });
 
 export default Routes;

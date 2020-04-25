@@ -3,20 +3,13 @@ import HTTPService from '@vendor/plugin/httpService';
 import ExceptionService from '@services/service/exception';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import DateService from '@vendor/plugin/date';
-import {
-    UserService
-} from '@services/service/ManageLegate';
-import {
-    EventService
-} from '@services/service/ManageEvent';
-import {
-    ProvincesPresenter,
-} from '@vendor/infrastructure/presenter/MainPresenter';
-import {
-    EventPresenter
-} from '@services/presenter/EditUsers';
+import AuthenticationService from '@services/service/Authentication';
+import { UserService } from '@services/service/ManageLegate';
+import { EventService } from '@services/service/ManageEvent';
+import { ProvincesPresenter, } from '@vendor/infrastructure/presenter/MainPresenter';
+import { EventPresenter } from '@services/presenter/EditUsers';
 import CreateCards, {
-    C_CARDS_SET_PROVINCES, C_CARDS_SET_BASIC_INFO, C_CARDS_SET_EVENT_LIST
+    C_CARDS_SET_PROVINCES, C_CARDS_SET_BASIC_INFO, C_CARDS_SET_EVENT_LIST, C_CARDS_SET_AUTHENTICATION
 } from '@services/store/CreateCards';
 import {
     NationalCodeValidator, toEnglishDigits, HasLength, CopyOf
@@ -51,11 +44,13 @@ export default class CreateCardsService extends BaseService {
             let response = await Promise.all([
                 UserService.getBasicRegisterInfo(),
                 HTTPService.getRequest(Endpoint.get(Endpoint.GET_ALL_PROVINCES)),
-                EventService.getEventList()
+                EventService.getEventList(),
+                AuthenticationService.getAuthenticationList()
             ]);
             BaseService.commitToStore(this.$store, C_CARDS_SET_BASIC_INFO, response[0]);
             BaseService.commitToStore(this.$store, C_CARDS_SET_PROVINCES,  response[1]);
             BaseService.commitToStore(this.$store, C_CARDS_SET_EVENT_LIST, response[2]);
+            BaseService.commitToStore(this.$store, C_CARDS_SET_AUTHENTICATION, response[3]);
         } catch ( exception ) {
             const MESSAGE = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(MESSAGE, { type: 'error' });
