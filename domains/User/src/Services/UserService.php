@@ -340,7 +340,7 @@ class UserService
         $usersClient = [];
         $usersLegate = [];
 
-        if ($usersRegisterReportDTO->isTypeClient()) {
+        if ($usersRegisterReportDTO->isTypeClient() ) {
             $usersClient = $this->userRepository->getUserReport(config('user.client_role_type'), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
         }
 

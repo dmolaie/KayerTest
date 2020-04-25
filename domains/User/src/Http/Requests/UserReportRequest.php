@@ -26,14 +26,14 @@ class UserReportRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'type_client' => 'bool',
-            'type_legate' => 'bool',
+            'type_client' => 'bool|required_if:type_legate,==,'.null,
+            'type_legate' => 'bool|required_if:type_client,==,'.null,
             'register_from_client' => 'string',
             'register_end_client' => 'string',
-            'status_client' => 'bool',
+            'status_client' => 'string',
             'register_from_legate' => 'string',
             'register_end_legate' => 'string',
-            'status_legate' => 'bool',
+            'status_legate' => 'string',
         ];
     }
 
