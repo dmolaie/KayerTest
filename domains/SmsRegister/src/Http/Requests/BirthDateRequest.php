@@ -4,6 +4,7 @@
 namespace Domains\SmsRegister\Http\Requests;
 
 use Illuminate\Contracts\Validation\Rule;
+use Morilog\Jalali\Jalalian;
 
 class BirthDateRequest implements Rule
 {
@@ -17,7 +18,7 @@ class BirthDateRequest implements Rule
     {
 
         try {
-            $date = str_split($date, 4);
+            $date = str_split($code, 4);
 
             $year = $date[0];
             $monthDay = str_split($date[1], 2);
