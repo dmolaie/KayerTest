@@ -363,17 +363,17 @@ class UserService
     }
 
 
-    public function AllUserReport(UsersRegisterReportDTO $usersRegisterReportDTO)
+    public function allUserReport(UsersRegisterReportDTO $usersRegisterReportDTO)
     {
         $usersClient = [];
         $usersLegate = [];
 
-        if (in_array(config('user.client_role_type'), $usersRegisterReportDTO->getType())) {
-            $usersClient = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
+        if ($usersRegisterReportDTO->isTypeClient() ) {
+            $usersClient = $this->userRepository->getUserReport(config('user.client_role_type'), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
         }
 
-        if (in_array(config('user.legate_role_type'), $usersRegisterReportDTO->getType())) {
-            $usersLegate = $this->userRepository->getUserReport($usersRegisterReportDTO->getType(), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusLegate(), $usersRegisterReportDTO->getRegisterFromLegate(), $usersRegisterReportDTO->getRegisterEndLegate(), $usersRegisterReportDTO->getPaginate());
+        if ($usersRegisterReportDTO->isTypeLegate()) {
+            $usersLegate = $this->userRepository->getUserReport(config('user.legate_role_type'), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusLegate(), $usersRegisterReportDTO->getRegisterFromLegate(), $usersRegisterReportDTO->getRegisterEndLegate(), $usersRegisterReportDTO->getPaginate());
         }
 
         if (!empty($usersClient) && !empty($usersLegate)) {
