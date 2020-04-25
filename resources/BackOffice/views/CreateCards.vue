@@ -2,7 +2,7 @@
     <div class="c-card e-user c-post w-full">
         <div class="main w-full inner-box inner-box--white w-full rounded-2">
             <div class="c-card__step c-card__step--1"
-                 v-if="step === 1"
+                 v-if="step === 1 && authentication"
             >
                 <p class="font-sm font-bold text-blue cursor-default">
                     استعلام کد ملی
@@ -153,6 +153,27 @@
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.identity_number.show"
                                   v-text="validation.identity_number.text"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0"
+                         v-if="!authentication"
+                    >
+                        <span class="c-card__text block text-blue-800 text-required font-sm font-bold text-right cursor-default">
+                            کدملی
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.national_code.show }"
+                        >
+                            <input type="text" placeholder="۱۰ رقم بدون خط تیره" autocomplete="off"
+                                   v-model="form.national_code"
+                                   @focus="hiddenValidationError('national_code')"
+                                   @blur="nationalCodeValidate('national_code')"
+                                   class="c-card__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                            />
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.national_code.show"
+                                  v-text="validation.national_code.text"
                             > </span>
                         </label>
                     </div>
@@ -559,6 +580,7 @@
                 provinces: ({ CreateCardsStore }) => CreateCardsStore.provinces,
                 education: ({ CreateCardsStore }) => CreateCardsStore.education,
                 events: ({ CreateCardsStore }) => CreateCardsStore.events,
+                authentication: ({ CreateCardsStore }) => CreateCardsStore.authentication?.register_by_admin,
             }),
             day: () => {
                 let arr = [];
