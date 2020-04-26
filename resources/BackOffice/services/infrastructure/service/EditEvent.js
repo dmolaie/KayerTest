@@ -149,10 +149,10 @@ export default class EditEventService extends BaseService {
             delete duplicateFrom['category_ids'];
             delete duplicateFrom['images'];
 
-            (this.$vm.form['is_ready_to_publish']) ? (
+            (!this.$vm.form['is_published']) ? (
                 formData.append('publish_date', (this.$vm.custom_publish_date || duplicateFrom['publish_date']))
             ) : (
-                formData.append('publish_date', (this.$vm.custom_publish_date || NOW_TIMESTAMP))
+                formData.append('publish_date', NOW_TIMESTAMP)
             );
             delete duplicateFrom['publish_date'];
             for ( let [key, val] of Object.entries( duplicateFrom ) ) {

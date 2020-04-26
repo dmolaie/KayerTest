@@ -5,6 +5,7 @@ import {
     GET_USER_HAS_ACCESS,
     GET_IS_USER_LOGGED_IN,
 } from '@services/store/Login';
+import { GALLERY_TYPE } from '@services/service/ManageGallery';
 import Endpoint from "@endpoints";
 import TokenService from '@services/service/Token';
 import HTTPService from "@vendor/plugin/httpService";
@@ -31,6 +32,8 @@ export const MANAGE_CARDS = 'MANAGE_CARDS';
 export const CREATE_CARDS = 'CREATE_CARDS';
 export const USER_SETTING = 'USER_SETTING';
 export const MANAGE_REPORT = 'MANAGE_REPORT';
+export const MANAGE_GALLERY = 'MANAGE_GALLERY';
+export const CREATE_GALLERY = 'CREATE_GALLERY';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -235,6 +238,46 @@ const Routes = new VueRouter({
                     {
                         name: 'ویرایش'
                     }
+                ]
+            }
+        },
+        {
+            name: MANAGE_GALLERY,
+            path: `/manage/gallery/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
+            component: GetViews('ManageGallery' ),
+            meta: {
+                title: 'گالری',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: route => `گالری‌های ${GALLERY_TYPE[route.params.type].name_fa}`,
+                    },
+                    {
+                        name: 'مدیریت'
+                    },
+                ]
+            }
+        },
+        {
+            name: CREATE_GALLERY,
+            path: `/manage/gallery/create/:lang(fa|en)/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
+            component: GetViews('CreateGallery' ),
+            meta: {
+                title: 'افزودن به گالری',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: route => `گالری‌های ${GALLERY_TYPE[route.params.type].name_fa}`,
+                    },
+                    {
+                        name: 'افزودن'
+                    },
                 ]
             }
         },
