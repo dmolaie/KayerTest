@@ -99,6 +99,13 @@ class CategoriesTableSeeder extends Seeder
                 'type'     => 'article',
                 'children' => []
             ],
+            [
+                'name_en'  => 'global persian',
+                'name_fa'  => 'سراسری',
+                'slug'     => 'global-fa',
+                'type'     => 'news',
+                'children' => []
+            ],
         ];
         $this->registerCategories($categories);
 
