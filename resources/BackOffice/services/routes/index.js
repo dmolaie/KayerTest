@@ -246,7 +246,7 @@ const Routes = new VueRouter({
             path: `/manage/gallery/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
             component: GetViews('ManageGallery' ),
             meta: {
-                title: 'سفیران اهدای عضو',
+                title: 'گالری',
                 breadcrumb: [
                     {
                         route: DASHBOARD,
@@ -266,7 +266,7 @@ const Routes = new VueRouter({
             path: `/manage/gallery/create/:lang(fa|en)/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
             component: GetViews('CreateGallery' ),
             meta: {
-                title: 'سفیران اهدای عضو',
+                title: 'افزودن به گالری',
                 breadcrumb: [
                     {
                         route: DASHBOARD,

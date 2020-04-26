@@ -40,9 +40,10 @@ export default class CreateGalleryService {
 
     async processFetchAsyncData() {
         try {
+            console.log(this.$vm.$route?.params?.type, '$router');
             let response = await Promise.all([
                 this.getUserProvince(),
-                GalleryService.getGalleryCategories(),
+                GalleryService.getGalleryCategories('news'),
             ]);
 
             BaseService.commitToStore(this.$store, C_GALLERY_SET_PROVINCE, response[0]);
