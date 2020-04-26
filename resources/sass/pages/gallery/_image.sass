@@ -1,0 +1,22 @@
+$c: #eaeaea
+$gap: 15px
+.gai-page
+  &__header
+    padding: 20px 20px 18px
+  &__content
+    padding: 20px $gap 55px
+  &__card
+    padding: 0 $gap ($gap * 2)
+  &__image
+    top: 0
+    right: 0
+    transition: transform .23s ease-in-out
+  &__figure
+    border-color: darken($c, 12%)
+    background-color: $c
+    padding-bottom: 100%
+    &:hover
+      .gai-page__image
+        transform: scale(1.1)
+  &__short
+    padding: (50px - ($gap * 2)) $gap 0

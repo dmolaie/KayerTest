@@ -2,7 +2,7 @@
     @section('content')
         <div class="ga-page i-page">
             <div class="container sm:p-0">
-                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">
                         هنر اهدا
                     </span>
