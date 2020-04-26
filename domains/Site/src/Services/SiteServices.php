@@ -62,7 +62,7 @@ class SiteServices
     private $userService;
 
 
-    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService, ProvinceService $provinceService,UserService $userService)
+    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService, ProvinceService $provinceService, UserService $userService)
     {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
@@ -88,13 +88,13 @@ class SiteServices
         return $this->menusService->getPageContent($pageSlug);
     }
 
-    public function getFilterNews($categories,$subdomain = null)
+    public function getFilterNews($categories, $subdomain = null)
     {
         $categoryId = $this->getIdCategoryNews($categories);
         $this->newsFilterDTO->setCategoryIds([$categoryId]);
         $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
-        if($subdomain){
+        if ($subdomain) {
             $this->newsFilterDTO->addProvinceId($subdomain->id);
         }
         return $this->newsService->filterNews($this->newsFilterDTO);
@@ -109,7 +109,7 @@ class SiteServices
     {
         $this->eventFilterDTO->setEventInputStatus('published');
         $this->eventFilterDTO->setSort('DESC');
-        if($subdomain){
+        if ($subdomain) {
             $this->eventFilterDTO->addProvinceId($subdomain->id);
         }
         return $this->eventService->filterEvent($this->eventFilterDTO);
@@ -149,21 +149,18 @@ class SiteServices
     {
         $this->newsFilterDTO->setNewsInputStatus($status);
         $this->newsFilterDTO->setSort($sort);
-        if($subdomain){
-            $this->newsFilterDTO->addProvinceId($subdomain->id);
+        if (!$subdomain) {
+            $globalSubDomain = $this->getLocations('global-fa');
+            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
+            if (!empty($this->newsService->filterNews($this->newsFilterDTO)->getItems())) {
+                return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
+            }
+            $tehranSubDmoain = $this->getLocations('tehran');
+            $this->newsFilterDTO->addProvinceId($tehranSubDmoain->id);
+            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
+        $this->newsFilterDTO->addProvinceId($subdomain->id);
         return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-    }
-
-    public function getEvent($status, $sort, $slugCategory, $subdomain = null)
-    {
-        $this->eventFilterDTO->setEventInputStatus($status);
-        $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
-        $this->eventFilterDTO->setSort($sort);
-        if($subdomain){
-            $this->eventFilterDTO->addProvinceId($subdomain->id);
-        }
-        return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
     }
 
     public function getLocations($slug)
@@ -171,11 +168,22 @@ class SiteServices
         return $this->provinceService->finBySlug($slug);
     }
 
+    public function getEvent($status, $sort, $slugCategory, $subdomain = null)
+    {
+        $this->eventFilterDTO->setEventInputStatus($status);
+        $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
+        $this->eventFilterDTO->setSort($sort);
+        if ($subdomain) {
+            $this->eventFilterDTO->addProvinceId($subdomain->id);
+        }
+        return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+    }
+
     public function getSubdomain($url)
     {
-        $urlPart = explode('.',$url);
+        $urlPart = explode('.', $url);
         $categoryList = $this->getLocations($urlPart[0]);
-        if($categoryList){
+        if ($categoryList) {
             return $categoryList;
         }
         return null;

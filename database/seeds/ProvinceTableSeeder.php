@@ -14,130 +14,129 @@ class ProvinceTableSeeder extends Seeder
     {
         Province::insert([
             [
-                "slug" => 'Tehran',
+                "slug" => 'tehran',
                 "name" => 'تهران',
             ],
             [
-                "slug" => 'Alborz',
+                "slug" => 'alborz',
                 "name" => 'البرز',
             ],
             [
-                "slug" => 'Ardabil',
+                "slug" => 'ardabil',
                 "name" => 'اردبیل',
             ],
             [
-                "slug" => 'Azerbaijan-East',
+                "slug" => 'eastAzerbaijan',
                 "name" => 'آذربایجان شرقی',
             ],
             [
-                "slug" => 'Azerbaijan-West',
+                "slug" => 'westAzerbaijan',
                 "name" => 'آذربایجان غربی',
             ],
             [
-                "slug" => 'Bushehr',
+                "slug" => 'bushehr',
                 "name" => 'بوشهر',
             ],
             [
-                "slug" => 'Chaharmahaal-and-Bakhtiari',
+                "slug" => 'chaharmahalBakhtiari',
                 "name" => 'چهارمحال و بختیاری',
             ],
             [
-                "slug" => 'Fars',
+                "slug" => 'fars',
                 "name" => 'فارس',
             ],
             [
-                "slug" => 'Gilan',
+                "slug" => 'gilan',
                 "name" => 'گیلان',
             ],
             [
-                "slug" => 'Golestan',
+                "slug" => 'golestan',
                 "name" => 'گلستان',
             ],
             [
-                "slug" => 'Hamadan',
+                "slug" => 'hamadan',
                 "name" => 'همدان',
             ],
             [
-                "slug" => 'Hormozgan',
+                "slug" => 'hormozgan',
                 "name" => 'هرمزگان',
             ],
             [
-                "slug" => 'Ilam',
+                "slug" => 'ilam',
                 "name" => 'ایلام',
             ],
             [
-                "slug" => 'Isfahan',
+                "slug" => 'isfahan',
                 "name" => 'اصفهان',
             ],
             [
-                "slug" => 'Kerman',
+                "slug" => 'kerman',
                 "name" => 'کرمان',
             ],
             [
-                "slug" => 'Kermanshah',
+                "slug" => 'kermanshah',
                 "name" => 'کرمانشاه',
             ],
             [
-                "slug" => 'Khorasan-North',
+                "slug" => 'northKhorasan',
                 "name" => 'خراسان شمالی',
             ],
             [
-                "slug" => 'Khorasan-Razavi',
+                "slug" => 'southKhorasan',
                 "name" => 'خراسان رضوی',
             ],
             [
-                "slug" => 'Khorasan-South',
-                "name" => 'خراسان شمالی',
-            ],
-            [
-                "slug" => 'Khuzestan',
+                "slug" => 'khuzestan',
                 "name" => 'خوزستان',
             ],
             [
-                "slug" => 'Kohgiluyeh-and-Boyer-Ahmad',
+                "slug" => 'kohgiluyeh',
                 "name" => 'کهگیلویه و بویراحمد',
             ],
             [
-                "slug" => 'Kurdistan',
+                "slug" => 'kurdistan',
                 "name" => 'کردستان',
             ],
             [
-                "slug" => 'Lorestan',
+                "slug" => 'lorestan',
                 "name" => 'لرستان',
             ],
             [
-                "slug" => 'Markazi',
+                "slug" => 'markazi',
                 "name" => 'مرکزی',
             ],
             [
-                "slug" => 'Mazandaran',
+                "slug" => 'mazandaran',
                 "name" => 'مازندران',
             ],
             [
-                "slug" => 'Qazvin',
+                "slug" => 'qazvin',
                 "name" => 'قزوین',
             ],
             [
-                "slug" => 'Qom',
+                "slug" => 'qom',
                 "name" => 'قم',
             ],
             [
-                "slug" => 'Semnan',
+                "slug" => 'semnan',
                 "name" => 'سمنان',
             ],
             [
-                "slug" => 'Sistan-and-Baluchestan',
+                "slug" => 'sistanBaluchestan',
                 "name" => 'سیستان و بلوچستان',
             ],
             [
-                "slug" => 'Zanjan',
+                "slug" => 'zanjan',
                 "name" => 'زنجان',
             ],
             [
                 "slug" => 'yazd',
                 "name" => 'یزد',
             ],
-
+            [
+                "slug" => 'global-fa',
+                "name" => 'سراسری',
+            ]
         ]);
     }
 }
