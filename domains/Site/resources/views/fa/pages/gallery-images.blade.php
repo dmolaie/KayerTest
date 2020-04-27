@@ -58,7 +58,7 @@
                             </figure>
                         </div>
 
-                        <div class="gai-page__short i-page__short w-full flex items-center justify-end">
+                        <div class="gai-page__short i-page__short w-full flex items-center justify-end sm:flex-col sm:justify-center">
                             <span class="text-bayoux font-sm-bold cursor-default">
                                 لینک کوتاه:
                             </span>
