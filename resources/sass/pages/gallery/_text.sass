@@ -5,5 +5,18 @@
     padding: 20px 30px 55px
     @include Sm_Screen
       padding: 15px 20px 15px
+  &__download
+    min-width: 170px
+    padding: 7px 10px 5px
+    margin: 0 10px 10px
+    background: transparentize($sail, (1 - .64))
+    &:hover
+      background: transparentize($sail, (1 - .8))
+    svg
+      height: 24px
+      fill: $blue-200
+      margin: 0 0 4px 10px
   &__short
     padding-top: 40px
+  .m-t-30
+    margin-top: 30px
