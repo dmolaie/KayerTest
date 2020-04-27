@@ -88,4 +88,24 @@ class AttachmentServices
         }
         return $attachmentInfoDTO;
     }
+
+    public function uploadFiles(AttachmentDTO $attachmentDTO)
+    {
+        //TODO change
+        $attachmentInfoDTO = new AttachmentInfoDTO();
+        $attachmentInfoDTO->setEntityName('test');
+        $attachmentInfoDTO->setEntityId(1)->addToPaths(1,'test/test');
+        return $attachmentInfoDTO;
+    }
+
+    public function getContentByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
+    {
+        //TODO change
+        foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
+            $attachmentGetInfoDTO->addImages(
+                $this->getAllImages($attachmentGetInfoDTO->getEntityName(), $entityId),
+                $entityId);
+        }
+        return $attachmentGetInfoDTO;
+    }
 }
