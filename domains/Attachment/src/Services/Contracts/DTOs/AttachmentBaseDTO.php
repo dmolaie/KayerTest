@@ -16,7 +16,10 @@ class AttachmentBaseDTO
      * @var integer
      */
     protected $entityId;
-
+    /**
+     * @var string|null
+     */
+    protected $path;
 
     /**
      * @return string
@@ -51,6 +54,24 @@ class AttachmentBaseDTO
     public function setEntityId(string $entityId)
     {
         $this->entityId = $entityId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string|null $path
+     * @return AttachmentBaseDTO
+     */
+    public function setPath(?string $path)
+    {
+        $this->path = $path;
         return $this;
     }
 

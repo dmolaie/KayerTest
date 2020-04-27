@@ -151,6 +151,20 @@ export const showScrollbar = () => {
     } catch (e) {}
 };
 
+export const ArrayRange = range => {
+    return [...Array( range )].map((_, i) => i)
+};
+
+export const Chunkify = (array, chunkSize = 10) => {
+    if ( !array ) return [];
+    const RANGE = ArrayRange( Math.ceil(Length(array) / chunkSize) );
+    return RANGE.reduce((result, _, index) => {
+        const START_POINT = chunkSize * index;
+        result.push( array.slice(START_POINT, START_POINT + chunkSize) );
+        return result;
+    }, []);
+};
+
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
 export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
 export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;

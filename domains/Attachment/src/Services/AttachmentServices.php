@@ -112,4 +112,15 @@ class AttachmentServices
         }
         return $attachmentInfoDTO;
     }
+
+    public function getContentByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
+    {
+        //TODO change
+        foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
+            $attachmentGetInfoDTO->addImages(
+                $this->getAllImages($attachmentGetInfoDTO->getEntityName(), $entityId),
+                $entityId);
+        }
+        return $attachmentGetInfoDTO;
+    }
 }

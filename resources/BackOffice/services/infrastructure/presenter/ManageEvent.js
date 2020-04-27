@@ -196,7 +196,7 @@ export class SingleEventPresenter extends BasePresenter {
     }
 
     publisher_name() {
-        return (this.item.publisher?.name + '' + this.item.publisher?.last_name) || '';
+        return (this.item.publisher?.name + ' ' + this.item.publisher?.last_name) || '';
     }
 
     language() {
