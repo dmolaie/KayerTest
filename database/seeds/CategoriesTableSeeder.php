@@ -106,6 +106,120 @@ class CategoriesTableSeeder extends Seeder
                 'type'     => 'news',
                 'children' => []
             ],
+            [
+                'name_en'  => 'Nafas Celebration',
+                'name_fa'  => 'جشن نفس',
+                'slug'     => 'image-nafas-celebration',
+                'type'     => 'image',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Nafas Festival',
+                'name_fa'  => 'جشنواره نفس',
+                'slug'     => 'image-nafas-festival',
+                'type'     => 'image',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Nafas Feast',
+                'name_fa'  => 'ضیافت نفس',
+                'slug'     => 'image-nafas-feast',
+                'type'     => 'image',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Ehda Story',
+                'name_fa'  => 'داستان اهدا',
+                'slug'     => 'text-ehda-story',
+                'type'     => 'text',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Ehda Poetry',
+                'name_fa'  => 'شعر اهدا',
+                'slug'     => 'text-ehda-poetry',
+                'type'     => 'text',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Personal Note',
+                'name_fa'  => 'دلنوشته',
+                'slug'     => 'text-personal-note',
+                'type'     => 'text',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Music',
+                'name_fa'  => 'موسیقی',
+                'slug'     => 'voice-music',
+                'type'     => 'voice',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Radio Interview',
+                'name_fa'  => 'مصاحبه رادیویی',
+                'slug'     => 'voice-radio-interview',
+                'type'     => 'voice',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Nafas Celebration',
+                'name_fa'  => 'جشن نفس',
+                'slug'     => 'video-nafas-celebration',
+                'type'     => 'video',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Nafas Festival',
+                'name_fa'  => 'جشنواره نفس',
+                'slug'     => 'video-nafas-festival',
+                'type'     => 'video',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Nafas Feast',
+                'name_fa'  => 'ضیافت نفس',
+                'slug'     => 'video-nafas-feast',
+                'type'     => 'video',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Movie',
+                'name_fa'  => 'فیلم',
+                'slug'     => 'video-movie',
+                'type'     => 'video',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Animation',
+                'name_fa'  => 'انیمیشن',
+                'slug'     => 'video-animation',
+                'type'     => 'video',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Serial',
+                'name_fa'  => 'سریال',
+                'slug'     => 'video-serial',
+                'type'     => 'video',
+                'children' => []
+            ],
+            [
+                'name_en'  => 'Interview',
+                'name_fa'  => 'مصاحبه',
+                'slug'     => 'video-interview',
+                'type'     => 'video',
+                'children' => []
+            ],
+
+            [
+                'name_en'  => 'Short Film',
+                'name_fa'  => 'کلیپ کوتاه',
+                'slug'     => 'video-short-film',
+                'type'     => 'video',
+                'children' => []
+            ],
+
         ];
         $this->registerCategories($categories);
 

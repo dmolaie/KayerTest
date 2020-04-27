@@ -21,7 +21,10 @@ class AttachmentGetInfoDTO
      * @var array
      */
     protected $images = [];
-
+    /**
+     * @var string|null
+     */
+    protected $path;
     /**
      * @return array
      */
@@ -80,4 +83,23 @@ class AttachmentGetInfoDTO
     {
         $this->images[$entityId] = $images;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string|null $path
+     * @return AttachmentGetInfoDTO
+     */
+    public function setPath(?string $path): AttachmentGetInfoDTO
+    {
+        $this->path = $path;
+        return $this;
+    }
+
 }
