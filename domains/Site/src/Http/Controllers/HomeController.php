@@ -36,7 +36,7 @@ class HomeController extends Controller
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
         $news = $this->siteServices->getNews($status = 'published', $sort = 'DESC',$subdomain);
-        $event = $this->siteServices->getEvent($status = 'accept', $sort = 'DESC',$slugCategory = 'main-page',$subdomain);
+        $event = $this->siteServices->getEvent($status = 'published', $sort = 'DESC',$subdomain);
         return view('site::' . $request->language . '.index', compact('news', 'event'));
     }
 

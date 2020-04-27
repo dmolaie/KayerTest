@@ -10,6 +10,7 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\User\Exceptions\AttachmentFileErrorException;
 use Domains\User\Exceptions\ImageNotFoundErrorException;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class AttachmentServices
@@ -85,6 +86,29 @@ class AttachmentServices
             foreach ($attachmentEntity as $item) {
                 $attachmentInfoDTO->addToPaths($item->id, $item->path);
             }
+        }
+        return $attachmentInfoDTO;
+    }
+
+    public function uploadFiles(AttachmentDTO $attachmentDTO)
+    {
+        $attachmentInfoDTO = new AttachmentInfoDTO();
+        $attachmentDTO->setEntityName('Docs');
+        $attachmentDTO->setEntityId(5);
+        $attachmentInfoDTO->setEntityName($attachmentDTO->getEntityName());
+        $attachmentInfoDTO->setEntityId($attachmentDTO->getEntityId());
+        $attachmentInfoDTO->setType($attachmentDTO->getType());
+        if (!$attachmentDTO->getFiles()) {
+            throw new AttachmentFileErrorException(trans('attachment::response.attachment_file_not_exist'));
+        }
+        $basePath = config('attachment.base_path_storage');
+        $path = $basePath . $attachmentDTO->getEntityName();
+        foreach ($attachmentDTO->getFiles() as $file) {
+            $fileName = date('mdYHis') . uniqid() . '-' . $file->getClientOriginalName();
+            Storage::putFileAs($path . $this->separator . $attachmentDTO->getType(), $file, date('mdYHis') . uniqid() . '-' . $file->getClientOriginalName());
+            $imagePathFinal = $path . $this->separator . $attachmentDTO->getType() . $this->separator . $fileName;
+            $attachmentEntity = $this->attachmentRepository->create($attachmentDTO, $imagePathFinal, $fileName);
+            $attachmentInfoDTO->addToPaths($attachmentEntity->id, $imagePathFinal);
         }
         return $attachmentInfoDTO;
     }
