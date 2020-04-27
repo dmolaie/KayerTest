@@ -100,6 +100,13 @@ class CategoriesTableSeeder extends Seeder
                 'children' => []
             ],
             [
+                'name_en'  => 'global persian',
+                'name_fa'  => 'سراسری',
+                'slug'     => 'global-fa',
+                'type'     => 'news',
+                'children' => []
+            ],
+            [
                 'name_en'  => 'Nafas Celebration',
                 'name_fa'  => 'جشن نفس',
                 'slug'     => 'image-nafas-celebration',
