@@ -23,7 +23,7 @@ class AttachmentRepository
         return $attachment;
     }
 
-    public function getAllImages(string $entityName, int $entityId)
+    public function getAllFiles(string $entityName, int $entityId)
     {
         return $attachment = $this->entityName::where([
             ['reference_id', '=', $entityId],

@@ -90,14 +90,25 @@ class SiteServices
 
     public function getFilterNews($categories, $subdomain = null)
     {
-        $categoryId = $this->getIdCategoryNews($categories);
-        $this->newsFilterDTO->setCategoryIds([$categoryId]);
         $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
-        if ($subdomain) {
-            $this->newsFilterDTO->addProvinceId($subdomain->id);
+        $globalSubDomain = $this->getLocations('global-fa');
+        if (!$subdomain) {
+            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
-        return $this->newsService->filterNews($this->newsFilterDTO);
+
+        $categoryId = $this->getIdCategoryNews($categories);
+        $this->newsFilterDTO->setCategoryIds([$categoryId]);
+        $this->newsFilterDTO->addProvinceId($subdomain->id);
+        $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
+        if (empty($news))
+        {
+            $this->newsFilterDTO->setCategoryIds([]);
+            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
+        }
+        return $news;
     }
 
     private function getIdCategoryNews($categorySlug)
@@ -109,10 +120,26 @@ class SiteServices
     {
         $this->eventFilterDTO->setEventInputStatus('published');
         $this->eventFilterDTO->setSort('DESC');
-        if ($subdomain) {
-            $this->eventFilterDTO->addProvinceId($subdomain->id);
+        $globalSubDomain = $this->getLocations('global-fa');
+
+        if (!$subdomain) {
+            $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
         }
-        return $this->eventService->filterEvent($this->eventFilterDTO);
+
+        $this->eventFilterDTO->addProvinceId($subdomain->id);
+        $events = $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+
+        if (empty($events)) {
+            $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+        }
+        return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+    }
+
+    public function getLocations($slug)
+    {
+        return $this->provinceService->finBySlug($slug);
     }
 
     public function getDetailNews($slug)
@@ -147,35 +174,41 @@ class SiteServices
 
     public function getNews($status, $sort, $subdomain = null)
     {
+        $globalSubDomain = $this->getLocations('global-fa');
         $this->newsFilterDTO->setNewsInputStatus($status);
         $this->newsFilterDTO->setSort($sort);
+
         if (!$subdomain) {
-            $globalSubDomain = $this->getLocations('global-fa');
             $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
-            if (!empty($this->newsService->filterNews($this->newsFilterDTO)->getItems())) {
-                return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-            }
-            $tehranSubDmoain = $this->getLocations('tehran');
-            $this->newsFilterDTO->addProvinceId($tehranSubDmoain->id);
             return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
         $this->newsFilterDTO->addProvinceId($subdomain->id);
-        return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-    }
+        $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
 
-    public function getLocations($slug)
-    {
-        return $this->provinceService->finBySlug($slug);
-    }
-
-    public function getEvent($status, $sort, $slugCategory, $subdomain = null)
-    {
-        $this->eventFilterDTO->setEventInputStatus($status);
-        $this->eventFilterDTO->setCategoryIds([$this->categoryService->getCategoryBySlug($slugCategory)]);
-        $this->eventFilterDTO->setSort($sort);
-        if ($subdomain) {
-            $this->eventFilterDTO->addProvinceId($subdomain->id);
+        if (empty($news)) {
+            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
+        return $news;
+    }
+
+    public function getEvent($status, $sort, $subdomain = null)
+    {
+        $globalSubDomain = $this->getLocations('global-fa');
+        $this->eventFilterDTO->setEventInputStatus($status);
+        $this->eventFilterDTO->setSort($sort);
+        if (!$subdomain) {
+            $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+        }
+        $this->eventFilterDTO->addProvinceId($subdomain->id);
+        $events = $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+
+        if (empty($events)) {
+            $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
+            return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+        }
+
         return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
     }
 
