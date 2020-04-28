@@ -34,21 +34,23 @@ class PagesController extends Controller
 
     public function newsListIran(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        $news = $this->siteServices->getFilterNews('iran-news')->getItems();
+        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $news = $this->siteServices->getFilterNews('iran-news',$subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
 
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        $news = $this->siteServices->getFilterNews('world-news')->getItems();
+        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $news = $this->siteServices->getFilterNews('world-news',$subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('events'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
 
     public function eventsList(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        $events = $this->siteServices->getFilterEvent()->getItems();
+        $events = $this->siteServices->getFilterEvent();
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('event'));
         return view('site::' . $request->language . '.pages.events-list', compact('events', 'categories'));
     }
@@ -200,7 +202,7 @@ class PagesController extends Controller
     public function newsListIranDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews('iran-news',$subdomain)->getItems();
+        $news = $this->siteServices->getFilterNews('iran-news',$subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
@@ -208,7 +210,7 @@ class PagesController extends Controller
     public function newsListWorldDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews('world-news',$subdomain)->getItems();
+        $news = $this->siteServices->getFilterNews('world-news',$subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
@@ -216,7 +218,7 @@ class PagesController extends Controller
     public function eventsListDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $events = $this->siteServices->getFilterEvent($subdomain)->getItems();
+        $events = $this->siteServices->getFilterEvent($subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('event'));
         return view('site::' . $request->language . '.pages.events-list', compact('events', 'categories'));
     }

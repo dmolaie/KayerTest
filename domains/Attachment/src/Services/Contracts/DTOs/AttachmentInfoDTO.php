@@ -12,7 +12,6 @@ class AttachmentInfoDTO extends AttachmentBaseDTO
      */
     protected $paths;
 
-
     public function addToPaths(int $id,string $path): AttachmentInfoDTO
     {
         $this->paths[] = ['image_id' => $id, 'path' => $path];

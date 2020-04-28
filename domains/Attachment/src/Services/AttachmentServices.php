@@ -10,6 +10,7 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\User\Exceptions\AttachmentFileErrorException;
 use Domains\User\Exceptions\ImageNotFoundErrorException;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class AttachmentServices
@@ -69,18 +70,18 @@ class AttachmentServices
     {
         foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
             $attachmentGetInfoDTO->addImages(
-                $this->getAllImages($attachmentGetInfoDTO->getEntityName(), $entityId),
+                $this->getAllFiles($attachmentGetInfoDTO->getEntityName(), $entityId),
                 $entityId);
         }
         return $attachmentGetInfoDTO;
     }
 
-    public function getAllImages(string $entityName, int $entityId): AttachmentInfoDTO
+    public function getAllFiles(string $entityName, int $entityId): AttachmentInfoDTO
     {
         $attachmentInfoDTO = new AttachmentInfoDTO();
         $attachmentInfoDTO->setEntityName($entityName);
         $attachmentInfoDTO->setEntityId($entityId);
-        $attachmentEntity = $this->attachmentRepository->getAllImages($entityName, $entityId);
+        $attachmentEntity = $this->attachmentRepository->getAllFiles($entityName, $entityId);
         if ($attachmentEntity) {
             foreach ($attachmentEntity as $item) {
                 $attachmentInfoDTO->addToPaths($item->id, $item->path);
@@ -91,19 +92,30 @@ class AttachmentServices
 
     public function uploadFiles(AttachmentDTO $attachmentDTO)
     {
-        //TODO change
         $attachmentInfoDTO = new AttachmentInfoDTO();
-        $attachmentInfoDTO->setEntityName('test');
-        $attachmentInfoDTO->setEntityId(1)->addToPaths(1,'test/test');
+        $attachmentInfoDTO->setEntityName($attachmentDTO->getEntityName());
+        $attachmentInfoDTO->setEntityId($attachmentDTO->getEntityId());
+        $type = $attachmentDTO->getEntityName();
+        if (!$attachmentDTO->getFiles()) {
+            throw new AttachmentFileErrorException(trans('attachment::response.attachment_file_not_exist'));
+        }
+        $basePath = config('attachment.base_path_storage');
+        $path = $basePath . $type;
+        foreach ($attachmentDTO->getFiles() as $file) {
+            $fileName = date('mdYHis') . uniqid() . '-' . $file->getClientOriginalName();
+            Storage::putFileAs($path . $this->separator, $file, date('mdYHis') . uniqid() . '-' . $file->getClientOriginalName());
+            $imagePathFinal = $path . $this->separator . $fileName;
+            $attachmentEntity = $this->attachmentRepository->create($attachmentDTO, $imagePathFinal, $fileName);
+            $attachmentInfoDTO->addToPaths($attachmentEntity->id, $imagePathFinal);
+        }
         return $attachmentInfoDTO;
     }
 
     public function getContentByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
     {
-        //TODO change
         foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
-            $attachmentGetInfoDTO->addImages(
-                $this->getAllImages($attachmentGetInfoDTO->getEntityName(), $entityId),
+            $attachmentGetInfoDTO->addFiles(
+                $this->getAllFiles($attachmentGetInfoDTO->getEntityName(), $entityId),
                 $entityId);
         }
         return $attachmentGetInfoDTO;

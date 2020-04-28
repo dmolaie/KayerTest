@@ -2,6 +2,7 @@
 return [
 
     'base_path' => 'upload/images/',
+    'base_path_storage' => 'uploads/',
 
     'image_sizes' => [
         'Slider' => [
