@@ -1,13 +1,13 @@
 <?php
 
-namespace Domains\Media\Http\Requests\Image;
+namespace Domains\Media\Http\Requests\Text;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
 use Domains\Media\Services\Contracts\DTOs\MediaEditDTO;
 use Illuminate\Validation\Rule;
 
-class EditImageRequest extends EhdaBaseRequest
+class EditTextRequest extends EhdaBaseRequest
 {
 
     /**
@@ -27,8 +27,10 @@ class EditImageRequest extends EhdaBaseRequest
             'province_id'      => 'integer|exists:provinces,id',
             'language'         => ['required', Rule::in(config('media.media_language'))],
             'images.*'         => 'image|max:500',
-            'content.*'        => 'image|max:500',
-            'content'          => 'array'
+            'content.*'        => 'mimetypes:application/pdf,application/msword|max:10000',
+            'content'          => 'array',
+            'description'      => 'string',
+            'abstract'         => 'string',
         ];
     }
 
@@ -54,7 +56,9 @@ class EditImageRequest extends EhdaBaseRequest
             ->setFirstTitle($this['first_title'])
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setAttachmentFiles($this['images'])
-            ->setType(config('media.media_type_image'))
+            ->setType(config('media.media_type_text'))
+            ->setDescription($this['description'])
+            ->setAbstract($this['abstract'])
             ->setContentFiles($this['content'])
             ->setSlug($this['slug']);
 

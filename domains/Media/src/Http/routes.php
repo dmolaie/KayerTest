@@ -11,3 +11,15 @@ Route::group(['prefix' => 'image/admin', 'name' => '.image.admin.'],
         Route::get('/detail/{id}', 'ImageController@getDetail')->middleware('auth:api')
             ->where('id', '[0-9]+');
     });
+
+Route::group(['prefix' => 'text/admin', 'name' => '.text.admin.'],
+    function () {
+        Route::post('/create', 'TextController@create')->middleware('auth:api');
+        Route::post('/edit', 'TextController@edit')->middleware('auth:api');
+        Route::delete('/delete/{id}', 'TextController@delete')->middleware('auth:api')
+            ->where('id', '[0-9]+');
+        Route::get('/list', 'TextController@getListForAdmin');
+        Route::post('/change-status', 'TextController@changeStatus')->middleware('auth:api');
+        Route::get('/detail/{id}', 'TextController@getDetail')->middleware('auth:api')
+            ->where('id', '[0-9]+');
+    });
