@@ -16,15 +16,21 @@ class AttachmentGetInfoDTO
     /**
      * @var string
      */
-    protected $entityName ;
+    protected $entityName;
     /**
      * @var array
      */
     protected $images = [];
+
+    /**
+     * @var array
+     */
+    protected $files = [];
     /**
      * @var string|null
      */
     protected $path;
+
     /**
      * @return array
      */
@@ -79,9 +85,16 @@ class AttachmentGetInfoDTO
         return $this;
     }
 
-    public function addImages(AttachmentInfoDTO $images,int $entityId)
+    public function addImages(AttachmentInfoDTO $images, int $entityId)
     {
         $this->images[$entityId] = $images;
+        return $this;
+    }
+
+    public function addFiles(AttachmentInfoDTO $files, int $entityId)
+    {
+        $this->files[$entityId] = $files;
+        return $this;
     }
 
     /**
@@ -100,6 +113,22 @@ class AttachmentGetInfoDTO
     {
         $this->path = $path;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFiles(): array
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param array $files
+     */
+    public function setFiles(array $files): void
+    {
+        $this->files = $files;
     }
 
 }
