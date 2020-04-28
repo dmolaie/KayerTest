@@ -15,7 +15,7 @@
                     </p>
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
-                    <img src="/images/img_news-list.png"
+                    <img src="{{ asset('/images/img_news-list.png') }}"
                          alt="اخبار ایران"
                          class="block w-full h-full object-contain"
                     />
@@ -120,6 +120,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/site/vendors~home~news_list~news_show.js')}}" defer></script>
+    <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
     <script src="{{asset('js/site/news_list.js')}}" defer></script>
 @endsection

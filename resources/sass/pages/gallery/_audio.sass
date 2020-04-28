@@ -1,0 +1,41 @@
+.gau-page
+  &__sTitle
+    margin-top: 32px
+  &__aside
+    margin-right: 28px
+  &__box
+    padding: 32px 12px 35px 20px
+  &__download
+    border-color: $sail
+    background-color: #eff3f7
+    padding: 7px 43px 8px 20px
+    svg
+      margin-right: 15px
+      width: 24px
+      object-fit: contain
+    @include L_Screen
+      &:hover
+        background-color: darken(#eff3f7, 1.5%)
+  .swiper-slide
+    padding: 10px 0
+    @include L_Screen
+      width: calc(33.33333% - #{$SpaceBetweenItem})
+      margin-left: ($SpaceBetweenItem + 3)
+    @include Xl_Screen
+      width: calc(25% - #{$SpaceBetweenItem})
+      margin-left: $SpaceBetweenItem
+    @include Xxl_Screen
+      width: calc(20% - #{$SpaceBetweenItem})
+      margin-left: $SpaceBetweenItem
+    @include Md_Screen
+      width: calc(50% - #{$SpaceBetweenItem})
+      margin-left: $SpaceBetweenItem
+    @include Sm_Screen
+      width: 178px
+      margin-left: 0
+      &:first-of-type
+        margin-right: $mPadding
+      &:last-of-type
+        margin-left: $mPadding
+  .carousel__pagination
+    margin: 35px 0

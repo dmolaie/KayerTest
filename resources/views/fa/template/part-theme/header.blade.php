@@ -4,7 +4,7 @@
             <a href="{{ route('index',config('app.locale')) }}"
                class="header__logo block m-l-auto"
             >
-                <img src="/images/ic_ehda-center.png"
+                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="header__logo_image block object-contain"
                 />
@@ -121,7 +121,7 @@
         <a href="{{ route('index',config('app.locale')) }}"
            class="m-header__logo"
         >
-            <img src="/images/ic_ehda-center.png"
+            <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                  alt="انجمن اهدای عضو ایرانیان"
                  class="h-full block object-contain"
             />

@@ -38,7 +38,7 @@
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
                             انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($content->getPublishDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i /  %d %B %Y')}}
                         </p>
-                        <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20">
+                        <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20 sm:flex-col">
                             <span class="text-bayoux font-sm-bold cursor-default">
                                 لینک کوتاه:
                             </span>
@@ -256,6 +256,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/site/vendors~home~news_list~news_show.js')}}" defer></script>
-    <script src="{{asset('js/site/news_show.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/news_show.js')}}" defer></script>
 @endsection
