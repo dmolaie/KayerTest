@@ -42,7 +42,7 @@
                     <div class="l:w-260">
                         <figure class="org-page__cover block w-full h-full l:m-r-28 rounded has-skeleton">
                             <img src=""
-                                 data-src="{{ asset('images/1570868165_GXXG8eFBc1SHej421ztX3mYP0QGA92_original.jpg') }}"
+                                 data-src="{{ secure_asset('images/1570868165_GXXG8eFBc1SHej421ztX3mYP0QGA92_original.jpg') }}"
                                  alt=""
                                  class="org-page__image block w-full h-full rounded-3 object-cover"
                             />
@@ -67,7 +67,7 @@
                 </div>
                 <figure class="m-b-20 l:w-750 md:max-w-100 m-0-auto rounded has-skeleton">
                     <img src=""
-                         data-src="{{ asset('images/1539008345_u2bb1jl2PnkeE86StqGg7veLthFSRo_original.jpg') }}"
+                         data-src="{{ secure_asset('images/1539008345_u2bb1jl2PnkeE86StqGg7veLthFSRo_original.jpg') }}"
                          alt=""
                          class="w-full h-full block rounded object-cover"
                     />

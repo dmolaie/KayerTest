@@ -3,7 +3,7 @@
     <div class="p-home flex flex-col">
         <div class="block w-full">
             <figure class="block w-full">
-                <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
+                <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="block w-full"
                 />
@@ -39,42 +39,42 @@
                     لحظه‌ها مهم است…
                 </h4>
                 <figure class="section__image flex items-center justify-center">
-                    <img src="/images/ic_person--blue.svg"
+                    <img src="{{ secure_asset('/images/ic_person--blue.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
                     <span class="blue_symbol text-blue">
                         =
                     </span>
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="/images/ic_person--gray.svg"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
@@ -189,7 +189,7 @@
                                 <a href=""
                                    class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ asset('images/information/تاریخچه‌ی اهدا و پیوند.svg') }}"
+                                        <img src="{{ secure_asset('images/information/تاریخچه‌ی اهدا و پیوند.svg') }}"
                                              alt="تاریخچه‌ی اهدا و پیوند"
                                              class="block w-full h-full rounded object-contain"
                                         />
@@ -203,7 +203,7 @@
                                 <a href=""
                                    class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ asset('images/information/فرایند مرگ مغزی.svg') }}"
+                                        <img src="{{ secure_asset('images/information/فرایند مرگ مغزی.svg') }}"
                                              alt="فرایند مرگ مغزی"
                                              class="block w-full h-full rounded object-contain"
                                         />
@@ -217,7 +217,7 @@
                                 <a href=""
                                    class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ asset('images/information/مروری بر اهدای عضو.svg') }}"
+                                        <img src="{{ secure_asset('images/information/مروری بر اهدای عضو.svg') }}"
                                              alt="مروری بر اهدای عضو"
                                              class="block w-full h-full rounded object-contain"
                                         />
@@ -231,7 +231,7 @@
                                 <a href=""
                                    class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ asset('images/information/تخصیص عضو.svg') }}"
+                                        <img src="{{ secure_asset('images/information/تخصیص عضو.svg') }}"
                                              alt="تخصیص عضو"
                                              class="block w-full h-full rounded object-contain"
                                         />
@@ -245,7 +245,7 @@
                                 <a href=""
                                    class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ asset('images/information/اهدای عضو در سایر کشورها.svg') }}"
+                                        <img src="{{ secure_asset('images/information/اهدای عضو در سایر کشورها.svg') }}"
                                              alt="اهدای عضو در سایر کشورها"
                                              class="block w-full h-full rounded object-contain"
                                         />
@@ -259,7 +259,7 @@
                                 <a href=""
                                    class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                     <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ asset('images/information/اهدای عضو و مذهب.svg') }}"
+                                        <img src="{{ secure_asset('images/information/اهدای عضو و مذهب.svg') }}"
                                              alt="اهدای عضو و مذهب"
                                              class="block w-full h-full rounded object-contain"
                                         />
@@ -394,6 +394,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/site/vendors~home~news_list~news_show.js')}}" defer></script>
-    <script src="{{asset('js/site/home.js')}}" defer></script>
+    <script src="{{ secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js') }}" defer></script>
+    <script src="{{ secure_asset('js/site/home.js') }}" defer></script>
 @endsection

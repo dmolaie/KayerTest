@@ -11,15 +11,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('css/appStyle.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('css/appStyle.css') }}" rel="stylesheet">
     <title>
         اهدا
     </title>
 </head>
 <body class="h-full overflow-x-hidden">
     <div id="app"></div>
-    <script src="{{ asset('js/office/runtime.js ') }}" defer></script>
-    <script src="{{ asset('js/office/vendors~app.js') }}" defer></script>
-    <script src="{{ asset('js/office/app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/office/runtime.js ') }}" defer></script>
+    <script src="{{ secure_asset('js/office/vendors~app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/office/app.js') }}" defer></script>
 </body>
 </html>
