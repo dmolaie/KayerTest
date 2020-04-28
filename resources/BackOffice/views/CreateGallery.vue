@@ -8,7 +8,7 @@
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
                                :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="عنوان را اینجا وارد کنید"
-                               v-model="form.title"
+                               v-model="form.first_title"
                         />
                     </label>
                     <div class="w-full border-blue-100-1 rounded m-t-15"
@@ -36,23 +36,23 @@
                         فایل‌های ضمیمه ({{ filesLength }})
                     </p>
                     <template v-if="isAudioType">
-                        <upload-cm :dropBox="true" :fieldName="fieldName.audio"
+                        <upload-cm :dropBox="true" :fieldName="fromDataName"
                                    accept="audio/mp3, audio/wave, audio/wma, audio/mpga"
                                    @onChange="onchangeAudioFile"
                         />
                     </template>
                     <template v-if="isImagesType">
-                        <upload-cm :dropBox="true" :fieldName="fieldName.image"
+                        <upload-cm :dropBox="true" :fieldName="fromDataName"
                                    @onChange="onchangeImageFile"
                         />
                     </template>
                     <template v-if="isVideoType">
-                        <upload-cm :dropBox="true" :fieldName="fieldName.video"
+                        <upload-cm :dropBox="true" :fieldName="fromDataName"
                                    @onChange="onchangeVideoFile"
                         />
                     </template>
                     <template v-if="isTextType">
-                        <upload-cm :dropBox="true" :fieldName="fieldName.text"
+                        <upload-cm :dropBox="true" :fieldName="fromDataName"
                                    accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                                    @onChange="onchangeTextFile"
                         />
@@ -179,7 +179,7 @@
 
     const DEFAULT_IMAGE = '/images/img_default.jpg';
     const INITIAL_FORM = () => ({
-        title: '',
+        first_title: '',
         abstract: '',
         description: '',
         filesDes: [],
@@ -187,6 +187,7 @@
         category_ids: [],
         images: null,
         slug: '',
+        parent_id: '',
     });
 
     export default {
@@ -195,18 +196,18 @@
             form: INITIAL_FORM(),
             isPending: true,
             isModuleRegistered: false,
-            fieldName: {
-                [GALLERY_TYPE['audio'].name_en]: 'audios[]',
-                [GALLERY_TYPE['image'].name_en]: 'images[]',
-                [GALLERY_TYPE['video'].name_en]: 'videos[]',
-                [GALLERY_TYPE['text'].name_en] : 'texts[]',
-            },
+            fromDataName: 'content[]',
             DEFAULT_IMAGE: DEFAULT_IMAGE,
             textEditorKey: 0
         }),
         components: {
             PublishCm, LocationCm, CategoryCm, TextEditorCm,
             ImagePanelCm, SelectCm, UploadCm, ImageCm
+        },
+        watch: {
+            $route() {
+                this.setInitialState();
+            }
         },
         computed: {
             ...mapGetters({ isAdmin: 'IS_ADMIN' }),
@@ -231,8 +232,7 @@
                 return this.galleryType === GALLERY_TYPE['text'].name_en;
             },
             getSelectedFiles() {
-                const TYPE = this.fieldName[this.galleryType];
-                return this.form.files.getAll( TYPE );
+                return this.form.files.getAll( this.fromDataName );
             },
             filesLength() {
                 return Length( this.getSelectedFiles )
@@ -250,62 +250,80 @@
             },
         },
         methods: {
-            async getImagePreviews(formData, type) {
+            setInitialState() {
+                Object.assign(this.form, INITIAL_FORM.apply( this ));
+                this.$refs['categoryCm']?.reset();
+                this.$refs['provinces']?.resetValue();
+                this.$refs['imagePanel']?.onClickRemoveImageButton();
+                this.$nextTick(() => {
+                    this.$set(this, 'textEditorKey', this.textEditorKey + 1);
+                })
+            },
+            async getImagePreviews( formData ) {
                 try {
-                    const fReader = await UploadService.imagePreview(formData, type);
+                    const fReader = await UploadService.imagePreview(formData, this.fromDataName);
                     this.form.filesDes.push(fReader[0].image);
                 } catch ( exception ) {}
             },
             onchangeAudioFile( formData ) {
-                const { audio } = this.fieldName;
-                this.onchangeFiles(formData, audio);
+                this.onchangeFiles( formData );
             },
             onchangeImageFile( formData ) {
-                const { image } = this.fieldName;
-                this.onchangeFiles(formData, image);
-                this.getImagePreviews(formData, image);
+                this.onchangeFiles( formData );
+                this.getImagePreviews( formData );
             },
             onchangeVideoFile( formData ) {
-                const { video } = this.fieldName;
-                this.onchangeFiles(formData, video);
-                this.getImagePreviews(formData, video);
+                this.onchangeFiles( formData );
+                this.getImagePreviews( formData );
             },
             onchangeTextFile( formData ) {
-                const { text } = this.fieldName;
-                this.onchangeFiles(formData, text);
+                this.onchangeFiles( formData );
             },
-            onchangeFiles(formData, type) {
-                const { getSelectedFiles } = this;
+            onchangeFiles( formData ) {
+                const { getSelectedFiles, fromDataName } = this;
                 const FORM_DATA = new FormData();
                 if (!!getSelectedFiles && HasLength( getSelectedFiles ))
-                    getSelectedFiles.map(file => FORM_DATA.append(type, file));
-                FORM_DATA.append(type, formData.get(type));
+                    getSelectedFiles.map(file => FORM_DATA.append(fromDataName, file));
+                FORM_DATA.append(fromDataName, formData.get( fromDataName ));
                 this.$set(this.form, 'files', FORM_DATA);
             },
             onClickRemoveUploadedFile( index ) {
                 try {
-                    const TYPE = this.fieldName[this.galleryType];
                     this.getSelectedFiles.splice(index, 1);
                     const FORM_DATA = new FormData();
-                    this.getSelectedFiles.map(file => FORM_DATA.append(TYPE, file));
+                    this.getSelectedFiles.map(file => FORM_DATA.append(this.fromDataName, file));
                     this.$set(this.form, 'files', FORM_DATA);
                     this.form.filesDes.splice(index, 1);
-                } catch ( exception ) {
-                    console.warn('exception', exception)
-                }
+                } catch ( exception ) { }
             },
             async onClickReleaseItemButton() {
                 try {
-                    console.log(JSON.stringify(Chunkify(this.form.filesDes, 2)));
+                    this.$set(this, 'isPending', true);
+                    let result = await Service.createGalleryItem( this.galleryType );
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
                 } catch ( exception ) {
+                    this.$set(this, 'isPending', false);
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
             onClickPersianLang() {
-
+                this.pushRouter({
+                    name: "CREATE_GALLERY",
+                    params: {
+                        lang: 'fa',
+                        type: this.galleryType
+                    }
+                })
             },
             onClickEnglishLang() {
-
+                this.pushRouter({
+                    name: "CREATE_GALLERY",
+                    params: {
+                        lang: 'en',
+                        type: this.galleryType
+                    }
+                })
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);

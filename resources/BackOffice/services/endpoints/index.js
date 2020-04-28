@@ -64,6 +64,10 @@ const GET_ALL_CITY = "GET_ALL_CITY";
 const GET_CITY_BY_PROVINCES_ID = "GET_CITY_BY_PROVINCES_ID";
 const UPLOAD_IMAGES_ITEM = "UPLOAD_IMAGES_ITEM";
 const DELETE_IMAGES_ITEM = "DELETE_IMAGES_ITEM";
+const GET_GALLERY_LIST = 'GET_GALLERY_LIST';
+const CREATE_GALLERY_LIST = 'CREATE_GALLERY_LIST';
+const EDIT_STATUS_GALLERY_ITEM = 'EDIT_STATUS_GALLERY_ITEM';
+const DELETE_GALLERY_ITEM = 'DELETE_GALLERY_ITEM';
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[LOGOUT] = '/user/logout';
@@ -124,6 +128,11 @@ endpoints[CREATE_EVENT_LIST] = `/event/${VER_1_0}/admin/create`;
 endpoints[EDIT_EVENT_ITEM] = `/event/${VER_1_0}/admin/edit`;
 endpoints[EDIT_STATUS_EVENT_ITEM] = `/event/${VER_1_0}/admin/change-status`;
 endpoints[DELETE_EVENT_ITEM] = `/event/${VER_1_0}/admin/delete`;
+
+endpoints[GET_GALLERY_LIST] = `/media/${VER_1_0}/:type/admin/list`;
+endpoints[CREATE_GALLERY_LIST] = `/media/${VER_1_0}/:type/admin/create`;
+endpoints[EDIT_STATUS_GALLERY_ITEM] = `/media/${VER_1_0}/:type/admin/change-status`;
+endpoints[DELETE_GALLERY_ITEM] = `/media/${VER_1_0}/:type/admin/delete/:id`;
 
 endpoints[GET_ALL_PROVINCES] = `/location/${VER_1_0}/all-provinces`;
 endpoints[GET_USER_PROVINCES] = `/location/${VER_1_0}/user-provinces`;
@@ -339,6 +348,22 @@ export default class Endpoint {
 
     static get CREATE_CATEGORY_ITEM() {
         return endpoints[CREATE_CATEGORY_ITEM]
+    }
+
+    static get GET_GALLERY_LIST() {
+        return endpoints[GET_GALLERY_LIST];
+    }
+
+    static get CREATE_GALLERY_LIST() {
+        return endpoints[CREATE_GALLERY_LIST];
+    }
+
+    static get EDIT_STATUS_GALLERY_ITEM() {
+        return endpoints[EDIT_STATUS_GALLERY_ITEM]
+    }
+
+    static get DELETE_GALLERY_ITEM() {
+        return endpoints[DELETE_GALLERY_ITEM]
     }
 
     static get GET_ALL_PROVINCES() {

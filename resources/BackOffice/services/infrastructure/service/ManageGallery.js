@@ -33,14 +33,20 @@ export const GALLERY_TYPE = {
 };
 
 export class GalleryService {
-    static async getGalleryList( queryString = {} ) {
+    /**
+     * @param type as String | required
+     * @param queryString as Object
+     */
+    static async getGalleryList( type, queryString) {
         try {
-            // return await HTTPService.getRequest('', queryString)
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_GALLERY_LIST, { type }), queryString)
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
         }
     }
-
+    /**
+     * @param type as String | required
+     */
     static async getGalleryCategories( type = '' ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
@@ -50,18 +56,41 @@ export class GalleryService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
-
-    static async changeGalleryItemStatus(gallery_id, status) {
+    /**
+     * @param type as String | required
+     * @param requestPayload as FormData | required
+     */
+    static async createGalleryItem(type, requestPayload) {
         try {
-            // return await ''
+            return await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_GALLERY_LIST, { type }), requestPayload)
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    /**
+     * @param media_id as Number | required
+     * @param media_type as String | required
+     * @param status as String | required
+     */
+    static async changeGalleryItemStatus(media_id, media_type, status) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_GALLERY_ITEM, { media_type }), {
+                media_id, status
+            })
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
         }
     }
-
-    static async deleteGalleryItem( gallery_id ) {
+    /**
+     * @param media_id as Number | required
+     * @param media_type as String | required
+     */
+    static async deleteGalleryItem(media_id, media_type) {
         try {
-            //gallery_id
+            return await HTTPService.deleteRequest(Endpoint.get(Endpoint.DELETE_GALLERY_ITEM, {
+                id: media_id,
+                type: media_type
+            }))
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
         }
@@ -98,8 +127,9 @@ export default class ManageGalleryService {
                 delete QUERY_STRING['status'];
                 QUERY_STRING['publisher_id'] = this.$store.getters[GET_USER_ID]
             }
-            // let response = await GalleryService.getGalleryList( QUERY_STRING );
-            // BaseService.commitToStore(this.$store, M_GALLERY_SET_DATA, response);
+            const TYPE = this.$vm.$route?.params?.type;
+            let response = await GalleryService.getGalleryList(TYPE, QUERY_STRING);
+            BaseService.commitToStore(this.$store, M_GALLERY_SET_DATA, response);
         } catch ( exception ) {
             throw exception;
         }
@@ -115,29 +145,29 @@ export default class ManageGalleryService {
         }
     }
 
-    removeItemFromStore( gallery_id ) {
+    removeItemFromStore( media_id ) {
         try {
             let newData = CopyOf( Object.values( this.$vm.items ) );
-            let findIndex = newData.findIndex( item => item.gallery_id === gallery_id );
+            let findIndex = newData.findIndex( item => item.media_id === media_id );
             if ( findIndex >= 0 ) newData.splice(findIndex, 1);
             BaseService.commitToStore(this.$store, M_GALLERY_UPDATE_DATA, newData);
         } catch ( exception ) {}
     }
 
-    async changeStatusItems(gallery_id, status) {
+    async changeStatusItems(media_id, media_type, status) {
         try {
-            let response = await GalleryService.changeGalleryItemStatus(gallery_id, status);
-            this.removeItemFromStore( gallery_id );
+            let response = await GalleryService.changeGalleryItemStatus(media_id, media_type, status);
+            this.removeItemFromStore( media_id );
             return response.message;
         } catch ( exception ) {
             throw exception;
         }
     }
 
-    async deleteGalleryItem( gallery_id ) {
+    async deleteGalleryItem(media_id, media_type) {
         try {
-            let response = await GalleryService.deleteGalleryItem( gallery_id );
-            this.removeItemFromStore( gallery_id );
+            let response = await GalleryService.deleteGalleryItem(media_id, media_type);
+            this.removeItemFromStore( media_id );
             return response.message;
         } catch ( exception ) {
             throw exception;
@@ -148,8 +178,8 @@ export default class ManageGalleryService {
         try {
             let QUERY_STRING = query;
             (HasLength( searchValue.trim() )) ? (
-                QUERY_STRING['title'] = searchValue.trim()
-            ) : delete QUERY_STRING['title'];
+                QUERY_STRING['first_title'] = searchValue.trim()
+            ) : delete QUERY_STRING['first_title'];
             await this.getGalleryListFilterBy( QUERY_STRING );
         } catch ( exception ) {
             throw exception;

@@ -20,8 +20,8 @@ export class SingleGalleryPresenter extends BasePresenter {
         this.item = data;
 
         return this.mapProps({
-            gallery_id: Number,
-            title: String,
+            media_id: Number,
+            first_title: String,
             abstract: String,
             image_path: String,
             image_paths: Object,
@@ -47,12 +47,12 @@ export class SingleGalleryPresenter extends BasePresenter {
         })
     }
 
-    gallery_id() {
-        return this.item.gallery_id
+    media_id() {
+        return this.item.id
     }
 
-    title() {
-        return this.item.title
+    first_title() {
+        return this.item.first_title
     }
 
     abstract() {
@@ -122,12 +122,12 @@ export class SingleGalleryPresenter extends BasePresenter {
     }
 
     categories() {
-        return new SelectedCategoriesPresenter( this.item.category );
+        return new SelectedCategoriesPresenter( this.item.categories );
     }
 
     category_ids() {
         return (
-            new SelectedCategoriesPresenter( this.item.category )
+            new SelectedCategoriesPresenter( this.item.categories )
                 .map(({ id }) => id)
         )
     }

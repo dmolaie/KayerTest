@@ -173,13 +173,13 @@
                         <template #body="{ data }">
                             <div class="table__row flex"
                                  v-for="item in data"
-                                 :key="item.gallery_id"
+                                 :key="item.media_id"
                                  :class="{ 'table__row--delete pointer-event-none': item.is_delete }"
                             >
                                 <div class="table__td inline-flex items-center justify-center">
                                     <label class="cursor-pointer">
                                         <input type="checkbox"
-                                               :value="item.gallery_id"
+                                               :value="item.media_id"
                                                class="none"
                                         />
                                         <span class="table__checkbox block relative border border-solid rounded-1/2 bg-white"
@@ -197,7 +197,7 @@
                                 </div>
                                 <div class="table__td table__td:xl flex flex-col cursor-default">
                                     <p class="font-xs font-bold m-b-auto"
-                                       v-text="item.title"
+                                       v-text="item.first_title"
                                     > </p>
                                     <div class="w-full flex items-stretch">
                                         <span class="m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
@@ -226,9 +226,9 @@
                                           v-text="item.province_name"
                                     > </span>
                                 </div>
-                                <div class="table__td table__td:l inline-flex flex-wrap items-center justify-start">
-                                    <div class="w-full"
-                                         v-if="!!length( item.category )"
+                                <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
+                                    <div class="w-full text-center"
+                                         v-if="!!length( item.categories )"
                                     >
                                         <span v-for="category in item.categories.slice(0, 2)"
                                               :key="'cat-' + category.id"
@@ -236,7 +236,7 @@
                                         >
                                             {{ item.is_persian ? category.name_fa : category.name_en }}
                                         </span>
-                                        <template v-if="length( item.category ) > 2">
+                                        <template v-if="length( item.categories ) > 2">
                                             <span class="m-post__category--more text-blue-100 font-lg font-bold line-height-1 cursor-default">
                                                 …
                                             </span>
@@ -264,28 +264,28 @@
                                                 <template v-if="item.is_recycle && isAdmin">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'بازیابی از زباله دان'"
-                                                            @click.prevent="onClickPendingActionButton( item.gallery_id )"
+                                                            @click.prevent="onClickPendingActionButton( item.media_id )"
                                                     > </button>
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'حذف رویداد'"
-                                                            @click.prevent="onClickDeleteActionButton( item.gallery_id )"
+                                                            @click.prevent="onClickDeleteActionButton( item.media_id )"
                                                     > </button>
                                                 </template>
                                                 <template v-else-if="!item.is_delete">
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                             v-text="'ویرایش'"
-                                                            @click.prevent="onClickEditActionButton( item.gallery_id )"
+                                                            @click.prevent="onClickEditActionButton( item.media_id )"
                                                     > </button>
                                                     <span class="dropdown__divider"> </span>
                                                     <template v-if="isAdmin">
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'بازگشت به نویسنده (رد)'"
-                                                                @click.prevent="onClickRejectActionButton( item.gallery_id )"
+                                                                @click.prevent="onClickRejectActionButton( item.media_id )"
                                                                 v-if="item.is_pending"
                                                         > </button>
                                                         <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
                                                                 v-text="'انتقال به زباله دان'"
-                                                                @click.prevent="onClickRecycleActionButton( item.gallery_id )"
+                                                                @click.prevent="onClickRecycleActionButton( item.media_id )"
                                                                 v-else
                                                         > </button>
                                                     </template>
@@ -360,6 +360,25 @@
             DatePickerCm, TableCm,
             ImageCm, DropdownCm, PaginationCm
         },
+        watch: {
+            $route({ query }) {
+                let queryString = ( HasLength( query ) ) ? query : ({
+                    status: StatusService.PUBLISH_STATUS
+                });
+                this.$set(this, 'isPending', true);
+                this.$set(this.search, 'value', '');
+                this.$set(this.search, 'visibility', false);
+                this.$set(this.filter, 'visibility', false);
+                Service.getGalleryListFilterBy( queryString )
+                    .then(this.$nextTick)
+                    .then(() => {
+                        setTimeout(() => {
+                            this.$set(this, 'isPending', false)
+                        }, 70);
+                    })
+                    .catch(exception => { this.displayNotification(exception, { type: 'error' }) })
+            }
+        },
         computed: {
             ...mapGetters({
                 isAdmin: IS_ADMIN
@@ -421,8 +440,11 @@
              * @param query { Object }
              */
             switchBetweenTabs( query  = {} ) {
-                this.$router.push( { name: "MANAGE_EVENT", query } )
-                    .catch(err => {});
+                this.$router.push({
+                    query,
+                    type: this.galleryType,
+                    name: "MANAGE_GALLERY"
+                }).catch(err => {});
                 this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
             },
             onClickPublishTab() {
@@ -521,40 +543,40 @@
             onClickActionButton( item ) {
                 this.$set(item, 'is_opened', !item.is_opened)
             },
-            async onClickEditActionButton(gallery_id, language) {
+            async onClickEditActionButton(media_id, language) {
                 try {
-                    console.log(gallery_id, language);
+                    console.log(media_id, language);
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            async onClickPendingActionButton( gallery_id ) {
+            async onClickPendingActionButton( media_id ) {
                 try {
-                    let result = await Service.changeStatusItems(gallery_id, StatusService.PENDING_STATUS);
+                    let result = await Service.changeStatusItems(media_id, this.galleryType, StatusService.PENDING_STATUS);
                     this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            async onClickRejectActionButton( gallery_id ) {
+            async onClickRejectActionButton( media_id ) {
                 try {
-                    let result = await Service.changeStatusItems(gallery_id, StatusService.REJECT_STATUS);
+                    let result = await Service.changeStatusItems(media_id, this.galleryType, StatusService.REJECT_STATUS);
                     this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            async onClickRecycleActionButton( gallery_id ) {
+            async onClickRecycleActionButton( media_id ) {
                 try {
-                    let result = await Service.changeStatusItems(gallery_id, StatusService.RECYCLE_STATUS);
+                    let result = await Service.changeStatusItems(media_id, this.galleryType, StatusService.RECYCLE_STATUS);
                     this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 }
             },
-            async onClickDeleteActionButton( gallery_id ) {
+            async onClickDeleteActionButton( media_id ) {
                 try {
-                    let result = await Service.deleteGalleryItem( gallery_id );
+                    let result = await Service.deleteGalleryItem(media_id, this.galleryType);
                     this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
