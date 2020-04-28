@@ -8,15 +8,15 @@ use Auth;
 use Domains\Media\Exceptions\MediaNotFoundException;
 use Domains\Media\Http\Presenters\MediaInfoPresenter;
 use Domains\Media\Http\Presenters\MediaPaginateInfoPresenter;
-use Domains\Media\Http\Requests\Image\ImageListForAdminRequest;
-use Domains\Media\Http\Requests\Image\ChangeImageStatusRequest;
-use Domains\Media\Http\Requests\Image\CreateImageRequest;
-use Domains\Media\Http\Requests\Image\EditImageRequest;
+use Domains\Media\Http\Requests\Text\TextListForAdminRequest;
+use Domains\Media\Http\Requests\Text\ChangeTextStatusRequest;
+use Domains\Media\Http\Requests\Text\CreateTextRequest;
+use Domains\Media\Http\Requests\Text\EditTextRequest;
 use Domains\Media\Services\MediaService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
-class ImageController extends EhdaBaseController
+class TextController extends EhdaBaseController
 {
 
     /**
@@ -30,7 +30,7 @@ class ImageController extends EhdaBaseController
         $this->mediaService = $mediaService;
     }
 
-    public function create(CreateImageRequest $request, MediaInfoPresenter $mediaInfoPresenter)
+    public function create(CreateTextRequest $request, MediaInfoPresenter $mediaInfoPresenter)
     {
 
         $mediaCreateDTO = $request->createMediaCreateDTO();
@@ -43,9 +43,9 @@ class ImageController extends EhdaBaseController
 
     }
 
-    public function edit(EditImageRequest $request, MediaInfoPresenter $mediaInfoPresenter)
+    public function edit(EditTextRequest $request, MediaInfoPresenter $mediaInfoPresenter)
     {
-        try {
+        try{
             $mediaEditDTO = $request->createMediaEditDTO();
             $mediaInfoDTO = $this->mediaService->editMedia($mediaEditDTO);
             return $this->response(
@@ -53,14 +53,15 @@ class ImageController extends EhdaBaseController
                 Response::HTTP_OK,
                 trans('media::response.edit_successful')
             );
-        } catch (ModelNotFoundException $exception) {
+        }catch (ModelNotFoundException $exception){
             return $this->response([], Response::HTTP_NOT_FOUND,
                 trans('media::response.media_not_found'));
         }
+
     }
 
     public function getListForAdmin(
-        ImageListForAdminRequest $request,
+        TextListForAdminRequest $request,
         MediaPaginateInfoPresenter $mediaPaginateInfoPresenter
     ) {
         $mediaPaginateInfoDTO = $this->mediaService->filterMedia($request->createMediaFilterDTO());
@@ -83,7 +84,7 @@ class ImageController extends EhdaBaseController
         }
     }
 
-    public function changeStatus(ChangeImageStatusRequest $request, MediaInfoPresenter $mediaInfoPresenter)
+    public function changeStatus(ChangeTextStatusRequest $request, MediaInfoPresenter $mediaInfoPresenter)
     {
         try {
             $mediaInfoDTO = $this->mediaService->changeStatus(

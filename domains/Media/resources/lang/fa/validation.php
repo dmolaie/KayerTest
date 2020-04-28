@@ -48,6 +48,7 @@ return array(
         "array"   => ":attribute نباید بیشتر از :max آیتم باشد.",
     ),
     "mimes"                 => ":attribute باید یکی از فرمت های :values باشد.",
+    "mimetypes"             => ":attribute باید یکی از فرمت های :values باشد.",
     "min"                   => array(
         "numeric" => ":attribute نباید کوچکتر از :min باشد.",
         "file"    => ":attribute نباید کوچکتر از :min کیلوبایت باشد.",
