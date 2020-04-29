@@ -1,5 +1,4 @@
 import ManageGalleryPresenter from '@services/presenter/ManageGallery';
-import {M_EVENT_UPDATE_DATA} from "./ManageEvent";
 
 export const M_GALLERY_SET_DATA = "M_GALLERY_SET_DATA";
 export const M_GALLERY_UPDATE_DATA = "M_GALLERY_UPDATE_DATA";

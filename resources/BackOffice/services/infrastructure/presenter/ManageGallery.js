@@ -44,6 +44,10 @@ export class SingleGalleryPresenter extends BasePresenter {
             is_english: Boolean,
             category_ids: Array,
             categories: Array,
+            slug: String,
+            description: String,
+            relation_id: Number,
+            has_relation: Boolean,
         })
     }
 
@@ -145,6 +149,22 @@ export class SingleGalleryPresenter extends BasePresenter {
     }
 
     is_english() {
-        return this.item.language === 'fa'
+        return this.item.language === 'en'
+    }
+
+    slug() {
+        return this.item.slug.replace(/-/g, ' ')
+    }
+
+    description() {
+        return this.item.description
+    }
+
+    relation_id() {
+        return this.item.relation_id || ''
+    }
+
+    has_relation() {
+        return !!this.item.relation_id
     }
 }

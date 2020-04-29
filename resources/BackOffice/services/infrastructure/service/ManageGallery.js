@@ -8,6 +8,7 @@ import ManageGalleryStore, {
 } from '@services/store/ManageGallery';
 import { GET_USER_ID } from '@services/store/Login';
 import { CopyOf, HasLength } from '@vendor/plugin/helper';
+import { CategoryService } from '@services/service/ManageCategory';
 
 const DEFAULT_STATUS = {
     status: StatusService.PUBLISH_STATUS
@@ -34,8 +35,8 @@ export const GALLERY_TYPE = {
 
 export class GalleryService {
     /**
-     * @param type as String | required
-     * @param queryString as Object
+     * @param type { String }
+     * @param queryString { Object }
      */
     static async getGalleryList( type, queryString) {
         try {
@@ -45,20 +46,18 @@ export class GalleryService {
         }
     }
     /**
-     * @param type as String | required
+     * @param category_type { String }
      */
-    static async getGalleryCategories( type = '' ) {
+    static async getGalleryCategories( category_type ) {
         try {
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
-                category_type: type
-            });
+            return await CategoryService.getCategoryListByType( category_type );
         } catch ( exception ) {
-            throw ExceptionService._GetErrorMessage( exception );
+            throw exception;
         }
     }
     /**
-     * @param type as String | required
-     * @param requestPayload as FormData | required
+     * @param type { String }
+     * @param requestPayload { FormData }
      */
     static async createGalleryItem(type, requestPayload) {
         try {
@@ -68,9 +67,9 @@ export class GalleryService {
         }
     }
     /**
-     * @param media_id as Number | required
-     * @param media_type as String | required
-     * @param status as String | required
+     * @param media_id { Number }
+     * @param media_type { String }
+     * @param status { String }
      */
     static async changeGalleryItemStatus(media_id, media_type, status) {
         try {
@@ -82,8 +81,8 @@ export class GalleryService {
         }
     }
     /**
-     * @param media_id as Number | required
-     * @param media_type as String | required
+     * @param media_id { Number }
+     * @param media_type { String }
      */
     static async deleteGalleryItem(media_id, media_type) {
         try {
@@ -93,6 +92,20 @@ export class GalleryService {
             }))
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
+        }
+    }
+    /**
+     * @param media_id { String | Number }
+     * @param media_type { String }
+     */
+    static async getGalleryItemDetails( media_id, media_type ) {
+        try {
+            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_GALLERY_ITEM, {
+                id: media_id,
+                type: media_type
+            }))
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
         }
     }
 }

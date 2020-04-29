@@ -34,6 +34,7 @@ export const USER_SETTING = 'USER_SETTING';
 export const MANAGE_REPORT = 'MANAGE_REPORT';
 export const MANAGE_GALLERY = 'MANAGE_GALLERY';
 export const CREATE_GALLERY = 'CREATE_GALLERY';
+export const EDIT_GALLERY = 'EDIT_GALLERY';
 export const MANAGE_CATEGORY = 'MANAGE_CATEGORY';
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const NOT_FOUND = 'NOT_FOUND';
@@ -300,7 +301,7 @@ const Routes = new VueRouter({
         },
         {
             name: CREATE_GALLERY,
-            path: `/manage/gallery/create/:lang(fa|en)/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
+            path: `/manage/gallery/:type(${Object.keys( GALLERY_TYPE ).join('|')})/:lang(fa|en)/create/:parent_id(\\d+)?`,
             component: GetViews('CreateGallery' ),
             meta: {
                 title: 'افزودن به گالری',
@@ -317,6 +318,26 @@ const Routes = new VueRouter({
                     },
                 ]
             }
+        },
+        {
+            name: EDIT_GALLERY,
+            path: `/manage/gallery/:type(${Object.keys(GALLERY_TYPE).join('|')})/:lang(fa|en)/edit/:id(\\d+)`,
+            component: GetViews('EditGallery' ),
+            meta: {
+                title: 'ویرایش گالری',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: route => `گالری‌های ${GALLERY_TYPE[route.params.type].name_fa}`,
+                    },
+                    {
+                        name: 'ویرایش'
+                    }
+                ]
+            },
         },
         {
             name: MANAGE_LEGATE,
