@@ -152,6 +152,19 @@
         components: {
             TableCm, ImageCm
         },
+        watch: {
+            $route({ query }) {
+                this.$set(this, 'isPending', true);
+                Service.getCategoriesListFilterBy( query )
+                    .then(this.$nextTick)
+                    .then(() => {
+                        setTimeout(() => {
+                            this.$set(this, 'isPending', false)
+                        }, 70);
+                    })
+                    .catch(exception => { this.displayNotification(exception, { type: 'error' }) })
+            }
+        },
         computed: {
             ...mapState({
                 items: ({ ManageCategory }) => ManageCategory.items,
