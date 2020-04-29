@@ -267,7 +267,7 @@
                                                             @click.prevent="onClickPendingActionButton( item.media_id )"
                                                     > </button>
                                                     <button class="dropdown__item block w-full text-bayoux font-1xs font-medium text-right text-nowrap"
-                                                            v-text="'حذف رویداد'"
+                                                            v-text="'حذف گالری'"
                                                             @click.prevent="onClickDeleteActionButton( item.media_id )"
                                                     > </button>
                                                 </template>

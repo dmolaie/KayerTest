@@ -74,7 +74,7 @@ export class GalleryService {
      */
     static async changeGalleryItemStatus(media_id, media_type, status) {
         try {
-            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_GALLERY_ITEM, { media_type }), {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_GALLERY_ITEM, { type: media_type }), {
                 media_id, status
             })
         } catch ( exception ) {
@@ -149,6 +149,7 @@ export default class ManageGalleryService {
         try {
             let newData = CopyOf( Object.values( this.$vm.items ) );
             let findIndex = newData.findIndex( item => item.media_id === media_id );
+            console.log('findIndex: ', newData, findIndex, media_id);
             if ( findIndex >= 0 ) newData.splice(findIndex, 1);
             BaseService.commitToStore(this.$store, M_GALLERY_UPDATE_DATA, newData);
         } catch ( exception ) {}

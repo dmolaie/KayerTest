@@ -19,7 +19,7 @@ const ManageGalleryStore = {
                 }
             }
         },
-        [M_EVENT_UPDATE_DATA](state, payload) {
+        [M_GALLERY_UPDATE_DATA](state, payload) {
             state.items = { ...[] };
             state.items = { ...payload };
         }
