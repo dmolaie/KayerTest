@@ -1,17 +1,16 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import StatusService from '@services/service/Status';
 import {
     M_ARTICLE_SET_DATA,
     M_ARTICLE_UPDATE_DATA
 } from '@services/store/ManageArticle';
+import { GET_USER_ID } from '@services/store/Login';
+import { HasLength, CopyOf } from "@vendor/plugin/helper";
 import {
-    GET_USER_ID
-} from '@services/store/Login';
-import {
-    HasLength, CopyOf
-} from "@vendor/plugin/helper";
-import StatusService from '@services/service/Status';
+    CategoryService, CATEGORIES_TYPE
+} from '@services/service/ManageCategory';
 
 export const DEFAULT_STATUS = {
     status: StatusService.PUBLISH_STATUS
@@ -20,14 +19,15 @@ export const DEFAULT_STATUS = {
 export class ArticleService {
     static async getArticleCategories() {
         try {
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
-                category_type: 'article'
-            });
+            return await CategoryService.getCategoryListByType( CATEGORIES_TYPE['event'] );
         } catch (e) {
             throw e;
         }
     }
-
+    /**
+     * @param article_id { Number }
+     * @param status { String }
+     */
     static async changeStatusArticleItem(article_id, status) {
         try {
             return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_ARTICLE_ITEM), {
