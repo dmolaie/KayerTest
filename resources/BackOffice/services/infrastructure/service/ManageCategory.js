@@ -23,11 +23,21 @@ const DEFAULT_STATUS = {
 
 export class CategoryService {
     /**
-     * @param category_type
+     * @param category_type { String }
      */
     static async getCategoryListByType( category_type ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), { category_type });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    /**
+     * @param requestPayload { Object }
+     */
+    static async createCategory( requestPayload ) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_CATEGORY_ITEM), requestPayload)
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }

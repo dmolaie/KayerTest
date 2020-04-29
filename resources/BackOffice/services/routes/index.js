@@ -35,6 +35,7 @@ export const MANAGE_REPORT = 'MANAGE_REPORT';
 export const MANAGE_GALLERY = 'MANAGE_GALLERY';
 export const CREATE_GALLERY = 'CREATE_GALLERY';
 export const MANAGE_CATEGORY = 'MANAGE_CATEGORY';
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -449,6 +450,27 @@ const Routes = new VueRouter({
                     },
                     {
                         name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: CREATE_CATEGORY,
+            path: '/manage/category/create',
+            component: GetViews('CreateCategory' ),
+            meta: {
+                title: 'ایجاد دسته‌بندی',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'دسته‌بندی ها',
+                        route: MANAGE_CATEGORY
+                    },
+                    {
+                        name: 'افزودن'
                     },
                 ]
             }

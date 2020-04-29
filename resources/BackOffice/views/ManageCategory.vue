@@ -42,7 +42,7 @@
             </div>
             <div class="m-post__wrapper">
                 <div class="m-post__header flex justify-end">
-                    <router-link :to="{ name: 'CREATE_GALLERY' }"
+                    <router-link :to="{ name: 'CREATE_CATEGORY' }"
                                  class="m-post__button inline-flex items-center justify-center font-sm font-bold bg-white border border-solid rounded-10 l:transition-bg"
                     >
                         <svg viewBox="0 0 24 24" id="icon--remove">

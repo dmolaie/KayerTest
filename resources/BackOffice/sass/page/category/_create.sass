@@ -1,0 +1,46 @@
+.c-category
+  &__text
+    margin-bottom: 4px
+    padding-right: 7px
+  &__field
+    padding: 0 8px
+    margin-bottom: 14px
+  .input
+    &::placeholder
+      direction: rtl
+  .select
+    &::after
+      display: none
+    &__input
+      $c: #bde8fa
+      color: $bayoux
+      min-height: 46px
+      font:
+        size: 14px
+        weight: 400
+      border-color: $c
+      background-color: transparentize($c, (1 - .2))
+      &::before
+        color: #9ba9ab
+  &__button
+    margin: 0 12px
+    min-width: 170px
+    line-height: 42px
+    &--submit
+      $c: #a7cd3c
+      color: $white
+      background-color: $c
+      border-color: darken($c, 5%)
+      @include SpinnerLoading(22px, 2px, $white)
+      &:hover
+        background-color: darken($c, 5%)
+    &--discard
+      $c: #a7cd3c
+      color: $c
+      border-color: $c
+      background-color: $white
+      &:hover
+        color: $white
+        background-color: $c
+  &__buttons
+    margin: 30px 0 15px
