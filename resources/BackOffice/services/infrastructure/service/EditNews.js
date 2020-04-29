@@ -1,19 +1,15 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import StatusService from '@services/service/Status';
+import ExceptionService from '@services/service/exception';
 import EditNewsStore, {
     E_NEWS_SET_DATA,
     E_NEWS_SET_PROVINCES,
     E_NEWS_SET_CATEGORIES
 } from '@services/store/EditNews';
-import {
-    NewsService
-} from '@services/service/ManageNews';
-import {
-    CopyOf, HasLength, EncodeHTML
-} from "@vendor/plugin/helper";
-import StatusService from '@services/service/Status';
-import ExceptionService from '@services/service/exception';
+import { NewsService } from '@services/service/ManageNews';
+import { CopyOf, HasLength } from "@vendor/plugin/helper";
 
 export default class EditNewsService extends BaseService {
     constructor( layout ) {
