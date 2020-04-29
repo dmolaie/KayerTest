@@ -19,7 +19,7 @@ export const DEFAULT_STATUS = {
 export class ArticleService {
     static async getArticleCategories() {
         try {
-            return await CategoryService.getCategoryListByType( CATEGORIES_TYPE['event'] );
+            return await CategoryService.getCategoryListByType( CATEGORIES_TYPE['article'] );
         } catch (e) {
             throw e;
         }
