@@ -56,6 +56,41 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: LOGIN,
+            path: '/login',
+            component: GetViews( 'Login'),
+            meta: {
+                guess: true,
+                title: LOGIN_PAGE_TITLE
+            }
+        },
+        {
+            name: LOGOUT,
+            path: '/logout',
+            component: GetViews( 'Logout'),
+            meta: {
+                title: 'خروج از حساب کاربری',
+                guess: true,
+            }
+        },
+        {
+            name: USER_SETTING,
+            path: '/account',
+            component: GetViews('UserSettings'),
+            meta: {
+                title: 'تنظیمات حساب',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'تنظیمات حساب'
+                    },
+                ]
+            }
+        },
+        {
             name: MANAGE_NEWS,
             path: '/manage/news',
             component: GetViews('ManageNews' ),
@@ -282,18 +317,42 @@ const Routes = new VueRouter({
             }
         },
         {
-            name: MANAGE_MENU,
-            path: '/manage/menu',
-            component: GetViews('ManageMenu' ),
+            name: MANAGE_LEGATE,
+            path: '/manage/volunteers',
+            component: GetViews('ManageLegate' ),
             meta: {
-                title: 'مدیریت منو',
+                title: 'سفیران اهدای عضو',
                 breadcrumb: [
                     {
                         route: DASHBOARD,
                         name: 'انجمن اهدای عضو ایرانیان',
                     },
                     {
-                        name: 'مدیریت منو'
+                        name: 'سفیران اهدای عضو'
+                    },
+                    {
+                        name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: EDIT_USERS,
+            path: '/manage/users/edit/:id(\\d+)',
+            component: GetViews('EditUsers'),
+            meta: {
+                title: 'ویرایش کاربران',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_LEGATE,
+                        name: 'کاربران'
+                    },
+                    {
+                        name: 'ویرایش'
                     },
                 ]
             }
@@ -340,91 +399,6 @@ const Routes = new VueRouter({
             }
         },
         {
-            name: MANAGE_LEGATE,
-            path: '/manage/volunteers',
-            component: GetViews('ManageLegate' ),
-            meta: {
-                title: 'سفیران اهدای عضو',
-                breadcrumb: [
-                    {
-                        route: DASHBOARD,
-                        name: 'انجمن اهدای عضو ایرانیان',
-                    },
-                    {
-                        name: 'سفیران اهدای عضو'
-                    },
-                    {
-                        name: 'همه'
-                    },
-                ]
-            }
-        },
-        {
-            name: EDIT_USERS,
-            path: '/manage/users/edit/:id(\\d+)',
-            component: GetViews('EditUsers'),
-            meta: {
-                title: 'ویرایش کاربران',
-                breadcrumb: [
-                    {
-                        route: DASHBOARD,
-                        name: 'انجمن اهدای عضو ایرانیان',
-                    },
-                    {
-                        route: MANAGE_LEGATE,
-                        name: 'کاربران'
-                    },
-                    {
-                        name: 'ویرایش'
-                    },
-                ]
-            }
-        },
-        {
-            name: LOGIN,
-            path: '/login',
-            component: GetViews( 'Login'),
-            meta: {
-                guess: true,
-                title: LOGIN_PAGE_TITLE
-            }
-        },
-        {
-            name: USER_SETTING,
-            path: '/account',
-            component: GetViews('UserSettings'),
-            meta: {
-                title: 'تنظیمات حساب',
-                breadcrumb: [
-                    {
-                        route: DASHBOARD,
-                        name: 'انجمن اهدای عضو ایرانیان',
-                    },
-                    {
-                        name: 'تنظیمات حساب'
-                    },
-                ]
-            }
-        },
-        {
-            name: PROFILE,
-            path: '/profile',
-            component: GetViews( 'Profile'),
-            meta: {
-                title: 'پروفایل',
-                guess: true
-            }
-        },
-        {
-            name: LOGOUT,
-            path: '/logout',
-            component: GetViews( 'Logout'),
-            meta: {
-                title: 'خروج از حساب کاربری',
-                guess: true,
-            }
-        },
-        {
             name: MANAGE_REPORT,
             path: '/manage/report',
             component: GetViews('ManageReport'),
@@ -439,6 +413,32 @@ const Routes = new VueRouter({
                         name: 'گزارش گیری'
                     },
                 ]
+            }
+        },
+        {
+            name: MANAGE_MENU,
+            path: '/manage/menu',
+            component: GetViews('ManageMenu' ),
+            meta: {
+                title: 'مدیریت منو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'مدیریت منو'
+                    },
+                ]
+            }
+        },
+        {
+            name: PROFILE,
+            path: '/profile',
+            component: GetViews( 'Profile'),
+            meta: {
+                title: 'پروفایل',
+                guess: true
             }
         },
         {
