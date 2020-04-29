@@ -71,7 +71,6 @@
                                     <input type="text" name="name" autocomplete="off"
                                            class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
                                            :class="{ 'direction-ltr': ( currentLang === 'en' ) }" placeholder="عنوان فایل را اینجا وارد کنید"
-                                           :value="file.name"
                                     />
                                 </label>
                                 <label class="file__label block w-full">
