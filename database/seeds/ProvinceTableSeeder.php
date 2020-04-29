@@ -83,6 +83,10 @@ class ProvinceTableSeeder extends Seeder
             ],
             [
                 "slug" => 'southKhorasan',
+                "name" => 'خراسان جنوبی',
+            ],
+            [
+                "slug" => 'razaviKhorasan ',
                 "name" => 'خراسان رضوی',
             ],
             [
