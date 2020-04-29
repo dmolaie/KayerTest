@@ -92,19 +92,18 @@ class SiteServices
     {
         $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
+        $categoryId = $this->getIdCategoryNews($categories);
+        $this->newsFilterDTO->setCategoryIds([$categoryId]);
         $globalSubDomain = $this->getLocations('global-fa');
         if (!$subdomain) {
             $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
             return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
 
-        $categoryId = $this->getIdCategoryNews($categories);
-        $this->newsFilterDTO->setCategoryIds([$categoryId]);
         $this->newsFilterDTO->addProvinceId($subdomain->id);
         $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        if (empty($news))
-        {
-            $this->newsFilterDTO->setCategoryIds([]);
+        if (empty($news)) {
+            $this->newsFilterDTO->setProvinceIds([]);
             $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
             return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
@@ -114,6 +113,11 @@ class SiteServices
     private function getIdCategoryNews($categorySlug)
     {
         return $this->categoryService->getCategoryBySlug($categorySlug);
+    }
+
+    public function getLocations($slug)
+    {
+        return $this->provinceService->finBySlug($slug);
     }
 
     public function getFilterEvent($subdomain = null)
@@ -135,11 +139,6 @@ class SiteServices
             return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
         }
         return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
-    }
-
-    public function getLocations($slug)
-    {
-        return $this->provinceService->finBySlug($slug);
     }
 
     public function getDetailNews($slug)
@@ -186,6 +185,7 @@ class SiteServices
         $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
 
         if (empty($news)) {
+            $this->newsFilterDTO->setProvinceIds([]);
             $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
             return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
         }
@@ -205,6 +205,7 @@ class SiteServices
         $events = $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
 
         if (empty($events)) {
+            $this->newsFilterDTO->setProvinceIds([]);
             $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
             return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
         }
