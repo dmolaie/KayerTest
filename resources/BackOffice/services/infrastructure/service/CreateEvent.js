@@ -2,15 +2,11 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import ExceptionService from '@services/service/exception';
 import BaseService from '@vendor/infrastructure/service/BaseService';
-import {
-    CopyOf, HasLength, EncodeHTML
-} from "@vendor/plugin/helper";
+import { CopyOf, HasLength } from "@vendor/plugin/helper";
 import CreateEvent, {
     C_EVENT_SET_PROVINCES, C_EVENT_SET_CATEGORIES
 } from '@services/store/CreateEvent';
-import {
-    EventService
-} from '@services/service/ManageEvent';
+import { EventService } from '@services/service/ManageEvent';
 
 export default class CreateEventService extends BaseService {
     constructor( layout ) {
