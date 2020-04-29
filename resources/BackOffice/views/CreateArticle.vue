@@ -44,21 +44,7 @@
                     </div>
                 </div>
                 <div class="main inner-box inner-box--blue w-full rounded-2 rounded-tr-none rounded-tl-none">
-                    <div class="c-news__source w-full" style="margin-top: 0">
-                        <p class="text-rum font-sm font-bold m-b-8 cursor-default">
-                            عنوان دسته‌بندی
-                        </p>
-                        <div class="block w-full c-article__tags">
-                            <tags-cm :list="categories"
-                                     placeholder="عنوان دسته‌بندی"
-                                     itemClassName="text-right"
-                                     tagWrapperClassName="input bg-white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                     @onChange="onChangeCategoryField"
-                                     inputClassName="input--white"
-                            />
-                        </div>
-                    </div>
-                    <div class="c-news__source w-full">
+                    <div class="w-full">
                         <p class="text-rum font-sm font-bold m-b-8 cursor-default">
                             عنوان سوم
                         </p>
@@ -95,6 +81,16 @@
                 <location-cm :lang="currentLang"
                              :disabledEn="true"
                 />
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid">
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        دسته‌بندی
+                    </p>
+                    <category-cm :list="categories"
+                                 :lang="currentLang"
+                                 ref="categoryCm"
+                                 @change="onChangeCategoryField"
+                    />
+                </div>
                 <image-panel-cm @change="onChangeMainImageField"
                                 ref="imagePanel"
                 />
@@ -125,8 +121,8 @@
     import {
         mapGetters, mapState
     } from 'vuex';
-    import TagsCm from '@components/CreatePost/Tags.vue';
     import IconCm from '@components/Icon.vue';
+    import CategoryCm from '@components/Category.vue';
     import CreateArticleService from '@services/service/CreateArticle';
     import TextEditorCm from '@vendor/components/textEditor/Index.vue';
     import ImagePanelCm from '@components/CreatePost/ImagePanel.vue';
@@ -170,7 +166,7 @@
             LocationCm,
             ImagePanelCm,
             TextEditorCm,
-            TagsCm
+            CategoryCm
         },
         computed: {
             ...mapGetters({
@@ -221,9 +217,9 @@
             setLanguageFromParamsRouter() {
                 this.$set(this.form, 'language', this.currentLang);
             },
-            onChangeCategoryField( item ) {
+            onChangeCategoryField( payload ) {
                 try {
-                    this.form.category_ids = item;
+                    this.$set(this.form, 'category_ids', payload);
                 } catch (e) {}
             }
         },

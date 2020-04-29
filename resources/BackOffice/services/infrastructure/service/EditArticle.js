@@ -92,8 +92,8 @@ export default class EditArticleService {
         if ( HasLength( duplicateFrom['description'] ) )
             formData.append('description', duplicateFrom['description']);
         if ( HasLength( duplicateFrom['category_ids'] ) ) {
-            formData.append('main_category_id', duplicateFrom['category_ids'][0]?.id);
-            duplicateFrom['category_ids'].forEach(({ id }) => {
+            formData.append('main_category_id', duplicateFrom['category_ids'][0]);
+            duplicateFrom['category_ids'].forEach(id => {
                 formData.append('category_ids[]', id);
             });
         }

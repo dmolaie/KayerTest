@@ -68,7 +68,7 @@ export default class ArticleItemPresenter extends BasePresenter {
     }
 
     category_ids() {
-        return new SelectedCategoriesPresenter( this.data.categories )
+        return new SelectedCategoriesPresenter( this.data.categories ).map(({ id }) => id)
     }
 
     slug() {
