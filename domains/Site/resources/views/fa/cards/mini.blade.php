@@ -7,7 +7,7 @@
         </p>
         <br>
         <figure class="max-w-800 m-0-auto image_loading">
-            <img src="{{ asset('/images/cards/mini_overlay.jpg') }}"
+            <img src="{{ secure_asset('/images/cards/mini_overlay.jpg') }}"
                  alt="{{ $userData->name .'-'. $userData->last_name }}"
                  class="mini_cart w-full block object-contain"
             />
@@ -20,6 +20,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/site/runtime.js') }}" defer ></script>
-    <script src="{{ asset('js/site/card-mini~card-single~card-social~dashboard.js') }}" defer ></script>
-    <script src="{{ asset('js/site/card-mini.js') }}" defer ></script>
+    <script src="{{ secure_asset('js/site/runtime.js') }}" defer ></script>
+    <script src="{{ secure_asset('js/site/card-mini~card-single~card-social~dashboard.js') }}" defer ></script>
+    <script src="{{ secure_asset('js/site/card-mini.js') }}" defer ></script>

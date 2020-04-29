@@ -59,7 +59,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-full">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/cards/single_overlay.jpg') }}"
+                                            <img src="{{ secure_asset('/images/cards/single_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="single_cart w-full block object-contain"
                                             />
@@ -92,7 +92,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/cards/mini_overlay.jpg') }}"
+                                            <img src="{{ secure_asset('/images/cards/mini_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="mini_cart w-full block object-contain"
                                             />
@@ -131,7 +131,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/cards/social_overlay.jpg') }}"
+                                            <img src="{{ secure_asset('/images/cards/social_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="social_cart w-full block object-contain"
                                             />
@@ -178,7 +178,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
                                         <figure class="content__image w-full block border border-solid">
-                                            <img src="{{ asset('/images/test/test-image-3.png') }}"
+                                            <img src="{{ secure_asset('/images/test/test-image-3.png') }}"
                                                  alt="بهاره حاجیان"
                                                  class="w-full block object-contain"
                                             />
@@ -195,14 +195,14 @@
                                             این نسخه از کارت اهدای عضو، با وضوح تصویری بالا، بهترین گزینه برای چاپ با چاپ‌گرهای خانگی است.
                                         </div>
                                         <div class="flex w-full items-center justify-space sm:flex-col">
-                                            <a  href="{{ asset('/images/test/test-image-3.png') }}"
+                                            <a  href="{{ secure_asset('/images/test/test-image-3.png') }}"
                                                 target="_blank" download
                                                 class="content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2">
                                                 دانلود
                                             </a>
                                             <button class="content__button content__button--print text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2"
                                                     id="print-button"
-                                                    data-url="{{ asset('/images/test/test-image-3.png') }}"
+                                                    data-url="{{ secure_asset('/images/test/test-image-3.png') }}"
                                             >
                                                 چاپ
                                             </button>
@@ -228,6 +228,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/card-mini~card-single~card-social~dashboard.js')}}" defer></script>
-        <script src="{{asset('js/site/dashboard.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/card-mini~card-single~card-social~dashboard.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/dashboard.js')}}" defer></script>
     @endsection

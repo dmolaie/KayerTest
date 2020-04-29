@@ -187,7 +187,7 @@
                                 </li>
                             </ul>
                             <figure class="relative block w-full">
-                                <img src="{{ asset('/images/image/1525859074_VE4BGhL0yGFOFbpiIuNmmRldpD0AXp_original.jpg') }}"
+                                <img src="{{ secure_asset('/images/image/1525859074_VE4BGhL0yGFOFbpiIuNmmRldpD0AXp_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block max-w-full rounded"
                                 />
@@ -247,49 +247,49 @@
                             </p>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1538917229_0WYrM8AxrBpAxYU0erl9gAOQFytAHH_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1538917229_0WYrM8AxrBpAxYU0erl9gAOQFytAHH_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
                             </figure>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1538917218_lqGCrXfNcXAuhg7ekYoH2P4MJvGfvn_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1538917218_lqGCrXfNcXAuhg7ekYoH2P4MJvGfvn_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
                             </figure>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1538916742_loMd8Ksgy9nYZQcMZ5AocNzpsBLC7S_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1538916742_loMd8Ksgy9nYZQcMZ5AocNzpsBLC7S_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
                             </figure>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1538917344_Vx7a43YGHKMJI24GB3oqLTh5C9fd12_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1538917344_Vx7a43YGHKMJI24GB3oqLTh5C9fd12_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
                             </figure>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1539005175_KM4hwZrmuuOCToXbVo89hf0RxIRryF_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1539005175_KM4hwZrmuuOCToXbVo89hf0RxIRryF_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
                             </figure>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1539005175_ehMQEBzQAzU4Dt9sZmOAHYKIOFw8Uk_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1539005175_ehMQEBzQAzU4Dt9sZmOAHYKIOFw8Uk_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
                             </figure>
                             <figure class="vol-page__cover relative block w-full rounded has-skeleton">
                                 <img src=""
-                                     data-src="{{ asset('/images/image/1539005124_qpADNEDWfUuCd6aPREc4WP5O0ZfGP0_original.jpg') }}"
+                                     data-src="{{ secure_asset('/images/image/1539005124_qpADNEDWfUuCd6aPREc4WP5O0ZfGP0_original.jpg') }}"
                                      alt="انجمن اهدای عضو ایرانیان"
                                      class="block w-full h-full rounded-inherit object-cover"
                                 />
@@ -303,7 +303,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{asset('js/site/donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{asset('js/site/volunteers.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/volunteers.js')}}" defer></script>
 @endsection

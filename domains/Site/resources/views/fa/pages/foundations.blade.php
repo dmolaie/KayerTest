@@ -99,7 +99,7 @@
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="{{ asset('images/members/1571823208.jpg') }}"
+                                                 data-src="{{ secure_asset('images/members/1571823208.jpg') }}"
                                                  alt="نفیسه روشن"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -111,7 +111,7 @@
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="{{ asset('images/members/1529305726_vj9i8Q3lsn93.jpg') }}"
+                                                 data-src="{{ secure_asset('images/members/1529305726_vj9i8Q3lsn93.jpg') }}"
                                                  alt="مهراوه شریفی‌نیا"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -123,7 +123,7 @@
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="{{ asset('images/members/HSNvtKX6rsFpgT.jpg') }}"
+                                                 data-src="{{ secure_asset('images/members/HSNvtKX6rsFpgT.jpg') }}"
                                                  alt="ثریا قاسمی"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -135,7 +135,7 @@
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="{{ asset('images/members/v8YhNJEmbpTYEQKMux3RAWFc.jpg') }}"
+                                                 data-src="{{ secure_asset('images/members/v8YhNJEmbpTYEQKMux3RAWFc.jpg') }}"
                                                  alt="داریوش ارجمند"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -147,7 +147,7 @@
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="{{ asset('images/members/152931q1d4xGRaBk38nTH.jpg') }}"
+                                                 data-src="{{ secure_asset('images/members/152931q1d4xGRaBk38nTH.jpg') }}"
                                                  alt="دکتر محمد نظری"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -159,7 +159,7 @@
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
                                         <figure class="fou-page__volunteers__list_item_body w-full h-full rounded-inherit has-skeleton">
                                             <img src=""
-                                                 data-src="{{ asset('images/members/1529315796_w2J1JkgH2e.jpg') }}"
+                                                 data-src="{{ secure_asset('images/members/1529315796_w2J1JkgH2e.jpg') }}"
                                                  alt="محمد سلوکی"
                                                  class="fou-page__volunteers__list_item_image block w-full h-full rounded-inherit object-cover"
                                             />
@@ -194,7 +194,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/bpi.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/bpi.ir.jpg') }}"
                                                  alt="بانک پاسارگاد"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -212,7 +212,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/behdasht.gov.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/behdasht.gov.jpg') }}"
                                                  alt="وزارت بهداشت، درمان و آموزش پزشکی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -230,7 +230,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/irib.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/irib.ir.jpg') }}"
                                                  alt="سازمان صدا و سیمای جمهوری اسلامی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -248,7 +248,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/mporg.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/mporg.ir.jpg') }}"
                                                  alt="سازمان برنامه و بودجه کشور"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -266,7 +266,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/fanap.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/fanap.ir.jpg') }}"
                                                  alt="شرکت فناوری اطلاعات و ارتباطات پاسارگاد آریان (فناپ)"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -284,7 +284,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/fanap.plus.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/fanap.plus.png') }}"
                                                  alt="شرکت فناپ پلاس"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -302,7 +302,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/negah.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/negah.ir.jpg') }}"
                                                  alt="آژانس تبلیغاتی نگاه شرقی سبز"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -320,7 +320,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/khatam.ac.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/khatam.ac.ir.png') }}"
                                                  alt="دانشگاه خاتم"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -338,7 +338,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/tehran.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/tehran.ir.jpg') }}"
                                                  alt="شهرداری تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -356,7 +356,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/ccia.tehran.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/ccia.tehran.jpg') }}"
                                                  alt="مرکز ارتباطات و امور بین‌الملل شهرداری تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -374,7 +374,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/farhangi.tehran.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/farhangi.tehran.jpg') }}"
                                                  alt="معاونت امور اجتماعی و فرهنگی شهرداری تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -392,7 +392,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/zibasazi.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/zibasazi.ir.jpg') }}"
                                                  alt="سازمان زیباسازی شهر تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -410,7 +410,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/farhangsara.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/farhangsara.ir.jpg') }}"
                                                  alt="سازمان فرهنگی هنری شهرداری تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -428,7 +428,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/parks.tehran.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/parks.tehran.jpg') }}"
                                                  alt="سازمان بوستان‌ها و فضای سبز شهر تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -446,7 +446,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/miladtower.tehran.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/miladtower.tehran.jpg') }}"
                                                  alt="برج میلاد تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -464,7 +464,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/metro.tehran.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/metro.tehran.png') }}"
                                                  alt="شرکت بهره‌برداری قطار درون‌شهری تهران و حومه و فرهنگسرای مترو"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -482,7 +482,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/setad.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/setad.ir.jpg') }}"
                                                  alt="ستاد اجرایی فرمان امام خمینی (ره)"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -500,7 +500,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/aftabnetgroup.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/aftabnetgroup.com.jpg') }}"
                                                  alt="شرکت تبلیغاتی آیینه آفتاب کیش"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -518,7 +518,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/dirin-dirin.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/dirin-dirin.jpg') }}"
                                                  alt="شرکت نسل اندیشه سبز (دیرین دیرین)"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -536,7 +536,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/s.d.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/s.d.jpg') }}"
                                                  alt="استودیو دفتر"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -554,7 +554,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/tashrifat-ghoreishi.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/tashrifat-ghoreishi.jpg') }}"
                                                  alt="گروه غذایی قریشی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -572,7 +572,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/bmi.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/bmi.ir.jpg') }}"
                                                  alt="بانک ملی ایران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -590,7 +590,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/bsi.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/bsi.ir.jpg') }}"
                                                  alt="بانک صادرات ایران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -608,7 +608,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/iranartists.org.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/iranartists.org.jpg') }}"
                                                  alt="خانه هنرمندان ایران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -626,7 +626,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/mci.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/mci.ir.jpg') }}"
                                                  alt="- شرکت ارتباطات سیار ایران - همراه اول"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -644,7 +644,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/irancell.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/irancell.ir.jpg') }}"
                                                  alt="شرکت ایرانسل"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -662,7 +662,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/shatel.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/shatel.ir.jpg') }}"
                                                  alt="گروه فناوری ارتباطات و اطلاعات شاتل"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -680,7 +680,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/asiatech.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/asiatech.ir.png') }}"
                                                  alt="شرکت انتقال داده‌های آسیاتک"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -698,7 +698,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/tooska.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/tooska.ir.png') }}"
                                                  alt="شرکت توسکا"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -716,7 +716,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/shamimsoft.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/shamimsoft.ir.jpg') }}"
                                                  alt="شرکت شمیم سافت"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -734,7 +734,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/dayins.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/dayins.com.jpg') }}"
                                                  alt="بیمه دی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -752,7 +752,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/insurancepasargad.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/insurancepasargad.com.jpg') }}"
                                                  alt="بیمه پاسارگاد"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -770,7 +770,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/bimehasia.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/bimehasia.com.jpg') }}"
                                                  alt="بیمه آسیا"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -788,7 +788,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/snapp.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/snapp.ir.jpg') }}"
                                                  alt="ایده گزین ارتباطات روماک (اسنپ)"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -806,7 +806,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/sghe.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/sghe.png') }}"
                                                  alt="سازمان اقتصاد اسلامی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -824,7 +824,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/ghadyani.org.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/ghadyani.org.jpg') }}"
                                                  alt="موسسه انتشارات قدیانی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -842,7 +842,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/tmoca.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/tmoca.com.jpg') }}"
                                                  alt="موزه هنرهای معاصر تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -860,7 +860,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/hearthotel.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/hearthotel.ir.jpg') }}"
                                                  alt="هتل قلب تهران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -878,7 +878,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/behestandarou.com.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/behestandarou.com.png') }}"
                                                  alt="شرکت بهستان دارو"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -896,7 +896,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/sanofi.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/sanofi.png') }}"
                                                  alt="شرکت دارویی سانوفی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -914,7 +914,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/roche.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/roche.png') }}"
                                                  alt="شرکت دارویی رش پارس"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -932,7 +932,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/novartis.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/novartis.com.jpg') }}"
                                                  alt="شرکت دارویی نوارتیس"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -950,7 +950,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/vitanepharmed.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/vitanepharmed.com.jpg') }}"
                                                  alt="شرکت دارویی ویتان فارمد"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -968,7 +968,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/zahravi.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/zahravi.com.jpg') }}"
                                                  alt="شرکت دارویی زهراوی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -986,7 +986,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/astellas.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/astellas.jpg') }}"
                                                  alt="شرکت دارویی آستلاس"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1004,7 +1004,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/fadaktrains.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/fadaktrains.com.jpg') }}"
                                                  alt="شرکت قطارهای مسافربری فدک"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1022,7 +1022,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/chocologo.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/chocologo.ir.jpg') }}"
                                                  alt="شرکت شوکولوگو"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1040,7 +1040,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/sahlan.co.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/sahlan.co.jpg') }}"
                                                  alt="گروه صنعتی سهلان"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1058,7 +1058,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/mums.ac.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/mums.ac.ir.jpg') }}"
                                                  alt="دانشگاه علوم پزشکی مشهد"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1076,7 +1076,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/tamin.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/tamin.ir.jpg') }}"
                                                  alt="سازمان تامین اجتماعی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1094,7 +1094,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/farbeyondidea.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/farbeyondidea.com.jpg') }}"
                                                  alt="شرکت فار ورا ایده"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1112,7 +1112,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/ostorehsazan.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/ostorehsazan.com.jpg') }}"
                                                  alt="موسسه آموزشی اسطوره‌سازان"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1130,7 +1130,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/ysp24.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/ysp24.ir.png') }}"
                                                  alt="شرکت یلداسیستم"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1148,7 +1148,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/salamat-charity.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/salamat-charity.ir.jpg') }}"
                                                  alt="مجمع خیرین سلامت"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1166,7 +1166,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/emdad.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/emdad.ir.png') }}"
                                                  alt="کمیته امداد امام خمینی (ره)"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1184,7 +1184,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/emamali-charity.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/emamali-charity.com.jpg') }}"
                                                  alt="موسسه خیریه امام علی (ع) شهر ری"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1202,7 +1202,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/fatemehzahra.org.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/fatemehzahra.org.jpg') }}"
                                                  alt="موسسه خیریه حضرت فاطمه زهرا (س)"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1220,7 +1220,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/uswr.ac.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/uswr.ac.ir.jpg') }}"
                                                  alt="دانشگاه علوم بهزیستی و توانبخشی"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1238,7 +1238,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/childf.com.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/childf.com.png') }}"
                                                  alt="بنیاد کودک"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1256,7 +1256,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/iranms.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/iranms.ir.png') }}"
                                                  alt="انجمن MS"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1310,7 +1310,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/basijasnaf.ir.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/basijasnaf.ir.jpg') }}"
                                                  alt="بسیج اصناف و بازاریان کشور"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1328,7 +1328,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/iccima.ir.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/iccima.ir.png') }}"
                                                  alt="اتاق بازرگانی، صنایع، معادن و کشاورزی ایران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1364,7 +1364,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/smh.png') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/smh.png') }}"
                                                  alt="بسیج شرکت حفاری ایران"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1382,7 +1382,7 @@
                                        class="i-cart relative w-full flex border border-solid rounded bg-white has-shadow sm:flex-col">
                                         <figure class="i-cart__cover l:w-1/5 xl:w-1/6 flex-shrink-0 rounded-inherit has-skeleton md:w-1/3 sm:w-full">
                                             <img src=""
-                                                 data-src="{{ asset('/images/sponsors/jaamejamlab.com.jpg') }}"
+                                                 data-src="{{ secure_asset('/images/sponsors/jaamejamlab.com.jpg') }}"
                                                  alt="آزمایشگاه پاتوبیولوژی جام جم"
                                                  class="i-cart__cover_image block w-full h-full rounded-inherit object-contain"
                                             />
@@ -1620,7 +1620,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر ایرج فاضل.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر ایرج فاضل.jpg') }}"
                                                      alt="دکتر ایرج فاضل"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1632,7 +1632,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
                                                      alt="دکتر علی نوبخت حقیقی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1647,7 +1647,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
                                                      alt="دکتر کتایون نجفی‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1662,7 +1662,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر امید قبادی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر امید قبادی.jpg') }}"
                                                      alt="دکتر امید قبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1679,7 +1679,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر فریدون نوحی بزنجانی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر فریدون نوحی بزنجانی.jpg') }}"
                                                      alt="دکتر فریدون نوحی بزنجانی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1691,7 +1691,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر بهروز برومند.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر بهروز برومند.jpg') }}"
                                                      alt="دکتر بهروز برومند"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1703,7 +1703,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/جواد نوروزبیگی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/جواد نوروزبیگی.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1715,7 +1715,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
                                                      alt="دکتر علی‌اصغر پورمحمدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1727,7 +1727,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/مهندس عباس مهدوی‌مهر.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/مهندس عباس مهدوی‌مهر.jpg') }}"
                                                      alt="مهندس عباس مهدوی‌مهر"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1739,7 +1739,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر-کنزی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر-کنزی.jpg') }}"
                                                      alt="دکتر مسعود کنزی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1761,7 +1761,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
                                                      alt="دکتر علی نوبخت حقیقی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1773,7 +1773,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر ایرج فاضل.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر ایرج فاضل.jpg') }}"
                                                      alt="دکتر ایرج فاضل"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1788,7 +1788,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
                                                      alt="دکتر کتایون نجفی‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1802,7 +1802,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر مجید قاسمی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر مجید قاسمی.jpg') }}"
                                                      alt="دکتر مجید قاسمی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1814,7 +1814,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر سعید نمکی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر سعید نمکی.jpg') }}"
                                                      alt="دکتر سعید نمکی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1826,7 +1826,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر محمدحسین ماندگار.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر محمدحسین ماندگار.jpg') }}"
                                                      alt="دکتر محمدحسین ماندگار"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1838,7 +1838,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر سیدعلی ملک‌حسینی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر سیدعلی ملک‌حسینی.jpg') }}"
                                                      alt="دکتر سیدعلی ملک‌حسینی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1850,7 +1850,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر سیدرضا ملک‌زاده.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر سیدرضا ملک‌زاده.jpg') }}"
                                                      alt="دکتر سیدرضا ملک‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1862,7 +1862,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/ثریا قاسمی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/ثریا قاسمی.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1874,7 +1874,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/پرویز پرستویی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/پرویز پرستویی.jpg') }}"
                                                      alt="پرویز پرستویی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1886,7 +1886,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر فریدون نوحی بزنجانی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر فریدون نوحی بزنجانی.jpg') }}"
                                                      alt="دکتر فریدون نوحی بزنجانی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1898,7 +1898,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر فضل‌اله شریعت‌پناهی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر فضل‌اله شریعت‌پناهی.jpg') }}"
                                                      alt="دکتر فضل‌اله شریعت‌پناهی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1910,7 +1910,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر مسعود کنزی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر مسعود کنزی.jpg') }}"
                                                      alt="دکتر مسعود کنزی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1922,7 +1922,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر امید قبادی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر امید قبادی.jpg') }}"
                                                      alt="دکتر امید قبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1934,7 +1934,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/حاج علی حاجی سید سلیمان.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/حاج علی حاجی سید سلیمان.jpg') }}"
                                                      alt="حاج علی حاجی سید سلیمان"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1946,7 +1946,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر سیدرضا مجتهد سعیدی فیروزآبادی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر سیدرضا مجتهد سعیدی فیروزآبادی.jpg') }}"
                                                      alt="دکتر سیدرضا مجتهد سعیدی فیروزآبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1958,7 +1958,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/مجید-مجیدی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/مجید-مجیدی.jpg') }}"
                                                      alt="مجید-مجیدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1970,7 +1970,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/عباس شاکری.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/عباس شاکری.jpg') }}"
                                                      alt="عباس شاکری"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1982,7 +1982,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/ابراهیم عسگریان.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/ابراهیم عسگریان.jpg') }}"
                                                      alt="ابراهیم عسگریان"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -1994,7 +1994,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر بهروز برومند.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر بهروز برومند.jpg') }}"
                                                      alt="دکتر بهروز برومند"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2006,7 +2006,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/جواد نوروزبیگی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/جواد نوروزبیگی.jpg') }}"
                                                      alt="جواد نوروزبیگی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2018,7 +2018,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/اکبر تشکری‌نیا.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/اکبر تشکری‌نیا.jpg') }}"
                                                      alt="اکبر تشکری‌نیا"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2030,7 +2030,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/مهندس عباس مهدوی‌مهر.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/مهندس عباس مهدوی‌مهر.jpg') }}"
                                                      alt="مهندس عباس مهدوی‌مهر"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2042,7 +2042,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
                                                      alt="دکتر علی‌اصغر پورمحمدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2054,7 +2054,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/حجت‌الاسلام والمسلمین مصطفی مرسلی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/حجت‌الاسلام والمسلمین مصطفی مرسلی.jpg') }}"
                                                      alt="حجت‌الاسلام والمسلمین مصطفی مرسلی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2073,7 +2073,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر علی نوبخت حقیقی.jpg') }}"
                                                      alt="دکتر علی نوبخت حقیقی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2085,7 +2085,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر ایرج فاضل.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر ایرج فاضل.jpg') }}"
                                                      alt="دکتر ایرج فاضل"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2097,7 +2097,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر کتایون نجفی‌زاده.jpg') }}"
                                                      alt="دکتر کتایون نجفی‌زاده"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2111,7 +2111,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر محمدحسین ماندگار.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر محمدحسین ماندگار.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2123,7 +2123,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر سیدعلی ملک‌حسینی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر سیدعلی ملک‌حسینی.jpg') }}"
                                                      alt="دکتر سیدعلی ملک‌حسینی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2135,7 +2135,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر سیدرضا ملک‌زاده.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر سیدرضا ملک‌زاده.jpg') }}"
                                                      alt=""
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2147,7 +2147,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر امید قبادی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر امید قبادی.jpg') }}"
                                                      alt="دکتر امید قبادی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2159,7 +2159,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/عباس-زارع-نژاد---هیأت-موسس.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/عباس-زارع-نژاد---هیأت-موسس.jpg') }}"
                                                      alt="دکتر عباس زارع‌نژاد"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2171,7 +2171,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/دکتر علی‌اصغر پورمحمدی.jpg') }}"
                                                      alt="دکتر علی‌اصغر پورمحمدی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2183,7 +2183,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/مرحوم دکتر منصور قمشه.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/مرحوم دکتر منصور قمشه.jpg') }}"
                                                      alt="مرحوم دکتر منصور قمشه"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2195,7 +2195,7 @@
                                         <div class="fou-page__members_member">
                                             <figure class="fou-page__members_member_cover border border-solid rounded-50 m-0-auto has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('images/members/حجت‌الاسلام والمسلمین مصطفی مرسلی.jpg') }}"
+                                                     data-src="{{ secure_asset('images/members/حجت‌الاسلام والمسلمین مصطفی مرسلی.jpg') }}"
                                                      alt="حجت‌الاسلام والمسلمین مصطفی مرسلی"
                                                      class="w-full h-full block rounded-inherit object-cover"
                                                 />
@@ -2318,25 +2318,25 @@
                                     </li>
                                 </ul>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="{{ asset('images/1527950001_fPaMI2VneVOFcAWpQtJaX05whkhisW_original.jpg') }}"
+                                    <img src="{{ secure_asset('images/1527950001_fPaMI2VneVOFcAWpQtJaX05whkhisW_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
                                 </figure>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="{{ asset('images/1527950943_46lhdWa9tLj8Kw6CLHtYsG5P1aodLd_original.jpg') }}"
+                                    <img src="{{ secure_asset('images/1527950943_46lhdWa9tLj8Kw6CLHtYsG5P1aodLd_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
                                 </figure>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="{{ asset('images/1527951018_kwEJutsQBfEkbNPqV8kVIkaNWZEHfx_original.jpg') }}"
+                                    <img src="{{ secure_asset('images/1527951018_kwEJutsQBfEkbNPqV8kVIkaNWZEHfx_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
                                 </figure>
                                 <figure class="fou-page__committees__image rounded-2 m-0-auto">
-                                    <img src="{{ asset('images/1527951122_bI4vYRdXVcje9lTqcQtbt0z7gQ9hdC_original.jpg') }}"
+                                    <img src="{{ secure_asset('images/1527951122_bI4vYRdXVcje9lTqcQtbt0z7gQ9hdC_original.jpg') }}"
                                          alt=""
                                          class="block w-full h-full rounded-inherit"
                                     />
@@ -2350,5 +2350,5 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/foundations.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/foundations.js')}}" defer></script>
     @endsection
