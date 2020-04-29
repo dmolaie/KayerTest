@@ -5,6 +5,7 @@ namespace Domains\Media\Services\Contracts\DTOs;
 
 
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\ContentGetInfoDTO;
 
 /**
  * Class MediaAttachmentDTO
@@ -16,7 +17,7 @@ class MediaAttachmentDTO
      */
     protected $attachmentDTO;
     /**
-     * @var AttachmentInfoDTO|null
+     * @var ContentGetInfoDTO|null
      */
     protected $contentDTO;
 
@@ -39,18 +40,18 @@ class MediaAttachmentDTO
     }
 
     /**
-     * @return AttachmentInfoDTO|null
+     * @return ContentGetInfoDTO|null
      */
-    public function getContentDTO(): ?AttachmentInfoDTO
+    public function getContentDTO(): ?ContentGetInfoDTO
     {
         return $this->contentDTO;
     }
 
     /**
-     * @param AttachmentInfoDTO|null $contentDTO
+     * @param ContentGetInfoDTO|null $contentDTO
      * @return MediaAttachmentDTO
      */
-    public function setContentDTO(?AttachmentInfoDTO $contentDTO): MediaAttachmentDTO
+    public function setContentDTO(?ContentGetInfoDTO $contentDTO): MediaAttachmentDTO
     {
         $this->contentDTO = $contentDTO;
         return $this;
