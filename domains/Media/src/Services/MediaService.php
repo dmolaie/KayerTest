@@ -7,6 +7,7 @@ use Domains\Attachment\Services\AttachmentServices;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\ContentDTO;
 use Domains\Media\Entities\Media;
 use Domains\Media\Exceptions\MediaNotFoundException;
 use Domains\Media\Repositories\MediaRepository;
@@ -119,6 +120,7 @@ class MediaService
         if (!$mediaBaseSaveDTO->getAttachmentFiles()) {
             return null;
         }
+
         $attachmentDTO = new AttachmentDTO();
         $attachmentDTO->setEntityId($media->id)
             ->setEntityName(ucfirst($mediaBaseSaveDTO->getType()))
@@ -133,12 +135,13 @@ class MediaService
         if (!$mediaBaseSaveDTO->getContentFiles()) {
             return null;
         }
-        $attachmentDTO = new AttachmentDTO();
-        $attachmentDTO->setEntityId($media->id)
+        $contentDTO = new ContentDTO();
+        $contentDTO->setEntityId($media->id)
             ->setEntityName(ucfirst($mediaBaseSaveDTO->getType()))
-            ->setFiles($mediaBaseSaveDTO->getContentFiles())
+            ->setContentFileDTOs($mediaBaseSaveDTO->getContentFiles())
             ->setPath(config('media.media_default_path'));
-        return $this->attachmentServices->uploadFiles($attachmentDTO);
+
+        return $this->attachmentServices->uploadFiles($contentDTO);
     }
     /**
      * @param MediaEditDTO $mediaEditDTO
@@ -153,13 +156,14 @@ class MediaService
 
         $media = $this->mediaRepository->editMedia($mediaEditDTO);
         $this->addAttachmentForMedia($media, $mediaEditDTO);
+        $this->addContentForMedia($media, $mediaEditDTO);
         $attachmentInfoDto = $this->getAttachmentInfoMedia(ucfirst($mediaEditDTO->getType()), [$media->id]);
         $contentInfoDto = $this->getContentInfoMedia(ucfirst($mediaEditDTO->getType()), [$media->id]);
 
         $mediaAttachment = new MediaAttachmentDTO();
         $mediaAttachment->setAttachmentDTO(
             $attachmentInfoDto->getImages()[$media->id])
-            ->setContentDTO($contentInfoDto->getFiles()[$media->id]);
+            ->setContentDTO($contentInfoDto[$media->id]);
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
     }
 
@@ -210,7 +214,7 @@ class MediaService
         $mediaAttachment = new MediaPaginationAttachmentDTO();
         $mediaAttachment->setAttachmentDTOs(
             $attachmentInfoDto->getImages())
-            ->setContentDTOs($contentInfoDto->getFiles());
+            ->setContentDTOs($contentInfoDto);
         return $this->paginationDTOMaker->perform(
             $media,
             MediaInfoDTOMaker::class,
@@ -239,7 +243,7 @@ class MediaService
         $mediaAttachment = new MediaAttachmentDTO();
         $mediaAttachment->setAttachmentDTO(
             $attachmentInfoDto->getImages()[$media->id])
-            ->setContentDTO($contentInfoDto->getFiles()[$media->id]);
+            ->setContentDTO($contentInfoDto[$media->id]);
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
     }
 
@@ -252,7 +256,7 @@ class MediaService
         $mediaAttachment = new MediaAttachmentDTO();
         $mediaAttachment->setAttachmentDTO(
             $attachmentInfoDto->getImages()[$media->id])
-            ->setContentDTO($contentInfoDto->getFiles()[$media->id]);
+            ->setContentDTO($contentInfoDto[$media->id]);
 
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
     }
@@ -266,7 +270,7 @@ class MediaService
         $mediaAttachment = new MediaAttachmentDTO();
         $mediaAttachment->setAttachmentDTO(
             $attachmentInfoDto->getImages()[$media->id])
-            ->setContentDTO($contentInfoDto->getFiles()[$media->id]);
+            ->setContentDTO($contentInfoDto[$media->id]);
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
     }
 
@@ -279,7 +283,7 @@ class MediaService
         $mediaAttachment = new MediaAttachmentDTO();
         $mediaAttachment->setAttachmentDTO(
             $attachmentInfoDto->getImages()[$media->id])
-            ->setContentDTO($contentInfoDto->getFiles()[$media->id]);
+            ->setContentDTO($contentInfoDto[$media->id]);
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
     }
 }
