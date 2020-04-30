@@ -4,6 +4,7 @@ namespace Domains\Media\Http\Requests\Text;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
+use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 use Domains\Media\Services\Contracts\DTOs\MediaEditDTO;
 use Illuminate\Validation\Rule;
 
@@ -27,7 +28,9 @@ class EditTextRequest extends EhdaBaseRequest
             'province_id'      => 'integer|exists:provinces,id',
             'language'         => ['required', Rule::in(config('media.media_language'))],
             'images.*'         => 'image|max:500',
-            'content.*'        => 'mimetypes:application/pdf,application/msword|max:10000',
+            'content.*.file'   => 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:10000',
+            'content.*.link'   => 'url',
+            'content.*.title'  => 'string',
             'content'          => 'array',
             'description'      => 'string',
             'abstract'         => 'string',
@@ -59,9 +62,22 @@ class EditTextRequest extends EhdaBaseRequest
             ->setType(config('media.media_type_text'))
             ->setDescription($this['description'])
             ->setAbstract($this['abstract'])
-            ->setContentFiles($this['content'])
+            ->setContentFiles($this->makeContentFileDTOs())
             ->setSlug($this['slug']);
 
         return $mediaEditDTO;
+    }
+
+    private function makeContentFileDTOs()
+    {
+        $contents = [];
+        foreach ($this['content'] as $content) {
+            $contentFileDTO = new ContentFileDTO();
+            $contentFileDTO->setTitle($content['title'] ?? null)
+                ->setFile($content['file'] ?? null)
+                ->setLink($content['link'] ?? null);
+            $contents[] = $contentFileDTO;
+        }
+        return $contents;
     }
 }

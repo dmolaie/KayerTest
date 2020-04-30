@@ -4,6 +4,7 @@ namespace Domains\Media\Http\Requests\Text;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
+use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 use Domains\Media\Services\Contracts\DTOs\MediaCreateDTO;
 use Illuminate\Validation\Rule;
 
@@ -21,8 +22,10 @@ class CreateTextRequest extends EhdaBaseRequest
             'first_title'      => 'required|string',
             'description'      => 'string',
             'abstract'         => 'string',
-            'content.*'        => 'mimetypes:application/pdf,application/msword|max:10000',
-            'content'          => 'required|array',
+            'content.*.file'   => 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:10000',
+            'content.*.link'   => 'url',
+            'content.*.title'  => 'string',
+            'content'          => 'array',
             'category_ids'     => 'array|exists:categories,id',
             'main_category_id' => 'integer|exists:categories,id',
             'publish_date'     => 'numeric',
@@ -63,8 +66,21 @@ class CreateTextRequest extends EhdaBaseRequest
             ->setType(config('media.media_type_text'))
             ->setAbstract($this['abstract'])
             ->setDescription($this['description'])
-            ->setContentFiles($this['content'])
+            ->setContentFiles($this->makeContentFileDTOs())
             ->setSlug($this['slug']);
         return $mediaCreateDTO;
+    }
+
+    private function makeContentFileDTOs()
+    {
+        $contents = [];
+        foreach ($this['content'] as $content) {
+            $contentFileDTO = new ContentFileDTO();
+            $contentFileDTO->setTitle($content['title']??null)
+                ->setFile($content['file']??null)
+                ->setLink($content['link']??null);
+            $contents[] = $contentFileDTO;
+        }
+        return $contents;
     }
 }

@@ -4,8 +4,7 @@
 namespace Domains\Media\Services\Contracts\DTOs\DTOMakers;
 
 
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
-use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
+use Domains\Attachment\Services\Contracts\DTOs\ContentGetInfoDTO;
 use Domains\Media\Entities\Media;
 use Domains\Media\Services\Contracts\DTOs\MediaAttachmentDTO;
 use Domains\Media\Services\Contracts\DTOs\MediaInfoDTO;
@@ -42,7 +41,7 @@ class MediaInfoDTOMaker
             ->setEditor($media->editor)
             ->setRelationMediaId($this->getRelationMediaId($media))
             ->setAttachmentFiles($attachment->getAttachmentDTO() ? $attachment->getAttachmentDTO()->getPaths() : [])
-            ->setContentFiles($attachment->getContentDTO() ? $attachment->getContentDTO()->getPaths() : [])
+            ->setContentFiles($this->getContent($attachment->getContentDTO()))
             ->setProvince($media->province)
             ->setUuid($media->uuid);
 
@@ -64,6 +63,19 @@ class MediaInfoDTOMaker
     {
         $relationMedia = $media->parent ?? $media->child;
         return $relationMedia ? $relationMedia->id : null;
+    }
+
+    private function getContent(?ContentGetInfoDTO $contentDTO)
+    {
+        $result = [];
+        foreach ($contentDTO->getContentGetInfoFileDTOs() as $content) {
+            $result[] = [
+                'link'  => $content->getLink(),
+                'path'  => $content->getPath(),
+                'title' => $content->getTitle(),
+            ];
+        }
+        return $result;
     }
 
 }
