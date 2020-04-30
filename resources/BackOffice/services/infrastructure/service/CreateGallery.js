@@ -68,11 +68,7 @@ export default class CreateGalleryService {
     get createRequestPayload() {
         try {
             this.checkFormValidation();
-
-            let {
-                form, getSelectedFiles, fromDataName
-            } = this.$vm;
-
+            let { form, getSelectedFiles } = this.$vm;
             const DUPLICATE_FORM = CopyOf( form ),
                   FORM_DATA = new FormData(),
                   PUBLISH_DATE = Date.now() / 1e3,
@@ -96,8 +92,11 @@ export default class CreateGalleryService {
             }
             if ( !!DUPLICATE_FORM['parent_id'] ) FORM_DATA.append('parent_id', DUPLICATE_FORM['parent_id']);
             if ( !!DUPLICATE_FORM['images'] ) FORM_DATA.append('images[]', form['images'].get('images'));
-            if ( !!HasLength( getSelectedFiles ) ) getSelectedFiles.map(file => FORM_DATA.append(fromDataName, file));
-
+            HasLength( getSelectedFiles ) && getSelectedFiles.forEach((file, index) => {
+                FORM_DATA.append(`content[${index}][file]`, file.file);
+                HasLength( file.link ) && FORM_DATA.append(`content[${index}][link]`, file.link);
+                HasLength( file.title ) && FORM_DATA.append(`content[${index}][title]`, file.title);
+            });
             return FORM_DATA;
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );

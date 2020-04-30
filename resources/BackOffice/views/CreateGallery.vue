@@ -59,10 +59,10 @@
                     </template>
                     <div class="w-full m-t-15">
                         <div class="file w-full flex border border-solid rounded"
-                             v-for="(file, index) in getSelectedFiles"
+                             v-for="(file, index) in form.content"
                              :key="'audio' + index"
                         >
-                            <image-cm :src="form.filesDes[index] || DEFAULT_IMAGE" objectFit="cover"
+                            <image-cm :src="file.preview" objectFit="cover"
                                       class="file__cover flex-shrink-0 border border-solid rounded-1/2"
                                       className="w-full h-full rounded-inherit"
                             />
@@ -70,13 +70,13 @@
                                 <label class="file__label block w-full">
                                     <input type="text" name="name" autocomplete="off"
                                            class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                           :class="{ 'direction-ltr': ( currentLang === 'en' ) }" placeholder="عنوان فایل را اینجا وارد کنید"
+                                           :class="{ 'direction-ltr': ( currentLang === 'en' ) }" placeholder="عنوان فایل را اینجا وارد کنید" v-model="file.title"
                                     />
                                 </label>
                                 <label class="file__label block w-full">
                                     <input type="text" name="source" autocomplete="off"
                                            class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                           placeholder="لینک مرجع را اینجا وارد کنید"
+                                           placeholder="لینک مرجع را اینجا وارد کنید" v-model="file.link"
                                     />
                                 </label>
                             </div>
@@ -161,7 +161,7 @@
 
 <script>
     import { mapGetters, mapState } from 'vuex';
-    import { HasLength, Length, Chunkify } from '@vendor/plugin/helper';
+    import { HasLength, Length } from '@vendor/plugin/helper';
     import { GALLERY_TYPE } from '@services/service/ManageGallery';
     import CreateGalleryService from '@services/service/CreateGallery';
     import UploadService from '@vendor/components/upload';
@@ -181,8 +181,7 @@
         first_title: '',
         abstract: '',
         description: '',
-        filesDes: [],
-        files: new FormData(),
+        content: [],
         category_ids: [],
         images: null,
         slug: '',
@@ -196,7 +195,6 @@
             isPending: true,
             isModuleRegistered: false,
             fromDataName: 'content[]',
-            DEFAULT_IMAGE: DEFAULT_IMAGE,
             textEditorKey: 0
         }),
         components: {
@@ -231,7 +229,7 @@
                 return this.galleryType === GALLERY_TYPE['text'].name_en;
             },
             getSelectedFiles() {
-                return this.form.files.getAll( this.fromDataName );
+                return this.form.content;
             },
             filesLength() {
                 return Length( this.getSelectedFiles )
@@ -261,46 +259,43 @@
             async getImagePreviews( formData ) {
                 try {
                     const fReader = await UploadService.imagePreview(formData, this.fromDataName);
-                    this.form.filesDes.push(fReader[0].image);
+                    return fReader[0].image;
                 } catch ( exception ) {}
             },
             onchangeAudioFile( formData ) {
                 this.onchangeFiles( formData );
             },
             onchangeImageFile( formData ) {
-                this.onchangeFiles( formData );
-                this.getImagePreviews( formData );
+                this.onchangeFiles(formData, true);
             },
             onchangeVideoFile( formData ) {
-                this.onchangeFiles( formData );
-                this.getImagePreviews( formData );
+                this.onchangeFiles(formData, true);
             },
             onchangeTextFile( formData ) {
                 this.onchangeFiles( formData );
             },
-            onchangeFiles( formData ) {
-                const { getSelectedFiles, fromDataName } = this;
-                const FORM_DATA = new FormData();
-                if (!!getSelectedFiles && HasLength( getSelectedFiles ))
-                    getSelectedFiles.map(file => FORM_DATA.append(fromDataName, file));
-                FORM_DATA.append(fromDataName, formData.get( fromDataName ));
-                this.$set(this.form, 'files', FORM_DATA);
+            async onchangeFiles(formData, is_image = false) {
+                const { fromDataName, filesLength } = this;
+                const FILE = formData.get( fromDataName ),
+                      FILE_PREVIEW = is_image && await this.getImagePreviews( formData );
+                this.$set(this.form.content, filesLength, {
+                    link: '',
+                    title: '',
+                    file: FILE,
+                    preview: FILE_PREVIEW || DEFAULT_IMAGE
+                });
             },
             onClickRemoveUploadedFile( index ) {
                 try {
-                    this.getSelectedFiles.splice(index, 1);
-                    const FORM_DATA = new FormData();
-                    this.getSelectedFiles.map(file => FORM_DATA.append(this.fromDataName, file));
-                    this.$set(this.form, 'files', FORM_DATA);
-                    this.form.filesDes.splice(index, 1);
-                } catch ( exception ) { }
+                    this.$delete(this.form.content, index);
+                } catch ( exception ) {}
             },
             async onClickReleaseItemButton() {
                 try {
                     this.$set(this, 'isPending', true);
                     let result = await Service.createGalleryItem( this.galleryType );
-                    this.displayNotification(result, { type: 'success' });
-                    this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
+                    // this.displayNotification(result, { type: 'success' });
+                    // this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
                 } catch ( exception ) {
                     this.$set(this, 'isPending', false);
                     this.displayNotification(exception, { type: 'error' })
