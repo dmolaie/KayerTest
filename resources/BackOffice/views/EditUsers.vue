@@ -212,8 +212,8 @@
                         <select-cm :options="event"
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEventField"
-                                   :value="form.event_name"
-                                   label="name" :required="false" :filterBy="handelEventFieldSearch"
+                                   :value="form.event_name" :required="false"
+                                   label="name" :searchable="true" :filterBy="handelEventFieldSearch"
                         />
                     </div>
                 </div>
@@ -1076,7 +1076,7 @@
             },
             async handelEventFieldSearch( value ) {
                 try {
-                    await Service.handelEventFieldSearch( value );
+                    return await Service.handelEventFieldSearch( value );
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
                 }

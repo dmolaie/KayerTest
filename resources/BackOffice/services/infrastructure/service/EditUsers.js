@@ -2,25 +2,16 @@ import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import ExceptionService from '@services/service/exception';
-import {
-    UserService
-} from '@services/service/ManageLegate';
+import { UserService } from '@services/service/ManageLegate';
 import EditUser, {
     E_USER_SET_DATA, E_USER_SET_BASIC_DATA,
     E_USER_SET_PROVINCES, E_USER_SET_EVENT
 } from '@services/store/EditUsers';
-import {
-    ProvincesPresenter,
-} from '@vendor/infrastructure/presenter/MainPresenter';
-import {
-    EventService
-} from '@services/service/ManageEvent';
-import {
-    CopyOf, HasLength, toEnglishDigits
-} from "@vendor/plugin/helper";
-import {
-    UPDATE_USER, GET_USER_ID
-}  from '@services/store/Login';
+import { ProvincesPresenter, } from '@vendor/infrastructure/presenter/MainPresenter';
+import { EventService } from '@services/service/ManageEvent';
+import { CopyOf, toEnglishDigits } from "@vendor/plugin/helper";
+import { UPDATE_USER, GET_USER_ID }  from '@services/store/Login';
+import { EventPresenter } from '@services/presenter/EditUsers';
 
 export default class EditUserService extends BaseService {
     constructor( layout ) {
@@ -80,8 +71,9 @@ export default class EditUserService extends BaseService {
 
     async handelEventFieldSearch( title ) {
         try {
-            let response = await EventService.getEventList({ title });
-            BaseService.commitToStore(this.$store, E_USER_SET_EVENT, response);
+            const QUERYSTRING = !!title ? { title } : {};
+            let response = await EventService.getEventList( QUERYSTRING );
+            return new EventPresenter( response?.data?.items || [] );
         } catch ( exception ) {
             throw exception;
         }
