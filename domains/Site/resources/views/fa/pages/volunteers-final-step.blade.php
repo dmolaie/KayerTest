@@ -197,7 +197,7 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         شهر محل تولد
                                     </span>
-                                <div class="field__birth_city w-full">
+                                <div class="field__birth_city w-full disabledSelect">
                                     <select class="vnt-page__select vnt-page__select--birth-city"
                                             name="city_of_birth"
                                     >
@@ -304,7 +304,7 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         شهر محل تحصیل
                                     </span>
-                                <div class="field__edu-city w-full">
+                                <div class="field__edu-city w-full disabledSelect">
                                     <select class="vnt-page__select vnt-page__select--edu-city"
                                             name="education_city_id"
                                     >
@@ -397,7 +397,7 @@
                                     <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                         شهر محل سکونت
                                     </span>
-                                <div class="field__home-city w-full">
+                                <div class="field__home-city w-full disabledSelect">
                                     <select class="vnt-page__select vnt-page__select--home-city"
                                             name="current_city_id"
                                     >
@@ -488,7 +488,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15">
+                            <div class="w-1/3 xl:w-1/4 md:w-1/2 sm:w-full p-0-10 m-0-15 disabledSelect">
                                     <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                         شهر محل کار
                                     </span>
