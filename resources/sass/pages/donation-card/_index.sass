@@ -33,8 +33,9 @@
     &_header
       padding: 16px 10px 15px
     &_body
-      padding: 28px 20px (35px - 10)
+      padding: 28px 0 (35px - 10)
   &__input
+    padding: 0 20px
     &:not(:last-child)
       margin-bottom: 14px
   &__label
@@ -113,3 +114,10 @@
     .md\:
       &m-b-30
         margin-bottom: 30px
+  .disabledSelect
+    .dropdown
+      opacity: .7
+      pointer-events: none
+      filter: grayscale(0.9)
+  .p-0-20
+    padding: 0 20px
