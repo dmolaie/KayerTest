@@ -831,7 +831,7 @@
             },
             day: () => {
                 let arr = [];
-                for (let i = 1; i < 31; i ++) {
+                for (let i = 1; i <= 31; i ++) {
                     arr.push({
                         id: i,
                         name: i
