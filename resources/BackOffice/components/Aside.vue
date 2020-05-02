@@ -22,7 +22,7 @@
                 <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
                      v-for="(item, index) in items"
                      :key="index"
-                     :to="{name: item.route}"
+                     :to="item.route"
                 >
                     <image-cm
                         class="aside__menu_item_icon"
