@@ -7,7 +7,7 @@
                         گالری‌های ویدیویی
                     </span>
                 </h1>
-                <div class="gao-page__inner-box inner-box flex items-stretch p-0 sm:flex-col">
+                <div class="gao-page__inner-box inner-box flex items-stretch p-0 md:flex-col">
                     <div class="flex-1">
                         <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div id="video_player">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 sm:w-full sm:m-0">
+                    <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 md:w-full">
                         <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
                             <div class="episodes absolute w-full">
                                 <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
