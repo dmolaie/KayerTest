@@ -21,7 +21,10 @@ class Attachment extends Model
         'class',
         'reference_id',
         'file_name',
-        'path'
+        'path',
+        'type',
+        'title',
+        'link',
     ];
 
 

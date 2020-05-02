@@ -30,6 +30,28 @@ class AttachmentGetInfoDTO
      * @var string|null
      */
     protected $path;
+    /**
+     * @var string|null
+     */
+    protected $type;
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string|null $type
+     * @return AttachmentGetInfoDTO
+     */
+    public function setType(?string $type): AttachmentGetInfoDTO
+    {
+        $this->type = $type;
+        return  $this;
+    }
 
     /**
      * @return array
