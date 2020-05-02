@@ -1,10 +1,10 @@
 @extends('fa.template.master')
     @section('content')
-        <div class="gau-page i-page">
+        <div class="gau-page gao-page i-page">
             <div class="container sm:p-0">
-                <div class="flex items-start md:flex-wrap">
+                <div class="gao-page__inner-box inner-box flex items-stretch p-0 sm:flex-col">
                     <div class="flex-1">
-                        <div class="inner-box inner-box--white p-0">
+                        <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
                                 <div class="gau-page__player relative rounded-inherit">
                                     <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
@@ -42,19 +42,40 @@
                             </div>
                         </div>
                     </div>
-                    @if( false )
-                    <div class="gau-page__aside xxl:w-1/5 xl:w-1/4 w-1/3">
-                        <div class="inner-box inner-box--white p-0">
-                            <div class="w-full">
-                                <figure class="">
-                                    <img src=""
-                                         alt=""
-                                    >
-                                </figure>
+                    <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 sm:w-full sm:m-0">
+                        <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
+                            <div class="episodes absolute w-full">
+                                <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
+                                     data-url="{{ asset('images/music/01_Bitab.mp3') }}"
+                                >
+                                    <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
+                                        <img src=""
+                                             data-src="{{ asset('/images/img_default.jpg') }}"
+                                             alt="درد بی مغزی"
+                                             class="episode__image block absolute w-full h-full rounded-inherit object-cover"
+                                        >
+                                    </figure>
+                                    <span class="episode__caption text-blue-800 text-blue-800 font-sm font-medium pointer-event-none">
+                                        هدیه - حسین اعظمی
+                                    </span>
+                                </div>
+                                <div class="episode relative flex items-center cursor-pointer bg-white l:transition-background"
+                                     data-url="{{ asset('images/music/tik-tok.mp3') }}"
+                                >
+                                    <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
+                                        <img src=""
+                                             data-src="{{ asset('/images/img_default.jpg') }}"
+                                             alt="درد بی مغزی"
+                                             class="episode__image block absolute w-full h-full rounded-inherit object-cover"
+                                        >
+                                    </figure>
+                                    <span class="episode__caption text-blue-800 text-blue-800 font-sm font-medium pointer-event-none">
+                                        دلخوشی - امیرعباس گلاب
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @endif
                 </div>
                 <h2 class="gau-page__sTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">

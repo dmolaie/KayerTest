@@ -31,11 +31,37 @@ try {
         </div>
     `;
 
+    const EPISODE_CLASSNAME = 'episode';
+    const ACTIVE_CLASSNAME  = 'episode--active';
+    const EPISODES_WRAPPER  = document.querySelector('.gao-page .episodes');
+    const AUDIO_ELEMENT = document.getElementById('music_player');
+
+    const onClickEpisodesItem = ( episode ) => {
+        const AUDIO_URL = episode.getAttribute('data-url');
+        const CURRENT_ACTIVE = EPISODES_WRAPPER.querySelector(`.${ACTIVE_CLASSNAME}`);
+        AUDIO_ELEMENT.src = AUDIO_URL;
+        !!CURRENT_ACTIVE && CURRENT_ACTIVE.classList.remove( ACTIVE_CLASSNAME );
+        episode.classList.add( ACTIVE_CLASSNAME );
+    };
+
+    const mountMusicPlayer = () => {
+        const PLAYER = new Plyr('#music_player', { controls });
+        if ( !!EPISODES_WRAPPER ) {
+            EPISODES_WRAPPER.addEventListener(
+                'click',
+                ({ target }) => {
+                    if ( target.classList.contains( EPISODE_CLASSNAME ) ) {
+                        onClickEpisodesItem( target );
+                        PLAYER.play();
+                    }
+                }
+            );
+        }
+    };
+
     document.addEventListener(
         'DOMContentLoaded', () => {
-            const PLAYER = new Plyr('#music_player', {
-                controls
-            });
+            mountMusicPlayer();
         }
     );
 } catch ( exception ) {}
