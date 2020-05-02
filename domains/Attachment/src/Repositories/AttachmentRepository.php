@@ -12,22 +12,28 @@ class AttachmentRepository
 {
     protected $entityName = Attachment::class;
 
-    public function create(AttachmentDTO $attachmentDTO, $attachmentPath, $attachmentFileName)
+    public function create($content, $attachmentPath, $attachmentFileName,$contentGetInfoFileDTO = null)
     {
         $attachment = new $this->entityName;
-        $attachment->class = $attachmentDTO->getEntityName();
-        $attachment->reference_id = $attachmentDTO->getEntityId();
+        $attachment->class = $content->getEntityName();
+        $attachment->reference_id = $content->getEntityId();
         $attachment->file_name = $attachmentFileName;
         $attachment->path = $attachmentPath;
+        $attachment->type = $content->getType();
+        if($contentGetInfoFileDTO){
+            $attachment->link = $contentGetInfoFileDTO->getLink();
+            $attachment->title = $contentGetInfoFileDTO->getTitle();
+        }
         $attachment->save();
         return $attachment;
     }
 
-    public function getAllFiles(string $entityName, int $entityId)
+    public function getAllFiles(string $entityName, int $entityId,string $type)
     {
         return $attachment = $this->entityName::where([
             ['reference_id', '=', $entityId],
-            ['class', '=', $entityName]
+            ['class', '=', $entityName],
+            ['type' ,'=',$type]
         ])->get();
     }
 
