@@ -450,7 +450,7 @@
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
-                        <div class="w-full p-0-20">
+                        <div class="w-full p-0-20 sm:p-0">
                             <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
                                 <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
                                     شما پروفایل دارید و هم‌اکنون دارای کارت اهدای عضو هستید.
@@ -464,7 +464,7 @@
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
-                        <div class="w-full p-0-20">
+                        <div class="w-full p-0-20 sm:p-0">
                             <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
                                 <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base text-justify">
                                     شما سفیر اهدای عضو هستید. لطفا از پروفایل خود جهت ثبت نام به عنوان کارت اهدای عضو اقدام
