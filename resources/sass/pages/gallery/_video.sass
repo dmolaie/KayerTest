@@ -4,7 +4,10 @@
       radius: 0
   &__aside
     margin-right: 28px
+    @include Md_Screen
+      margin: 40px 0 0
     @include Sm_Screen
+      margin: 0
       border-top: 1px solid $blue
   &__content
     padding: 32px 12px 35px 20px
@@ -15,7 +18,7 @@
   .episodes
     top: 0
     right: 0
-    @include Sm_Screen
+    @include Md_Screen
       position: static
   .episode
     $p: 8px
@@ -40,6 +43,10 @@
       padding-bottom: $size
       @include Xl_Screen
         $size: 26%
+        width: $size
+        padding-bottom: $size
+      @include Md_Screen
+        $size: 18%
         width: $size
         padding-bottom: $size
       @include Sm_Screen

@@ -1,5 +1,6 @@
 import Swiper from 'swiper';
 import Plyr from 'plyr';
+import { SmoothScroll } from '@vendor/plugin/helper';
 
 try {
     const controls = `
@@ -35,6 +36,7 @@ try {
     const ACTIVE_CLASSNAME  = 'episode--active';
     const EPISODES_WRAPPER  = document.querySelector('.gao-page .episodes');
     const AUDIO_ELEMENT = document.getElementById('music_player');
+    const PLAYER_WRAPPER = document.querySelector('.gao-page__inner-box');
 
     const onClickEpisodesItem = ( episode ) => {
         const AUDIO_URL = episode.getAttribute('data-url');
@@ -42,6 +44,7 @@ try {
         AUDIO_ELEMENT.src = AUDIO_URL;
         !!CURRENT_ACTIVE && CURRENT_ACTIVE.classList.remove( ACTIVE_CLASSNAME );
         episode.classList.add( ACTIVE_CLASSNAME );
+        SmoothScroll( PLAYER_WRAPPER.offsetTop );
     };
 
     const mountMusicPlayer = () => {

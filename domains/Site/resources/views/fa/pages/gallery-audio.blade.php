@@ -2,12 +2,17 @@
     @section('content')
         <div class="gau-page gao-page i-page">
             <div class="container sm:p-0">
-                <div class="gao-page__inner-box inner-box flex items-stretch p-0 sm:flex-col">
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
+                    <span class="i-page__title text-center cursor-default">
+                        گالری‌های صوتی
+                    </span>
+                </h1>
+                <div class="gao-page__inner-box inner-box flex items-stretch p-0 md:flex-col">
                     <div class="flex-1">
                         <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
                                 <div class="gau-page__player relative rounded-inherit">
-                                    <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
+                                    <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
                                          alt=""
                                          class="w-full block rounded-inherit"
                                     />
@@ -15,18 +20,18 @@
                                         <audio id="music_player"
                                                controls class="w-0 h-0 opacity-0 visibility-hidden overflow-hidden"
                                         >
-                                            <source src="{{ asset('images/music/01_Bitab.mp3') }}" type="audio/mpeg">
+                                            <source src="{{ secure_asset('images/music/01_Bitab.mp3') }}" type="audio/mpeg">
                                             متاسفانه مرورگر شما از این قابلیت پشتیبانی نمی‌کند.
                                         </audio>
                                     </div>
                                 </div>
                             </div>
-                            <div class="gau-page__box flex items-center justify-between">
-                                <h3 class="i-page__sub-title text-blue font-24 font-bold cursor-default m-b-26 sm:font-sm">
+                            <div class="gau-page__box flex items-center justify-between md:flex-col">
+                                <h3 class="i-page__sub-title text-blue font-24 font-bold cursor-default m-b-26 md:w-full sm:font-sm">
                                     تو رسیدی - مهدی یغمایی
                                 </h3>
                                 <a href="" target="_blank" download=""
-                                   class="gau-page__download flex items-center text-blue-800 font-lg font-medium border border-solid rounded l:transition-background"
+                                   class="gau-page__download flex items-center text-blue-800 font-lg font-medium border border-solid rounded l:transition-background sm:font-base"
                                 >
                                     ۷.۶۳ مگابایت
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
@@ -42,15 +47,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 sm:w-full sm:m-0">
+                    <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 md:w-full">
                         <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
                             <div class="episodes absolute w-full">
                                 <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="{{ asset('images/music/01_Bitab.mp3') }}"
+                                     data-url="{{ secure_asset('images/music/01_Bitab.mp3') }}"
                                 >
                                     <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
                                         <img src=""
-                                             data-src="{{ asset('/images/img_default.jpg') }}"
+                                             data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                              alt="درد بی مغزی"
                                              class="episode__image block absolute w-full h-full rounded-inherit object-cover"
                                         >
@@ -60,11 +65,11 @@
                                     </span>
                                 </div>
                                 <div class="episode relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="{{ asset('images/music/tik-tok.mp3') }}"
+                                     data-url="{{ secure_asset('images/music/tik-tok.mp3') }}"
                                 >
                                     <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
                                         <img src=""
-                                             data-src="{{ asset('/images/img_default.jpg') }}"
+                                             data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                              alt="درد بی مغزی"
                                              class="episode__image block absolute w-full h-full rounded-inherit object-cover"
                                         >
@@ -77,13 +82,13 @@
                         </div>
                     </div>
                 </div>
-                <h2 class="gau-page__sTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
+                <h2 class="gau-page__sTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg sm:m-0">
                     <span class="i-page__title text-center cursor-default">
                         از دست ندهید
                     </span>
                 </h2>
                 <div class="block w-full relative-gallery">
-                    <div class="inner-box inner-box--white">
+                    <div class="inner-box inner-box--white sm:p-r-0 sm:p-l-0 sm:p-b-0">
                         <div class="max-w-full overflow-x-hidden">
                             <div class="carousel__container">
                                 <div class="swiper-wrapper">
@@ -94,7 +99,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_play absolute bg-white rounded-50"></span>
                                                 <img src=""
-                                                     data-src="{{ asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -119,7 +124,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_camera absolute"></span>
                                                 <img src=""
-                                                     data-src="{{ asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -143,7 +148,7 @@
                                            class="ga-page__card relative w-full block font-xs font-bold bg-white border border-solid rounded-10 has-shadow">
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -169,7 +174,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_play absolute bg-white rounded-50"></span>
                                                 <img src=""
-                                                     data-src="{{ asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -194,7 +199,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_camera absolute"></span>
                                                 <img src=""
-                                                     data-src="{{ asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -218,7 +223,7 @@
                                            class="ga-page__card relative w-full block font-xs font-bold bg-white border border-solid rounded-10 has-shadow">
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -238,7 +243,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="carousel__pagination carousel__pagination--white none sm:flex justify-center"></div>
+                            <div class="carousel__pagination carousel__pagination--blue none sm:flex justify-center"></div>
                         </div>
                     </div>
                 </div>
@@ -247,7 +252,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
-        <script src="{{asset('js/site/vendors~gallery-audio.js')}}" defer></script>
-        <script src="{{asset('js/site/gallery-audio.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/vendors~gallery-audio.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/gallery-audio.js')}}" defer></script>
     @endsection
