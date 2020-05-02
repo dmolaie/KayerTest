@@ -5,6 +5,22 @@
                 <div class="flex items-start md:flex-wrap">
                     <div class="flex-1">
                         <div class="inner-box inner-box--white p-0">
+                            <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
+                                <div class="gau-page__player relative rounded-inherit">
+                                    <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
+                                         alt=""
+                                         class="w-full block rounded-inherit"
+                                    />
+                                    <div class="gau-page__audio absolute w-full">
+                                        <audio id="music_player"
+                                               controls class="w-0 h-0 opacity-0 visibility-hidden overflow-hidden"
+                                        >
+                                            <source src="{{ asset('images/music/01_Bitab.mp3') }}" type="audio/mpeg">
+                                            متاسفانه مرورگر شما از این قابلیت پشتیبانی نمی‌کند.
+                                        </audio>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="gau-page__box flex items-center justify-between">
                                 <h3 class="i-page__sub-title text-blue font-24 font-bold cursor-default m-b-26 sm:font-sm">
                                     تو رسیدی - مهدی یغمایی
@@ -26,6 +42,7 @@
                             </div>
                         </div>
                     </div>
+                    @if( false )
                     <div class="gau-page__aside xxl:w-1/5 xl:w-1/4 w-1/3">
                         <div class="inner-box inner-box--white p-0">
                             <div class="w-full">
@@ -37,6 +54,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <h2 class="gau-page__sTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">
@@ -209,5 +227,6 @@
 
     @section('scripts')
         <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+        <script src="{{asset('js/site/vendors~gallery-audio.js')}}" defer></script>
         <script src="{{asset('js/site/gallery-audio.js')}}" defer></script>
     @endsection
