@@ -13,6 +13,29 @@ class AttachmentDTO extends AttachmentBaseDTO
     protected $file;
 
     /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return AttachmentDTO
+     */
+    public function setType(string $type): AttachmentDTO
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getFiles(): array

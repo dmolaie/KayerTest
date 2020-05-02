@@ -10,7 +10,6 @@ class ContentDTO
      * @var string
      */
     protected $entityName;
-
     /**
      * @var integer
      */
@@ -23,6 +22,30 @@ class ContentDTO
      * @var string|null
      */
     protected $path;
+
+    /**
+     * @var string|null
+     */
+    protected $type;
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string|null $type
+     * @return ContentDTO
+     */
+    public function setType(?string $type): ContentDTO
+    {
+        $this->type = $type;
+        return $this;
+    }
+
     /**
      * @return string
      */
@@ -95,5 +118,4 @@ class ContentDTO
         $this->path = $path;
         return $this;
     }
-
 }
