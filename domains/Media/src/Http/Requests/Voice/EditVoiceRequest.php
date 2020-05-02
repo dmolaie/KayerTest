@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Media\Http\Requests\Image;
+namespace Domains\Media\Http\Requests\Voice;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
@@ -8,7 +8,7 @@ use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 use Domains\Media\Services\Contracts\DTOs\MediaEditDTO;
 use Illuminate\Validation\Rule;
 
-class EditImageRequest extends EhdaBaseRequest
+class EditVoiceRequest extends EhdaBaseRequest
 {
 
     /**
@@ -28,10 +28,12 @@ class EditImageRequest extends EhdaBaseRequest
             'province_id'      => 'integer|exists:provinces,id',
             'language'         => ['required', Rule::in(config('media.media_language'))],
             'images.*'         => 'image|max:500',
-            'content.*.file'   => 'image|max:500',
+            'content.*.file'   => 'mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav|max:10240',
             'content.*.link'   => 'url',
             'content.*.title'  => 'string',
-            'content'          => 'array'
+            'content'          => 'array',
+            'description'      => 'string',
+            'abstract'         => 'string',
         ];
     }
 
@@ -57,7 +59,9 @@ class EditImageRequest extends EhdaBaseRequest
             ->setFirstTitle($this['first_title'])
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setAttachmentFiles($this['images'])
-            ->setType(config('media.media_type_image'))
+            ->setType(config('media.media_type_voice'))
+            ->setDescription($this['description'])
+            ->setAbstract($this['abstract'])
             ->setContentFiles($this->makeContentFileDTOs())
             ->setSlug($this['slug']);
 

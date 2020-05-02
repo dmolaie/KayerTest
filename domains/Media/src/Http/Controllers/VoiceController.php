@@ -8,15 +8,15 @@ use Auth;
 use Domains\Media\Exceptions\MediaNotFoundException;
 use Domains\Media\Http\Presenters\MediaInfoPresenter;
 use Domains\Media\Http\Presenters\MediaPaginateInfoPresenter;
-use Domains\Media\Http\Requests\Text\TextListForAdminRequest;
-use Domains\Media\Http\Requests\Text\ChangeTextStatusRequest;
-use Domains\Media\Http\Requests\Text\CreateTextRequest;
-use Domains\Media\Http\Requests\Text\EditTextRequest;
+use Domains\Media\Http\Requests\Voice\VoiceListForAdminRequest;
+use Domains\Media\Http\Requests\Voice\ChangeVoiceStatusRequest;
+use Domains\Media\Http\Requests\Voice\CreateVoiceRequest;
+use Domains\Media\Http\Requests\Voice\EditVoiceRequest;
 use Domains\Media\Services\MediaService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
-class TextController extends EhdaBaseController
+class VoiceController extends EhdaBaseController
 {
 
     /**
@@ -30,7 +30,7 @@ class TextController extends EhdaBaseController
         $this->mediaService = $mediaService;
     }
 
-    public function create(CreateTextRequest $request, MediaInfoPresenter $mediaInfoPresenter)
+    public function create(CreateVoiceRequest $request, MediaInfoPresenter $mediaInfoPresenter)
     {
 
         $mediaCreateDTO = $request->createMediaCreateDTO();
@@ -43,7 +43,7 @@ class TextController extends EhdaBaseController
 
     }
 
-    public function edit(EditTextRequest $request, MediaInfoPresenter $mediaInfoPresenter)
+    public function edit(EditVoiceRequest $request, MediaInfoPresenter $mediaInfoPresenter)
     {
         try{
             $mediaEditDTO = $request->createMediaEditDTO();
@@ -61,7 +61,7 @@ class TextController extends EhdaBaseController
     }
 
     public function getListForAdmin(
-        TextListForAdminRequest $request,
+        VoiceListForAdminRequest $request,
         MediaPaginateInfoPresenter $mediaPaginateInfoPresenter
     ) {
         $mediaPaginateInfoDTO = $this->mediaService->filterMedia($request->createMediaFilterDTO());
@@ -84,7 +84,7 @@ class TextController extends EhdaBaseController
         }
     }
 
-    public function changeStatus(ChangeTextStatusRequest $request, MediaInfoPresenter $mediaInfoPresenter)
+    public function changeStatus(ChangeVoiceStatusRequest $request, MediaInfoPresenter $mediaInfoPresenter)
     {
         try {
             $mediaInfoDTO = $this->mediaService->changeStatus(
