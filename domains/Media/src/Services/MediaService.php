@@ -8,6 +8,7 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\ContentDTO;
+use Domains\Attachment\Services\Contracts\DTOs\ContentGetInfoDTO;
 use Domains\Media\Entities\Media;
 use Domains\Media\Exceptions\MediaNotFoundException;
 use Domains\Media\Repositories\MediaRepository;
@@ -131,7 +132,7 @@ class MediaService
     private function addContentForMedia(
         Media $media,
         MediaBaseSaveDTO $mediaBaseSaveDTO
-    ): ?AttachmentInfoDTO {
+    ): ?ContentGetInfoDTO {
         if (!$mediaBaseSaveDTO->getContentFiles()) {
             return null;
         }
