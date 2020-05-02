@@ -22,7 +22,7 @@ class CreateTextRequest extends EhdaBaseRequest
             'first_title'      => 'required|string',
             'description'      => 'string',
             'abstract'         => 'string',
-            'content.*.file'   => 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:10000',
+            'content.*.file'   => 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:10240',
             'content.*.link'   => 'url',
             'content.*.title'  => 'string',
             'content'          => 'array',
