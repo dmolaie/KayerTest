@@ -109,13 +109,18 @@ class AttachmentServices
         $path = $basePath . $type;
         foreach ($contentDTO->getContentFileDTOs() as $file) {
             $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
-            $fileName = date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName();
-            Storage::putFileAs($path . $this->separator, $file->getFile(),
-                date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName());
-            $imagePathFinal = $path . $this->separator . $fileName;
+            if($file->getFile()){
+                $fileName = date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName();
+                Storage::putFileAs($path . $this->separator, $file->getFile(),
+                    date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName());
+                $imagePathFinal = $path . $this->separator . $fileName;
+                $contentGetInfoFileDTO->setPath($imagePathFinal);
+            }else{
+                $fileName = '';
+                $imagePathFinal = '';
+            }
             $contentGetInfoFileDTO->setTitle($file->getTitle());
             $contentGetInfoFileDTO->setLink($file->getLink());
-            $contentGetInfoFileDTO->setPath($imagePathFinal);
             $this->attachmentRepository->create($contentDTO, $imagePathFinal, $fileName, $contentGetInfoFileDTO);
             $contentGetInfoDTO->addContentGetInfoFileDTOs($contentGetInfoFileDTO);
         }
