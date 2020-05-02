@@ -72,35 +72,21 @@ class AttachmentServices
 
     public function getImagesByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
     {
-        $type = config('attachment.type.' . strtolower($attachmentGetInfoDTO->getEntityName() . '-media'));
+        $type = config('attachment.type.image-attachment');
         foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
             $attachmentGetInfoDTO->addImages(
-                $this->getAllimages($attachmentGetInfoDTO->getEntityName(), $entityId,$type),
+                $this->getAllImages($attachmentGetInfoDTO->getEntityName(), $entityId, $type),
                 $entityId);
         }
         return $attachmentGetInfoDTO;
     }
 
-    public function getAllimages(string $entityName, int $entityId,$type): AttachmentInfoDTO
+    public function getAllImages(string $entityName, int $entityId, $type): AttachmentInfoDTO
     {
         $attachmentInfoDTO = new AttachmentInfoDTO();
         $attachmentInfoDTO->setEntityName($entityName);
         $attachmentInfoDTO->setEntityId($entityId);
-        $attachmentEntity = $this->attachmentRepository->getAllFiles($entityName, $entityId,$type);
-        if ($attachmentEntity) {
-            foreach ($attachmentEntity as $item) {
-                $attachmentInfoDTO->addToPaths($item->id, $item->path);
-            }
-        }
-        return $attachmentInfoDTO;
-    }
-
-    public function getAllontent(string $entityName, int $entityId,$type): AttachmentInfoDTO
-    {
-        $attachmentInfoDTO = new AttachmentInfoDTO();
-        $attachmentInfoDTO->setEntityName($entityName);
-        $attachmentInfoDTO->setEntityId($entityId);
-        $attachmentEntity = $this->attachmentRepository->getAllFiles($entityName, $entityId,$type);
+        $attachmentEntity = $this->attachmentRepository->getAllFiles($entityName, $entityId, $type);
         if ($attachmentEntity) {
             foreach ($attachmentEntity as $item) {
                 $attachmentInfoDTO->addToPaths($item->id, $item->path);
@@ -112,7 +98,6 @@ class AttachmentServices
     public function uploadFiles(ContentDTO $contentDTO)
     {
         $contentGetInfoDTO = new ContentGetInfoDTO();
-        $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
         $contentGetInfoDTO->setEntityName($contentDTO->getEntityName());
         $contentGetInfoDTO->setEntityId($contentDTO->getEntityId());
         $contentDTO->setType(config('attachment.type.' . strtolower($contentDTO->getEntityName()) . '-media'));
@@ -123,8 +108,10 @@ class AttachmentServices
         $basePath = config('attachment.base_path_storage');
         $path = $basePath . $type;
         foreach ($contentDTO->getContentFileDTOs() as $file) {
+            $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
             $fileName = date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName();
-            Storage::putFileAs($path . $this->separator, $file->getFile(), date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName());
+            Storage::putFileAs($path . $this->separator, $file->getFile(),
+                date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName());
             $imagePathFinal = $path . $this->separator . $fileName;
             $contentGetInfoFileDTO->setTitle($file->getTitle());
             $contentGetInfoFileDTO->setLink($file->getLink());
@@ -135,30 +122,40 @@ class AttachmentServices
         return $contentGetInfoDTO;
     }
 
-/*    public function getContentByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
+    public function getContentByIds(AttachmentGetInfoDTO $attachmentGetInfoDTO)
     {
         $result = [];
         $type = config('attachment.type.' . strtolower($attachmentGetInfoDTO->getEntityName() . '-media'));
-        $contentGetInfoDTO = new ContentGetInfoDTO();
         foreach ($attachmentGetInfoDTO->getEntityIds() as $entityId) {
+            $contentGetInfoDTO = new ContentGetInfoDTO();
             $contentGetInfoDTO->setEntityName($attachmentGetInfoDTO->getEntityName())
                 ->setEntityId($entityId)
                 ->setContentGetInfoFileDTOs(
-                    $contentGetInfoDTO->setContentGetInfoFileDTOs(
-                        $this->makeContentGetInfoDTO($this->getAllontent($attachmentGetInfoDTO->getEntityName(), $entityId,$type))
-                    )
-                    //inja be ezaye har content ye contentgetInfoFileDTO misazim
-                    //[ContentGetInfoFileDTO, ContentGetInfoFileDTO, ContentGetInfoFileDTO]
+                        $this->getAllContent(
+                            $attachmentGetInfoDTO->getEntityName(),
+                            $entityId,
+                            $type
+                        )
+
                 );
             $result[$entityId] = $contentGetInfoDTO;
         }
         return $result;
     }
 
-    private function makeContentGetInfoDTO( $getPaths)
+    public function getAllContent(string $entityName, int $entityId, string $type)
     {
-        dd($getPaths);
-        $contents = $this->getAllFiles($getPaths->getEntityName(),$getPaths->getEntityId(),$getPaths->getPatch());
-        dd($contents);
-    }*/
+
+        $contentEntities = $this->attachmentRepository->getAllFiles($entityName, $entityId, $type);
+        $contentGetInfoFileDTOs = [];
+        foreach ($contentEntities as $contentEntity) {
+            $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
+            $contentGetInfoFileDTO->setLink($contentEntity->link)
+                ->setTitle($contentEntity->title)
+                ->setPath($contentEntity->path);
+            $contentGetInfoFileDTOs[] = $contentGetInfoFileDTO;
+
+        }
+        return $contentGetInfoFileDTOs;
+    }
 }
