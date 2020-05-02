@@ -53,7 +53,7 @@
                     </template>
                     <template v-if="isTextType">
                         <upload-cm :dropBox="true" :fieldName="fromDataName"
-                                   accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                   accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.doc,.docx"
                                    @onChange="onchangeTextFile"
                         />
                     </template>
