@@ -4,6 +4,7 @@ namespace Domains\Media\Http\Requests\Image;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
+use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 use Domains\Media\Services\Contracts\DTOs\MediaEditDTO;
 use Illuminate\Validation\Rule;
 
@@ -27,7 +28,9 @@ class EditImageRequest extends EhdaBaseRequest
             'province_id'      => 'integer|exists:provinces,id',
             'language'         => ['required', Rule::in(config('media.media_language'))],
             'images.*'         => 'image|max:500',
-            'content.*'        => 'image|max:500',
+            'content.*.file'   => 'image|max:500',
+            'content.*.link'   => 'url',
+            'content.*.title'  => 'string',
             'content'          => 'array'
         ];
     }
@@ -55,9 +58,22 @@ class EditImageRequest extends EhdaBaseRequest
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setAttachmentFiles($this['images'])
             ->setType(config('media.media_type_image'))
-            ->setContentFiles($this['content'])
+            ->setContentFiles($this->makeContentFileDTOs())
             ->setSlug($this['slug']);
 
         return $mediaEditDTO;
+    }
+
+    private function makeContentFileDTOs()
+    {
+        $contents = [];
+        foreach ($this['content'] as $content) {
+            $contentFileDTO = new ContentFileDTO();
+            $contentFileDTO->setTitle($content['title'] ?? null)
+                ->setFile($content['file'] ?? null)
+                ->setLink($content['link'] ?? null);
+            $contents[] = $contentFileDTO;
+        }
+        return $contents;
     }
 }
