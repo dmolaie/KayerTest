@@ -38,6 +38,7 @@
         name: "Index",
         data: () => ({
             items: [],
+            timer: null,
             timeOut: 600
         }),
         methods: {
@@ -54,7 +55,8 @@
             onAnimationEnd( item ) {
                 try {
                     this.$set( item.option, 'visibility', false );
-                    setTimeout(() => {
+                    clearTimeout( this.timer );
+                    this.timer = setTimeout(() => {
                         this.$set( this, 'items', [] );
                     }, this.timeOut)
                 } catch (e) {
