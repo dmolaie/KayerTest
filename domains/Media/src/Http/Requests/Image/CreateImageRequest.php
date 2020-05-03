@@ -20,6 +20,8 @@ class CreateImageRequest extends EhdaBaseRequest
     {
         return [
             'first_title'      => 'required|string',
+            'abstract'         => 'string',
+            'description'      => 'string',
             'content.*.file'   => 'image|max:500',
             'content.*.link'   => 'url',
             'content.*.title'  => 'string',
@@ -54,6 +56,7 @@ class CreateImageRequest extends EhdaBaseRequest
             ->setDescription($this['description'])
             ->setPublisher(\Auth::user())
             ->setLanguage($this['language'])
+            ->setAbstract($this['abstract'])
             ->setFirstTitle($this['first_title'])
             ->setPublishDate($this['publish_date'] ?
                 Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString() :
@@ -62,7 +65,7 @@ class CreateImageRequest extends EhdaBaseRequest
             ->setParentId($this['parent_id'])
             ->setAttachmentFiles($this['images'])
             ->setType(config('media.media_type_image'))
-            ->setContentFiles($this->makeContentFileDTOs())
+            ->setContentFiles($this['content'] ? $this->makeContentFileDTOs() : [])
             ->setSlug($this['slug']);
         return $mediaCreateDTO;
     }

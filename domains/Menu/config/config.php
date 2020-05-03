@@ -45,6 +45,29 @@ return [
         "report" => [
             'admin'   => ['active',]
         ],
+        "category" => [
+            'admin' => ['active',]
+        ],
+        "image_gallery" => [
+            'admin'   => ['active'],
+            'manager' => ['active'],
+            'legate'  => ['active'],
+        ],
+        "text_gallery" => [
+            'admin'   => ['active'],
+            'manager' => ['active'],
+            'legate'  => ['active'],
+        ],
+        "video_gallery" => [
+            'admin'   => ['active'],
+            'manager' => ['active'],
+            'legate'  => ['active'],
+        ],
+        "voice_gallery" => [
+            'admin'   => ['active'],
+            'manager' => ['active'],
+            'legate'  => ['active'],
+        ],
         "profile_setting" => [
             'admin'   => ['active', 'pending', 'inactive',],
             'manager' => ['active', 'pending', 'inactive',],

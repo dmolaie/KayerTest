@@ -10,6 +10,11 @@ return [
         "ehda_card"       => 'کارت‌های اهدای عضو',
         "user"            => 'کاربران',
         "report"          => 'گزارش‌گیری',
+        "category"        => 'دسته‌بندی',
+        "image_gallery"   => 'گالری عکسی',
+        "text_gallery"    => 'گالری متنی',
+        "video_gallery"   => 'گالری تصویری',
+        "voice_gallery"   => 'گالری صوتی',
         "profile_setting" => 'تنظیمات حساب',
     ]
 ];

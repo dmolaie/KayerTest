@@ -41,7 +41,7 @@ class MediaInfoDTOMaker
             ->setEditor($media->editor)
             ->setRelationMediaId($this->getRelationMediaId($media))
             ->setAttachmentFiles($attachment->getAttachmentDTO() ? $attachment->getAttachmentDTO()->getPaths() : [])
-            ->setContentFiles($this->getContent($attachment->getContentDTO()))
+            ->setContentFiles($attachment->getContentDTO() ? $this->getContent($attachment->getContentDTO()) : [])
             ->setProvince($media->province)
             ->setUuid($media->uuid);
 

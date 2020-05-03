@@ -58,7 +58,7 @@ class EditImageRequest extends EhdaBaseRequest
             ->setPublishDate(Carbon::createFromTimestamp($this['publish_date'])->toDateTimeString())
             ->setAttachmentFiles($this['images'])
             ->setType(config('media.media_type_image'))
-            ->setContentFiles($this->makeContentFileDTOs())
+            ->setContentFiles($this['content'] ? $this->makeContentFileDTOs() : [])
             ->setSlug($this['slug']);
 
         return $mediaEditDTO;

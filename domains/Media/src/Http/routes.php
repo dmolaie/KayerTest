@@ -35,3 +35,14 @@ Route::group(['prefix' => 'voice/admin', 'name' => '.voice.admin.'],
         Route::get('/detail/{id}', 'VoiceController@getDetail')->middleware('auth:api')
             ->where('id', '[0-9]+');
     });
+Route::group(['prefix' => 'video/admin', 'name' => '.video.admin.'],
+    function () {
+        Route::post('/create', 'VideoController@create')->middleware('auth:api');
+        Route::post('/edit', 'VideoController@edit')->middleware('auth:api');
+        Route::delete('/delete/{id}', 'VideoController@delete')->middleware('auth:api')
+            ->where('id', '[0-9]+');
+        Route::get('/list', 'VideoController@getListForAdmin');
+        Route::post('/change-status', 'VideoController@changeStatus')->middleware('auth:api');
+        Route::get('/detail/{id}', 'VideoController@getDetail')->middleware('auth:api')
+            ->where('id', '[0-9]+');
+    });
