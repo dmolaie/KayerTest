@@ -7,6 +7,7 @@ namespace Domains\Attachment\Repositories;
 use App\Infrastructure\Repositories\BaseEloquentRepository;
 use Domains\Attachment\Entities\Attachment;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
+use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 
 class AttachmentRepository
 {
@@ -40,5 +41,18 @@ class AttachmentRepository
     public function destroyImage(int $imageId)
     {
         return $this->entityName::where('id', '=', $imageId)->delete();
+    }
+
+    public function editFileData(ContentFileDTO $contentFileDTO): ContentFileDTO
+    {
+        $attachmentFile = $this->entityName::findOrFail($contentFileDTO->getId());
+        $attachmentFile->title = $contentFileDTO->getTitle();
+        $attachmentFile->link = $contentFileDTO->getLink();
+
+        $getDirty = $attachmentFile->getDirty();
+        if (!empty($getDirty)) {
+            $attachmentFile->update();
+        }
+        return $contentFileDTO;
     }
 }

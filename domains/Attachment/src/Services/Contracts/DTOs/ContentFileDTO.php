@@ -14,6 +14,28 @@ class ContentFileDTO
      */
     protected $file;
     /**
+     * @var integer|null
+     */
+    protected $id;
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $id
+     * @return ContentFileDTO
+     */
+    public function setId(?int $id): ContentFileDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
+    /**
      * @var string|null
      */
     protected $title;
