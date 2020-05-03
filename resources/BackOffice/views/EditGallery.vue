@@ -235,7 +235,7 @@
                 return this.$route.params.type
             },
             isAudioType() {
-                return this.galleryType === GALLERY_TYPE['audio'].name_en;
+                return this.galleryType === GALLERY_TYPE['voice'].name_en;
             },
             isImagesType() {
                 return this.galleryType === GALLERY_TYPE['image'].name_en;
@@ -318,9 +318,9 @@
             },
             async onClickCancelGalleryButton() {
                 try {
-                    this.$set(this, 'isPending', true);
-                    let result = Service.changeGalleryItemStatus(media_id, media_type, StatusService.CANCEL_STATUS);
-                    this.displayNotification(result, { type: 'success' });
+                    // this.$set(this, 'isPending', true);
+                    // let result = Service.changeGalleryItemStatus(media_id, media_type, StatusService.CANCEL_STATUS);
+                    // this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 } finally {
@@ -329,9 +329,9 @@
             },
             async onClickRejectGalleryButton() {
                 try {
-                    this.$set(this, 'isPending', true);
-                    let result = Service.changeGalleryItemStatus(media_id, media_type, StatusService.REJECT_STATUS);
-                    this.displayNotification(result, { type: 'success' });
+                    // this.$set(this, 'isPending', true);
+                    // let result = Service.changeGalleryItemStatus(media_id, media_type, StatusService.REJECT_STATUS);
+                    // this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 } finally {
@@ -372,6 +372,11 @@
                         this.$set(this, 'isPending', false);
                     }, 70)
                 })
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.displayNotification('این قابلیت در حال حاظر تکمیل نشده است.', { type: 'warn' })
+            })
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();

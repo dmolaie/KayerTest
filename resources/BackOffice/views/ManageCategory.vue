@@ -268,6 +268,9 @@
                         this.$set(this, 'isPending', false)
                     }, 70);
                 })
+        },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
         }
     }
 </script>

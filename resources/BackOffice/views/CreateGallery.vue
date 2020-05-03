@@ -336,6 +336,9 @@
                 .then(() => {
                     this.$set(this, 'isPending', false);
                 })
+        },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
         }
     }
 </script>

@@ -192,6 +192,9 @@
         },
         created() {
             Service = new CreateCategoryService( this )
+        },
+        beforeDestroy() {
+            Service._UnregisterStoreModule();
         }
     }
 </script>
