@@ -29,7 +29,7 @@ export const GALLERY_TYPE = {
     },
     ['video']: {
         name_en: 'video',
-        name_fa: 'ویدیویی',
+        name_fa: 'تصویری',
     }
 };
 

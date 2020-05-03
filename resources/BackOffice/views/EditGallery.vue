@@ -6,7 +6,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                               :class="{ 'direction-ltr': ( form.language === 'en' ) }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="عنوان را اینجا وارد کنید"
                                v-model="form.first_title"
                         />
@@ -15,7 +15,7 @@
                          v-if="isTextType"
                     >
                         <text-editor-cm v-model="form.description"
-                                        :lang="form.language"
+                                        :lang="currentLang"
                                         :key="'text-editor' + textEditorKey"
                         />
                     </div>
@@ -25,7 +25,7 @@
                         </p>
                         <label class="w-full block">
                             <textarea class="textarea textarea--white w-full block border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg"
-                                      :class="{ 'direction-ltr': ( form.language === 'en' ) }"
+                                      :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                       v-model="form.abstract"
                             > </textarea>
                         </label>
@@ -53,16 +53,16 @@
                     </template>
                     <template v-if="isTextType">
                         <upload-cm :dropBox="true" :fieldName="fromDataName"
-                                   accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                   accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.doc,.docx"
                                    @onChange="onchangeTextFile"
                         />
                     </template>
                     <div class="w-full m-t-15">
                         <div class="file w-full flex border border-solid rounded"
-                             v-for="(_, index) in getSelectedFiles"
-                             :key="'audio' + index"
+                             v-for="(file, index) in form.content_paths"
+                             :key="'uploaded' + index"
                         >
-                            <image-cm :src="form.filesDes[index] || DEFAULT_IMAGE" objectFit="cover"
+                            <image-cm :src="file.preview" objectFit="cover"
                                       class="file__cover flex-shrink-0 border border-solid rounded-1/2"
                                       className="w-full h-full rounded-inherit"
                             />
@@ -70,18 +70,46 @@
                                 <label class="file__label block w-full">
                                     <input type="text" name="name" autocomplete="off"
                                            class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                           :class="{ 'direction-ltr': ( form.language === 'en' ) }" placeholder="عنوان فایل را اینجا وارد کنید"
+                                           :class="{ 'direction-ltr': ( currentLang === 'en' ) }" placeholder="عنوان فایل را اینجا وارد کنید"
+                                           v-model="file.title"
                                     />
                                 </label>
                                 <label class="file__label block w-full">
                                     <input type="text" name="source" autocomplete="off"
                                            class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                           placeholder="لینک مرجع را اینجا وارد کنید"
+                                           placeholder="لینک مرجع را اینجا وارد کنید" v-model="file.link"
                                     />
                                 </label>
                             </div>
                             <button class="file__button relative flex-shrink-0 border border-solid rounded-1/2 l:transition-bg"
-                                    title="حذف" @click.prevent="onClickRemoveUploadedFile( index )"
+                                    title="حذف" @click.prevent="onClickRemoveUploadedFile(file.file_id, index)"
+                            > </button>
+                        </div>
+                        <div class="file w-full flex border border-solid rounded"
+                             v-for="(file, index) in form.content"
+                             :key="'selected' + index"
+                        >
+                            <image-cm :src="file.preview" objectFit="cover"
+                                      class="file__cover flex-shrink-0 border border-solid rounded-1/2"
+                                      className="w-full h-full rounded-inherit"
+                            />
+                            <div class="file__content flex-1">
+                                <label class="file__label block w-full">
+                                    <input type="text" name="name" autocomplete="off"
+                                           class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
+                                           :class="{ 'direction-ltr': ( currentLang === 'en' ) }" placeholder="عنوان فایل را اینجا وارد کنید"
+                                           v-model="file.title"
+                                    />
+                                </label>
+                                <label class="file__label block w-full">
+                                    <input type="text" name="source" autocomplete="off"
+                                           class="file__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                           placeholder="لینک مرجع را اینجا وارد کنید" v-model="file.link"
+                                    />
+                                </label>
+                            </div>
+                            <button class="file__button relative flex-shrink-0 border border-solid rounded-1/2 l:transition-bg"
+                                    title="حذف" @click.prevent="onClickRemoveSelectedFile( index )"
                             > </button>
                         </div>
                     </div>
@@ -121,7 +149,7 @@
                         </template>
                     </template>
                 </publish-cm>
-                <location-cm :lang="form.language"
+                <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
                              :defaultLabel="locationPanelTitle"
@@ -131,7 +159,7 @@
                         دسته‌بندی
                     </p>
                     <category-cm :list="categories"
-                                 :value="selectedCategory" :lang="form.language"
+                                 :value="selectedCategory" :lang="currentLang"
                                  ref="categoryCm" @change="onChangeCategoryField"
                     />
                 </div>
@@ -145,7 +173,7 @@
                     <label class="block w-full">
                         <input type="text"
                                class="input input--white block w-full border-blue-100-1 rounded font-sm font-normal focus:bg-white transition-bg direction-rtl"
-                               :class="{ 'direction-ltr': ( form.language === 'en' ) }"
+                               :class="{ 'direction-ltr': ( currentLang === 'en' ) }"
                                placeholder="نامک را اینجا وارد کنید"
                                v-model="form.slug"
                         />
@@ -196,17 +224,16 @@
     import PublishCm from '@components/CreatePost/PublishPanel.vue';
     import TextEditorCm from '@vendor/components/textEditor/Index.vue';
 
+    const DEFAULT_IMAGE = '/images/img_default.jpg';
     const INITIAL_FORM = () => ({
         first_title: '',
         abstract: '',
         description: '',
-        filesDes: [],
-        files: new FormData(),
+        content: [],
         category_ids: [],
         images: null,
         slug: '',
         parent_id: '',
-        language: '',
     });
 
     let Service = null;
@@ -214,12 +241,11 @@
     export default {
         name: "EditGallery",
         data: () => ({
+            isPending: true,
+            textEditorKey: 0,
             form: INITIAL_FORM(),
             fromDataName: 'content[]',
-            isPending: true,
             isModuleRegistered: false,
-            removedImages: [],
-            textEditorKey: 0,
         }),
         components: {
             PublishCm, LocationCm, CategoryCm, TextEditorCm,
@@ -246,12 +272,16 @@
             isTextType() {
                 return this.galleryType === GALLERY_TYPE['text'].name_en;
             },
+            currentLang() {
+                return this.$route.params?.lang
+            },
             getSelectedFiles() {
-                return [];
-                // return this.form.files.getAll( this.fromDataName );
+                return this.form.content;
             },
             filesLength() {
-                return Length( this.getSelectedFiles )
+                return (
+                    Length( this.getSelectedFiles ) + Length( this.form.content_paths )
+                )
             },
             locationPanelTitle() {
                 return this.form.has_relation ? 'ویرایش' : 'ایجاد'
@@ -265,7 +295,11 @@
         methods: {
             async setDataIntoForm() {
                 await new Promise(resolve => {
+                    Object.assign(this.form, INITIAL_FORM.apply( this ));
                     this.$set(this, 'form', CopyOf(this.detail));
+                    this.$set(this.form, 'content', []);
+                    this.$set(this.form, 'destroy_file_id', []);
+                    this.$set(this.form, 'destroy_image_id', []);
                     this.$nextTick(() => {
                         this.$set(this, 'textEditorKey', this.textEditorKey + 1);
                         resolve();
@@ -275,39 +309,43 @@
             async getImagePreviews( formData ) {
                 try {
                     const fReader = await UploadService.imagePreview(formData, this.fromDataName);
-                    this.form.filesDes.push(fReader[0].image);
+                    return fReader[0].image;
                 } catch ( exception ) {}
             },
             onchangeAudioFile( formData ) {
                 this.onchangeFiles( formData );
             },
             onchangeImageFile( formData ) {
-                this.onchangeFiles( formData );
-                this.getImagePreviews( formData );
+                this.onchangeFiles(formData, true);
             },
             onchangeVideoFile( formData ) {
-                this.onchangeFiles( formData );
-                this.getImagePreviews( formData );
+                this.onchangeFiles(formData, true);
             },
             onchangeTextFile( formData ) {
                 this.onchangeFiles( formData );
             },
-            onchangeFiles( formData ) {
-                const { getSelectedFiles, fromDataName } = this;
-                const FORM_DATA = new FormData();
-                if (!!getSelectedFiles && HasLength( getSelectedFiles ))
-                    getSelectedFiles.map(file => FORM_DATA.append(fromDataName, file));
-                FORM_DATA.append(fromDataName, formData.get( fromDataName ));
-                this.$set(this.form, 'files', FORM_DATA);
+            async onchangeFiles(formData, is_image = false) {
+                const { fromDataName } = this;
+                const FILE = formData.get( fromDataName ),
+                    FILE_PREVIEW = is_image && await this.getImagePreviews( formData );
+                console.log(this.form.content);
+                this.$set(this.form.content, Length( this.form.content ), {
+                    link: '',
+                    title: '',
+                    file: FILE,
+                    preview: FILE_PREVIEW || DEFAULT_IMAGE
+                });
             },
-            onClickRemoveUploadedFile( index ) {
+            onClickRemoveUploadedFile(file_id, index) {
                 try {
-                    this.getSelectedFiles.splice(index, 1);
-                    const FORM_DATA = new FormData();
-                    this.getSelectedFiles.map(file => FORM_DATA.append(this.fromDataName, file));
-                    this.$set(this.form, 'files', FORM_DATA);
-                    this.form.filesDes.splice(index, 1);
-                } catch ( exception ) { }
+                    this.$delete(this.form.content_paths, index);
+                    this.$set(this.form.destroy_file_id, Length( this.form.destroy_file_id ), file_id);
+                } catch ( exception ) {}
+            },
+            onClickRemoveSelectedFile( index ) {
+                try {
+                    this.$delete(this.form.content, index);
+                } catch ( exception ) {}
             },
             async onClickUpdateGalleryButton() {
                 try {
@@ -347,15 +385,15 @@
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
             },
-            removeSelectedImage() {
+            removePreviousImage() {
                 let { image_paths } = this.form;
                 if ( HasLength( image_paths ) ) {
-                    this.removedImages.push( image_paths.id );
+                    this.$set(this.form.destroy_image_id, 0, image_paths.id);
                     this.$set(this.form, 'image_paths', {});
                 }
             },
             onChangeImageField( payload ) {
-                this.removeSelectedImage();
+                this.removePreviousImage();
                 this.$set(this.form, 'images', payload)
             },
             onChangeDomainsField({ id }) {
@@ -372,11 +410,6 @@
                         this.$set(this, 'isPending', false);
                     }, 70)
                 })
-        },
-        mounted() {
-            this.$nextTick(() => {
-                this.displayNotification('این قابلیت در حال حاظر تکمیل نشده است.', { type: 'warn' })
-            })
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();
