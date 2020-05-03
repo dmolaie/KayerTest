@@ -27,7 +27,8 @@ class TitleAndLinke extends Migration
     public function down()
     {
         Schema::table('attachments', function (Blueprint $table) {
-            $table->dropColumn('type');
+            $table->dropColumn('title');
+            $table->dropColumn('link');
         });
     }
 }
