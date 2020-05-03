@@ -35,7 +35,7 @@ const GENERATE_UUID = () => (
   'xxxxxxxx'.replace(/./g, () => ( Math.random() * 16 | 0 ).toString( 16 ) )
 );
 
-const CREATE_OPTION_ELEMENT = ( options, optionClass ) => (
+export const CREATE_OPTION_ELEMENT = ( options, optionClass ) => (
     [].concat( ...options )
         .map(option => {
             let { value, textContent } = option,

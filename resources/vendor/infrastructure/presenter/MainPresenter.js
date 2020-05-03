@@ -131,7 +131,8 @@ export class CategoryPresenter extends BasePresenter {
             name_fa: String,
             type: String,
             is_active: Boolean,
-            children: Array
+            children: Array,
+            children_ids: Array,
         })
     }
 
@@ -158,19 +159,28 @@ export class CategoryPresenter extends BasePresenter {
     children() {
         return new CategoriesPresenter( this.data.children )
     }
+
+    children_ids() {
+        const { children } = this.data;
+        return !!children && HasLength( children ) ? (
+            children.map(({ id }) => id)
+        ) : ([])
+    }
 }
 
-export const FlattenCategories = ( payload = [], gap = 0 ) => {
+export const FlattenCategories = ( payload = [], gap = 0, parent_id = 0 ) => {
     return payload.reduce((flatArray, item) => {
         const ITEM = CopyOf( item );
         delete ITEM.children;
         HasLength( item.children ) ? (
             flatArray.push({
                 ...ITEM,
+                parent_id,
                 gap: ( gap * 16 )
-            }, ...FlattenCategories( item.children, gap + 1 ) )
+            }, ...FlattenCategories( item.children, gap + 1, item.id ) )
         ) : flatArray.push({
             ... ITEM,
+            parent_id,
             gap: ( gap * 16 )
         });
         return flatArray;

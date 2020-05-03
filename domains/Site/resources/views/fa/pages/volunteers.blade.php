@@ -18,7 +18,7 @@
                                   class="vol-page__from dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none"
                             >
                                 @csrf
-                                <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                <p class="text-blue font-base font-bold m-b-4 cursor-default p-0-20">
                                     اطلاعات فردی
                                 </p>
                                 <div class="dnt-page__input w-full block">
@@ -92,36 +92,42 @@
                                         <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                     </label>
                                 </div>
-                                <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8"
-                                ></p>
-                                <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
-                                    ارسال اطلاعات
-                                </button>
+                                <div class="w-full p-0-20">
+                                    <p class="vol-page__res none text-red flex flex-wrap font-sm font-bold cursor-default m-t-8"
+                                    ></p>
+                                    <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
+                                        ارسال اطلاعات
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
-                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
-                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
-                                شما پروفایل دارید و هم‌اکنون سفیر اهدای عضو هستید.
-                            </p>
-                            <a href="{{route('admin.login',config('app.locale'))}}"
-                               class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
-                                ورود به بخش سفیران اهدا عضو
-                            </a>
+                        <div class="w-full p-0-20 sm:p-0">
+                            <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
+                                <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
+                                    شما پروفایل دارید و هم‌اکنون سفیر اهدای عضو هستید.
+                                </p>
+                                <a href="{{route('admin.login',config('app.locale'))}}"
+                                   class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
+                                    ورود به بخش سفیران اهدا عضو
+                                </a>
+                            </div>
                         </div>
                     </aside>
                 @elseif(auth()->check() && !in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
-                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
-                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
-                            <p>شما کارت اهدای عضو دارید. لطفا از پروفایل خود جهت ثبت نام به عنوان سفیر اهدای عضو اقدام
-                                کنید.</p>
-                            <a href="{{route('page.volunteers.finalstep',config('app.locale'))}}"
-                               class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
-                                ثبت نام سفیر
-                            </a>
+                        <div class="w-full p-0-20 sm:p-0">
+                            <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
+                                <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
+                                <p>شما کارت اهدای عضو دارید. لطفا از پروفایل خود جهت ثبت نام به عنوان سفیر اهدای عضو اقدام
+                                    کنید.</p>
+                                <a href="{{route('page.volunteers.finalstep',config('app.locale'))}}"
+                                   class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
+                                    ثبت نام سفیر
+                                </a>
+                            </div>
                         </div>
                     </aside>
                 @endif

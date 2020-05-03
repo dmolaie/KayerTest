@@ -3,39 +3,59 @@ import { HasLength } from "@vendor/plugin/helper";
 
 export const menus = {
     ['dashboard']: {
-        route: 'DASHBOARD',
+        route: { name: 'DASHBOARD' },
         icon: 'ic__dashboard--blue.svg'
     },
     ['menu_manager']: {
-        route: 'MANAGE_MENU',
+        route: { name: 'MANAGE_MENU' },
         icon: 'ic__menu--blue.svg'
     },
     ['event']: {
-        route: 'MANAGE_EVENT',
+        route: { name: 'MANAGE_EVENT' },
         icon: 'ic_newspaper--blue.svg'
     },
     ['news']: {
-        route: 'MANAGE_NEWS',
+        route: { name: 'MANAGE_NEWS' },
         icon: 'ic_newspaper--blue.svg'
     },
     ['article']: {
-        route: 'MANAGE_ARTICLE',
+        route: { name: 'MANAGE_ARTICLE' },
         icon: 'ic_newspaper--blue.svg'
     },
     ['ehda_card']: {
-        route: 'MANAGE_CARDS',
+        route: { name: 'MANAGE_CARDS' },
         icon: 'ic_newspaper--blue.svg'
     },
     ['user']: {
-        route: 'MANAGE_LEGATE',
+        route: { name: 'MANAGE_LEGATE' },
         icon: 'ic_newspaper--blue.svg'
     },
     ['profile_setting']: {
-        route: 'USER_SETTING',
+        route: { name: 'USER_SETTING' },
         icon: 'ic_newspaper--blue.svg'
     },
     ['report']: {
-        route: 'MANAGE_REPORT',
+        route: { name: 'MANAGE_REPORT' },
+        icon: 'ic_newspaper--blue.svg'
+    },
+    ['category']: {
+        route: { name: 'MANAGE_CATEGORY' },
+        icon: 'ic_newspaper--blue.svg'
+    },
+    ['image_gallery']: {
+        route: { name: 'MANAGE_GALLERY', params: { type: 'image' } },
+        icon: 'ic_newspaper--blue.svg'
+    },
+    ['text_gallery']: {
+        route: { name: 'MANAGE_GALLERY', params: { type: 'text' } },
+        icon: 'ic_newspaper--blue.svg'
+    },
+    ['voice_gallery']: {
+        route: { name: 'MANAGE_GALLERY', params: { type: 'voice' } },
+        icon: 'ic_newspaper--blue.svg'
+    },
+    ['video_gallery']: {
+        route: { name: 'MANAGE_GALLERY', params: { type: 'video' } },
         icon: 'ic_newspaper--blue.svg'
     },
 };

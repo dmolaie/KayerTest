@@ -3,15 +3,11 @@ import HTTPService from '@vendor/plugin/httpService';
 import ExceptionService from '@services/service/exception';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import CreateEventService from '@services/service/CreateEvent';
-import {
-    CopyOf, HasLength, EncodeHTML
-} from "@vendor/plugin/helper";
+import { CopyOf, HasLength } from "@vendor/plugin/helper";
 import EditEventStore, {
     E_EVENT_SET_DATA, E_EVENT_SET_PROVINCES, E_EVENT_SET_CATEGORIES
 } from '@services/store/EditEvent';
-import {
-    EventService
-} from '@services/service/ManageEvent';
+import { EventService } from '@services/service/ManageEvent';
 
 export const INITIAL_FORM = () => ({
     event_id: '',

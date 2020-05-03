@@ -5,10 +5,25 @@
     margin-right: 28px
   &__box
     padding: 32px 12px 35px 20px
+  &__player
+    &::before
+      $h: 64px
+      content: " "
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      height: $h
+      background-image: linear-gradient(to bottom, transparent, transparentize($black, (1 - .85)))
+  &__audio
+    left: 0
+    bottom: 0
   &__download
     border-color: $sail
     background-color: #eff3f7
     padding: 7px 43px 8px 20px
+    @include Md_Screen
+      margin: 20px auto 0 0
     svg
       margin-right: 15px
       width: 24px
@@ -16,6 +31,22 @@
     @include L_Screen
       &:hover
         background-color: darken(#eff3f7, 1.5%)
+  .plyr
+    &__controls
+      background: transparent
+    &--full-ui input[type=range]
+      color: $blue
+    &__tab-focus, &__control:hover, &__control[aria-expanded=true]
+      background: transparent
+    &__time--duration
+      margin-right: 5px
+      &::before
+        margin: 0 4px
+    &__control
+      use
+        fill: $white
+  .audio__play
+    margin-left: 5px
   .swiper-slide
     padding: 10px 0
     @include L_Screen
@@ -39,3 +70,10 @@
         margin-left: $mPadding
   .carousel__pagination
     margin: 35px 0
+  .ga-page__card_release
+    @include Sm_Screen
+      margin-top: 10px
+
+#sprite-plyr
+  symbol path
+    fill: $white

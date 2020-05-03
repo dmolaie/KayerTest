@@ -34,6 +34,9 @@ export const USER_SETTING = 'USER_SETTING';
 export const MANAGE_REPORT = 'MANAGE_REPORT';
 export const MANAGE_GALLERY = 'MANAGE_GALLERY';
 export const CREATE_GALLERY = 'CREATE_GALLERY';
+export const EDIT_GALLERY = 'EDIT_GALLERY';
+export const MANAGE_CATEGORY = 'MANAGE_CATEGORY';
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -53,6 +56,41 @@ const Routes = new VueRouter({
             component: GetViews('Dashboard' ),
             meta: {
                 title: 'داشبورد',
+            }
+        },
+        {
+            name: LOGIN,
+            path: '/login',
+            component: GetViews( 'Login'),
+            meta: {
+                guess: true,
+                title: LOGIN_PAGE_TITLE
+            }
+        },
+        {
+            name: LOGOUT,
+            path: '/logout',
+            component: GetViews( 'Logout'),
+            meta: {
+                title: 'خروج از حساب کاربری',
+                guess: true,
+            }
+        },
+        {
+            name: USER_SETTING,
+            path: '/account',
+            component: GetViews('UserSettings'),
+            meta: {
+                title: 'تنظیمات حساب',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'تنظیمات حساب'
+                    },
+                ]
             }
         },
         {
@@ -263,7 +301,7 @@ const Routes = new VueRouter({
         },
         {
             name: CREATE_GALLERY,
-            path: `/manage/gallery/create/:lang(fa|en)/:type(${Object.keys( GALLERY_TYPE ).join('|')})`,
+            path: `/manage/gallery/:type(${Object.keys( GALLERY_TYPE ).join('|')})/:lang(fa|en)/create/:parent_id(\\d+)?`,
             component: GetViews('CreateGallery' ),
             meta: {
                 title: 'افزودن به گالری',
@@ -282,18 +320,62 @@ const Routes = new VueRouter({
             }
         },
         {
-            name: MANAGE_MENU,
-            path: '/manage/menu',
-            component: GetViews('ManageMenu' ),
+            name: EDIT_GALLERY,
+            path: `/manage/gallery/:type(${Object.keys(GALLERY_TYPE).join('|')})/:lang(fa|en)/edit/:id(\\d+)`,
+            component: GetViews('EditGallery' ),
             meta: {
-                title: 'مدیریت منو',
+                title: 'ویرایش گالری',
                 breadcrumb: [
                     {
                         route: DASHBOARD,
                         name: 'انجمن اهدای عضو ایرانیان',
                     },
                     {
-                        name: 'مدیریت منو'
+                        name: route => `گالری‌های ${GALLERY_TYPE[route.params.type].name_fa}`,
+                    },
+                    {
+                        name: 'ویرایش'
+                    }
+                ]
+            },
+        },
+        {
+            name: MANAGE_LEGATE,
+            path: '/manage/volunteers',
+            component: GetViews('ManageLegate' ),
+            meta: {
+                title: 'سفیران اهدای عضو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'سفیران اهدای عضو'
+                    },
+                    {
+                        name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: EDIT_USERS,
+            path: '/manage/users/edit/:id(\\d+)',
+            component: GetViews('EditUsers'),
+            meta: {
+                title: 'ویرایش کاربران',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        route: MANAGE_LEGATE,
+                        name: 'کاربران'
+                    },
+                    {
+                        name: 'ویرایش'
                     },
                 ]
             }
@@ -340,91 +422,6 @@ const Routes = new VueRouter({
             }
         },
         {
-            name: MANAGE_LEGATE,
-            path: '/manage/volunteers',
-            component: GetViews('ManageLegate' ),
-            meta: {
-                title: 'سفیران اهدای عضو',
-                breadcrumb: [
-                    {
-                        route: DASHBOARD,
-                        name: 'انجمن اهدای عضو ایرانیان',
-                    },
-                    {
-                        name: 'سفیران اهدای عضو'
-                    },
-                    {
-                        name: 'همه'
-                    },
-                ]
-            }
-        },
-        {
-            name: EDIT_USERS,
-            path: '/manage/users/edit/:id(\\d+)',
-            component: GetViews('EditUsers'),
-            meta: {
-                title: 'ویرایش کاربران',
-                breadcrumb: [
-                    {
-                        route: DASHBOARD,
-                        name: 'انجمن اهدای عضو ایرانیان',
-                    },
-                    {
-                        route: MANAGE_LEGATE,
-                        name: 'کاربران'
-                    },
-                    {
-                        name: 'ویرایش'
-                    },
-                ]
-            }
-        },
-        {
-            name: LOGIN,
-            path: '/login',
-            component: GetViews( 'Login'),
-            meta: {
-                guess: true,
-                title: LOGIN_PAGE_TITLE
-            }
-        },
-        {
-            name: USER_SETTING,
-            path: '/account',
-            component: GetViews('UserSettings'),
-            meta: {
-                title: 'تنظیمات حساب',
-                breadcrumb: [
-                    {
-                        route: DASHBOARD,
-                        name: 'انجمن اهدای عضو ایرانیان',
-                    },
-                    {
-                        name: 'تنظیمات حساب'
-                    },
-                ]
-            }
-        },
-        {
-            name: PROFILE,
-            path: '/profile',
-            component: GetViews( 'Profile'),
-            meta: {
-                title: 'پروفایل',
-                guess: true
-            }
-        },
-        {
-            name: LOGOUT,
-            path: '/logout',
-            component: GetViews( 'Logout'),
-            meta: {
-                title: 'خروج از حساب کاربری',
-                guess: true,
-            }
-        },
-        {
             name: MANAGE_REPORT,
             path: '/manage/report',
             component: GetViews('ManageReport'),
@@ -439,6 +436,73 @@ const Routes = new VueRouter({
                         name: 'گزارش گیری'
                     },
                 ]
+            }
+        },
+        {
+            name: MANAGE_MENU,
+            path: '/manage/menu',
+            component: GetViews('ManageMenu' ),
+            meta: {
+                title: 'مدیریت منو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'مدیریت منو'
+                    },
+                ]
+            }
+        },
+        {
+            name: MANAGE_CATEGORY,
+            path: '/manage/category',
+            component: GetViews('ManageCategory' ),
+            meta: {
+                title: 'مدیریت دسته‌بندی',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'دسته‌بندی ها'
+                    },
+                    {
+                        name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: CREATE_CATEGORY,
+            path: '/manage/category/create',
+            component: GetViews('CreateCategory' ),
+            meta: {
+                title: 'ایجاد دسته‌بندی',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'دسته‌بندی ها',
+                        route: MANAGE_CATEGORY
+                    },
+                    {
+                        name: 'افزودن'
+                    },
+                ]
+            }
+        },
+        {
+            name: PROFILE,
+            path: '/profile',
+            component: GetViews( 'Profile'),
+            meta: {
+                title: 'پروفایل',
+                guess: true
             }
         },
         {

@@ -75,20 +75,17 @@ export default class HTTPService {
         }
 
         return (
-            route += ( path.includes('?') ? '&' : '?' ) + queryString.join('&')
+            route += ( route.includes('?') ? '&' : '?' ) + queryString.join('&')
         )
     }
 
-    static async getRequest( route, payload = {}, query= {} ) {
+    static async getRequest( route, query= {} ) {
         if ( HasLength( query ) )
             route = this._QueryString( route, query );
 
         let init = {
             method: 'GET',
         };
-
-        if ( HasLength( payload ) )
-            init.body = JSON.stringify( payload );
 
         return await this.Request( route, init );
     }

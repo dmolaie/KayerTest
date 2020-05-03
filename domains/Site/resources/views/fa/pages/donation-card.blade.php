@@ -17,7 +17,7 @@
                             <form method="post" action="#"
                                   class="dnt-page__from dnt-page__panel_body bg-white rounded-inherit rounded-tr-none rounded-tl-none">
                                 @csrf
-                                <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                <p class="text-blue font-base font-bold m-b-4 cursor-default p-0-20">
                                     اطلاعات فردی
                                 </p>
                                 <div class="dnt-page__input w-full block">
@@ -195,7 +195,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="dnt-page__input w-full block">
+                                        <div class="dnt-page__input w-full block disabledSelect">
                                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                                 شهر محل تولد
                                             </span>
@@ -205,14 +205,9 @@
                                                 <option value="">
                                                     انتخاب کنید...
                                                 </option>
-                                                @foreach($data['city'] as $city)
-                                                    <option value="{{$city['id']}}">
-                                                        {{$city['name']}}
-                                                    </option>
-                                                @endforeach
                                             </select>
                                         </div>
-                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                        <p class="text-blue font-base font-bold p-0-20 m-b-4 cursor-default">
                                             اطلاعات تماس
                                         </p>
                                         <div class="dnt-page__input w-full block">
@@ -243,7 +238,7 @@
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
                                         </div>
-                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                        <p class="text-blue font-base font-bold p-0-20 m-b-4 cursor-default">
                                             اطلاعات محل سکونت
                                         </p>
                                         <div class="dnt-page__input w-full block">
@@ -270,18 +265,13 @@
                                             <span class="dnt-page__label block w-full text-bayoux text-required font-sm-bold cursor-default">
                                                 شهر محل سکونت
                                             </span>
-                                            <div class="relative dnt-page__home-city w-full">
+                                            <div class="relative dnt-page__home-city w-full disabledSelect">
                                                 <select class="dnt-page__select dnt-page__select--home-city"
                                                         name="current_city_id" disabled="disabled"
                                                 >
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
-                                                    @foreach($data['city'] as $city)
-                                                        <option value="{{$city['id']}}">
-                                                            {{$city['name']}}
-                                                        </option>
-                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
@@ -325,7 +315,7 @@
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
                                         </div>
-                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                        <p class="text-blue font-base font-bold p-0-20 m-b-4 cursor-default">
                                             اطلاعات تحصیلی
                                         </p>
                                         <div class="dnt-page__input w-full block">
@@ -385,23 +375,18 @@
                                             <span class="dnt-page__label block w-full text-bayoux font-sm-bold cursor-default">
                                                 شهر محل تحصیل
                                             </span>
-                                            <div class="dnt-page__select--province w-full">
+                                            <div class="dnt-page__select--province w-full disabledSelect">
                                                 <select class="dnt-page__select dnt-page__select--edu_city"
                                                         name="edu_city"
                                                 >
                                                     <option value="">
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
-                                                    @foreach($data['city'] as $city)
-                                                        <option value="{{$city['id']}}">
-                                                            {{$city['name']}}
-                                                        </option>
-                                                    @endforeach
                                                 </select>
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </div>
                                         </div>
-                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                        <p class="text-blue font-base font-bold p-0-20 m-b-4 cursor-default">
                                             اطلاعات شغل
                                         </p>
                                         <div class="dnt-page__input w-full block">
@@ -417,7 +402,7 @@
                                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                                             </label>
                                         </div>
-                                        <p class="text-blue font-base font-bold m-b-4 cursor-default">
+                                        <p class="text-blue font-base font-bold p-0-20 m-b-4 cursor-default">
                                             اطلاعات ورود به سامانه
                                         </p>
                                         <div class="dnt-page__input w-full block">
@@ -450,40 +435,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="dnt-page__msg none text-red font-sm font-bold cursor-default m-t-8"
-                                ></p>
-                                <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
-                                    ارسال اطلاعات
-                                </button>
-                                <button class="dnt-page__btn dnt-page__btn--cancel none w-full text-green spinner-loading font-lg font-bold bg-white border-green-2 rounded l:transition-bg l:hover:text-white l:hover:bg-green">
-                                    انصراف
-                                </button>
+                                <div class="w-full p-0-20">
+                                    <p class="dnt-page__msg none text-red font-sm font-bold cursor-default m-t-8"
+                                    ></p>
+                                    <button class="dnt-page__btn dnt-page__btn--submit block w-full text-white font-lg font-bold bg-green border-green-200-2 rounded l:transition-bg l:hover:bg-green-200">
+                                        ارسال اطلاعات
+                                    </button>
+                                    <button class="dnt-page__btn dnt-page__btn--cancel none w-full text-green spinner-loading font-lg font-bold bg-white border-green-2 rounded l:transition-bg l:hover:text-white l:hover:bg-green">
+                                        انصراف
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
-                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
-                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
-                                شما پروفایل دارید و هم‌اکنون دارای کارت اهدای عضو هستید.
-                            </p>
-                            <a href="{{route('page.client.profile',config('app.locale'))}}"
-                               class="empty-box__button block w-2/3 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center m-auto">
-                                ویرایش پروفایل
-                            </a>
+                        <div class="w-full p-0-20 sm:p-0">
+                            <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
+                                <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base">
+                                    شما پروفایل دارید و هم‌اکنون دارای کارت اهدای عضو هستید.
+                                </p>
+                                <a href="{{route('page.client.profile',config('app.locale'))}}"
+                                   class="empty-box__button block w-2/3 text-white font-lg font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center m-auto">
+                                    ویرایش پروفایل
+                                </a>
+                            </div>
                         </div>
                     </aside>
                 @elseif(auth()->check() && in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()))
                     <aside class="w-1/3 xl:w-1/4 flex-shrink-0 m-end-30 md:w-full md:m-l-0 md:m-b-30 sm:m-0">
-                        <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
-                            <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base text-justify">
-                                شما سفیر اهدای عضو هستید. لطفا از پروفایل خود جهت ثبت نام به عنوان کارت اهدای عضو اقدام
-                                کنید.
-                            </p>
-                            <a href="/user?fa#/account?tab=donation-card"
-                               class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
-                                ثبت نام کارت اهدای عضو
-                            </a>
+                        <div class="w-full p-0-20 sm:p-0">
+                            <div class="empty-box dnt-page__panel bg-white border border-solid rounded-2 sm:border-0 sm:rounded-0">
+                                <p class="empty-box__title dnt-page__caption text-bayoux cursor-default font-base text-justify">
+                                    شما سفیر اهدای عضو هستید. لطفا از پروفایل خود جهت ثبت نام به عنوان کارت اهدای عضو اقدام
+                                    کنید.
+                                </p>
+                                <a href="/user?fa#/account?tab=donation-card"
+                                   class="empty-box__button block w-full dnt-page__btn dnt-page__btn--submit block w-1/2 text-white font-base font-bold bg-blue border-blue-200-2 rounded l:transition-bg l:hover:bg-blue-200 text-center">
+                                    ثبت نام کارت اهدای عضو
+                                </a>
+                            </div>
                         </div>
                     </aside>
                 @endif

@@ -1,0 +1,62 @@
+.gao-page
+  &__inner-box
+    border: none
+      radius: 0
+  &__aside
+    margin-right: 28px
+    @include Md_Screen
+      margin: 40px 0 0
+    @include Sm_Screen
+      margin: 0
+      border-top: 1px solid $blue
+  &__content
+    padding: 32px 12px 35px 20px
+  &__description
+    margin: 15px 5px 30px
+  iframe
+    border: none
+  .episodes
+    top: 0
+    right: 0
+    @include Md_Screen
+      position: static
+  .episode
+    $p: 8px
+    padding: $p
+    &:not(:last-of-type)
+      &::before
+        content: " "
+        position: absolute
+        right: $p
+        bottom: 0
+        width: calc(100% - #{$p * 2})
+        height: 1px
+        background-color: $sail
+    @include L_Screen
+      &:hover
+        background-color: transparentize($sail, (1 - .10))
+    &--active
+      background-color: transparentize($sail, (1 - .2))
+    &__cover
+      $size: 30%
+      width: $size
+      padding-bottom: $size
+      @include Xl_Screen
+        $size: 26%
+        width: $size
+        padding-bottom: $size
+      @include Md_Screen
+        $size: 18%
+        width: $size
+        padding-bottom: $size
+      @include Sm_Screen
+        $size: 26%
+        width: $size
+        padding-bottom: $size
+    &__image
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+    &__caption
+      padding: 10px 15px 20px
