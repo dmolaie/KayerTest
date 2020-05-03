@@ -52,7 +52,7 @@ export default class CreateGalleryService {
             BaseService.commitToStore(this.$store, C_GALLERY_SET_CATEGORIES, response[1]);
         } catch ( exception ) {
             this.$vm.displayNotification(exception, { type: 'error' });
-            // this.$vm.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.$vm.$route?.params?.type } });
+            this.$vm.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.$vm.$route?.params?.type } });
         }
     }
 

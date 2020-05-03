@@ -294,8 +294,8 @@
                 try {
                     this.$set(this, 'isPending', true);
                     let result = await Service.createGalleryItem( this.galleryType );
-                    // this.displayNotification(result, { type: 'success' });
-                    // this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
                 } catch ( exception ) {
                     this.$set(this, 'isPending', false);
                     this.displayNotification(exception, { type: 'error' })
