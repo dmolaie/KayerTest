@@ -235,4 +235,29 @@ class PagesController extends Controller
         return view('site::fa.cards.mini',compact('userData'));
     }
 
+    public function artEhda(Request $request)
+    {
+        return view('site::fa.pages.gallery');
+    }
+
+    public function galleryAudio(Request $request)
+    {
+        return view('site::fa.pages.gallery-audio');
+    }
+
+    public function galleryVideo(Request $request)
+    {
+        return view('site::fa.pages.gallery-video');
+    }
+
+    public function galleryImage(Request $request)
+    {
+        return view('site::fa.pages.gallery-images');
+    }
+
+    public function galleryText(Request $request)
+    {
+        return view('site::fa.pages.gallery-text');
+    }
+
 }
