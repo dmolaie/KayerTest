@@ -38,23 +38,23 @@ export const menus = {
         route: { name: 'MANAGE_REPORT' },
         icon: 'ic_newspaper--blue.svg'
     },
-    ['report_1']: {
+    ['category']: {
         route: { name: 'MANAGE_CATEGORY' },
         icon: 'ic_newspaper--blue.svg'
     },
-    ['gallery_image']: {
+    ['image_gallery']: {
         route: { name: 'MANAGE_GALLERY', params: { type: 'image' } },
         icon: 'ic_newspaper--blue.svg'
     },
-    ['gallery_text']: {
+    ['text_gallery']: {
         route: { name: 'MANAGE_GALLERY', params: { type: 'text' } },
         icon: 'ic_newspaper--blue.svg'
     },
-    ['gallery_audio']: {
-        route: { name: 'MANAGE_GALLERY', params: { type: 'audio' } },
+    ['voice_gallery']: {
+        route: { name: 'MANAGE_GALLERY', params: { type: 'voice' } },
         icon: 'ic_newspaper--blue.svg'
     },
-    ['gallery_video']: {
+    ['video_gallery']: {
         route: { name: 'MANAGE_GALLERY', params: { type: 'video' } },
         icon: 'ic_newspaper--blue.svg'
     },
