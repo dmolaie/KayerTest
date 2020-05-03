@@ -1,16 +1,16 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import TokenService from '@services/service/Token';
+import BaseService from '@vendor/infrastructure/service/BaseService';
+import ExceptionService from '@services/service/exception';
+import { SET_USER } from '@services/store/Login';
 import {
-    LoginNotificationPresenter
+    LoginNotificationPresenter,
+    CaptchaPresenter
 } from '@services/presenter/Login';
 import {
-    SET_USER
-} from '@services/store/Login';
-import BaseService from '@vendor/infrastructure/service/BaseService'
-
-import {
     Length,
+    HasLength,
     NationalCodeValidator,
     toEnglishDigits
 } from '@vendor/plugin/helper';
@@ -22,6 +22,15 @@ export default class LoginService extends BaseService {
         this.$store = layout.$store;
 
         BaseService.ViewPortProcess(this.$store , true);
+    }
+
+    async processFetchCaptcha() {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.CAPTCHA));
+            return new CaptchaPresenter( response )
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
     }
 
     async SignInRequest( payload ) {
@@ -47,11 +56,8 @@ export default class LoginService extends BaseService {
                 BaseService.commitToStore(this.$store, 'MENUS_SET_DATA', menus);
                 this.$vm.pushRouter( { name: 'DASHBOARD' } );
             }
-        } catch ( { message } ) {
-            this.$vm.displayNotification( message, {
-                type: 'error',
-                duration: 4000
-            })
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
         } finally {
             this.$vm.$set( this.$vm, 'shouldBeShowSpinnerLoading', false )
         }
@@ -86,19 +92,31 @@ export default class LoginService extends BaseService {
             this.setErrorMessage( passwordField, 'فیلد گذرواژه اجباری است.' );
     }
 
+    captchaValidation() {
+        let { captcha } = this.$vm.form;
+        (!!captcha.value && HasLength( captcha.value.trim() )) ? (
+            this.setErrorMessage(captcha, '')
+        ) : (
+            this.setErrorMessage(captcha, 'فیلد تصویر امنیتی اجباری است.')
+        )
+    }
+
     async _onClickSubmitButton( payload ) {
         try {
             this.nationalCodeValidation();
             this.passwordValidation();
+            this.captchaValidation();
             let isValid = Object.values( payload ).every( item => item.valid );
             if ( !isValid ) return false;
             let data = {
+                key: this.$vm.form.captcha.key,
+                captcha: toEnglishDigits( this.$vm.form.captcha.value ),
+                password: toEnglishDigits( this.$vm.form.password.value ),
                 national_code: toEnglishDigits( this.$vm.form.username.value ),
-                password: toEnglishDigits( this.$vm.form.password.value )
             };
             await this.SignInRequest( data );
-        } catch (e) {
-            //
+        } catch ( exception ) {
+            throw exception;
         }
     }
 }

@@ -9,6 +9,7 @@ const VER_1_0 = 'v1';
 const SIGN_IN = "SIGN_IN";
 const LOGOUT = "LOGOUT";
 const REGISTER = "REGISTER";
+const CAPTCHA = 'CAPTCHA';
 const REGISTER_LEGATE = "REGISTER_LEGATE";
 const VALIDATE_USER = "VALIDATE_USER";
 const VALIDATE_LEGATE = "VALIDATE_LEGATE";
@@ -73,6 +74,7 @@ const DELETE_GALLERY_ITEM = 'DELETE_GALLERY_ITEM';
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[LOGOUT] = '/user/logout';
+endpoints[CAPTCHA] = '/captcha/api/math';
 endpoints[REGISTER] = `/user/${VER_1_0}/register`;
 endpoints[REGISTER_LEGATE] = `/user/${VER_1_0}/register-legate`;
 endpoints[VALIDATE_USER] = `/user/${VER_1_0}/validate_data_user_client`;
@@ -156,6 +158,10 @@ export default class Endpoint {
 
     static get LOGOUT() {
         return endpoints[LOGOUT];
+    }
+
+    static get CAPTCHA() {
+        return endpoints[CAPTCHA]
     }
 
     static get REGISTER() {

@@ -96,3 +96,23 @@ export class UserInformationPresenter extends BasePresenter {
         return this.payload?.roles[0]?.type
     }
 }
+
+export class CaptchaPresenter extends BasePresenter {
+    constructor( payload ) {
+        super( payload );
+        this.payload = payload;
+
+        return this.mapProps({
+            image: String,
+            key: String
+        })
+    }
+
+    image() {
+        return this.payload.img || ''
+    }
+
+    key() {
+        return this.payload.key || ''
+    }
+}
