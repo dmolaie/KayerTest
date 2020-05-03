@@ -328,7 +328,6 @@
                 const { fromDataName } = this;
                 const FILE = formData.get( fromDataName ),
                     FILE_PREVIEW = is_image && await this.getImagePreviews( formData );
-                console.log(this.form.content);
                 this.$set(this.form.content, Length( this.form.content ), {
                     link: '',
                     title: '',
@@ -347,18 +346,24 @@
                     this.$delete(this.form.content, index);
                 } catch ( exception ) {}
             },
+            redirectToGalleryManage() {
+                this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.form.type } });
+            },
             async onClickUpdateGalleryButton() {
                 try {
-
+                    let result = await Service.editGalleryItem( this.form.type );
+                    this.displayNotification(result, { type: 'success' })
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
             },
             async onClickCancelGalleryButton() {
                 try {
-                    // this.$set(this, 'isPending', true);
-                    // let result = Service.changeGalleryItemStatus(media_id, media_type, StatusService.CANCEL_STATUS);
-                    // this.displayNotification(result, { type: 'success' });
+                    const { media_id, type } = this.form;
+                    this.$set(this, 'isPending', true);
+                    let result = Service.changeGalleryItemStatus(media_id, type, StatusService.CANCEL_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                    this.redirectToGalleryManage();
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 } finally {
@@ -367,9 +372,11 @@
             },
             async onClickRejectGalleryButton() {
                 try {
-                    // this.$set(this, 'isPending', true);
-                    // let result = Service.changeGalleryItemStatus(media_id, media_type, StatusService.REJECT_STATUS);
-                    // this.displayNotification(result, { type: 'success' });
+                    const { media_id, type } = this.form;
+                    this.$set(this, 'isPending', true);
+                    let result = Service.changeGalleryItemStatus(media_id, type, StatusService.REJECT_STATUS);
+                    this.displayNotification(result, { type: 'success' });
+                    this.redirectToGalleryManage();
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 } finally {
@@ -420,19 +427,19 @@
 <!--
 
 [
-    'media_id'         => 'required|integer|exists:media,id',
-    'first_title'      => 'required|string',
-    'category_ids'     => 'array|exists:categories,id',
-    'main_category_id' => 'integer|exists:categories,id',
-    'publish_date'     => 'required|numeric',
-    'slug'             => 'string|unique:media',
-    'province_id'      => 'integer|exists:provinces,id',
-    'language'         => ['required', Rule::in(config('media.media_language'))],
-    'images.'         => 'image|max:500',
-    'content.'        => 'mimetypes:application/pdf,application/msword|max:10000',
-    'content'          => 'array',
-    'description'      => 'string',
-    'abstract'         => 'string',
+    'media_id'         => 'required|integer|exists:media,id', *** --- OK --- ***
+    'first_title'      => 'required|string', *** --- OK --- ***
+    'category_ids'     => 'array|exists:categories,id', *** --- OK --- ***
+    'main_category_id' => 'integer|exists:categories,id', *** --- OK --- ***
+    'publish_date'     => 'required|numeric', *** --- OK --- ***
+    'slug'             => 'string|unique:media', *** --- OK --- ***
+    'province_id'      => 'integer|exists:provinces,id', *** --- OK --- ***
+    'language'         => ['required', Rule::in(config('media.media_language'))], *** --- OK --- ***
+    'images.'         => 'image|max:500',, *** --- OK --- ***
+    'content.'        => 'mimetypes:application/pdf,application/msword|max:10000',, *** --- OK --- ***
+    'content'          => 'array',, *** --- OK --- ***
+    'description'      => 'string', *** --- OK --- ***
+    'abstract'         => 'string', *** --- OK --- ***
 ];
 
 -->

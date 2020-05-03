@@ -67,6 +67,17 @@ export class GalleryService {
         }
     }
     /**
+     * @param type { String }
+     * @param requestPayload { FormData }
+     */
+    static async editGalleryItem(type, requestPayload) {
+        try {
+            return await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_GALLERY_ITEM, { type }), requestPayload)
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    /**
      * @param media_id { Number }
      * @param media_type { String }
      * @param status { String }
@@ -104,6 +115,16 @@ export class GalleryService {
                 id: media_id,
                 type: media_type
             }))
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    /**
+     * @param file_id { Number, String }
+     */
+    static async removeUploadedFile( file_id ) {
+        try {
+            console.log('%c destroyUploadedFile: ', 'background: red;color:white', file_id);
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }

@@ -53,6 +53,7 @@ export class SingleGalleryPresenter extends BasePresenter {
             has_relation: Boolean,
             content_paths: Array,
             type: String,
+            publish_date: Number,
         })
     }
 
@@ -179,6 +180,10 @@ export class SingleGalleryPresenter extends BasePresenter {
 
     type() {
         return this.item.type
+    }
+
+    publish_date() {
+        return this.item.publish_date
     }
 }
 
