@@ -28,7 +28,7 @@ export class ImagePresenter extends BasePresenter {
     }
 
     id() {
-        return this.data.image_id
+        return this.data.file_id
     }
 
     path() {

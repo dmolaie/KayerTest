@@ -8,6 +8,7 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentGetInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\ContentDTO;
+use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 use Domains\Attachment\Services\Contracts\DTOs\ContentGetInfoDTO;
 use Domains\Attachment\Services\Contracts\DTOs\ContentGetInfoFileDTO;
 use Domains\User\Exceptions\AttachmentFileErrorException;
@@ -108,16 +109,15 @@ class AttachmentServices
         $basePath = config('attachment.base_path_storage');
         $path = $basePath . $type;
         foreach ($contentDTO->getContentFileDTOs() as $file) {
+            $fileName = '';
+            $imagePathFinal = '';
             $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
-            if($file->getFile()){
+            if ($file->getFile()) {
                 $fileName = date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName();
                 Storage::putFileAs($path . $this->separator, $file->getFile(),
                     date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName());
                 $imagePathFinal = $path . $this->separator . $fileName;
                 $contentGetInfoFileDTO->setPath($imagePathFinal);
-            }else{
-                $fileName = '';
-                $imagePathFinal = '';
             }
             $contentGetInfoFileDTO->setTitle($file->getTitle());
             $contentGetInfoFileDTO->setLink($file->getLink());
@@ -136,12 +136,11 @@ class AttachmentServices
             $contentGetInfoDTO->setEntityName($attachmentGetInfoDTO->getEntityName())
                 ->setEntityId($entityId)
                 ->setContentGetInfoFileDTOs(
-                        $this->getAllContent(
-                            $attachmentGetInfoDTO->getEntityName(),
-                            $entityId,
-                            $type
-                        )
-
+                    $this->getAllContent(
+                        $attachmentGetInfoDTO->getEntityName(),
+                        $entityId,
+                        $type
+                    )
                 );
             $result[$entityId] = $contentGetInfoDTO;
         }
@@ -162,5 +161,10 @@ class AttachmentServices
 
         }
         return $contentGetInfoFileDTOs;
+    }
+
+    public function editFileData(ContentFileDTO $contentFileDTO)
+    {
+        return $this->attachmentRepository->editFileData($contentFileDTO);
     }
 }
