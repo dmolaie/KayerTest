@@ -21,6 +21,7 @@ class EditImageRequest extends EhdaBaseRequest
         return [
             'media_id'         => 'required|integer|exists:media,id',
             'first_title'      => 'required|string',
+            'abstract'         => 'string',
             'category_ids'     => 'array|exists:categories,id',
             'main_category_id' => 'integer|exists:categories,id',
             'publish_date'     => 'required|numeric',
@@ -51,6 +52,7 @@ class EditImageRequest extends EhdaBaseRequest
         $mediaEditDTO->setMediaId($this['media_id'])
             ->setProvinceId($this['province_id'])
             ->setCategories($this['category_ids'])
+            ->setAbstract($this['abstract'])
             ->setCategoryIsMain($this['main_category_id'])
             ->setEditor(\Auth::user())
             ->setLanguage($this['language'])
