@@ -64,6 +64,7 @@ const GET_USER_PROVINCES = "GET_USER_PROVINCES";
 const GET_ALL_CITY = "GET_ALL_CITY";
 const GET_CITY_BY_PROVINCES_ID = "GET_CITY_BY_PROVINCES_ID";
 const UPLOAD_IMAGES_ITEM = "UPLOAD_IMAGES_ITEM";
+const EDIT_FILE_ITEM = "EDIT_FILE_ITEM";
 const DELETE_IMAGES_ITEM = "DELETE_IMAGES_ITEM";
 const GET_GALLERY_LIST = 'GET_GALLERY_LIST';
 const GET_GALLERY_ITEM = 'GET_GALLERY_ITEM';
@@ -145,6 +146,7 @@ endpoints[GET_USER_PROVINCES] = `/location/${VER_1_0}/user-provinces`;
 endpoints[GET_ALL_CITY] = `/location/${VER_1_0}/all-cities`;
 endpoints[GET_CITY_BY_PROVINCES_ID] = `/location/${VER_1_0}/get-cities-by-province-id`;
 endpoints[UPLOAD_IMAGES_ITEM] = `/attachment/attach_image`;
+endpoints[EDIT_FILE_ITEM] = `/attachment/edit_file_data`;
 endpoints[DELETE_IMAGES_ITEM] = `/attachment/destroy_image`;
 
 export default class Endpoint {
@@ -406,6 +408,10 @@ export default class Endpoint {
 
     static get UPLOAD_IMAGES_ITEM() {
         return endpoints[UPLOAD_IMAGES_ITEM]
+    }
+
+    static get EDIT_FILE_ITEM() {
+        return endpoints[EDIT_FILE_ITEM]
     }
 
     static get DELETE_IMAGES_ITEM() {

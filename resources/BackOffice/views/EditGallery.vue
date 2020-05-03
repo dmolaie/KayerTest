@@ -368,7 +368,8 @@
                 try {
                     this.$set(this, 'isPending', true);
                     let result = await Service.editGalleryItem( this.form.type );
-                    this.displayNotification(result, { type: 'success' })
+                    this.displayNotification(result, { type: 'success' });
+                    // this.redirectToGalleryManage();
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 } finally {

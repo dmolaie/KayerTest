@@ -7,7 +7,7 @@ import LocationService from '@services/service/Location';
 import EditGalleryStore, {
     E_GALLERY_SET_DATA, E_GALLERY_PROVINCES, E_GALLERY_CATEGORIES
 } from '@services/store/EditGallery';
-import { Length, HasLength, CopyOf } from "@vendor/plugin/helper";
+import { Length, HasLength, CopyOf, getObjectChange } from "@vendor/plugin/helper";
 
 export default class EditGalleryService {
     constructor( layout ) {
@@ -138,15 +138,42 @@ export default class EditGalleryService {
         }
     }
 
+    async editContentFile() {
+        try {
+            const NEW_ARRAY = this.$vm.form['content_paths'],
+                  NEW_ARRAY_ID = NEW_ARRAY.map(({ file_id }) => file_id);
+            const OLD_ARRAY = this.$vm.detail['content_paths'].filter(({ file_id }) => NEW_ARRAY_ID.includes(file_id));
+            const CHANGE_ARRAY = getObjectChange(OLD_ARRAY, NEW_ARRAY);
+
+            if (!!CHANGE_ARRAY && HasLength( CHANGE_ARRAY )) {
+                try {
+                    await Promise.all([
+                        CHANGE_ARRAY.map(file => {
+                            return GalleryService.editContentFile( file ).catch(exception => {
+                                throw exception
+                            });
+                        })
+                    ]).catch(exception => {
+                        throw exception;
+                    })
+                } catch ( exception ) {
+                    console.log('exception:', exception);
+                }
+            }
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
     async editGalleryItem( media_type ) {
         try {
             const REQUEST_PAYLOAD = this.createRequestPayload;
             await Promise.all([
                 await this.destroyCoverImage(),
-                await this.destroyUploadedFile()
+                await this.destroyUploadedFile(),
+                await this.editContentFile()
             ]);
             let response = await GalleryService.editGalleryItem(media_type, REQUEST_PAYLOAD);
-
             return response.message;
         } catch ( exception ) {
             throw exception;

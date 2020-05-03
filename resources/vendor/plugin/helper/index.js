@@ -152,6 +152,24 @@ export const showScrollbar = () => {
     } catch (e) {}
 };
 
+/**
+ * @param oldArray { Array }
+ * @param newArray { Array }
+ */
+export const getObjectChange = (oldArray, newArray) => {
+    const CHANGES = [];
+    let i, item, j, len;
+    const FREEZE = payload => JSON.stringify( payload );
+
+    if ( FREEZE(oldArray) === FREEZE( newArray ) ) return [];
+    for (i = j = 0, len = newArray.length; j < len; i = ++j) {
+        item = newArray[i];
+        (FREEZE( item ) !== FREEZE( oldArray[i] )) && CHANGES.push( item );
+    }
+
+    return CHANGES;
+};
+
 export const ArrayRange = range => {
     return [...Array( range )].map((_, i) => i)
 };

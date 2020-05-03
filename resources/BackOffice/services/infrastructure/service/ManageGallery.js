@@ -119,6 +119,25 @@ export class GalleryService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
+    /**
+     * @param file_id { Number | String }
+     * @param title { String }
+     * @param link { String }
+     */
+    static async editContentFile({ file_id, title, link }) {
+        try {
+            // const PAYLOAD = {};
+            // PAYLOAD['file_id'] = file_id;
+            // if ( !!link ) PAYLOAD['link'] = link;
+            // if ( !!title ) PAYLOAD['title'] = title;
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_FILE_ITEM), {
+                file_id, title, link
+            });
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
     /**
      * @param file_id { Number, String }
      */
