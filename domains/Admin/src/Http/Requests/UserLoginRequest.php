@@ -28,7 +28,8 @@ class UserLoginRequest extends EhdaBaseRequest
     {
         return [
             'national_code' => 'required|string',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'captcha' => 'required|captcha_api:' . $this['key']
         ];
     }
 
