@@ -29,6 +29,24 @@ class ContentGetInfoFileDTO
     /**
      * @return string|null
      */
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string|null $id
+     * @return ContentGetInfoFileDTO
+     */
+    public function setId(?string $id): ContentGetInfoFileDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getPath(): ?string
     {
         return $this->path;
@@ -79,24 +97,4 @@ class ContentGetInfoFileDTO
         $this->link = $link;
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     * @return ContentGetInfoFileDTO
-     */
-    public function setId(string $id): ContentGetInfoFileDTO
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-
 }
