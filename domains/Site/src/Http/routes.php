@@ -31,8 +31,17 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
         Route::get('/world-news', 'PagesController@newsListWorld')->name('news-list-world');
         Route::get('/events', 'PagesController@eventsList')->name('events-list');
 
+        Route::get('/events', 'PagesController@eventsList')->name('events-list');
 
-        Route::get('/{slug}', 'PagesController@pages')->name('pages');
+
+
+        Route::prefix('gallery')->name('gallery.')->group(function () {
+            Route::get('/', 'PagesController@artEhda')->name('art-ehda');
+            Route::get('/audio', 'PagesController@galleryAudio')->name('audio');
+            Route::get('/video', 'PagesController@galleryVideo')->name('video');
+            Route::get('/image', 'PagesController@galleryImage')->name('image');
+            Route::get('/text', 'PagesController@galleryText')->name('text');
+        });
     });
 
     Route::prefix('archive')->name('archive.')->group(function () {
