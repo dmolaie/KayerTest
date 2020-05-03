@@ -20,8 +20,8 @@ export class SingleGalleryPresenter extends BasePresenter {
         this.item = data;
 
         return this.mapProps({
-            gallery_id: Number,
-            title: String,
+            media_id: Number,
+            first_title: String,
             abstract: String,
             image_path: String,
             image_paths: Object,
@@ -44,15 +44,19 @@ export class SingleGalleryPresenter extends BasePresenter {
             is_english: Boolean,
             category_ids: Array,
             categories: Array,
+            slug: String,
+            description: String,
+            relation_id: Number,
+            has_relation: Boolean,
         })
     }
 
-    gallery_id() {
-        return this.item.gallery_id
+    media_id() {
+        return this.item.id
     }
 
-    title() {
-        return this.item.title
+    first_title() {
+        return this.item.first_title
     }
 
     abstract() {
@@ -122,12 +126,12 @@ export class SingleGalleryPresenter extends BasePresenter {
     }
 
     categories() {
-        return new SelectedCategoriesPresenter( this.item.category );
+        return new SelectedCategoriesPresenter( this.item.categories );
     }
 
     category_ids() {
         return (
-            new SelectedCategoriesPresenter( this.item.category )
+            new SelectedCategoriesPresenter( this.item.categories )
                 .map(({ id }) => id)
         )
     }
@@ -145,6 +149,22 @@ export class SingleGalleryPresenter extends BasePresenter {
     }
 
     is_english() {
-        return this.item.language === 'fa'
+        return this.item.language === 'en'
+    }
+
+    slug() {
+        return this.item.slug.replace(/-/g, ' ')
+    }
+
+    description() {
+        return this.item.description
+    }
+
+    relation_id() {
+        return this.item.relation_id || ''
+    }
+
+    has_relation() {
+        return !!this.item.relation_id
     }
 }

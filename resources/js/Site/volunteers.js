@@ -22,7 +22,6 @@ try {
     const FORM  = document.querySelector('.vol-page__from');
     const FROM_MESSAGE  = document.querySelector('.vol-page__res');
     const SUBMIT_BUTTON  = document.querySelector('.dnt-page__btn--submit');
-    console.log(FROM_MESSAGE);
 
     const GET_ELEMENT = classname => document.querySelector(`.vol-page__from .${classname}`);
     const HANDEL_ERROR_MESSAGE = ( element, text = '' ) => {

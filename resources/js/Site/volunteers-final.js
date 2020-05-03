@@ -1,4 +1,6 @@
-import Dropdown from '@vendor/plugin/dropdown';
+import Dropdown, {
+    CREATE_OPTION_ELEMENT
+} from '@vendor/plugin/dropdown';
 import DateService from '@vendor/plugin/date';
 import Endpoint from '@endpoints';
 import TokenService from '@services/service/Token';
@@ -19,6 +21,7 @@ import {
     NationalCodeValidator,
     RedirectRoute
 } from '@vendor/plugin/helper';
+import LocationPresenter from "./presenter/Location";
 
 try {
     const CONFIG = {
@@ -69,16 +72,89 @@ try {
             dropdown.parentElement.parentElement.classList.remove('has-error');
         }
     });
-    document.querySelector('.vnt-page__select--birth-province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--birth-city').MountDropdown( FILTER_CONFIG );
     document.querySelector('.vnt-page__select--edu-level').MountDropdown( WITHOUT_FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--edu-province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--edu-city').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--home-province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--home-city').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--job-province').MountDropdown( FILTER_CONFIG );
-    document.querySelector('.vnt-page__select--job-city').MountDropdown( FILTER_CONFIG );
     document.querySelector('.vnt-page__select--familiarization').MountDropdown( WITHOUT_FILTER_CONFIG );
+
+    const DISABLED_SELECT_CLASSNAME = 'disabledSelect';
+    const CITY_OF_BIRTH = document.querySelector('.vnt-page__select--birth-city');
+    const CURRENT_CITY = document.querySelector('.vnt-page__select--home-city');
+    const CITY_OF_EDUCATION = document.querySelector('.vnt-page__select--edu-city');
+    const CITY_OF_WORK = document.querySelector('.vnt-page__select--job-city');
+    const CREATE_OPTION_TAG = (select, payload) => {
+        const DATA = [{id: '', name: 'انتخاب کنید...'}, ...payload];
+        select.value = '';
+        select.innerHTML = DATA.map(item => `<option value="${item.id}">${item.name}</option>`);
+        const DROPDOWN_INPUT = select.parentElement.querySelector('.dropdown__input');
+        const DROPDOWN_BODY = select.parentElement.querySelector('.dropdown__options');
+        DROPDOWN_INPUT.textContent = 'انتخاب کنید...';
+        DROPDOWN_BODY.innerHTML = CREATE_OPTION_ELEMENT(select.querySelectorAll('option'), 'font-xs text-bayoux text-right');
+        select.parentElement.classList.remove( DISABLED_SELECT_CLASSNAME );
+    };
+
+    document.querySelector('.vnt-page__select--birth-province').MountDropdown({
+        hasFilterItem: true,
+        filterPlaceholder: 'جستجو...',
+        dropdownClass: 'w-full unselected',
+        filterClass: 'font-xs text-bayoux',
+        optionClass: 'font-xs text-bayoux text-right',
+        inputClass: 'input input--blue border border-solid rounded',
+        async onSelected(dropdown, { value: province_id }) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.classList.remove('has-error');
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), { province_id });
+            response = new LocationPresenter( response.data );
+            CREATE_OPTION_TAG(CITY_OF_BIRTH, response);
+        }
+    });
+    CITY_OF_BIRTH.MountDropdown( FILTER_CONFIG );
+    document.querySelector('.vnt-page__select--edu-province').MountDropdown({
+        hasFilterItem: true,
+        filterPlaceholder: 'جستجو...',
+        dropdownClass: 'w-full unselected',
+        filterClass: 'font-xs text-bayoux',
+        optionClass: 'font-xs text-bayoux text-right',
+        inputClass: 'input input--blue border border-solid rounded',
+        async onSelected(dropdown, { value: province_id }) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.classList.remove('has-error');
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), { province_id });
+            response = new LocationPresenter( response.data );
+            CREATE_OPTION_TAG(CITY_OF_EDUCATION, response);
+        }
+    });
+    CITY_OF_EDUCATION.MountDropdown( FILTER_CONFIG );
+    document.querySelector('.vnt-page__select--home-province').MountDropdown({
+        hasFilterItem: true,
+        filterPlaceholder: 'جستجو...',
+        dropdownClass: 'w-full unselected',
+        filterClass: 'font-xs text-bayoux',
+        optionClass: 'font-xs text-bayoux text-right',
+        inputClass: 'input input--blue border border-solid rounded',
+        async onSelected(dropdown, { value: province_id }) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.classList.remove('has-error');
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), { province_id });
+            response = new LocationPresenter( response.data );
+            CREATE_OPTION_TAG(CURRENT_CITY, response);
+        }
+    });
+    CURRENT_CITY.MountDropdown( FILTER_CONFIG );
+    document.querySelector('.vnt-page__select--job-province').MountDropdown({
+        hasFilterItem: true,
+        filterPlaceholder: 'جستجو...',
+        dropdownClass: 'w-full unselected',
+        filterClass: 'font-xs text-bayoux',
+        optionClass: 'font-xs text-bayoux text-right',
+        inputClass: 'input input--blue border border-solid rounded',
+        async onSelected(dropdown, { value: province_id }) {
+            dropdown.classList.remove('unselected');
+            dropdown.parentElement.classList.remove('has-error');
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), { province_id });
+            response = new LocationPresenter( response.data );
+            CREATE_OPTION_TAG(CITY_OF_WORK, response);
+        }
+    });
+    CITY_OF_WORK.MountDropdown( FILTER_CONFIG );
 } catch (e) {}
 
 try {

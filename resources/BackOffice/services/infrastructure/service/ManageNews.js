@@ -5,13 +5,10 @@ import {
     M_NEWS_SET_DATA,
     M_NEWS_UPDATE_DATA
 } from '@services/store/ManageNews';
-import {
-    GET_USER_ID
-} from '@services/store/Login';
-import {
-    HasLength, CopyOf
-} from "@vendor/plugin/helper";
+import { GET_USER_ID } from '@services/store/Login';
+import { HasLength, CopyOf } from "@vendor/plugin/helper";
 import StatusService from '@services/service/Status';
+import { CategoryService, CATEGORIES_TYPE } from '@services/service/ManageCategory';
 
 export const DEFAULT_STATUS = {
     status: StatusService.PUBLISH_STATUS
@@ -20,9 +17,7 @@ export const DEFAULT_STATUS = {
 export class NewsService {
     static async getNewsCategories() {
         try {
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
-                category_type: 'news'
-            });
+            return await CategoryService.getCategoryListByType( CATEGORIES_TYPE['news'] );
         } catch (e) {
             throw e;
         }

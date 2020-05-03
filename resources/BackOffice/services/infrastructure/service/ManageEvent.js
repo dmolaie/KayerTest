@@ -12,12 +12,16 @@ import {
     CopyOf, HasLength
 } from '@vendor/plugin/helper';
 import StatusService from '@services/service/Status';
+import { CategoryService, CATEGORIES_TYPE } from '@services/service/ManageCategory';
 
 const DEFAULT_STATUS = {
     status: StatusService.PUBLISH_STATUS
 };
 
 export class EventService {
+    /**
+     * @param querystring { Object }
+     */
     static async getEventList( querystring = {} ) {
         try {
             return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_EVENT_LIST), querystring)
@@ -27,13 +31,15 @@ export class EventService {
     }
     static async getEventCategories() {
         try {
-            return await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CATEGORY_LIST), {
-                category_type: 'event'
-            });
+            return await CategoryService.getCategoryListByType( CATEGORIES_TYPE['event'] );
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+    /**
+     * @param event_id { Number }
+     * @param status { String }
+     */
     static async changeEventStatus(event_id, status) {
         try {
             return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_STATUS_EVENT_ITEM), {
@@ -43,6 +49,10 @@ export class EventService {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }
+
+    /**
+     * @param event_id { Number }
+     */
     static async deleteEventItem( event_id ) {
         try {
             return await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_EVENT_ITEM), {

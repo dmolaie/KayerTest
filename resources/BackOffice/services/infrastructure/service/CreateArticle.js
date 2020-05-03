@@ -80,10 +80,10 @@ export default class CreateArticleService extends BaseService {
             const formData = new FormData();
 
             duplicateFrom['publish_date'] = (new Date().getTime() / 1e3);
-
+            console.log(duplicateFrom['category_ids']);
             if ( HasLength( duplicateFrom['category_ids'] ) ) {
-                duplicateFrom['main_category_id'] = duplicateFrom['category_ids'][0].id;
-                duplicateFrom['category_ids'].forEach(({ id }) => {
+                duplicateFrom['main_category_id'] = duplicateFrom['category_ids'][0];
+                duplicateFrom['category_ids'].forEach(id => {
                     formData.append('category_ids[]', id);
                 });
             }

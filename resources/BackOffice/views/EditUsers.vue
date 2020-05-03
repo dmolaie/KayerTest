@@ -212,8 +212,8 @@
                         <select-cm :options="event"
                                    placeholder="انتخاب کنید..."
                                    @onChange="updateEventField"
-                                   :value="form.event_name"
-                                   label="name" :required="false" :filterBy="handelEventFieldSearch"
+                                   :value="form.event_name" :required="false"
+                                   label="name" :searchable="true" :filterBy="handelEventFieldSearch"
                         />
                     </div>
                 </div>
@@ -831,7 +831,7 @@
             },
             day: () => {
                 let arr = [];
-                for (let i = 1; i < 31; i ++) {
+                for (let i = 1; i <= 31; i ++) {
                     arr.push({
                         id: i,
                         name: i
@@ -1076,7 +1076,7 @@
             },
             async handelEventFieldSearch( value ) {
                 try {
-                    await Service.handelEventFieldSearch( value );
+                    return await Service.handelEventFieldSearch( value );
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
                 }

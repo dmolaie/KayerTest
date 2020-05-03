@@ -1,17 +1,13 @@
 import Endpoint from '@endpoints';
 import HTTPService from '@vendor/plugin/httpService';
 import BaseService from '@vendor/infrastructure/service/BaseService';
+import ExceptionService from '@services/service/exception';
 import CreateMenu, {
     C_NEWS_SET_CATEGORY,
     C_NEWS_SET_PROVINCES
 } from '@services/store/CreateNews';
-import {
-    NewsService
-} from '@services/service/ManageNews';
-import {
-    CopyOf, HasLength, EncodeHTML
-} from "@vendor/plugin/helper";
-import ExceptionService from '@services/service/exception';
+import { NewsService } from '@services/service/ManageNews';
+import { CopyOf, HasLength } from "@vendor/plugin/helper";
 
 export default class CreateNewsService extends BaseService {
     constructor( layout ) {
