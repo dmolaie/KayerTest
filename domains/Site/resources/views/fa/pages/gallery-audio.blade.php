@@ -20,7 +20,7 @@
                                         <audio id="music_player"
                                                controls class="w-0 h-0 opacity-0 visibility-hidden overflow-hidden"
                                         >
-                                            <source src="{{ secure_asset('images/music/01_Bitab.mp3') }}" type="audio/mpeg">
+                                            <source src="https://dl.music-ava.ir/music/bikalam/piyano/Wind.mp3" type="audio/mpeg">
                                             متاسفانه مرورگر شما از این قابلیت پشتیبانی نمی‌کند.
                                         </audio>
                                     </div>
@@ -51,7 +51,7 @@
                         <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
                             <div class="episodes absolute w-full">
                                 <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="{{ secure_asset('images/music/01_Bitab.mp3') }}"
+                                     data-url="https://dl.music-ava.ir/music/bikalam/piyano/Wind.mp3"
                                 >
                                     <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
                                         <img src=""
@@ -65,7 +65,7 @@
                                     </span>
                                 </div>
                                 <div class="episode relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="{{ secure_asset('images/music/tik-tok.mp3') }}"
+                                     data-url="https://dl.music-ava.ir/music/bikalam/piyano/Rain.mp3"
                                 >
                                     <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
                                         <img src=""
