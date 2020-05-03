@@ -4,8 +4,6 @@ namespace Domains\Admin\Http\Requests;
 
 use App\Http\Request\EhdaBaseRequest;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
 
 class UserLoginRequest extends EhdaBaseRequest
 {
@@ -28,12 +26,12 @@ class UserLoginRequest extends EhdaBaseRequest
     {
         return [
             'national_code' => 'required|string',
-            'password' => 'required|string',
-            'captcha' => 'required|captcha_api:' . $this['key']
+            'password'      => 'required|string',
+            'captcha'       => 'required|captcha_api:' . $this['key']
         ];
     }
 
-    public function createLoginDTO() : UserLoginDTO
+    public function createLoginDTO(): UserLoginDTO
     {
         $loginDTO = new UserLoginDTO();
         $loginDTO->setNationalCode($this['national_code']);
