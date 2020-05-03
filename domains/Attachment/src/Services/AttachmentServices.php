@@ -121,7 +121,8 @@ class AttachmentServices
             }
             $contentGetInfoFileDTO->setTitle($file->getTitle());
             $contentGetInfoFileDTO->setLink($file->getLink());
-            $this->attachmentRepository->create($contentDTO, $imagePathFinal, $fileName, $contentGetInfoFileDTO);
+            $attachment = $this->attachmentRepository->create($contentDTO, $imagePathFinal, $fileName, $contentGetInfoFileDTO);
+            $contentGetInfoFileDTO->setId($attachment->id);
             $contentGetInfoDTO->addContentGetInfoFileDTOs($contentGetInfoFileDTO);
         }
         return $contentGetInfoDTO;
@@ -155,9 +156,9 @@ class AttachmentServices
         foreach ($contentEntities as $contentEntity) {
             $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
             $contentGetInfoFileDTO->setLink($contentEntity->link)
+                ->setId($contentEntity->id)
                 ->setTitle($contentEntity->title)
-                ->setPath($contentEntity->path)
-                ->setId($contentEntity->id);
+                ->setPath($contentEntity->path);
             $contentGetInfoFileDTOs[] = $contentGetInfoFileDTO;
 
         }

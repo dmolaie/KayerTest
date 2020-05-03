@@ -22,7 +22,7 @@ class ContentGetInfoFileDTO
      */
     protected $link;
     /**
-     * @var string|null
+     * @var string
      */
     protected $id;
 
@@ -97,6 +97,4 @@ class ContentGetInfoFileDTO
         $this->link = $link;
         return $this;
     }
-
-
 }
