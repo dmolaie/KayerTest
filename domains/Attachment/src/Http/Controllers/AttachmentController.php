@@ -7,8 +7,10 @@ namespace Domains\Attachment\Http\Controllers;
 use App\Http\Controllers\EhdaBaseController;
 use Domains\Article\Entities\Article;
 use Domains\Attachment\Http\Presenters\AttachmentPresenter;
+use Domains\Attachment\Http\Presenters\FilePresenter;
 use Domains\Attachment\Http\Requests\AttachmenImageRequest;
 use Domains\Attachment\Http\Requests\AttachmentDestroyRequest;
+use Domains\Attachment\Http\Requests\EditFileDataRequest;
 use Domains\Attachment\Services\AttachmentServices;
 use Domains\Attachment\Services\Contracts\DTOs\AttachmentDTO;
 use Domains\User\Exceptions\ImageNotFoundErrorException;
@@ -45,5 +47,16 @@ class AttachmentController extends EhdaBaseController
         }catch (ImageNotFoundErrorException $exception) {
             return $this->response([],$exception->getCode(),$exception->getMessage());
         }
+    }
+
+    public function EditFileData(EditFileDataRequest $request,FilePresenter $filePresenter)
+    {
+        $editFileDTO = $request->editDataFileDTO();
+        $dataFileDTO = $this->attachmentService->editFileData($editFileDTO);
+        return $this->response(
+            $filePresenter->transform($dataFileDTO),
+            Response::HTTP_OK,
+            trans('attachment::response.edit_successful')
+        );
     }
 }
