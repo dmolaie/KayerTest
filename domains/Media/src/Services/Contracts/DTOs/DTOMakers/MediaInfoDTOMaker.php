@@ -70,6 +70,7 @@ class MediaInfoDTOMaker
         $result = [];
         foreach ($contentDTO->getContentGetInfoFileDTOs() as $content) {
             $result[] = [
+                'id'  => $content->getId(),
                 'link'  => $content->getLink(),
                 'path'  => $content->getPath(),
                 'title' => $content->getTitle(),

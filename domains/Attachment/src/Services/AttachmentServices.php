@@ -156,7 +156,8 @@ class AttachmentServices
             $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
             $contentGetInfoFileDTO->setLink($contentEntity->link)
                 ->setTitle($contentEntity->title)
-                ->setPath($contentEntity->path);
+                ->setPath($contentEntity->path)
+                ->setId($contentEntity->id);
             $contentGetInfoFileDTOs[] = $contentGetInfoFileDTO;
 
         }

@@ -21,6 +21,28 @@ class ContentGetInfoFileDTO
      * @var string|null
      */
     protected $link;
+    /**
+     * @var string|null
+     */
+    protected $id;
+
+    /**
+     * @return string|null
+     */
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string|null $id
+     * @return ContentGetInfoFileDTO
+     */
+    public function setId(?string $id): ContentGetInfoFileDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return string|null
