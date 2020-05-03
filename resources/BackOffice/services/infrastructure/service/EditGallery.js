@@ -54,7 +54,7 @@ export default class EditGalleryService {
             BaseService.commitToStore(this.$store, E_GALLERY_PROVINCES, response[2]);
         } catch ( exception ) {
             this.$vm.displayNotification(exception, { type: 'error' });
-            // this.$vm.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.$vm.$route?.params?.type } });
+            this.$vm.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.$vm.$route?.params?.type } });
         }
     }
 
@@ -146,7 +146,7 @@ export default class EditGalleryService {
                 await this.destroyUploadedFile()
             ]);
             let response = await GalleryService.editGalleryItem(media_type, REQUEST_PAYLOAD);
-            console.log(response);
+
             return response.message;
         } catch ( exception ) {
             throw exception;

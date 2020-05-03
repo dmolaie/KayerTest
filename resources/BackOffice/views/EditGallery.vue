@@ -292,6 +292,21 @@
                 ) : ([])
             },
         },
+        watch: {
+            $route() {
+                this.$set(this, 'isPending', true);
+                Service.getGalleryItemDetails()
+                    .then(this.$nextTick)
+                    .then(async () => {
+                        await this.setDataIntoForm();
+                        this.$set(this, 'isPending', false);
+                    })
+                    .catch(exception => {
+                        this.displayNotification(exception, { type: 'error' });
+                        this.$vm.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
+                    })
+            }
+        },
         methods: {
             async setDataIntoForm() {
                 await new Promise(resolve => {
@@ -351,10 +366,13 @@
             },
             async onClickUpdateGalleryButton() {
                 try {
+                    this.$set(this, 'isPending', true);
                     let result = await Service.editGalleryItem( this.form.type );
                     this.displayNotification(result, { type: 'success' })
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
+                } finally {
+                    this.$set(this, 'isPending', false);
                 }
             },
             async onClickCancelGalleryButton() {
@@ -384,10 +402,32 @@
                 }
             },
             onClickPersianLang() {
-
+                const { type, has_relation, relation_id, media_id } = this.form;
+                if ( has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_GALLERY',
+                        params: { type, lang: 'fa', id: relation_id }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: 'CREATE_GALLERY',
+                        params: { type, lang: 'fa', onlyFaLang: true, parent_id: media_id }
+                    });
+                }
             },
             onClickEnglishLang() {
-
+                const { type, has_relation, relation_id, media_id } = this.form;
+                if ( has_relation ) {
+                    this.pushRouter({
+                        name: 'EDIT_GALLERY',
+                        params: { type, lang: 'en', id: relation_id }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: 'CREATE_GALLERY',
+                        params: { type, lang: 'en', onlyEnLang: true, parent_id: media_id }
+                    });
+                }
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
