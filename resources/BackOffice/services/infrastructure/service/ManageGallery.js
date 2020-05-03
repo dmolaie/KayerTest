@@ -15,8 +15,8 @@ const DEFAULT_STATUS = {
 };
 
 export const GALLERY_TYPE = {
-    ['audio']: {
-        name_en: 'audio',
+    ['voice']: {
+        name_en: 'voice',
         name_fa: 'صوتی',
     },
     ['text']: {

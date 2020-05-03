@@ -217,7 +217,7 @@
                 return this.$route.params.type
             },
             isAudioType() {
-                return this.galleryType === GALLERY_TYPE['audio'].name_en;
+                return this.galleryType === GALLERY_TYPE['voice'].name_en;
             },
             isImagesType() {
                 return this.galleryType === GALLERY_TYPE['image'].name_en;
