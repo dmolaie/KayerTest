@@ -199,6 +199,10 @@ export const PERMISSION_FA_KEY = {
     ['news']: 'اخبار',
     ['event']: 'رویدادها',
     ['article']: 'صفحات ایستا',
+    ['image']: 'گالری عکسی',
+    ['text']: 'گالری متنی',
+    ['voice']: 'گالری صوتی',
+    ['video']: 'گالری تصویری',
 };
 
 export class RolePresenter extends BasePresenter {
