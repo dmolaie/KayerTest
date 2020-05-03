@@ -66,7 +66,7 @@ class CreateVoiceRequest extends EhdaBaseRequest
             ->setType(config('media.media_type_voice'))
             ->setAbstract($this['abstract'])
             ->setDescription($this['description'])
-            ->setContentFiles($this->makeContentFileDTOs())
+            ->setContentFiles($this['content']?$this->makeContentFileDTOs():[])
             ->setSlug($this['slug']);
         return $mediaCreateDTO;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Media\Http\Requests\Text;
+namespace Domains\Media\Http\Requests\Video;
 
 use App\Http\Request\EhdaBaseRequest;
 use Carbon\Carbon;
@@ -8,7 +8,7 @@ use Domains\Attachment\Services\Contracts\DTOs\ContentFileDTO;
 use Domains\Media\Services\Contracts\DTOs\MediaCreateDTO;
 use Illuminate\Validation\Rule;
 
-class CreateTextRequest extends EhdaBaseRequest
+class CreateVideoRequest extends EhdaBaseRequest
 {
 
     /**
@@ -22,7 +22,8 @@ class CreateTextRequest extends EhdaBaseRequest
             'first_title'      => 'required|string',
             'description'      => 'string',
             'abstract'         => 'string',
-            'content.*.file'   => 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:10240',
+//            'content.*.file'   => 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4|max:10240',
+            'content.*.file'   => 'image|max:500',
             'content.*.link'   => 'url',
             'content.*.title'  => 'string',
             'content'          => 'array',
@@ -63,10 +64,10 @@ class CreateTextRequest extends EhdaBaseRequest
             )
             ->setParentId($this['parent_id'])
             ->setAttachmentFiles($this['images'])
-            ->setType(config('media.media_type_text'))
+            ->setType(config('media.media_type_video'))
             ->setAbstract($this['abstract'])
             ->setDescription($this['description'])
-            ->setContentFiles($this['content'] ? $this->makeContentFileDTOs() : [])
+            ->setContentFiles($this['content']?$this->makeContentFileDTOs():[])
             ->setSlug($this['slug']);
         return $mediaCreateDTO;
     }

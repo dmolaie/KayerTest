@@ -62,7 +62,7 @@ class EditVoiceRequest extends EhdaBaseRequest
             ->setType(config('media.media_type_voice'))
             ->setDescription($this['description'])
             ->setAbstract($this['abstract'])
-            ->setContentFiles($this->makeContentFileDTOs())
+            ->setContentFiles($this['content'] ? $this->makeContentFileDTOs() : [])
             ->setSlug($this['slug']);
 
         return $mediaEditDTO;

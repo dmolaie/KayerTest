@@ -16,7 +16,11 @@ class PermissionTableSeeder extends Seeder
         $permissionList = [
             'news',
             'article',
-            'event'
+            'event',
+            'image',
+            'text',
+            'voice',
+            'video',
         ];
         $this->makePermission($permissionList);
 

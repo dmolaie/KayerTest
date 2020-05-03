@@ -144,6 +144,7 @@ class MediaService
 
         return $this->attachmentServices->uploadFiles($contentDTO);
     }
+
     /**
      * @param MediaEditDTO $mediaEditDTO
      * @return \Domains\Media\Services\Contracts\DTOs\MediaInfoDTO
@@ -188,18 +189,14 @@ class MediaService
     /**
      * @param string $entityName
      * @param array $mediaIds
-     * @return AttachmentGetInfoDTO|null
+     * @return array
      */
     private function getContentInfoMedia(string $entityName, array $mediaIds)
     {
         $attachmentGetInfoDTO = new AttachmentGetInfoDTO();
-
-        if ($mediaIds) {
-            $attachmentGetInfoDTO->setEntityName($entityName)
-                ->setEntityIds($mediaIds);
-            return $this->attachmentServices->getContentByIds($attachmentGetInfoDTO);
-        }
-        return $attachmentGetInfoDTO;
+        $attachmentGetInfoDTO->setEntityName($entityName)
+            ->setEntityIds($mediaIds);
+        return $this->attachmentServices->getContentByIds($attachmentGetInfoDTO);
     }
 
     /**
@@ -212,6 +209,7 @@ class MediaService
         $mediaIds = collect($media->items())->keyBy('id')->keys()->toArray();
         $attachmentInfoDto = $this->getAttachmentInfoMedia(ucfirst($mediaFilterDTO->getType()), $mediaIds);
         $contentInfoDto = $this->getContentInfoMedia(ucfirst($mediaFilterDTO->getType()), $mediaIds);
+
         $mediaAttachment = new MediaPaginationAttachmentDTO();
         $mediaAttachment->setAttachmentDTOs(
             $attachmentInfoDto->getImages())
