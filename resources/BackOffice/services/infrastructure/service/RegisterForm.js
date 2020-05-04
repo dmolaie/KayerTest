@@ -29,6 +29,8 @@ const LOCATION = {
     ['address_of_work']: 'آدرس محل کار',
     ['work_phone']: 'تلفن محل کار',
     ['work_postal_code']: 'کد‌پستی محل کار',
+    ['motivation_for_cooperation']: 'انگیزه‌ی همکاری',
+    ['day_of_cooperation']: 'فرصت همکاری',
 };
 
 export default class RegisterFormService {
@@ -68,6 +70,11 @@ export default class RegisterFormService {
             address_of_work: '',
             work_phone: '',
             work_postal_code: '',
+            know_community_by: '',
+            motivation_for_cooperation: '',
+            day_of_cooperation: '',
+            field_of_activities: [],
+            receive_email: false,
         })
     }
 
@@ -278,5 +285,17 @@ export default class RegisterFormService {
                 }
             )
         }
+    }
+
+    validateDayOfCooperation(field, value) {
+        const REGEX = /\b([1-9]|[12][0-9]|3[0])\b/;
+        HasLength( value ) && (
+            !OnlyNumber( toEnglishDigits( value ) ) ||
+            !REGEX.test(toEnglishDigits( value ))
+        ) && (
+            this.setErrorMassage = {
+                field, value: 'فرصت همکاری باید عددی بین ۱ تا ۳۰ باشد.'
+            }
+        )
     }
 }

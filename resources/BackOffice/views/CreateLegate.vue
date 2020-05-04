@@ -540,6 +540,116 @@
                         </label>
                     </div>
                 </div>
+                <span class="e-user__divider w-full block"> </span>
+                <div class="c-card__label font-sm font-bold text-blue cursor-default">
+                    اطلاعات تکمیلی
+                </div>
+                <div class="flex flex-wrap items-end">
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            نحوه آشنایی
+                        </span>
+                        <select-cm :options="knowCommunity"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateKnowCommunityField"
+                                   label="name" :required="false"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            انگیزه‌ی همکاری
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.motivation_for_cooperation.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.motivation_for_cooperation"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
+                                   @focus="hideErrorMessage('motivation_for_cooperation')"
+                                   @blur="validatePersianCharacter('motivation_for_cooperation', form.motivation_for_cooperation)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.motivation_for_cooperation.show"
+                                  v-text="validation.motivation_for_cooperation.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            فرصت همکاری
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.day_of_cooperation.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.day_of_cooperation"
+                                   placeholder="تعداد روز در ماه"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('day_of_cooperation')"
+                                   @blur="validateDayOfCooperation('day_of_cooperation', form.day_of_cooperation)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.day_of_cooperation.show"
+                                  v-text="validation.day_of_cooperation.value"
+                            > </span>
+                        </label>
+                    </div>
+                </div>
+                <span class="e-user__divider w-full block"> </span>
+                <p class="e-user__label font-sm font-bold text-blue cursor-default">
+                    درچه زمینه ای می توانید فعالیت کنید؟
+                </p>
+                <div class="flex flex-wrap items-end">
+                    <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold"
+                           v-for="(activity, index) in activities"
+                           :key="'activity-' + index"
+                    >
+                        <input type="checkbox"
+                               class="checkbox-square__input"
+                               name="field_of_activities"
+                               :value="activity.id"
+                               v-model="form.field_of_activities"
+                        />
+                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"> </span>
+                        <span class="checkbox-square__label font-sm font-medium rounded user-select-none"
+                              v-text="activity.name"
+                        > </span>
+                    </label>
+                </div>
+                <span class="e-user__divider w-full block"> </span>
+                <div class="w-full c-card__field p-r-0 p-l-0">
+                    <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
+                        <input type="checkbox"
+                               class="checkbox-square__input"
+                               name="receive_email"
+                               v-model="form.receive_email"
+                        />
+                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"> </span>
+                        <span class="checkbox-square__label font-sm font-medium rounded user-select-none">
+                            عضویت در خبرنامه‌ی ایمیلی سامانه‌ی اهدای عضو
+                        </span>
+                    </label>
+                </div>
+                <div class="w-full c-card__field p-r-0 p-l-0">
+                    <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold pointer-event-none">
+                        <input type="checkbox"
+                               class="checkbox-square__input"
+                               name="password_change" :checked="true"
+                        />
+                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"> </span>
+                        <span class="checkbox-square__label font-sm font-medium rounded user-select-none">
+                            شماره‌ی تلفن همراه به عنوان گذرواژه در نظر گرفته شود.
+                        </span>
+                    </label>
+                </div>
+                <div class="e-user__buttons w-full text-center">
+                    <button class="e-user__button e-user__button--submit border border-solid rounded font-base font-bold text-center l:transition-bg"
+                            :class="{ 'spinner-loading': spinnerLoading.submit }"
+                            @click.prevent="createLegateUser"
+                            v-text="'ذخیره'"
+                    > </button>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -571,7 +681,8 @@
                 mobile: {}, essential_mobile: {}, email: {},
                 current_address: {}, phone: {}, home_postal_code: {},
                 education_field: {},
-                job_title: {}, address_of_work: {}, work_phone: {}, work_postal_code: {}
+                job_title: {}, address_of_work: {}, work_phone: {}, work_postal_code: {},
+                motivation_for_cooperation: {}, day_of_cooperation: {}
             },
             cities: { birth: {}, current: {}, education: {}, work: {} },
             gender: RegisterFormService.gender,
@@ -583,9 +694,7 @@
             shouldBeShowInquiryStep: true,
             spinnerLoading: { submit: false },
         }),
-        components: {
-            SelectCm
-        },
+        components: { SelectCm },
         watch: {
             async 'form.province_of_birth'( id ) {
                 let result = await RegisterFormService.getCityByProvincesId( id );
@@ -609,6 +718,8 @@
                 events: ({ CreateLegate }) => CreateLegate.events,
                 provinces: ({ CreateLegate }) => CreateLegate.provinces,
                 education: ({ CreateLegate }) => CreateLegate.education,
+                activities: ({ CreateLegate }) => CreateLegate.activities,
+                knowCommunity: ({ CreateLegate }) => CreateLegate.knowCommunity,
                 showInquiryStep: ({ CreateLegate }) => CreateLegate.authentication && CreateLegate.authentication.register_by_admin,
             })
         },
@@ -637,7 +748,9 @@
             validatePostalCode(field, value, is_required = false) {
                 FormValidator.validatePostalCode(field, value, is_required);
             },
-
+            validateDayOfCooperation(field, value) {
+                FormValidator.validateDayOfCooperation(field, value);
+            },
             updateYearOfBirthDateField({ id }) {
                 this.$set(this.form, 'date_of_birth_year', id);
             },
@@ -692,8 +805,9 @@
             updateWorkCityField({ id }) {
                 this.$set(this.form, 'city_of_work', id);
             },
-
-
+            updateKnowCommunityField({ id }) {
+                this.$set(this.form, 'know_community_by', id);
+            },
             async nationalCodeInquiry( national_code ) {
                 try {
                     this.validateNationalCode('national_code', national_code);
@@ -706,6 +820,13 @@
                     }
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
+                }
+            },
+            async createLegateUser() {
+                try {
+
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
                 }
             }
         },
