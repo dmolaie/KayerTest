@@ -303,7 +303,7 @@
                     })
                     .catch(exception => {
                         this.displayNotification(exception, { type: 'error' });
-                        this.$vm.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
+                        this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.galleryType } });
                     })
             }
         },
@@ -369,7 +369,7 @@
                     this.$set(this, 'isPending', true);
                     let result = await Service.editGalleryItem( this.form.type );
                     this.displayNotification(result, { type: 'success' });
-                    // this.redirectToGalleryManage();
+                    this.redirectToGalleryManage();
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 } finally {

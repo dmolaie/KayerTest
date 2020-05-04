@@ -138,6 +138,18 @@ export default class EditGalleryService {
         }
     }
 
+    /**
+     * @param files { Array }
+     */
+    async editContentFileRequest( files ) {
+        try {
+            const PROMISES = files.map(file => GalleryService.editContentFile( file ));
+            return Promise.all( PROMISES )
+        } catch ( exception ) {
+            throw exception;
+        }
+    }
+
     async editContentFile() {
         try {
             const NEW_ARRAY = this.$vm.form['content_paths'],
@@ -146,19 +158,7 @@ export default class EditGalleryService {
             const CHANGE_ARRAY = getObjectChange(OLD_ARRAY, NEW_ARRAY);
 
             if (!!CHANGE_ARRAY && HasLength( CHANGE_ARRAY )) {
-                try {
-                    await Promise.all([
-                        CHANGE_ARRAY.map(file => {
-                            return GalleryService.editContentFile( file ).catch(exception => {
-                                throw exception
-                            });
-                        })
-                    ]).catch(exception => {
-                        throw exception;
-                    })
-                } catch ( exception ) {
-                    console.log('exception:', exception);
-                }
+                await this.editContentFileRequest( CHANGE_ARRAY );
             }
         } catch ( exception ) {
             throw exception;
