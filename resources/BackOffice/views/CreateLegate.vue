@@ -226,6 +226,158 @@
                         />
                     </div>
                 </div>
+                <span class="e-user__divider w-full block"> </span>
+                <p class="c-card__label font-sm font-bold text-blue cursor-default">
+                    اطلاعات تماس
+                </p>
+                <div class="flex flex-wrap items-end">
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
+                            تلفن همراه
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.mobile.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.mobile"
+                                   placeholder="تلفن همراه"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('mobile')"
+                                   @blur="validateMobileNumber('mobile', form.mobile, true)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.mobile.show"
+                                  v-text="validation.mobile.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
+                            تلفن اضطراری
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.essential_mobile.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.essential_mobile"
+                                   placeholder="تلفن اضطراری"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('essential_mobile')"
+                                   @blur="validateMobileNumber('essential_mobile', form.essential_mobile, true)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.essential_mobile.show"
+                                  v-text="validation.essential_mobile.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            ایمیل
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.email.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.email"
+                                   placeholder="حروف انگلیسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('email')"
+                                   @blur="validateEmail('email', form.email)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.email.show"
+                                  v-text="validation.email.value"
+                            > </span>
+                        </label>
+                    </div>
+                </div>
+                <span class="e-user__divider w-full block"> </span>
+                <p class="c-card__label font-sm font-bold text-blue cursor-default">
+                    اطلاعات محل سکونت
+                </p>
+                <div class="flex flex-wrap items-end">
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 text-required font-sm font-bold text-right cursor-default">
+                            استان محل سکونت
+                        </span>
+                        <select-cm :options="provinces"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateCurrentProvinceField"
+                                   label="name" :searchable="true"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 text-required font-sm font-bold text-right cursor-default">
+                            شهر محل سکونت
+                        </span>
+                        <select-cm :options="cities.current" ref="currentCity"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateCurrentCityField" :disabled="!form.current_province_id"
+                                   label="name" :searchable="true"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            آدرس محل سکونت
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.current_address.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.current_address"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
+                                   @focus="hideErrorMessage('current_address')"
+                                   @blur="validatePersianCharacter('current_address', form.current_address, false)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.current_address.show"
+                                  v-text="validation.current_address.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            تلفن محل سکونت
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.phone.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.phone"
+                                   placeholder="تلفن محل سکونت ۱۱ رقمی خود را وارد نمایید"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('phone')"
+                                   @blur="validatePhoneNumber('phone', form.phone)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.phone.show"
+                                  v-text="validation.phone.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            کد‌پستی محل سکونت
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.home_postal_code.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.home_postal_code"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('home_postal_code')"
+                                   @blur="validatePostalCode('home_postal_code', form.home_postal_code)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.home_postal_code.show"
+                                  v-text="validation.home_postal_code.value"
+                            > </span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -263,11 +415,21 @@
                 province_of_birth: '',
                 city_of_birth: '',
                 event_id: '',
+                mobile: '',
+                essential_mobile: '',
+                email: '',
+                current_province_id: '',
+                current_city_id: '',
+                current_address: '',
+                phone: '',
+                home_postal_code: '',
 
             },
             validation: {
                 national_code: {},
                 name: {}, last_name: {}, father_name: {}, identity_number: {},
+                mobile: {}, essential_mobile: {}, email: {},
+                current_address: {}, phone: {}, home_postal_code: {}
             },
             cities: { birth: {}, current: {}, education: {} },
             gender: RegisterFormService.gender,
@@ -286,6 +448,10 @@
             async 'form.province_of_birth'( id ) {
                 let result = await RegisterFormService.getCityByProvincesId( id );
                 this.$set(this.cities, 'birth', result);
+            },
+            async 'form.current_province_id'( id ) {
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'current', result);
             },
         },
         computed: {
@@ -308,6 +474,18 @@
             },
             validateOnlyNumber(field, value, is_required = false) {
                 FormValidator.validateOnlyNumber(field, value, is_required);
+            },
+            validateMobileNumber(field, value, is_required = false) {
+                FormValidator.validateMobileNumber(field, value, is_required);
+            },
+            validateEmail(field, value, is_required = false) {
+                FormValidator.validateEmail(field, value, is_required);
+            },
+            validatePhoneNumber(field, value, is_required = false) {
+                FormValidator.validatePhoneNumber(field, value, is_required);
+            },
+            validatePostalCode(field, value, is_required = false) {
+                FormValidator.validatePostalCode(field, value, is_required);
             },
 
             updateYearOfBirthDateField({ id }) {
@@ -336,6 +514,14 @@
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
+            },
+            updateCurrentProvinceField({ id }) {
+                this.$set(this.form, 'current_province_id', id);
+                this.$set(this.form, 'current_city_id', '');
+                this.$refs['currentCity']?.resetValue();
+            },
+            updateCurrentCityField({ id }) {
+                this.$set(this.form, 'current_city_id', id);
             },
 
 

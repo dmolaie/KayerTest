@@ -3,10 +3,13 @@ import { EventPresenter } from '@services/presenter/EditUsers';
 import LocationService from "@services/service/Location";
 import { ProvincesPresenter } from '@vendor/infrastructure/presenter/MainPresenter';
 import {
+    Length,
     HasLength,
     toEnglishDigits,
     NationalCodeValidator,
-    OnlyPersianAlphabet, OnlyNumber
+    OnlyPersianAlphabet, OnlyNumber,
+    PhoneNumberValidator, EmailValidator,
+    PostalCodeValidator
 } from '@vendor/plugin/helper';
 import Vue from 'vue';
 
@@ -15,6 +18,11 @@ const LOCATION = {
     ['last_name']: 'نام خانوادگی',
     ['father_name']: 'نام پدر',
     ['identity_number']: 'شماره شناسنامه',
+    ['mobile']: 'تلفن همراه',
+    ['essential_mobile']: 'تلفن اضطراری',
+    ['email']: 'ایمیل',
+    ['current_address']: 'آدرس محل سکونت',
+    ['home_postal_code']: 'کد‌پستی محل سکونت',
 };
 
 export default class RegisterFormService {
@@ -152,10 +160,79 @@ export default class RegisterFormService {
                 field, value: this.requiredErrorMessage( LOCATION[field] )
             };
             if (!OnlyNumber(toEnglishDigits( value ))) return this.setErrorMassage = {
-                field, value: this.invalidPersianErrorMessage( LOCATION[field] )
+                field, value: this.invalidErrorMessage( LOCATION[field] )
             };
         } else {
             HasLength( value ) && !OnlyNumber(toEnglishDigits( value )) && (
+                this.setErrorMassage = {
+                    field, value: this.invalidErrorMessage( LOCATION[field] )
+                }
+            )
+        }
+    }
+
+    validateMobileNumber(field, value, is_required) {
+        if ( is_required ) {
+            if (!HasLength( value )) return this.setErrorMassage = {
+                field, value: this.requiredErrorMessage( LOCATION[field] )
+            };
+            if (!PhoneNumberValidator(toEnglishDigits( value ))) return this.setErrorMassage = {
+                field, value: this.invalidErrorMessage( LOCATION[field] )
+            };
+        } else {
+            HasLength( value ) && !PhoneNumberValidator(toEnglishDigits( value )) && (
+                this.setErrorMassage = {
+                    field, value: this.invalidErrorMessage( LOCATION[field] )
+                }
+            )
+        }
+    }
+
+    validateEmail(field, value, is_required) {
+        if ( is_required ) {
+            if (!HasLength( value )) return this.setErrorMassage = {
+                field, value: this.requiredErrorMessage( LOCATION[field] )
+            };
+            if (!EmailValidator(toEnglishDigits( value ))) return this.setErrorMassage = {
+                field, value: this.invalidErrorMessage( LOCATION[field] )
+            };
+        } else {
+            HasLength( value ) && !EmailValidator(toEnglishDigits( value )) && (
+                this.setErrorMassage = {
+                    field, value: this.invalidErrorMessage( LOCATION[field] )
+                }
+            )
+        }
+    }
+
+    validatePhoneNumber(field, value, is_required) {
+        if ( is_required ) {
+            if (!HasLength( value )) return this.setErrorMassage = {
+                field, value: this.requiredErrorMessage( LOCATION[field] )
+            };
+            if (!OnlyNumber(toEnglishDigits( value )) || Length( field ) !== 11) return this.setErrorMassage = {
+                field, value: this.invalidErrorMessage( LOCATION[field] )
+            };
+        } else {
+            console.log((!OnlyNumber(toEnglishDigits(value)) || Length(field) !== 11));
+            (HasLength( value ) && !OnlyNumber(toEnglishDigits( value )) || Length( field ) !== 11) && (
+                this.setErrorMassage = {
+                    field, value: this.invalidErrorMessage( LOCATION[field] )
+                }
+            )
+        }
+    }
+
+    validatePostalCode(field, value, is_required) {
+        if ( is_required ) {
+            if (!HasLength( value )) return this.setErrorMassage = {
+                field, value: this.requiredErrorMessage( LOCATION[field] )
+            };
+            if (HasLength( field ) && !PostalCodeValidator( field )) return this.setErrorMassage = {
+                field, value: this.invalidErrorMessage( LOCATION[field] )
+            };
+        } else {
+            (HasLength( field ) && !PostalCodeValidator( field )) && (
                 this.setErrorMassage = {
                     field, value: this.invalidErrorMessage( LOCATION[field] )
                 }
