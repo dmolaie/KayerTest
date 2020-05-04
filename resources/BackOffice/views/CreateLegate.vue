@@ -378,6 +378,62 @@
                         </label>
                     </div>
                 </div>
+                <span class="e-user__divider w-full block"> </span>
+                <p class="c-card__label font-sm font-bold text-blue cursor-default">
+                    اطلاعات تحصیلی
+                </p>
+                <div class="flex flex-wrap items-end">
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            میزان تحصیلات
+                        </span>
+                        <select-cm :options="education"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateEducationField"
+                                   label="name" :required="false"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            رشته تحصیلی
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.education_field.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.education_field"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
+                                   @focus="hideErrorMessage('education_field')"
+                                   @blur="validatePersianCharacter('education_field', form.education_field)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.education_field.show"
+                                  v-text="validation.education_field.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            استان محل تحصیل
+                        </span>
+                        <select-cm :options="provinces"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateEducationProvinceField"
+                                   label="name" :required="false" :searchable="true"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            شهر محل تحصیل
+                        </span>
+                        <select-cm :options="cities.education"
+                                   placeholder="انتخاب کنید..." ref="educationCity"
+                                   @onChange="updateEducationCityField" :disabled="!form.education_province_id"
+                                   label="name" :required="false" :searchable="true"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -423,13 +479,17 @@
                 current_address: '',
                 phone: '',
                 home_postal_code: '',
-
+                last_education_degree: '',
+                education_field: '',
+                education_province_id: '',
+                education_city_id: '',
             },
             validation: {
                 national_code: {},
                 name: {}, last_name: {}, father_name: {}, identity_number: {},
                 mobile: {}, essential_mobile: {}, email: {},
-                current_address: {}, phone: {}, home_postal_code: {}
+                current_address: {}, phone: {}, home_postal_code: {},
+                education_field: {}
             },
             cities: { birth: {}, current: {}, education: {} },
             gender: RegisterFormService.gender,
@@ -452,6 +512,10 @@
             async 'form.current_province_id'( id ) {
                 let result = await RegisterFormService.getCityByProvincesId( id );
                 this.$set(this.cities, 'current', result);
+            },
+            async 'form.education_province_id'( id ) {
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'education', result);
             },
         },
         computed: {
@@ -522,6 +586,17 @@
             },
             updateCurrentCityField({ id }) {
                 this.$set(this.form, 'current_city_id', id);
+            },
+            updateEducationField({ id }) {
+                this.$set(this.form, 'last_education_degree', id)
+            },
+            updateEducationProvinceField({ id }) {
+                this.$set(this.form, 'education_province_id', id);
+                this.$set(this.form, 'education_city_id', '');
+                this.$refs['educationCity']?.resetValue();
+            },
+            updateEducationCityField({ id }) {
+                this.$set(this.form, 'education_city_id', id);
             },
 
 

@@ -22,7 +22,9 @@ const LOCATION = {
     ['essential_mobile']: 'تلفن اضطراری',
     ['email']: 'ایمیل',
     ['current_address']: 'آدرس محل سکونت',
+    ['phone']: 'تلفن محل سکونت',
     ['home_postal_code']: 'کد‌پستی محل سکونت',
+    ['education_field']: 'رشته تحصیلی',
 };
 
 export default class RegisterFormService {
@@ -214,8 +216,7 @@ export default class RegisterFormService {
                 field, value: this.invalidErrorMessage( LOCATION[field] )
             };
         } else {
-            console.log((!OnlyNumber(toEnglishDigits(value)) || Length(field) !== 11));
-            (HasLength( value ) && !OnlyNumber(toEnglishDigits( value )) || Length( field ) !== 11) && (
+            HasLength( value ) && (!OnlyNumber(toEnglishDigits( value )) || Length( field ) !== 11) && (
                 this.setErrorMassage = {
                     field, value: this.invalidErrorMessage( LOCATION[field] )
                 }
