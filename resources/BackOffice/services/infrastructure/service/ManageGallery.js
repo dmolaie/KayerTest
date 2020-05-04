@@ -127,13 +127,11 @@ export class GalleryService {
      */
     static async editContentFile({ file_id, title, link }) {
         try {
-            // const PAYLOAD = {};
-            // PAYLOAD['file_id'] = file_id;
-            // if ( !!link ) PAYLOAD['link'] = link;
-            // if ( !!title ) PAYLOAD['title'] = title;
-            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_FILE_ITEM), {
-                file_id, title, link
-            });
+            const PAYLOAD = {};
+            PAYLOAD['file_id'] = file_id;
+            if ( !!link ) PAYLOAD['link'] = link;
+            if ( !!title ) PAYLOAD['title'] = title;
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_FILE_ITEM), PAYLOAD);
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
