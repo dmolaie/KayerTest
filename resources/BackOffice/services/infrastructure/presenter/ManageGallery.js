@@ -163,7 +163,7 @@ export class SingleGalleryPresenter extends BasePresenter {
     }
 
     description() {
-        return this.item.description
+        return this.item.description || ''
     }
 
     relation_id() {
@@ -227,7 +227,7 @@ class SingleContentPresenter extends BasePresenter {
 
     preview() {
         const { path } = this.item;
-        // return !!path && IMAGE_TYPES.test( path ) ? ("/" + path) : DEFAULT_IMAGE;
-        return DEFAULT_IMAGE;
+        return !!path && IMAGE_TYPES.test( path ) ? ("/" + path) : DEFAULT_IMAGE;
+        // return DEFAULT_IMAGE;
     }
 }

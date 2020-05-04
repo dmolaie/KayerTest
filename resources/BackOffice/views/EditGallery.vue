@@ -380,7 +380,7 @@
                 try {
                     const { media_id, type } = this.form;
                     this.$set(this, 'isPending', true);
-                    let result = Service.changeGalleryItemStatus(media_id, type, StatusService.CANCEL_STATUS);
+                    let result = await Service.changeGalleryItemStatus(media_id, type, StatusService.CANCEL_STATUS);
                     this.displayNotification(result, { type: 'success' });
                     this.redirectToGalleryManage();
                 } catch ( exception ) {
@@ -393,7 +393,7 @@
                 try {
                     const { media_id, type } = this.form;
                     this.$set(this, 'isPending', true);
-                    let result = Service.changeGalleryItemStatus(media_id, type, StatusService.REJECT_STATUS);
+                    let result = await Service.changeGalleryItemStatus(media_id, type, StatusService.REJECT_STATUS);
                     this.displayNotification(result, { type: 'success' });
                     this.redirectToGalleryManage();
                 } catch ( exception ) {

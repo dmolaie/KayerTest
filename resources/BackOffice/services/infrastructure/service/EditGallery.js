@@ -69,10 +69,11 @@ export default class EditGalleryService {
 
     checkFormValidation() {
         try {
-            let { first_title, slug } = this.$vm.form;
+            let { first_title, slug, content, content_paths, type } = this.$vm.form;
             const CREATE_ERROR_MESSAGE = message => new Error( message );
             if ( !first_title ) throw CREATE_ERROR_MESSAGE( 'فیلد عنوان اجباری می‌باشد.' );
-            if ( !slug ) throw CREATE_ERROR_MESSAGE( 'نامک عنوان اجباری می‌باشد.' );
+            if ( !slug ) throw CREATE_ERROR_MESSAGE( 'فیلد نامک اجباری می‌باشد.' );
+            if (type !== "text" && !HasLength( content ) && !HasLength( content_paths )) throw CREATE_ERROR_MESSAGE( 'فیلد محتوا اجباری می‌باشد.' );
         } catch ( exception ) { throw exception; }
     }
 

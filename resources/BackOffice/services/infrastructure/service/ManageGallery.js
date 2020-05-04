@@ -141,7 +141,9 @@ export class GalleryService {
      */
     static async removeUploadedFile( file_id ) {
         try {
-            console.log('%c destroyUploadedFile: ', 'background: red;color:white', file_id);
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_IMAGES_ITEM), {
+                image_id: file_id
+            })
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
