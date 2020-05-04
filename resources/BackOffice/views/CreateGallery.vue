@@ -247,6 +247,10 @@
             },
         },
         methods: {
+            setDataFromParamsRouter() {
+                let { parent_id } = this.$route.params;
+                this.$set(this.form, 'parent_id', parent_id || "");
+            },
             setInitialState() {
                 Object.assign(this.form, INITIAL_FORM.apply( this ));
                 this.$refs['categoryCm']?.reset();
@@ -254,6 +258,7 @@
                 this.$refs['imagePanel']?.onClickRemoveImageButton();
                 this.$nextTick(() => {
                     this.$set(this, 'textEditorKey', this.textEditorKey + 1);
+                    this.setDataFromParamsRouter();
                 })
             },
             async getImagePreviews( formData ) {
@@ -302,22 +307,32 @@
                 }
             },
             onClickPersianLang() {
-                this.pushRouter({
-                    name: "CREATE_GALLERY",
-                    params: {
-                        lang: 'fa',
-                        type: this.galleryType
-                    }
-                })
+                const { parent_id } = this.$route.params;
+                if ( parent_id ) {
+                    this.pushRouter({
+                        name: 'EDIT_GALLERY',
+                        params: { type: this.galleryType, lang: 'fa', id: parent_id }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: "CREATE_GALLERY",
+                        params: { lang: 'fa', type: this.galleryType }
+                    })
+                }
             },
             onClickEnglishLang() {
-                this.pushRouter({
-                    name: "CREATE_GALLERY",
-                    params: {
-                        lang: 'en',
-                        type: this.galleryType
-                    }
-                })
+                const { parent_id } = this.$route.params;
+                if ( parent_id ) {
+                    this.pushRouter({
+                        name: 'EDIT_GALLERY',
+                        params: { type: this.galleryType, lang: 'en', id: parent_id }
+                    });
+                } else {
+                    this.pushRouter({
+                        name: "CREATE_GALLERY",
+                        params: { lang: 'en', type: this.galleryType }
+                    })
+                }
             },
             onChangeCategoryField( payload ) {
                 this.$set(this.form, 'category_ids', payload);
@@ -335,6 +350,7 @@
                 .then(this.$nextTick)
                 .then(() => {
                     this.$set(this, 'isPending', false);
+                    this.setDataFromParamsRouter();
                 })
         },
         beforeDestroy() {

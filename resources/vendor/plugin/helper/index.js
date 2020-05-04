@@ -14,6 +14,7 @@ export const Flatten = ( array = [] ) => {
 };
 
 export const Length = payload => {
+    if ( !payload ) return 0;
     if ( Array.isArray( payload ) ) return payload.length;
     if ( typeof payload === "object" ) return Object.values( payload ).length;
     if ( typeof payload === "number" ) return ( payload + "" ).length;
@@ -149,6 +150,24 @@ export const showScrollbar = () => {
         document.body.style = null;
         document.body.classList.remove('overflow-hidden');
     } catch (e) {}
+};
+
+/**
+ * @param oldArray { Array }
+ * @param newArray { Array }
+ */
+export const getObjectChange = (oldArray, newArray) => {
+    const CHANGES = [];
+    let i, item, j, len;
+    const FREEZE = payload => JSON.stringify( payload );
+
+    if ( FREEZE(oldArray) === FREEZE( newArray ) ) return [];
+    for (i = j = 0, len = newArray.length; j < len; i = ++j) {
+        item = newArray[i];
+        (FREEZE( item ) !== FREEZE( oldArray[i] )) && CHANGES.push( item );
+    }
+
+    return CHANGES;
 };
 
 export const ArrayRange = range => {

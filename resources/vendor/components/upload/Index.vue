@@ -80,7 +80,9 @@
                 this.$emit('onChange', FORM_DATA )
             },
             onChangeInput({ target: { name, files } }) {
-                this.emitter(name, files);
+                ( this.accept.includes( files[0].type ) ) ? (
+                    this.emitter(name, files)
+                ) : this.displayNotification('فرمت فایل انتخابی نامعتبر است.', { type: 'error' });
             },
             onDragenter() {
                 this.$set(this, 'dragging', true)

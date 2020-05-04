@@ -157,7 +157,7 @@
             }
         },
         computed: mapState({
-            categoryItems: ({ ManageCategory }) => ManageCategory.items
+            categoryItems: ({ CreateCategory }) => CreateCategory.items
         }),
         methods: {
             changeStatusType({ id }) {

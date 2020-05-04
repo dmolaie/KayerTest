@@ -466,6 +466,8 @@
                 try {
                     this.$set(this, 'form', CopyOf(this.detail));
                     if ( !!this.form.second_title ) this.$set(this, 'shouldBeShowSecondTitle', true);
+                    this.$set(this, 'removedImages', []);
+                    this.$set(this, 'custom_publish_date', '');
                     this.$set(this, 'shouldBeShowDatePicker', !this.form.is_published);
                     this.$nextTick(() => {
                         this.$set(this, 'textEditorKey', this.textEditorKey + 1);

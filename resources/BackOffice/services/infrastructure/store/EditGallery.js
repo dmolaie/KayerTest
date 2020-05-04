@@ -17,7 +17,6 @@ const EditGallery = {
     },
     mutations: {
         [E_GALLERY_SET_DATA](state, { data }) {
-            console.log(new SingleGalleryPresenter(data));
             state.detail = { ...new SingleGalleryPresenter( data ) };
         },
         [E_GALLERY_PROVINCES](state, { data }) {

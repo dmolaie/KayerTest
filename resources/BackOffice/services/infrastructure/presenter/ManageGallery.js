@@ -6,6 +6,9 @@ import {
 import StatusService from '@services/service/Status';
 import { HasLength } from "@vendor/plugin/helper";
 
+const DEFAULT_IMAGE = '/images/img_default.jpg';
+const IMAGE_TYPES = /pn|jpg|jpeg/;
+
 export default class ManageGalleryPresenter {
     constructor( payload ) {
         return !!payload && HasLength( payload ) ? (
@@ -48,6 +51,9 @@ export class SingleGalleryPresenter extends BasePresenter {
             description: String,
             relation_id: Number,
             has_relation: Boolean,
+            content_paths: Array,
+            type: String,
+            publish_date: Number,
         })
     }
 
@@ -157,7 +163,7 @@ export class SingleGalleryPresenter extends BasePresenter {
     }
 
     description() {
-        return this.item.description
+        return this.item.description || ''
     }
 
     relation_id() {
@@ -166,5 +172,62 @@ export class SingleGalleryPresenter extends BasePresenter {
 
     has_relation() {
         return !!this.item.relation_id
+    }
+
+    content_paths() {
+        return new ContentPresenter( this.item.content_paths )
+    }
+
+    type() {
+        return this.item.type
+    }
+
+    publish_date() {
+        return this.item.publish_date
+    }
+}
+
+export class ContentPresenter {
+    constructor( payload ) {
+        return !!payload && HasLength( payload ) ? (
+            payload.map(item => new SingleContentPresenter( item ))
+        ) : ([])
+    }
+}
+
+class SingleContentPresenter extends BasePresenter {
+    constructor( item ) {
+        super( item );
+        this.item = item;
+
+        return this.mapProps({
+            file_id: Number,
+            path: String,
+            link: String,
+            title: String,
+            preview: String,
+        })
+    }
+
+    file_id() {
+        return this.item.id || 0
+    }
+
+    path() {
+        return "/" + this.item.path;
+    }
+
+    link() {
+        return this.item.link || ''
+    }
+
+    title() {
+        return this.item.title || ''
+    }
+
+    preview() {
+        const { path } = this.item;
+        return !!path && IMAGE_TYPES.test( path ) ? ("/" + path) : DEFAULT_IMAGE;
+        // return DEFAULT_IMAGE;
     }
 }

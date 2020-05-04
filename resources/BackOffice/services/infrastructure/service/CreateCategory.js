@@ -2,9 +2,9 @@ import ExceptionService from '@services/service/exception';
 import BaseService from '@vendor/infrastructure/service/BaseService';
 import { CategoryService } from '@services/service/ManageCategory';
 import { CopyOf } from '@vendor/plugin/helper';
-import ManageCategoryStore, {
-    M_CATEGORY_SET_DATA
-} from '@services/store/ManageCategory';
+import CreateCategoryStore, {
+    C_CATEGORY_SET_DATA
+} from '@services/store/CreateCategory';
 
 export default class CreateCategoryService {
     constructor( layout ) {
@@ -17,7 +17,7 @@ export default class CreateCategoryService {
 
     _RegisterStoreModule() {
         try {
-            this.$store.registerModule('ManageCategory', ManageCategoryStore);
+            this.$store.registerModule('CreateCategory', CreateCategoryStore);
             this.$vm.$set(this.$vm, 'isModuleRegistered', true);
         } catch (e) {}
     }
@@ -25,14 +25,14 @@ export default class CreateCategoryService {
     _UnregisterStoreModule() {
         try {
             if ( this.$vm.isModuleRegistered )
-                this.$store.unregisterModule('ManageCategory');
+                this.$store.unregisterModule('CreateCategory');
         } catch (e) {}
     }
 
     async getCategoriesFilterByType( category_type ) {
         try {
             let response = await CategoryService.getCategoryListByType( category_type );
-            BaseService.commitToStore(this.$store, M_CATEGORY_SET_DATA, response)
+            BaseService.commitToStore(this.$store, C_CATEGORY_SET_DATA, response)
         } catch ( exception ) {
             throw exception;
         }

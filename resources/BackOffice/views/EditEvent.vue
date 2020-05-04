@@ -342,6 +342,8 @@
             setDataIntoForm() {
                 try {
                     this.$set(this, 'form', CopyOf(this.detail));
+                    this.$set(this, 'removedImages', []);
+                    this.$set(this, 'custom_publish_date', '');
                     this.$set(this, 'shouldBeShowReleaseDatePicker', !this.form.is_published);
                     this.$nextTick(() => {
                         this.$set(this, 'textEditorKey', this.textEditorKey + 1);

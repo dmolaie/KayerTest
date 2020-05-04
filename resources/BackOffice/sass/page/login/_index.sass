@@ -1,0 +1,96 @@
+$input-border: #44c8f5
+$focus-shadow: 0 0 0 2px
+$focus-label: -17px
+$filed-height: 54px
+$filed-margin: 52px
+$background: #f9fafb
+
+@mixin focusEffect
+  box-shadow: $focus-shadow $input-border
+  & + .m-login__label
+    top: $focus-label
+    color: $input-border
+
+.m-login
+  min-height: 600px
+  //min-height: 550px
+  background-color: $background
+  &__aside
+    background: url("/../images/img_login--cover.jpg") no-repeat center left
+      size: cover
+  &__panel
+    width: 46%
+    @include Md_Screen
+      width: 100%
+  &__content
+    padding: 6% 19% 8% 14%
+    @include Xl_Screen
+      padding: 6% 22% 8% 17%
+    @include Md_Screen
+      padding: 6% 19% 8%
+    @include Sm_Screen
+      padding: 6% 40px 8%
+  &__logo
+    height: 54px
+    @include Xl_Screen
+      height: 64px
+  &__input
+    height: $filed-height
+    padding: 0 20px
+    background-color: $background
+    box-shadow: 0 0 0 3px $input-border
+    transition: box-shadow .12s ease-in-out
+    will-change: opacity
+    &:focus
+      @include focusEffect
+  &__label
+    color: #8f8f8f
+    top: 12px
+    right: 10px
+    padding: 0 10px
+    background-color: $background
+    transition: top .08s ease-in-out
+  &__error
+    right: 0
+    bottom: -32px
+  &__wrapper
+    &:not(:last-of-type)
+      margin-bottom: $filed-margin
+    &--active
+      .m-login__input
+        @include focusEffect
+    &--hasError
+      .m-login__input
+        box-shadow: $focus-shadow $red
+      .m-login__label
+        top: $focus-label
+        color: $input-border
+  &__captcha
+    margin: 40px 0 28px
+  &__captchaImage
+    width: 120px
+    height: 38px
+    border-color: darken(#eaeaea, 4%)
+  &__captchaRefresh
+    @include Size( 16px )
+    margin: 0 20px
+    svg
+      fill: $green-200
+    &--loading
+      svg
+        animation: rotate360 .32s linear infinite
+  &__submit
+    //margin:
+    //  bottom: 16px
+    height: $filed-height
+    background-color: $input-border
+    border: 3px solid $input-border
+    transition: color $duration, background $duration
+    box-shadow: 0 1px 3px 0 transparentize($black, ( 1 - .2 )), 0 2px 1px -1px transparentize($black, ( 1 - .12 )), 0 1px 1px 0 transparentize($black, ( 1 - .14 ))
+    &.spinner-loading
+      background: $input-border !important
+    @include SpinnerLoading(25px, 3px, $white)
+    @include L_Screen
+      &:hover
+        color: $input-border
+        background: $white

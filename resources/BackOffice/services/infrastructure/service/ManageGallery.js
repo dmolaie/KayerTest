@@ -29,7 +29,7 @@ export const GALLERY_TYPE = {
     },
     ['video']: {
         name_en: 'video',
-        name_fa: 'ویدیویی',
+        name_fa: 'تصویری',
     }
 };
 
@@ -62,6 +62,17 @@ export class GalleryService {
     static async createGalleryItem(type, requestPayload) {
         try {
             return await HTTPService.uploadRequest(Endpoint.get(Endpoint.CREATE_GALLERY_LIST, { type }), requestPayload)
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    /**
+     * @param type { String }
+     * @param requestPayload { FormData }
+     */
+    static async editGalleryItem(type, requestPayload) {
+        try {
+            return await HTTPService.uploadRequest(Endpoint.get(Endpoint.EDIT_GALLERY_ITEM, { type }), requestPayload)
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
@@ -104,6 +115,35 @@ export class GalleryService {
                 id: media_id,
                 type: media_type
             }))
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
+    /**
+     * @param file_id { Number | String }
+     * @param title { String }
+     * @param link { String }
+     */
+    static async editContentFile({ file_id, title, link }) {
+        try {
+            const PAYLOAD = {};
+            PAYLOAD['file_id'] = file_id;
+            if ( !!link ) PAYLOAD['link'] = link;
+            if ( !!title ) PAYLOAD['title'] = title;
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_FILE_ITEM), PAYLOAD);
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+    /**
+     * @param file_id { Number, String }
+     */
+    static async removeUploadedFile( file_id ) {
+        try {
+            return await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_IMAGES_ITEM), {
+                image_id: file_id
+            })
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }

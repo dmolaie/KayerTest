@@ -158,7 +158,7 @@
                             </aside>
                             <div class="flex-1 flex flex-wrap">
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -187,7 +187,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -216,7 +216,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -245,7 +245,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -274,7 +274,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -303,7 +303,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -432,7 +432,7 @@
                             </aside>
                             <div class="flex-1 flex flex-wrap">
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_camera absolute"></span>
@@ -456,7 +456,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_camera absolute"></span>
@@ -480,7 +480,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_camera absolute"></span>
@@ -504,7 +504,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_camera absolute"></span>
@@ -628,7 +628,7 @@
                             </aside>
                             <div class="flex-1 flex flex-wrap">
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <img src=""
@@ -648,7 +648,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <img src=""
@@ -668,7 +668,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <img src=""
@@ -688,7 +688,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <img src=""
@@ -708,7 +708,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <img src=""
@@ -728,7 +728,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <img src=""
@@ -848,7 +848,7 @@
                             </aside>
                             <div class="flex-1 flex flex-wrap">
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.video',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -872,7 +872,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.video',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
@@ -896,7 +896,7 @@
                                     </a>
                                 </div>
                                 <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href=""
+                                    <a href="{{ route('page.gallery.video',config('app.locale')) }}"
                                        class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
                                         <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                             <span class="ga-page__card_play absolute bg-white rounded-50"></span>
