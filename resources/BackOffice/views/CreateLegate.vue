@@ -434,6 +434,112 @@
                         />
                     </div>
                 </div>
+                <span class="e-user__divider w-full block"> </span>
+                <p class="c-card__label font-sm font-bold text-blue cursor-default">
+                    اطلاعات شغل
+                </p>
+                <div class="flex flex-wrap items-end">
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            شغل
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.job_title.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.job_title"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
+                                   @focus="hideErrorMessage('job_title')"
+                                   @blur="validatePersianCharacter('job_title', form.job_title)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.job_title.show"
+                                  v-text="validation.job_title.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            استان محل کار
+                        </span>
+                        <select-cm :options="provinces"
+                                   placeholder="انتخاب کنید..."
+                                   @onChange="updateWorkProvinceField"
+                                   label="name" :required="false" :searchable="true"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            شهر محل کار
+                        </span>
+                        <select-cm :options="cities.work"
+                                   placeholder="انتخاب کنید..." ref="workCity"
+                                   @onChange="updateEducationCityField" :disabled="!form.province_of_work"
+                                   label="name" :required="false" :searchable="true"
+                        />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            آدرس محل کار
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.address_of_work.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.address_of_work"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
+                                   @focus="hideErrorMessage('address_of_work')"
+                                   @blur="validatePersianCharacter('address_of_work', form.address_of_work, false)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.address_of_work.show"
+                                  v-text="validation.address_of_work.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            تلفن محل کار
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.work_phone.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.work_phone"
+                                   placeholder="تلفن محل سکونت ۱۱ رقمی خود را وارد نمایید"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('work_phone')"
+                                   @blur="validatePhoneNumber('work_phone', form.work_phone)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.work_phone.show"
+                                  v-text="validation.work_phone.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            کد‌پستی محل کار
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.work_postal_code.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.work_postal_code"
+                                   placeholder="حروف فارسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('work_postal_code')"
+                                   @blur="validatePostalCode('work_postal_code', form.work_postal_code)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.work_postal_code.show"
+                                  v-text="validation.work_postal_code.value"
+                            > </span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         <transition name="fade">
@@ -458,40 +564,16 @@
     export default {
         name: "CreateLegate",
         data: () => ({
-            form: {
-                national_code: '',
-                name: '',
-                last_name: '',
-                gender: '',
-                father_name: '',
-                identity_number: '',
-                date_of_birth_year: '',
-                date_of_birth_month: '',
-                date_of_birth_day: '',
-                province_of_birth: '',
-                city_of_birth: '',
-                event_id: '',
-                mobile: '',
-                essential_mobile: '',
-                email: '',
-                current_province_id: '',
-                current_city_id: '',
-                current_address: '',
-                phone: '',
-                home_postal_code: '',
-                last_education_degree: '',
-                education_field: '',
-                education_province_id: '',
-                education_city_id: '',
-            },
+            form: RegisterFormService.form,
             validation: {
                 national_code: {},
                 name: {}, last_name: {}, father_name: {}, identity_number: {},
                 mobile: {}, essential_mobile: {}, email: {},
                 current_address: {}, phone: {}, home_postal_code: {},
-                education_field: {}
+                education_field: {},
+                job_title: {}, address_of_work: {}, work_phone: {}, work_postal_code: {}
             },
-            cities: { birth: {}, current: {}, education: {} },
+            cities: { birth: {}, current: {}, education: {}, work: {} },
             gender: RegisterFormService.gender,
             day: RegisterFormService.day,
             year: RegisterFormService.year,
@@ -516,6 +598,10 @@
             async 'form.education_province_id'( id ) {
                 let result = await RegisterFormService.getCityByProvincesId( id );
                 this.$set(this.cities, 'education', result);
+            },
+            async 'form.province_of_work'( id ) {
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'work', result);
             },
         },
         computed: {
@@ -597,6 +683,14 @@
             },
             updateEducationCityField({ id }) {
                 this.$set(this.form, 'education_city_id', id);
+            },
+            updateWorkProvinceField({ id }) {
+                this.$set(this.form, 'province_of_work', id);
+                this.$set(this.form, 'city_of_work', '');
+                this.$refs['workCity']?.resetValue();
+            },
+            updateWorkCityField({ id }) {
+                this.$set(this.form, 'city_of_work', id);
             },
 
 

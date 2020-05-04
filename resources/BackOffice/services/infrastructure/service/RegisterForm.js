@@ -25,11 +25,50 @@ const LOCATION = {
     ['phone']: 'تلفن محل سکونت',
     ['home_postal_code']: 'کد‌پستی محل سکونت',
     ['education_field']: 'رشته تحصیلی',
+    ['job_title']: 'شغل',
+    ['address_of_work']: 'آدرس محل کار',
+    ['work_phone']: 'تلفن محل کار',
+    ['work_postal_code']: 'کد‌پستی محل کار',
 };
 
 export default class RegisterFormService {
     constructor( object ) {
         this.validationObj = object;
+    }
+
+    static get form() {
+        return ({
+            national_code: '',
+            name: '',
+            last_name: '',
+            gender: '',
+            father_name: '',
+            identity_number: '',
+            date_of_birth_year: '',
+            date_of_birth_month: '',
+            date_of_birth_day: '',
+            province_of_birth: '',
+            city_of_birth: '',
+            event_id: '',
+            mobile: '',
+            essential_mobile: '',
+            email: '',
+            current_province_id: '',
+            current_city_id: '',
+            current_address: '',
+            phone: '',
+            home_postal_code: '',
+            last_education_degree: '',
+            education_field: '',
+            education_province_id: '',
+            education_city_id: '',
+            job_title: '',
+            province_of_work: '',
+            city_of_work: '',
+            address_of_work: '',
+            work_phone: '',
+            work_postal_code: '',
+        })
     }
 
     static get gender() {
