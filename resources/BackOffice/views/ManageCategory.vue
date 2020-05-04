@@ -65,7 +65,7 @@
                                 مشخصات
                             </div>
                             <div class="table__th table__th:l font-1xs font-bold cursor-default text-center">
-                                دسته‌بندی مرتبط
+                                زیر دسته
                             </div>
                             <div class="table__th table__th:l font-1xs font-bold cursor-default text-center">
                                 دسته‌بندی
