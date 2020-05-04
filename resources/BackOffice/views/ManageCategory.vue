@@ -65,6 +65,9 @@
                                 مشخصات
                             </div>
                             <div class="table__th table__th:l font-1xs font-bold cursor-default text-center">
+                                دسته‌بندی مرتبط
+                            </div>
+                            <div class="table__th table__th:l font-1xs font-bold cursor-default text-center">
                                 دسته‌بندی
                             </div>
                             <div class="table__th flex-1 font-1xs font-bold cursor-default text-center">
@@ -105,6 +108,11 @@
                                               v-text=" item.is_active ? 'فعال' : 'غیرفعال' "
                                         > </span>
                                     </div>
+                                </div>
+                                <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
+                                    <span class="text-blue-700 font-xs font-medium cursor-default"
+                                          v-text="item.parent_fa || '--'"
+                                    > </span>
                                 </div>
                                 <div class="table__td table__td:l inline-flex flex-wrap items-center justify-center">
                                     <span class="text-blue-700 font-xs font-medium cursor-default"

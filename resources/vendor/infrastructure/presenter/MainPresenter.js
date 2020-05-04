@@ -168,20 +168,20 @@ export class CategoryPresenter extends BasePresenter {
     }
 }
 
-export const FlattenCategories = ( payload = [], gap = 0, parent_id = 0 ) => {
+export const FlattenCategories = ( payload = [], gap = 0, parent_id = 0, parent_fa = '', parent_en = '' ) => {
     return payload.reduce((flatArray, item) => {
         const ITEM = CopyOf( item );
         delete ITEM.children;
         HasLength( item.children ) ? (
             flatArray.push({
                 ...ITEM,
-                parent_id,
-                gap: ( gap * 16 )
-            }, ...FlattenCategories( item.children, gap + 1, item.id ) )
+                gap: ( gap * 16 ),
+                parent_id, parent_fa, parent_en
+            }, ...FlattenCategories( item.children, gap + 1, item.id, item.name_fa, item.name_en ) )
         ) : flatArray.push({
             ... ITEM,
-            parent_id,
-            gap: ( gap * 16 )
+            gap: ( gap * 16 ),
+            parent_id, parent_fa, parent_en
         });
         return flatArray;
     }, [])
