@@ -60,3 +60,5 @@ Route::get('/article/{uuid}', 'PagesController@articleShortLink')->name('article
 
 Route::get('/cart-first/process/social/{uuid}', 'PagesController@socialUrlFirstCart')->name('social-url-first');
 Route::get('/cart-secound/process/social/{uuid}', 'PagesController@socialUrlSecondCart')->name('social-url-secound');
+
+
