@@ -9,7 +9,7 @@ import {
     NationalCodeValidator,
     OnlyPersianAlphabet, OnlyNumber,
     PhoneNumberValidator, EmailValidator,
-    PostalCodeValidator
+    PostalCodeValidator, isBoolean, isNumeric, isString
 } from '@vendor/plugin/helper';
 import Vue from 'vue';
 
@@ -131,6 +131,21 @@ export default class RegisterFormService {
         } catch ( exception ) {
             console.warn('exception: ', exception)
         }
+    }
+
+    /**
+     * @param payload { Object }
+     */
+    static createRequestPayload( payload ) {
+        try {
+            for (const [key, val] of Object.entries( payload )) {
+                if (!isBoolean( val ) && !isNumeric( val )) {
+                    if (isString( val )) payload[key] = toEnglishDigits( val );
+                    if (!HasLength( val )) delete payload[key];
+                }
+            }
+            return payload
+        } catch ( exception ) { throw exception }
     }
 
     static async handelEventFieldSearch( title ) {

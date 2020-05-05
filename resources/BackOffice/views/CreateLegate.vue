@@ -607,8 +607,7 @@
                     >
                         <input type="checkbox"
                                class="checkbox-square__input"
-                               name="field_of_activities"
-                               :value="activity.id"
+                               name="field_of_activities[]" :value="activity.id"
                                v-model="form.field_of_activities"
                         />
                         <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"> </span>
@@ -664,9 +663,8 @@
     import { mapState } from 'vuex';
     import CreateLegateService from '@services/service/CreateLegate';
     import RegisterFormService from '@services/service/RegisterForm';
-    import { HasLength, NationalCodeValidator } from "@vendor/plugin/helper";
+    import { CopyOf, HasLength, NationalCodeValidator } from "@vendor/plugin/helper";
     import SelectCm from '@vendor/components/select/Index.vue';
-
 
     let Service = null,
         FormValidator = null;
@@ -824,7 +822,9 @@
             },
             async createLegateUser() {
                 try {
-
+                    const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload(CopyOf( this.form ));
+                    console.log('REQUEST_PAYLOAD: ', REQUEST_PAYLOAD);
+                    // let result = Service.createUserLegate( REQUEST_PAYLOAD );
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 }

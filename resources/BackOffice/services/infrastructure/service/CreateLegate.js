@@ -63,4 +63,13 @@ export default class CreateLegateService {
             throw exception;
         }
     }
+
+    async createUserLegate( payload ) {
+        try {
+            console.log(payload, 'payload');
+            // let response = await HTTPService.
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
 }
