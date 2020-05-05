@@ -2,7 +2,8 @@
 return [
 
     'base_path' => 'upload/images/',
-    'base_path_storage' => 'uploads/',
+    'base_path_storage' => 'public/uploads/',
+    'path_storage' => 'storage/uploads/',
     'type' => [
         'image-attachment' => 'image-attachment',
         'image-media' => 'image-media',
