@@ -107,6 +107,7 @@ class AttachmentServices
             throw new AttachmentFileErrorException(trans('attachment::response.attachment_file_not_exist'));
         }
         $basePath = config('attachment.base_path_storage');
+        $pathUpload = config('attachment.path_storage');
         $path = $basePath . $type;
         foreach ($contentDTO->getContentFileDTOs() as $file) {
             $fileName = '';
@@ -114,9 +115,11 @@ class AttachmentServices
             $contentGetInfoFileDTO = new ContentGetInfoFileDTO();
             if ($file->getFile()) {
                 $fileName = date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName();
-                Storage::putFileAs($path . $this->separator, $file->getFile(),
+                $fileNameUpload = Storage::putFileAs($path, $file->getFile(),
                     date('mdYHis') . uniqid() . '-' . $file->getFile()->getClientOriginalName());
-                $imagePathFinal = $path . $this->separator . $fileName;
+                $url = explode('/', $fileNameUpload);
+                $fileNameFinal = end($url);
+                $imagePathFinal = $pathUpload . $type . $this->separator . $fileNameFinal;
                 $contentGetInfoFileDTO->setPath($imagePathFinal);
             }
             $contentGetInfoFileDTO->setTitle($file->getTitle());
