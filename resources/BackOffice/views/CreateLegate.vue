@@ -597,7 +597,7 @@
                     </div>
                 </div>
                 <span class="e-user__divider w-full block"> </span>
-                <p class="e-user__label font-sm font-bold text-blue cursor-default">
+                <p class="c-card__label font-sm font-bold text-blue text-required cursor-default">
                     درچه زمینه ای می توانید فعالیت کنید؟
                 </p>
                 <div class="flex flex-wrap items-end">
@@ -823,10 +823,15 @@
             async createLegateUser() {
                 try {
                     const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload(CopyOf( this.form ));
-                    console.log('REQUEST_PAYLOAD: ', REQUEST_PAYLOAD);
-                    // let result = Service.createUserLegate( REQUEST_PAYLOAD );
+                    RegisterFormService.checkRequiredField([
+                        'name', 'last_name', 'gender', 'national_code', 'mobile', 'essential_mobile',
+                        'current_province_id', 'current_city_id', 'field_of_activities',
+                    ], REQUEST_PAYLOAD);
+                    let result = Service.createUserLegate( REQUEST_PAYLOAD );
+                    // this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
-                    this.displayNotification(exception, { type: 'error' })
+                    this.backToTop();
+                    this.displayNotification(exception, { type: 'error' });
                 }
             }
         },

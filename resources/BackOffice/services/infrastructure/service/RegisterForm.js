@@ -11,11 +11,13 @@ import {
     PhoneNumberValidator, EmailValidator,
     PostalCodeValidator, isBoolean, isNumeric, isString
 } from '@vendor/plugin/helper';
+import ExceptionService from '@services/service/exception';
 import Vue from 'vue';
 
 const LOCATION = {
     ['name']: 'نام',
     ['last_name']: 'نام خانوادگی',
+    ['gender']: 'جنسیت',
     ['father_name']: 'نام پدر',
     ['identity_number']: 'شماره شناسنامه',
     ['mobile']: 'تلفن همراه',
@@ -31,6 +33,7 @@ const LOCATION = {
     ['work_postal_code']: 'کد‌پستی محل کار',
     ['motivation_for_cooperation']: 'انگیزه‌ی همکاری',
     ['day_of_cooperation']: 'فرصت همکاری',
+    ['field_of_activities']: 'زمینه فعالیت',
 };
 
 export default class RegisterFormService {
@@ -146,6 +149,28 @@ export default class RegisterFormService {
             }
             return payload
         } catch ( exception ) { throw exception }
+    }
+
+    /**
+     * @param requiredKeys { Array }
+     * @param form { Object }
+     */
+    static checkRequiredField( requiredKeys, form ) {
+        try {
+            const INSTANCE = new RegisterFormService({});
+            requiredKeys.map(field => {
+                const VALUE_OF_FIELD = form[field];
+                if (isNumeric( VALUE_OF_FIELD ) || isBoolean( VALUE_OF_FIELD )) return field;
+                if (!HasLength(VALUE_OF_FIELD)) {
+                    throw new Error(INSTANCE.requiredErrorMessage(
+                        LOCATION[field]
+                    ))
+                }
+                return field;
+            })
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
     }
 
     static async handelEventFieldSearch( title ) {
@@ -273,11 +298,11 @@ export default class RegisterFormService {
             if (!HasLength( value )) return this.setErrorMassage = {
                 field, value: this.requiredErrorMessage( LOCATION[field] )
             };
-            if (!OnlyNumber(toEnglishDigits( value )) || Length( field ) !== 11) return this.setErrorMassage = {
+            if (!OnlyNumber(toEnglishDigits( value )) || Length( value ) !== 11) return this.setErrorMassage = {
                 field, value: this.invalidErrorMessage( LOCATION[field] )
             };
         } else {
-            HasLength( value ) && (!OnlyNumber(toEnglishDigits( value )) || Length( field ) !== 11) && (
+            HasLength( value ) && (!OnlyNumber(toEnglishDigits( value )) || Length( value ) !== 11) && (
                 this.setErrorMassage = {
                     field, value: this.invalidErrorMessage( LOCATION[field] )
                 }
@@ -290,11 +315,11 @@ export default class RegisterFormService {
             if (!HasLength( value )) return this.setErrorMassage = {
                 field, value: this.requiredErrorMessage( LOCATION[field] )
             };
-            if (HasLength( field ) && !PostalCodeValidator( field )) return this.setErrorMassage = {
+            if (HasLength( value ) && !PostalCodeValidator( value )) return this.setErrorMassage = {
                 field, value: this.invalidErrorMessage( LOCATION[field] )
             };
         } else {
-            (HasLength( field ) && !PostalCodeValidator( field )) && (
+            (HasLength( value ) && !PostalCodeValidator( value )) && (
                 this.setErrorMassage = {
                     field, value: this.invalidErrorMessage( LOCATION[field] )
                 }
