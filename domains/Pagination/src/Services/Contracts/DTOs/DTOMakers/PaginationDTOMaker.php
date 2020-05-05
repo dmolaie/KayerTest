@@ -60,6 +60,16 @@ class PaginationDTOMaker
      */
     protected $items = [];
 
+    protected $paginationRecords;
+
+    /**
+     * @return mixed
+     */
+    public function getPaginationRecords()
+    {
+        return $this->paginationRecords;
+    }
+
 
     public function perform(
         LengthAwarePaginator $paginator,
@@ -78,6 +88,9 @@ class PaginationDTOMaker
         $this->to = $paginator->lastItem();
         $this->total = $paginator->total();
         $this->items = $this->convertItemsToDTO($paginator->items(), $itemDTOMaker, $inputForDTOMaker);
+        $paginator->setCollection(collect($this->convertItemsToDTO($paginator->items(), $itemDTOMaker,
+            $inputForDTOMaker)));
+        $this->paginationRecords = $paginator;
         return $this;
     }
 

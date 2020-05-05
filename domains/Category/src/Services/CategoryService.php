@@ -58,10 +58,13 @@ class CategoryService
         return $this->categoryDTOMaker->convertMany($categories);
     }
 
-    public function getCategoryBySlug(string $categorySlug): int
+    public function getCategoryBySlugs(array $categorySlugs): array
     {
-        $category = $this->categoryRepository->findCategoryWithSlug($categorySlug);
-        return $this->categoryDTOMaker->convert($category)->getId();
+        $categories = $this->categoryRepository->findCategoryWithSlugs($categorySlugs);
+        $categories = $this->categoryDTOMaker->convertMany($categories);
+        return collect($categories)->map(function($item){
+            return $item->getId();
+        })->toArray();
     }
 
     public function createCategory(CategoryCreateDTO $createCategoryCreateDTO): CategoryDTO
