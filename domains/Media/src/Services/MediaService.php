@@ -273,7 +273,7 @@ class MediaService
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
     }
 
-    public function getMediaDetailWithUuid($uuid)
+    public function getMediaDetailWithUuid(string $uuid)
     {
         $media = $this->mediaRepository->findOrFailUuid($uuid);
         $attachmentInfoDto = $this->getAttachmentInfoMedia(ucfirst($media->type), [$media->id]);
@@ -284,5 +284,19 @@ class MediaService
             $attachmentInfoDto->getImages()[$media->id])
             ->setContentDTO($contentInfoDto[$media->id]);
         return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
+    }
+
+    public function getMediaDetailWithSlug($slug)
+    {
+        $media = $this->mediaRepository->findOrFailSlug($slug);
+        $attachmentInfoDto = $this->getAttachmentInfoMedia(ucfirst($media->type), [$media->id]);
+        $contentInfoDto = $this->getContentInfoMedia(ucfirst($media->type), [$media->id]);
+
+        $mediaAttachment = new MediaAttachmentDTO();
+        $mediaAttachment->setAttachmentDTO(
+            $attachmentInfoDto->getImages()[$media->id])
+            ->setContentDTO($contentInfoDto[$media->id]);
+        return $this->mediaInfoDTOMaker->convert($media, $mediaAttachment);
+
     }
 }
