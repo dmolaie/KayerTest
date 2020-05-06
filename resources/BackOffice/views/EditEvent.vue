@@ -186,7 +186,7 @@
                     <date-picker-cm type="datetime"
                                     displayFormat="jDD jMMMM jYYYY HH:mm"
                                     format="unix" :value="`${form.publish_date * 1e3}`"
-                                    @onChange="onChangePublishDateField" :min="minValuePublishDate"
+                                    @onChange="onChangePublishDateField"
                                     :key="'publishDate' + datePickerKey" placeholder="زمان انتشار را انتخاب کنید"
                     />
                 </div>
