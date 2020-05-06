@@ -40,17 +40,19 @@ class AttachmentServices
         $attachmentInfoDTO->setEntityName($attachmentDTO->getEntityName());
         $attachmentInfoDTO->setEntityId($attachmentDTO->getEntityId());
         $attachmentDTO->setType(config('attachment.type.image-attachment'));
-        $basePath = config('attachment.base_path');
-        $imagePath = $basePath . $attachmentDTO->getEntityName();
-        $sizeEntity = $this->getSizeEntity($attachmentDTO->getEntityName());
-        if (!File::isDirectory($imagePath)) {
-            File::makeDirectory($imagePath);
-        }
+        $basePath = config('attachment.image_base_path_storage');
+        $basePathImage = config('attachment.image_path_storage');
+        $type = $attachmentDTO->getType();
+        $imagePath = $basePath . $type;
+
         foreach ($attachmentDTO->getFiles() as $item) {
             $fileName = date('mdYHis') . uniqid() . '-' . $item->getClientOriginalName();
-            Image::make($item)->resize($sizeEntity['normal_size']['width'],
-                $sizeEntity['normal_size']['height'])->save($imagePath . $this->separator . $fileName);
-            $imagePathFinal = $imagePath . $this->separator . $fileName;
+
+            $fileNameUpload = Storage::putFileAs($imagePath, $item,
+                date('mdYHis') . uniqid() . '-' . $item->getClientOriginalName());
+            $url = explode('/', $fileNameUpload);
+            $fileNameFinal = end($url);
+            $imagePathFinal = $basePathImage . $type . $this->separator . $fileNameFinal;
             $attachmentEntity = $this->attachmentRepository->create($attachmentDTO, $imagePathFinal, $fileName);
             $attachmentInfoDTO->addToPaths($attachmentEntity->id, $imagePathFinal);
         }

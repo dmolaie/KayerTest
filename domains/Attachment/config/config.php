@@ -1,9 +1,12 @@
 <?php
 return [
 
-    'base_path' => 'upload/images/',
+    'image_base_path_storage' => 'public/upload-image/images/',
+    'image_path_storage' => 'storage/upload-image/images/',
+
     'base_path_storage' => 'public/uploads/',
     'path_storage' => 'storage/uploads/',
+
     'type' => [
         'image-attachment' => 'image-attachment',
         'image-media' => 'image-media',
