@@ -93,6 +93,7 @@ class RegisterUserByAdminRequest extends EhdaBaseRequest
             ->setRoleStatus(config('user.user_role_active_status'))
             ->setCreatedBy(Auth::id())
             ->setEventId($this['event_id'])
+            ->setRegisterType(config('user.user_register_type.by_admin'))
             ->setReceiveEmail($this['receive_email']);
 
         return $userRegisterDTO;

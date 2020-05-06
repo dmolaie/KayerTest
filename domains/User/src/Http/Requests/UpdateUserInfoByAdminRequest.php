@@ -103,6 +103,7 @@ class UpdateUserInfoByAdminRequest extends EhdaBaseRequest
             ->setFieldOfActivities(isset($this['field_of_activities']) ? implode(',',
                 $this['field_of_activities']) : null)
             ->setEventId($this['event_id'])
+            ->setRegisterType(config('user.user_register_type.by_admin'))
             ->setReceiveEmail($this['receive_email'])
             ->setPassword(isset($this['password_change']) ? $this['mobile'] : null);
 

@@ -28,6 +28,7 @@ class NationalAuthenticationService
             ->setCurrentProvinceId(1)
             ->setPassword($nationalAuthenticationDTO->getMobileNumber())
             ->setRoleType(config('user.client_role_type'))
+            ->setRegisterType(config('user.user_register_type.by_sms'))
             ->setRoleStatus(config('user.user_role_active_status'));
         return $userRegisterDTO;
     }
