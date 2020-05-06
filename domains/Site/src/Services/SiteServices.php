@@ -4,6 +4,7 @@ namespace Domains\Site\Services;
 
 
 use Domains\Article\Services\ArticleService;
+use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Domains\Category\Services\CategoryService;
 use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Domains\Event\Services\EventService;
@@ -267,5 +268,19 @@ class SiteServices
     public function getDetailMedia($slug)
     {
         return $this->mediaService->getMediaDetailWithSlug($slug);
+    }
+
+    public function getArticleList(ArticleFilterDTO $articleFilterDTO, $subDomain = null, $categorySlugs = null)
+    {
+        $province = $subDomain ?? $this->getLocations('global-fa');
+        $articleFilterDTO->setCategoryIds(
+            $categorySlugs ? $this->getCategoryIdBySlug($categorySlugs) : null)
+            ->setProvinceId($province->id);
+        $articles = $this->articleService->filterArticle($articleFilterDTO);
+        if (!empty($articles)) {
+            return $articles->getPaginationRecords();
+        }
+        $articleFilterDTO->setProvinceId($this->getLocations('global-fa')->id);
+        return $this->articleService->filterArticle($articleFilterDTO)->getPaginationRecords();
     }
 }
