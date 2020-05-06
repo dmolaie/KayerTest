@@ -57,7 +57,10 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
 Route::get('/news/{uuid}', 'PagesController@newsShortLink')->name('news-short-link');
 Route::get('/event/{uuid}', 'PagesController@eventShortLink')->name('new-short-link');
 Route::get('/article/{uuid}', 'PagesController@articleShortLink')->name('article-short-link');
-//Route::get('/media/{uuid}', 'PagesController@mediaShortLink')->name('media-short-link');
+Route::get('/text/{uuid}', 'PagesController@textShortLink')->name('text-short-link');
+Route::get('/video/{uuid}', 'PagesController@videoShortLink')->name('video-short-link');
+Route::get('/audio/{uuid}', 'PagesController@audioShortLink')->name('audio-short-link');
+Route::get('/image/{uuid}', 'PagesController@imageShortLink')->name('image-short-link');
 
 Route::get('/cart-first/process/social/{uuid}', 'PagesController@socialUrlFirstCart')->name('social-url-first');
 Route::get('/cart-secound/process/social/{uuid}', 'PagesController@socialUrlSecondCart')->name('social-url-secound');

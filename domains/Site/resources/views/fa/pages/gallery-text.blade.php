@@ -40,7 +40,7 @@
                             <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
                                 کپی شد
                             </span>
-                                {{route('news-short-link',$mediaDetail->getUuid())}}
+                                {{route('text-short-link',$mediaDetail->getUuid())}}
                             </div>
                         </div>
                     </div>

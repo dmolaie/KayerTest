@@ -236,13 +236,13 @@ class PagesController extends Controller
         return view('site::fa.cards.mini', compact('userData'));
     }
 
-    public function galleryList($language,Request $request, CategoryInfoPresenter $categoryInfoPresenter)
+    public function galleryList($language, Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $type = $request->type ?? 'voice';
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
             ->setSort($request->sort ?? 'DESC')
-            ->setLanguage($language??'fa')
+            ->setLanguage($language ?? 'fa')
             ->setType($type);
         $categories = $request->categories;
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
@@ -259,28 +259,22 @@ class PagesController extends Controller
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
             ->setSort($request->sort ?? 'DESC')
+            ->setLanguage($language??'fa')
             ->setType($type);
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
         $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
         $mediaDetail = $this->siteServices->getDetailMedia($slug);
-        return view('site::fa.pages.gallery-video', compact('mediaList','mediaDetail'));
+
+        return view('site::fa.pages.gallery-video', compact('mediaList', 'mediaDetail'));
     }
 
-    public function galleryImage($language, string $slug, Request $request)
+    public function galleryImage($language, string $slug)
     {
-        $type = 'image';
-
-        $mediaFilter = new MediaFilterDTO();
-        $mediaFilter->setMediaInputStatus('published')
-            ->setSort($request->sort ?? 'DESC')
-            ->setType($type);
-        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
         $mediaDetail = $this->siteServices->getDetailMedia($slug);
-        return view('site::fa.pages.gallery-image',compact('mediaList','mediaDetail'));
+        return view('site::fa.pages.gallery-images', compact('mediaDetail'));
     }
 
-    public function galleryText($language,string $slug)
+    public function galleryText($language, string $slug)
     {
         $mediaDetail = $this->siteServices->getDetailMedia($slug);
         return view('site::fa.pages.gallery-text', compact('mediaDetail'));
@@ -293,12 +287,55 @@ class PagesController extends Controller
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
             ->setSort($request->sort ?? 'DESC')
+            ->setLanguage($language??'fa')
             ->setType($type);
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
         $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
         $mediaDetail = $this->siteServices->getDetailMedia($slug);
 
-        return view('site::fa.pages.gallery-audio',compact('mediaList', 'mediaDetail'));
+        return view('site::fa.pages.gallery-audio', compact('mediaList', 'mediaDetail'));
     }
 
+    public function textShortLink(string $uuid)
+    {
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+        return view('site::fa.pages.gallery-text', compact('mediaDetail'));
+    }
+
+    public function videoShortLink(string $uuid, Request $request)
+    {
+        $type = 'video';
+
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setType($type);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+
+        return view('site::fa.pages.gallery-video', compact('mediaList', 'mediaDetail'));
+
+    }
+
+    public function imageShortLink(string $uuid)
+    {
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+        return view('site::fa.pages.gallery-images', compact('mediaDetail'));
+    }
+
+    public function audioShortLink(string $uuid, Request $request)
+    {
+        $type = 'voice';
+
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setType($type);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+
+        return view('site::fa.pages.gallery-audio', compact('mediaList', 'mediaDetail'));
+    }
 }
