@@ -253,7 +253,7 @@ class SiteServices
             $categorySlug ? $this->getCategoryIdBySlug($categorySlug) : null)
             ->setProvinceId($province->id);
         $media = $this->mediaService->filterMedia($mediaFilter);
-        if (!empty($media)) {
+        if (!empty($media->getItems())) {
             return $media->getPaginationRecords();
         }
         $mediaFilter->setProvinceId($this->getLocations('global-fa')->id);
@@ -277,7 +277,8 @@ class SiteServices
             $categorySlugs ? $this->getCategoryIdBySlug($categorySlugs) : null)
             ->setProvinceId($province->id);
         $articles = $this->articleService->filterArticle($articleFilterDTO);
-        if (!empty($articles)) {
+
+        if (!empty($articles->getItems())) {
             return $articles->getPaginationRecords();
         }
         $articleFilterDTO->setProvinceId($this->getLocations('global-fa')->id);
