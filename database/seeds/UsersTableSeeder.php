@@ -14,17 +14,19 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::all();
+        $roles = Role::first();
+        $this->makeUser($roles);
 
-        foreach ($roles as $role){
-            $this->makeUser($role);
-        }
+
+        /*   foreach ($roles as $role){
+               $this->makeUser($role);
+           }*/
 
     }
 
     private function makeUser(Role $role)
     {
-        $identityNumber = rand(1111111111, 9999999999);
+        $identityNumber = '4940040641';
         $city = City::first();
         $status =['active','inactive','pending'];
         $user = new User();

@@ -21,9 +21,9 @@ class FakeAllDataMaker extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(PermissionTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(NewsTableSeeder::class);
-        $this->call(ArticleTableSeeder::class);
-        $this->call(EventTableSeeder::class);
+        //$this->call(NewsTableSeeder::class);
+        //$this->call(ArticleTableSeeder::class);
+        //$this->call(EventTableSeeder::class);
         $this->call(MenusTableSeeder::class);
 
     }
