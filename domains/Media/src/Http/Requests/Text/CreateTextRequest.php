@@ -39,7 +39,9 @@ class CreateTextRequest extends EhdaBaseRequest
 
     public function messages()
     {
-        return trans('media::validation');
+        $message = trans('media::validation');
+        $message['mimetypes'] = trans('media::response.text_format');
+        return $message;
     }
 
     public function attributes()
@@ -76,9 +78,9 @@ class CreateTextRequest extends EhdaBaseRequest
         $contents = [];
         foreach ($this['content'] as $content) {
             $contentFileDTO = new ContentFileDTO();
-            $contentFileDTO->setTitle($content['title']??null)
-                ->setFile($content['file']??null)
-                ->setLink($content['link']??null);
+            $contentFileDTO->setTitle($content['title'] ?? null)
+                ->setFile($content['file'] ?? null)
+                ->setLink($content['link'] ?? null);
             $contents[] = $contentFileDTO;
         }
         return $contents;
