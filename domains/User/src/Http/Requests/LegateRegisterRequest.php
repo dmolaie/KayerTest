@@ -111,6 +111,7 @@ class LegateRegisterRequest extends EhdaBaseRequest
             ->setFieldOfActivities(implode(',',$this['field_of_activities']))
             ->setPassword($this['password'])
             ->setRoleType(config('user.legate_role_type'))
+            ->setRegisterType(config('user.user_register_type.by_user'))
             ->setRoleStatus(config('user.user_role_pending_status'));
 
         return $userRegisterInfoDTO;

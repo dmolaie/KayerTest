@@ -9,7 +9,7 @@
                 </h1>
                 <div class="gai-page__box inner-box inner-box--white p-0 text-right">
                     <div class="gai-page__header text-white font-24 font-bold bg-blue rounded-inherit rounded-br-none rounded-bl-none text-center cursor-default sm:font-lg">
-                        جشن نفس ۱۳۹۳
+                        {{$mediaDetail->getFirstTitle()}}
                     </div>
                     <div class="gai-page__content flex flex-wrap items-start">
                         <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
@@ -66,7 +66,8 @@
                             <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
                                 کپی شد
                             </span>
-                                https://ehda.center/PNWVzX
+                                {{route('image-short-link',$mediaDetail->getUuid())}}
+
                             </div>
                         </div>
                         <div class="gai-page__modal fixed z-20 none">

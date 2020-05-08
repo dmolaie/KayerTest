@@ -39,7 +39,9 @@ class CreateVoiceRequest extends EhdaBaseRequest
 
     public function messages()
     {
-        return trans('media::validation');
+        $message = trans('media::validation');
+        $message['mimes'] = trans('media::response.voice_format');
+        return $message;
     }
 
     public function attributes()
