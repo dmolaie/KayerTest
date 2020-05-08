@@ -35,7 +35,7 @@ class CreateMediaTable extends Migration
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('editor_id')->on('users')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('parent_id')->on('news')
+            $table->foreign('parent_id')->on('media')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('publisher_id')->on('users')
                 ->references('id')->onDelete('cascade')->onUpdate('cascade');

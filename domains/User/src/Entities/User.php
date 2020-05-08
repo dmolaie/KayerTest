@@ -53,6 +53,7 @@ class User extends Authenticatable
         'education_city_id',
         'is_active',
         'creator_id',
+        'register_type',
         'uuid'
     ];
 

@@ -161,4 +161,10 @@ class MediaRepository
         return $media;
     }
 
+    public function findOrFailSlug($slug)
+    {
+        return $this->entityName::where('slug', '=', $slug)->firstOrFail();
+
+    }
+
 }

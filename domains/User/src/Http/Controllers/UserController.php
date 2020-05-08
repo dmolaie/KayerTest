@@ -22,6 +22,7 @@ use Domains\User\Http\Requests\ChangeAdminPasswordRequest;
 use Domains\User\Http\Requests\ChangeUserPasswordAdminRequest;
 use Domains\User\Http\Requests\ChangeUserRoleStatusRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
+use Domains\User\Http\Requests\RegisterLegateByAdminRequest;
 use Domains\User\Http\Requests\RegisterUserByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
@@ -288,6 +289,23 @@ class UserController extends EhdaBaseController
      */
     public function registerUserByAdmin(
         RegisterUserByAdminRequest $request,
+        UserBriefInfoPresenter $briefInfoPresenter
+    ) {
+        $userRegisterResult = $this->userService->registerByAdmin($request->createUserRegisterDTO());
+        return $this->response(
+            $briefInfoPresenter->transform($userRegisterResult),
+            Response::HTTP_CREATED,
+            trans('user::response.success_register')
+        );
+    }
+
+    /**
+     * @param RegisterLegateByAdminRequest $request
+     * @param UserBriefInfoPresenter $briefInfoPresenter
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerLegateByAdmin(
+        RegisterLegateByAdminRequest $request,
         UserBriefInfoPresenter $briefInfoPresenter
     ) {
         $userRegisterResult = $this->userService->registerByAdmin($request->createUserRegisterDTO());

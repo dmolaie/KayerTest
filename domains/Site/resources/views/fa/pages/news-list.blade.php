@@ -68,7 +68,7 @@
                         </div>
                         <div class="i-page__panel_body md:none">
                             <p class="text-blue-800 font-sm-bold m-b-10 cursor-default">
-                                دسته بندی اخبار
+                                دسته‌بندی اخبار
                             </p>
                             @foreach($categories as $category)
                                 <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"

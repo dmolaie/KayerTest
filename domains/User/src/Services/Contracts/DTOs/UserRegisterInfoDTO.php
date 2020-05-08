@@ -169,6 +169,10 @@ class UserRegisterInfoDTO
      * @var string
      */
     protected $roleStatus;
+    /**
+     * @var string
+     */
+    protected $registerType;
 
     /**
      * @return string
@@ -886,6 +890,24 @@ class UserRegisterInfoDTO
     public function setCurrentAddress(?string $currentAddress): UserRegisterInfoDTO
     {
         $this->currentAddress = $currentAddress;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegisterType(): string
+    {
+        return $this->registerType;
+    }
+
+    /**
+     * @param string $registerType
+     * @return UserRegisterInfoDTO
+     */
+    public function setRegisterType(string $registerType): UserRegisterInfoDTO
+    {
+        $this->registerType = $registerType;
         return $this;
     }
 

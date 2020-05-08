@@ -7,6 +7,7 @@ namespace Domains\Site\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
+use Domains\Media\Services\Contracts\DTOs\MediaFilterDTO;
 use Domains\Menu\Services\MenusContentService;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
@@ -35,7 +36,7 @@ class PagesController extends Controller
     public function newsListIran(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews('iran-news',$subdomain);
+        $news = $this->siteServices->getFilterNews(['iran-news'], $subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
@@ -43,7 +44,7 @@ class PagesController extends Controller
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews('world-news',$subdomain);
+        $news = $this->siteServices->getFilterNews(['world-news'], $subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('events'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
@@ -202,7 +203,7 @@ class PagesController extends Controller
     public function newsListIranDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews('iran-news',$subdomain);
+        $news = $this->siteServices->getFilterNews(['iran-news'], $subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
@@ -210,7 +211,7 @@ class PagesController extends Controller
     public function newsListWorldDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews('world-news',$subdomain);
+        $news = $this->siteServices->getFilterNews(['world-news'], $subdomain);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
@@ -226,38 +227,115 @@ class PagesController extends Controller
     public function socialUrlFirstCart(Request $request)
     {
         $userData = $this->siteServices->getInfoUserWithUuid($request->uuid);
-        return view('site::fa.cards.social',compact('userData'));
+        return view('site::fa.cards.social', compact('userData'));
     }
 
     public function socialUrlSecondCart(Request $request)
     {
         $userData = $this->siteServices->getInfoUserWithUuid($request->uuid);
-        return view('site::fa.cards.mini',compact('userData'));
+        return view('site::fa.cards.mini', compact('userData'));
     }
 
-    public function artEhda(Request $request)
+    public function galleryList($language, Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        return view('site::fa.pages.gallery');
+        $type = $request->type ?? 'voice';
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setLanguage($language ?? 'fa')
+            ->setType($type);
+        $categories = $request->categories;
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $media = $this->siteServices->getMediaListByType($mediaFilter, $subDomain, $categories);
+        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType($type));
+
+        return view('site::fa.pages.gallery', compact('media', 'categories'));
     }
 
-    public function galleryAudio(Request $request)
+    public function galleryVideo($language, string $slug, Request $request)
     {
-        return view('site::fa.pages.gallery-audio');
+        $type = 'video';
+
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setLanguage($language??'fa')
+            ->setType($type);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
+        $mediaDetail = $this->siteServices->getDetailMedia($slug);
+
+        return view('site::fa.pages.gallery-video', compact('mediaList', 'mediaDetail'));
     }
 
-    public function galleryVideo(Request $request)
+    public function galleryImage($language, string $slug)
     {
-        return view('site::fa.pages.gallery-video');
+        $mediaDetail = $this->siteServices->getDetailMedia($slug);
+        return view('site::fa.pages.gallery-images', compact('mediaDetail'));
     }
 
-    public function galleryImage(Request $request)
+    public function galleryText($language, string $slug)
     {
-        return view('site::fa.pages.gallery-images');
+        $mediaDetail = $this->siteServices->getDetailMedia($slug);
+        return view('site::fa.pages.gallery-text', compact('mediaDetail'));
     }
 
-    public function galleryText(Request $request)
+    public function galleryAudio($language, string $slug, Request $request)
     {
-        return view('site::fa.pages.gallery-text');
+        $type = 'voice';
+
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setLanguage($language??'fa')
+            ->setType($type);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
+        $mediaDetail = $this->siteServices->getDetailMedia($slug);
+
+        return view('site::fa.pages.gallery-audio', compact('mediaList', 'mediaDetail'));
     }
 
+    public function textShortLink(string $uuid)
+    {
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+        return view('site::fa.pages.gallery-text', compact('mediaDetail'));
+    }
+
+    public function videoShortLink(string $uuid, Request $request)
+    {
+        $type = 'video';
+
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setType($type);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+
+        return view('site::fa.pages.gallery-video', compact('mediaList', 'mediaDetail'));
+
+    }
+
+    public function imageShortLink(string $uuid)
+    {
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+        return view('site::fa.pages.gallery-images', compact('mediaDetail'));
+    }
+
+    public function audioShortLink(string $uuid, Request $request)
+    {
+        $type = 'voice';
+
+        $mediaFilter = new MediaFilterDTO();
+        $mediaFilter->setMediaInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setType($type);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
+        $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
+
+        return view('site::fa.pages.gallery-audio', compact('mediaList', 'mediaDetail'));
+    }
 }

@@ -11,9 +11,10 @@ class UserRepository
 {
     protected $entityName = User::class;
 
-    public function createOrUpdateUser(UserRegisterInfoDTO $userRegisterInfoDTO, ?User $user): User
+    public function createOrUpdateUser(UserRegisterInfoDTO $userRegisterInfoDTO, ?User $userInfo): User
     {
-        $user = $user ?? new $this->entityName;
+        $user = $userInfo ?? new $this->entityName;
+
         $user->national_code = $userRegisterInfoDTO->getNationalCode() ?? $user->national_code;
         $user->gender = $userRegisterInfoDTO->getGender() ?? $user->gender;
         $user->name = $userRegisterInfoDTO->getName() ?? $user->name;
@@ -48,7 +49,8 @@ class UserRepository
         $user->field_of_activities = $userRegisterInfoDTO->getFieldOfActivities() ?? $user->field_of_activities;
         $user->event_id = $userRegisterInfoDTO->getEventId() ?? $user->event_id;
         $user->receive_email = $userRegisterInfoDTO->getReceiveEmail() ?? $user->receive_email;
-        $user->creator_id = $userRegisterInfoDTO->getCreatedBy() ?? $user->creator_id;
+        $user->creator_id = $userInfo ? $user->creator_id : $userRegisterInfoDTO->getCreatedBy();
+        $user->register_type = $userInfo ? $user->register_type : $userRegisterInfoDTO->getRegisterType();
         $cardId = $this->entityName::latest('id')->first() ? $this->entityName::latest('id')->first()->id + 1 : 1;
         $user->card_id = $user->card_id ?? $cardId;
 
@@ -205,8 +207,7 @@ class UserRepository
         int $userId,
         int $roleId,
         string $roleStatus
-    )
-    {
+    ) {
         $user = $this->entityName::findOrFail($userId);
         $user->roles()->detach($roleId);
         $user->roles()->attach(
@@ -218,8 +219,8 @@ class UserRepository
     public function getUserReport($type, $sort, $status, $registerFrom, $registerEnd, $paginate)
     {
         return $this->entityName
-            ::whereHas('roles', function ($query) use ($type,$status) {
-                $query->when(!empty($type), function ($query) use ($type,$status) {
+            ::whereHas('roles', function ($query) use ($type, $status) {
+                $query->when(!empty($type), function ($query) use ($type, $status) {
                     $query->where('type', '=', $type);
                 })->when($status, function ($query) use ($status) {
                     return $query->where('status', '=', $status);

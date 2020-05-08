@@ -28,7 +28,7 @@
                             </div>
                             <div class="gau-page__box flex items-center justify-between md:flex-col">
                                 <h3 class="i-page__sub-title text-blue font-24 font-bold cursor-default m-b-26 md:w-full sm:font-sm">
-                                    تو رسیدی - مهدی یغمایی
+                                    {{$mediaDetail->getFirstTitle()}}
                                 </h3>
                                 <a href="" target="_blank" download=""
                                    class="gau-page__download flex items-center text-blue-800 font-lg font-medium border border-solid rounded l:transition-background sm:font-base"
@@ -50,7 +50,8 @@
                     <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 md:w-full">
                         <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
                             <div class="episodes absolute w-full">
-                                <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
+                                @foreach($mediaList as $mediaInfo)
+                                    <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
                                      data-url="https://dl.music-ava.ir/music/bikalam/piyano/Wind.mp3"
                                 >
                                     <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
@@ -64,20 +65,7 @@
                                         هدیه - حسین اعظمی
                                     </span>
                                 </div>
-                                <div class="episode relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="https://dl.music-ava.ir/music/bikalam/piyano/Rain.mp3"
-                                >
-                                    <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
-                                        <img src=""
-                                             data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                             alt="درد بی مغزی"
-                                             class="episode__image block absolute w-full h-full rounded-inherit object-cover"
-                                        >
-                                    </figure>
-                                    <span class="episode__caption text-blue-800 text-blue-800 font-sm font-medium pointer-event-none">
-                                        دلخوشی - امیرعباس گلاب
-                                    </span>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

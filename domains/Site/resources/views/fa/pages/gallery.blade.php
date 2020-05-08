@@ -97,56 +97,19 @@
                                                         <path fill-rule="nonzero" d="M20.33 18.303l-4.386-4.386a8.734 8.734 0 0 0 1.652-5.12 8.734 8.734 0 0 0-2.578-6.22A8.738 8.738 0 0 0 8.798 0c-2.35 0-4.56.914-6.221 2.578a8.738 8.738 0 0 0-2.576 6.22c0 2.35.914 4.558 2.576 6.221a8.74 8.74 0 0 0 6.22 2.578 8.716 8.716 0 0 0 5.119-1.652l4.385 4.386a1.43 1.43 0 0 0 2.028 0c.56-.561.56-1.468 0-2.028zM4.605 12.99A5.891 5.891 0 0 1 2.87 8.797c0-1.583.616-3.071 1.736-4.192a5.886 5.886 0 0 1 4.192-1.737c1.583 0 3.072.617 4.192 1.737a5.89 5.89 0 0 1 1.737 4.193 5.89 5.89 0 0 1-1.737 4.193 5.887 5.887 0 0 1-4.192 1.735 5.885 5.885 0 0 1-4.192-1.736z"/>
                                                     </svg>
                                                 </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
+                                                @foreach($categories as $category)
+                                                    <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
+                                                           style="margin-right: {{$category['gap']}}px">
+                                                        <input type="radio"
+                                                               class="checkbox-square__input"
+                                                               name="news"
+                                                        />
+                                                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
+                                                        <span class="checkbox-square__label rounded user-select-none">
+                                                            {{ $category['name_fa'] }}
+                                                        </span>
+                                                    </label>
+                                                @endforeach
                                                 <span class="ga-page__panel_divider block"></span>
                                                 <button class="block text-red font-sm font-bold m-0-auto">
                                                     خالی‌کردن فیلتر‌ها
@@ -157,180 +120,39 @@
                                 </form>
                             </aside>
                             <div class="flex-1 flex flex-wrap">
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_category flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 415.963 415.963"
-                                                     class="object-contain"
+                                @foreach($media as $mediaInfo)
+                                    <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
+                                        <a href="{{ route('page.gallery.audio',[config('app.locale'),$mediaInfo->getSlug()]) }}"
+                                           class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
+                                            <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
+                                                <span class="ga-page__card_play absolute bg-white rounded-50"></span>
+                                                <img src=""
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     alt=""
+                                                     class="block w-full h-full rounded-inherit object-cover"
                                                 >
-                                                    <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                </svg>
-                                                موسیقی
+                                            </figure>
+                                            <div class="ga-page__card_body">
+                                                <p class="ga-page__card_category flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         viewBox="0 0 415.963 415.963"
+                                                         class="object-contain"
+                                                    >
+                                                        <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
+                                                    </svg>
+                                                    موسیقی
+                                                </p>
+                                                <p class="ga-page__card_title text-center text-blue-800">
+                                                    {{$mediaInfo->getFirstTitle()}}
+                                                </p>
+                                            </div>
+                                            <p class="ga-page__card_link text-center">
+                                                + ادامه
                                             </p>
-                                            <p class="ga-page__card_title text-center text-blue-800">
-                                                تو رسیدی - مهدی یغمایی
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_category flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 415.963 415.963"
-                                                     class="object-contain"
-                                                >
-                                                    <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                </svg>
-                                                موسیقی
-                                            </p>
-                                            <p class="ga-page__card_title text-center text-blue-800">
-                                                هدیه - حسین اعظمی
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_category flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 415.963 415.963"
-                                                     class="object-contain"
-                                                >
-                                                    <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                </svg>
-                                                موسیقی
-                                            </p>
-                                            <p class="ga-page__card_title text-center text-blue-800">
-                                                مصاحبه رادیویی آقای دکتر امید قبادی با رادیو اردبیل
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_category flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 415.963 415.963"
-                                                     class="object-contain"
-                                                >
-                                                    <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                </svg>
-                                                موسیقی
-                                            </p>
-                                            <p class="ga-page__card_title text-center text-blue-800">
-                                                تو رسیدی - مهدی یغمایی
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_category flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 415.963 415.963"
-                                                     class="object-contain"
-                                                >
-                                                    <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                </svg>
-                                                موسیقی
-                                            </p>
-                                            <p class="ga-page__card_title text-center text-blue-800">
-                                                تو رسیدی - مهدی یغمایی
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.audio',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_category flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 415.963 415.963"
-                                                     class="object-contain"
-                                                >
-                                                    <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                </svg>
-                                                موسیقی
-                                            </p>
-                                            <p class="ga-page__card_title text-center text-blue-800">
-                                                تو رسیدی - مهدی یغمایی
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+
+                                @endforeach
                             </div>
                         </div>
                         <div class="w-full flex items-start md:flex-wrap none"
@@ -371,56 +193,19 @@
                                                         <path fill-rule="nonzero" d="M20.33 18.303l-4.386-4.386a8.734 8.734 0 0 0 1.652-5.12 8.734 8.734 0 0 0-2.578-6.22A8.738 8.738 0 0 0 8.798 0c-2.35 0-4.56.914-6.221 2.578a8.738 8.738 0 0 0-2.576 6.22c0 2.35.914 4.558 2.576 6.221a8.74 8.74 0 0 0 6.22 2.578 8.716 8.716 0 0 0 5.119-1.652l4.385 4.386a1.43 1.43 0 0 0 2.028 0c.56-.561.56-1.468 0-2.028zM4.605 12.99A5.891 5.891 0 0 1 2.87 8.797c0-1.583.616-3.071 1.736-4.192a5.886 5.886 0 0 1 4.192-1.737c1.583 0 3.072.617 4.192 1.737a5.89 5.89 0 0 1 1.737 4.193 5.89 5.89 0 0 1-1.737 4.193 5.887 5.887 0 0 1-4.192 1.735 5.885 5.885 0 0 1-4.192-1.736z"/>
                                                     </svg>
                                                 </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
+                                                @foreach($categories as $category)
+                                                    <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
+                                                           style="margin-right: {{$category['gap']}}px">
+                                                        <input type="radio"
+                                                               class="checkbox-square__input"
+                                                               name="news"
+                                                        />
+                                                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
+                                                        <span class="checkbox-square__label rounded user-select-none">
+                                                            {{ $category['name_fa'] }}
+                                                        </span>
+                                                    </label>
+                                                @endforeach
                                                 <span class="ga-page__panel_divider block"></span>
                                                 <button class="block text-red font-sm font-bold m-0-auto">
                                                     خالی‌کردن فیلتر‌ها
@@ -431,102 +216,33 @@
                                 </form>
                             </aside>
                             <div class="flex-1 flex flex-wrap">
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_camera absolute"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                مصاحبه هنرمندان و مسئولین در ضیافت نفس
+
+                                @foreach($media as $mediaInfo)
+                                    <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
+                                        <a href="{{ route('page.gallery.image',[config('app.locale'),$mediaInfo->getSlug()]) }}"
+                                           class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
+                                            <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
+                                                <span class="ga-page__card_camera absolute"></span>
+                                                <img src=""
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     alt=""
+                                                     class="block w-full h-full rounded-inherit object-cover"
+                                                >
+                                            </figure>
+                                            <div class="ga-page__card_body">
+                                                <p class="ga-page__card_iTitle text-right text-blue-800">
+                                                    {{$mediaInfo->getFirstTitle()}}
+                                                </p>
+                                                <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
+                                                    {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($mediaInfo->getPublishDate()))->format(' %d %B %Y')}}
+                                                </time>
+                                            </div>
+                                            <p class="ga-page__card_link text-center">
+                                                + ادامه
                                             </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_camera absolute"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                مصاحبه خانواده‌های اهداکننده و گیرنده عضو در ضیافت نفس ۱۳۹۷
-                                            </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_camera absolute"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                مصاحبه آقای دکتر امید قبادی با رسانه‌‌ها
-                                            </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.image',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_camera absolute"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                نظری کوتاه بر ضیافت نفس (نماهنگ)
-                                            </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="w-full flex items-start md:flex-wrap none"
@@ -567,56 +283,19 @@
                                                         <path fill-rule="nonzero" d="M20.33 18.303l-4.386-4.386a8.734 8.734 0 0 0 1.652-5.12 8.734 8.734 0 0 0-2.578-6.22A8.738 8.738 0 0 0 8.798 0c-2.35 0-4.56.914-6.221 2.578a8.738 8.738 0 0 0-2.576 6.22c0 2.35.914 4.558 2.576 6.221a8.74 8.74 0 0 0 6.22 2.578 8.716 8.716 0 0 0 5.119-1.652l4.385 4.386a1.43 1.43 0 0 0 2.028 0c.56-.561.56-1.468 0-2.028zM4.605 12.99A5.891 5.891 0 0 1 2.87 8.797c0-1.583.616-3.071 1.736-4.192a5.886 5.886 0 0 1 4.192-1.737c1.583 0 3.072.617 4.192 1.737a5.89 5.89 0 0 1 1.737 4.193 5.89 5.89 0 0 1-1.737 4.193 5.887 5.887 0 0 1-4.192 1.735 5.885 5.885 0 0 1-4.192-1.736z"/>
                                                     </svg>
                                                 </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
+                                                @foreach($categories as $category)
+                                                    <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
+                                                           style="margin-right: {{$category['gap']}}px">
+                                                        <input type="radio"
+                                                               class="checkbox-square__input"
+                                                               name="news"
+                                                        />
+                                                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
+                                                        <span class="checkbox-square__label rounded user-select-none">
+                                                            {{ $category['name_fa'] }}
+                                                        </span>
+                                                    </label>
+                                                @endforeach
                                                 <span class="ga-page__panel_divider block"></span>
                                                 <button class="block text-red font-sm font-bold m-0-auto">
                                                     خالی‌کردن فیلتر‌ها
@@ -627,126 +306,29 @@
                                 </form>
                             </aside>
                             <div class="flex-1 flex flex-wrap">
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                به او که قلبش را گذاشت و گذشت
+                                @foreach($media as $mediaInfo)
+                                    <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
+                                        <a href="{{ route('page.gallery.text',[config('app.locale'),$mediaInfo->getSlug()]) }}"
+                                           class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
+                                            <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
+                                                <img src=""
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     alt=""
+                                                     class="block w-full h-full rounded-inherit object-cover"
+                                                >
+                                            </figure>
+                                            <div class="ga-page__card_body">
+                                                <p class="ga-page__card_iTitle text-right text-blue-800">
+                                                    {{$mediaInfo->getFirstTitle()}}
+                                                </p>
+                                            </div>
+                                            <p class="ga-page__card_link text-center">
+                                                + ادامه
                                             </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                تولدی دوباره
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                زندگی سبز
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                دلنوشته خواهر فرشته ماندگار مهدی میرمحمدی
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                دل نوشته خانواده فرشته ماندگار زینب نوری
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.text',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                آدمیت مرده بود، گر چه آدم زنده بود
-                                            </p>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+
+                                @endforeach
                             </div>
                         </div>
                         <div class="w-full flex items-start md:flex-wrap none"
@@ -787,56 +369,19 @@
                                                         <path fill-rule="nonzero" d="M20.33 18.303l-4.386-4.386a8.734 8.734 0 0 0 1.652-5.12 8.734 8.734 0 0 0-2.578-6.22A8.738 8.738 0 0 0 8.798 0c-2.35 0-4.56.914-6.221 2.578a8.738 8.738 0 0 0-2.576 6.22c0 2.35.914 4.558 2.576 6.221a8.74 8.74 0 0 0 6.22 2.578 8.716 8.716 0 0 0 5.119-1.652l4.385 4.386a1.43 1.43 0 0 0 2.028 0c.56-.561.56-1.468 0-2.028zM4.605 12.99A5.891 5.891 0 0 1 2.87 8.797c0-1.583.616-3.071 1.736-4.192a5.886 5.886 0 0 1 4.192-1.737c1.583 0 3.072.617 4.192 1.737a5.89 5.89 0 0 1 1.737 4.193 5.89 5.89 0 0 1-1.737 4.193 5.887 5.887 0 0 1-4.192 1.735 5.885 5.885 0 0 1-4.192-1.736z"/>
                                                     </svg>
                                                 </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        مصاحبه رادیویی
-                                                    </span>
-                                                </label>
-                                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold">
-                                                    <input type="radio"
-                                                           class="checkbox-square__input"
-                                                           name="audio"
-                                                    />
-                                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                    <span class="checkbox-square__label rounded user-select-none">
-                                                        موسیقی
-                                                    </span>
-                                                </label>
+                                                @foreach($categories as $category)
+                                                    <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
+                                                           style="margin-right: {{$category['gap']}}px">
+                                                        <input type="radio"
+                                                               class="checkbox-square__input"
+                                                               name="news"
+                                                        />
+                                                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
+                                                        <span class="checkbox-square__label rounded user-select-none">
+                                                            {{ $category['name_fa'] }}
+                                                        </span>
+                                                    </label>
+                                                @endforeach
                                                 <span class="ga-page__panel_divider block"></span>
                                                 <button class="block text-red font-sm font-bold m-0-auto">
                                                     خالی‌کردن فیلتر‌ها
@@ -847,80 +392,36 @@
                                 </form>
                             </aside>
                             <div class="flex-1 flex flex-wrap">
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.video',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                دیرین دیرین و بی مغزی
+                                @foreach($media as $mediaInfo)
+                                    <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
+                                        <a href="{{ route('page.gallery.video',[config('app.locale'),$mediaInfo->getSlug()]) }}"
+                                           class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
+                                            <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
+                                                <span class="ga-page__card_play absolute bg-white rounded-50"></span>
+                                                <img src=""
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     alt=""
+                                                     class="block w-full h-full rounded-inherit object-cover"
+                                                >
+                                            </figure>
+                                            <div class="ga-page__card_body">
+                                                <p class="ga-page__card_iTitle text-right text-blue-800">
+                                                    {{$mediaInfo->getFirstTitle()}}
+                                                </p>
+                                                <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
+                                                    {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($mediaInfo->getPublishDate()))->format(' %d %B %Y')}}
+                                                </time>
+                                            </div>
+                                            <p class="ga-page__card_link text-center">
+                                                + ادامه
                                             </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.video',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                دیرین دیرین و کارت
-                                            </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                    <a href="{{ route('page.gallery.video',config('app.locale')) }}"
-                                       class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                        <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                            <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                            <img src=""
-                                                 data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                                 alt=""
-                                                 class="block w-full h-full rounded-inherit object-cover"
-                                            >
-                                        </figure>
-                                        <div class="ga-page__card_body">
-                                            <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                دیرین دیرین
-                                            </p>
-                                            <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                24 فروردین 1399
-                                            </time>
-                                        </div>
-                                        <p class="ga-page__card_link text-center">
-                                            + ادامه
-                                        </p>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
+                        {!! $media->render() !!}
+
                     </div>
                 </div>
             </div>
