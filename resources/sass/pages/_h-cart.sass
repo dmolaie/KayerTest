@@ -19,12 +19,19 @@
     box-shadow: 0 2px 4px 0 transparentize(#cff1ff, (1 - .65))
   &__cover
     width: 200px
+    position: relative
     @include Md_Screen
       width: calc(100% - #{26px * 2})
       height: 198px
       border-radius: 3px
       margin: 30px auto 0
       box-shadow: 0 0 6px 2px transparentize($blue, (1 - .2))
+    &_image
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
   &__title
     @include Truncate( 2 )
     @include Xl_Screen
