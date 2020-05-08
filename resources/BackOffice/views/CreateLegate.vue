@@ -724,6 +724,9 @@
             })
         },
         methods: {
+            setErrorMassage(field, value) {
+                FormValidator.setErrorMassage = { field, value };
+            },
             hideErrorMessage( field ) {
                 FormValidator.hideErrorMassage( field );
             },
@@ -843,9 +846,9 @@
                     ], DUPLICATE_FORM);
                     FormValidator.checkFromValidation( this.validation );
                     const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload( DUPLICATE_FORM );
-                    console.log(REQUEST_PAYLOAD);
-                    let result = Service.createUserLegate( REQUEST_PAYLOAD );
-                    // this.displayNotification(result, { type: 'success' });
+                    let result = await Service.registerLegateUser( REQUEST_PAYLOAD );
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_LEGATE' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
