@@ -12,6 +12,11 @@
                         {{$mediaDetail->getFirstTitle()}}
                     </div>
                     <div class="gat-page__content">
+                        @if(!!$mediaDetail->getAbstract())
+                            <div class="gat-page__description text-bayoux font-base cursor-default rounded-3 md:font-sm">
+                                {!! html_entity_decode($mediaDetail->getAbstract(), ENT_QUOTES, 'UTF-8') !!}
+                            </div>
+                        @endif
                         <div class="userContent text-bayoux font-base cursor-default md:font-base text-justify">
                             {!! html_entity_decode($mediaDetail->getDescription(), ENT_QUOTES, 'UTF-8') !!}
                         </div>
@@ -29,7 +34,6 @@
                                     </svg>
                                     دانلود فایل
                                 </a>
-
                             @endforeach
                         </div>
                         <div class="gat-page__short i-page__short w-full flex items-center justify-end sm:flex-col sm:justify-center">
