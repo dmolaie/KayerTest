@@ -1,9 +1,10 @@
 import { EventService } from '@services/service/ManageEvent';
 import { EventPresenter } from '@services/presenter/EditUsers';
+import DateService from '@vendor/plugin/date';
 import LocationService from "@services/service/Location";
 import { ProvincesPresenter } from '@vendor/infrastructure/presenter/MainPresenter';
 import {
-    Length,
+    Length, CopyOf,
     HasLength,
     toEnglishDigits,
     NationalCodeValidator,
@@ -15,11 +16,13 @@ import ExceptionService from '@services/service/exception';
 import Vue from 'vue';
 
 const LOCATION = {
+    ['national_code']: 'کدملی',
     ['name']: 'نام',
     ['last_name']: 'نام خانوادگی',
     ['gender']: 'جنسیت',
     ['father_name']: 'نام پدر',
     ['identity_number']: 'شماره شناسنامه',
+    ['date_of_birth']: 'تاریخ تولد',
     ['mobile']: 'تلفن همراه',
     ['essential_mobile']: 'تلفن اضطراری',
     ['email']: 'ایمیل',
@@ -31,6 +34,8 @@ const LOCATION = {
     ['address_of_work']: 'آدرس محل کار',
     ['work_phone']: 'تلفن محل کار',
     ['work_postal_code']: 'کد‌پستی محل کار',
+    ['current_province_id']: 'استان محل سکونت',
+    ['current_city_id']: 'شهر محل سکونت',
     ['motivation_for_cooperation']: 'انگیزه‌ی همکاری',
     ['day_of_cooperation']: 'فرصت همکاری',
     ['field_of_activities']: 'زمینه فعالیت',
@@ -49,9 +54,7 @@ export default class RegisterFormService {
             gender: '',
             father_name: '',
             identity_number: '',
-            date_of_birth_year: '',
-            date_of_birth_month: '',
-            date_of_birth_day: '',
+            date_of_birth: '',
             province_of_birth: '',
             city_of_birth: '',
             event_id: '',
@@ -151,20 +154,46 @@ export default class RegisterFormService {
         } catch ( exception ) { throw exception }
     }
 
+    checkFromValidation( object ) {
+        try {
+            for (const FILED of Object.keys(CopyOf( object ))) {
+                const VALUE_OF_FIELD = object[FILED];
+                if ( VALUE_OF_FIELD.value &&
+                     HasLength( VALUE_OF_FIELD.value )
+                   ) throw new Error( VALUE_OF_FIELD.value );
+            }
+        } catch ( exception ) {
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+
+        // try {
+        //     for (const FILED of Object.keys(CopyOf( object ))) {
+        //         const VALUE_OF_FIELD = object[FILED];
+        //         const REQUIRED_ERROR_MESSAGE = this.requiredErrorMessage( LOCATION[FILED] );
+        //         if( !HasLength( VALUE_OF_FIELD ) ) {
+        //             this.setErrorMassage = { field: FILED, value: REQUIRED_ERROR_MESSAGE };
+        //             throw new Error( REQUIRED_ERROR_MESSAGE );
+        //         }
+        //         if ( HasLength( VALUE_OF_FIELD.value ) ) throw new Error( VALUE_OF_FIELD.value );
+        //     }
+        // } catch ( exception ) {
+        //     throw ExceptionService._GetErrorMessage( exception );
+        // }
+    }
+
     /**
      * @param requiredKeys { Array }
      * @param form { Object }
      */
-    static checkRequiredField( requiredKeys, form ) {
+    checkRequiredField( requiredKeys, form ) {
         try {
-            const INSTANCE = new RegisterFormService({});
             requiredKeys.map(field => {
                 const VALUE_OF_FIELD = form[field];
                 if (isNumeric( VALUE_OF_FIELD ) || isBoolean( VALUE_OF_FIELD )) return field;
-                if (!HasLength(VALUE_OF_FIELD)) {
-                    throw new Error(INSTANCE.requiredErrorMessage(
-                        LOCATION[field]
-                    ))
+                if (void 0 === VALUE_OF_FIELD || !HasLength(VALUE_OF_FIELD)) {
+                    const ERROR_MESSAGE = this.requiredErrorMessage( LOCATION[field] );
+                     if ( !!this.validationObj[field] ) this.setErrorMassage = { field, value: ERROR_MESSAGE };
+                    throw new Error( ERROR_MESSAGE )
                 }
                 return field;
             })
@@ -210,17 +239,16 @@ export default class RegisterFormService {
         }
     }
 
-    nationalCodeValidator(field, value) {
-        const PERSIAN_NAME = 'کدملی';
+    validateNationalCode(field, value) {
         if (HasLength( value )) {
             if (!NationalCodeValidator( value )) {
                 this.setErrorMassage = {
-                    field, value: this.invalidErrorMessage( PERSIAN_NAME )
+                    field, value: this.invalidErrorMessage( LOCATION[field] )
                 };
             }
         } else {
             this.setErrorMassage = {
-                field, value: this.requiredErrorMessage( PERSIAN_NAME )
+                field, value: this.requiredErrorMessage( LOCATION[field] )
             };
         }
     }
@@ -337,5 +365,17 @@ export default class RegisterFormService {
                 field, value: 'فرصت همکاری باید عددی بین ۱ تا ۳۰ باشد.'
             }
         )
+    }
+
+    /**
+     * @param date { Array }
+     * @example ['jy', 'jm', 'jd']
+     */
+    convertSolarHijriToTimestamp( date) {
+        try {
+            const [JY, JM, JD] = date;
+            if ( !(HasLength(JY) & HasLength(JM) & HasLength(JD)) ) return '';
+            return DateService.jalaaliToTimestamp(parseInt(JY), parseInt(JM), parseInt(JD));
+        } catch ( exception ) {}
     }
 }
