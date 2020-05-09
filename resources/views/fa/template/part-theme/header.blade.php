@@ -4,10 +4,17 @@
             <a href="{{ route('index',config('app.locale')) }}"
                class="header__logo block m-l-auto"
             >
-                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
-                     alt="انجمن اهدای عضو ایرانیان"
-                     class="header__logo_image block object-contain"
-                />
+                @if(app()->getLocale() == 'fa')
+                    <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
+                         alt="انجمن اهدای عضو ایرانیان"
+                         class="header__logo_image block object-contain"
+                    />
+                @else
+                    <img src="{{ secure_asset('/images/ic_ehdaCenter--en.png') }}"
+                         alt="انجمن اهدای عضو ایرانیان"
+                         class="header__logo_image block object-contain"
+                    />
+                @endif
             </a>
             <button class="s-domain__button text-blue font-sm font-bold">
                 پرتال استان‌ها
@@ -121,10 +128,17 @@
         <a href="{{ route('index',config('app.locale')) }}"
            class="m-header__logo"
         >
-            <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
-                 alt="انجمن اهدای عضو ایرانیان"
-                 class="h-full block object-contain"
-            />
+            @if(app()->getLocale() == 'fa')
+                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
+                     alt="انجمن اهدای عضو ایرانیان"
+                     class="h-full block object-contain"
+                />
+            @else
+                <img src="{{ secure_asset('/images/ic_ehdaCenter--en.png') }}"
+                     alt="انجمن اهدای عضو ایرانیان"
+                     class="h-full block object-contain"
+                />
+            @endif
         </a>
         <div class="m-header__language absolute inline-flex rounded-3 text-center overflow-hidden opacity-0">
             <a href="{{route('index','en')}}"
