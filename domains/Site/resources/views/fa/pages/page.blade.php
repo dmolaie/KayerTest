@@ -11,7 +11,7 @@
                 <div class="n-show__header flex items-stretch md:flex-col">
                     <figure class="n-show__cover flex-shrink-0 rounded max-w-full has-skeleton md:w-full">
                         <img src=""
-                             data-src="/{{$menusContent->getAttachmentFiles()[0] ? $menusContent->getAttachmentFiles()[0]['path'] : ''}}"
+                             data-src="/{{$menusContent->getAttachmentFiles() ? current($menusContent->getAttachmentFiles())['path'] : ''}}"
                              alt=""
                              class="n-show__cover_image w-full h-full block rounded-inherit object-cover"
                         />
@@ -23,7 +23,6 @@
                         <time class="n-show__release w-full block color-black text-left font-xs-bold cursor-default sm:font-1xs">
                             انتشار: ۲۸ دی ۱۳۹۸
                         </time>
-                        <span class="i-page__flower_line i-page__flower_line--left flower_line flower_line--blue--200 absolute flex items-end justify-end pointer-event-none m-0"></span>
                     </div>
                 </div>
                 <div class="n-show__description text-bayoux font-base cursor-default rounded-3 md:font-sm">

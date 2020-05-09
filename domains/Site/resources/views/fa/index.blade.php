@@ -187,11 +187,11 @@
                         <div class="swiper-wrapper">
                             @foreach($knowledgeArticles as $knowledgeArticle)
                                 <div class="swiper-slide">
-                                    <a href=""
+                                    <a href="{{ route('article-short-link', $knowledgeArticle->getUuid()) }}"
                                        class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
                                         <figure class="info__cart_image block w-full m-0-auto">
-                                            <img src="{{ secure_asset('images/information/تاریخچه‌ی اهدا و پیوند.svg') }}"
-                                                 alt="تاریخچه‌ی اهدا و پیوند"
+                                            <img src="/{{$knowledgeArticle->getAttachmentFiles() ? current($knowledgeArticle->getAttachmentFiles())['path'] : ''}}"
+                                                 alt="{{$knowledgeArticle->getFirstTitle()}}"
                                                  class="block w-full h-full rounded object-contain"
                                             />
                                         </figure>
