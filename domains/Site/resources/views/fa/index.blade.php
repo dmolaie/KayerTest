@@ -177,10 +177,10 @@
                     <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    <a href=""
+                    {{-- <a href=""
                        class="router-link relative none font-xs-bold sm:block sm:m-r-auto sm:m-b-2">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="max-w-full overflow-x-hidden">
                     <div class="carousel__container">
@@ -206,10 +206,10 @@
                     </div>
                 </div>
                 <div class="block text-left m-t-20 sm:none">
-                    <a href=""
+                    {{-- <a href=""
                        class="router-link relative inline-block font-xs-bold">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>
@@ -222,10 +222,10 @@
                     <span class="p-home__line p-home__line--blue-200 flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    <a href=""
+                    {{-- <a href="{{ route('page.events-list', config('app.locale')) }}"
                        class="router-link relative none font-xs-bold sm:block sm:m-r-auto sm:m-b-2">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="max-w-full overflow-x-hidden">
                     <div class="carousel__container">
@@ -255,10 +255,10 @@
                     </div>
                 </div>
                 <div class="block text-left m-t-20 sm:none">
-                    <a href=""
+                    {{-- <a href="{{ route('page.events-list', config('app.locale')) }}"
                        class="router-link relative inline-block font-xs-bold">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>
@@ -271,10 +271,10 @@
                     <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    <a href=""
+                    {{-- <a href="{{ route('page.news-list-iran', config('app.locale')) }}"
                        class="router-link relative none font-xs-bold  sm:block sm:m-r-auto sm:m-b-2">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
                 <article class="ehda-news__container">
                     <div class="max-w-full overflow-x-hidden">
@@ -315,10 +315,10 @@
                     </div>
                 </article>
                 <div class="block text-left m-t-20 sm:none">
-                    <a href=""
+                    {{-- <a href="{{ route('page.news-list-iran', config('app.locale')) }}"
                        class="router-link relative inline-block font-xs-bold">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>
