@@ -79,7 +79,7 @@ export default class CreateGalleryService {
             FORM_DATA.append('slug', SLUG);
             FORM_DATA.append('language', LANGUAGE);
             FORM_DATA.append('province_id', PROVINCE_ID);
-            FORM_DATA.append('publish_date', PUBLISH_DATE);
+            FORM_DATA.append('publish_date', DUPLICATE_FORM['publish_date'] || PUBLISH_DATE);
             FORM_DATA.append('first_title', DUPLICATE_FORM['first_title']);
 
             if ( !!HasLength( DUPLICATE_FORM['abstract'] ) ) FORM_DATA.append('abstract', DUPLICATE_FORM['abstract']);

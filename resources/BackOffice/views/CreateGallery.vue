@@ -93,12 +93,29 @@
                 >
                     <template #dropdown="{ hiddenDropdown }">
                         <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                @click.prevent="() => {onClickChangeReleaseTimeButton(); hiddenDropdown();}"
+                        >
+                            تنظیم زمان انتشار
+                        </button>
+                        <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
                                 @click.prevent="() => {onClickReleaseItemButton(); hiddenDropdown()}"
                         >
                             {{ isAdmin ? 'انتشار' : 'ارسال به سردبیر' }}
                         </button>
                     </template>
                 </publish-cm>
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
+                     v-if="shouldBeShowReleaseDatePicker"
+                >
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        زمان انتشار
+                    </p>
+                    <date-picker-cm type="datetime"
+                                    displayFormat="dddd jDD jMMMM jYYYY HH:mm" format="unix"
+                                    @onChange="onChangePublishDateField" :value="minValuePublishDate"
+                                    :key="'publishDate' + datePickerKey" placeholder="زمان انتشار را انتخاب کنید"
+                    />
+                </div>
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
@@ -166,6 +183,7 @@
     import CreateGalleryService from '@services/service/CreateGallery';
     import UploadService from '@vendor/components/upload';
     import CategoryCm from '@components/Category.vue';
+    import DatePickerCm from '@components/DatePicker.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
@@ -186,6 +204,7 @@
         images: null,
         slug: '',
         parent_id: '',
+        publish_date: '',
     });
 
     export default {
@@ -195,11 +214,14 @@
             isPending: true,
             isModuleRegistered: false,
             fromDataName: 'content[]',
-            textEditorKey: 0
+            textEditorKey: 0,
+            datePickerKey: 0,
+            shouldBeShowReleaseDatePicker: false
         }),
         components: {
             PublishCm, LocationCm, CategoryCm, TextEditorCm,
-            ImagePanelCm, SelectCm, UploadCm, ImageCm
+            ImagePanelCm, SelectCm, UploadCm, ImageCm,
+            DatePickerCm
         },
         watch: {
             $route() {
@@ -245,6 +267,10 @@
                     (Object.values( this.provinces ))[0]
                 ) : ({})
             },
+            minValuePublishDate() {
+                const NOW_TIMESTAMP = new Date().getTime();
+                return NOW_TIMESTAMP.toString()
+            }
         },
         methods: {
             setDataFromParamsRouter() {
@@ -295,6 +321,10 @@
                     this.$delete(this.form.content, index);
                 } catch ( exception ) {}
             },
+            onClickChangeReleaseTimeButton() {
+                this.$set(this.form, 'publish_date', '');
+                this.$set(this, 'shouldBeShowReleaseDatePicker', !this.shouldBeShowReleaseDatePicker);
+            },
             async onClickReleaseItemButton() {
                 try {
                     this.$set(this, 'isPending', true);
@@ -305,6 +335,9 @@
                     this.$set(this, 'isPending', false);
                     this.displayNotification(exception, { type: 'error' })
                 }
+            },
+            onChangePublishDateField( unix ) {
+                this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
                 const { parent_id } = this.$route.params;
