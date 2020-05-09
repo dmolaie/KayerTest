@@ -18,7 +18,7 @@
                     </option>
                     @foreach($provinces as $province)
                         <option value="{{$province->getId()}}"
-                                data-url="{{ 'http://'.$province->getSlug() .'.'.config('app.url')}}">
+                                data-url="{{ 'https://'.$province->getSlug() .'.'.config('app.url')}}">
                             {{$province->getName()}}
                         </option>
                     @endforeach
