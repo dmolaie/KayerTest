@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     private $siteServices;
 
-    public function __construct(SiteServices $siteServices,NewsService $newsService, EventService $eventService)
+    public function __construct(SiteServices $siteServices, NewsService $newsService, EventService $eventService)
     {
         $this->newsService = $newsService;
         $this->eventService = $eventService;
@@ -35,8 +35,8 @@ class HomeController extends Controller
     public function index(NewsListForAdminRequest $request)
     {
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getNews($status = 'published', $sort = 'DESC',$subdomain);
-        $event = $this->siteServices->getEvent($status = 'published', $sort = 'DESC',$subdomain);
+        $news = $this->siteServices->getNews($status = 'published', $sort = 'ASC', $subdomain);
+        $event = $this->siteServices->getEvent($status = 'published', $sort = 'ASC', $subdomain);
         return view('site::' . $request->language . '.index', compact('news', 'event'));
     }
 
