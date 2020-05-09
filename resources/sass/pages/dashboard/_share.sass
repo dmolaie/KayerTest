@@ -1,0 +1,116 @@
+$column-gap: 15px
+$label-height: 32px
+$table-border: 1px solid #d2e3f4
+$dropbox-background: #bde8fa
+
+.d-share
+  &__body
+    padding: 66px 47px 64px
+  &__label
+    margin-bottom: 6px
+  &__textarea
+    resize: vertical
+    min-height: 150px
+    max-height: 250px
+  &__drop
+    color: $bayoux
+    border-color: $dropbox-background
+    padding: 75px 15px
+    height: calc(100% - #{$label-height})
+    background-color: transparentize($dropbox-background, (1 - .2))
+    transition: background-color $duration, border-color $duration
+    &--hover, &:active
+      border-color: darken($dropbox-background, 4%)
+      background-color: transparentize($dropbox-background, (1 - .4))
+  &__submit
+    background-color: $green
+    line-height: 44px
+    margin: 45px auto 0
+    @include SpinnerLoading(22px , 3px, $white)
+  &__preview
+    color: $bayoux
+    border-color: $dropbox-background
+    padding: 15px
+    margin-bottom: 25px
+    height: calc(100% - #{$label-height})
+    background-color: transparentize($dropbox-background, (1 - .2))
+    transition: background-color $duration, border-color $duration
+  &__previewCover
+    $size: 18%
+    width: $size
+    padding-bottom: $size
+    margin-left: 20px
+    border-color: darken($dropbox-background, 5%)
+    background-color: transparentize($white, (1 - .4))
+  &__previewImage
+    top: 0
+    left: 0
+  &__secondTitle
+    margin: 35px 0 45px
+  .flex-2
+    flex: 2 1 0
+  &__table
+    border: $table-border
+    background-color: #f0f3f8
+  &__cell
+    padding: 12px 20px
+  &__action
+    width: 140px
+  &__thead
+    border-bottom: $table-border
+  &__tr
+    &:not(:last-of-type)
+      border-bottom: $table-border
+  &__tButton
+    border-color: #dfe8f0
+    padding: 6px 12px 6px 14px
+  &__status
+    padding: 2px 7px 3px 8px
+    &--accept
+      $color: #33c15d
+      color: $white
+      background-color: $color
+      border-color: darken($color, 8%)
+    &--delete
+      color: $white
+      border-color: lighten($red, 5%)
+      background-color: lighten($red, 20%)
+  &__confirmWrapper
+    width: 44%
+    padding: 20px 23px 18px
+    transform: translateY(35vh)
+    @include Xl_Screen
+      width: 38%
+  &__confirmTitle
+    margin-bottom: 42px
+  &__confirmButton
+    width: 90px
+    line-height: 38px
+    color: $black
+    &:not(:last-of-type)
+      margin-left: 12px
+    &--submit
+      color: $blue-200
+      background: transparentize($sail, (1 - .64))
+      @include L_Screen
+        &:hover
+          background-color: $sail
+    &--discard
+      @include L_Screen
+        &:hover
+          background-color: darken(#f2f2f2, 3%)
+  &__confirm
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background-color: transparentize($black, (1 - .7))
+    z-index: 50
+    &--opened
+      animation: opacityFadeOut .1s ease-in-out forwards
+      .d-share__confirmWrapper
+        animation: modalFadeIn .24s ease-in-out .05s forwards
+    &--closed
+      animation: opacityFadeIn .1s ease-in-out .14s forwards
+      .d-share__confirmWrapper
+        animation: modalFadeOut .24s ease-in-out forwards
