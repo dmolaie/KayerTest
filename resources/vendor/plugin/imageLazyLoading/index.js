@@ -1,13 +1,14 @@
 const ImageLazyLoading = elements => {
+    const ATTRIBUTE_PREFIX = 'data-src';
+    const DEFAULT_IMAGE = '/images/img_default.jpg';
+
     const RemoveLazyLoading = el => {
         try {
             let imageElement = el.querySelector('img');
             el.classList.remove('has-skeleton');
-            imageElement.src = imageElement.getAttribute('data-src');
-            imageElement.removeAttribute('data-src');
-        } catch (e) {
-            //
-        }
+            imageElement.src = imageElement.getAttribute( ATTRIBUTE_PREFIX );
+            imageElement.removeAttribute( ATTRIBUTE_PREFIX );
+        } catch (e) {}
     };
 
     const CallBack = el => {
@@ -20,10 +21,14 @@ const ImageLazyLoading = elements => {
                     }, 500)
                 }
             );
-            image.src = el.querySelector('img').getAttribute('data-src');
-        } catch (e) {
-            //
-        }
+            image.addEventListener(
+                'error', () => {
+                    el.querySelector('img').setAttribute(ATTRIBUTE_PREFIX, DEFAULT_IMAGE);
+                    RemoveLazyLoading( el );
+                }
+            );
+            image.src = el.querySelector('img').getAttribute( ATTRIBUTE_PREFIX );
+        } catch (e) {}
     };
 
     const FallBack = () => {

@@ -248,8 +248,7 @@ class PagesController extends Controller
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
         $media = $this->siteServices->getMediaListByType($mediaFilter, $subDomain, $categories);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType($type));
-
-        return view('site::fa.pages.gallery', compact('media', 'categories'));
+        return view('site::fa.pages.gallery', compact('media', 'categories', 'type'));
     }
 
     public function galleryVideo($language, string $slug, Request $request)

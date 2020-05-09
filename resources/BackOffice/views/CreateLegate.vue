@@ -183,15 +183,15 @@
                         <div class="e-user__date w-full flex items-stretch text-center user-select-none">
                             <select-cm class="e-user__date--day w-1/3"
                                        :options="day" label="name" placeholder="روز"
-                                       @onChange="updateDayOfBirthDateField"
+                                       @onChange="updateDayOfBirthField"
                             />
                             <select-cm class="e-user__date--month w-1/3"
                                        :options="month" label="name" placeholder="ماه"
-                                       @onChange="updateMonthOfBirthDateField"
+                                       @onChange="updateMonthOfBirthField"
                             />
                             <select-cm class="e-user__date--year w-1/3"
                                        :options="year" label="name" placeholder="سال"
-                                       @onChange="updateYearOfBirthDateField"
+                                       @onChange="updateYearOfBirthField"
                             />
                         </div>
                     </div>
@@ -214,6 +214,33 @@
                                    @onChange="updateCityOfBirthField" :disabled="!form.province_of_birth"
                                    label="name" :required="false" :searchable="true"
                         />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            وضعیت تاهل
+                        </span>
+                        <div class="w-full flex items-stretch text-center user-select-none">
+                            <label class="w-1/2 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                <input type="radio"
+                                       class="e-user__radio none"
+                                       name="marital_status" v-model="form.marital_status"
+                                       :value="marital_status['single']"
+                                />
+                                <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
+                                    مجرد
+                                </span>
+                            </label>
+                            <label class="w-1/2 input input--blue p-0 border border-solid border-r-0 rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                <input type="radio"
+                                       class="e-user__radio none"
+                                       name="marital_status" v-model="form.marital_status"
+                                       :value="marital_status['married']"
+                                />
+                                <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
+                                    متاهل
+                                </span>
+                            </label>
+                        </div>
                     </div>
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
@@ -674,8 +701,7 @@
         data: () => ({
             form: RegisterFormService.form,
             validation: {
-                national_code: {},
-                name: {}, last_name: {}, father_name: {}, identity_number: {},
+                name: {}, last_name: {}, father_name: {}, identity_number: {}, national_code: {}, date_of_birth: {},
                 mobile: {}, essential_mobile: {}, email: {},
                 current_address: {}, phone: {}, home_postal_code: {},
                 education_field: {},
@@ -683,10 +709,14 @@
                 motivation_for_cooperation: {}, day_of_cooperation: {}
             },
             cities: { birth: {}, current: {}, education: {}, work: {} },
+            date_of_birth_year: '',
+            date_of_birth_month: '',
+            date_of_birth_day: '',
             gender: RegisterFormService.gender,
             day: RegisterFormService.day,
             year: RegisterFormService.year,
             month: RegisterFormService.month,
+            marital_status: RegisterFormService.marital_status,
             isPending: true,
             isModuleRegistered: false,
             shouldBeShowInquiryStep: true,
@@ -722,11 +752,14 @@
             })
         },
         methods: {
+            setErrorMassage(field, value) {
+                FormValidator.setErrorMassage = { field, value };
+            },
             hideErrorMessage( field ) {
                 FormValidator.hideErrorMassage( field );
             },
             validateNationalCode(field, value) {
-                FormValidator.nationalCodeValidator(field, value);
+                FormValidator.validateNationalCode(field, value);
             },
             validatePersianCharacter(field, value,  is_required = false) {
                 FormValidator.validatePersianCharacter(field, value, is_required);
@@ -749,14 +782,26 @@
             validateDayOfCooperation(field, value) {
                 FormValidator.validateDayOfCooperation(field, value);
             },
-            updateYearOfBirthDateField({ id }) {
-                this.$set(this.form, 'date_of_birth_year', id);
+            setDateOfBirthField() {
+                const { date_of_birth_year, date_of_birth_month, date_of_birth_day } = this;
+                const DATE = FormValidator.convertSolarHijriToTimestamp([
+                    date_of_birth_year,
+                    date_of_birth_month,
+                    date_of_birth_day
+                ]);
+                this.$set(this.form, 'date_of_birth', DATE);
             },
-            updateMonthOfBirthDateField({ id }) {
-                this.$set(this.form, 'date_of_birth_month', id);
+            updateYearOfBirthField({ id }) {
+                this.$set(this, 'date_of_birth_year', id);
+                this.setDateOfBirthField();
             },
-            updateDayOfBirthDateField({ id }) {
-                this.$set(this.form, 'date_of_birth_day', id);
+            updateMonthOfBirthField({ id }) {
+                this.$set(this, 'date_of_birth_month', id);
+                this.setDateOfBirthField();
+            },
+            updateDayOfBirthField({ id }) {
+                this.$set(this, 'date_of_birth_day', id);
+                this.setDateOfBirthField();
             },
             updateProvinceOfBirthField({ id }) {
                 this.$set(this.form, 'province_of_birth', id);
@@ -822,15 +867,17 @@
             },
             async createLegateUser() {
                 try {
-                    const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload(CopyOf( this.form ));
-                    RegisterFormService.checkRequiredField([
-                        'name', 'last_name', 'gender', 'national_code', 'mobile', 'essential_mobile',
-                        'current_province_id', 'current_city_id', 'field_of_activities',
-                    ], REQUEST_PAYLOAD);
-                    let result = Service.createUserLegate( REQUEST_PAYLOAD );
-                    // this.displayNotification(result, { type: 'success' });
+                    const DUPLICATE_FORM = CopyOf( this.form );
+                    FormValidator.checkRequiredField([
+                        'name', 'last_name', 'gender', 'national_code', 'date_of_birth', 'mobile',
+                        'essential_mobile', 'current_province_id', 'current_city_id', 'field_of_activities',
+                    ], DUPLICATE_FORM);
+                    FormValidator.checkFromValidation( this.validation );
+                    const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload( DUPLICATE_FORM );
+                    let result = await Service.registerLegateUser( REQUEST_PAYLOAD );
+                    this.displayNotification(result, { type: 'success' });
+                    this.pushRouter({ name: 'MANAGE_LEGATE', query: {role_type: 'legate'} });
                 } catch ( exception ) {
-                    this.backToTop();
                     this.displayNotification(exception, { type: 'error' });
                 }
             }

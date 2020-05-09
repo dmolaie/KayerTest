@@ -131,6 +131,13 @@
                         >
                             بروزرسانی
                         </button>
+                        <template v-if="!form.is_published && !form.is_recycle">
+                            <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
+                                    @click.prevent="() => {onClickChangeReleaseTimeButton(); hiddenDropdown();}"
+                            >
+                                تنظیم زمان انتشار
+                            </button>
+                        </template>
                         <template v-if="form.is_published">
                             <span class="dropdown__divider"> </span>
                             <button class="dropdown__item block w-full text-bayoux font-xs font-medium text-right"
@@ -149,6 +156,19 @@
                         </template>
                     </template>
                 </publish-cm>
+                <div class="panel w-full block bg-white border-2 rounded-2 border-solid"
+                     v-if="shouldBeShowReleaseDatePicker"
+                >
+                    <p class="panel__title font-sm font-bold text-blue cursor-default">
+                        زمان انتشار
+                    </p>
+                    <date-picker-cm type="datetime"
+                                    displayFormat="jDD jMMMM jYYYY HH:mm"
+                                    format="unix" :value="`${form.publish_date * 1e3}`"
+                                    @onChange="onChangePublishDateField"
+                                    :key="'publishDate' + datePickerKey" placeholder="زمان انتشار را انتخاب کنید"
+                    />
+                </div>
                 <location-cm :lang="currentLang"
                              @onPersianLang="onClickPersianLang"
                              @onEnglishLang="onClickEnglishLang"
@@ -217,6 +237,7 @@
     import UploadService from '@vendor/components/upload';
     import CategoryCm from '@components/Category.vue';
     import ImagePanelCm from '@components/ImagePanel.vue';
+    import DatePickerCm from '@components/DatePicker.vue';
     import LocationCm from '@components/LocationPanel.vue';
     import ImageCm from '@vendor/components/image/Index.vue';
     import UploadCm from '@vendor/components/upload/Index.vue';
@@ -234,6 +255,7 @@
         images: null,
         slug: '',
         parent_id: '',
+        publish_date: '',
     });
 
     let Service = null;
@@ -242,14 +264,16 @@
         name: "EditGallery",
         data: () => ({
             isPending: true,
+            datePickerKey: 0,
             textEditorKey: 0,
             form: INITIAL_FORM(),
             fromDataName: 'content[]',
             isModuleRegistered: false,
+            shouldBeShowReleaseDatePicker: false,
         }),
         components: {
             PublishCm, LocationCm, CategoryCm, TextEditorCm,
-            ImagePanelCm, SelectCm, UploadCm, ImageCm
+            ImagePanelCm, SelectCm, UploadCm, ImageCm, DatePickerCm
         },
         computed: {
             ...mapState({
@@ -315,6 +339,7 @@
                     this.$set(this.form, 'content', []);
                     this.$set(this.form, 'destroy_file_id', []);
                     this.$set(this.form, 'destroy_image_id', []);
+                    this.$set(this, 'shouldBeShowReleaseDatePicker', !this.form.is_published);
                     this.$nextTick(() => {
                         this.$set(this, 'textEditorKey', this.textEditorKey + 1);
                         resolve();
@@ -364,6 +389,9 @@
             redirectToGalleryManage() {
                 this.pushRouter({ name: 'MANAGE_GALLERY', params: { type: this.form.type } });
             },
+            onClickChangeReleaseTimeButton() {
+                this.$set(this, 'shouldBeShowReleaseDatePicker', !this.shouldBeShowReleaseDatePicker);
+            },
             async onClickUpdateGalleryButton() {
                 try {
                     this.$set(this, 'isPending', true);
@@ -401,6 +429,9 @@
                 } finally {
                     this.$set(this, 'isPending', false);
                 }
+            },
+            onChangePublishDateField( unix ) {
+                this.$set(this.form, 'publish_date', unix)
             },
             onClickPersianLang() {
                 const { type, has_relation, relation_id, media_id } = this.form;

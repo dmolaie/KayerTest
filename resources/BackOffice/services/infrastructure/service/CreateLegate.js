@@ -64,11 +64,20 @@ export default class CreateLegateService {
         }
     }
 
-    async createUserLegate( payload ) {
+    async registerLegateUser( payload ) {
         try {
-            console.log(payload, 'payload');
-            // let response = await HTTPService.
+            if ( !!payload['day_of_cooperation'] ) payload['day_of_cooperation'] = parseInt(payload['day_of_cooperation']);
+
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.REGISTER_LEGATE_BY_ADMIN), payload);
+            return response.message;
         } catch ( exception ) {
+            if ( exception?.errors ) {
+                Object.entries( exception?.errors )
+                    .forEach( ([key, val]) => {
+                        if ( this.$vm.validation[key] )
+                            this.$vm.setErrorMassage(key, val[0])
+                    });
+            }
             throw ExceptionService._GetErrorMessage( exception );
         }
     }

@@ -10,6 +10,13 @@
                         منتشرشده‌ها
                     </button>
                     <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
+                            :class="{ 'm-post__tab--active': isScheduleTab }"
+                            @click.prevent="onClickScheduledTab"
+
+                    >
+                        صف انتشار
+                    </button>
+                    <button class="m-post__tab relative flex-1 font-sm font-bold transition-bg text-nowrap p-0"
                             :class="{ 'm-post__tab--active': isPendingTab }"
                             @click.prevent="onClickPendingTab"
 
@@ -197,6 +204,7 @@
                                         <span class="m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
                                               :class="{
                                                 'm-post__status--published': ( item.is_published ),
+                                                'm-post__status--ready-published': ( item.is_ready_to_publish ),
                                                 'm-post__status--pending': ( item.is_pending ),
                                                 'm-post__status--reject': ( item.is_reject ),
                                                 'm-post__status--accept': ( item.is_accept ),
