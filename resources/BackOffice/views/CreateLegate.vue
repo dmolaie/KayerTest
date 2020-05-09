@@ -80,7 +80,7 @@
                         </label>
                     </div>
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
-                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                        <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
                             جنسیت
                         </span>
                         <div class="w-full flex items-stretch text-center user-select-none">
@@ -216,7 +216,7 @@
                         />
                     </div>
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
-                        <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
                             وضعیت تاهل
                         </span>
                         <div class="w-full flex items-stretch text-center user-select-none">
