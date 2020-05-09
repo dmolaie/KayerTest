@@ -20,6 +20,7 @@ const LOCATION = {
     ['name']: 'نام',
     ['last_name']: 'نام خانوادگی',
     ['gender']: 'جنسیت',
+    ['marital_status']: 'وضعیت تاهل',
     ['father_name']: 'نام پدر',
     ['identity_number']: 'شماره شناسنامه',
     ['date_of_birth']: 'تاریخ تولد',
@@ -57,6 +58,7 @@ export default class RegisterFormService {
             date_of_birth: '',
             province_of_birth: '',
             city_of_birth: '',
+            marital_status: '',
             event_id: '',
             mobile: '',
             essential_mobile: '',
@@ -89,6 +91,13 @@ export default class RegisterFormService {
             'male': 0,
             'female': 1,
             'other': 2,
+        })
+    }
+
+    static get marital_status() {
+        return ({
+            'single': 0,
+            'married': 1,
         })
     }
 

@@ -80,7 +80,7 @@
                         </label>
                     </div>
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
-                        <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
                             جنسیت
                         </span>
                         <div class="w-full flex items-stretch text-center user-select-none">
@@ -214,6 +214,33 @@
                                    @onChange="updateCityOfBirthField" :disabled="!form.province_of_birth"
                                    label="name" :required="false" :searchable="true"
                         />
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
+                            وضعیت تاهل
+                        </span>
+                        <div class="w-full flex items-stretch text-center user-select-none">
+                            <label class="w-1/2 input input--blue p-0 border border-solid rounded rounded-tl-none rounded-bl-none cursor-pointer">
+                                <input type="radio"
+                                       class="e-user__radio none"
+                                       name="marital_status" v-model="form.marital_status"
+                                       :value="marital_status['single']"
+                                />
+                                <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
+                                    مجرد
+                                </span>
+                            </label>
+                            <label class="w-1/2 input input--blue p-0 border border-solid border-r-0 rounded rounded-tr-none rounded-br-none cursor-pointer">
+                                <input type="radio"
+                                       class="e-user__radio none"
+                                       name="marital_status" v-model="form.marital_status"
+                                       :value="marital_status['married']"
+                                />
+                                <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
+                                    متاهل
+                                </span>
+                            </label>
+                        </div>
                     </div>
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
@@ -689,6 +716,7 @@
             day: RegisterFormService.day,
             year: RegisterFormService.year,
             month: RegisterFormService.month,
+            marital_status: RegisterFormService.marital_status,
             isPending: true,
             isModuleRegistered: false,
             shouldBeShowInquiryStep: true,
@@ -848,7 +876,7 @@
                     const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload( DUPLICATE_FORM );
                     let result = await Service.registerLegateUser( REQUEST_PAYLOAD );
                     this.displayNotification(result, { type: 'success' });
-                    this.pushRouter({ name: 'MANAGE_LEGATE' });
+                    this.pushRouter({ name: 'MANAGE_LEGATE', query: {role_type: 'legate'} });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
