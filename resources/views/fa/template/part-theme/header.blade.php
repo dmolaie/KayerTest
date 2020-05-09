@@ -4,10 +4,17 @@
             <a href="{{ route('index',config('app.locale')) }}"
                class="header__logo block m-l-auto"
             >
-                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
-                     alt="انجمن اهدای عضو ایرانیان"
-                     class="header__logo_image block object-contain"
-                />
+                @if(app()->getLocale() == 'fa')
+                    <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
+                         alt="انجمن اهدای عضو ایرانیان"
+                         class="header__logo_image block object-contain"
+                    />
+                @else
+                    <img src="{{ secure_asset('/images/ic_ehdaCenter--en.png') }}"
+                         alt="انجمن اهدای عضو ایرانیان"
+                         class="header__logo_image block object-contain"
+                    />
+                @endif
             </a>
             <button class="s-domain__button text-blue font-sm font-bold">
                 پرتال استان‌ها
@@ -121,10 +128,17 @@
         <a href="{{ route('index',config('app.locale')) }}"
            class="m-header__logo"
         >
-            <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
-                 alt="انجمن اهدای عضو ایرانیان"
-                 class="h-full block object-contain"
-            />
+            @if(app()->getLocale() == 'fa')
+                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
+                     alt="انجمن اهدای عضو ایرانیان"
+                     class="h-full block object-contain"
+                />
+            @else
+                <img src="{{ secure_asset('/images/ic_ehdaCenter--en.png') }}"
+                     alt="انجمن اهدای عضو ایرانیان"
+                     class="h-full block object-contain"
+                />
+            @endif
         </a>
         <div class="m-header__language absolute inline-flex rounded-3 text-center overflow-hidden opacity-0">
             <a href="{{route('index','en')}}"
@@ -179,18 +193,78 @@
                         <path fill="#00B1F5" d="M20.33 18.303l-4.386-4.386c1.066-1.483 1.652-3.254 1.652-5.12 0-2.348-.914-4.557-2.578-6.22C13.358.918 11.148 0 8.798 0c-2.35 0-4.56.914-6.221 2.578C.916 4.238.001 6.448.001 8.798c0 2.35.914 4.558 2.576 6.221 1.661 1.661 3.87 2.578 6.22 2.578 1.865 0 3.635-.583 5.119-1.652l4.385 4.386c.281.28.647.42 1.014.42.368 0 .735-.14 1.014-.42.56-.561.56-1.468 0-2.028zM4.605 12.99c-1.12-1.12-1.736-2.61-1.736-4.193 0-1.583.616-3.071 1.736-4.192 1.12-1.12 2.608-1.737 4.192-1.737 1.583 0 3.072.617 4.192 1.737s1.737 2.61 1.737 4.193c0 1.583-.616 3.072-1.737 4.193-1.12 1.12-2.608 1.735-4.192 1.735-1.585 0-3.074-.616-4.192-1.736z"/>
                     </svg>
                 </button>
-                <button class="m-header__button"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 18 21"
-                         class="block w-full h-full object-contain"
+                @if(auth()->check())
+                    <button class="m-header__button"
+                            id="m_userMenu"
                     >
-                        <g fill="#00B1F5">
-                            <path d="M8.414 9.865c1.355 0 2.529-.486 3.488-1.445.959-.959 1.445-2.132 1.445-3.487s-.486-2.529-1.445-3.488C10.942.486 9.769 0 8.414 0S5.885.486 4.926 1.445c-.959.959-1.445 2.132-1.445 3.487 0 1.356.486 2.53 1.446 3.488.959.96 2.132 1.445 3.487 1.445zM17.045 15.748c-.028-.399-.083-.834-.166-1.294-.083-.463-.19-.9-.318-1.301-.132-.414-.312-.822-.535-1.213-.23-.407-.502-.76-.806-1.052-.319-.304-.708-.549-1.16-.728-.448-.177-.946-.267-1.478-.267-.21 0-.411.086-.802.34-.24.157-.521.338-.835.538-.268.171-.632.331-1.08.476-.439.142-.883.214-1.322.214-.44 0-.884-.072-1.322-.214-.449-.145-.812-.305-1.08-.476-.31-.198-.592-.38-.836-.538-.39-.255-.592-.34-.801-.34-.533 0-1.03.09-1.48.268-.45.178-.84.423-1.158.728-.304.29-.576.644-.806 1.05-.223.392-.403.8-.535 1.214-.128.4-.235.838-.318 1.301-.082.46-.138.895-.166 1.295-.027.391-.041.798-.041 1.209 0 1.069.34 1.934 1.01 2.573.662.63 1.538.95 2.603.95h9.86c1.066 0 1.941-.32 2.603-.95.67-.638 1.01-1.504 1.01-2.573 0-.413-.013-.82-.04-1.21z"/>
-                        </g>
-                    </svg>
-                </button>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 18 21"
+                             class="block w-full h-full object-contain pointer-event-none"
+                        >
+                            <g fill="#82ac17">
+                                <path d="M8.414 9.865c1.355 0 2.529-.486 3.488-1.445.959-.959 1.445-2.132 1.445-3.487s-.486-2.529-1.445-3.488C10.942.486 9.769 0 8.414 0S5.885.486 4.926 1.445c-.959.959-1.445 2.132-1.445 3.487 0 1.356.486 2.53 1.446 3.488.959.96 2.132 1.445 3.487 1.445zM17.045 15.748c-.028-.399-.083-.834-.166-1.294-.083-.463-.19-.9-.318-1.301-.132-.414-.312-.822-.535-1.213-.23-.407-.502-.76-.806-1.052-.319-.304-.708-.549-1.16-.728-.448-.177-.946-.267-1.478-.267-.21 0-.411.086-.802.34-.24.157-.521.338-.835.538-.268.171-.632.331-1.08.476-.439.142-.883.214-1.322.214-.44 0-.884-.072-1.322-.214-.449-.145-.812-.305-1.08-.476-.31-.198-.592-.38-.836-.538-.39-.255-.592-.34-.801-.34-.533 0-1.03.09-1.48.268-.45.178-.84.423-1.158.728-.304.29-.576.644-.806 1.05-.223.392-.403.8-.535 1.214-.128.4-.235.838-.318 1.301-.082.46-.138.895-.166 1.295-.027.391-.041.798-.041 1.209 0 1.069.34 1.934 1.01 2.573.662.63 1.538.95 2.603.95h9.86c1.066 0 1.941-.32 2.603-.95.67-.638 1.01-1.504 1.01-2.573 0-.413-.013-.82-.04-1.21z"/>
+                            </g>
+                        </svg>
+                    </button>
+                @else
+                    <a href="{{ route('admin.login') }}"
+                       class="m-header__button"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 18 21"
+                             class="block w-full h-full object-contain"
+                        >
+                            <g fill="#00B1F5">
+                                <path d="M8.414 9.865c1.355 0 2.529-.486 3.488-1.445.959-.959 1.445-2.132 1.445-3.487s-.486-2.529-1.445-3.488C10.942.486 9.769 0 8.414 0S5.885.486 4.926 1.445c-.959.959-1.445 2.132-1.445 3.487 0 1.356.486 2.53 1.446 3.488.959.96 2.132 1.445 3.487 1.445zM17.045 15.748c-.028-.399-.083-.834-.166-1.294-.083-.463-.19-.9-.318-1.301-.132-.414-.312-.822-.535-1.213-.23-.407-.502-.76-.806-1.052-.319-.304-.708-.549-1.16-.728-.448-.177-.946-.267-1.478-.267-.21 0-.411.086-.802.34-.24.157-.521.338-.835.538-.268.171-.632.331-1.08.476-.439.142-.883.214-1.322.214-.44 0-.884-.072-1.322-.214-.449-.145-.812-.305-1.08-.476-.31-.198-.592-.38-.836-.538-.39-.255-.592-.34-.801-.34-.533 0-1.03.09-1.48.268-.45.178-.84.423-1.158.728-.304.29-.576.644-.806 1.05-.223.392-.403.8-.535 1.214-.128.4-.235.838-.318 1.301-.082.46-.138.895-.166 1.295-.027.391-.041.798-.041 1.209 0 1.069.34 1.934 1.01 2.573.662.63 1.538.95 2.603.95h9.86c1.066 0 1.941-.32 2.603-.95.67-.638 1.01-1.504 1.01-2.573 0-.413-.013-.82-.04-1.21z"/>
+                            </g>
+                        </svg>
+                    </a>
+                @endif
             </div>
         </div>
+        @if( auth()->check() )
+            <div class="m-header__dropdown relative bg-white h-0 overflow-hidden">
+                <div class="m-header__dropdown_wrapper">
+                    <div class="m-header__dropdown_item w-full block text-green-300 font-sm font-bold">
+                        {{auth()->user()->name .' '.auth()->user()->last_name . ' '}}خوش آمدید
+                    </div>
+                    @if( in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()) || in_array(config('role.roles.admin.name'),auth()->user()->roles->pluck('name')->toArray()))
+                        <a href="{{route('admin.login',config('app.locale'))}}"
+                           class="m-header__dropdown_item w-full block text-blue-800 font-sm font-bold">
+                            بخش سفیران اهدای عضو
+                        </a>
+                    @endif
+
+                    @if( in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('type')->toArray()))
+                        <a href="{{route('page.client.profile',config('app.locale'))}}"
+                           class="m-header__dropdown_item w-full block text-blue-800 font-sm font-bold">
+                            کارت اهدای عضو
+                        </a>
+                    @endif
+
+                    @if(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()) && !in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                        <a href="{{route('admin.login',config('app.locale'))}}"
+                           class="m-header__dropdown_item w-full block text-blue-800 font-sm font-bold">
+                            ویرایش پروفایل
+                        </a>
+                    @elseif(!in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                        <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
+                           class="m-header__dropdown_item w-full block text-blue-800 font-sm font-bold">
+                            ویرایش پروفایل
+                        </a>
+                    @elseif(in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()) && in_array(config('role.roles.client.name'),auth()->user()->roles->pluck('name')->toArray()))
+                        <a href="{{route('admin.login',config('app.locale'))}}"
+                           class="m-header__dropdown_item w-full block text-blue-800 font-sm font-bold">
+                            ویرایش پروفایل
+                        </a>
+                    @endif
+
+                    <a href="/user/#/logout"
+                       class="m-header__dropdown_item w-full block text-blue-800 font-sm font-bold">
+                        خروج
+                    </a>
+                </div>
+            </div>
+        @endif
     </div>
 </header>
