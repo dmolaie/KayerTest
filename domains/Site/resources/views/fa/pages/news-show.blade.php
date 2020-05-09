@@ -69,6 +69,7 @@
                     </div>
                 </div>
             </div>
+            @if(false)
             <h2 class="relative-news__title i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                 <span class="i-page__title text-center cursor-default">
                     از دست ندهید
@@ -251,6 +252,7 @@
                     <div class="carousel__pagination carousel__pagination--white none sm:flex justify-center"></div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 @endsection
