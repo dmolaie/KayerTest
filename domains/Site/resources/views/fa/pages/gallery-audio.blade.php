@@ -20,7 +20,7 @@
                                         <audio id="music_player"
                                                controls class="w-0 h-0 opacity-0 visibility-hidden overflow-hidden"
                                         >
-                                            <source src="/{{ $mediaDetail->getContentFiles()[0]['path'] }}" type="audio/mpeg">
+                                            <source src="/{{ current($mediaDetail->getContentFiles())['path'] }}" type="audio/mpeg">
                                             متاسفانه مرورگر شما از این قابلیت پشتیبانی نمی‌کند.
                                         </audio>
                                     </div>

@@ -94,7 +94,7 @@
 
     @section('scripts')
         <script type="text/JavaScript" id="aparat_script"
-                src="https://www.aparat.com/embed/{{ getVideoUUIDFromPatch($mediaDetail->getContentFiles()[0]) }}?data[rnddiv]=video_player&data[responsive]=yes">
+                src="https://www.aparat.com/embed/{{ getVideoUUIDFromPatch(current($mediaDetail->getContentFiles())) }}?data[rnddiv]=video_player&data[responsive]=yes">
         </script>
         <script src="{{ secure_asset('js/site/gallery-video.js') }}" defer></script>
     @endsection
