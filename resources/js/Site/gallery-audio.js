@@ -37,12 +37,14 @@ try {
     const EPISODES_WRAPPER  = document.querySelector('.gao-page .episodes');
     const AUDIO_ELEMENT = document.getElementById('music_player');
     const PLAYER_WRAPPER = document.querySelector('.gao-page__inner-box');
+    const DOWNLOAD_LINK = document.querySelector('.gau-page__download');
 
     const onClickEpisodesItem = ( episode ) => {
         const AUDIO_URL = episode.getAttribute('data-url');
         const CURRENT_ACTIVE = EPISODES_WRAPPER.querySelector(`.${ACTIVE_CLASSNAME}`);
         AUDIO_ELEMENT.src = AUDIO_URL;
         !!CURRENT_ACTIVE && CURRENT_ACTIVE.classList.remove( ACTIVE_CLASSNAME );
+        if ( !!DOWNLOAD_LINK ) DOWNLOAD_LINK.href = AUDIO_URL;
         episode.classList.add( ACTIVE_CLASSNAME );
         SmoothScroll( PLAYER_WRAPPER.offsetTop );
     };

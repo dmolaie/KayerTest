@@ -12,7 +12,7 @@
                         <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
                                 <div class="gau-page__player relative rounded-inherit">
-                                    <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
+                                    <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
                                          alt="{{ $mediaDetail->getFirstTitle() }}"
                                          class="w-full block rounded-inherit"
                                     />
@@ -30,10 +30,10 @@
                                 <h3 class="i-page__sub-title text-blue font-24 font-bold cursor-default m-b-26 md:w-full sm:font-sm">
                                     {{ $mediaDetail->getFirstTitle() }}
                                 </h3>
-                                <a href="" target="_blank" download=""
+                                <a href="/{{ current($mediaDetail->getContentFiles())['path'] }}" target="_blank" download=""
                                    class="gau-page__download flex items-center text-blue-800 font-lg font-medium border border-solid rounded l:transition-background sm:font-base"
                                 >
-                                    ۷.۶۳ مگابایت
+                                    بارگیری
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
                                         <g fill="#03b6f9">
                                             <path d="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32
@@ -72,6 +72,7 @@
                         </div>
                     @endif
                 </div>
+                @if(false)
                 <h2 class="gau-page__sTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg sm:m-0">
                     <span class="i-page__title text-center cursor-default">
                         از دست ندهید
@@ -237,6 +238,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     @endsection
