@@ -12,7 +12,7 @@
                         <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
                                 <div class="gau-page__player relative rounded-inherit">
-                                    <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
+                                    <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
                                          alt="{{ $mediaDetail->getFirstTitle() }}"
                                          class="w-full block rounded-inherit"
                                     />
