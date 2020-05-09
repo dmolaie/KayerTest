@@ -99,6 +99,7 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
             ->setDayOfCooperation($this['day_of_cooperation'])
             ->setFieldOfActivities(isset($this['field_of_activities']) ? implode(',',
                 $this['field_of_activities']) : null)
+            ->setRegisterType(config('user.user_register_type.by_user'))
             ->setPassword($this['password']);
 
         return $userRegisterInfoDTO;

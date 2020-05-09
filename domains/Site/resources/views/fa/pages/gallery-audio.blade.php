@@ -13,14 +13,14 @@
                             <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
                                 <div class="gau-page__player relative rounded-inherit">
                                     <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
-                                         alt=""
+                                         alt="{{ $mediaDetail->getFirstTitle() }}"
                                          class="w-full block rounded-inherit"
                                     />
                                     <div class="gau-page__audio absolute w-full">
                                         <audio id="music_player"
                                                controls class="w-0 h-0 opacity-0 visibility-hidden overflow-hidden"
                                         >
-                                            <source src="https://dl.music-ava.ir/music/bikalam/piyano/Wind.mp3" type="audio/mpeg">
+                                            <source src="/{{ current($mediaDetail->getContentFiles())['path'] }}" type="audio/mpeg">
                                             متاسفانه مرورگر شما از این قابلیت پشتیبانی نمی‌کند.
                                         </audio>
                                     </div>
@@ -28,12 +28,12 @@
                             </div>
                             <div class="gau-page__box flex items-center justify-between md:flex-col">
                                 <h3 class="i-page__sub-title text-blue font-24 font-bold cursor-default m-b-26 md:w-full sm:font-sm">
-                                    تو رسیدی - مهدی یغمایی
+                                    {{ $mediaDetail->getFirstTitle() }}
                                 </h3>
-                                <a href="" target="_blank" download=""
+                                <a href="/{{ current($mediaDetail->getContentFiles())['path'] }}" target="_blank" download=""
                                    class="gau-page__download flex items-center text-blue-800 font-lg font-medium border border-solid rounded l:transition-background sm:font-base"
                                 >
-                                    ۷.۶۳ مگابایت
+                                    بارگیری
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
                                         <g fill="#03b6f9">
                                             <path d="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32
@@ -47,41 +47,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 md:w-full">
-                        <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
-                            <div class="episodes absolute w-full">
-                                <div class="episode episode--active relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="https://dl.music-ava.ir/music/bikalam/piyano/Wind.mp3"
-                                >
-                                    <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
-                                        <img src=""
-                                             data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                             alt="درد بی مغزی"
-                                             class="episode__image block absolute w-full h-full rounded-inherit object-cover"
+                    @if(count($mediaDetail->getContentFiles()) > 1)
+                        <div class="gao-page__aside xxl:w-1/5 xl:w-1/4 w-1/3 md:w-full">
+                            <div class="relative inner-box inner-box--white h-full p-0 m-t-0 overflow-auto">
+                                <div class="episodes absolute w-full">
+                                    @foreach($mediaDetail->getContentFiles() as $index=>$mediaInfo)
+                                        <div class="episode relative flex items-center cursor-pointer bg-white l:transition-background {{ !$index ? 'episode--active' : '' }}"
+                                             data-url="/{{ $mediaInfo['path'] }}"
                                         >
-                                    </figure>
-                                    <span class="episode__caption text-blue-800 text-blue-800 font-sm font-medium pointer-event-none">
-                                        هدیه - حسین اعظمی
-                                    </span>
-                                </div>
-                                <div class="episode relative flex items-center cursor-pointer bg-white l:transition-background"
-                                     data-url="https://dl.music-ava.ir/music/bikalam/piyano/Rain.mp3"
-                                >
-                                    <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
-                                        <img src=""
-                                             data-src="{{ secure_asset('/images/img_default.jpg') }}"
-                                             alt="درد بی مغزی"
-                                             class="episode__image block absolute w-full h-full rounded-inherit object-cover"
-                                        >
-                                    </figure>
-                                    <span class="episode__caption text-blue-800 text-blue-800 font-sm font-medium pointer-event-none">
-                                        دلخوشی - امیرعباس گلاب
-                                    </span>
+                                            <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
+                                                <img src=""
+                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     alt="{{ $mediaDetail->getFirstTitle() }}"
+                                                     class="episode__image block absolute w-full h-full rounded-inherit object-cover"
+                                                >
+                                            </figure>
+                                            <span class="episode__caption text-blue-800 text-blue-800 font-sm font-medium pointer-event-none">
+                                                {{ $mediaInfo['title'] ? $mediaInfo['title'] : $mediaDetail->getFirstTitle() }}
+                                            </span>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
+                @if(false)
                 <h2 class="gau-page__sTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg sm:m-0">
                     <span class="i-page__title text-center cursor-default">
                         از دست ندهید
@@ -247,6 +238,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     @endsection

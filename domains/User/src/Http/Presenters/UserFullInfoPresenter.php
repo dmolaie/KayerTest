@@ -43,7 +43,7 @@ class UserFullInfoPresenter
             'day_of_cooperation'         => $userFullInfoDTO->getDayOfCooperation(),
             'know_community_by'          => $userFullInfoDTO->getKnowCommunityBy() ? array_flip(config('user.know_community_by'))[$userFullInfoDTO->getKnowCommunityBy()] : null,
             'motivation_for_cooperation' => $userFullInfoDTO->getMotivationForCooperation(),
-            'field_of_activities'        => $userFullInfoDTO->getFieldOfActivities() ? array_map('intval',
+            'field_of_activities'        => !is_null($userFullInfoDTO->getFieldOfActivities()) ? array_map('intval',
                 explode(',', $userFullInfoDTO->getFieldOfActivities())) : [],
             'current_address'            => $userFullInfoDTO->getCurrentAddress(),
             'roles'                      => $userFullInfoDTO->getRoles(),

@@ -23,7 +23,7 @@
     <!--    <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon/favicon-32x32.png">-->
     <!--    <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon/favicon-16x16.png">-->
     <!--    <link href="/image/favicon/favicon.ico" rel="shortcut icon">-->
-    <link rel="stylesheet" href="{{secure_asset('css/style.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
     @yield('styles')
 
     <title>

@@ -172,112 +172,44 @@
             <div class="container sm:p-0">
                 <div class="section__title flex items-end sm:p-0-20">
                     <h4 class="i-page__sub-title font-24 text-blue-800 cursor-default text-nowrap line-height-1 sm:font-sm">
-                        دانستنی های اهدا
+                        دانستنی‌های اهدا
                     </h4>
                     <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    <a href=""
+                    {{-- <a href=""
                        class="router-link relative none font-xs-bold sm:block sm:m-r-auto sm:m-b-2">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="max-w-full overflow-x-hidden">
                     <div class="carousel__container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ secure_asset('images/information/تاریخچه‌ی اهدا و پیوند.svg') }}"
-                                             alt="تاریخچه‌ی اهدا و پیوند"
-                                             class="block w-full h-full rounded object-contain"
-                                        />
-                                    </figure>
-                                    <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                        تاریخچه‌ی اهدا و پیوند
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ secure_asset('images/information/فرایند مرگ مغزی.svg') }}"
-                                             alt="فرایند مرگ مغزی"
-                                             class="block w-full h-full rounded object-contain"
-                                        />
-                                    </figure>
-                                    <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                        فرایند مرگ مغزی
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ secure_asset('images/information/مروری بر اهدای عضو.svg') }}"
-                                             alt="مروری بر اهدای عضو"
-                                             class="block w-full h-full rounded object-contain"
-                                        />
-                                    </figure>
-                                    <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                        مروری بر اهدای عضو
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ secure_asset('images/information/تخصیص عضو.svg') }}"
-                                             alt="تخصیص عضو"
-                                             class="block w-full h-full rounded object-contain"
-                                        />
-                                    </figure>
-                                    <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                        تخصیص عضو
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ secure_asset('images/information/اهدای عضو در سایر کشورها.svg') }}"
-                                             alt="اهدای عضو در سایر کشورها"
-                                             class="block w-full h-full rounded object-contain"
-                                        />
-                                    </figure>
-                                    <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                        اهدای عضو در سایر کشورها
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href=""
-                                   class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                    <figure class="info__cart_image block w-full m-0-auto">
-                                        <img src="{{ secure_asset('images/information/اهدای عضو و مذهب.svg') }}"
-                                             alt="اهدای عضو و مذهب"
-                                             class="block w-full h-full rounded object-contain"
-                                        />
-                                    </figure>
-                                    <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                        اهدای عضو و مذهب
-                                    </p>
-                                </a>
-                            </div>
+                            @foreach($knowledgeArticles as $knowledgeArticle)
+                                <div class="swiper-slide">
+                                    <a href="{{ route('article-short-link', $knowledgeArticle->getUuid()) }}"
+                                       class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
+                                        <figure class="info__cart_image block w-full m-0-auto">
+                                            <img src="/{{$knowledgeArticle->getAttachmentFiles() ? current($knowledgeArticle->getAttachmentFiles())['path'] : ''}}"
+                                                 alt="{{$knowledgeArticle->getFirstTitle()}}"
+                                                 class="block w-full h-full rounded object-contain"
+                                            />
+                                        </figure>
+                                        <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
+                                            {{$knowledgeArticle->getFirstTitle()}}
+                                        </p>
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
                         <div class="carousel__pagination carousel__pagination--blue none sm:flex justify-center"></div>
                     </div>
                 </div>
                 <div class="block text-left m-t-20 sm:none">
-                    <a href=""
+                    {{-- <a href=""
                        class="router-link relative inline-block font-xs-bold">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>
@@ -290,10 +222,10 @@
                     <span class="p-home__line p-home__line--blue-200 flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    <a href=""
+                    {{-- <a href="{{ route('page.events-list', config('app.locale')) }}"
                        class="router-link relative none font-xs-bold sm:block sm:m-r-auto sm:m-b-2">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="max-w-full overflow-x-hidden">
                     <div class="carousel__container">
@@ -323,10 +255,10 @@
                     </div>
                 </div>
                 <div class="block text-left m-t-20 sm:none">
-                    <a href=""
+                    {{-- <a href="{{ route('page.events-list', config('app.locale')) }}"
                        class="router-link relative inline-block font-xs-bold">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>
@@ -339,10 +271,10 @@
                     <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
                     <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    <a href=""
+                    {{-- <a href="{{ route('page.news-list-iran', config('app.locale')) }}"
                        class="router-link relative none font-xs-bold  sm:block sm:m-r-auto sm:m-b-2">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
                 <article class="ehda-news__container">
                     <div class="max-w-full overflow-x-hidden">
@@ -383,10 +315,10 @@
                     </div>
                 </article>
                 <div class="block text-left m-t-20 sm:none">
-                    <a href=""
+                    {{-- <a href="{{ route('page.news-list-iran', config('app.locale')) }}"
                        class="router-link relative inline-block font-xs-bold">
                         بیشتر
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>

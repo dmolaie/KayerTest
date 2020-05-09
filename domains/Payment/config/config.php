@@ -16,5 +16,13 @@ return [
             'palfded' => 'مشارکت در آموزش تیم‌های اهدای عضو',
             'padrp' => 'مشارکت در پژوهش‌های مربوطه',
         ]
+    ],
+
+    'payment' => [
+        'action ' => '1003',
+        'terminalCode ' => '1003',
+        'merchantCode ' => '1003',
+        'redirectAddress ' => '1003',
+
     ]
 ];

@@ -184,6 +184,19 @@ export const Chunkify = (array, chunkSize = 10) => {
     }, []);
 };
 
+export const isBoolean = val => 'boolean' === typeof val;
+
+export const isNumeric = val => 'number' === typeof val;
+
+export const isString = val => 'string' === typeof val;
+
+export const getParameterFromUrl = key => {
+    try {
+        const SEARCH = window.location.search || '';
+        return decodeURIComponent(SEARCH.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+    } catch (e) {}
+};
+
 export const RequiredErrorMessage = field => `فیلد ${field} ضروری است.`;
 export const InvalidErrorMessage  = field => `فرمت ${field} نامعتبر است.`;
 export const PersianInvalidErrorMessage  = field => `${field} را با حروف فارسی وارد نمایید.`;

@@ -85,6 +85,42 @@ try {
 } catch (e) {}
 
 try {
+    const M_MENU_BUTTON_ACTIVE = 'm-header__button--active';
+    const M_MENU_BUTTON = document.getElementById('m_userMenu');
+    const M_MENU_WRAPPER = document.querySelector('.m-header .m-header__dropdown');
+    const M_MENU_BODY = document.querySelector('.m-header .m-header__dropdown_wrapper');
+
+    const M_MENU = {
+        visible() {
+            try {
+                M_MENU_BUTTON.classList.add( M_MENU_BUTTON_ACTIVE );
+                M_MENU_WRAPPER.style.height = `${M_MENU_BODY.offsetHeight}px`;
+            } catch (e) {}
+        },
+        hidden() {
+            try {
+                M_MENU_BUTTON.classList.remove( M_MENU_BUTTON_ACTIVE );
+                M_MENU_WRAPPER.style = null;
+            } catch (e) {}
+        }
+    };
+
+    if ( !!M_MENU_BUTTON && !!M_MENU_WRAPPER ) {
+        M_MENU_BUTTON.addEventListener(
+            'click',
+            event => {
+                event.preventDefault();
+                M_MENU_BUTTON.classList.contains( M_MENU_BUTTON_ACTIVE ) ? (
+                    M_MENU.hidden()
+                ) : (
+                    M_MENU.visible()
+                )
+            }
+        )
+    }
+} catch (e) {}
+
+try {
     const ACTIVE_DROPDOWN_USER_MENU = 'show';
     const DROPDOWN_USER_MENU_CONTAINER = document.querySelector('.header__user--active');
     const DROPDOWN_USER_MENU = document.querySelector('.header__user--active .header__user_link');

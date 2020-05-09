@@ -141,4 +141,10 @@ $animation: .32s
     .m-header__language, .m-header__nav
       opacity: 1
       transition: opacity $duration .12s
-
+  &__dropdown
+    transition: height .2s ease-in-out
+    &_item
+      padding: 12px 20px
+      border-bottom: 1px solid $c
+      &:first-child
+        border-top: 1px solid $c

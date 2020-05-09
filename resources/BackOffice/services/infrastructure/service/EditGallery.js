@@ -114,6 +114,12 @@ export default class EditGalleryService {
             FORM_DATA.append('first_title', DUPLICATE_FORM['first_title']);
             FORM_DATA.append('province_id', DUPLICATE_FORM['province_id']);
 
+            ( !DUPLICATE_FORM['is_published'] ) ? (
+                FORM_DATA.append('publish_date', DUPLICATE_FORM['publish_date'])
+            ) : (
+                FORM_DATA.append('publish_date', PUBLISH_DATE)
+            );
+
             if ( !!HasLength( DUPLICATE_FORM['abstract'] ) ) FORM_DATA.append('abstract', DUPLICATE_FORM['abstract']);
             if ( !!HasLength( DUPLICATE_FORM['description'] ) ) FORM_DATA.append('description', DUPLICATE_FORM['description']);
             if ( !!DUPLICATE_FORM['images'] ) FORM_DATA.append('images[]', form['images'].get('images'));

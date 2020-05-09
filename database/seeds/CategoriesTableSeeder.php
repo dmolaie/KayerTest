@@ -212,6 +212,13 @@ class CategoriesTableSeeder extends Seeder
                 'type'     => 'video',
                 'children' => []
             ],
+            [
+                'name_en'  => 'Knowledge',
+                'name_fa'  => 'دانستنی‌ها',
+                'slug'     => 'article-knowledge',
+                'type'     => 'article',
+                'children' => []
+            ],
 
         ];
         $this->registerCategories($categories);

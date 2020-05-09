@@ -87,6 +87,7 @@ class UserRegisterRequest extends EhdaBaseRequest
             ->setHomePostalCode($this['home_postal_code'])
             ->setPassword($this['password'])
             ->setRoleType(config('user.client_role_type'))
+            ->setRegisterType(config('user.user_register_type.by_user'))
             ->setRoleStatus(config('user.user_role_active_status'));
 
         return $userRegisterDTO;

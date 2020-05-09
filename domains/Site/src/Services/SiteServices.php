@@ -4,12 +4,15 @@ namespace Domains\Site\Services;
 
 
 use Domains\Article\Services\ArticleService;
+use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Domains\Category\Services\CategoryService;
 use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Domains\Event\Services\EventService;
 use Domains\Location\Services\ProvinceService;
 use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
+use Domains\Media\Services\Contracts\DTOs\MediaFilterDTO;
+use Domains\Media\Services\MediaService;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\News\Services\NewsService;
@@ -60,10 +63,24 @@ class SiteServices
      * @var UserService
      */
     private $userService;
+    /**
+     * @var MediaService
+     */
+    private $mediaService;
 
 
-    public function __construct(MenusContentService $menusService, CategoryService $categoryService, NewsService $newsService, NewsFilterDTO $newsFilterDTO, EventService $eventService, EventFilterDTO $eventFilterDTO, ArticleService $articleService, ProvinceService $provinceService, UserService $userService)
-    {
+    public function __construct(
+        MenusContentService $menusService,
+        CategoryService $categoryService,
+        NewsService $newsService,
+        NewsFilterDTO $newsFilterDTO,
+        EventService $eventService,
+        EventFilterDTO $eventFilterDTO,
+        ArticleService $articleService,
+        ProvinceService $provinceService,
+        UserService $userService,
+        MediaService $mediaService
+    ) {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
         $this->newsFilterDTO = $newsFilterDTO;
@@ -73,6 +90,7 @@ class SiteServices
         $this->eventFilterDTO = $eventFilterDTO;
         $this->provinceService = $provinceService;
         $this->userService = $userService;
+        $this->mediaService = $mediaService;
     }
 
     public function getAll()
@@ -92,8 +110,8 @@ class SiteServices
     {
         $this->newsFilterDTO->setNewsInputStatus('published');
         $this->newsFilterDTO->setSort('DESC');
-        $categoryId = $this->getIdCategoryNews($categories);
-        $this->newsFilterDTO->setCategoryIds([$categoryId]);
+        $categoryIds = $this->getCategoryIdBySlug($categories);
+        $this->newsFilterDTO->setCategoryIds($categoryIds);
         $globalSubDomain = $this->getLocations('global-fa');
         if (!$subdomain) {
             $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
@@ -110,9 +128,9 @@ class SiteServices
         return $news;
     }
 
-    private function getIdCategoryNews($categorySlug)
+    private function getCategoryIdBySlug($categorySlugs)
     {
-        return $this->categoryService->getCategoryBySlug($categorySlug);
+        return $this->categoryService->getCategoryBySlugs($categorySlugs);
     }
 
     public function getLocations($slug)
@@ -228,4 +246,42 @@ class SiteServices
         return $this->userService->getUserBaseInfoWithUuid($uuid);
     }
 
+    public function getMediaListByType(MediaFilterDTO $mediaFilter, $subDomain = null, $categorySlug = null)
+    {
+        $province = $subDomain ?? $this->getLocations('global-fa');
+        $mediaFilter->setCategoryIds(
+            $categorySlug ? $this->getCategoryIdBySlug($categorySlug) : null)
+            ->setProvinceId($province->id);
+        $media = $this->mediaService->filterMedia($mediaFilter);
+        if (!empty($media->getItems())) {
+            return $media->getPaginationRecords();
+        }
+        $mediaFilter->setProvinceId($this->getLocations('global-fa')->id);
+        return $this->mediaService->filterMedia($mediaFilter)->getPaginationRecords();
+    }
+
+    public function getMediaByUuid(string $uuid)
+    {
+        return $this->mediaService->getMediaDetailWithUuid($uuid);
+    }
+
+    public function getDetailMedia($slug)
+    {
+        return $this->mediaService->getMediaDetailWithSlug($slug);
+    }
+
+    public function getArticleList(ArticleFilterDTO $articleFilterDTO, $subDomain = null, $categorySlugs = null)
+    {
+        $province = $subDomain ?? $this->getLocations('global-fa');
+        $articleFilterDTO->setCategoryIds(
+            $categorySlugs ? $this->getCategoryIdBySlug($categorySlugs) : null)
+            ->setProvinceId($province->id);
+        $articles = $this->articleService->filterArticle($articleFilterDTO);
+
+        if (!empty($articles->getItems())) {
+            return $articles->getPaginationRecords();
+        }
+        $articleFilterDTO->setProvinceId($this->getLocations('global-fa')->id);
+        return $this->articleService->filterArticle($articleFilterDTO)->getPaginationRecords();
+    }
 }

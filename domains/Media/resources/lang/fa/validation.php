@@ -112,6 +112,7 @@ return array(
         "publish_date_end"   => "تاریخ شروع ایجاد صفحه",
         "publish_date_start" => "تاریخ پایان ایجاد صفحه",
         "content"            => "محتوا",
-        "content.*"          => "محتوا",
+        "content.*.file"     => "محتوا",
+        "images.*"           => "عکس",
     ],
 );

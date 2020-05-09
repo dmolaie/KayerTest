@@ -9,54 +9,20 @@
                 </h1>
                 <div class="gai-page__box inner-box inner-box--white p-0 text-right">
                     <div class="gai-page__header text-white font-24 font-bold bg-blue rounded-inherit rounded-br-none rounded-bl-none text-center cursor-default sm:font-lg">
-                        جشن نفس ۱۳۹۳
+                        {{$mediaDetail->getFirstTitle()}}
                     </div>
                     <div class="gai-page__content flex flex-wrap items-start">
-                        <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
-                            <figure class="gai-page__figure relative w-full block border border-solid rounded has-skeleton overflow-hidden cursor-pointer cursor-pointer">
-                                <img src=""
-                                     data-src="https://images.unsplash.com/photo-1587892873372-07cbf8ec46f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=60"
-                                     alt=""
-                                     class="gai-page__image absolute w-full h-full block rounded-inherit object-cover pointer-event-none"
-                                />
-                            </figure>
-                        </div>
-                        <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
-                            <figure class="gai-page__figure relative w-full block border border-solid rounded has-skeleton overflow-hidden cursor-pointer cursor-pointer">
-                                <img src=""
-                                     data-src="https://images.unsplash.com/photo-1587918515749-a2a68b40a124?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                     alt=""
-                                     class="gai-page__image absolute w-full h-full block rounded-inherit object-cover pointer-event-none"
-                                />
-                            </figure>
-                        </div>
-                        <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
-                            <figure class="gai-page__figure relative w-full block border border-solid rounded has-skeleton overflow-hidden cursor-pointer cursor-pointer">
-                                <img src=""
-                                     data-src="https://images.unsplash.com/photo-1587860874265-39ab69a14cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                     alt=""
-                                     class="gai-page__image absolute w-full h-full block rounded-inherit object-cover pointer-event-none"
-                                />
-                            </figure>
-                        </div>
-                        <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
-                            <figure class="gai-page__figure relative w-full block border border-solid rounded has-skeleton overflow-hidden cursor-pointer cursor-pointer">
-                                <img src=""
-                                     data-src="https://ehda.center/uploads/posts/gallery/image/image/1527446956_h8COtS0Ft2uIcpKDLdCT5lKMQHjgTc_original.jpg"
-                                     alt=""
-                                     class="gai-page__image absolute w-full h-full block rounded-inherit object-cover pointer-event-none"
-                                />
-                            </figure>
-                        </div>
-                        <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
-                            <figure class="gai-page__figure relative w-full block border border-solid rounded has-skeleton overflow-hidden cursor-pointer cursor-pointer">
-                                <img src=""
-                                     data-src="https://ehda.center/uploads/posts/gallery/image/image/1527446860_e7DSbJlEIUEhpFxOfkhs6ekrJbnqsp_original.jpg"
-                                     alt=""
-                                     class="gai-page__image absolute w-full h-full block rounded-inherit object-cover pointer-event-none"
-                                />
-                            </figure>
-                        </div>
+                        @foreach($mediaDetail->getContentFiles() as $nestedMedia)
+                            <div class="gai-page__card xxl:w-1/5 xl:w-1/4 w-1/3 md:w-1/2 sm:w-full">
+                                <figure class="gai-page__figure relative w-full block border border-solid rounded has-skeleton overflow-hidden cursor-pointer cursor-pointer">
+                                    <img src=""
+                                         data-src="/{{ $nestedMedia['path'] }}"
+                                         alt="{{$mediaDetail->getFirstTitle()}}"
+                                         class="gai-page__image absolute w-full h-full block rounded-inherit object-cover pointer-event-none"
+                                    />
+                                </figure>
+                            </div>
+                        @endforeach
 
                         <div class="gai-page__short i-page__short w-full flex items-center justify-end sm:flex-col sm:justify-center">
                             <span class="text-bayoux font-sm-bold cursor-default">
@@ -66,105 +32,35 @@
                             <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
                                 کپی شد
                             </span>
-                                https://ehda.center/PNWVzX
+                                {{route('image-short-link',$mediaDetail->getUuid())}}
                             </div>
                         </div>
                         <div class="gai-page__modal fixed z-20 none">
                             <div class="w-full h-full container flex items-center justify-center">
                                 <div class="gai-page__modal_body w-full">
-                                    <div class="relative max-w-full h-full overflow-x-hidden">
+                                    <div class="relative max-w-full h-full overflow-y-hidden overflow-x-hidden">
                                         <div class="carousel__container h-full">
                                             <div class="swiper-wrapper h-full">
-                                                <div class="swiper-slide h-full">
-                                                    <figure class="gai-page__modal_item relative w-full h-full block rounded">
-                                                        <img src=""
-                                                             data-src="https://images.unsplash.com/photo-1587892873372-07cbf8ec46f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=60"
-                                                             alt="جشن نفس"
-                                                             class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
-                                                        />
-                                                        <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
-                                                        <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2">
-                                                            <span class="text-white">
-                                                                جشن نفس
-                                                            </span>
-                                                            <span class="text-white">
-                                                              ۱۸ آذر ۹۸
-                                                            </span>
-                                                        </figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="swiper-slide h-full">
-                                                    <figure class="gai-page__modal_item relative w-full h-full block rounded">
-                                                        <img src=""
-                                                             data-src="https://images.unsplash.com/photo-1587918515749-a2a68b40a124?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                             alt="جشن نفس"
-                                                             class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
-                                                        />
-                                                        <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
-                                                        <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2">
-                                                            <span class="text-white">
-                                                                جشن نفس
-                                                            </span>
-                                                            <span class="text-white">
-                                                              ۱۸ آذر ۹۸
-                                                            </span>
-                                                        </figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="swiper-slide h-full">
-                                                    <figure class="gai-page__modal_item relative w-full h-full block rounded">
-                                                        <img src=""
-                                                             data-src="https://images.unsplash.com/photo-1587860874265-39ab69a14cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                                             alt="جشن نفس"
-                                                             class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
-                                                        />
-                                                        <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
-                                                        <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2">
-                                                            <span class="text-white">
-                                                                جشن نفس
-                                                            </span>
-                                                            <span class="text-white">
-                                                              ۱۸ آذر ۹۸
-                                                            </span>
-                                                        </figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="swiper-slide h-full">
-                                                    <figure class="gai-page__modal_item relative w-full h-full block rounded">
-                                                        <img src=""
-                                                             data-src="https://ehda.center/uploads/posts/gallery/image/image/1527446956_h8COtS0Ft2uIcpKDLdCT5lKMQHjgTc_original.jpg"
-                                                             alt="جشن نفس"
-                                                             class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
-                                                        />
-                                                        <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
-                                                        <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2">
-                                                            <span class="text-white">
-                                                                جشن نفس
-                                                            </span>
-                                                            <span class="text-white">
-                                                              ۱۸ آذر ۹۸
-                                                            </span>
-                                                        </figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="swiper-slide h-full">
-                                                    <figure class="gai-page__modal_item relative w-full h-full block rounded">
-                                                        <img src=""
-                                                             data-src="https://ehda.center/uploads/posts/gallery/image/image/1527446860_e7DSbJlEIUEhpFxOfkhs6ekrJbnqsp_original.jpg"
-                                                             alt="جشن نفس"
-                                                             class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
-                                                        />
-                                                        <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
-                                                        <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2">
-                                                            <span class="text-white">
-                                                                جشن نفس
-                                                            </span>
-                                                            <span class="text-white">
-                                                              ۱۸ آذر ۹۸
-                                                            </span>
-                                                        </figcaption>
-                                                    </figure>
-                                                </div>
+                                                @foreach($mediaDetail->getContentFiles() as $nestedMedia)
+                                                    <div class="swiper-slide h-full">
+                                                        <figure class="gai-page__modal_item relative w-full h-full block rounded">
+                                                            <img src=""
+                                                                 data-src="/{{ $nestedMedia['path'] }}"
+                                                                 alt="{{$mediaDetail->getFirstTitle()}}"
+                                                                 class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
+                                                            />
+                                                            <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
+                                                            <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2">
+                                                                <span class="text-white">
+                                                                    {{ $nestedMedia['title'] ? $nestedMedia['title'] : $mediaDetail->getFirstTitle() }}
+                                                                </span>
+                                                                <span class="text-white">
+                                                                    {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($mediaDetail->getPublishDate()),new \DateTimeZone('Asia/Tehran'))->format('%d %B %Y')}}
+                                                                </span>
+                                                            </figcaption>
+                                                        </figure>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                         <button class="gai-page__carousel-btn gai-page__carousel-btn--right absolute z-20"

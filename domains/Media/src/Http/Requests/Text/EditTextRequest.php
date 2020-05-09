@@ -39,7 +39,9 @@ class EditTextRequest extends EhdaBaseRequest
 
     public function messages()
     {
-        return trans('media::validation');
+        $message = trans('media::validation');
+        $message['mimetypes'] = trans('media::response.text_format');
+        return $message;
     }
 
     public function attributes()

@@ -50,7 +50,7 @@ class UserFullInfoDTOMaker
             ->setCityOfWork($cities[$user->city_of_work] ?? null)
             ->setAddressOfWork($user->address_of_work)
             ->setWorkPhone($user->work_phone)
-            ->setWorkPostalCode($user->woke_postaal_code)
+            ->setWorkPostalCode($user->work_postal_code)
             ->setDayOfCooperation($user->day_of_cooperation)
             ->setKnowCommunityBy($user->know_community_by)
             ->setCurrentAddress($user->current_address)
