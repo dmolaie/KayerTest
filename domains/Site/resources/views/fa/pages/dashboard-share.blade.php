@@ -11,44 +11,46 @@
                     <form enctype="multipart/form-data" novalidate
                           class="w-full block"
                     >
-{{--                        <div class="d-share__column w-3/4 sm:w-full m-0-auto">--}}
-{{--                            <label class="d-share__drop w-full text-blue-800 flex items-center justify-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">--}}
-{{--                                <input type="file" accept="video/*" name="videos[]"--}}
-{{--                                       class="d-share__uploadField none w-0 h-0 overflow-hidden pointer-event-none"--}}
-{{--                                >--}}
-{{--                                فایل را اینجا رها کنید، یا با کلیک روی این ناحیه آن را انتخاب نمایید.--}}
-{{--                            </label>--}}
-{{--                        </div>--}}
-                        <div class="w-full">
-                            <div class="w-3/4 m-auto">
-                                <div class="d-share__preview w-full flex items-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
-                                    <figure class="d-share__previewCover flex-shrink-0 relative border border-solid rounded">
-                                        <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1577456769/FEM-sidebar-CSS_ssbe8e.png"
-                                             alt=""
-                                             class="d-share__previewImage absolute w-full h-full block rounded-inherit object-cover"
-                                        />
-                                    </figure>
-                                    <div class="flex-1 text-right">
-                                        <p class="font-sm font-bold">
-                                            در حال بارگذاری ویدیو ...
-                                        </p>
-                                        <p class="font-xs font-bold">
-                                            حجم فایل: 5.6Mb
-                                        </p>
-                                    </div>
-                                </div>
-                                <label class="w-full block">
-                                    <span class="d-share__label block w-full text-bayoux text-required font-sm-bold">
-                                        توضیحات
-                                    </span>
-                                    <textarea placeholder="توضیحات خود را بنویسید..." autocomplete="off"
-                                              class="d-share__textarea input input--blue block w-full border border-solid rounded"></textarea>
+                        <div class="d-share__row d-share__inputs w-full block overflow-hidden">
+                            <div class="d-share__column w-3/4 sm:w-full m-0-auto">
+                                <label class="d-share__drop w-full text-blue-800 flex items-center justify-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
+                                    <input type="file" accept="video/*" name="videos[]"
+                                           class="d-share__uploadField none w-0 h-0 overflow-hidden pointer-event-none"
+                                    >
+                                    فایل را اینجا رها کنید، یا با کلیک روی این ناحیه آن را انتخاب نمایید.
                                 </label>
                             </div>
                         </div>
-                        <button class="d-share__submit w-1/3 l:w-1/3 xl:w-1/5 block text-white bg-green font-lg font-bold md:w-full border-green-200-2 rounded text-center l:transition-background l:hover:bg-green-200 sm:font-base">
-                            ارسال
-                        </button>
+                        <div class="d-share__row d-share__details w-full block h-0 overflow-hidden">
+                            <div class="w-full">
+                                <div class="w-3/4 m-auto">
+                                    <div class="d-share__preview w-full flex items-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
+                                        <figure class="d-share__previewCover flex-shrink-0 relative border border-solid rounded">
+                                            <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1577456769/FEM-sidebar-CSS_ssbe8e.png"
+                                                 alt="ارسال ویدیو"
+                                                 class="d-share__previewImage absolute w-full h-full block rounded-inherit object-cover"
+                                            />
+                                        </figure>
+                                        <div class="flex-1 text-right">
+                                            <p class="font-sm font-bold">
+                                                در حال بارگذاری ویدیو ...
+                                            </p>
+                                            <p class="d-share__size font-xs font-bold"></p>
+                                        </div>
+                                    </div>
+                                    <label class="w-full block">
+                                        <span class="d-share__label block w-full text-bayoux text-required font-sm-bold">
+                                            توضیحات
+                                        </span>
+                                        <textarea placeholder="توضیحات خود را بنویسید..." autocomplete="off"
+                                                  class="d-share__textarea input input--blue block w-full border border-solid rounded"></textarea>
+                                    </label>
+                                </div>
+                                <button class="d-share__submit w-1/3 l:w-1/3 xl:w-1/5 block text-white bg-green font-lg font-bold md:w-full border-green-200-2 rounded text-center l:transition-background l:hover:bg-green-200 sm:font-base">
+                                    ارسال
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -156,5 +158,5 @@
     @endsection
 
     @section('scripts')
-        <script src="{{ asset('js/site/dashboard-share.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/dashboard-share.js') }}" defer></script>
     @endsection

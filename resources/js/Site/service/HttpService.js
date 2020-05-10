@@ -131,4 +131,64 @@ export default class HTTPService {
 
         return await this.Request( route, init );
     }
+
+    /**
+     * @param route { String }
+     * @param payload { FormData }
+     * @param onUploadProgress { Function }
+     */
+    static async uploadRequest(route, payload, onUploadProgress) {
+        try {
+            return await new Promise((resolve, reject) => {
+                const TOKEN = TokenService._GetToken;
+                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
+
+                let request = new XMLHttpRequest();
+                request.open('POST', route, true);
+                request.setRequestHeader('Accept', 'application/json');
+                !!TOKEN && request.setRequestHeader('Authorization', `Bearer ${TOKEN}`);
+                !!CSRF_TOKEN && request.setRequestHeader('X-CSRF-TOKEN', CSRF_TOKEN.getAttribute('content'));
+
+                request.onreadystatechange = function handelLoaded() {
+                    if (!request || request.readyState !== 4) return;
+
+                    resolve({
+                        data: request.response,
+                        status: request.status,
+                        statusText: request.statusText,
+                        request: request
+                    });
+
+                    request = null;
+                    // request = {
+                    //     data: request.response,
+                    //     status: request.status,
+                    //     statusText: request.statusText,
+                    //     request: request
+                    // };
+                    // // settle(resolve, reject, response);
+                    // request = null;
+                };
+
+                request.onabort = function handleAbort() {
+                    if ( !request ) return;
+                    // reject(createError('Request aborted', config, 'ECONNABORTED', request));
+                    reject();
+                    request = null;
+                };
+
+                request.onerror = function handleError( exception ) {
+                    reject( exception );
+                    request = null;
+                    // reject(createError('Network Error', config, null, request));
+                };
+
+                if ( onUploadProgress instanceof Function ) {
+                    request.upload.addEventListener('progress', onUploadProgress);
+                }
+            }).catch(exception => {
+                console.log('exception: ', exception);
+            })
+        } catch ( exception ) {}
+    }
 }

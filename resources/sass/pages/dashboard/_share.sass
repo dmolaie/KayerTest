@@ -12,6 +12,11 @@ $dropbox-background: #bde8fa
     resize: vertical
     min-height: 150px
     max-height: 250px
+  &__row
+    transition: height .12s ease-in-out
+    will-change: transform
+  &__inputs
+    height: 176px
   &__drop
     color: $bayoux
     border-color: $dropbox-background
@@ -114,3 +119,5 @@ $dropbox-background: #bde8fa
       animation: opacityFadeIn .1s ease-in-out .14s forwards
       .d-share__confirmWrapper
         animation: modalFadeOut .24s ease-in-out forwards
+  .h-0
+    height: 0 !important
