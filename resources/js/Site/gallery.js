@@ -1,13 +1,35 @@
-import { getParameterFromUrl } from '@vendor/plugin/helper';
+import {getParameterFromUrl} from '@vendor/plugin/helper';
+
+
+try {
+    const CHECKBOX_CLASSNAME = 'checkbox-square__input';
+    const CATEGORY_CHECKBOXES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}`);
+
+    const onChangeCheckboxInput = () => {
+        try {
+            let categoriesQuery = '';
+            const GALLERY_TYPE = getParameterFromUrl('type') || '',
+                  SORT = getParameterFromUrl('sort') || '';
+
+            const CHECKED_CATEGORIES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}:checked`);
+            [].concat(...CHECKED_CATEGORIES).map(({ value }) => {
+                categoriesQuery += `&categories[]=${value}`;
+            });
+
+            const PATHNAME = location.pathname;
+            location.href = `${PATHNAME}?type=${GALLERY_TYPE}${categoriesQuery}${SORT ? '&sort=' + SORT : ''}`;
+        } catch (e) {}
+    };
+
+    CATEGORY_CHECKBOXES.forEach(checkbox => {
+        checkbox.addEventListener('change', onChangeCheckboxInput);
+    })
+} catch (e) {}
 
 try {
     const DATA_PREFIX = 'data-id';
-    const DISPLAY_NONE_CLASSNAME = 'none';
     const ACTIVE_TAB_CLASSNAME = 'ga-page__tab--active';
-    const ACTIVE_CONTENT_CLASSNAME = 'ga-page__content--active';
     const TABS_WRAPPER = document.querySelector('.ga-page .ga-page__header');
-    const CONTENT_WRAPPER = document.querySelector('.ga-page .ga-page__content');
-    const TAB_ITEMS = document.querySelectorAll('.ga-page .ga-page__tab');
     const GALLERY_TYPE = {
         'voice': 'audio',
         'image': 'images',
@@ -21,11 +43,6 @@ try {
                   TYPE = GALLERY_TYPE[QUERY_TYPE] || GALLERY_TYPE['voice'];
             const TAB = TABS_WRAPPER.querySelector(`a[${DATA_PREFIX}="${TYPE}"]`);
             !!TAB && TAB.classList.add( ACTIVE_TAB_CLASSNAME );
-            // const CURRENT_TAB = CONTENT_WRAPPER.querySelector(`div[${DATA_PREFIX}="${TYPE}"]`);
-            // if ( !!CURRENT_TAB ) {
-            //     CURRENT_TAB.classList.add( ACTIVE_CONTENT_CLASSNAME );
-            //     CURRENT_TAB.classList.remove( DISPLAY_NONE_CLASSNAME );
-            // }
         } catch ( exception ) {}
     };
 
