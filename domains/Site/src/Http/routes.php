@@ -37,6 +37,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
 
             Route::prefix('gallery')->name('gallery.')->group(function () {
                 Route::get('/', 'PagesController@galleryList')->name('art-ehda');
+                Route::get('/list-content', 'PagesController@galleryListContent')->name('list-content');
                 Route::get('/audio/{slug}', 'PagesController@galleryAudio')->name('audio');
                 Route::get('/video/{slug}', 'PagesController@galleryVideo')->name('video');
                 Route::get('/image/{slug}', 'PagesController@galleryImage')->name('image');

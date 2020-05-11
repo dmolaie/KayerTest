@@ -4,18 +4,19 @@
 namespace Domains\Site\Http\Controllers;
 
 
-use App\Http\Controllers\Controller;
-use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
+use App\Http\Controllers\EhdaBaseController;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
+use Domains\Media\Http\Presenters\MediaPaginateInfoPresenter;
 use Domains\Media\Services\Contracts\DTOs\MediaFilterDTO;
 use Domains\Menu\Services\MenusContentService;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class PagesController extends Controller
+class PagesController extends EhdaBaseController
 {
     protected $siteServices;
 
@@ -243,21 +244,27 @@ class PagesController extends Controller
         return view('site::fa.cards.print', compact('userData'));
     }
 
-    public function galleryList($language, Request $request, CategoryInfoPresenter $categoryInfoPresenter)
+    public function galleryList()
     {
+        return view('site::fa.pages.gallery');
+    }
+
+    public function galleryListContent($language, Request $request, MediaPaginateInfoPresenter $mediaPaginateInfoPresenter) {
         $type = $request->type ?? 'voice';
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
             ->setSort($request->sort ?? 'DESC')
+            ->setFirstTitle($request->first_title)
+            ->setPaginationCount($request->page_count)
             ->setLanguage($language ?? 'fa')
             ->setType($type);
         $categories = $request->categories;
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $media = $this->siteServices->getMediaListByType($mediaFilter, $subDomain, $categories);
-        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType($type));
-        return view('site::fa.pages.gallery', compact('media', 'categories', 'type'));
+        $media = $mediaPaginateInfoPresenter->transform(
+            $this->siteServices->getMediaListByType($mediaFilter, $subDomain, $categories)
+        );
+        return $this->response($media, Response::HTTP_OK);
     }
-
     public function galleryVideo($language, string $slug, Request $request)
     {
         $type = 'video';
