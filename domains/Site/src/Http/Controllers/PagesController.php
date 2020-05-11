@@ -5,6 +5,7 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Media\Services\Contracts\DTOs\MediaFilterDTO;
@@ -342,5 +343,10 @@ class PagesController extends Controller
         $mediaDetail = $this->siteServices->getMediaByUuid($uuid);
 
         return view('site::fa.pages.gallery-audio', compact('mediaList', 'mediaDetail'));
+    }
+    public function showDetailArticle($language, string $slug){
+
+        $menusContent = $this->siteServices->getDetailArticle($slug);
+        return view('site::' . $menusContent->getLanguage() . '.pages.page', compact('menusContent'));
     }
 }

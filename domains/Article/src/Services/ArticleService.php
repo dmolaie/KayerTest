@@ -21,7 +21,6 @@ use Domains\Attachment\Services\Contracts\DTOs\AttachmentInfoDTO;
 use Domains\Pagination\Services\Contracts\DTOs\DTOMakers\PaginationDTOMaker;
 use Domains\User\Entities\User;
 use Domains\User\Services\UserService;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ArticleService
@@ -230,6 +229,14 @@ class ArticleService
     {
         $article = $this->articleRepository->findOrFailUuid($uuid);
         $attachmentInfoDto = $this->getAttachmentInfoNews(class_basename(Article::class), [$article->id]);
+        $images = $attachmentInfoDto->getImages()[$article->id];
+        return $this->articleInfoDTOMaker->convert($article, $images);
+    }
+
+    public function getArticleDetailWithSlug(string $slug,bool $status = true)
+    {
+        $article = $this->articleRepository->findWithSlug($slug, $status);
+        $attachmentInfoDto = $this->getAttachmentInfoArticle(class_basename(Article::class), [$article->id]);
         $images = $attachmentInfoDto->getImages()[$article->id];
         return $this->articleInfoDTOMaker->convert($article, $images);
     }
