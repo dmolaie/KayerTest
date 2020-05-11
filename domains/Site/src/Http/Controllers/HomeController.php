@@ -25,8 +25,8 @@ class HomeController extends Controller
     {
 
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getNews($status = 'published', $sort = 'DESC', $subdomain);
-        $event = $this->siteServices->getEvent($status = 'published', $sort = 'DESC', $subdomain);
+        $news = $this->siteServices->getNews($status = 'published', $sort = 'ASC', $subdomain);
+        $event = $this->siteServices->getEvent($status = 'published', $sort = 'ASC', $subdomain);
         $articleFilter = new ArticleFilterDTO();
         $articleFilter->setArticleInputStatus('published')
             ->setLanguage($request->language ?? 'fa')

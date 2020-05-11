@@ -65,5 +65,6 @@ Route::get('/image/{uuid}', 'PagesController@imageShortLink')->name('image-short
 
 Route::get('/cart-first/process/social/{uuid}', 'PagesController@socialUrlFirstCart')->name('social-url-first');
 Route::get('/cart-secound/process/social/{uuid}', 'PagesController@socialUrlSecondCart')->name('social-url-secound');
+Route::get('/cart/print/{uuid}', 'PagesController@printCart')->name('print-cart');
 
 

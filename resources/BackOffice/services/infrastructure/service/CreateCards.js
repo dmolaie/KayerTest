@@ -128,9 +128,9 @@ export default class CreateCardsService extends BaseService {
             if (!HasLength( father_name )) throw REQUIRED_ERROR_MESSAGE('father_name', 'نام پدر');
             if (!HasLength(`${date_of_birth}`)) throw REQUIRED_ERROR_MESSAGE('date_of_birth', 'تاریخ تولد', false);
             if (!HasLength( mobile )) throw REQUIRED_ERROR_MESSAGE('mobile', 'تلفن همراه');
-            if (!HasLength( current_province_id )) throw REQUIRED_ERROR_MESSAGE('current_province_id', 'استان محل سکونت', false);
-            if (!HasLength( current_city_id )) throw REQUIRED_ERROR_MESSAGE('current_city_id', 'شهر محل سکونت', false);
-            if (!HasLength( last_education_degree )) throw REQUIRED_ERROR_MESSAGE('current_city_id', 'میزان تحصیلات', false);
+            if (!HasLength(`${current_province_id}`)) throw REQUIRED_ERROR_MESSAGE('current_province_id', 'استان محل سکونت', false);
+            if (!HasLength(`${current_city_id}`)) throw REQUIRED_ERROR_MESSAGE('current_city_id', 'شهر محل سکونت', false);
+            if (!HasLength(`${last_education_degree}`)) throw REQUIRED_ERROR_MESSAGE('current_city_id', 'میزان تحصیلات', false);
         } catch ( exception ) { throw exception; }
     }
 

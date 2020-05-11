@@ -46,6 +46,7 @@ export class SingleLegatePresenter extends BasePresenter {
             location: String,
             job_title: String,
             mobile: String,
+            has_video: Boolean,
         })
     }
 
@@ -80,7 +81,7 @@ export class SingleLegatePresenter extends BasePresenter {
     }
 
     national_code() {
-        return this.data.national_code
+        return this.data.national_code || '';
     }
 
     identity_number() {
@@ -116,11 +117,15 @@ export class SingleLegatePresenter extends BasePresenter {
     }
 
     job_title() {
-        return this.data['job-title'] || ''
+        return this.data['job-title'] || '';
     }
 
     mobile() {
-        return this.data.mobile || '09013040663'
+        return this.data.mobile || '';
+    }
+
+    has_video() {
+        return !!this.data.video;
     }
 }
 

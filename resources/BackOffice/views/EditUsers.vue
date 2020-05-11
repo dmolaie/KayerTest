@@ -55,7 +55,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       value="0" v-model="form.gender"
+                                       :value="gender['male']" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     آقا
@@ -65,7 +65,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       value="1" v-model="form.gender"
+                                       :value="gender['female']" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     خانم
@@ -75,7 +75,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       value="2" v-model="form.gender"
+                                       :value="gender['other']" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     سایر
@@ -187,7 +187,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="marital_status"
-                                       value="0" v-model="form.marital_status"
+                                       :value="marital_status['single']" v-model="form.marital_status"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     مجرد
@@ -197,7 +197,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="marital_status"
-                                       value="1" v-model="form.marital_status"
+                                       :value="marital_status['married']" v-model="form.marital_status"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     متاهل
@@ -674,72 +674,17 @@
         HasLength, Length, toEnglishDigits, OnlyPersianAlphabet, CopyOf,
         PostalCodeValidator, OnlyNumber, PhoneNumberValidator, EmailValidator
     } from "@vendor/plugin/helper";
+    import DateService from '@vendor/plugin/date';
     import SelectCm from '@vendor/components/select/Index.vue';
     import EditUserService from '@services/service/EditUsers';
-    import DateService from '@vendor/plugin/date';
+    import RegisterFormService from '@services/service/RegisterForm';
 
     let Service = null;
-
-    let MOUTH = [
-        {
-            id: 1,
-            name: 'فروردین'
-        },
-        {
-            id: 2,
-            name: 'اردیبهشت'
-        },
-        {
-            id: 3,
-            name: 'خرداد'
-        },
-        {
-            id: 4,
-            name: 'تیر'
-        },
-        {
-            id: 5,
-            name: 'مرداد'
-        },
-        {
-            id: 6,
-            name: 'شهریور'
-        },
-        {
-            id: 7,
-            name: 'مهر'
-        },
-        {
-            id: 8,
-            name: 'آبان'
-        },
-        {
-            id: 9,
-            name: 'آذر'
-        },
-        {
-            id: 10,
-            name: 'دی'
-        },
-        {
-            id: 11,
-            name: 'بهمن'
-        },
-        {
-            id: 12,
-            name: 'اسفند'
-        },
-    ];
 
     export default {
         name: "EditUsers",
         data: () => ({
-            cities: {
-                birth: {},
-                current: {},
-                education: {},
-                work: {},
-            },
+            cities: { birth: {}, current: {}, education: {}, work: {} },
             form: {
                 event_id: '',
                 event_name: '',
@@ -806,6 +751,11 @@
                 day_of_cooperation: { text: '', show: false },
                 motivation_for_cooperation: { text: '', show: false },
             },
+            gender: RegisterFormService.gender,
+            day: RegisterFormService.day,
+            year: RegisterFormService.year,
+            month: RegisterFormService.month,
+            marital_status: RegisterFormService.marital_status,
             isPending: true,
             isModuleRegistered: false,
             shouldBeShowSpinnerLoading: false,
@@ -829,46 +779,23 @@
                 if ( typeof know_community_by === 'number' ) return Object.values( this.knowCommunity ).find(({ id }) => id === know_community_by).name ?? '';
                 return ''
             },
-            day: () => {
-                let arr = [];
-                for (let i = 1; i <= 31; i ++) {
-                    arr.push({
-                        id: i,
-                        name: i
-                    })
-                }
-                return arr
-            },
-            month: () => {
-                return MOUTH
-            },
-            year: () => {
-                let arr = [];
-                for (let i = 30; i < 82; i ++) {
-                    arr.push({
-                        id: parseFloat(('13' + i)),
-                        name: parseFloat(('13' + i))
-                    })
-                }
-                return arr
-            },
         },
         watch: {
             async 'form.province_of_birth'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                if ( !!response ) this.$set(this.cities, 'birth', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'birth', result);
             },
             async 'form.current_province_id'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                this.$set(this.cities, 'current', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'current', result);
             },
             async 'form.education_province_id'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                if ( !!response ) this.$set(this.cities, 'education', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'education', result);
             },
             async 'form.province_of_work'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                if ( !!response ) this.$set(this.cities, 'work', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'work', result);
             },
         },
         components: {
