@@ -49,6 +49,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
             Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
             Route::get('/events/show/{slug}', 'PagesController@showDetailEvents')->name('showDetailEvents');
             Route::get('/gallery/show/{slug}', 'PagesController@showDetailMedia')->name('showDetailMedia');
+            Route::get('/article/show/{slug}', 'PagesController@showDetailArticle')->name('showDetailArticle');
         });
 
     });

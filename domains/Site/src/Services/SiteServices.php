@@ -284,4 +284,10 @@ class SiteServices
         $articleFilterDTO->setProvinceId($this->getLocations('global-fa')->id);
         return $this->articleService->filterArticle($articleFilterDTO)->getPaginationRecords();
     }
+
+    public function getDetailArticle(string $slug)
+    {
+        return $this->articleService->getArticleDetailWithSlug($slug);
+
+    }
 }
