@@ -6,7 +6,7 @@ import { ImagesPresenter } from "@vendor/infrastructure/presenter/MainPresenter"
 const DEFAULT_IMAGE = '/images/img_default.jpg';
 const GALLERY_TYPE = {
     'voice': 'audio',
-    'image': 'images',
+    'image': 'image',
     'text': 'text',
     'video': 'video',
 };

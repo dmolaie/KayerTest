@@ -10,10 +10,13 @@ import CategoryPresenter from '@js/presenter/Category';
 import '@vendor/plugin/urlSearchParams';
 
 const DATA_PREFIX = 'data-id';
+const DISPLAY_NONE_CLASSNAME = 'none';
+const CHECKBOX_CLASSNAME = 'checkbox-square__input';
 const ACTIVE_TAB_CLASSNAME = 'ga-page__tab--active';
+const ACTIVE_CONTENT_CLASSNAME = 'ga-page__content--active';
 const GALLERY_TYPE = {
     'voice': 'voice',
-    'image': 'images',
+    'image': 'image',
     'text': 'text',
     'video': 'video',
 };
@@ -25,11 +28,17 @@ const QUERY_STRING = {
     'categories': 'categories[]',
 };
 
-const TABS_WRAPPER = document.querySelector('.ga-page .ga-page__header');
 const ITEMS_WRAPPER = document.getElementById('items_wrapper');
+const TAB_ITEMS = document.querySelectorAll('.ga-page .ga-page__tab');
+const TABS_WRAPPER = document.querySelector('.ga-page .ga-page__header');
 const CATEGORIES_WRAPPER = document.getElementById('categories_wrapper');
+const CLEAR_FILTER_BUTTON = document.getElementById('clear_filter');
 
 class GalleryInterface {
+    static get sort() {
+        const QUERY_SORT = getParameterFromUrl( QUERY_STRING['sort'] );
+        return QUERY_SORT || '';
+    }
     static get galleryType() {
         const QUERY_TYPE = getParameterFromUrl( QUERY_STRING['type'] );
         return GALLERY_TYPE[QUERY_TYPE] || GALLERY_TYPE['voice'];
@@ -41,13 +50,45 @@ class GalleryInterface {
             return 'fa'
         }
     }
-    static get sort() {
-        const QUERY_SORT = getParameterFromUrl( QUERY_STRING['sort'] );
-        return QUERY_SORT || SORT['desc'];
-    }
     static get categories() {
         const SEARCH = new URLSearchParams(window.location.search);
         return SEARCH.getAll( QUERY_STRING['categories'] );
+    }
+    static get generateFilterByUrl() {
+        let categoriesQuery = '';
+        const CATEGORY_CHECKBOXES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}`);
+        const GALLERY_TYPE = GalleryInterface.galleryType,
+            SORT = GalleryInterface.sort;
+        const CHECKED_CATEGORIES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}:checked`);
+        if (Length( CHECKED_CATEGORIES ) !== Length( CATEGORY_CHECKBOXES )) {
+            [].concat(...CHECKED_CATEGORIES).map(({ value }) => {
+                categoriesQuery += `&${QUERY_STRING['categories']}=${value}`;
+            });
+        }
+
+        return `?${QUERY_STRING['type']}=${GALLERY_TYPE}${categoriesQuery}${SORT ? `&${QUERY_STRING['sort']}=${SORT}` : ''}`;
+    }
+    static get createRequestQueryString() {
+        try {
+            const QUERIES = {
+                [QUERY_STRING['type']]: GalleryInterface.galleryType,
+                [QUERY_STRING['sort']]: GalleryInterface.sort,
+            };
+            !HasLength( QUERIES['sort'] ) && delete QUERIES['sort'];
+            GalleryInterface.categories.forEach((slug, index) => {
+                QUERIES[`categories[${index}]`] = slug
+            });
+            
+            return QUERIES;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    static updateURL( newUrl ) {
+        try {
+            history.pushState({}, null, newUrl);
+            window.dispatchEvent(new Event('changeState'));
+        } catch ( exception ) {}
     }
     /**
      * @param category_type { String }
@@ -60,13 +101,14 @@ class GalleryInterface {
         }
     };
     /**=
-     * @param category_type { String }
+     * @param queryString { Object }
      */
-    static async getGalleryListFilterBy( category_type ) {
+    static async getGalleryListFilterBy( queryString ) {
         try {
+            console.log('queryString', queryString);
             return await HTTPService.getRequest(Endpoint.get(Endpoint.SITE_GET_GALLERY_LIST, {
                 lang: GalleryInterface.currentLang
-            }), { type: category_type });
+            }), queryString);
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
@@ -74,7 +116,7 @@ class GalleryInterface {
     /**
      * @param category_type { String }
      */
-    static async activeTabByQueryString( category_type ) {
+    static activeTabByQueryString( category_type ) {
         try {
             const TAB = TABS_WRAPPER.querySelector(`button[${DATA_PREFIX}="${category_type}"]`);
             !!TAB && TAB.classList.add( ACTIVE_TAB_CLASSNAME );
@@ -98,8 +140,8 @@ class GalleryInterface {
                                class="checkbox-square__input" name="gallery"
                                ${isChecked( item['slug'] ) ? 'checked="checked"' : ''}
                         />
-                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                        <span class="checkbox-square__label rounded user-select-none">
+                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded pointer-event-none"></span>
+                        <span class="checkbox-square__label rounded user-select-none pointer-event-none">
                             ${ GalleryInterface.currentLang === 'fa' ? item['name_fa'] : item['name_en'] }
                         </span>
                     </label>
@@ -108,17 +150,6 @@ class GalleryInterface {
                 resolve();
             })
         } catch (e) {}
-    }
-    static createSortLink() {
-        const SORT = GalleryInterface.sort === SORT['desc'] ?  SORT['desc'] : SORT['asc'];
-        return (`
-            <a href=""
-               class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow"
-            >
-               زمان انتشار
-               ${LOCATION[SORT]} 
-            </a>
-        `).trim();
     }
     /**
      * @param response { Array }
@@ -177,12 +208,13 @@ class GalleryInterface {
     }
 }
 
-(async () => {
+const onChangeHistoryState = async () => {
     try {
         const GALLERY_TYPE = GalleryInterface.galleryType;
+        GalleryInterface.activeTabByQueryString( GALLERY_TYPE );
         let response = await Promise.all([
             GalleryInterface.getGalleryCategoryByType( GALLERY_TYPE ),
-            GalleryInterface.getGalleryListFilterBy( GALLERY_TYPE ),
+            GalleryInterface.getGalleryListFilterBy( GalleryInterface.createRequestQueryString ),
         ]);
         await Promise.all([
             GalleryInterface.createCategoriesInterface(
@@ -193,14 +225,55 @@ class GalleryInterface {
             )
         ]);
         response = null;
+    } catch (e) {}
+};
+
+const onclickCheckBoxes = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const TARGET = event.target || event.srcElement;
+    if ( /checkbox-square/.test(TARGET.className) ) {
+        const INPUT = TARGET.querySelector('input[type="checkbox"]');
+        INPUT.checked = !INPUT.checked;
+        GalleryInterface.updateURL(
+            GalleryInterface.generateFilterByUrl
+        )
+    }
+};
+
+(async () => {
+    try {
+        await onChangeHistoryState();
+        window.addEventListener('changeState', onChangeHistoryState);
+        CATEGORIES_WRAPPER.addEventListener('click', onclickCheckBoxes);
+        CLEAR_FILTER_BUTTON.addEventListener(
+            'click',
+            () => {
+                GalleryInterface.updateURL(`?${QUERY_STRING['type']}=${GalleryInterface.galleryType}`);
+            }
+        );
     } catch ( exception ) {
-        console.log('exception', exception);
     }
 })();
 
+const onClickTabItem = event => {
+    event.preventDefault();
+    const TARGET = event.target || event.srcElement;
+    const GALLERY_TYPE = TARGET.getAttribute( DATA_PREFIX );
+    const CURRENT_TAB = TABS_WRAPPER.querySelector('.' + ACTIVE_TAB_CLASSNAME);
+    CURRENT_TAB && CURRENT_TAB.classList.remove( ACTIVE_TAB_CLASSNAME );
+    TARGET.classList.add( ACTIVE_TAB_CLASSNAME );
+    GalleryInterface.updateURL(`?${QUERY_STRING['type']}=${GALLERY_TYPE}`);
+};
+
+TAB_ITEMS.forEach(item => {
+    item.addEventListener('click', onClickTabItem);
+});
+
+
 // try {
 //     const CHECKBOX_CLASSNAME = 'checkbox-square__input';
-//     const CATEGORY_CHECKBOXES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}`);
+//
 //     const SEARCH_FIELD = document.querySelector('.search_input');
 //     const SEARCH_SUBMIT = document.querySelector('.search_button');
 //
@@ -266,7 +339,7 @@ class GalleryInterface {
 //
 // } catch (e) {}
 //
-try {
+// try {
 
 
     // const TABLE_MEDIA_QUERY = window.matchMedia( "(max-width: 900px)" );
@@ -299,4 +372,4 @@ try {
     //
     //     HEADER_PANEL.forEach(item => item.addEventListener('click', onClickHeaderPanel))
     // }
-} catch (e) {}
+// } catch (e) {}
