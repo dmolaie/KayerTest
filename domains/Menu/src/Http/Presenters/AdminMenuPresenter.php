@@ -12,16 +12,8 @@ class AdminMenuPresenter
         if (!$roleDTO) {
             return $this->defaultMenu();
         }
-        $menuList = [];
-        foreach (config('menus.admin_menu') as $key => $menu) {
-            if (isset($menu[$roleDTO->getType()]) && in_array($roleDTO->getStatus(), $menu[$roleDTO->getType()])) {
 
-                $menuList[] = [
-                    'en_name' => $key,
-                    'fa_name' => trans('menus::menu.admin_menu')[$key]
-                ];
-            }
-        }
+        $menuList = $this->menuList($roleDTO, config('menus.admin_menu'));
         return $menuList ?? $this->defaultMenu();
     }
 
@@ -29,13 +21,38 @@ class AdminMenuPresenter
     {
         return [
             [
-                'en_name' => 'dashboard',
-                'fa_name' => trans('menus::menu.admin_menu.dashboard')
+                'en_name'  => 'dashboard',
+                'fa_name'  => trans('menus::menu.admin_menu.dashboard'),
+                'children' => [],
             ],
             [
-                'en_name' => 'profile_setting',
-                'fa_name' => trans('menus::menu.admin_menu.profile_setting')
+                'en_name'  => 'profile_setting',
+                'fa_name'  => trans('menus::menu.admin_menu.profile_setting'),
+                'children' => [],
             ]
         ];
+    }
+
+    /**
+     * @param $roleDTO
+     * @param array $menuList
+     * @return array
+     */
+    protected function menuList($roleDTO, array $menuList): array
+    {
+        $data = [];
+        foreach ($menuList as $key => $menu) {
+
+            if (isset($menu['roles'][$roleDTO->getType()]) && in_array($roleDTO->getStatus(),
+                    $menu['roles'][$roleDTO->getType()])) {
+
+                $data[] = [
+                    'en_name'  => $key,
+                    'fa_name'  => trans('menus::menu.admin_menu')[$key],
+                    'children' => $this->menuList($roleDTO, $menu['children'])
+                ];
+            }
+        }
+        return $data;
     }
 }
