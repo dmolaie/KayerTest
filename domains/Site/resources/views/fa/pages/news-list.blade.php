@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | ماموریت و چشم‌انداز')
 @section('content')
     <div class="i-page n-list-page">
         <div class="n-list__header block w-full bg-blue-100">

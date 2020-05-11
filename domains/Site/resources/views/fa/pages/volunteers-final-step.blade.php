@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | سفیران اهدای عضو')
 @section('content')
     <div class="vnt-page dnt-page i-page">
         <div class="container sm:p-0">

@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | ساختار و تشکیلات')
 @section('content')
     <div class="org-page i-page">
         <div class="container sm:p-0">

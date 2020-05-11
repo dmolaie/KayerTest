@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | کارت اهدای عضو')
 @section('content')
     <div class="dnt-page i-page">
         <div class="container sm:p-0">

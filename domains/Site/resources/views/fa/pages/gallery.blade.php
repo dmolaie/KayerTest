@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | هنر اهدا')
     @section('content')
         @php
             $DESC_SORT = 'desc';

@@ -28,7 +28,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ secure_asset('css/appStyle.css') }}" rel="stylesheet">
     <title>
-        اهدا
+        انجمن اهدای عضو ایرانیان
     </title>
 </head>
 <body class="h-full overflow-x-hidden">

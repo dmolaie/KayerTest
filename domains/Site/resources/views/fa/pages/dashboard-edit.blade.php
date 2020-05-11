@@ -1,4 +1,7 @@
 @extends('fa.template.master')
+    @section('title')
+        {{ ' | ویرایش پروفایل '.auth()->user()->name .' '. auth()->user()->last_name }}
+    @endsection
     @section('content')
         <div class="p-edit dnt-page i-page p-edit__pre-loading">
             <div class="container sm:p-0">
