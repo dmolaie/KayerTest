@@ -236,6 +236,12 @@ class PagesController extends Controller
         return view('site::fa.cards.mini', compact('userData'));
     }
 
+    public function printCart(Request $request)
+    {
+        $userData = $this->siteServices->getInfoUserWithUuid($request->uuid);
+        return view('site::fa.cards.print', compact('userData'));
+    }
+
     public function galleryList($language, Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
         $type = $request->type ?? 'voice';

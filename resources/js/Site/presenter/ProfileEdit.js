@@ -34,7 +34,7 @@ export default class ProfileEditPresenter extends BasePresenter {
     }
 
     national_code() {
-        return this.payload?.national_code
+        return this.payload?.national_code || ''
     }
 
     gender() {
@@ -42,19 +42,19 @@ export default class ProfileEditPresenter extends BasePresenter {
     }
 
     name() {
-        return this.payload?.name
+        return this.payload?.name || ''
     }
 
     last_name() {
-        return this.payload?.last_name
+        return this.payload?.last_name || ''
     }
 
     father_name() {
-        return this.payload?.father_name
+        return this.payload?.father_name || ''
     }
 
     identity_number() {
-        return this.payload?.identity_number
+        return this.payload?.identity_number || ''
     }
 
     province_of_birth() {
@@ -78,19 +78,19 @@ export default class ProfileEditPresenter extends BasePresenter {
     }
 
     job_title() {
-        return this.payload?.job_title
+        return this.payload?.job_title || ''
     }
 
     last_education_degree() {
-        return this.payload?.last_education_degree || ""
+        return this.payload?.last_education_degree ?? ''
     }
 
     phone() {
-        return this.payload?.phone
+        return this.payload?.phone || ''
     }
 
     mobile() {
-        return this.payload?.mobile
+        return this.payload?.mobile || ''
     }
 
     current_province_id() {
@@ -102,11 +102,11 @@ export default class ProfileEditPresenter extends BasePresenter {
     }
 
     email() {
-        return this.payload?.email
+        return this.payload?.email || ''
     }
 
     education_field() {
-        return this.payload?.education_field;
+        return this.payload?.education_field || '';
     }
 
     education_province_id() {
@@ -118,11 +118,11 @@ export default class ProfileEditPresenter extends BasePresenter {
     }
 
     home_postal_code() {
-        return this.payload?.home_postal_code
+        return this.payload?.home_postal_code || ''
     }
 
     current_address() {
-        return this.payload?.current_address
+        return this.payload?.current_address || ''
     }
 
 }

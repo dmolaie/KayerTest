@@ -37,7 +37,7 @@
                     </p>
                     <template v-if="isAudioType">
                         <upload-cm :dropBox="true" :fieldName="fromDataName"
-                                   accept="audio/mp3, audio/wave, audio/wma, audio/mpga"
+                                   accept="audio/mp3, audio/wave, audio/wma, audio/mpga, audio/mpeg, audio/mpeg3"
                                    @onChange="onchangeAudioFile"
                         />
                     </template>

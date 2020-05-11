@@ -5,7 +5,7 @@
                 <p class="footer__nav_title font-xs-bold text-blue-100 cursor-default">
                     لینک ها
                 </p>
-                <a href=""
+                <a href="{{ route('index', config('app.locale')) }}"
                    class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     خانه
@@ -15,7 +15,7 @@
                 >
                     حمایت مالی
                 </a>
-                <a href=""
+                <a href="{{ route('page.gallery.art-ehda', config('app.locale')) }}"
                    class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     گالری
@@ -25,12 +25,12 @@
                 <p class="footer__nav_item footer__nav_title font-xs-bold text-blue-100 cursor-default">
                     لینک ها
                 </p>
-                <a href=""
+                <a href="{{ route('page.donation-card', config('app.locale')) }}"
                    class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     کارت اهدای عضو
                 </a>
-                <a href=""
+                <a href="{{ route('page.volunteers', config('app.locale')) }}"
                    class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     سفیران اهدای عضو
@@ -55,7 +55,7 @@
                         تلفن:  ۹۸۲۱۵۷۷۵۰+
                     </span>
                     <span class="footer__nav_email">
-                        پست الکترونیکی:  info@ehda.center
+                        پست الکترونیکی: info@ehdacenter.org
                     </span>
                 </p>
             </nav>
