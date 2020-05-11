@@ -21,7 +21,7 @@
                             {{$menusContent->getSecondTitle()}}
                         </h1>
                         <time class="n-show__release w-full block color-black text-left font-xs-bold cursor-default sm:font-1xs">
-                            انتشار: ۲۸ دی ۱۳۹۸
+                            انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($menusContent->getPublishDate()))->format(' %d %B %Y')}}
                         </time>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="i-page__footer relative">
                     <div class="flex items-center md:flex-col">
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
-                            انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
+                            انتشار: {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($menusContent->getPublishDate()),new \DateTimeZone('Asia/Tehran'))->format('H:i /  %d %B %Y')}}
                         </p>
                         <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20 sm:flex-col">
                             <span class="text-bayoux font-sm-bold cursor-default">

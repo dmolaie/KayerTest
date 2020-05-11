@@ -254,10 +254,10 @@ class SiteServices
             ->setProvinceId($province->id);
         $media = $this->mediaService->filterMedia($mediaFilter);
         if (!empty($media->getItems())) {
-            return $media->getPaginationRecords();
+            return $media;
         }
         $mediaFilter->setProvinceId($this->getLocations('global-fa')->id);
-        return $this->mediaService->filterMedia($mediaFilter)->getPaginationRecords();
+        return $this->mediaService->filterMedia($mediaFilter);
     }
 
     public function getMediaByUuid(string $uuid)
@@ -283,5 +283,11 @@ class SiteServices
         }
         $articleFilterDTO->setProvinceId($this->getLocations('global-fa')->id);
         return $this->articleService->filterArticle($articleFilterDTO)->getPaginationRecords();
+    }
+
+    public function getDetailArticle(string $slug)
+    {
+        return $this->articleService->getArticleDetailWithSlug($slug);
+
     }
 }

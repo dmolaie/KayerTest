@@ -37,6 +37,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
 
             Route::prefix('gallery')->name('gallery.')->group(function () {
                 Route::get('/', 'PagesController@galleryList')->name('art-ehda');
+                Route::get('/list-content', 'PagesController@galleryListContent')->name('list-content');
                 Route::get('/audio/{slug}', 'PagesController@galleryAudio')->name('audio');
                 Route::get('/video/{slug}', 'PagesController@galleryVideo')->name('video');
                 Route::get('/image/{slug}', 'PagesController@galleryImage')->name('image');
@@ -49,6 +50,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
             Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
             Route::get('/events/show/{slug}', 'PagesController@showDetailEvents')->name('showDetailEvents');
             Route::get('/gallery/show/{slug}', 'PagesController@showDetailMedia')->name('showDetailMedia');
+            Route::get('/article/show/{slug}', 'PagesController@showDetailArticle')->name('showDetailArticle');
         });
 
     });

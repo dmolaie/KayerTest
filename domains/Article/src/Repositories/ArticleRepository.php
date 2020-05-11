@@ -159,4 +159,14 @@ class ArticleRepository
         return $article;
     }
 
+    public function findWithSlug(string $slug, ?bool $status)
+    {
+        return $this->entityName::where('slug', '=', $slug)
+            ->when(!is_null($status),
+            function ($query) use ($status) {
+                return $query->where('status', $status);
+            })->firstOrFail();
+
+    }
+
 }
