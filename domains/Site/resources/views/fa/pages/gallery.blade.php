@@ -5,6 +5,7 @@
             $typeOfGallery = request()->get('type') ?? 'voice';
             $sort = request()->get('sort') ?? $DESC_SORT;
             $isDescSort = (strtolower($sort) == $DESC_SORT);
+            $searchValue = request()->get('first_title') ?? '';
 
             function isChecked( $slug ) {
                 $selectedCategories = request()->get('categories') ?? [];
@@ -99,15 +100,17 @@
                                             <div class="ga-page__panel_body">
                                                 <label class="ga-page__panel_label flex items-center w-full border border-solid rounded">
                                                     <input type="text"
-                                                           class="ga-page__panel_input w-full font-sm font-normal bg-transparent text-blue-100"
-                                                           placeholder="جستجوی دسته‌بندی"
-                                                           autocomplete="off"
+                                                           class="search_input ga-page__panel_input text-blue-800 w-full font-sm font-normal bg-transparent text-blue-100"
+                                                           placeholder="جستجوی گالری"
+                                                           autocomplete="off" value="{{ $searchValue }}"
                                                     />
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"
-                                                         class="ga-page__panel_icon flex-shrink-0"
-                                                    >
-                                                        <path fill-rule="nonzero" d="M20.33 18.303l-4.386-4.386a8.734 8.734 0 0 0 1.652-5.12 8.734 8.734 0 0 0-2.578-6.22A8.738 8.738 0 0 0 8.798 0c-2.35 0-4.56.914-6.221 2.578a8.738 8.738 0 0 0-2.576 6.22c0 2.35.914 4.558 2.576 6.221a8.74 8.74 0 0 0 6.22 2.578 8.716 8.716 0 0 0 5.119-1.652l4.385 4.386a1.43 1.43 0 0 0 2.028 0c.56-.561.56-1.468 0-2.028zM4.605 12.99A5.891 5.891 0 0 1 2.87 8.797c0-1.583.616-3.071 1.736-4.192a5.886 5.886 0 0 1 4.192-1.737c1.583 0 3.072.617 4.192 1.737a5.89 5.89 0 0 1 1.737 4.193 5.89 5.89 0 0 1-1.737 4.193 5.887 5.887 0 0 1-4.192 1.735 5.885 5.885 0 0 1-4.192-1.736z"/>
-                                                    </svg>
+                                                    <button class="search_button flex-shrink-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"
+                                                             class="ga-page__panel_icon block"
+                                                        >
+                                                            <path fill-rule="nonzero" d="M20.33 18.303l-4.386-4.386a8.734 8.734 0 0 0 1.652-5.12 8.734 8.734 0 0 0-2.578-6.22A8.738 8.738 0 0 0 8.798 0c-2.35 0-4.56.914-6.221 2.578a8.738 8.738 0 0 0-2.576 6.22c0 2.35.914 4.558 2.576 6.221a8.74 8.74 0 0 0 6.22 2.578 8.716 8.716 0 0 0 5.119-1.652l4.385 4.386a1.43 1.43 0 0 0 2.028 0c.56-.561.56-1.468 0-2.028zM4.605 12.99A5.891 5.891 0 0 1 2.87 8.797c0-1.583.616-3.071 1.736-4.192a5.886 5.886 0 0 1 4.192-1.737c1.583 0 3.072.617 4.192 1.737a5.89 5.89 0 0 1 1.737 4.193 5.89 5.89 0 0 1-1.737 4.193 5.887 5.887 0 0 1-4.192 1.735 5.885 5.885 0 0 1-4.192-1.736z"/>
+                                                        </svg>
+                                                    </button>
                                                 </label>
                                                 @foreach($categories as $index=>$category)
                                                     <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
