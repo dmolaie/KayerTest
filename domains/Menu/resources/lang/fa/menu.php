@@ -12,6 +12,7 @@ return [
         "report"          => 'گزارش‌گیری',
         "category"        => 'دسته‌بندی',
         "image_gallery"   => 'گالری عکسی',
+        "gallery"         => 'گالری',
         "text_gallery"    => 'گالری متنی',
         "video_gallery"   => 'گالری تصویری',
         "voice_gallery"   => 'گالری صوتی',
