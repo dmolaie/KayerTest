@@ -1,19 +1,6 @@
 @extends('fa.template.master')
-@section('title', ' | هنر اهدا')
+    @section('title', ' | هنر اهدا')
     @section('content')
-        @php
-            $DESC_SORT = 'desc';
-            $typeOfGallery = request()->get('type') ?? 'voice';
-            $sort = request()->get('sort') ?? $DESC_SORT;
-            $isDescSort = (strtolower($sort) == $DESC_SORT);
-            $searchValue = request()->get('first_title') ?? '';
-
-            function isChecked( $slug ) {
-                $selectedCategories = request()->get('categories') ?? [];
-               if (empty( $selectedCategories )) return true;
-               return in_array($slug, $selectedCategories);
-            }
-        @endphp
         <div class="ga-page i-page">
             <div class="container sm:p-0">
                 <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
@@ -23,9 +10,8 @@
                 </h1>
                 <div class="inner-box inner-box--white p-0">
                     <div class="ga-page__header flex rounded-inherit rounded-br-none rounded-bl-none overflow-hidden">
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'voice' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="audio"
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="voice"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512.001"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -35,10 +21,9 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               صوتی
                             </span>
-                        </a>
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'image' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="images"
+                        </button>
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="images"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -47 511.999 511"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -48,10 +33,9 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               تصویری
                             </span>
-                        </a>
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'text' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="text"
+                        </button>
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="text"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.14969 512"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -61,10 +45,9 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               نوشتاری
                             </span>
-                        </a>
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'video' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="video"
+                        </button>
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="video"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 512 512"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -74,18 +57,15 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               ویدیویی
                             </span>
-                        </a>
+                        </button>
                     </div>
                     <div class="ga-page__content ga-page__body w-full">
                         <div class="w-full flex items-start md:flex-wrap">
                             <aside class="ga-page__aside w-1/4 xl:w-1/5 flex-shrink-0 md:w-full">
                                 <div class="block w-full">
-                                    <a href="{{ route('page.gallery.art-ehda', array_merge(['language' => config('app.locale')], request()->all(), ['sort' => $isDescSort ? 'asc' : 'desc'])) }}"
-                                       class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow">
-                                        زمان انتشار
-                                        {{ $isDescSort ? 'نزولی' : 'صعودی' }}
-                                        <span class="ga-page__published--{{ $isDescSort ? 'desc' : 'asc' }}"></span>
-                                    </a>
+                                    <button class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow">
+                                        {{--<span class="ga-page__published--{{ $isDescSort ? 'desc' : 'asc' }}"></span>--}}
+                                    </button>
                                     <div class="ga-page__panel w-full border border-solid rounded">
                                         <div class="ga-page__panel_header flex items-center rounded-inherit rounded-br-none rounded-bl-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 0 511 512"
@@ -101,9 +81,8 @@
                                             <div class="ga-page__panel_body">
                                                 <label class="ga-page__panel_label flex items-center w-full border border-solid rounded">
                                                     <input type="text"
-                                                           class="search_input ga-page__panel_input text-blue-800 w-full font-sm font-normal bg-transparent text-blue-100"
-                                                           placeholder="جستجوی گالری"
-                                                           autocomplete="off" value="{{ $searchValue }}"
+                                                           class="search_input ga-page__panel_input text-blue-800 font-sm font-normal bg-transparent text-blue-100"
+                                                           placeholder="جستجوی گالری" autocomplete="off"
                                                     />
                                                     <button class="search_button flex-shrink-0">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"
@@ -113,34 +92,24 @@
                                                         </svg>
                                                     </button>
                                                 </label>
-                                                @foreach($categories as $index=>$category)
-                                                    <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
-                                                           style="margin-right: {{$category['gap']}}px">
-                                                        <input type="checkbox" value="{{ $category['slug'] }}"
-                                                               class="checkbox-square__input"
-                                                               name="gallery" {{ isChecked( $category['slug'] ) ? 'checked="checked"' : '' }}
-                                                        />
-                                                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                        <span class="checkbox-square__label rounded user-select-none">
-                                                            {{ $category['name_fa'] }}
-                                                        </span>
-                                                    </label>
-                                                @endforeach
+                                                <div class="w-full" id="categories_wrapper"></div>
                                                 <span class="ga-page__panel_divider block"></span>
-                                                <div class="w-full block text-center">
+                                                {{--<div class="w-full block text-center">
                                                     <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => $typeOfGallery ]) }}"
                                                        class="inline-block text-red font-sm font-bold m-0-auto"
                                                     >
                                                         خالی‌کردن فیلتر‌ها
                                                     </a>
-                                                </div>
+                                                </div>--}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </aside>
-                            <div class="flex-1 flex flex-wrap">
-                                @if(count($media))
+                            <div class="flex-1 flex flex-wrap"
+                                 id="items_wrapper"
+                            >
+                                @if(false)
                                     @if($type === 'voice')
                                         @foreach($media as $mediaInfo)
                                             <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
@@ -259,7 +228,6 @@
                                 @endif
                             </div>
                         </div>
-                        {!! $media->appends(Request::capture()->except('page'))->render() !!}
                     </div>
                 </div>
             </div>
@@ -267,5 +235,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{ secure_asset('js/site/gallery.js') }}" defer></script>
+        <script src="{{ asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
+        <script src="{{ asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
+        <script src="{{ asset('js/site/gallery.js') }}" defer></script>
     @endsection
