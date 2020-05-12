@@ -109,7 +109,7 @@ class SiteServices
     public function getFilterNews($categories, $subdomain = null)
     {
         $this->newsFilterDTO->setNewsInputStatus('published');
-        $this->newsFilterDTO->setSort('ASC');
+        $this->newsFilterDTO->setSort('DESC');
         $categoryIds = $this->getCategoryIdBySlug($categories);
         $this->newsFilterDTO->setCategoryIds($categoryIds);
         $globalSubDomain = $this->getLocations('global-fa');
@@ -141,7 +141,7 @@ class SiteServices
     public function getFilterEvent($subdomain = null)
     {
         $this->eventFilterDTO->setEventInputStatus('published');
-        $this->eventFilterDTO->setSort('ASC');
+        $this->eventFilterDTO->setSort('DESC');
         $globalSubDomain = $this->getLocations('global-fa');
 
         if (!$subdomain) {

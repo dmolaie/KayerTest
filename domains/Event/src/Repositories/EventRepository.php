@@ -129,7 +129,7 @@ class EventRepository
                 return $query->whereIn('province_id', $eventFilterDTO->getProvinceIds());
 
             })
-            ->orderBy('created_at', $eventFilterDTO->getSort())
+            ->orderBy('publish_date', $eventFilterDTO->getSort())
             ->paginate($eventFilterDTO->getPaginationCount());
         return $baseQuery;
     }
