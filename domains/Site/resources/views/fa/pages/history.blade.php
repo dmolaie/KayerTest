@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | تاریخچه انجمن')
 @section('content')
     <div class="i-page history-page">
         <div class="container sm:p-0">

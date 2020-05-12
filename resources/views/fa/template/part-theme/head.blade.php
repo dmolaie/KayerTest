@@ -24,10 +24,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('images/favicon/favicon-16x16.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ secure_asset('images/favicon/favicon.ico') }}">
     <link href="{{ secure_asset('images/favicon/favicon.ico') }}" rel="shortcut icon">
+    @yield('meta')
     <link rel="stylesheet" href="{{secure_asset('css/style.css')}}" />
     @yield('styles')
-
     <title>
-        اهدا
+        انجمن اهدای عضو ایرانیان
+        @yield('title')
     </title>
 </head>

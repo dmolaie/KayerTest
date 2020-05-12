@@ -10,7 +10,7 @@ import Endpoint from "@endpoints";
 import TokenService from '@services/service/Token';
 import HTTPService from "@vendor/plugin/httpService";
 
-const APP_NAME = 'اهدا | ';
+const APP_NAME = 'انجمن اهدای عضو ایرانیان | ';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';

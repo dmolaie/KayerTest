@@ -132,7 +132,7 @@ class MediaRepository
                 return $query->where('type', $mediaFilterDTO->getType());
 
             })
-            ->orderBy('created_at', $mediaFilterDTO->getSort())
+            ->orderBy('publish_date', $mediaFilterDTO->getSort())
             ->paginate($mediaFilterDTO->getPaginationCount()??config('media.media_paginate_count'));
         return $baseQuery;
     }

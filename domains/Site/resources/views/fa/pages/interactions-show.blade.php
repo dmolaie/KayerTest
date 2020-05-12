@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+    @section('title', ' | تعاملات')
     @section('content')
         <div class="int-shw-page i-page">
             <div class="container sm:p-0">

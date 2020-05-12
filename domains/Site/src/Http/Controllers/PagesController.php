@@ -356,4 +356,8 @@ class PagesController extends EhdaBaseController
         $menusContent = $this->siteServices->getDetailArticle($slug);
         return view('site::' . $menusContent->getLanguage() . '.pages.page', compact('menusContent'));
     }
+    public function map(Request $request)
+    {
+        return view('site::fa.pages.map');
+    }
 }
