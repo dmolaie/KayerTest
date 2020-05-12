@@ -1,4 +1,5 @@
 import {
+    SmoothScroll,
     HasLength, Length,
     getParameterFromUrl
 } from '@vendor/plugin/helper';
@@ -7,13 +8,14 @@ import HTTPService from '@js/service/HttpService';
 import ExceptionService from '@services/service/exception';
 import GalleryPresenter from '@js/presenter/Gallery';
 import CategoryPresenter from '@js/presenter/Category';
+import PaginationService, { CLASSNAME } from '@js/service/Pagination';
 import '@vendor/plugin/urlSearchParams';
 
 const DATA_PREFIX = 'data-id';
-const DISPLAY_NONE_CLASSNAME = 'none';
+const OFF_LOADING = 'ga-page__loading--hidden';
 const CHECKBOX_CLASSNAME = 'checkbox-square__input';
 const ACTIVE_TAB_CLASSNAME = 'ga-page__tab--active';
-const ACTIVE_CONTENT_CLASSNAME = 'ga-page__content--active';
+const HEADER_PANEL_ACTIVE = 'ga-page__panel_header--opened';
 const GALLERY_TYPE = {
     'voice': 'voice',
     'image': 'image',
@@ -25,19 +27,43 @@ const LOCATION = { 'asc': 'صعودی', 'desc': 'نزولی' };
 const QUERY_STRING = {
     'type': 'type',
     'sort': 'sort',
+    'page': 'page',
+    'title': 'first_title',
     'categories': 'categories[]',
+};
+const PAGE_COUNT = {
+    'xxl': 20, 'xl': 15, 'other': 10,
 };
 
 const ITEMS_WRAPPER = document.getElementById('items_wrapper');
 const TAB_ITEMS = document.querySelectorAll('.ga-page .ga-page__tab');
 const TABS_WRAPPER = document.querySelector('.ga-page .ga-page__header');
+const CONTENT_WRAPPER = document.querySelector('.ga-page .ga-page__content');
 const CATEGORIES_WRAPPER = document.getElementById('categories_wrapper');
 const CLEAR_FILTER_BUTTON = document.getElementById('clear_filter');
+const SORT_BUTTON = document.getElementById('sort_button');
+const SEARCH_FIELD = document.querySelector('.search_input');
+const SEARCH_SUBMIT = document.querySelector('.search_button');
+const PAGINATION_ELEMENT = document.querySelector('.pagination');
+const LOADING_ELEMENT = document.querySelector('.ga-page__loading');
+const TABLE_MEDIA_QUERY = window.matchMedia( "(max-width: 900px)" );
 
 class GalleryInterface {
     static get sort() {
         const QUERY_SORT = getParameterFromUrl( QUERY_STRING['sort'] );
         return QUERY_SORT || '';
+    }
+    static get page() {
+        try {
+            const QUERY_PAGE = getParameterFromUrl( QUERY_STRING['page'] );
+            return QUERY_PAGE || '';
+        } catch (e) {}
+    }
+    static get title() {
+        try {
+            const QUERY_TITLE = getParameterFromUrl( QUERY_STRING['title'] );
+            return QUERY_TITLE || '';
+        } catch (e) {}
     }
     static get galleryType() {
         const QUERY_TYPE = getParameterFromUrl( QUERY_STRING['type'] );
@@ -58,7 +84,8 @@ class GalleryInterface {
         let categoriesQuery = '';
         const CATEGORY_CHECKBOXES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}`);
         const GALLERY_TYPE = GalleryInterface.galleryType,
-            SORT = GalleryInterface.sort;
+              SORT = GalleryInterface.sort,
+              TITLE = GalleryInterface.title;
         const CHECKED_CATEGORIES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}:checked`);
         if (Length( CHECKED_CATEGORIES ) !== Length( CATEGORY_CHECKBOXES )) {
             [].concat(...CHECKED_CATEGORIES).map(({ value }) => {
@@ -66,15 +93,19 @@ class GalleryInterface {
             });
         }
 
-        return `?${QUERY_STRING['type']}=${GALLERY_TYPE}${categoriesQuery}${SORT ? `&${QUERY_STRING['sort']}=${SORT}` : ''}`;
+        return `?${QUERY_STRING['type']}=${GALLERY_TYPE}${categoriesQuery}${SORT ? `&${QUERY_STRING['sort']}=${SORT}` : ''}${TITLE ? `&${QUERY_STRING['title']}=${TITLE}` : ''}`;
     }
     static get createRequestQueryString() {
         try {
             const QUERIES = {
                 [QUERY_STRING['type']]: GalleryInterface.galleryType,
                 [QUERY_STRING['sort']]: GalleryInterface.sort,
+                [QUERY_STRING['page']]: GalleryInterface.page,
+                [QUERY_STRING['title']]: GalleryInterface.title,
             };
             !HasLength( QUERIES['sort'] ) && delete QUERIES['sort'];
+            !HasLength( QUERIES['page'] ) && delete QUERIES['page'];
+            !HasLength( QUERIES['title'] ) && delete QUERIES['title'];
             GalleryInterface.categories.forEach((slug, index) => {
                 QUERIES[`categories[${index}]`] = slug
             });
@@ -88,6 +119,7 @@ class GalleryInterface {
         try {
             history.pushState({}, null, newUrl);
             window.dispatchEvent(new Event('changeState'));
+            LOADING_ELEMENT.classList.remove( OFF_LOADING );
         } catch ( exception ) {}
     }
     /**
@@ -100,15 +132,27 @@ class GalleryInterface {
             throw ExceptionService._GetErrorMessage( exception );
         }
     };
-    /**=
+    /**
      * @param queryString { Object }
      */
     static async getGalleryListFilterBy( queryString ) {
         try {
-            console.log('queryString', queryString);
+            let page_count = 0;
+            const XXL_SCREEN = window.matchMedia("(min-width: 2000px)");
+            const XL_SCREEN = window.matchMedia("(min-width: 1400px)");
+            if ( XXL_SCREEN.matches ) {
+                page_count = PAGE_COUNT['xxl']
+            } else if ( XL_SCREEN.matches ) {
+                page_count = PAGE_COUNT['xl']
+            } else {
+                page_count = PAGE_COUNT['other']
+            }
             return await HTTPService.getRequest(Endpoint.get(Endpoint.SITE_GET_GALLERY_LIST, {
                 lang: GalleryInterface.currentLang
-            }), queryString);
+            }), {
+                page_count,
+                ...queryString
+            });
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
@@ -118,6 +162,8 @@ class GalleryInterface {
      */
     static activeTabByQueryString( category_type ) {
         try {
+            const CURRENT_TAB = TABS_WRAPPER.querySelector('.' + ACTIVE_TAB_CLASSNAME);
+            CURRENT_TAB && CURRENT_TAB.classList.remove( ACTIVE_TAB_CLASSNAME );
             const TAB = TABS_WRAPPER.querySelector(`button[${DATA_PREFIX}="${category_type}"]`);
             !!TAB && TAB.classList.add( ACTIVE_TAB_CLASSNAME );
         } catch ( exception ) {}
@@ -206,12 +252,23 @@ class GalleryInterface {
             })
         } catch (e) {}
     }
+    static createSortButtonInterface() {
+        try {
+            const PREFIX = 'زمان انتشار ';
+            const SORT_STATUS = GalleryInterface.sort || SORT['desc'];
+            SORT_BUTTON.innerHTML = (`
+                ${PREFIX + ' ' + LOCATION[SORT_STATUS]}
+                <span class="ga-page__published--${SORT_STATUS}"></span>
+            `).trim();
+        } catch (e) {}
+    }
 }
 
 const onChangeHistoryState = async () => {
     try {
         const GALLERY_TYPE = GalleryInterface.galleryType;
         GalleryInterface.activeTabByQueryString( GALLERY_TYPE );
+        GalleryInterface.createSortButtonInterface();
         let response = await Promise.all([
             GalleryInterface.getGalleryCategoryByType( GALLERY_TYPE ),
             GalleryInterface.getGalleryListFilterBy( GalleryInterface.createRequestQueryString ),
@@ -224,7 +281,16 @@ const onChangeHistoryState = async () => {
                 new GalleryPresenter( response[1].data?.items )
             )
         ]);
+        const PAGINATION = new PaginationService({
+            element: PAGINATION_ELEMENT,
+            total: response[1].data['total'],
+            perPage: response[1].data['per_page'],
+            currentPage: response[1].data['current_page'],
+        });
+        PAGINATION.mount();
         response = null;
+        collapseToggle.update();
+        LOADING_ELEMENT.classList.add( OFF_LOADING );
     } catch (e) {}
 };
 
@@ -241,10 +307,49 @@ const onclickCheckBoxes = event => {
     }
 };
 
+const handelSearchAction = () => {
+    const SEARCH_VALUE = SEARCH_FIELD.value;
+    const SEARCH = new URLSearchParams( GalleryInterface.generateFilterByUrl );
+    SEARCH.delete( QUERY_STRING['title'] );
+    GalleryInterface.updateURL(
+        '?' + SEARCH.toString() + `${SEARCH_VALUE ? `&${QUERY_STRING['title']}=${SEARCH_VALUE}` : ''}`
+    );
+};
+
+const handelPagination = ({ target }) => {
+    try {
+        const PAGE = target.getAttribute('data-page');
+        const numericPage = !!GalleryInterface.page ? parseInt( GalleryInterface.page ) : 1;
+        const SEARCH = new URLSearchParams( GalleryInterface.generateFilterByUrl );
+        SEARCH.delete( QUERY_STRING['page'] );
+        if ( !!PAGE ) {
+            GalleryInterface.updateURL(
+                '?' + SEARCH.toString() + `&${QUERY_STRING['page']}=${PAGE}`
+            );
+        } else if ( target.classList.contains(CLASSNAME['first-page']) ) {
+            GalleryInterface.updateURL(
+                '?' + SEARCH.toString() + `&${QUERY_STRING['page']}=${numericPage - 1}`
+            );
+        } else if ( target.classList.contains(CLASSNAME['last-page']) ) {
+            GalleryInterface.updateURL(
+                '?' + SEARCH.toString() + `&${QUERY_STRING['page']}=${numericPage + 1}`
+            );
+        }
+        SmoothScroll( CONTENT_WRAPPER.offsetTop );
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 (async () => {
     try {
         await onChangeHistoryState();
+        window.addEventListener('popstate', async () => {
+            LOADING_ELEMENT.classList.remove( OFF_LOADING );
+            await onChangeHistoryState();
+        });
         window.addEventListener('changeState', onChangeHistoryState);
+
         CATEGORIES_WRAPPER.addEventListener('click', onclickCheckBoxes);
         CLEAR_FILTER_BUTTON.addEventListener(
             'click',
@@ -252,124 +357,75 @@ const onclickCheckBoxes = event => {
                 GalleryInterface.updateURL(`?${QUERY_STRING['type']}=${GalleryInterface.galleryType}`);
             }
         );
-    } catch ( exception ) {
-    }
+        SORT_BUTTON.addEventListener(
+            'click',
+            () => {
+                const SORT_STATUS = GalleryInterface.sort || SORT['desc'];
+                const IS_DESC = SORT_STATUS === SORT['desc'];
+                const SEARCH = new URLSearchParams( GalleryInterface.generateFilterByUrl );
+                SEARCH.delete( QUERY_STRING['sort'] );
+                GalleryInterface.updateURL(
+                    '?' + SEARCH.toString() + `&${QUERY_STRING['sort']}=${IS_DESC ? SORT['asc'] : SORT['desc']}`
+                )
+            }
+        );
+        PAGINATION_ELEMENT.addEventListener('click', handelPagination);
+        SEARCH_FIELD.addEventListener(
+        'keyup',
+        ({ key }) => {
+                key === "Enter" && handelSearchAction();
+            }
+        );
+        SEARCH_SUBMIT.addEventListener('click', handelSearchAction);
+    } catch ( exception ) {}
 })();
+
+const collapseToggle = {
+    visible(tab, collapse) {
+        if ( !tab ) return tab;
+        tab.classList.add( HEADER_PANEL_ACTIVE );
+        if ( !!collapse.children[0] ) collapse.style.height = `${collapse.children[0].offsetHeight}px`;
+    },
+    hidden(tab, collapse) {
+        if ( !tab ) return tab;
+        collapse.style = null;
+        tab.classList.remove( HEADER_PANEL_ACTIVE );
+    },
+    update() {
+        if ( !TABLE_MEDIA_QUERY.matches ) return;
+        const TARGET = document.querySelector('.' + HEADER_PANEL_ACTIVE);
+        if ( !TARGET ) return;
+        const COLLAPSE = TARGET.nextElementSibling;
+        if ( !!COLLAPSE.children[0] ) COLLAPSE.style.height = `${COLLAPSE.children[0].offsetHeight}px`;
+    }
+};
+
+if ( TABLE_MEDIA_QUERY.matches ) {
+    const HEADER_PANEL = document.querySelectorAll('.ga-page .ga-page__panel_header');
+
+    const onClickHeaderPanel = event => {
+        try {
+            event.preventDefault();
+            const TARGET = event.target || event.srcElement;
+            const COLLAPSE_ELEMENT = TARGET.nextElementSibling;
+            if ( !!COLLAPSE_ELEMENT ) {
+                TARGET.classList.contains( HEADER_PANEL_ACTIVE ) ? (
+                    collapseToggle.hidden(TARGET, COLLAPSE_ELEMENT)
+                ) : collapseToggle.visible(TARGET, COLLAPSE_ELEMENT)
+            }
+        } catch (e) {}
+    };
+
+    HEADER_PANEL.forEach(item => item.addEventListener('click', onClickHeaderPanel))
+}
 
 const onClickTabItem = event => {
     event.preventDefault();
     const TARGET = event.target || event.srcElement;
     const GALLERY_TYPE = TARGET.getAttribute( DATA_PREFIX );
-    const CURRENT_TAB = TABS_WRAPPER.querySelector('.' + ACTIVE_TAB_CLASSNAME);
-    CURRENT_TAB && CURRENT_TAB.classList.remove( ACTIVE_TAB_CLASSNAME );
-    TARGET.classList.add( ACTIVE_TAB_CLASSNAME );
     GalleryInterface.updateURL(`?${QUERY_STRING['type']}=${GALLERY_TYPE}`);
 };
 
 TAB_ITEMS.forEach(item => {
     item.addEventListener('click', onClickTabItem);
 });
-
-
-// try {
-//     const CHECKBOX_CLASSNAME = 'checkbox-square__input';
-//
-//     const SEARCH_FIELD = document.querySelector('.search_input');
-//     const SEARCH_SUBMIT = document.querySelector('.search_button');
-//
-//     const URLRedirection = url => {
-//         try {
-//             location.href = url;
-//         } catch (e) {}
-//     };
-//
-//     const QUERY_KEY = {
-//         ['type']: 'type',
-//         ['sort']: 'sort',
-//         ['title']: 'first_title',
-//         ['categories']: 'categories[]',
-//     };
-//
-//     const generateFilterByUrl = () => {
-//         try {
-//             let categoriesQuery = '';
-//             const GALLERY_TYPE = getParameterFromUrl( QUERY_KEY['type'] ) || 'voice',
-//                   SORT = getParameterFromUrl( QUERY_KEY['sort'] ) || '';
-//
-//             const CHECKED_CATEGORIES = document.querySelectorAll(`.${CHECKBOX_CLASSNAME}:checked`);
-//
-//             if (Length( CHECKED_CATEGORIES ) !== Length( CATEGORY_CHECKBOXES )) {
-//                 [].concat(...CHECKED_CATEGORIES).map(({ value }) => {
-//                     categoriesQuery += `&${QUERY_KEY['categories']}=${value}`;
-//                 });
-//             }
-//
-//             const PATHNAME = location.pathname;
-//             return `${PATHNAME}?${QUERY_KEY['type']}=${GALLERY_TYPE}${categoriesQuery}${SORT ? `&${QUERY_KEY['sort']}=${SORT}` : ''}`;
-//         } catch (e) {}
-//     };
-//
-//     const onChangeCheckboxInput = () => {
-//         const SEARCH_VALUE = getParameterFromUrl( QUERY_KEY['title'] ) || '';
-//         URLRedirection(
-//             generateFilterByUrl() + `${SEARCH_VALUE ? `&${QUERY_KEY['title']}=${SEARCH_VALUE}` : ''}`
-//         );
-//     };
-//
-//     CATEGORY_CHECKBOXES.forEach(checkbox => {
-//         checkbox.addEventListener('change', onChangeCheckboxInput);
-//     });
-//
-//     const handelSearchAction = () => {
-//         const SEARCH_VALUE = SEARCH_FIELD.value;
-//         const CURRENT_URL = generateFilterByUrl();
-//         URLRedirection(
-//             CURRENT_URL + (HasLength( SEARCH_VALUE.trim() ) ? `&${QUERY_KEY['title']}=${SEARCH_VALUE}` : '')
-//         );
-//     };
-//
-//     SEARCH_FIELD.addEventListener(
-//         'keyup',
-//         ({ key }) => {
-//             key === "Enter" && handelSearchAction();
-//         }
-//     );
-//
-//     SEARCH_SUBMIT.addEventListener('click', handelSearchAction);
-//
-// } catch (e) {}
-//
-// try {
-
-
-    // const TABLE_MEDIA_QUERY = window.matchMedia( "(max-width: 900px)" );
-    //
-    // if ( TABLE_MEDIA_QUERY.matches ) {
-    //     const HEADER_PANEL_ACTIVE = 'ga-page__panel_header--opened';
-    //     const HEADER_PANEL = document.querySelectorAll('.ga-page .ga-page__panel_header');
-    //
-    //     const collapseToggle = {
-    //         visible(tab, collapse) {
-    //             tab.classList.add( HEADER_PANEL_ACTIVE );
-    //             if ( !!collapse.children[0] ) collapse.style.height = `${collapse.children[0].offsetHeight}px`;
-    //         },
-    //         hidden(tab, collapse) {
-    //             collapse.style = null;
-    //             tab.classList.remove( HEADER_PANEL_ACTIVE );
-    //         }
-    //     };
-    //
-    //     const onClickHeaderPanel = event => {
-    //         event.preventDefault();
-    //         const TARGET = event.target || event.srcElement;
-    //         const COLLAPSE_ELEMENT = TARGET.nextElementSibling;
-    //         if ( !!COLLAPSE_ELEMENT ) {
-    //             TARGET.classList.contains( HEADER_PANEL_ACTIVE ) ? (
-    //                 collapseToggle.hidden(TARGET, COLLAPSE_ELEMENT)
-    //             ) : collapseToggle.visible(TARGET, COLLAPSE_ELEMENT)
-    //         }
-    //     };
-    //
-    //     HEADER_PANEL.forEach(item => item.addEventListener('click', onClickHeaderPanel))
-    // }
-// } catch (e) {}

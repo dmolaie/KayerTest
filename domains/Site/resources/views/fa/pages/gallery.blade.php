@@ -59,13 +59,13 @@
                             </span>
                         </button>
                     </div>
-                    <div class="ga-page__content ga-page__body w-full">
+                    <div class="ga-page__content ga-page__body relative w-full">
                         <div class="w-full flex items-start md:flex-wrap">
                             <aside class="ga-page__aside w-1/4 xl:w-1/5 flex-shrink-0 md:w-full">
                                 <div class="block w-full">
-                                    <button class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow">
-                                        {{--<span class="ga-page__published--{{ $isDescSort ? 'desc' : 'asc' }}"></span>--}}
-                                    </button>
+                                    <button class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow"
+                                            id="sort_button"
+                                    > </button>
                                     <div class="ga-page__panel w-full border border-solid rounded">
                                         <div class="ga-page__panel_header flex items-center rounded-inherit rounded-br-none rounded-bl-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 0 511 512"
@@ -108,14 +108,18 @@
                                  id="items_wrapper"
                             > </div>
                         </div>
+                        <div class="">
+                            <div class="pagination w-full"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="ga-page__loading z-5 spinner-loading"></div>
     @endsection
 
     @section('scripts')
-        <script src="{{ asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
-        <script src="{{ asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
-        <script src="{{ asset('js/site/gallery.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/gallery.js') }}" defer></script>
     @endsection

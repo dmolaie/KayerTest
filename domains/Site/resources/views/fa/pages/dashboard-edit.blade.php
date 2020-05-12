@@ -441,7 +441,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
-        <script src="{{secure_asset('js/site/dashboard-share~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
         <script src="{{secure_asset('js/site/edit-profile.js')}}" defer></script>
     @endsection
