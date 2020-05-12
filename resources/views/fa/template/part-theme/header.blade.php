@@ -4,7 +4,7 @@
             <a href="{{ route('index',config('app.locale')) }}"
                class="header__logo block m-l-auto"
             >
-                @if(app()->getLocale() == 'fa')
+                @if($language == 'fa')
                     <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                          alt="انجمن اهدای عضو ایرانیان"
                          class="header__logo_image block object-contain"
@@ -25,13 +25,16 @@
         <div class="header__nav_container container flex items-center">
             @foreach($menus as $menu)
                 <div class="header__nav_menu relative cursor-pointer text-nowrap text-black font-xs-bold">
-                    <a class="text-nowrap text-black font-xs-bold" href="{{ is_null($menu->parent_id) ?  !is_null($menu->link) ?  $menu->link : '#' : config('app.locale') .'/page/'.$menu->alias }}">
+                    <a class="text-nowrap text-black font-xs-bold" href="{{ is_null($menu->parent_id) ?
+                      !is_null($menu->link) ?  $menu->link : '#'
+                      : config('app.locale') .'/page/'.$menu->alias }}">
                         {{$menu->title}}
                     </a>
                     @if($menu->child->count() > 0)
                         <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                             @foreach($menu->child as $child)
-                                <a href="/{{config('app.locale')}}/page/{{$child->alias}}"
+                                <a href="{{
+                      !is_null($child->link) ?  $child->link : config('app.locale') .'/page/'.$child->alias }}"
                                    class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap">
                                     {{$child->title}}
                                 </a>
@@ -128,7 +131,7 @@
         <a href="{{ route('index',config('app.locale')) }}"
            class="m-header__logo"
         >
-            @if(app()->getLocale() == 'fa')
+            @if($language   == 'fa')
                 <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="h-full block object-contain"
