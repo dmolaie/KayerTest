@@ -68,4 +68,6 @@ Route::get('/cart-first/process/social/{uuid}', 'PagesController@socialUrlFirstC
 Route::get('/cart-secound/process/social/{uuid}', 'PagesController@socialUrlSecondCart')->name('social-url-secound');
 Route::get('/cart/print/{uuid}', 'PagesController@printCart')->name('print-cart');
 
+Route::get('/map', 'PagesController@map')->name('map');
+
 
