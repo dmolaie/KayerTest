@@ -1,6 +1,6 @@
 @extends('fa.template.master')
 @section('title')
-    {{ ' | اخبار | '.$content->getTitle() }}
+    {{ ' | رویدادها | '.$content->getTitle() }}
 @endsection
 @section('meta')
     <meta name="robots" content="index, follow">
