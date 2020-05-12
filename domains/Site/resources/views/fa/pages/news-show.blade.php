@@ -1,4 +1,13 @@
 @extends('fa.template.master')
+@section('title')
+    {{ ' | اخبار | '.$content->getFirstTitle() }}
+@endsection
+@section('meta')
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="{{ url()->full() }}">
+    <meta property="og:description" content="{{ $content->getAbstract() ?? '' }}">
+    <meta property="og:title" content="انجمن اهدای عضو ایرانیان | اخبار | {{ $content->getFirstTitle() }}">
+@endsection
 @section('content')
     <div class="i-page n-show-page">
         <div class="container sm:p-0">

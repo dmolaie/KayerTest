@@ -1,4 +1,7 @@
 @extends('fa.template.master')
+    @section('title')
+        {{ ' | پروفایل '.auth()->user()->name .' '. auth()->user()->last_name }}
+    @endsection
     @section('content')
         <div class="profile-p i-page">
             <div class="container sm:p-0">
@@ -177,10 +180,10 @@
                             <div class="content__container content__container--3">
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
-                                        <figure class="content__image w-full block border border-solid">
-                                            <img src="{{ secure_asset('/images/test/test-image-3.png') }}"
-                                                 alt="بهاره حاجیان"
-                                                 class="w-full block object-contain"
+                                        <figure class="image_loading content__image w-full block border border-solid">
+                                            <img src="{{ secure_asset('/images/cards/print_overlay.jpg') }}"
+                                                 alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
+                                                 class="print_card w-full block object-contain"
                                             />
                                         </figure>
                                     </div>
@@ -195,17 +198,16 @@
                                             این نسخه از کارت اهدای عضو، با وضوح تصویری بالا، بهترین گزینه برای چاپ با چاپ‌گرهای خانگی است.
                                         </div>
                                         <div class="flex w-full items-center justify-space sm:flex-col">
-                                            <a  href="{{ secure_asset('/images/test/test-image-3.png') }}"
-                                                target="_blank" download
-                                                class="content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2">
+                                            <a  href=""
+                                                target="_blank" download="کارت-اهدا-عضو-{{ auth()->user()->name .'-'. auth()->user()->last_name }}.png"
+                                                class="d-print_card content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2">
                                                 دانلود
                                             </a>
-                                            <button class="content__button content__button--print text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2"
-                                                    id="print-button"
-                                                    data-url="{{ secure_asset('/images/test/test-image-3.png') }}"
+                                            <a href="{{ route('print-cart', [ auth()->user()->uuid ]) }}" target="_blank"
+                                               class="content__button content__button--print text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2"
                                             >
                                                 چاپ
-                                            </button>
+                                            </a>
                                             <button class="content__button content__button--share text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center share-tab sm:w-1/2">
                                                 اشتراک
                                             </button>
@@ -223,11 +225,14 @@
                 <span class="font-zar">
                     {{ auth()->user()->name .' '. auth()->user()->last_name.' - '. auth()->user()->card_id }}
                 </span>
+                <p class="font-zar">
+                    {{ auth()->user()->name .' '. auth()->user()->last_name.' - '. auth()->user()->card_id }}${{auth()->user()->mobile ?? ''}}${{auth()->user()->email ?? ''}}
+                </p>
             </div>
         </div>
     @endsection
 
     @section('scripts')
-        <script src="{{secure_asset('js/site/card-mini~card-single~card-social~dashboard.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js')}}" defer></script>
         <script src="{{secure_asset('js/site/dashboard.js')}}" defer></script>
     @endsection

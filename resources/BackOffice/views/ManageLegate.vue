@@ -106,16 +106,20 @@
                                             v-text="item.full_name"
                                             @click.stop="onClickShowUserInfoModal( item.id )"
                                     > </button>
-                                    <div class="w-full flex items-start flex-col">
-                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs"
+                                    <div class="w-full flex flex-wrap items-end">
+                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-b-0"
                                               :class="[ item.has_cart ? 'm-post__status--published' : 'm-post__status--recycle m-legate__status--recycle' ]"
                                         >
                                             {{ item.has_cart ? 'دارای' : 'بدون' }}
                                              کارت اهدا
                                         </span>
-                                        <span class="m-legate__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-1xs"
+                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-1xs m-b-0"
                                               v-if="item.has_cart"
                                               v-text="'شناسه کارت: ' + item.card_id"
+                                        > </span>
+                                        <span class="m-legate__status m-legate__status--video m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-b-0"
+                                              v-text="'ویدیو'"
+                                              v-if="item.has_video"
                                         > </span>
                                     </div>
                                 </div>

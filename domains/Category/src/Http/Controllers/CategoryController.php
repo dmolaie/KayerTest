@@ -4,6 +4,7 @@
 namespace Domains\Category\Http\Controllers;
 
 use App\Http\Controllers\EhdaBaseController;
+use Domains\Category\Http\Presenters\CategoryInfoPresenter;
 use Domains\Category\Http\Presenters\CategoryListPresenter;
 use Domains\Category\Http\Requests\CategoryByTypeRequest;
 use Domains\Category\Http\Requests\CreateCategoryRequest;
@@ -51,6 +52,16 @@ class CategoryController extends EhdaBaseController
         $categoryDTOs = $this->categoryService->getActiveCategoryByType($request['category_type']);
         return $this->response(
             $categoryListPresenter->transformMany($categoryDTOs),
+            Response::HTTP_OK
+        );
+    }
+    public function CategoryListByType(
+        CategoryByTypeRequest $request,
+        CategoryInfoPresenter $categoryInfoPresenter
+    ) {
+        $categoryDTOs = $this->categoryService->getActiveCategoryByType($request['category_type']);
+        return $this->response(
+            $categoryInfoPresenter->transformMany($categoryDTOs),
             Response::HTTP_OK
         );
     }

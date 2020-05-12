@@ -1,4 +1,6 @@
-import Dropdown from '@vendor/plugin/dropdown';
+import Dropdown, {
+    CREATE_OPTION_ELEMENT
+} from '@vendor/plugin/dropdown';
 import DateService from '@vendor/plugin/date';
 import Endpoint from '@endpoints';
 import TokenService from '@services/service/Token';
@@ -23,12 +25,13 @@ import {
     RequiredErrorMessage,
     PersianInvalidErrorMessage,
 } from '@vendor/plugin/helper';
+import LocationPresenter from "./presenter/Location";
 
 try {
     const INPUT_ERROR_CLASSNAME = 'has-error';
-    const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
     const PRE_LOADING_CLASSNAME = 'p-edit__pre-loading';
+    const INPUT_ERROR_MESSAGE_CLASSNAME = 'error-message';
     const HIDDEN_LOADING_CLASSNAME = 'p-edit__loading--hidden';
 
     const BODY_CONTENT = document.querySelector('.p-edit');
@@ -564,12 +567,17 @@ try {
         },
     };
 
+    const DISABLED_SELECT_CLASSNAME = 'disabledSelect';
+    const COMBO_CITY_OF_BIRTH = document.querySelector('select[name="birth_city"]');
+    const COMBO_CURRENT_CITY = document.querySelector('.dnt-page__select--home-city');
+    const COMBO_CITY_OF_EDUCATION = document.querySelector('.dnt-page__select--edu_city');
+
     const RENDER_DROPDOWN = () => {
         try {
             const CONFIG = {
                 inputClass: 'input',
                 optionClass: 'font-xs text-bayoux text-right',
-                dropdownClass: 'w-full unselected',
+                dropdownClass: 'w-full',
                 onSelected( dropdown ) {
                     dropdown.classList.remove('unselected');
                     dropdown.parentElement.classList.remove('has-error');
@@ -612,12 +620,55 @@ try {
                     dropdown.parentElement.parentElement.classList.remove('has-error');
                 }
             });
-            document.querySelector('select[name="birth_province"]').MountDropdown( FILTER_CONFIG );
-            document.querySelector('select[name="birth_city"]').MountDropdown( FILTER_CONFIG );
-            document.querySelector('select[name="current_province_id"]').MountDropdown( FILTER_CONFIG );
-            document.querySelector('select[name="current_city_id"]').MountDropdown( FILTER_CONFIG );
-            document.querySelector('select[name="edu_province"]').MountDropdown( FILTER_CONFIG );
-            document.querySelector('select[name="edu_city"]').MountDropdown( FILTER_CONFIG );
+
+            document.querySelector('select[name="birth_province"]').MountDropdown({
+                hasFilterItem: true,
+                filterPlaceholder: 'جستجو...',
+                dropdownClass: 'w-full',
+                filterClass: 'font-xs text-bayoux',
+                optionClass: 'font-xs text-bayoux text-right',
+                inputClass: 'input input--blue border border-solid rounded',
+                async onSelected(dropdown, { value: province_id }) {
+                    dropdown.classList.remove('unselected');
+                    dropdown.parentElement.classList.remove('has-error');
+                    let response = await getCityByProvinceId( province_id );
+                    CREATE_OPTION_COMBO(COMBO_CITY_OF_BIRTH, response);
+                }
+            });
+            COMBO_CITY_OF_BIRTH.MountDropdown( FILTER_CONFIG );
+
+            document.querySelector('select[name="current_province_id"]').MountDropdown({
+                hasFilterItem: true,
+                filterPlaceholder: 'جستجو...',
+                dropdownClass: 'w-full',
+                filterClass: 'font-xs text-bayoux',
+                optionClass: 'font-xs text-bayoux text-right',
+                inputClass: 'input input--blue border border-solid rounded',
+                async onSelected(dropdown, { value: province_id }) {
+                    dropdown.classList.remove('unselected');
+                    dropdown.parentElement.classList.remove('has-error');
+                    let response = await getCityByProvinceId( province_id );
+                    CREATE_OPTION_COMBO(COMBO_CURRENT_CITY, response);
+                }
+            });
+            COMBO_CURRENT_CITY.MountDropdown( FILTER_CONFIG );
+
+            document.querySelector('select[name="edu_province"]').MountDropdown({
+                hasFilterItem: true,
+                filterPlaceholder: 'جستجو...',
+                dropdownClass: 'w-full',
+                filterClass: 'font-xs text-bayoux',
+                optionClass: 'font-xs text-bayoux text-right',
+                inputClass: 'input input--blue border border-solid rounded',
+                async onSelected(dropdown, { value: province_id }) {
+                    dropdown.classList.remove('unselected');
+                    dropdown.parentElement.classList.remove('has-error');
+                    let response = await getCityByProvinceId( province_id );
+                    CREATE_OPTION_COMBO(COMBO_CITY_OF_EDUCATION, response);
+                }
+            });
+            COMBO_CITY_OF_EDUCATION.MountDropdown( FILTER_CONFIG );
+
             document.querySelector('select[name="last_education_degree"]').MountDropdown( WITHOUT_FILTER_CONFIG );
         }
         catch (e) {}
@@ -644,10 +695,69 @@ try {
         }
     };
 
+    const CREATE_OPTION_COMBO = (select, payload) => {
+        const DATA = [{id: '', name: 'انتخاب کنید...'}, ...payload];
+        select.value = '';
+        select.innerHTML = DATA.map(item => `<option value="${item.id}">${item.name}</option>`);
+        const DROPDOWN_INPUT = select.parentElement.querySelector('.dropdown__input');
+        const DROPDOWN_BODY = select.parentElement.querySelector('.dropdown__options');
+        DROPDOWN_INPUT.textContent = 'انتخاب کنید...';
+        DROPDOWN_BODY.innerHTML = CREATE_OPTION_ELEMENT(select.querySelectorAll('option'), 'font-xs text-bayoux text-right');
+        select.parentElement.classList.remove( DISABLED_SELECT_CLASSNAME );
+    };
+
+    const CREATE_OPTION_SELECT = (select, payload) => {
+        const DATA = [{id: '', name: 'انتخاب کنید...'}, ...payload];
+        select.value = '';
+        select.innerHTML = DATA.map(item => `<option value="${item.id}">${item.name}</option>`);
+    };
+
+    const getCityByProvinceId = async province_id => {
+        try {
+            let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), { province_id });
+            return new LocationPresenter( response.data );
+        } catch ( exception ) {}
+    };
+
+    const getCityOfBirth = async province_id => {
+        if ( !!province_id ) {
+            let response = await getCityByProvinceId( province_id );
+            CREATE_OPTION_SELECT(COMBO_CITY_OF_BIRTH, response);
+        } else {
+            COMBO_CITY_OF_BIRTH.parentElement.classList.add( DISABLED_SELECT_CLASSNAME );
+        }
+    };
+
+    const getCurrentCity = async province_id => {
+        if ( !!province_id ) {
+            let response = await getCityByProvinceId( province_id );
+            CREATE_OPTION_SELECT(COMBO_CURRENT_CITY, response);
+        } else {
+            COMBO_CURRENT_CITY.parentElement.classList.add( DISABLED_SELECT_CLASSNAME );
+        }
+    };
+
+    const getCityOfEducation = async province_id => {
+        if ( !!province_id ) {
+            let response = await getCityByProvinceId( province_id );
+            CREATE_OPTION_SELECT(COMBO_CITY_OF_EDUCATION, response);
+        } else {
+            COMBO_CITY_OF_EDUCATION.parentElement.classList.add( DISABLED_SELECT_CLASSNAME );
+        }
+    };
+
     const GET_USER_DETAILS = async () => {
         try {
             let response = await HTTPService.getRequest(Endpoint.get( Endpoint.GET_USER_INFORMATION ));
             response = new ProfileEditPresenter( response );
+
+            const { province_of_birth, current_province_id, education_province_id } = response;
+
+            await Promise.all([
+                getCityOfBirth( province_of_birth ),
+                getCurrentCity( current_province_id ),
+                getCityOfEducation( education_province_id )
+            ]);
             Object.entries( response )
                 .forEach(([key, value]) => {
                     let field = FIELD_ELEMENT[key];
@@ -745,6 +855,4 @@ try {
         }
     )
 
-} catch (e) {
-
-}
+} catch (e) { }

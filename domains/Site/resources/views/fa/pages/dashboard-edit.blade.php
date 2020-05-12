@@ -1,4 +1,7 @@
 @extends('fa.template.master')
+    @section('title')
+        {{ ' | ویرایش پروفایل '.auth()->user()->name .' '. auth()->user()->last_name }}
+    @endsection
     @section('content')
         <div class="p-edit dnt-page i-page p-edit__pre-loading">
             <div class="container sm:p-0">
@@ -194,11 +197,6 @@
                                     <option value="">
                                         انتخاب کنید...
                                     </option>
-                                    @foreach($data['city'] as $city)
-                                        <option value="{{$city['id']}}">
-                                            {{$city['name']}}
-                                        </option>
-                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -279,11 +277,6 @@
                                     <option value="">
                                         محل سکونت را انتخاب نمایید
                                     </option>
-                                    @foreach($data['city'] as $city)
-                                        <option value="{{$city['id']}}">
-                                            {{$city['name']}}
-                                        </option>
-                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -394,11 +387,6 @@
                                     <option value="">
                                         محل تحصیل را انتخاب نمایید
                                     </option>
-                                    @foreach($data['city'] as $city)
-                                        <option value="{{$city['id']}}">
-                                            {{$city['name']}}
-                                        </option>
-                                    @endforeach
                                 </select>
                                 <span class="error-message absolute w-full text-red font-sm-bold pointer-event-none"></span>
                             </div>
@@ -453,7 +441,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{secure_asset('js/site/vendors~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
-        <script src="{{secure_asset('js/site/donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
         <script src="{{secure_asset('js/site/edit-profile.js')}}" defer></script>
     @endsection

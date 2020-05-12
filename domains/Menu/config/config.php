@@ -16,62 +16,123 @@ return [
     'admin_menu'    => [
 
         "dashboard"      => [
-            'admin'   => ['active', 'pending', 'inactive',],
-            'manager' => ['active', 'pending', 'inactive',],
-            'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
+            'roles'=>[
+                'admin'   => ['active', 'pending', 'inactive',],
+                'manager' => ['active', 'pending', 'inactive',],
+                'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
+                ],
+            'children'=>[]
+
         ],
         "menu_manager" => [
-            'admin' => ['active'],
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
+
         ],
         "event"        => [
-            'admin'   => ['active'],
-            'manager' => ['active'],
-            'legate'  => ['active'],
+            'roles'    => [
+                'admin'   => ['active'],
+                'manager' => ['active'],
+                'legate'  => ['active'],
+            ],
+            'children' => []
         ],
         "news"         => [
-            'admin'   => ['active'],
-            'manager' => ['active'],
-            'legate'  => ['active'],
+            'roles'    => [
+                'admin'   => ['active'],
+                'manager' => ['active'],
+                'legate'  => ['active'],
+            ],
+            'children' => []
+
         ],
         "article"      => [
-            'admin' => ['active'],
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
         ],
         "ehda_card" => [
-            'admin'   => ['active'],
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
         ],
         "user" => [
-            'admin'   => ['active']
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
         ],
         "report" => [
-            'admin'   => ['active',]
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
         ],
         "category" => [
-            'admin' => ['active',]
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
         ],
-        "image_gallery" => [
-            'admin'   => ['active'],
-            'manager' => ['active'],
-            'legate'  => ['active'],
-        ],
-        "text_gallery" => [
-            'admin'   => ['active'],
-            'manager' => ['active'],
-            'legate'  => ['active'],
-        ],
-        "video_gallery" => [
-            'admin'   => ['active'],
-            'manager' => ['active'],
-            'legate'  => ['active'],
-        ],
-        "voice_gallery" => [
-            'admin'   => ['active'],
-            'manager' => ['active'],
-            'legate'  => ['active'],
+        "gallery" => [
+            'roles'=>[
+                'admin'   => ['active'],
+                'manager' => ['active'],
+                'legate'  => ['active'],
+                ],
+            'children'=>[
+                "image_gallery" => [
+                    'roles'    => [
+                        'admin'   => ['active'],
+                        'manager' => ['active'],
+                        'legate'  => ['active'],
+                    ],
+                    'children' => []
+
+                ],
+                "text_gallery"  => [
+                    'roles'    => [
+                        'admin'   => ['active'],
+                        'manager' => ['active'],
+                        'legate'  => ['active'],
+                    ],
+                    'children' => []
+
+                ],
+                "video_gallery" => [
+                    'roles'    => [
+                        'admin'   => ['active'],
+                        'manager' => ['active'],
+                        'legate'  => ['active'],
+                    ],
+                    'children' => []
+
+                ],
+                "voice_gallery" => [
+                    'roles'    => [
+                        'admin'   => ['active'],
+                        'manager' => ['active'],
+                        'legate'  => ['active'],
+                    ],
+                    'children' => []
+
+                ],
+            ]
+
+
         ],
         "profile_setting" => [
-            'admin'   => ['active', 'pending', 'inactive',],
-            'manager' => ['active', 'pending', 'inactive',],
-            'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
+            'roles'    => [
+                'admin'   => ['active', 'pending', 'inactive',],
+                'manager' => ['active', 'pending', 'inactive',],
+                'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
+            ],
+            'children' => []
+
         ],
     ]
 ];

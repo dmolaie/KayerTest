@@ -1,5 +1,7 @@
 import Share from '@vendor/plugin/shareSocialMedia';
-import donationCard from '@vendor/plugin/donationCard';
+import donationCard, {
+    printCard
+} from '@vendor/plugin/donationCard';
 
 try {
     const SHARE_TAB_INDEX = 2;
@@ -43,7 +45,6 @@ try {
             )
         });
 
-    const PRINT_BUTTON = document.querySelector('#print-button');
     const OPEN_PRINT_TAB = document.querySelectorAll('.profile-p .print-tab');
 
     if ( !!OPEN_PRINT_TAB ) {
@@ -55,41 +56,6 @@ try {
                 }
             )
         })
-    }
-
-    if ( !!PRINT_BUTTON ) {
-        PRINT_BUTTON.addEventListener(
-            'click',
-            () => {
-                const URL_IMAGE = PRINT_BUTTON.getAttribute('data-url');
-                let wnz = window.open('', '_blank');
-                wnz.document.write(`
-                    <html lang="fa">
-                        <head>
-                            <style>
-                                html, body { margin: 0; background: white !important; page-break-after: avoid; page-break-before: avoid; }
-                                img { display: block; width: 21cm; height: 29.7cm; margin: 0 auto }
-                                @media print {
-                                    @page { size: 21cm 29.7cm; margin: 0 !important; padding: 0 !important; }
-                                    * { -webkit-print-color-adjust: exact }
-                                    html, body { height: 99%; page-break-after: avoid; page-break-before: avoid; }
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <img src="${URL_IMAGE}"
-                                 id="image_element"
-                                 alt="انجمن اهدای عضو ایرانیان"
-                            />
-                            <script>
-                                document.getElementById('image_element')
-                                    .addEventListener('load', () => { window.print(); window.close() })
-                            </script>
-                        </body>
-                    </html>
-                `);
-            }
-        )
     }
 
     const OPEN_SHARE_TAB_CLASSNAME = 'share-box--active';
@@ -171,10 +137,16 @@ try {
             try {
                 const LOADING_CLASS = 'image_loading';
                 const CARD_LABEL = document.querySelector('#card_info span').textContent.trim();
+                const CARD_LABELS = document.querySelector('#card_info p')?.textContent?.split('$');
                 let response = await Promise.all([
                     donationCard(CARD_LABEL),
                     donationCard(CARD_LABEL, 'mini'),
                     donationCard(CARD_LABEL, 'social'),
+                    await printCard({
+                        name: CARD_LABELS[0],
+                        mobile: CARD_LABELS[1],
+                        email: ''
+                    })
                 ]);
                 document.querySelector('.single_cart').src = response[0].base64;
                 document.querySelector('.d-single_cart').href = response[0].download;
@@ -182,8 +154,10 @@ try {
                 document.querySelector('.d-mini_cart').href = response[1].download;
                 document.querySelector('.social_cart').src = response[2].base64;
                 document.querySelector('.d-social_cart').href = response[2].download;
+                document.querySelector('.print_card').src = response[3].base64;
+                document.querySelector('.d-print_card').href = response[3].download;
                 document.querySelectorAll('.' + LOADING_CLASS)
                     .forEach(item => item.classList.remove( LOADING_CLASS ))
-            } catch (e) {}
+            } catch (e) { }
         })
 } catch (e) {}

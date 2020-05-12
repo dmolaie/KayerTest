@@ -60,6 +60,10 @@ class MediaFilterDTO
      */
     protected $type;
     /**
+     * @var int|null
+     */
+    protected $paginationCount;
+    /**
      * @var string
      */
     protected $sort = 'DESC';
@@ -274,6 +278,24 @@ class MediaFilterDTO
     public function setType(?string $type): MediaFilterDTO
     {
         $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaginationCount(): ?int
+    {
+        return $this->paginationCount;
+    }
+
+    /**
+     * @param int|null $paginationCount
+     * @return MediaFilterDTO
+     */
+    public function setPaginationCount(?int $paginationCount): MediaFilterDTO
+    {
+        $this->paginationCount = $paginationCount;
         return $this;
     }
 

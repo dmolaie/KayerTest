@@ -35,6 +35,7 @@
                             @foreach($menu->child as $child)
                                 <a href="{{
                       !is_null($child->link) ?  $child->link : config('app.locale') .'/page/'.$child->alias }}"
+                                <a href="{{!is_null($child->link) ?  $child->link : config('app.locale') .'/page/'.$child->alias}}"
                                    class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap">
                                     {{$child->title}}
                                 </a>
@@ -57,7 +58,7 @@
                     <a href="{{route('admin.login')}}"
                        class="block header__nav_btn header__nav_btn--user bg-size-contain m-0"></a>
                     @if( auth()->check() )
-                        <div class="header__dropdown absolute bg-white border border-solid rounded-10">
+                        <div class="header__dropdown absolute bg-white border border-solid rounded-10 z-10">
                             @if( in_array(config('role.roles.legate.name'),auth()->user()->roles->pluck('type')->toArray()) || in_array(config('role.roles.admin.name'),auth()->user()->roles->pluck('name')->toArray()))
                                 <a href="{{route('admin.login',config('app.locale'))}}"
                                    class="header__dropdown_item w-full block text-blue-800 font-sm font-bold text-nowrap l:hover:color-blue-200">

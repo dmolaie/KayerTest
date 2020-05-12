@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | رویدادها')
 @section('content')
     <div class="i-page n-list-page">
         <div class="n-list__header block w-full bg-blue-100">
