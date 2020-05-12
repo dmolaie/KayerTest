@@ -16,6 +16,15 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
 Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')], 'name' => 'site.'],
     function () {
         Route::get('/', 'HomeController@index')->name('index');
+
+        Route::prefix('archive')->name('archive.')->group(function () {
+            Route::get('/news', 'PagesController@newsList')->name('news-list');
+            Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
+            Route::get('/events/show/{slug}', 'PagesController@showDetailEvents')->name('showDetailEvents');
+            Route::get('/gallery/show/{slug}', 'PagesController@showDetailMedia')->name('showDetailMedia');
+            Route::get('/article/show/{slug}', 'PagesController@showDetailArticle')->name('showDetailArticle');
+        });
+
         Route::prefix('page')->name('page.')->group(function () {
             Route::get('/donation-card', 'PagesController@donationAndCard')->name('donation-card');
             Route::get('/volunteers', 'PagesController@legaterVolunteers')->name('volunteers');
@@ -43,14 +52,6 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
                 Route::get('/image/{slug}', 'PagesController@galleryImage')->name('image');
                 Route::get('/text/{slug}', 'PagesController@galleryText')->name('text');
             });
-        });
-
-        Route::prefix('archive')->name('archive.')->group(function () {
-            Route::get('/news', 'PagesController@newsList')->name('news-list');
-            Route::get('/news/show/{slug}', 'PagesController@showDetailNews')->name('showDetailNews');
-            Route::get('/events/show/{slug}', 'PagesController@showDetailEvents')->name('showDetailEvents');
-            Route::get('/gallery/show/{slug}', 'PagesController@showDetailMedia')->name('showDetailMedia');
-            Route::get('/article/show/{slug}', 'PagesController@showDetailArticle')->name('showDetailArticle');
         });
 
     });
