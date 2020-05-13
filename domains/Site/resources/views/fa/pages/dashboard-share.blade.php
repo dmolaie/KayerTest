@@ -21,7 +21,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="d-share__row d-share__details w-full block h-0 overflow-hidden">
+                        <div class="d-share__row d-share__details w-full h-0 block overflow-hidden">
                             <div class="w-full">
                                 <div class="w-3/4 m-auto">
                                     <div class="d-share__preview w-full flex items-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
@@ -35,7 +35,12 @@
                                             <p class="font-sm font-bold">
                                                 در حال بارگذاری ویدیو ...
                                             </p>
-                                            <p class="d-share__size font-xs font-bold"></p>
+                                            <div class="d-share__progressbar w-full relative border border-solid overflow-hidden"
+                                                 style="--progress: 40%"
+                                            ></div>
+                                            <p class="d-share__size font-xs font-bold text-left">
+                                                78%
+                                            </p>
                                         </div>
                                     </div>
                                     <label class="w-full block">
@@ -158,7 +163,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{ secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
-        <script src="{{ secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
-        <script src="{{ secure_asset('js/site/dashboard-share.js') }}" defer></script>
+        <script src="{{ asset('js/site/vendors~dashboard-share.js') }}" defer></script>
+        <script src="{{ asset('js/site/dashboard-share.js') }}" defer></script>
     @endsection
