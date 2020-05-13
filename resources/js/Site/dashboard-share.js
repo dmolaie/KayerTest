@@ -107,7 +107,7 @@ try {
             // FILE_SIZE_EL.textContent = `حجم فایل: ${FILE_SIZE}Mb`;
 
             let channelId = "video";
-            let authorization = "0534c1e3-dad9-402f-a255-23e1051d1c1f";
+            let authorization = "Apikey 0534c1e3-dad9-402f-a255-23e1051d1c1f";
 
             let options = {
                 "url": `https://napi.arvancloud.com/vod/2.0/channels/${channelId}/files`,
