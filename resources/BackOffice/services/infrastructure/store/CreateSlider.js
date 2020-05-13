@@ -1,6 +1,6 @@
 import { ProvincesPresenter } from '@vendor/infrastructure/presenter/MainPresenter';
 
-const C_SLIDER_SET_PROVINCES = "C_SLIDER_SET_PROVINCES";
+export const C_SLIDER_SET_PROVINCES = "C_SLIDER_SET_PROVINCES";
 
 const CreateSlider = {
     state: {
