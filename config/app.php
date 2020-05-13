@@ -199,6 +199,7 @@ return [
         \Domains\SmsRegister\SmsRegisterServiceProvider::class,
         \Domains\NationalAuthentication\NationalAuthenticationServiceProvider::class,
         \Domains\Media\MediaServiceProvider::class,
+        \Domains\Slider\SliderServiceProvider::class,
 
 
     ],
