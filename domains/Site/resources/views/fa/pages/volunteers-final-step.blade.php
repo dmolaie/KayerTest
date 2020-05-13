@@ -661,9 +661,9 @@
         </div>
     </div>
 @endsection
-
+js/site/runtime.js
 @section('scripts')
-    <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{secure_asset('js/site/volunteers-final.js')}}" defer></script>
 @endsection
