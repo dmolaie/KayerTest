@@ -16,8 +16,8 @@ FROM registry.arna.ir/php/php:7.3-fpm as ehda
 WORKDIR /var/www/
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 COPY . .
-COPY --from=js-files /app/public/css /var/www/css
-COPY --from=js-files /app/public/js /var/www/js
+COPY --from=js-files /app/public/css /var/www/public/css
+COPY --from=js-files /app/public/js /var/www/public/js
 COPY --from=vendor /app/vendor/ /var/www/vendor
 
 from nginx:alpine
