@@ -163,6 +163,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{ asset('js/site/vendors~dashboard-share.js') }}" defer></script>
-        <script src="{{ asset('js/site/dashboard-share.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/vendors~dashboard-share.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/dashboard-share.js') }}" defer></script>
     @endsection
