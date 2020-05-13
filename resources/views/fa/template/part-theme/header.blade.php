@@ -33,8 +33,6 @@
                     @if($menu->child->count() > 0)
                         <div class="header__nav_sub-menu absolute bg-white cursor-default line-height-1 z-10">
                             @foreach($menu->child as $child)
-                                <a href="{{
-                      !is_null($child->link) ?  $child->link : config('app.locale') .'/page/'.$child->alias }}"
                                 <a href="{{!is_null($child->link) ?  $child->link : config('app.locale') .'/page/'.$child->alias}}"
                                    class="header__nav_sub-menu_item text-black block l:hover:color-blue-200 text-nowrap">
                                     {{$child->title}}
@@ -170,7 +168,7 @@
                         <div class="m-header__children h-0 overflow-hidden">
                             <div class="w-full">
                                 @foreach($menu->child as $child)
-                                    <a href="/{{config('app.locale')}}/page/{{$child->alias}}"
+                                    <a href="{{!is_null($child->link) ?  $child->link : config('app.locale') .'/page/'.$child->alias}}"
                                        class="m-header__child block text-black font-xs font-normal">
                                         {{$child->title}}
                                     </a>
@@ -178,7 +176,9 @@
                             </div>
                         </div>
                     @else
-                        <a href="/{{config('app.locale')}}/page/{{$menu->alias}}"
+                        <a href="{{ is_null($menu->parent_id) ?
+                                    !is_null($menu->link) ?  $menu->link : '#'
+                                    : config('app.locale') .'/page/'.$menu->alias }}"
                            class="m-header__mLink w-full block text-blue-800 font-sm font-bold"
                         >
                             {{$menu->title}}
