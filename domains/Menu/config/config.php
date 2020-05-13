@@ -54,6 +54,12 @@ return [
             ],
             'children' => []
         ],
+        "slider" => [
+            'roles'    => [
+                'admin' => ['active'],
+            ],
+            'children' => []
+        ],
         "ehda_card" => [
             'roles'    => [
                 'admin' => ['active'],
