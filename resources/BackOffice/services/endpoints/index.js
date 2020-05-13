@@ -73,6 +73,9 @@ const CREATE_GALLERY_LIST = 'CREATE_GALLERY_LIST';
 const EDIT_GALLERY_ITEM = 'EDIT_GALLERY_ITEM';
 const EDIT_STATUS_GALLERY_ITEM = 'EDIT_STATUS_GALLERY_ITEM';
 const DELETE_GALLERY_ITEM = 'DELETE_GALLERY_ITEM';
+const GET_SLIDER_LIST = "GET_SLIDER_LIST";
+const CREATE_SLIDER_LIST = "CREATE_SLIDER_LIST";
+const DELETE_SLIDER_LIST = "DELETE_SLIDER_LIST";
 const SITE_GET_GALLERY_LIST = 'SITE_GET_GALLERY_LIST';
 const SITE_GET_CATEGORY_LIST = 'SITE_GET_CATEGORY_LIST';
 
@@ -153,12 +156,16 @@ endpoints[UPLOAD_IMAGES_ITEM] = `/attachment/attach_image`;
 endpoints[EDIT_FILE_ITEM] = `/attachment/edit_file_data`;
 endpoints[DELETE_IMAGES_ITEM] = `/attachment/destroy_image`;
 
+endpoints[GET_SLIDER_LIST] = `/slider/${VER_1_0}/admin/list`;
+endpoints[CREATE_SLIDER_LIST] = `/slider/${VER_1_0}/admin/create`;
+endpoints[DELETE_SLIDER_LIST] = `/slider/${VER_1_0}/admin/delete/:id`;
+
 endpoints[SITE_GET_CATEGORY_LIST] = `/category/v1/category-list-by-type`;
 endpoints[SITE_GET_GALLERY_LIST] = `/:lang/page/gallery/list-content`;
 
 export default class Endpoint {
     static get API_DOMAIN() {
-        return API_DOMAIN
+        return ''
     }
 
     static get SIGN_IN() {
@@ -435,6 +442,18 @@ export default class Endpoint {
 
     static get SITE_GET_CATEGORY_LIST() {
         return endpoints[SITE_GET_CATEGORY_LIST];
+    }
+
+    static get GET_SLIDER_LIST() {
+        return endpoints[GET_SLIDER_LIST]
+    }
+
+    static get CREATE_SLIDER_LIST() {
+        return endpoints[CREATE_SLIDER_LIST]
+    }
+
+    static get DELETE_SLIDER_LIST() {
+        return endpoints[DELETE_SLIDER_LIST]
     }
 
     static get( endpoint, params = {} ) {

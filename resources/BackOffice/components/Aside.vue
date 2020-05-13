@@ -19,9 +19,7 @@
         </div>
         <div class="aside__menu">
             <div class="w-full">
-                <template v-for="(item, index) in items"
-
-                >
+                <template v-for="(item, index) in items">
                     <template v-if="!hasLength( item.children )">
                         <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
                                      :key="index" :to="item.route"
