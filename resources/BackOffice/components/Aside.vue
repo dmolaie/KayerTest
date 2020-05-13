@@ -19,6 +19,18 @@
         </div>
         <div class="aside__menu">
             <div class="w-full">
+                <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+                             :to="{ name: 'MANAGE_SLIDER' }"
+                >
+                    <image-cm class="aside__menu_item_icon"
+                              :src="$asset( '' )"
+                              alt="انجمن اهدای عضو ایرانیان"
+                              objectFit="contain" className="block"
+                    />
+                    <span class="aside__menu_item_title font-sm font-medium">
+                                ManageSlider
+                            </span>
+                </router-link>
                 <template v-for="(item, index) in items"
 
                 >
