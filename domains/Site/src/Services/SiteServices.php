@@ -16,6 +16,8 @@ use Domains\Media\Services\MediaService;
 use Domains\Menu\Services\MenusContentService;
 use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\News\Services\NewsService;
+use Domains\Slider\Services\Contracts\DTOs\SliderFilterDTO;
+use Domains\Slider\Services\SliderService;
 use Domains\User\Services\UserService;
 
 class SiteServices
@@ -67,6 +69,10 @@ class SiteServices
      * @var MediaService
      */
     private $mediaService;
+    /**
+     * @var SliderService
+     */
+    private $sliderService;
 
 
     public function __construct(
@@ -79,7 +85,8 @@ class SiteServices
         ArticleService $articleService,
         ProvinceService $provinceService,
         UserService $userService,
-        MediaService $mediaService
+        MediaService $mediaService,
+        SliderService $sliderService
     ) {
         $this->menusService = $menusService;
         $this->categoryService = $categoryService;
@@ -91,6 +98,7 @@ class SiteServices
         $this->provinceService = $provinceService;
         $this->userService = $userService;
         $this->mediaService = $mediaService;
+        $this->sliderService = $sliderService;
     }
 
     public function getAll()
@@ -289,5 +297,17 @@ class SiteServices
     {
         return $this->articleService->getArticleDetailWithSlug($slug);
 
+    }
+
+    public function getSliderList(SliderFilterDTO $sliderFilterDTO, $subDomain = null)
+    {
+        $province = $subDomain ?? $this->getLocations('global-fa');
+        $sliderFilterDTO->setProvinceIds([$province->id]);
+        $sliders = $this->sliderService->filterSlider($sliderFilterDTO);
+        if (!empty($sliders->getItems())) {
+            return $sliders->getItems();
+        }
+        $sliderFilterDTO->setProvinceIds([$this->getLocations('global-fa')->id]);
+        return $this->sliderService->filterSlider($sliderFilterDTO)->getItems();
     }
 }
