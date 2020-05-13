@@ -14,6 +14,7 @@ const APP_NAME = 'انجمن اهدای عضو ایرانیان | ';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_EVENT = 'MANAGE_EVENT';
 export const CREATE_EVENT = 'CREATE_EVENT';
@@ -75,6 +76,15 @@ const Routes = new VueRouter({
             meta: {
                 title: 'خروج از حساب کاربری',
                 guess: true,
+            }
+        },
+        {
+            name: RESET_PASSWORD,
+            path: '/password/reset',
+            component: GetViews('ResetPassword'),
+            meta: {
+                guess: true,
+                title: 'بازیابی گذرواژه',
             }
         },
         {
