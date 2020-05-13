@@ -42,6 +42,10 @@ export const menus = {
         route: { name: 'MANAGE_CATEGORY' },
         icon: 'ic_newspaper--blue.svg'
     },
+    ['gallery']: {
+        route: { name: '' },
+        icon: 'ic_newspaper--blue.svg'
+    },
     ['image_gallery']: {
         route: { name: 'MANAGE_GALLERY', params: { type: 'image' } },
         icon: 'ic_newspaper--blue.svg'
@@ -75,10 +79,11 @@ class MenuPresenter extends BasePresenter {
         this.item = menus[this.data.en_name];
         
         return this.mapProps({
+            icon: String,
             route: String,
             name_fa: String,
             name_en: String,
-            icon: String,
+            children: Array,
         })
     }
 
@@ -96,5 +101,9 @@ class MenuPresenter extends BasePresenter {
 
     icon() {
         return this.item?.icon
+    }
+
+    children() {
+        return new MenusPresenter( this.data.children )
     }
 }

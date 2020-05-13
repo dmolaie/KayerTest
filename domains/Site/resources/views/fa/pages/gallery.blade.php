@@ -1,18 +1,6 @@
 @extends('fa.template.master')
+    @section('title', ' | هنر اهدا')
     @section('content')
-        @php
-            $DESC_SORT = 'desc';
-            $typeOfGallery = request()->get('type') ?? 'voice';
-            $sort = request()->get('sort') ?? $DESC_SORT;
-            $isDescSort = (strtolower($sort) == $DESC_SORT);
-            $searchValue = request()->get('first_title') ?? '';
-
-            function isChecked( $slug ) {
-                $selectedCategories = request()->get('categories') ?? [];
-               if (empty( $selectedCategories )) return true;
-               return in_array($slug, $selectedCategories);
-            }
-        @endphp
         <div class="ga-page i-page">
             <div class="container sm:p-0">
                 <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
@@ -22,9 +10,8 @@
                 </h1>
                 <div class="inner-box inner-box--white p-0">
                     <div class="ga-page__header flex rounded-inherit rounded-br-none rounded-bl-none overflow-hidden">
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'voice' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="audio"
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="voice"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512.001"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -34,10 +21,9 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               صوتی
                             </span>
-                        </a>
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'image' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="images"
+                        </button>
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="image"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -47 511.999 511"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -47,10 +33,9 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               تصویری
                             </span>
-                        </a>
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'text' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="text"
+                        </button>
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="text"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.14969 512"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -60,10 +45,9 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               نوشتاری
                             </span>
-                        </a>
-                        <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => 'video' ]) }}"
-                           class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
-                           role="tab" tabindex="-1" data-id="video"
+                        </button>
+                        <button class="ga-page__tab flex items-center justify-center flex-1 cursor-pointer md:flex-col"
+                                role="tab" tabindex="-1" data-id="video"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 512 512"
                                  class="ga-page__icon object-contain pointer-event-none"
@@ -73,18 +57,15 @@
                             <span class="text-blue font-24 font-bold pointer-event-none md:font-lg sm:font-base">
                               ویدیویی
                             </span>
-                        </a>
+                        </button>
                     </div>
-                    <div class="ga-page__content ga-page__body w-full">
+                    <div class="ga-page__content ga-page__body relative w-full">
                         <div class="w-full flex items-start md:flex-wrap">
                             <aside class="ga-page__aside w-1/4 xl:w-1/5 flex-shrink-0 md:w-full">
                                 <div class="block w-full">
-                                    <a href="{{ route('page.gallery.art-ehda', array_merge(['language' => config('app.locale')], request()->all(), ['sort' => $isDescSort ? 'asc' : 'desc'])) }}"
-                                       class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow">
-                                        زمان انتشار
-                                        {{ $isDescSort ? 'نزولی' : 'صعودی' }}
-                                        <span class="ga-page__published--{{ $isDescSort ? 'desc' : 'asc' }}"></span>
-                                    </a>
+                                    <button class="ga-page__published relative w-full flex items-center justify-between text-blue-800 font-sm font-bold border border-solid rounded-6 has-shadow"
+                                            id="sort_button"
+                                    > </button>
                                     <div class="ga-page__panel w-full border border-solid rounded">
                                         <div class="ga-page__panel_header flex items-center rounded-inherit rounded-br-none rounded-bl-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 0 511 512"
@@ -100,9 +81,8 @@
                                             <div class="ga-page__panel_body">
                                                 <label class="ga-page__panel_label flex items-center w-full border border-solid rounded">
                                                     <input type="text"
-                                                           class="search_input ga-page__panel_input text-blue-800 w-full font-sm font-normal bg-transparent text-blue-100"
-                                                           placeholder="جستجوی گالری"
-                                                           autocomplete="off" value="{{ $searchValue }}"
+                                                           class="search_input ga-page__panel_input text-blue-800 font-sm font-normal bg-transparent text-blue-100"
+                                                           placeholder="جستجوی گالری" autocomplete="off"
                                                     />
                                                     <button class="search_button flex-shrink-0">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"
@@ -112,159 +92,34 @@
                                                         </svg>
                                                     </button>
                                                 </label>
-                                                @foreach($categories as $index=>$category)
-                                                    <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
-                                                           style="margin-right: {{$category['gap']}}px">
-                                                        <input type="checkbox" value="{{ $category['slug'] }}"
-                                                               class="checkbox-square__input"
-                                                               name="gallery" {{ isChecked( $category['slug'] ) ? 'checked="checked"' : '' }}
-                                                        />
-                                                        <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                                        <span class="checkbox-square__label rounded user-select-none">
-                                                            {{ $category['name_fa'] }}
-                                                        </span>
-                                                    </label>
-                                                @endforeach
+                                                <div class="w-full" id="categories_wrapper"></div>
                                                 <span class="ga-page__panel_divider block"></span>
-                                                <div class="w-full block text-center">
-                                                    <a href="{{ route('page.gallery.art-ehda', [ config('app.locale'), 'type' => $typeOfGallery ]) }}"
-                                                       class="inline-block text-red font-sm font-bold m-0-auto"
-                                                    >
-                                                        خالی‌کردن فیلتر‌ها
-                                                    </a>
-                                                </div>
+                                                <button class="block text-red font-sm font-bold m-0-auto"
+                                                        id="clear_filter"
+                                                >
+                                                    خالی‌کردن فیلتر‌ها
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </aside>
-                            <div class="flex-1 flex flex-wrap">
-                                @if(count($media))
-                                    @if($type === 'voice')
-                                        @foreach($media as $mediaInfo)
-                                            <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                                <a href="{{ route('page.gallery.audio',[config('app.locale'),$mediaInfo->getSlug()]) }}"
-                                                   class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                                    <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                                        <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                                        <img src=""
-                                                             data-src="/{{ $mediaInfo->getAttachmentFiles() ? current($mediaInfo->getAttachmentFiles())['path'] : '' }}"
-                                                             alt=""
-                                                             class="block w-full h-full rounded-inherit object-cover"
-                                                        >
-                                                    </figure>
-                                                    <div class="ga-page__card_body">
-                                                        <p class="ga-page__card_category flex items-center">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 415.963 415.963"
-                                                                 class="object-contain"
-                                                            >
-                                                                <path d="M328.712,264.539c12.928-21.632,21.504-48.992,23.168-76.064c1.056-17.376-2.816-35.616-11.2-52.768  c-13.152-26.944-35.744-42.08-57.568-56.704c-16.288-10.912-31.68-21.216-42.56-35.936l-1.952-2.624  c-6.432-8.64-13.696-18.432-14.848-26.656c-1.152-8.32-8.704-14.24-16.96-13.76c-8.384,0.576-14.88,7.52-14.88,15.936v285.12  c-13.408-8.128-29.92-13.12-48-13.12c-44.096,0-80,28.704-80,64s35.904,64,80,64s80-28.704,80-64V165.467  c24.032,9.184,63.36,32.576,74.176,87.2c-2.016,2.976-3.936,6.176-6.176,8.736c-5.856,6.624-5.216,16.736,1.44,22.56  c6.592,5.888,16.704,5.184,22.56-1.44c4.288-4.864,8.096-10.56,11.744-16.512C328.04,265.563,328.393,265.083,328.712,264.539z"/>
-                                                            </svg>
-                                                            موسیقی
-                                                        </p>
-                                                        <p class="ga-page__card_title text-center text-blue-800">
-                                                            {{$mediaInfo->getFirstTitle()}}
-                                                        </p>
-                                                    </div>
-                                                    <p class="ga-page__card_link text-center">
-                                                        + ادامه
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    @elseif($type === 'image')
-                                        @foreach($media as $mediaInfo)
-                                            <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                                <a href="{{ route('page.gallery.image',[config('app.locale'),$mediaInfo->getSlug()]) }}"
-                                                   class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                                    <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                                        <span class="ga-page__card_camera absolute"></span>
-                                                        <img src=""
-                                                             data-src="/{{ $mediaInfo->getAttachmentFiles() ? current($mediaInfo->getAttachmentFiles())['path'] : '' }}"
-                                                             alt=""
-                                                             class="block w-full h-full rounded-inherit object-cover"
-                                                        >
-                                                    </figure>
-                                                    <div class="ga-page__card_body">
-                                                        <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                            {{$mediaInfo->getFirstTitle()}}
-                                                        </p>
-                                                        <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($mediaInfo->getPublishDate()))->format(' %d %B %Y')}}
-                                                        </time>
-                                                    </div>
-                                                    <p class="ga-page__card_link text-center">
-                                                        + ادامه
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    @elseif($type === 'text')
-                                        @foreach($media as $mediaInfo)
-                                            <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                                <a href="{{ route('page.gallery.text',[config('app.locale'),$mediaInfo->getSlug()]) }}"
-                                                   class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                                    <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                                        <img src=""
-                                                             data-src="/{{ $mediaInfo->getAttachmentFiles() ? current($mediaInfo->getAttachmentFiles())['path'] : '' }}"
-                                                             alt=""
-                                                             class="block w-full h-full rounded-inherit object-cover"
-                                                        >
-                                                    </figure>
-                                                    <div class="ga-page__card_body">
-                                                        <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                            {{$mediaInfo->getFirstTitle()}}
-                                                        </p>
-                                                    </div>
-                                                    <p class="ga-page__card_link text-center">
-                                                        + ادامه
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    @elseif($type === 'video')
-                                        @foreach($media as $mediaInfo)
-                                            <div class="ga-page__item xxl:w-1/4 xl:w-1/3 w-1/2 sm:w-full">
-                                                <a href="{{ route('page.gallery.video',[config('app.locale'),$mediaInfo->getSlug()]) }}"
-                                                   class="ga-page__card relative w-full block font-xs font-bold border border-solid rounded-10 has-shadow">
-                                                    <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
-                                                        <span class="ga-page__card_play absolute bg-white rounded-50"></span>
-                                                        <img src=""
-                                                             data-src="/{{ $mediaInfo->getAttachmentFiles() ? current($mediaInfo->getAttachmentFiles())['path'] : '' }}"
-                                                             alt=""
-                                                             class="block w-full h-full rounded-inherit object-cover"
-                                                        >
-                                                    </figure>
-                                                    <div class="ga-page__card_body">
-                                                        <p class="ga-page__card_iTitle text-right text-blue-800">
-                                                            {{$mediaInfo->getFirstTitle()}}
-                                                        </p>
-                                                        <time class="ga-page__card_release has_notebook--gray w-full block text-gray-200 font-1xs text-left text-left">
-                                                            {{\Morilog\Jalali\Jalalian::forge(Carbon\Carbon::parse($mediaInfo->getPublishDate()))->format(' %d %B %Y')}}
-                                                        </time>
-                                                    </div>
-                                                    <p class="ga-page__card_link text-center">
-                                                        + ادامه
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                @else
-                                    <p class="block w-full text-center font-base font-bold text-blue-800 cursor-default">
-                                        چیزی برای نمایش وجود ندارد.
-                                    </p>
-                                @endif
-                            </div>
+                            <div class="flex-1 flex flex-wrap"
+                                 id="items_wrapper"
+                            > </div>
                         </div>
-                        {!! $media->appends(Request::capture()->except('page'))->render() !!}
+                        <div class="">
+                            <div class="pagination w-full"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="ga-page__loading z-5 spinner-loading"></div>
     @endsection
 
     @section('scripts')
+        <script src="{{ secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
         <script src="{{ secure_asset('js/site/gallery.js') }}" defer></script>
     @endsection

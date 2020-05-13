@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+@section('title', ' | سفیران اهدای عضو')
 @section('content')
     <div class="vnt-page dnt-page i-page">
         <div class="container sm:p-0">
@@ -662,7 +663,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{secure_asset('js/site/dashboard-share~donation-card~edit-profile~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{secure_asset('js/site/volunteers-final.js')}}" defer></script>
 @endsection

@@ -19,22 +19,68 @@
         </div>
         <div class="aside__menu">
             <div class="w-full">
-                <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
-                     v-for="(item, index) in items"
-                     :key="index"
-                     :to="item.route"
+                <template v-for="(item, index) in items"
+
                 >
-                    <image-cm
-                        class="aside__menu_item_icon"
-                        :src="$asset( item.icon )"
-                        alt="انجمن اهدای عضو ایرانیان"
-                        objectFit="contain"
-                        className="block"
-                    />
-                    <span class="aside__menu_item_title font-sm font-medium">
-                        {{ item.name_fa }}
-                    </span>
-                </router-link>
+                    <template v-if="!hasLength( item.children )">
+                        <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+                                     :key="index" :to="item.route"
+                        >
+                            <image-cm class="aside__menu_item_icon"
+                                      :src="$asset( item.icon )"
+                                      alt="انجمن اهدای عضو ایرانیان"
+                                      objectFit="contain" className="block"
+                            />
+                            <span class="aside__menu_item_title font-sm font-medium">
+                                {{ item.name_fa }}
+                            </span>
+                        </router-link>
+                    </template>
+                    <template v-else>
+                        <button class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+                                :key="index" @click.prevent="onClickParentItem( item )"
+                                :class="[ !!item.is_opened ? 'aside__menu_item--open' : 'aside__menu_item--close' ]"
+                        >
+                            <image-cm class="aside__menu_item_icon"
+                                      :src="$asset( item.icon )"
+                                      alt="انجمن اهدای عضو ایرانیان"
+                                      objectFit="contain" className="block"
+                            />
+                            <span class="aside__menu_item_title font-sm font-medium">
+                                {{ item.name_fa }}
+                            </span>
+                        </button>
+                        <transition
+                                enter-active-class="enter-active"
+                                leave-active-class="leave-active"
+                                @before-enter="beforeEnter"
+                                @enter="enter"
+                                @after-enter="afterEnter"
+                                @before-leave="beforeLeave"
+                                @leave="leave"
+                                @after-leave="afterLeave"
+                        >
+                            <div class="w-full aside__menu_item--nested"
+                                 v-if="!!item.is_opened"
+                            >
+                                <template v-for="(nested, i) in item.children">
+                                    <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
+                                                 :key="'nested-'+i" :to="nested.route"
+                                    >
+                                        <image-cm class="aside__menu_item_icon"
+                                                  :src="$asset( nested.icon )"
+                                                  alt="انجمن اهدای عضو ایرانیان"
+                                                  objectFit="contain" className="block"
+                                        />
+                                        <span class="aside__menu_item_title font-sm font-medium">
+                                        {{ nested.name_fa }}
+                                    </span>
+                                    </router-link>
+                                </template>
+                            </div>
+                        </transition>
+                    </template>
+                </template>
                 <router-link class="aside__menu_item relative w-full flex items-center text-blue-800 cursor-pointer"
                              :to="{ name: 'LOGOUT' }"
                 >
@@ -56,6 +102,7 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { HasLength, RequestAnimation } from "@vendor/plugin/helper";
     import ImageCm from '@vendor/components/image/Index.vue'
 
     export default {
@@ -67,10 +114,83 @@
             })
         },
         methods: {
+            hasLength( payload ) {
+                return HasLength( payload )
+            },
             onClickMenuItem( location ) {
                 if ( !!location )
                     this.pushRouter( { name: location } );
-            }
+            },
+            onClickParentItem( item ) {
+                try {
+                    this.$set(item, 'is_opened', !item['is_opened']);
+                } catch (e) {}
+            },
+            /**
+             * @param element {HTMLElement}
+             */
+            beforeEnter( element ) {
+                try {
+                    requestAnimationFrame(() => {
+                        if (!element.style.height) {
+                            element.style.height = '0px';
+                        }
+                        element.style.display = null;
+                    });
+                } catch (e) {}
+            },
+            /**
+             * @param element {HTMLElement}
+             */
+            enter( element ) {
+                try {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            element.style.height = `${element.scrollHeight}px`;
+                        });
+                    });
+                } catch (e) {}
+            },
+            /**
+             * @param element {HTMLElement}
+             */
+            afterEnter( element ) {
+                try {
+                    element.style.height = null;
+                } catch (e) {}
+            },
+            /**
+             * @param element {HTMLElement}
+             */
+            beforeLeave( element ) {
+                try {
+                    requestAnimationFrame(() => {
+                        if (!element.style.height) {
+                            element.style.height = `${element.offsetHeight}px`;
+                        }
+                    });
+                } catch (e) {}
+            },
+            /**
+             * @param element {HTMLElement}
+             */
+            leave( element ) {
+                try {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            element.style.height = '0px';
+                        });
+                    });
+                } catch (e) {}
+            },
+            /**
+             * @param element {HTMLElement}
+             */
+            afterLeave( element ) {
+                try {
+                    element.style.height = null
+                } catch (e) {}
+            },
         }
     }
 </script>

@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+    @section('title', ' | سوالات متداول')
     @section('content')
         <div class="faq-page i-page">
             <div class="container">

@@ -73,6 +73,8 @@ const CREATE_GALLERY_LIST = 'CREATE_GALLERY_LIST';
 const EDIT_GALLERY_ITEM = 'EDIT_GALLERY_ITEM';
 const EDIT_STATUS_GALLERY_ITEM = 'EDIT_STATUS_GALLERY_ITEM';
 const DELETE_GALLERY_ITEM = 'DELETE_GALLERY_ITEM';
+const SITE_GET_GALLERY_LIST = 'SITE_GET_GALLERY_LIST';
+const SITE_GET_CATEGORY_LIST = 'SITE_GET_CATEGORY_LIST';
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[LOGOUT] = '/user/logout';
@@ -150,6 +152,9 @@ endpoints[GET_CITY_BY_PROVINCES_ID] = `/location/${VER_1_0}/get-cities-by-provin
 endpoints[UPLOAD_IMAGES_ITEM] = `/attachment/attach_image`;
 endpoints[EDIT_FILE_ITEM] = `/attachment/edit_file_data`;
 endpoints[DELETE_IMAGES_ITEM] = `/attachment/destroy_image`;
+
+endpoints[SITE_GET_CATEGORY_LIST] = `/category/v1/category-list-by-type`;
+endpoints[SITE_GET_GALLERY_LIST] = `/:lang/page/gallery/list-content`;
 
 export default class Endpoint {
     static get API_DOMAIN() {
@@ -422,6 +427,14 @@ export default class Endpoint {
 
     static get DELETE_IMAGES_ITEM() {
         return endpoints[DELETE_IMAGES_ITEM]
+    }
+
+    static get SITE_GET_GALLERY_LIST() {
+        return endpoints[SITE_GET_GALLERY_LIST];
+    }
+
+    static get SITE_GET_CATEGORY_LIST() {
+        return endpoints[SITE_GET_CATEGORY_LIST];
     }
 
     static get( endpoint, params = {} ) {

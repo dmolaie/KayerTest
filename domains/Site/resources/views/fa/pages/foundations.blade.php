@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+    @section('title', ' | ارکان انجمن')
     @section('content')
         <div class="fou-page i-page">
             <div class="container sm:p-0">

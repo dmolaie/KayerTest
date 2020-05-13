@@ -37,6 +37,7 @@
             uploadError: null,
             currentStatus: null,
             dragging: false,
+            invalidError: 'فرمت فایل انتخابی نامعتبر است. فرمت های مجاز: ',
         }),
         props: {
             /**
@@ -58,6 +59,10 @@
                 type: Boolean,
                 default: false
             },
+            acceptType: {
+                type: String,
+                default: 'png | jpg | jpeg'
+            }
         },
         methods: {
             reset() {
@@ -82,7 +87,7 @@
             onChangeInput({ target: { name, files } }) {
                 ( this.accept.includes( files[0].type ) ) ? (
                     this.emitter(name, files)
-                ) : this.displayNotification('فرمت فایل انتخابی نامعتبر است.', { type: 'error' });
+                ) : this.displayNotification(`${this.invalidError}${this.acceptType}`, { type: 'error' });
             },
             onDragenter() {
                 this.$set(this, 'dragging', true)
@@ -96,7 +101,7 @@
                 this.$set(this, 'dragging', false);
                 ( this.accept.includes( files[0].type ) ) ? (
                     this.emitter(this.fieldName, files)
-                ) : this.displayNotification('فرمت فایل انتخابی نامعتبر است.', { type: 'error' });
+                ) : this.displayNotification(`${this.invalidError}${this.acceptType}`, { type: 'error' });
             }
         },
     }

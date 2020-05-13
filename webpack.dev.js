@@ -42,13 +42,9 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.runtime.js',
             '@vendor': path.resolve(__dirname, './resources/vendor'),
-            '@BackOffice': path.resolve(__dirname, './resources/BackOffice'),
-            '@views': path.resolve(__dirname, './resources/BackOffice/views'),
-            '@routes': path.resolve(__dirname, './resources/BackOffice/services/routes'),
+            '@js': path.resolve(__dirname, './resources/js/Site'),
             '@endpoints': path.resolve(__dirname, './resources/BackOffice/services/endpoints'),
-            '@components': path.resolve(__dirname, './resources/BackOffice/components'),
             '@services': path.resolve(__dirname, './resources/BackOffice/services/infrastructure'),
         },
         extensions: ["*", ".js", ".vue", ".json"]
@@ -88,10 +84,6 @@ module.exports = {
                         },
                     }
                 ]
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
             },
             {
                 test: /\.js$/,
@@ -137,7 +129,6 @@ module.exports = {
                 'css/site'
             ]
         }),
-        new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),

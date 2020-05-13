@@ -1,4 +1,7 @@
 @extends('fa.template.master')
+    @section('title')
+        {{ ' | پروفایل '.auth()->user()->name .' '. auth()->user()->last_name }}
+    @endsection
     @section('content')
         <div class="profile-p i-page">
             <div class="container sm:p-0">

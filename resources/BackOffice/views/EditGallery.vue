@@ -38,7 +38,7 @@
                     <template v-if="isAudioType">
                         <upload-cm :dropBox="true" :fieldName="fromDataName"
                                    accept="audio/mp3, audio/wave, audio/wma, audio/mpga, audio/mpeg, audio/mpeg3"
-                                   @onChange="onchangeAudioFile"
+                                   @onChange="onchangeAudioFile" acceptType="mp3 | wave | wma"
                         />
                     </template>
                     <template v-if="isImagesType">
@@ -54,7 +54,7 @@
                     <template v-if="isTextType">
                         <upload-cm :dropBox="true" :fieldName="fromDataName"
                                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.doc,.docx"
-                                   @onChange="onchangeTextFile"
+                                   @onChange="onchangeTextFile" acceptType="pdf | doc | docx"
                         />
                     </template>
                     <div class="w-full m-t-15">

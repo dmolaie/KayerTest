@@ -1,4 +1,5 @@
 @extends('fa.template.master')
+    @section('title', ' | ماموریت و چشم‌انداز')
     @section('content')
         <div class="miv-page i-page">
             <div class="container sm:p-0">
