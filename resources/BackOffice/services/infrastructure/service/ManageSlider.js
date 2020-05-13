@@ -33,7 +33,7 @@ export class SliderService {
      */
     static async deleteSliderItem( slider_id ) {
         try {
-            return await HTTPService.deleteRequest(Endpoint.get(Endpoint.DELETE_GALLERY_ITEM, {
+            return await HTTPService.deleteRequest(Endpoint.get(Endpoint.DELETE_SLIDER_LIST, {
                 id: slider_id,
             }))
         } catch ( exception ) {
