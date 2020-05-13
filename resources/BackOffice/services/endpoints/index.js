@@ -158,7 +158,7 @@ endpoints[SITE_GET_GALLERY_LIST] = `/:lang/page/gallery/list-content`;
 
 export default class Endpoint {
     static get API_DOMAIN() {
-        return API_DOMAIN
+        return ''
     }
 
     static get SIGN_IN() {
