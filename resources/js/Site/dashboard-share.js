@@ -1,5 +1,6 @@
-import HTTPService from './service/HttpService';
-import Notification from './service/Notification';
+// require("core-js/features/promise");
+//var tus = require("tus-js-client/lib/browser");
+var tus = require("tus-js-client");
 import { hideScrollbar, showScrollbar } from '@vendor/plugin/helper';
 
 class Video {
@@ -95,24 +96,85 @@ try {
 
     const onSelectVideo = async file => {
         try {
-            const FILE_TYPE = file.type;
-            const FILE_SIZE = getSizeOfVideo( file.size );
+            // const FILE_TYPE = file.type;
+            // const FILE_SIZE = getSizeOfVideo( file.size );
+            //
+            // if ( !FILE_TYPE.includes('video') ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
+            // if (FILE_SIZE > 10) throw new Error( INVALID_SIZE_ERROR_MESSAGE );
+            //
+            // const video = new Video( file );
+            // IMAGE_PREVIEW.src = await video.getThumbnails();
+            // FILE_SIZE_EL.textContent = `حجم فایل: ${FILE_SIZE}Mb`;
 
-            if ( !FILE_TYPE.includes('video') ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
-            if (FILE_SIZE > 10) throw new Error( INVALID_SIZE_ERROR_MESSAGE );
+            let channelId = "video";
+            let authorization = "0534c1e3-dad9-402f-a255-23e1051d1c1f";
 
-            const video = new Video( file );
-            IMAGE_PREVIEW.src = await video.getThumbnails();
-            FILE_SIZE_EL.textContent = `حجم فایل: ${FILE_SIZE}Mb`;
+            let options = {
+                "url": `https://napi.arvancloud.com/vod/2.0/channels/${channelId}/files`,
+                "authorization": `${authorization}`,
+                "acceptLanguage": "en",
+                "uuid": file.name + file.size + file.lastModified
+            };
+            const assss = file.name + file.size + file.lastModified;
 
-            STEPS.showStep2();
-        } catch ( exception ) {
-            NOTIFICATION.Notification({
-                text: exception?.message,
-                type: 'error',
+            let upload = new tus.Upload(file, {
+                fingerprint: () => {
+                    const value = options.uuid;
+                    console.log((value));
+                    return Promise.resolve(assss)
+                },
+                chunkSize: 1048576, // 1MB
+                endpoint: options.url,
+                retryDelays: [0, 500, 1000, 1500, 2000, 2500],
+                headers: {
+                    'Authorization': options.authorization,
+                    'Accept-Language': options.acceptLanguage
+                },
+                metadata: {
+                    filename: file.name,
+                    filetype: file.type
+                },
+                onError: function (error) {
+                    console.log("Failed because: " + error)
+                },
+                onProgress: function (bytesUploaded, bytesTotal) {
+                    var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
+                    console.log(bytesUploaded, bytesTotal, percentage + "%");
+                },
+                onSuccess: function () {
+                    console.log("Download %s from %s", upload.file.name, upload.url)
+                }
             });
+
+            console.log('upload', upload);
+            upload.start();
+
+            // STEPS.showStep2();
+        } catch ( exception ) {
+            console.log(exception);
+            // NOTIFICATION.Notification({
+            //     text: exception?.message,
+            //     type: 'error',
+            // });
         }
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     DROP_BOX.addEventListener('dragleave',() => DROP_BOX_HOVER.hidden());
     DROP_BOX.addEventListener('dragover', event => event.preventDefault());
