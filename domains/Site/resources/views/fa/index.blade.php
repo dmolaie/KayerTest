@@ -1,4 +1,10 @@
 @extends('fa.template.master')
+@section('meta')
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="{{ url()->full() }}">
+    <meta property="og:title" content="انجمن اهدای عضو ایرانیان">
+    <meta property="og:image" content="{{ secure_asset('/images/ic_ehda-center.png') }}"/>
+@endsection
 @section('content')
     <div class="p-home flex flex-col">
         <section class="slider__section relative">
