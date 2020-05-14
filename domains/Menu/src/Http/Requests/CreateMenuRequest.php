@@ -18,16 +18,17 @@ class CreateMenuRequest extends EhdaBaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'title' => 'required|string',
-            'alias' => 'required|string|unique:menus,alias',
+            'name'         => 'required|string',
+            'title'        => 'required|string',
+            'alias'        => 'required|string|unique:menus,alias',
             'publish_date' => 'numeric',
-            'link' => 'url',
+            'link'         => 'string',
             'parent_id'    => 'integer|exists:menus,id',
-            'menuable_id'    => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],
-            'language' => ['required', Rule::in(config('menus.menu_language'))],
-            'type' => ['required', Rule::in(array_values(config('menus.menus_type')))],
-            'priority' => 'required','integer',
+            'menuable_id'  => ['integer', new ChechIdValidInEntitiesRequest($this['type'])],
+            'language'     => ['required', Rule::in(config('menus.menu_language'))],
+            'type'         => ['required', Rule::in(array_values(config('menus.menus_type')))],
+            'priority'     => 'required',
+            'integer',
         ];
     }
 
