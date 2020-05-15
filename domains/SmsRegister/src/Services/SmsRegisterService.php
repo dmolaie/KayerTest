@@ -99,7 +99,6 @@ class SmsRegisterService
             );
             event(new SmsRegisterEvent($smsRegisterDTO));
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             $temporalLog = new TemporalLogDTO();
             $temporalLog->setLogTitle('register user by sms failed')
                 ->setLogData([
