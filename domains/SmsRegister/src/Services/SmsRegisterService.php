@@ -7,8 +7,11 @@ namespace Domains\SmsRegister\Services;
 use Domains\NationalAuthentication\Services\Contracts\DTOs\NationalAuthenticationRequestDTO;
 use Domains\NationalAuthentication\Services\NationalAuthenticationService;
 use Domains\SmsRegister\Events\SmsRegisterEvent;
+use Domains\SmsRegister\Events\TemporalLogEvent;
 use Domains\SmsRegister\Repositories\SmsRegisterRepository;
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
+use Domains\SmsRegister\Services\Contracts\DTOs\TemporalLogDTO;
+use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\UserService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -95,7 +98,7 @@ class SmsRegisterService
             );
             event(new SmsRegisterEvent($smsRegisterDTO));
         } catch (\Exception $exception) {
-
+            dd($exception->getMessage());
             $temporalLog = new TemporalLogDTO();
             $temporalLog->setLogTitle('register user by sms failed')
                 ->setLogData([
@@ -149,7 +152,7 @@ class SmsRegisterService
             . ' ' . PHP_EOL .
             trans('smsRegister::response.ehda_card_address')
             . ' ' . PHP_EOL .
-            config('app.url')
+            route('social-url-secound',$userInfoDTO->getRole()->pivot->pivotParent->uuid)
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
             . ' ' . $userInfoDTO->getCardId();
