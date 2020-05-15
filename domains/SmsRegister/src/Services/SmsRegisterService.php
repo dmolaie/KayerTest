@@ -7,11 +7,8 @@ namespace Domains\SmsRegister\Services;
 use Domains\NationalAuthentication\Services\Contracts\DTOs\NationalAuthenticationRequestDTO;
 use Domains\NationalAuthentication\Services\NationalAuthenticationService;
 use Domains\SmsRegister\Events\SmsRegisterEvent;
-use Domains\SmsRegister\Events\TemporalLogEvent;
 use Domains\SmsRegister\Repositories\SmsRegisterRepository;
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
-use Domains\SmsRegister\Services\Contracts\DTOs\TemporalLogDTO;
-use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Services\Contracts\DTOs\UserLoginDTO;
 use Domains\User\Services\UserService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -73,11 +70,17 @@ class SmsRegisterService
             $nationalCode = $this->smsRegisterRepository
                 ->getUserNationalCode($smsRegisterDTO);
             $nationalAuthenticationDTO = new NationalAuthenticationRequestDTO();
+            if (!$this->checkSmsRegisterData($smsRegisterDTO, $nationalCode)) {
+                return;
+            }
             $nationalAuthenticationDTO
-                ->setNationalCode($nationalCode)
-                ->setBirthDate($smsRegisterDTO->getBirthDate())
+                ->setNationalCode($nationalCode->national_code)
+                ->setBirthDate($nationalCode->birth_date)
+                ->setLastName($smsRegisterDTO->getLastName())
+                ->setName($smsRegisterDTO->getName())
                 ->setMobileNumber($smsRegisterDTO->getMobileNumber());
             $userRegisterDTO = $this->nationalAuthenticationService->verify($nationalAuthenticationDTO);
+            
             $userInfoDTO = $this->userService->register($userRegisterDTO);
             $smsRegisterDTO->setContent($this->makeMessageContent($userInfoDTO));
             event(new SmsRegisterEvent($smsRegisterDTO));
@@ -108,13 +111,37 @@ class SmsRegisterService
     }
 
     /**
+     * @param SmsRegisterDTO $smsRegisterDTO
+     * @param $nationalCode
+     * @return bool
+     */
+    protected function checkSmsRegisterData(SmsRegisterDTO $smsRegisterDTO, $nationalCode): bool
+    {
+        if (!$nationalCode->national_code) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_national_code'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+            return false;
+        }
+        if (!$nationalCode->birth_date) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_birth_date'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @param UserLoginDTO $userInfoDTO
      * @return string
      */
     private function makeMessageContent(UserLoginDTO $userInfoDTO)
     {
         return
-            trans('smsRegister::response.gender_' . $userInfoDTO->getGender())
+            trans('smsRegister::response.ehda')
             . ' ' .
             $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName()
             . ' ' .
@@ -126,5 +153,21 @@ class SmsRegisterService
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
             . ' ' . $userInfoDTO->getCardId();
+    }
+
+    public function addBirthDate(SmsRegisterDTO $smsRegisterDTO)
+    {
+        try {
+            $this->smsRegisterRepository
+                ->getUserNationalCode($smsRegisterDTO);
+            $smsRegisterDTO->setContent(trans('smsRegister::response.send_name_lastName'));
+            event(new SmsRegisterEvent($smsRegisterDTO));
+            return;
+        } catch (ModelNotFoundException $exception) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_national_code'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+        }
     }
 }

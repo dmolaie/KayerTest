@@ -26,6 +26,10 @@ class SmsRegisterDTO
      */
     protected $secondRequestContent;
     /**
+     * @var array
+     */
+    protected $thirdRequestContent;
+    /**
      * @var string
      */
     protected $birthDate;
@@ -37,6 +41,14 @@ class SmsRegisterDTO
      * @var string
      */
     protected $content;
+    /**
+     * @var string
+     */
+    protected $name;
+    /**
+     * @var string
+     */
+    protected $lastName;
 
     /**
      * @return string
@@ -113,7 +125,7 @@ class SmsRegisterDTO
     /**
      * @return array
      */
-    public function getSecondRequestContent(): array
+    public function getSecondRequestContent(): ?array
     {
         return $this->secondRequestContent;
     }
@@ -161,6 +173,60 @@ class SmsRegisterDTO
     public function setContent(string $content): SmsRegisterDTO
     {
         $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getThirdRequestContent(): ?array
+    {
+        return $this->thirdRequestContent;
+    }
+
+    /**
+     * @param array $thirdRequestContent
+     * @return SmsRegisterDTO
+     */
+    public function setThirdRequestContent(array $thirdRequestContent): SmsRegisterDTO
+    {
+        $this->thirdRequestContent = $thirdRequestContent;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return SmsRegisterDTO
+     */
+    public function setName(string $name): SmsRegisterDTO
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return SmsRegisterDTO
+     */
+    public function setLastName(string $lastName): SmsRegisterDTO
+    {
+        $this->lastName = $lastName;
         return $this;
     }
 
