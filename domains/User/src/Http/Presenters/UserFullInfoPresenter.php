@@ -14,7 +14,7 @@ class UserFullInfoPresenter
         return [
             'id'                         => $userFullInfoDTO->getId(),
             'national_code'              => $userFullInfoDTO->getNationalCode(),
-            'gender'                     => array_flip(config('user.user_genders'))[$userFullInfoDTO->getGender()],
+            'gender'                     => $userFullInfoDTO->getGender()?array_flip(config('user.user_genders'))[$userFullInfoDTO->getGender()]:null,
             'name'                       => $userFullInfoDTO->getName(),
             'last_name'                  => $userFullInfoDTO->getLastName(),
             'father_name'                => $userFullInfoDTO->getFatherName(),

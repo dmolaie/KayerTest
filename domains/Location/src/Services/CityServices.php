@@ -66,6 +66,9 @@ class CityServices
 
     public function searchCities(SearchCityDTO $citySearchDTO)
     {
+        if(!$citySearchDTO->getCityIds()){
+            return [];
+        }
         $cities = $this->cityRepository->searchCities($citySearchDTO->getCityIds());
         return $this->cityDTOMaker->convertMany($cities);
     }
