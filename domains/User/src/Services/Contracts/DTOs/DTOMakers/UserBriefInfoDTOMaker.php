@@ -31,8 +31,8 @@ class UserBriefInfoDTOMaker
             ->setIdentityNumber($user->identity_number)
             ->setJobTitle($user->job_title)
             ->setCreatedAt(strtotime($user->created_at))
-            ->setCurrentCity($this->getCurrentCityInfo($user->currentCity))
-            ->setCurrentProvince($this->getCurrentProvinceInfo($user->currentProvince))
+            ->setCurrentCity($user->currentCity?$this->getCurrentCityInfo($user->currentCity):[])
+            ->setCurrentProvince($user->currentProvince?$this->getCurrentProvinceInfo($user->currentProvince):[])
             ->setRoles($this->getRoles($user))
             ->setUpdatedAt($user->updated_at)
             ->setCreatedBy($user->createdBy ? [
