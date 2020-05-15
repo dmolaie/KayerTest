@@ -20,6 +20,14 @@ class NationalAuthenticationRequestDTO
      * @var string
      */
     protected $mobileNumber;
+    /**
+     * @var string
+     */
+    protected $name;
+    /**
+     * @var string
+     */
+    protected $lastName;
 
     /**
      * @return string
@@ -72,6 +80,42 @@ class NationalAuthenticationRequestDTO
     public function setMobileNumber(string $mobileNumber): NationalAuthenticationRequestDTO
     {
         $this->mobileNumber = $mobileNumber;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return NationalAuthenticationRequestDTO
+     */
+    public function setName(string $name): NationalAuthenticationRequestDTO
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return NationalAuthenticationRequestDTO
+     */
+    public function setLastName(string $lastName): NationalAuthenticationRequestDTO
+    {
+        $this->lastName = $lastName;
         return $this;
     }
 

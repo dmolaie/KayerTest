@@ -37,7 +37,7 @@ class UserLoginDTO
      */
     protected $cardId;
     /**
-     * @var string
+     * @var string|null
      */
     protected $gender;
     /**
@@ -174,7 +174,7 @@ class UserLoginDTO
     /**
      * @return string
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->gender;
     }
@@ -183,7 +183,7 @@ class UserLoginDTO
      * @param string $gender
      * @return UserLoginDTO
      */
-    public function setGender(string $gender): UserLoginDTO
+    public function setGender(?string $gender): UserLoginDTO
     {
         $this->gender = $gender;
         return $this;
