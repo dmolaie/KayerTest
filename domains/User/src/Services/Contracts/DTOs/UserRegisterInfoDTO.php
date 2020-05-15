@@ -811,7 +811,7 @@ class UserRegisterInfoDTO
     /**
      * @return string
      */
-    public function getCardId(): string
+    public function getCardId(): ?string
     {
         return $this->cardId;
     }
@@ -820,7 +820,7 @@ class UserRegisterInfoDTO
      * @param string $cardId
      * @return UserRegisterInfoDTO
      */
-    public function setCardId(string $cardId): UserRegisterInfoDTO
+    public function setCardId(?string $cardId): UserRegisterInfoDTO
     {
         $this->cardId = $cardId;
         return $this;
