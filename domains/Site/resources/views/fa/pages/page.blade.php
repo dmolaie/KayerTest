@@ -1,4 +1,18 @@
 @extends('fa.template.master')
+    @php
+        $shouldBeHideCover = false;
+        $selectedCategories = $menusContent->getCategories();
+        foreach ($selectedCategories as $category) {
+            if ($category['name_en'] == "Knowledge") {
+                $shouldBeHideCover = true;
+            }
+        }
+    @endphp
+@section('meta')
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="{{ url()->full() }}">
+    <meta property="og:title" content="{{ $menusContent->getFirstTitle() }}">
+@endsection
 @section('content')
     <div class="i-page n-show-page">
         <div class="container sm:p-0">
@@ -9,13 +23,15 @@
             </h1>
             <div class="inner-box inner-box--white text-right">
                 <div class="n-show__header flex items-stretch md:flex-col">
-                    <figure class="n-show__cover flex-shrink-0 rounded max-w-full has-skeleton md:w-full">
-                        <img src=""
-                             data-src="/{{$menusContent->getAttachmentFiles() ? current($menusContent->getAttachmentFiles())['path'] : ''}}"
-                             alt=""
-                             class="n-show__cover_image w-full h-full block rounded-inherit object-cover"
-                        />
-                    </figure>
+                    @if(!$shouldBeHideCover)
+                        <figure class="n-show__cover flex-shrink-0 rounded max-w-full has-skeleton md:w-full">
+                            <img src=""
+                                 data-src="/{{$menusContent->getAttachmentFiles() ? current($menusContent->getAttachmentFiles())['path'] : ''}}"
+                                 alt=""
+                                 class="n-show__cover_image w-full h-full block rounded-inherit object-cover"
+                            />
+                        </figure>
+                    @endif
                     <div class="n-show__details relative flex flex-row flex-wrap items-end flex-1">
                         <h1 class="n-show__title w-full text-blue-800 font-base cursor-default sm:font-sm">
                             {{$menusContent->getSecondTitle()}}

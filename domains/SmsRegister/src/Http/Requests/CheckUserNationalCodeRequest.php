@@ -12,7 +12,7 @@ use Morilog\Jalali\Jalalian;
 
 class CheckUserNationalCodeRequest extends FormRequest
 {
-    protected $firstStep = false;
+    protected $step = 'first';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -31,23 +31,32 @@ class CheckUserNationalCodeRequest extends FormRequest
      */
     public function rules()
     {
+        if (!empty($this[0]['Content']) && strpos($this[0]['Content'], '-') != false) {
+            $this->step = 'third';
+            return [
+                '0.Content'         => ['required', 'string', new NameLastNameRequest],
+                '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
+            ];
+        }
         if (!empty($this[0]['Content']) && strlen($this[0]['Content']) == 10) {
-            $this->firstStep = true;
+            $this->step = 'first';
             return [
                 '0.Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
                 '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
 
+
+        $this->step = 'second';
         return [
-            '0.Content'         => ['required', 'digits:8', 'numeric','min:10000000', new BirthDateRequest],
+            '0.Content'         => ['required', 'digits:8', 'numeric', 'min:10000000', new BirthDateRequest],
             '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
         ];
     }
 
     public function messages()
     {
-        if ($this->firstStep) {
+        if ($this->step == 'first') {
 
             return [
                 '0.Content.required'         => (trans('smsRegister::response.validation.national_code_required')),
@@ -57,8 +66,16 @@ class CheckUserNationalCodeRequest extends FormRequest
                 '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
             ];
         }
+        if ($this->step == 'second') {
+            return [
+                '0.Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
+                '0.Content.*'                => (trans('smsRegister::response.validation.incorrect_data_format')),
+                '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
+                '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
+            ];
+        }
         return [
-            '0.Content.required'         => (trans('smsRegister::response.validation.birth_date_required')),
+            '0.Content.required'         => (trans('smsRegister::response.validation.name_lastName_required')),
             '0.Content.*'                => (trans('smsRegister::response.validation.incorrect_data_format')),
             '0.UserPhoneNumber.regex'    => (trans('smsRegister::response.validation.userPhoneNumber_regex')),
             '0.UserPhoneNumber.required' => (trans('smsRegister::response.validation.userPhoneNumber_required')),
@@ -76,15 +93,22 @@ class CheckUserNationalCodeRequest extends FormRequest
         $smsRegisterDTO
             ->setMobileNumber($this[0]['UserPhoneNumber'])
             ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');
-        if ($this->firstStep) {
+        if ($this->step == 'first') {
             $smsRegisterDTO->setNationalCode($this[0]['Content'])
                 ->setFirstRequestContent($this->all());
             return $smsRegisterDTO;
+        }elseif ($this->step =='second'){
+            $date = $this->convertDate($this[0]['Content']);
+            $smsRegisterDTO->setBirthDate($date)
+                ->setSecondRequestContent($this->all());
+            return $smsRegisterDTO;
         }
-        $date = $this->convertDate($this[0]['Content']);
-        $smsRegisterDTO->setBirthDate($date)
-            ->setSecondRequestContent($this->all());
+        $date = explode('-',$this[0]['Content']);
+        $smsRegisterDTO->setName($date[0])
+            ->setLastName($date[1])
+            ->setThirdRequestContent($this->all());
         return $smsRegisterDTO;
+
     }
 
     private function convertDate(string $date)

@@ -14,6 +14,7 @@ const APP_NAME = 'انجمن اهدای عضو ایرانیان | ';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const DASHBOARD = 'DASHBOARD';
 export const MANAGE_EVENT = 'MANAGE_EVENT';
 export const CREATE_EVENT = 'CREATE_EVENT';
@@ -38,6 +39,8 @@ export const CREATE_GALLERY = 'CREATE_GALLERY';
 export const EDIT_GALLERY = 'EDIT_GALLERY';
 export const MANAGE_CATEGORY = 'MANAGE_CATEGORY';
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
+export const MANAGE_SLIDER = 'MANAGE_SLIDER';
+export const CREATE_SLIDER = 'CREATE_SLIDER';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -75,6 +78,15 @@ const Routes = new VueRouter({
             meta: {
                 title: 'خروج از حساب کاربری',
                 guess: true,
+            }
+        },
+        {
+            name: RESET_PASSWORD,
+            path: '/password/reset',
+            component: GetViews('ResetPassword'),
+            meta: {
+                guess: true,
+                title: 'بازیابی گذرواژه',
             }
         },
         {
@@ -511,6 +523,47 @@ const Routes = new VueRouter({
                     {
                         name: 'دسته‌بندی ها',
                         route: MANAGE_CATEGORY
+                    },
+                    {
+                        name: 'افزودن'
+                    },
+                ]
+            }
+        },
+        {
+            name: MANAGE_SLIDER,
+            path: '/manage/slider',
+            component: GetViews('ManageSlider' ),
+            meta: {
+                title: 'مدیریت دسته‌بندی',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'دسته‌بندی ها'
+                    },
+                    {
+                        name: 'همه'
+                    },
+                ]
+            }
+        },
+        {
+            name: CREATE_SLIDER,
+            path: '/manage/slider/create',
+            component: GetViews('CreateSlider' ),
+            meta: {
+                title: 'ایجاد دسته‌بندی',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'دسته‌بندی ها',
+                        route: MANAGE_SLIDER
                     },
                     {
                         name: 'افزودن'

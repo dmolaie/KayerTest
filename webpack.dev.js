@@ -119,9 +119,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'API_DOMAIN': ENV.find(item => item.includes('LOCAL_API_DOMAIN')).replace(/LOCAL_API_DOMAIN\s*=/, ''),
-        }),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 '!*',

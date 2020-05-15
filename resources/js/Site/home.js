@@ -17,7 +17,7 @@ try {
                 watchOverflow: true,
                 resistanceRatio: 0,
                 autoplay: {
-                    delay: 7000,
+                    delay: 8000,
                     disableOnInteraction: false,
                 },
                 pagination: {
@@ -527,7 +527,7 @@ try {
     window.addEventListener(
         'load',
         () => {
-            // MountSliderCarousel();
+            MountSliderCarousel();
             // MountSpecialNewsCarousel();
             // MountRecentlyEventsCarousel();
             MountInformationCarousel();

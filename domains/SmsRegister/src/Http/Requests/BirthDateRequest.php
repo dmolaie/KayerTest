@@ -16,7 +16,6 @@ class BirthDateRequest implements Rule
      */
     public function passes($attribute, $code)
     {
-
         try {
             $date = str_split($code, 4);
 
@@ -24,11 +23,14 @@ class BirthDateRequest implements Rule
             $monthDay = str_split($date[1], 2);
             $month = $monthDay[0];
             $day = $monthDay[1];
+
             $date = (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
             return true;
         } catch (\Exception $exception) {
             return false;
 
+        }catch (\Throwable $exception){
+            return false;
         }
     }
 

@@ -35,6 +35,13 @@
           opacity: 1
   &__item
     position: relative
+    height: 480px
+    @include Xl_Screen
+      height: 640px
+    @include Xxl_Screen
+      height: 740px
+    @include Sm_Screen
+      height: 120px
     &::before
       content: " "
       position: absolute
@@ -44,7 +51,6 @@
       height: 100%
       background: transparentize(#313a5a, ( 1 - .15 ))
       pointer-events: none
-    height: 887px
   &__image-preview
     @include Size( 68px )
     left: 50%

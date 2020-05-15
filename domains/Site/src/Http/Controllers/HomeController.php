@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
 use Domains\Site\Services\SiteServices;
+use Domains\Slider\Services\Contracts\DTOs\SliderFilterDTO;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,15 @@ class HomeController extends Controller
     {
 
         $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getNews($status = 'published', $sort = 'ASC', $subdomain);
-        $event = $this->siteServices->getEvent($status = 'published', $sort = 'ASC', $subdomain);
+        $news = $this->siteServices->getNews($status = 'published', $sort = 'DESC', $subdomain);
+        $event = $this->siteServices->getEvent($status = 'published', $sort = 'DESC', $subdomain);
+        $sliderFilterDTO = new SliderFilterDTO();
+        $sliderFilterDTO->setSliderInputStatus('published')
+            ->setLanguage($request->language ?? 'fa')
+            ->setPaginationCount(20)
+            ->setSort('DESC');
+        $sliders = $this->siteServices->getSliderList($sliderFilterDTO, $subdomain);
+
         $articleFilter = new ArticleFilterDTO();
         $articleFilter->setArticleInputStatus('published')
             ->setLanguage($request->language ?? 'fa')
@@ -35,7 +43,7 @@ class HomeController extends Controller
             $articleFilter,
             $subdomain,
             ['article-knowledge']);
-        return view('site::' . $request->language . '.index', compact('news', 'event', 'knowledgeArticles'));
+        return view('site::' . $request->language . '.index', compact('news', 'event', 'knowledgeArticles','sliders'));
     }
 
 }

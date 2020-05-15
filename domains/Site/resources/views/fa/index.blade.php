@@ -1,14 +1,30 @@
 @extends('fa.template.master')
+@section('meta')
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="{{ url()->full() }}">
+    <meta property="og:title" content="انجمن اهدای عضو ایرانیان">
+    <meta property="og:image" content="{{ secure_asset('/images/ic_ehda-center.png') }}"/>
+@endsection
 @section('content')
     <div class="p-home flex flex-col">
-        <div class="block w-full">
-            <figure class="block w-full">
-                <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
-                     alt="انجمن اهدای عضو ایرانیان"
-                     class="block w-full"
-                />
-            </figure>
-        </div>
+        <section class="slider__section relative">
+            <div class="slider__container relative overflow-hidden">
+                <div class="swiper-wrapper">
+                    @foreach($sliders as $slider)
+                        <div class="swiper-slide">
+                            <div class="slider__item w-full h-full has-skeleton">
+                                <img src=""
+                                     data-src="/{{$slider->getAttachmentFiles() ? current($slider->getAttachmentFiles())['path'] : ''}}"
+                                     alt="انجمن اهدای اعضای ایرانیان"
+                                     class="block w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="slider__pagination absolute z-2 sm:none"></div>
+            </div>
+        </section>
         <div class="link flex justify-center">
             <a href="{{route('page.donation-card',config('app.locale'))}}"
                class="link__item link__item--green font-lg font-bold text-white text-center l:transition-background md:font-xs"

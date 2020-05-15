@@ -2,6 +2,7 @@ $column-gap: 15px
 $label-height: 32px
 $table-border: 1px solid #d2e3f4
 $dropbox-background: #bde8fa
+$border-color: darken($dropbox-background, 4%)
 
 .d-share
   &__body
@@ -25,7 +26,7 @@ $dropbox-background: #bde8fa
     background-color: transparentize($dropbox-background, (1 - .2))
     transition: background-color $duration, border-color $duration
     &--hover, &:active
-      border-color: darken($dropbox-background, 4%)
+      border-color: $border-color
       background-color: transparentize($dropbox-background, (1 - .4))
   &__submit
     background-color: $green
@@ -35,7 +36,7 @@ $dropbox-background: #bde8fa
   &__preview
     color: $bayoux
     border-color: $dropbox-background
-    padding: 15px
+    padding: 15px 15px 15px 30px
     margin-bottom: 25px
     height: calc(100% - #{$label-height})
     background-color: transparentize($dropbox-background, (1 - .2))
@@ -119,5 +120,22 @@ $dropbox-background: #bde8fa
       animation: opacityFadeIn .1s ease-in-out .14s forwards
       .d-share__confirmWrapper
         animation: modalFadeOut .24s ease-in-out forwards
+  &__progressbar
+    $height: 13px
+    height: $height
+    margin: 10px 0 15px
+    border:
+      radius: $height
+      color: lighten($border-color, 2%)
+    background-color: $white
+    &::after
+      content: " "
+      position: absolute
+      right: 0
+      top: 0
+      width: var(--progress)
+      height: 100%
+      background-color: $blue
+      transition: width .1s linear
   .h-0
     height: 0 !important

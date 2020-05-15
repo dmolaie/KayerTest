@@ -42,6 +42,10 @@ export const menus = {
         route: { name: 'MANAGE_CATEGORY' },
         icon: 'ic_newspaper--blue.svg'
     },
+    ['slider']: {
+        route: { name: 'MANAGE_SLIDER' },
+        icon: 'ic_newspaper--blue.svg'
+    },
     ['gallery']: {
         route: { name: '' },
         icon: 'ic_newspaper--blue.svg'
