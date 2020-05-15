@@ -38,7 +38,7 @@ class UserFullInfoDTOMaker
             ->setPhone($user->phone)
             ->setMobile($user->mobile)
             ->setEssentialMobile($user->essential_mobile)
-            ->setCurrentProvince( $this->getProvinceInfo($user->currentProvince))
+            ->setCurrentProvince($user->currentProvince? $this->getProvinceInfo($user->currentProvince):[])
             ->setCurrentCity($cities[$user->current_city_id] ?? null)
             ->setEmail($user->email)
             ->setMaritalStatus($user->marital_status)
