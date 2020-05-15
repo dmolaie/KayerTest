@@ -16,7 +16,7 @@ return [
     'send_national_code' => 'لطفا کدملی خود را ارسال نمایید.',
     'validation'         => [
         'national_code_required'   => 'کدملی الزامی است.',
-        'national_code_unique'     => 'کدملی قبلا ثبت است.',
+        'national_code_unique'     => 'کدملی تکراری می باشد.',
         'userPhoneNumber_regex'    => 'فرمت شماره موبایل نادرست است.',
         'userPhoneNumber_required' => 'شماره موبایل الزامی است.',
         'birth_date_required'      => 'تاریخ تولد الزامی است.',
