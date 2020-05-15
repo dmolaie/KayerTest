@@ -144,18 +144,17 @@ class SmsRegisterService
     private function makeMessageContent(UserLoginDTO $userInfoDTO)
     {
         return
-            trans('smsRegister::response.ehda')
-            . ' ' .
-            $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName()
-            . ' ' .
-            trans('smsRegister::response.has_ehda_card')
+            $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName() .'،'
             . ' ' . PHP_EOL .
             trans('smsRegister::response.ehda_card_address')
             . ' ' . PHP_EOL .
             route('social-url-secound', $userInfoDTO->getRole()->pivot->pivotParent->uuid)
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
-            . ' ' . $userInfoDTO->getCardId();
+            . ' ' . $userInfoDTO->getCardId()
+            . ' ' . PHP_EOL .
+            trans('smsRegister::response.site');
+
     }
 
     public function addBirthDate(SmsRegisterDTO $smsRegisterDTO)
