@@ -32,10 +32,18 @@ class SmsRegisterRepository
         $smsRegister = $this->entityName::where(
             'mobile_number', $smsRegisterDTO->getMobileNumber())
             ->firstOrFail();
-        $smsRegister->second_request_content = $smsRegisterDTO->getSecondRequestContent();
+        if($smsRegisterDTO->getSecondRequestContent()){
+            $smsRegister->second_request_content = $smsRegisterDTO->getSecondRequestContent();
+            $smsRegister->birth_date=$smsRegisterDTO->getBirthDate();
+
+        }
+        if ($smsRegisterDTO->getThirdRequestContent()) {
+            $smsRegister->third_request_content = $smsRegisterDTO->getThirdRequestContent();
+
+        }
         if ($smsRegister->getDirty()) {
             $smsRegister->save();
         }
-        return $smsRegister->national_code;
+        return $smsRegister;
     }
 }

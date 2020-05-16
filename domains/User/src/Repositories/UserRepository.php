@@ -51,7 +51,7 @@ class UserRepository
         $user->receive_email = $userRegisterInfoDTO->getReceiveEmail() ?? $user->receive_email;
         $user->creator_id = $userInfo ? $user->creator_id : $userRegisterInfoDTO->getCreatedBy();
         $user->register_type = $userInfo ? $user->register_type : $userRegisterInfoDTO->getRegisterType();
-        $cardId = $this->entityName::latest('id')->first() ? $this->entityName::latest('id')->first()->id + 1 : 1;
+        $cardId = $userRegisterInfoDTO->getCardId()??($this->entityName::latest('id')->first() ? $this->entityName::latest('id')->first()->id + 1 : 1);
         $user->card_id = $user->card_id ?? $cardId;
 
         if ($userRegisterInfoDTO->getPassword()) {

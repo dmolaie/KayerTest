@@ -20,7 +20,7 @@ class UserFullInfoDTO
      */
     protected $nationalCode;
     /**
-     * @var string
+     * @var string|null
      */
     protected $gender;
     /**
@@ -72,11 +72,11 @@ class UserFullInfoDTO
      */
     protected $essentialMobile;
     /**
-     * @var array
+     * @var array|null
      */
     protected $currentProvince;
     /**
-     * @var CityDTO
+     * @var CityDTO|null
      */
     protected $currentCity;
     /**
@@ -208,18 +208,18 @@ class UserFullInfoDTO
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
     /**
-     * @param string $gender
+     * @param string|null $gender
      * @return UserFullInfoDTO
      */
-    public function setGender(string $gender): UserFullInfoDTO
+    public function setGender(?string $gender): UserFullInfoDTO
     {
         $this->gender = $gender;
         return $this;
@@ -444,7 +444,7 @@ class UserFullInfoDTO
     /**
      * @return array
      */
-    public function getCurrentProvince(): array
+    public function getCurrentProvince(): ?array
     {
         return $this->currentProvince;
     }
@@ -453,7 +453,7 @@ class UserFullInfoDTO
      * @param array $currentProvince
      * @return UserFullInfoDTO
      */
-    public function setCurrentProvince(array $currentProvince): UserFullInfoDTO
+    public function setCurrentProvince(?array $currentProvince): UserFullInfoDTO
     {
         $this->currentProvince = $currentProvince;
         return $this;
@@ -462,7 +462,7 @@ class UserFullInfoDTO
     /**
      * @return CityDTO
      */
-    public function getCurrentCity(): CityDTO
+    public function getCurrentCity(): ?CityDTO
     {
         return $this->currentCity;
     }
@@ -471,7 +471,7 @@ class UserFullInfoDTO
      * @param CityDTO $currentCity
      * @return UserFullInfoDTO
      */
-    public function setCurrentCity(CityDTO $currentCity): UserFullInfoDTO
+    public function setCurrentCity(?CityDTO $currentCity): UserFullInfoDTO
     {
         $this->currentCity = $currentCity;
         return $this;

@@ -14,7 +14,7 @@ class UserRegisterInfoDTO
      */
     protected $nationalCode;
     /**
-     * @var string
+     * @var string|null
      */
     protected $gender;
     /**
@@ -66,11 +66,11 @@ class UserRegisterInfoDTO
      */
     protected $essentialMobile;
     /**
-     * @var int
+     * @var int|null
      */
     protected $currentProvinceId;
     /**
-     * @var int
+     * @var int|null
      */
     protected $currentCityId;
     /**
@@ -173,6 +173,10 @@ class UserRegisterInfoDTO
      * @var string
      */
     protected $registerType;
+    /**
+     * @var string|null
+     */
+    protected $created;
 
     /**
      * @return string
@@ -193,18 +197,18 @@ class UserRegisterInfoDTO
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
     /**
-     * @param string $gender
+     * @param string|null $gender
      * @return UserRegisterInfoDTO
      */
-    public function setGender(string $gender): UserRegisterInfoDTO
+    public function setGender(?string $gender): UserRegisterInfoDTO
     {
         $this->gender = $gender;
         return $this;
@@ -427,36 +431,36 @@ class UserRegisterInfoDTO
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCurrentProvinceId(): int
+    public function getCurrentProvinceId(): ?int
     {
         return $this->currentProvinceId;
     }
 
     /**
-     * @param int $currentProvinceId
+     * @param int|null $currentProvinceId
      * @return UserRegisterInfoDTO
      */
-    public function setCurrentProvinceId(int $currentProvinceId): UserRegisterInfoDTO
+    public function setCurrentProvinceId(?int $currentProvinceId): UserRegisterInfoDTO
     {
         $this->currentProvinceId = $currentProvinceId;
         return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCurrentCityId(): int
+    public function getCurrentCityId(): ?int
     {
         return $this->currentCityId;
     }
 
     /**
-     * @param int $currentCityId
+     * @param int|null $currentCityId
      * @return UserRegisterInfoDTO
      */
-    public function setCurrentCityId(int $currentCityId): UserRegisterInfoDTO
+    public function setCurrentCityId(?int $currentCityId): UserRegisterInfoDTO
     {
         $this->currentCityId = $currentCityId;
         return $this;
@@ -787,9 +791,27 @@ class UserRegisterInfoDTO
     }
 
     /**
+     * @return string|null
+     */
+    public function getCurrentAddress(): ?string
+    {
+        return $this->currentAddress;
+    }
+
+    /**
+     * @param string|null $currentAddress
+     * @return UserRegisterInfoDTO
+     */
+    public function setCurrentAddress(?string $currentAddress): UserRegisterInfoDTO
+    {
+        $this->currentAddress = $currentAddress;
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function getCardId(): string
+    public function getCardId(): ?string
     {
         return $this->cardId;
     }
@@ -798,7 +820,7 @@ class UserRegisterInfoDTO
      * @param string $cardId
      * @return UserRegisterInfoDTO
      */
-    public function setCardId(string $cardId): UserRegisterInfoDTO
+    public function setCardId(?string $cardId): UserRegisterInfoDTO
     {
         $this->cardId = $cardId;
         return $this;
@@ -807,7 +829,7 @@ class UserRegisterInfoDTO
     /**
      * @return string
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -816,7 +838,7 @@ class UserRegisterInfoDTO
      * @param string $password
      * @return UserRegisterInfoDTO
      */
-    public function setPassword(?string $password): UserRegisterInfoDTO
+    public function setPassword(string $password): UserRegisterInfoDTO
     {
         $this->password = $password;
         return $this;
@@ -857,6 +879,7 @@ class UserRegisterInfoDTO
         $this->roleType = $roleType;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -872,24 +895,6 @@ class UserRegisterInfoDTO
     public function setRoleStatus(string $roleStatus): UserRegisterInfoDTO
     {
         $this->roleStatus = $roleStatus;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCurrentAddress(): ?string
-    {
-        return $this->currentAddress;
-    }
-
-    /**
-     * @param string|null $currentAddress
-     * @return UserRegisterInfoDTO
-     */
-    public function setCurrentAddress(?string $currentAddress): UserRegisterInfoDTO
-    {
-        $this->currentAddress = $currentAddress;
         return $this;
     }
 
@@ -910,5 +915,25 @@ class UserRegisterInfoDTO
         $this->registerType = $registerType;
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getCreated(): ?string
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param string|null $created
+     * @return UserRegisterInfoDTO
+     */
+    public function setCreated(?string $created): UserRegisterInfoDTO
+    {
+        $this->created = $created;
+        return $this;
+    }
+
+
 
 }

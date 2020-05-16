@@ -45,7 +45,8 @@ class SmsRegisterService
         SmsRegisterRepository $smsRegisterRepository,
         UserService $userService,
         NationalAuthenticationService $nationalAuthenticationService
-    ) {
+    )
+    {
 
         $this->smsRegisterRepository = $smsRegisterRepository;
         $this->nationalAuthenticationService = $nationalAuthenticationService;
@@ -73,11 +74,17 @@ class SmsRegisterService
             $nationalCode = $this->smsRegisterRepository
                 ->getUserNationalCode($smsRegisterDTO);
             $nationalAuthenticationDTO = new NationalAuthenticationRequestDTO();
+            if (!$this->checkSmsRegisterData($smsRegisterDTO, $nationalCode)) {
+                return;
+            }
             $nationalAuthenticationDTO
-                ->setNationalCode($nationalCode)
-                ->setBirthDate($smsRegisterDTO->getBirthDate())
+                ->setNationalCode($nationalCode->national_code)
+                ->setBirthDate($nationalCode->birth_date)
+                ->setLastName($smsRegisterDTO->getLastName())
+                ->setName($smsRegisterDTO->getName())
                 ->setMobileNumber($smsRegisterDTO->getMobileNumber());
             $userRegisterDTO = $this->nationalAuthenticationService->verify($nationalAuthenticationDTO);
+
             $userInfoDTO = $this->userService->register($userRegisterDTO);
             $smsRegisterDTO->setContent($this->makeMessageContent($userInfoDTO));
             event(new SmsRegisterEvent($smsRegisterDTO));
@@ -92,19 +99,42 @@ class SmsRegisterService
             );
             event(new SmsRegisterEvent($smsRegisterDTO));
         } catch (\Exception $exception) {
-
             $temporalLog = new TemporalLogDTO();
             $temporalLog->setLogTitle('register user by sms failed')
                 ->setLogData([
-                    'content'              => $smsRegisterDTO->getContent(),
-                    'mobile'               => $smsRegisterDTO->getMobileNumber(),
+                    'content' => $smsRegisterDTO->getContent(),
+                    'mobile' => $smsRegisterDTO->getMobileNumber(),
                     'secondRequestContent' => $smsRegisterDTO->getSecondRequestContent(),
-                    'message'              => $exception->getMessage()
+                    'message' => $exception->getMessage()
                 ]);
             event(new TemporalLogEvent($temporalLog));
 
         }
         return;
+    }
+
+    /**
+     * @param SmsRegisterDTO $smsRegisterDTO
+     * @param $nationalCode
+     * @return bool
+     */
+    protected function checkSmsRegisterData(SmsRegisterDTO $smsRegisterDTO, $nationalCode): bool
+    {
+        if (!$nationalCode->national_code) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_national_code'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+            return false;
+        }
+        if (!$nationalCode->birth_date) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_birth_date'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -114,17 +144,32 @@ class SmsRegisterService
     private function makeMessageContent(UserLoginDTO $userInfoDTO)
     {
         return
-            trans('smsRegister::response.gender_' . $userInfoDTO->getGender())
-            . ' ' .
-            $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName()
-            . ' ' .
-            trans('smsRegister::response.has_ehda_card')
+            $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName() .'،'
             . ' ' . PHP_EOL .
             trans('smsRegister::response.ehda_card_address')
             . ' ' . PHP_EOL .
-            config('app.url')
+            'https://'.config('app.url').'/cart-secound/process/social/'. $userInfoDTO->getRole()->pivot->pivotParent->uuid
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
-            . ' ' . $userInfoDTO->getCardId();
+            . ' ' . $userInfoDTO->getCardId()
+            . ' ' . PHP_EOL .
+            trans('smsRegister::response.site');
+
+    }
+
+    public function addBirthDate(SmsRegisterDTO $smsRegisterDTO)
+    {
+        try {
+            $this->smsRegisterRepository
+                ->getUserNationalCode($smsRegisterDTO);
+            $smsRegisterDTO->setContent(trans('smsRegister::response.send_name_lastName'));
+            event(new SmsRegisterEvent($smsRegisterDTO));
+            return;
+        } catch (ModelNotFoundException $exception) {
+            $smsRegisterDTO->setContent(
+                (trans('smsRegister::response.send_national_code'))
+            );
+            event(new SmsRegisterEvent($smsRegisterDTO));
+        }
     }
 }
