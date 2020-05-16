@@ -1,12 +1,9 @@
-// require("core-js/features/promise");
-//var tus = require("tus-js-client/lib/browser");
-var tus = require("tus-js-client");
-import { hideScrollbar, showScrollbar } from '@vendor/plugin/helper';
+import {hideScrollbar, showScrollbar} from '@vendor/plugin/helper';
 
 class Video {
     #file = null;
 
-    constructor( file ) {
+    constructor(file) {
         this.#file = file;
         this.videoElement = document.createElement('video');
         this.videoElement.muted = true;
@@ -23,19 +20,21 @@ class Video {
                 fReader.addEventListener(
                     'load',
                     () => {
-                        resolve( fReader.result );
+                        resolve(fReader.result);
                     }
                 );
-                fReader.readAsDataURL( this.#file );
+                fReader.readAsDataURL(this.#file);
             });
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     async createVideoElement() {
         try {
             this.videoElement.src = `${await this.getBobUrl}`;
             await this.videoElement.play();
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     async getThumbnails() {
@@ -44,17 +43,18 @@ class Video {
                 this.videoElement.addEventListener(
                     'loadeddata', async () => {
                         this.videoElement.currentTime = (this.videoElement.duration / 2);
-                        document.body.append( this.videoElement );
-                        this.canvas.width  = this.videoElement?.videoWidth || 400;
+                        document.body.append(this.videoElement);
+                        this.canvas.width = this.videoElement?.videoWidth || 400;
                         this.canvas.height = this.videoElement?.videoHeight || 400;
                         this.canvasContext.drawImage(this.videoElement, 0, 0);
                         await this.videoElement.pause();
-                        resolve( this.canvas.toDataURL('image/jpeg') );
+                        resolve(this.canvas.toDataURL('image/jpeg'));
                     }
                 );
                 await this.createVideoElement();
             });
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 }
 
@@ -67,7 +67,9 @@ try {
     const FIRST_STEP = document.querySelector('.d-share__inputs');
     const SECOND_STEP = document.querySelector('.d-share__details');
     const IMAGE_PREVIEW = document.querySelector('.d-share__previewImage');
+    const STATUS_EL = document.querySelector('.d-share__sts');
     const FILE_SIZE_EL = document.querySelector('.d-share__size');
+    const PROGRESSBAR_EL = document.querySelector('.d-share__progressbar');
     // const IMAGE_PREVIEW = document.querySelector('.d-share__previewImage');
     const DROP_BOX = document.querySelector('.d-share .d-share__drop');
     const DROP_BOX_INPUT = document.querySelector('.d-share .d-share__uploadField');
@@ -76,19 +78,20 @@ try {
     const STEPS = {
         showStep2() {
             try {
-                FIRST_STEP.classList.add( HEIGHT_0_CLASSNAME );
+                FIRST_STEP.classList.add(HEIGHT_0_CLASSNAME);
                 SECOND_STEP.style.height = `${SECOND_STEP.firstElementChild.offsetHeight}px`;
-                SECOND_STEP.classList.remove( HEIGHT_0_CLASSNAME );
-            } catch (e) {}
+                SECOND_STEP.classList.remove(HEIGHT_0_CLASSNAME);
+            } catch (e) {
+            }
         }
     };
 
     const DROP_BOX_HOVER = {
         show() {
-            DROP_BOX.classList.add( DROP_BOX_ACTIVE_CLASSNAME );
+            DROP_BOX.classList.add(DROP_BOX_ACTIVE_CLASSNAME);
         },
         hidden() {
-            DROP_BOX.classList.remove( DROP_BOX_ACTIVE_CLASSNAME );
+            DROP_BOX.classList.remove(DROP_BOX_ACTIVE_CLASSNAME);
         }
     };
 
@@ -96,61 +99,126 @@ try {
 
     const onSelectVideo = async file => {
         try {
-            // const FILE_TYPE = file.type;
-            // const FILE_SIZE = getSizeOfVideo( file.size );
-            //
-            // if ( !FILE_TYPE.includes('video') ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
-            // if (FILE_SIZE > 10) throw new Error( INVALID_SIZE_ERROR_MESSAGE );
-            //
-            // const video = new Video( file );
-            // IMAGE_PREVIEW.src = await video.getThumbnails();
-            // FILE_SIZE_EL.textContent = `حجم فایل: ${FILE_SIZE}Mb`;
-
-            let channelId = "video";
+            let channelId = "d5044e73-2a4a-43b4-9c95-ebb748372e66";
             let authorization = "Apikey 0534c1e3-dad9-402f-a255-23e1051d1c1f";
-
             let options = {
+                // "url": `https://napi.arvancloud.com/vod/2.0/channels/${channelId}/videos`,
                 "url": `https://napi.arvancloud.com/vod/2.0/channels/${channelId}/files`,
                 "authorization": `${authorization}`,
                 "acceptLanguage": "en",
                 "uuid": file.name + file.size + file.lastModified
             };
-            const assss = file.name + file.size + file.lastModified;
 
-            let upload = new tus.Upload(file, {
-                fingerprint: () => {
-                    const value = options.uuid;
-                    console.log((value));
-                    return Promise.resolve(assss)
-                },
-                chunkSize: 1048576, // 1MB
-                endpoint: options.url,
-                retryDelays: [0, 500, 1000, 1500, 2000, 2500],
+            fetch(`https://napi.arvancloud.com/vod/2.0/channels/${channelId}/files`,{
+                method: 'get',
                 headers: {
                     'Authorization': options.authorization,
                     'Accept-Language': options.acceptLanguage
                 },
-                metadata: {
-                    filename: file.name,
-                    filetype: file.type
-                },
-                onError: function (error) {
-                    console.log("Failed because: " + error)
-                },
-                onProgress: function (bytesUploaded, bytesTotal) {
-                    var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
-                    console.log(bytesUploaded, bytesTotal, percentage + "%");
-                },
-                onSuccess: function () {
-                    console.log("Download %s from %s", upload.file.name, upload.url)
-                }
-            });
+            })
+                .then(res => res.json())
+                .then(response => {
+                    let data = response.data[0];
 
-            console.log('upload', upload);
-            upload.start();
+                    const fromData = new FormData();
 
+                    fromData.append('title', 'fanap');
+                    fromData.append('description', 'fanapfanapfanapfanapfanapfanap');
+                    fromData.append('video_url', data.url);
+                    fromData.append('file_id', data.id);
+                    fromData.append('convert_mode', "auto");
+
+                    console.log(data, 'response');
+                    fetch(`https://napi.arvancloud.com/vod/2.0/channels/${channelId}/videos`,{
+                        method: 'post',
+                        headers: {
+                            'Authorization': options.authorization,
+                            'Accept-Language': options.acceptLanguage
+                        },
+                        body: fromData,
+                    })
+                        .then(res => res.json())
+                        .then(response => {
+                            console.log(response);
+                        })
+                })
+
+
+
+
+            // const FILE_TYPE = file.type;
+            // const FILE_SIZE = getSizeOfVideo(file.size);
+            // //
+            // // if ( !FILE_TYPE.includes('video') ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
+            // // if (FILE_SIZE > 10) throw new Error( INVALID_SIZE_ERROR_MESSAGE );
+            // //
+            // // const video = new Video( file );
+            // // IMAGE_PREVIEW.src = await video.getThumbnails();
+            // FILE_SIZE_EL.textContent = `حجم فایل: ${FILE_SIZE}Mb`;
+            //
+            // let channelId = "d5044e73-2a4a-43b4-9c95-ebb748372e66";
+            // let authorization = "Apikey 0534c1e3-dad9-402f-a255-23e1051d1c1f";
+            //
+            // let options = {
+            //     // "url": `https://napi.arvancloud.com/vod/2.0/channels/${channelId}/videos`,
+            //     "url": `https://napi.arvancloud.com/vod/2.0/channels/${channelId}/files`,
+            //     "authorization": `${authorization}`,
+            //     "acceptLanguage": "en",
+            //     "uuid": file.name + file.size + file.lastModified
+            // };
+            // const assss = file.name + file.size + file.lastModified;
+            //
             // STEPS.showStep2();
-        } catch ( exception ) {
+            //
+            // let upload = new tus.Upload(file, {
+            //     fingerprint: () => {
+            //         const value = options.uuid;
+            //         console.log((value));
+            //         return Promise.resolve(assss)
+            //     },
+            //     chunkSize: 1048576, // 1MB
+            //     endpoint: options.url,
+            //     retryDelays: [0, 500, 1000, 1500, 2000, 2500],
+            //     headers: {
+            //         'Authorization': options.authorization,
+            //         'Accept-Language': options.acceptLanguage
+            //     },
+            //     data: {
+            //         convert_mode: "auto",
+            //         file_id: options.uuid,
+            //         title: "The title field is required.",
+            //     },
+            //     body: {
+            //         convert_mode: "auto",
+            //         file_id: options.uuid,
+            //         title: "The title field is required.",
+            //     },
+            //     metadata: {
+            //         filename: file.name,
+            //         filetype: file.type,
+            //     },
+            //     onError: function (error) {
+            //         console.log("Failed because: " + error)
+            //     },
+            //     onProgress: function (bytesUploaded, bytesTotal) {
+            //         //$0.style.setProperty('--progress', 150 + "%");
+            //         var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
+            //         PROGRESSBAR_EL.style.setProperty('--progress', percentage + "%");
+            //     },
+            //     onSuccess: function () {
+            //         STATUS_EL.textContent = 'بارگزاری کامل شد';
+            //         console.log("Download: ", upload, upload.url)
+            //     }
+            // });
+            // console.log('upload:', upload);
+            // upload.start();
+            // {
+            //     title: "The title field is required.",
+            //         file_id: options.uuid,
+            //     convert_mode: "auto",
+            // }
+            //
+        } catch (exception) {
             console.log(exception);
             // NOTIFICATION.Notification({
             //     text: exception?.message,
@@ -160,46 +228,33 @@ try {
     };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    DROP_BOX.addEventListener('dragleave',() => DROP_BOX_HOVER.hidden());
+    DROP_BOX.addEventListener('dragleave', () => DROP_BOX_HOVER.hidden());
     DROP_BOX.addEventListener('dragover', event => event.preventDefault());
     DROP_BOX.addEventListener(
         'dragenter',
-            event => {
-                event.preventDefault();
-                DROP_BOX_HOVER.show();
-            }
+        event => {
+            event.preventDefault();
+            DROP_BOX_HOVER.show();
+        }
     );
     DROP_BOX.addEventListener(
         'drop',
         async event => {
             event.preventDefault();
-            const { files } = event.dataTransfer;
+            const {files} = event.dataTransfer;
             DROP_BOX_HOVER.hidden();
-            await onSelectVideo( files[0] )
+            await onSelectVideo(files[0])
         }
     );
     DROP_BOX_INPUT.addEventListener(
         'change',
-        async ({ target: { files } }) => { await onSelectVideo( files[0] ) }
+        async ({target: {files}}) => {
+            await onSelectVideo(files[0])
+        }
     );
 
-} catch (e) {}
+} catch (e) {
+}
 
 try {
     const DISPLAY_NONE_CLASS = 'none';
@@ -211,25 +266,25 @@ try {
     const MODAL_BODY = document.querySelector('.d-share__confirmWrapper');
     const DISCARD_BUTTON = document.querySelector('.d-share__confirmButton--discard');
 
-    const onClickOutSideOfModal = ({ target }) => {
-        if (!MODAL_BODY.contains( target )) toggleConfirmModal.hidden();
+    const onClickOutSideOfModal = ({target}) => {
+        if (!MODAL_BODY.contains(target)) toggleConfirmModal.hidden();
     };
 
     const toggleConfirmModal = {
         visible() {
             hideScrollbar();
-            MODAL.classList.remove( DISPLAY_NONE_CLASS );
-            MODAL.classList.remove( CLOSED_CLASSNAME );
-            MODAL.classList.add( OPENED_CLASSNAME );
+            MODAL.classList.remove(DISPLAY_NONE_CLASS);
+            MODAL.classList.remove(CLOSED_CLASSNAME);
+            MODAL.classList.add(OPENED_CLASSNAME);
             MODAL.addEventListener('click', onClickOutSideOfModal);
         },
         hidden() {
             showScrollbar();
-            MODAL.classList.add( CLOSED_CLASSNAME );
+            MODAL.classList.add(CLOSED_CLASSNAME);
             MODAL.removeEventListener('click', onClickOutSideOfModal);
             setTimeout(() => {
-                MODAL.classList.remove( OPENED_CLASSNAME );
-                MODAL.classList.add( DISPLAY_NONE_CLASS );
+                MODAL.classList.remove(OPENED_CLASSNAME);
+                MODAL.classList.add(DISPLAY_NONE_CLASS);
             }, 320)
         }
     };
@@ -241,7 +296,8 @@ try {
         event => {
             event.preventDefault();
             const TARGET = event.target || event.srcElement;
-            TARGET.classList.contains( REMOVE_BUTTON_CLASSNAME ) && toggleConfirmModal.visible();
+            TARGET.classList.contains(REMOVE_BUTTON_CLASSNAME) && toggleConfirmModal.visible();
         }
     )
-} catch (e) {}
+} catch (e) {
+}
