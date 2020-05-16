@@ -13,25 +13,37 @@
                     <template v-if="isActiveStep( LAYOUT_MANAGE['ENTER_PHONE_NUMBER'] )">
                         <form @submit.prevent="onClickSendingSMSButton" class="w-full">
                             <label class="m-login__wrapper relative block w-full"
+                                   :class="{
+                                       'm-login__wrapper--active': !!form.national_code.value,
+                                       'm-login__wrapper--hasError': !!form.national_code.error,
+                                   }"
                             >
-                                <input type="text" autocomplete="off"
+                                <input type="text" autocomplete="off" name="national_code" v-model="form.national_code.value"
                                        class="m-login__input block w-full text-rum font-lg font-bold rounded direction-ltr"
+                                       @blur="validateNationalCode"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
                                       v-text="'کدملی'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
+                                      v-text="form.national_code.error"
                                 > </span>
                             </label>
                             <label class="m-login__wrapper relative block w-full"
+                                   :class="{
+                                       'm-login__wrapper--active': !!form.mobile.value,
+                                       'm-login__wrapper--hasError': !!form.mobile.error,
+                                   }"
                             >
-                                <input type="password" autocomplete="off"
+                                <input type="text" autocomplete="off" name="phone_number" v-model="form.mobile.value"
                                        class="m-login__input block w-full text-rum font-lg font-bold rounded direction-ltr"
+                                       @blur="validatePhoneNumber"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
                                       v-text="'تلفن همراه'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
+                                      v-text="form.mobile.error"
                                 > </span>
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
@@ -50,14 +62,20 @@
                     <template v-if="isActiveStep( LAYOUT_MANAGE['ENTER_REGISTER_CODE'] )">
                         <form @submit.prevent="onClick" class="w-full">
                             <label class="m-login__wrapper relative block w-full"
+                                   :class="{
+                                       'm-login__wrapper--active': !!form.code.value,
+                                       'm-login__wrapper--hasError': !!form.code.error,
+                                   }"
                             >
-                                <input type="password" autocomplete="off"
+                                <input type="text" autocomplete="off" name="code" v-model="form.code.value"
                                        class="m-login__input block w-full text-rum font-lg font-bold rounded direction-ltr"
+                                       @blur="validateRegisterCode"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
                                       v-text="'کد بازیابی'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
+                                      v-text="form.code.error"
                                 > </span>
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
@@ -86,25 +104,37 @@
                     <template v-if="isActiveStep( LAYOUT_MANAGE['ENTER_NEW_PASSWORD'] )">
                         <form @submit.prevent="onClickNewPasswordButton" class="w-full">
                             <label class="m-login__wrapper relative block w-full"
+                                   :class="{
+                                       'm-login__wrapper--active': !!form.password.value,
+                                       'm-login__wrapper--hasError': !!form.password.error,
+                                   }"
                             >
-                                <input type="text" autocomplete="off"
+                                <input type="password" autocomplete="off" name="password" v-model="form.password.value"
                                        class="m-login__input block w-full text-rum font-lg font-bold rounded direction-ltr"
+                                       @blur="validatePassword"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
                                       v-text="'گذرواژه جدید'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
+                                      v-text="form.password.error"
                                 > </span>
                             </label>
                             <label class="m-login__wrapper relative block w-full"
+                                   :class="{
+                                       'm-login__wrapper--active': !!form.password_confirmation.value,
+                                       'm-login__wrapper--hasError': !!form.password_confirmation.error,
+                                   }"
                             >
-                                <input type="password" autocomplete="off"
+                                <input type="password" autocomplete="off" name="password_confirmation" v-model="form.password_confirmation.value"
                                        class="m-login__input block w-full text-rum font-lg font-bold rounded direction-ltr"
+                                       @blur="validatePasswordConfirmation"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
                                       v-text="'تکرار گذرواژه جدید'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
+                                      v-text="form.password_confirmation.error"
                                 > </span>
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
@@ -142,9 +172,16 @@
     export default {
         name: "ResetPassword",
         data: () => ({
+            form: {
+                national_code: { value: '', error: '' },
+                mobile: { value: '', error: '' },
+                code: { value: '', error: '' },
+                password: { value: '', error: '' },
+                password_confirmation: { value: '', error: '' },
+            },
             countdown: INITIAL_COUNTDOWN(),
             LAYOUT_MANAGE,
-            LAYOUT_STATE: LAYOUT_MANAGE.ENTER_PHONE_NUMBER,
+            LAYOUT_STATE: LAYOUT_MANAGE.ENTER_NEW_PASSWORD,
             spinnerLoading: { firstStep: false, secondStep: false, thirdStep: false }
         }),
         methods: {
@@ -153,6 +190,44 @@
             },
             changeActiveStep( STEP ) {
                 this.$set(this, 'LAYOUT_STATE', STEP)
+            },
+            validateNationalCode() {
+                try {
+                    Service.nationalCodeValidator(
+                        this.form.national_code
+                    );
+                } catch ( exception ) {}
+            },
+            validatePhoneNumber() {
+                try {
+                    Service.phoneNumberValidator(
+                        this.form.mobile
+                    );
+                } catch ( exception ) {}
+            },
+            checkValidationFirstStep() {
+                try {
+                    this.validateNationalCode();
+                    this.validatePhoneNumber();
+                    return ([
+                        !this.form.national_code.error,
+                        !this.form.mobile.error
+                    ].every(error => error))
+                } catch (e) {}
+            },
+            async onClickSendingSMSButton() {
+                try {
+                    if ( this.checkValidationFirstStep() ) {
+                        this.$set(this.spinnerLoading, 'firstStep', true);
+                        await Service.onClickSendingSMSButton();
+                        this.changeActiveStep( LAYOUT_MANAGE['ENTER_REGISTER_CODE'] );
+                        this.countdownStart();
+                    }
+                } catch ( exception ) {
+                    this.displayNotification(exception, { type: 'error' })
+                } finally {
+                    this.$set(this.spinnerLoading, 'firstStep', false);
+                }
             },
             countdownStart() {
                 try {
@@ -163,11 +238,14 @@
                             minutes = Math.floor(diff / 60),
                             seconds = Math.floor((diff % 60));
                         this.$set(this.countdown, 'display', `${ZeroPad( minutes )}:${ZeroPad( seconds )}`);
-                        if ( diff <= 0 ) {
-                            this.$set(this.countdown, 'is_finished', true);
-                            clearInterval( this.countdown.timer );
-                        }
+                        ( diff <= 0 ) && this.countdownStop();
                     }, 1000);
+                } catch ( exception ) {}
+            },
+            countdownStop() {
+                try {
+                    this.$set(this.countdown, 'is_finished', true);
+                    clearInterval( this.countdown.timer );
                 } catch ( exception ) {}
             },
             countdownReset() {
@@ -177,16 +255,12 @@
                     this.countdownStart();
                 } catch ( exception ) {}
             },
-            async onClickSendingSMSButton() {
+            validateRegisterCode() {
                 try {
-                    this.$set(this.spinnerLoading, 'firstStep', true);
-                    await Service.onClickSendingSMSButton();
-                    this.changeActiveStep( LAYOUT_MANAGE['ENTER_REGISTER_CODE'] );
-                } catch ( exception ) {
-                    this.displayNotification(exception, { type: 'error' })
-                } finally {
-                    this.$set(this.spinnerLoading, 'firstStep', false);
-                }
+                    Service.registerCodeValidator(
+                        this.form.code
+                    );
+                } catch ( exception ) {}
             },
             async onClick() {
                 try {
@@ -208,11 +282,38 @@
                     // this.$set(this.spinnerLoading, 'secondStep', false);
                 }
             },
+            validatePassword() {
+                try {
+                    Service.passwordValidator(
+                        this.form.password
+                    );
+                } catch ( exception ) {}
+            },
+            validatePasswordConfirmation() {
+                try {
+                    Service.passwordConfirmationValidator(
+                        this.form.password_confirmation,
+                        this.form.password.value
+                    );
+                } catch ( exception ) {}
+            },
+            checkValidationThirdStep() {
+                try {
+                    this.validatePassword();
+                    this.validatePasswordConfirmation();
+                    return ([
+                        !this.form.password.error,
+                        !this.form.password_confirmation.error
+                    ].every(error => error))
+                } catch ( exception ) {}
+            },
             async onClickNewPasswordButton() {
                 try {
-                    this.$set(this.spinnerLoading, 'thirdStep', true);
-                    await Service.onClickNewPasswordButton();
-                    this.pushRouter( { name: 'LOGIN' } );
+                    if ( this.checkValidationThirdStep() ) {
+                        this.$set(this.spinnerLoading, 'thirdStep', true);
+                        await Service.onClickNewPasswordButton();
+                        this.pushRouter( { name: 'LOGIN' } );
+                    }
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {
