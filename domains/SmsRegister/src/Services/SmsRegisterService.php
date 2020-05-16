@@ -148,7 +148,7 @@ class SmsRegisterService
             . ' ' . PHP_EOL .
             trans('smsRegister::response.ehda_card_address')
             . ' ' . PHP_EOL .
-            route('social-url-secound', $userInfoDTO->getRole()->pivot->pivotParent->uuid)
+            'https://'.config('app.url').'/cart-secound/process/social/'. $userInfoDTO->getRole()->pivot->pivotParent->uuid
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
             . ' ' . $userInfoDTO->getCardId()
