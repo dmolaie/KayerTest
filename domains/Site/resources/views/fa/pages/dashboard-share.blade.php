@@ -160,6 +160,7 @@
     @endsection
 
     @section('scripts')
+        <script src="{{ asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
         <script src="{{ asset('js/site/vendors~dashboard-share.js') }}" defer></script>
         <script src="{{ asset('js/site/dashboard-share.js') }}" defer></script>
     @endsection

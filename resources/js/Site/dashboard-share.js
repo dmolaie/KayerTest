@@ -1,4 +1,6 @@
 const tus = require("tus-js-client");
+import Endpoint from '@endpoints';
+import HTTPService from './service/HttpService';
 import Notification from './service/Notification';
 import ExceptionService from '@services/service/exception';
 import {hideScrollbar, showScrollbar} from '@vendor/plugin/helper';
@@ -88,6 +90,7 @@ try {
     const DROP_BOX_INPUT = document.querySelector('.d-share .d-share__uploadField');
     const NOTIFICATION_EL = document.querySelector('.d-share .notification');
     const SUBMIT_BUTTON = document.querySelector('.d-share .d-share__submit');
+    const TEXTAREA = document.querySelector('.d-share .d-share__textarea');
 
     const STEPS = {
         showStep2() {
@@ -216,6 +219,26 @@ try {
         } catch ( exception ) {}
     };
 
+    /**
+     * @param requestPayload { Object }
+     */
+    const assignVideoToUser = async ( requestPayload ) => {
+        try {
+            const REQUEST_PAYLOAD = requestPayload;
+            // if ( !REQUEST_PAYLOAD['description'] ) delete REQUEST_PAYLOAD['description'];
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_ARVANVOD_ITEM), REQUEST_PAYLOAD);
+            NOTIFICATION_EL.Notification({
+                type: 'success',
+                text: response.message,
+            });
+        } catch ( exception ) {
+            NOTIFICATION_EL.Notification({
+                type: 'error',
+                text: ExceptionService._GetErrorMessage( exception ),
+            });
+        }
+    };
+
     const onSelectVideo = async file => {
         try {
             isPending = true;
@@ -258,8 +281,16 @@ try {
 
                 let user_video = PENDING_FILES.find(item => item.filename === fileName);
                 user_video = user_video || PENDING_FILES[0];
-                await changeStatusVideo( user_video );
-                console.log(user_video);
+
+                await Promise.all([
+                    await changeStatusVideo( user_video ),
+                    await assignVideoToUser({
+                        user_id: 2,
+                        link: user_video['url'],
+                        file_id: user_video['id'],
+                        description: TEXTAREA.value
+                    })
+                ]);
             } catch ( exception ) {
                 NOTIFICATION_EL.Notification({
                     type: 'error',
