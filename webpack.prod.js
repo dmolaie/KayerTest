@@ -129,6 +129,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'CHANNEL_ID': "'d5044e73-2a4a-43b4-9c95-ebb748372e66'",
+            'ARVAN_VOD': "'Apikey 0534c1e3-dad9-402f-a255-23e1051d1c1f'",
+        }),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 '!*',

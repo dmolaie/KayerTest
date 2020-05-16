@@ -11,7 +11,9 @@
                     <form enctype="multipart/form-data" novalidate
                           class="w-full block"
                     >
-                        <div class="d-share__row d-share__inputs w-full block overflow-hidden">
+                        <div class="d-share__row d-share__inputs w-full block overflow-hidden"
+                             id="uploadArea"
+                        >
                             <div class="d-share__column w-3/4 sm:w-full m-0-auto">
                                 <label class="d-share__drop w-full text-blue-800 flex items-center justify-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
                                     <input type="file" accept="video/*" name="videos[]"
@@ -26,25 +28,20 @@
                                 <div class="w-3/4 m-auto">
                                     <div class="d-share__preview w-full flex items-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
                                         <figure class="d-share__previewCover flex-shrink-0 relative border border-solid rounded">
-                                            <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1577456769/FEM-sidebar-CSS_ssbe8e.png"
-                                                 alt="ارسال ویدیو"
+                                            <img src="" alt="ارسال ویدیو"
                                                  class="d-share__previewImage absolute w-full h-full block rounded-inherit object-cover"
                                             />
                                         </figure>
                                         <div class="flex-1 text-right">
-                                            <p class="font-sm font-bold">
-                                                در حال بارگذاری ویدیو ...
-                                            </p>
+                                            <p class="d-share__sts font-sm font-bold"></p>
                                             <div class="d-share__progressbar w-full relative border border-solid overflow-hidden"
-                                                 style="--progress: 40%"
+                                                 style="--progress: 0%"
                                             ></div>
-                                            <p class="d-share__size font-xs font-bold text-left">
-                                                78%
-                                            </p>
+                                            <p class="d-share__size font-xs font-bold text-left"></p>
                                         </div>
                                     </div>
                                     <label class="w-full block">
-                                        <span class="d-share__label block w-full text-bayoux text-required font-sm-bold">
+                                        <span class="d-share__label block w-full text-bayoux font-sm-bold">
                                             توضیحات
                                         </span>
                                         <textarea placeholder="توضیحات خود را بنویسید..." autocomplete="off"
@@ -163,6 +160,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{ secure_asset('js/site/vendors~dashboard-share.js') }}" defer></script>
-        <script src="{{ secure_asset('js/site/dashboard-share.js') }}" defer></script>
+        <script src="{{ asset('js/site/vendors~dashboard-share.js') }}" defer></script>
+        <script src="{{ asset('js/site/dashboard-share.js') }}" defer></script>
     @endsection
