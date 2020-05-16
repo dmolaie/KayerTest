@@ -66,13 +66,10 @@
                         <div class="w-full block">
                             <div class="d-share__thead w-full flex font-1xs font-bold text-center cursor-default">
                                 <div class="d-share__cell flex-2 text-right">
-                                    نام ویدیو
+                                    دریافت ویدیو
                                 </div>
-                                <div class="d-share__cell flex-1">
+                                <div class="d-share__cell flex-2">
                                     تاریخ ارسال
-                                </div>
-                                <div class="d-share__cell flex-1">
-                                    تاریخ حذف
                                 </div>
                                 <div class="d-share__cell flex-1">
                                     وضعیت
@@ -82,60 +79,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-share__tbody w-full block">
-                            <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
-                                <div class="d-share__cell flex-2 inline-flex items-center justify-start">
-                                    <a href=""
-                                       download=""
-                                       class="text-blue l:transition-color l:hover:color-blue-200"
-                                    >
-                                        نام ویدیو
-                                    </a>
-                                </div>
-                                <div class="d-share__cell flex-1 inline-flex items-center justify-center">
-                                    ۱۳ فروردین ۱۳۹۶
-                                </div>
-                                <div class="d-share__cell flex-1 inline-flex items-center justify-center">
-                                    ۵ آبان ۱۳۹۸
-                                </div>
-                                <div class="d-share__cell flex-1 inline-flex items-center justify-center">
-                                    <span class="d-share__status d-share__status--accept font-1xs font-medium border border-solid rounded">
-                                        ارسال شده
-                                    </span>
-                                </div>
-                                <div class="d-share__cell d-share__action inline-flex items-center justify-center">
-                                    <button class="d-share__tButton block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center">
-                                        حذف ویدیو
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
-                                <div class="d-share__cell flex-2 inline-flex items-center justify-start">
-                                    <a href=""
-                                       download=""
-                                       class="text-blue l:transition-color l:hover:color-blue-200"
-                                    >
-                                        نام ویدیو
-                                    </a>
-                                </div>
-                                <div class="d-share__cell flex-1 inline-flex items-center justify-center">
-                                    ۱۳ فروردین ۱۳۹۶
-                                </div>
-                                <div class="d-share__cell flex-1 inline-flex items-center justify-center">
-                                    ۵ آبان ۱۳۹۸
-                                </div>
-                                <div class="d-share__cell flex-1 inline-flex items-center justify-center">
-                                    <span class="d-share__status d-share__status--delete font-1xs font-medium border border-solid rounded">
-                                        حذف شده
-                                    </span>
-                                </div>
-                                <div class="d-share__cell d-share__action inline-flex items-center justify-center">
-                                    <button class="d-share__tButton block text-blue-800 font-1xs font-bold bg-white border border-solid rounded text-center">
-                                        حذف ویدیو
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="d-share__tbody w-full block"></div>
                     </div>
                 </div>
             </div>
