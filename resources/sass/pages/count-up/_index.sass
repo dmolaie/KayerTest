@@ -1,0 +1,40 @@
+.p-count
+  height: 100%
+  &__header
+    padding: 15px 20px
+  &__logo
+    height: 38px
+    @include Xl_Screen
+      height: 48px
+    @include Xxl_Screen
+      height: 56px
+  &__head
+    margin: 25px 0 8px
+    &::before
+      content: "ثبت نام"
+      font-size: 14px
+      text-align: right
+      line-height: 16px
+      padding: 5px 8px 0
+      margin: 0 -30px 4px 0
+      border-right: 2px solid red
+  &__progressBar
+    &_item
+      @include Sm_Screen
+        &:not(:first-of-type)
+          margin-bottom: 15px
+      .c-progress
+        @include Size( 120px )
+        transform: rotate(-90deg)
+        @include Sm_Screen
+          @include Size( 45px )
+        &_body
+          fill: white
+          stroke: #bde8fa
+        &_bar
+          $stroke: (2 * $PI * 30)
+          stroke: $blue
+          stroke-dasharray: $stroke
+          stroke-dashoffset: $stroke
+          transition-timing-function: linear
+          transition-property: stroke-dashoffset
