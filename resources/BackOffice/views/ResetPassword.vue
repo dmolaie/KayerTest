@@ -181,7 +181,7 @@
             },
             countdown: INITIAL_COUNTDOWN(),
             LAYOUT_MANAGE,
-            LAYOUT_STATE: LAYOUT_MANAGE.ENTER_NEW_PASSWORD,
+            LAYOUT_STATE: LAYOUT_MANAGE.ENTER_PHONE_NUMBER,
             spinnerLoading: { firstStep: false, secondStep: false, thirdStep: false }
         }),
         methods: {

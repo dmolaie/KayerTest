@@ -5,8 +5,10 @@ import BaseService from '@vendor/infrastructure/service/BaseService';
 import {
     HasLength, OnlyNumber,
     NationalCodeValidator, Length,
-    PhoneNumberValidator, toEnglishDigits
+    PhoneNumberValidator, toEnglishDigits,
+    RedirectRoute
 } from "@vendor/plugin/helper";
+import { GET_USER_HAS_ACCESS,GET_IS_USER_LOGGED_IN } from '@services/store/Login';
 
 const PASSWORD_MIN_LENGTH = 8;
 const LOCATION = {

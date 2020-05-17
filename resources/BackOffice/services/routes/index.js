@@ -9,6 +9,7 @@ import { GALLERY_TYPE } from '@services/service/ManageGallery';
 import Endpoint from "@endpoints";
 import TokenService from '@services/service/Token';
 import HTTPService from "@vendor/plugin/httpService";
+import { RedirectRoute } from '@vendor/plugin/helper';
 
 const APP_NAME = 'انجمن اهدای عضو ایرانیان | ';
 
@@ -572,15 +573,6 @@ const Routes = new VueRouter({
             }
         },
         {
-            name: PROFILE,
-            path: '/profile',
-            component: GetViews( 'Profile'),
-            meta: {
-                title: 'پروفایل',
-                guess: true
-            }
-        },
-        {
             name: NOT_FOUND,
             path: '/*',
             component: GetViews('NotFound' ),
@@ -622,6 +614,12 @@ const getUserProfile = async () => {
     }
 };
 
+const redirectToWebsite = () => {
+    try {
+        RedirectRoute( window.location.origin );
+    } catch (e) {}
+};
+
 Routes.beforeEach(async (to, from, next) => {
     Store.commit('PROGRESS_BAR', true);
     await getUserProfile();
@@ -634,16 +632,18 @@ Routes.beforeEach(async (to, from, next) => {
             next()
         } else {
             ( Store?.getters[GET_IS_USER_LOGGED_IN] ) ? (
-                next({ name: PROFILE })
+                redirectToWebsite()
             ) : (
                 next({ name: LOGIN })
             );
             SetPageTitle( LOGIN_PAGE_TITLE );
         }
     } else {
-        if ( Store?.getters[GET_USER_HAS_ACCESS] && to.name === LOGIN ) {
+        if ( Store?.getters[GET_USER_HAS_ACCESS] && (to.name === LOGIN || to.name === RESET_PASSWORD) ) {
             next({ name: DASHBOARD });
             SetPageTitle( DASHBOARD_PAGE_TITLE );
+        } else if (Store?.getters[GET_IS_USER_LOGGED_IN] && (to.name === LOGIN || to.name === RESET_PASSWORD) ) {
+            redirectToWebsite();
         } else {
             next()
         }
