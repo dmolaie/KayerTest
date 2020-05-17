@@ -38,6 +38,8 @@ const TBODY_ELEMENT = document.querySelector('.d-share__tbody');
 
 let USER_STORE = null;
 
+const USER_ID = 3;
+
 class Video {
     #file = null;
 
@@ -96,6 +98,32 @@ class Video {
     }
 }
 
+const request = ({input, method, body = null}) => {
+    try {
+        return new Promise((resolve, reject) => {
+            const HEADERS = new Headers();
+            HEADERS.append('Authorization', ARVAN_VOD);
+            HEADERS.append('Accept-Language', "en");
+
+            const INIT_OPTION = {};
+            INIT_OPTION.headers = HEADERS;
+            INIT_OPTION.method = method;
+            if ( !!body ) INIT_OPTION.body = body;
+
+            fetch(input, INIT_OPTION)
+                .then(response => {
+                    const RESPONSE = response.json();
+                    ( response.ok ) ? (
+                        resolve( RESPONSE )
+                    ) : (
+                        reject( RESPONSE )
+                    )
+                })
+                .catch(except => reject(except))
+        })
+    } catch ( exception ) {}
+};
+
 const createManageTable = response => {
     try {
         if (!HasLength( response )) return emptyManageTable();
@@ -139,7 +167,7 @@ const emptyManageTable = () => {
 (async () => {
     try {
         let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ARVANVOD_ITEM), {
-            user_id: 2,
+            user_id: USER_ID,
         });
         response = new ShareVideoPresenter( response );
         createManageTable( response );
@@ -194,32 +222,6 @@ try {
         } catch (e) {}
     };
 
-    const request = ({input, method, body = null}) => {
-        try {
-            return new Promise((resolve, reject) => {
-                const HEADERS = new Headers();
-                HEADERS.append('Authorization', ARVAN_VOD);
-                HEADERS.append('Accept-Language', "en");
-
-                const INIT_OPTION = {};
-                INIT_OPTION.headers = HEADERS;
-                INIT_OPTION.method = method;
-                if ( !!body ) INIT_OPTION.body = body;
-
-                fetch(input, INIT_OPTION)
-                    .then(response => {
-                        const RESPONSE = response.json();
-                        ( response.ok ) ? (
-                            resolve( RESPONSE )
-                        ) : (
-                            reject( RESPONSE )
-                        )
-                    })
-                    .catch(except => reject(except))
-            })
-        } catch ( exception ) {}
-    };
-
     const getSizeOfVideo = size => (size / 1000000).toFixed(2);
 
     const uploadVideoInAbrVod = async file => {
@@ -265,9 +267,7 @@ try {
                         } catch (e) {}
                     },
                     onSuccess: function ( response ) {
-                        console.log("response", response);
                         STATUS_EL.textContent = SUCCESS_TEXT;
-                        console.log("Download %s from %s", upload.file.name, upload.url);
                         resolve({
                             url: upload.url,
                             name: upload.file.name
@@ -279,7 +279,12 @@ try {
                 throw except
             })
         } catch ( exception ) {
-            console.log('exception', exception);
+            NOTIFICATION_EL.Notification({
+                type: 'error',
+                text: ExceptionService._GetErrorMessage( exception ),
+            });
+            resetInputFile();
+            STEPS.showStep1();
         }
     };
 
@@ -312,6 +317,9 @@ try {
                 type: 'success',
                 text: response.message,
             });
+            response = new ShareVideoPresenter( response );
+            createManageTable( response );
+            USER_STORE = response;
         } catch ( exception ) {
             NOTIFICATION_EL.Notification({
                 type: 'error',
@@ -368,7 +376,7 @@ try {
                 await Promise.all([
                     await changeStatusVideo( user_video ),
                     await assignVideoToUser({
-                        user_id: 2,
+                        user_id: USER_ID,
                         link: user_video['url'],
                         file_id: user_video['id'],
                         description: TEXTAREA.value
@@ -429,15 +437,24 @@ try {
         if (!MODAL_BODY.contains(target)) toggleConfirmModal.hidden();
     };
 
-    const deleteVideoFromArvanVod = video_id => {
+    const deleteVideoFromArvanVod = async ( video_id ) => {
         try {
-            console.log(`${ENDPOINT['ARVAN_DELETE_VIDEOS']}${video_id}`);
+            await request({
+                method: 'DELETE',
+                input: `${ENDPOINT['ARVAN_DELETE_VIDEOS']}${video_id}`,
+            });
         } catch (e) {}
     };
 
-    const deleteAssignedVideo = user_id => {
+    const deleteAssignedVideo = async user_id => {
         try {
-            console.log(Endpoint.get(Endpoint.DELETE_ARVANVOD_ITEM));
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_ARVANVOD_ITEM), {
+                user_id: USER_ID
+            });
+            NOTIFICATION_EL.Notification({
+                type: 'success',
+                text: response.message,
+            });
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
         }
