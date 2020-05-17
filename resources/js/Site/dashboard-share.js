@@ -9,7 +9,7 @@ import {hideScrollbar, showScrollbar, HasLength} from '@vendor/plugin/helper';
 const ENDPOINT = {
     "ARVAN_UPLOAD_FILE": `https://napi.arvancloud.com/vod/2.0/channels/${CHANNEL_ID}/files`,
     "ARVAN_UPLOAD_VIDEOS": `https://napi.arvancloud.com/vod/2.0/channels/${CHANNEL_ID}/videos`,
-    "ARVAN_DELETE_VIDEOS": `https://napi.arvancloud.com/vod/2.0/videos/`
+    "ARVAN_VIDEO": `https://napi.arvancloud.com/vod/2.0/videos/`
 };
 
 const VIDEO_LINK_ATTR = 'data-url';
@@ -166,15 +166,15 @@ const emptyManageTable = () => {
 
 (async () => {
     try {
-        let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ARVANVOD_ITEM), {
-            user_id: USER_ID,
-        });
-        response = new ShareVideoPresenter( response );
-        createManageTable( response );
-        USER_STORE = response;
+        // let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ARVANVOD_ITEM), {
+        //     user_id: USER_ID,
+        // });
+        // response = new ShareVideoPresenter( response );
+        // createManageTable( response );
+        // USER_STORE = response;
         await request({
             method: 'GET',
-            input: `https://napi.arvancloud.com/vod/2.0/videos/9b3e6171-6318-484a-8856-769fdfbc2d81`,
+            input: `https://napi.arvancloud.com/vod/2.0/videos/28d29331-249c-44da-8fa7-a6fb1f5b224c`,
         });
     } catch ( exception ) {
         NOTIFICATION_EL.Notification({
@@ -196,6 +196,7 @@ const STEPS = {
     },
     showStep2() {
         try {
+            if (!SECOND_STEP.classList.contains( HEIGHT_0_CLASSNAME )) return;
             FIRST_STEP.classList.add( HEIGHT_0_CLASSNAME );
             SECOND_STEP.style.height = `${SECOND_STEP.firstElementChild.offsetHeight}px`;
             SECOND_STEP.classList.remove(HEIGHT_0_CLASSNAME);
@@ -258,6 +259,7 @@ try {
                         filetype: file.type,
                     },
                     onBeforeRequest: () => {
+                        console.log('injjja');
                         STEPS.showStep2();
                     },
                     onError: function ( error) {
@@ -296,10 +298,9 @@ try {
         try {
             const formData = new FormData();
             formData.append('file_id', video['id']);
-            formData.append('thumbnail_time', 3);
             formData.append('video_url', video['url']);
             formData.append('convert_mode', "auto");
-            formData.append('title', 'انجمن اهدا عضو ایرانیان - شناسه کاربر: 2');
+            formData.append('title', 'انجمن اهدا عضو ایرانیان - شناسه کاربر: ۷۴');
 
             return await request({
                 body: formData,
@@ -374,7 +375,6 @@ try {
                 }).then(response => response.data);
 
                 let user_video = PENDING_FILES.find(item => item.filename === fileName);
-                console.log('user_video', user_video);
                 user_video = user_video || PENDING_FILES[0];
 
                 let newData = await changeStatusVideo( user_video );
@@ -443,7 +443,7 @@ try {
         try {
             await request({
                 method: 'DELETE',
-                input: `${ENDPOINT['ARVAN_DELETE_VIDEOS']}${video_id}`,
+                input: `${ENDPOINT['ARVAN_VIDEO']}${video_id}`,
             });
         } catch (e) {}
     };
