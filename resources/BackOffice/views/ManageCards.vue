@@ -398,7 +398,7 @@
                         this.displayNotification(exception, { type: 'error' });
                     }
                     this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
-                }, 350);
+                }, 1500);
             },
             async onClickShowUserInfoModal( user_id ) {
                 try {
