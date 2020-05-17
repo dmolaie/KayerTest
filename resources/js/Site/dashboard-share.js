@@ -450,9 +450,7 @@ try {
 
     const deleteAssignedVideo = async user_id => {
         try {
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_ARVANVOD_ITEM), {
-                user_id: USER_ID
-            });
+            await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_ARVANVOD_ITEM), { user_id });
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
         }
