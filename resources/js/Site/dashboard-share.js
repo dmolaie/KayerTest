@@ -172,6 +172,10 @@ const emptyManageTable = () => {
         response = new ShareVideoPresenter( response );
         createManageTable( response );
         USER_STORE = response;
+        await request({
+            method: 'GET',
+            input: `https://napi.arvancloud.com/vod/2.0/videos/9b3e6171-6318-484a-8856-769fdfbc2d81`,
+        });
     } catch ( exception ) {
         NOTIFICATION_EL.Notification({
             type: 'error',
@@ -295,9 +299,9 @@ try {
             formData.append('thumbnail_time', 3);
             formData.append('video_url', video['url']);
             formData.append('convert_mode', "auto");
-            formData.append('title', 'فیلم اهدا - یوزر آی‌دی: 2');
+            formData.append('title', 'انجمن اهدا عضو ایرانیان - شناسه کاربر: 2');
 
-            await request({
+            return await request({
                 body: formData,
                 method: 'POST',
                 input: ENDPOINT['ARVAN_UPLOAD_VIDEOS'],
@@ -373,15 +377,13 @@ try {
                 console.log('user_video', user_video);
                 user_video = user_video || PENDING_FILES[0];
 
-                await Promise.all([
-                    await changeStatusVideo( user_video ),
-                    await assignVideoToUser({
-                        user_id: USER_ID,
-                        link: user_video['url'],
-                        file_id: user_video['id'],
-                        description: TEXTAREA.value
-                    })
-                ]);
+                let newData = await changeStatusVideo( user_video );
+                await assignVideoToUser({
+                    user_id: USER_ID,
+                    link: user_video['url'],
+                    file_id: newData.data['id'],
+                    description: TEXTAREA.value
+                });
 
                 STEPS.showStep1();
             } catch ( exception ) {
@@ -450,10 +452,6 @@ try {
         try {
             let response = await HTTPService.postRequest(Endpoint.get(Endpoint.DELETE_ARVANVOD_ITEM), {
                 user_id: USER_ID
-            });
-            NOTIFICATION_EL.Notification({
-                type: 'success',
-                text: response.message,
             });
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception )
