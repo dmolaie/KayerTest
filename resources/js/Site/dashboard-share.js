@@ -259,7 +259,6 @@ try {
                         filetype: file.type,
                     },
                     onBeforeRequest: () => {
-                        console.log('injjja');
                         STEPS.showStep2();
                     },
                     onError: function ( error) {
@@ -315,9 +314,7 @@ try {
      */
     const assignVideoToUser = async ( requestPayload ) => {
         try {
-            const REQUEST_PAYLOAD = requestPayload;
-            // if ( !REQUEST_PAYLOAD['description'] ) delete REQUEST_PAYLOAD['description'];
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_ARVANVOD_ITEM), REQUEST_PAYLOAD);
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_ARVANVOD_ITEM), requestPayload);
             NOTIFICATION_EL.Notification({
                 type: 'success',
                 text: response.message,
@@ -347,8 +344,7 @@ try {
             IMAGE_PREVIEW.src = await video.getThumbnails();
             FILE_SIZE_EL.textContent = `حجم فایل: ${FILE_SIZE}Mb`;
 
-            let response = await uploadVideoInAbrVod( file );
-            console.log('response', response);
+            await uploadVideoInAbrVod( file );
             isPending = false;
         } catch ( exception ) {
             NOTIFICATION_EL.Notification({
