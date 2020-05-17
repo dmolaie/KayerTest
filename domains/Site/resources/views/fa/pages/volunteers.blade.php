@@ -220,7 +220,7 @@
                                     <a href="/"
                                        class="text-blue-100 font-sm font-bold l:transition-color l:hover:color-blue-200 p-0-5"
                                     >
-                                        www.ehda.center
+                                        ehdacenter.ir
                                     </a>
                                 </li>
                                 <li class="i-page__list_item i-page__text md:font-sm flex items-center text-bayoux font-base text-right">
