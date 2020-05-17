@@ -3,7 +3,9 @@ import Endpoint from '@endpoints';
 import HTTPService from './service/HttpService';
 import Notification from './service/Notification';
 import ExceptionService from '@services/service/exception';
-import ShareVideoPresenter from '@js/presenter/ShareVideo';
+import ShareVideoPresenter, {
+    ArvanVideoPresenter
+} from '@js/presenter/ShareVideo';
 import {hideScrollbar, showScrollbar, HasLength} from '@vendor/plugin/helper';
 
 const ENDPOINT = {
@@ -82,8 +84,6 @@ class Video {
             return await new Promise(async resolve => {
                 this.videoElement.addEventListener(
                     'loadeddata', async () => {
-                        this.videoElement.currentTime = (this.videoElement.duration / 2);
-                        document.body.append(this.videoElement);
                         this.canvas.width = this.videoElement?.videoWidth || 400;
                         this.canvas.height = this.videoElement?.videoHeight || 400;
                         this.canvasContext.drawImage(this.videoElement, 0, 0);
@@ -130,7 +130,7 @@ const createManageTable = response => {
         TBODY_ELEMENT.innerHTML = (`
             <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
                 <div class="d-share__cell flex-2 inline-flex items-center justify-start">
-                    <button ${VIDEO_LINK_ATTR}="${response.link}"
+                    <button ${VIDEO_LINK_ATTR}='${JSON.stringify({ file_id: response.file_id })}'
                        class="d-share__watch text-blue l:transition-color l:hover:color-blue-200"
                     >
                         مشاهده ویدیو
@@ -166,16 +166,12 @@ const emptyManageTable = () => {
 
 (async () => {
     try {
-        // let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ARVANVOD_ITEM), {
-        //     user_id: USER_ID,
-        // });
-        // response = new ShareVideoPresenter( response );
-        // createManageTable( response );
-        // USER_STORE = response;
-        await request({
-            method: 'GET',
-            input: `https://napi.arvancloud.com/vod/2.0/videos/28d29331-249c-44da-8fa7-a6fb1f5b224c`,
+        let response = await HTTPService.postRequest(Endpoint.get(Endpoint.GET_ARVANVOD_ITEM), {
+            user_id: USER_ID,
         });
+        response = new ShareVideoPresenter( response );
+        createManageTable( response );
+        USER_STORE = response;
     } catch ( exception ) {
         NOTIFICATION_EL.Notification({
             type: 'error',
@@ -314,7 +310,9 @@ try {
      */
     const assignVideoToUser = async ( requestPayload ) => {
         try {
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_ARVANVOD_ITEM), requestPayload);
+            const REQUEST_PAYLOAD = requestPayload;
+            if ( !REQUEST_PAYLOAD['description'] ) delete REQUEST_PAYLOAD['description'];
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.CREATE_ARVANVOD_ITEM), REQUEST_PAYLOAD);
             NOTIFICATION_EL.Notification({
                 type: 'success',
                 text: response.message,
@@ -376,7 +374,6 @@ try {
                 let newData = await changeStatusVideo( user_video );
                 await assignVideoToUser({
                     user_id: USER_ID,
-                    link: user_video['url'],
                     file_id: newData.data['id'],
                     description: TEXTAREA.value
                 });
@@ -422,6 +419,7 @@ try {
 
 try {
     let selectedItem = null;
+    let videoURL = null, isPending = false;
     const DISPLAY_NONE_CLASS = 'none';
     const OPENED_CLASSNAME = 'd-share__confirm--opened';
     const CLOSED_CLASSNAME = 'd-share__confirm--closed';
@@ -500,12 +498,35 @@ try {
         }
     );
 
-    const onClickOpenVideoButton = element => {
+    const onClickOpenVideoButton = async element => {
         try {
-            const LINK = element.getAttribute( VIDEO_LINK_ATTR );
-            if ( !LINK ) return false;
-            window.open(LINK, '_blank');
+            let data = element.getAttribute( VIDEO_LINK_ATTR );
+            if (!data && !isPending) return false;
+            data = JSON.parse( data );
+            if ( !videoURL ) {
+                NOTIFICATION_EL.Notification({
+                    type: 'simple', text: "لطفا منتظر بمانید.",
+                });
+                isPending = true;
+                let response = await request({
+                    method: 'GET',
+                    input: `${ENDPOINT['ARVAN_VIDEO']}${data['file_id']}`,
+                });
+                videoURL = new ArvanVideoPresenter( response );
+                if ( !videoURL ) {
+                    NOTIFICATION_EL.Notification({
+                        type: 'simple', text: "ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.",
+                    });
+                    return '';
+                }
+                window.open(videoURL, '_blank');
+            } else {
+                window.open(videoURL, '_blank');
+            }
         } catch (e) {}
+        finally {
+            isPending = false;
+        }
     };
 
     const onClickRemoveVideoButton = element => {
@@ -520,13 +541,13 @@ try {
 
     TBODY_ELEMENT.addEventListener(
         'click',
-        event => {
+        async event => {
             event.preventDefault();
             const TARGET = event.target || event.srcElement;
             if ( TARGET.classList.contains(REMOVE_BUTTON_CLASSNAME) ) {
                 onClickRemoveVideoButton( TARGET );
             } else if ( /d-share__watch/.test( TARGET.className ) ) {
-                onClickOpenVideoButton( TARGET );
+                await onClickOpenVideoButton( TARGET );
             }
         }
     );
