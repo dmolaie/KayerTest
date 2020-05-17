@@ -3,8 +3,10 @@
 namespace Domains\Arvanvod\Entities;
 
 use App\Http\Controllers\UuIdTrait;
+use Domains\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Jenssegers\Mongodb\Relations\BelongsTo;
 
 class Arvanvod extends Model
 {
@@ -33,5 +35,12 @@ class Arvanvod extends Model
         });
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function arvanvod()
+    {
+        return $this->belongsTo(User::class,'id','id');
+    }
 
 }

@@ -65,7 +65,8 @@ class UserFullInfoDTOMaker
                 'name' => $user->createdBy->name,
                 'id'   => $user->createdBy->id,
             ] : null)
-            ->setCreatedAt($user->created_at);
+            ->setCreatedAt($user->created_at)
+            ->setFileId(!$user->arvanvod->isEmpty() ? current(current($user->arvanvod))->file_id : null);
 
         return $userFullInfoDTO;
     }

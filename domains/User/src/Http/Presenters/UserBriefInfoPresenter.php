@@ -30,7 +30,8 @@ class UserBriefInfoPresenter
             'roles'            => $userBriefInfoDTO->getRoles(),
             'created_by'       => $userBriefInfoDTO->getCreatedBy(),
             'created_at'       => strtotime($userBriefInfoDTO->getCreatedAt()),
-            'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt())
+            'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt()),
+            'file_id'          => $userBriefInfoDTO->getFileId(),
         ];
     }
 

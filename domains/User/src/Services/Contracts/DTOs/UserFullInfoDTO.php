@@ -160,6 +160,10 @@ class UserFullInfoDTO
      */
     protected $roles;
     /**
+     * @var null|array
+     */
+    protected $fileId;
+    /**
      * @var null|string
      */
     protected $createdAt;
@@ -891,7 +895,21 @@ class UserFullInfoDTO
         return $this;
     }
 
+    /**
+     * @return null
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
 
+    /**
+     * @param null $fileId
+     */
+    public function setFileId($fileId)
+    {
+        $this->fileId = $fileId;
+    }
 
 
 }

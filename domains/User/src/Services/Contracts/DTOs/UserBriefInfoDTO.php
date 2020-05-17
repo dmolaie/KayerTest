@@ -66,6 +66,28 @@ class UserBriefInfoDTO
      * @var null|string
      */
     protected $uuid;
+    /**
+     * @var null|string
+     */
+    protected $fileId;
+
+    /**
+     * @return null
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
+
+    /**
+     * @param null $fileId
+     * @return UserBriefInfoDTO
+     */
+    public function setFileId( $fileId): UserBriefInfoDTO
+    {
+        $this->fileId = $fileId;
+        return $this;
+    }
 
     /**
      * @return string|null

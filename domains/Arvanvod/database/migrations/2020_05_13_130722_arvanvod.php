@@ -18,8 +18,8 @@ class Arvanvod extends Migration
             $table->string('uuid')->unique()->index();
             $table->bigInteger('user_id')->unsigned();
             $table->string('file_id');
-            $table->text('link');
-            $table->text('description');
+            $table->string('link')->nullable();
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

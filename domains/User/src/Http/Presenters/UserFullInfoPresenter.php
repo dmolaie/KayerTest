@@ -50,6 +50,7 @@ class UserFullInfoPresenter
             'receive_email'              => $userFullInfoDTO->getReceiveEmail(),
             'event'                      => $userFullInfoDTO->getEvent(),
             'card_id'                    => $this->getCardId($userFullInfoDTO),
+            'file_id'                    => $userFullInfoDTO->getFileId(),
             'created_by'                 => $userFullInfoDTO->getCreatedBy(),
             'created_at'                 => strtotime($userFullInfoDTO->getCreatedAt()),
             'updated_at'                 => strtotime($userFullInfoDTO->getUpdatedAt())

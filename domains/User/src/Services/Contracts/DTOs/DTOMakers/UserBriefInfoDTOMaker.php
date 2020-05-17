@@ -21,7 +21,6 @@ class UserBriefInfoDTOMaker
 
     public function convert(User $user): UserBriefInfoDTO
     {
-
         $userBriefInfoDTO = new UserBriefInfoDTO();
         $userBriefInfoDTO->setId($user->id)
             ->setName($user->name)
@@ -39,7 +38,8 @@ class UserBriefInfoDTOMaker
                 'name' => $user->createdBy->name,
                 'id'   => $user->createdBy->id,
             ] : null)
-            ->setCreatedAt($user->created_at);
+            ->setCreatedAt($user->created_at)
+            ->setFileId( !$user->arvanvod->isEmpty() ? current(current($user->arvanvod))->file_id : null);
         return $userBriefInfoDTO;
 
     }

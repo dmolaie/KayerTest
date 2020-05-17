@@ -18,7 +18,7 @@ class CreateArvanvodRequest extends EhdaBaseRequest
         return [
             'user_id' => 'required|integer|exists:users,id',
             'file_id' => 'required|string',
-            'link' => 'required|string',
+            'link' => 'string',
             'description' => 'string',
         ];
     }

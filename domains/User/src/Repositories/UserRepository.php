@@ -85,7 +85,7 @@ class UserRepository
 
     public function findOrFail(int $id)
     {
-        return $this->entityName::findOrFail($id);
+        return $this->entityName::with('arvanvod')->findOrFail($id);
     }
 
     public function isUserAdmin(int $userId): bool
@@ -170,7 +170,7 @@ class UserRepository
                     'roles', function ($query) use ($userSearchDTO) {
                     $query->where('roles.type', $userSearchDTO->getRoleType());
                 });
-            })
+            })->with('arvanvod')
             ->paginate(config('user.user_paginate_count'));
     }
 
