@@ -20,6 +20,7 @@
     @endsection
     @section('scripts')
         <script type="text/javascript" src="{{ secure_asset('js/site/runtime.js') }}" defer ></script>
+        <script type="text/javascript" src="{{ secure_asset('js/site/master.js') }}" defer ></script>
         <script type="text/javascript" src="{{ secure_asset('mapir/js/jquery-3.2.1.min.js') }}" defer></script>
         <script type="text/javascript" src="{{ secure_asset('mapir/js/mapp.env.js') }}" defer></script>
         <script type="text/javascript" src="{{ secure_asset('mapir/js/mapp.min.js') }}" defer></script>
