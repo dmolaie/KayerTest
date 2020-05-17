@@ -25,12 +25,12 @@ class ArvanInfoDTO
     protected $userId;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $link;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $description;
 
@@ -38,6 +38,29 @@ class ArvanInfoDTO
      * @var string
      */
     protected $fileId;
+
+    /**
+     * @var string
+     */
+    protected $date;
+
+    /**
+     * @return string
+     */
+    public function getDate(): string
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $date
+     * @return ArvanInfoDTO
+     */
+    public function setDate(string $date): ArvanInfoDTO
+    {
+        $this->date = $date;
+        return $this;
+    }
 
     /**
      * @return string
@@ -112,36 +135,36 @@ class ArvanInfoDTO
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getLink(): string
+    public function getLink()
     {
         return $this->link;
     }
 
     /**
-     * @param string $link
+     * @param null|string $link
      * @return ArvanInfoDTO
      */
-    public function setLink(string $link): ArvanInfoDTO
+    public function setLink($link): ArvanInfoDTO
     {
         $this->link = $link;
         return $this;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param null|string $description
      * @return ArvanInfoDTO
      */
-    public function setDescription(string $description): ArvanInfoDTO
+    public function setDescription($description): ArvanInfoDTO
     {
         $this->description = $description;
         return $this;

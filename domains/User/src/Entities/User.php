@@ -3,6 +3,7 @@
 namespace Domains\User\Entities;
 
 use App\Http\Controllers\UuIdTrait;
+use Domains\Arvanvod\Entities\Arvanvod;
 use Domains\Event\Entities\Event;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
@@ -149,5 +150,13 @@ class User extends Authenticatable
     public function birthProvince()
     {
         return $this->belongsTo(Province::class,'province_of_birth','id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function arvanvod()
+    {
+        return $this->hasMany(Arvanvod::class,'user_id','id');
     }
 }
