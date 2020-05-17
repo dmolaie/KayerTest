@@ -1,18 +1,22 @@
+import { HasLength } from "@vendor/plugin/helper";
 import DateService from '@vendor/plugin/date';
 import BasePresenter from '@vendor/infrastructure/presenter/BasePresenter';
 
 export default class ShareVideoPresenter extends BasePresenter {
-    constructor( data ) {
+    constructor({ data }) {
         super( data );
-        this.data = data.data;
+        this.data = data;
 
-        return this.mapProps({
-            user_id: String,
-            file_id: String,
-            link: String,
-            description: String,
-            publish_date: String,
-        })
+        if (!!data && HasLength( data )) {
+            return this.mapProps({
+                user_id: String,
+                file_id: String,
+                link: String,
+                description: String,
+                publish_date: String,
+            })
+        }
+        return {};
     }
 
     user_id() {
