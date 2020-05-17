@@ -27,7 +27,7 @@ class UpdateUserInfoRequest extends EhdaBaseRequest
             'city_of_birth'              => 'integer',
             'date_of_birth'              => 'required|numeric',
             'job_title'                  => 'string|max:50|min:3',
-            'last_education_degree'      => 'required|integer|max:8|min:0',
+            'last_education_degree'      => 'required|integer|max:11|min:0',
             'phone'                      => 'regex:/^0\d{2,3}\d{8}$/',
             'mobile'                     => 'required|regex:/(09)[0-9]{9}/',
             'essential_mobile'           => 'regex:/(09)[0-9]{9}/',
