@@ -57,7 +57,7 @@ export default class UserPresenter extends BasePresenter {
             event_name: String,
             card_id: String,
             has_card: Boolean,
-            video_path: String,
+            file_id: String,
             has_video: Boolean,
         })
     }
@@ -258,12 +258,12 @@ export default class UserPresenter extends BasePresenter {
         return !!this.item.card_id
     }
 
-    video_path() {
-        return this.item.video_path || '';
+    file_id() {
+        return this.item.file_id || '';
     }
 
     has_video() {
-        return !!this.item.video_path
+        return !!this.item.file_id
     }
 }
 

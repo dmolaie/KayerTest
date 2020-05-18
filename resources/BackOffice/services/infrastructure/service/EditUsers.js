@@ -12,6 +12,7 @@ import { EventService } from '@services/service/ManageEvent';
 import { CopyOf, toEnglishDigits } from "@vendor/plugin/helper";
 import { UPDATE_USER, GET_USER_ID }  from '@services/store/Login';
 import { EventPresenter } from '@services/presenter/EditUsers';
+import ArvanVODPresenter from '@services/presenter/ArvanVod';
 
 export default class EditUserService extends BaseService {
     constructor( layout ) {
@@ -94,6 +95,8 @@ export default class EditUserService extends BaseService {
             delete form['national_code'];
             delete form['card_id'];
             delete form['has_card'];
+            delete form['file_id'];
+            delete form['has_video'];
 
             if ( typeof form['marital_status'] === 'object' ) delete form['marital_status'];
 
@@ -127,6 +130,41 @@ export default class EditUserService extends BaseService {
                             this.$vm.setValidationError(key, val[0])
                     });
             }
+            throw ExceptionService._GetErrorMessage( exception );
+        }
+    }
+
+    async openUserVideo( file_id ) {
+        try {
+            let response = await new Promise((resolve, reject) => {
+                const HEADERS = new Headers();
+                HEADERS.append('Authorization', ARVAN_VOD);
+                HEADERS.append('Accept-Language', "en");
+                const INIT_OPTION = {};
+                INIT_OPTION.headers = HEADERS;
+                INIT_OPTION.method = "GET";
+
+                fetch(`https://napi.arvancloud.com/vod/2.0/videos/${file_id}`, INIT_OPTION)
+                    .then(response => {
+                        const RESPONSE = response.json();
+                        ( response.ok ) ? (
+                            resolve( RESPONSE )
+                        ) : (
+                            reject( RESPONSE )
+                        )
+                    })
+                    .catch(except => reject(except))
+            });
+
+            let videoURL = new ArvanVODPresenter( response ).url;
+            if ( !videoURL ) {
+                this.$vm.displayNotification('ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.', {
+                    type: 'warn',
+                });
+                return '';
+            }
+            window.open(videoURL, '_blank');
+        } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
     }

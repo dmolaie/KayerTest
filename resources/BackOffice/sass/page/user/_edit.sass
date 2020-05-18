@@ -1,4 +1,17 @@
 .e-user
+  &__download
+    $c: #bde8fa
+    padding: 12px 10px
+    border-color: $c
+    background-color: transparentize($c, (1 - .2))
+    transition: background-color $duration
+    @include SpinnerLoading(22px, 3px, darken($c, 6%))
+    &:hover
+      background-color: transparentize($c, (1 - .3))
+    &:disabled
+      opacity: .7
+      pointer-events: none
+      filter: grayscale(.9)
   &__label
     margin-bottom: 12px
   &__text

@@ -40,7 +40,7 @@ const TBODY_ELEMENT = document.querySelector('.d-share__tbody');
 
 let USER_STORE = null;
 
-const USER_ID = 3;
+const USER_ID = 5;
 
 class Video {
     #file = null;
@@ -487,6 +487,7 @@ try {
                 toggleConfirmModal.hidden();
                 selectedItem = null;
                 USER_STORE = null;
+                videoURL = null;
             } catch ( exception ) {
                 NOTIFICATION_EL.Notification({
                     type: 'error',
@@ -504,18 +505,16 @@ try {
             if (!data && !isPending) return false;
             data = JSON.parse( data );
             if ( !videoURL ) {
-                NOTIFICATION_EL.Notification({
-                    type: 'simple', text: "لطفا منتظر بمانید.",
-                });
                 isPending = true;
                 let response = await request({
                     method: 'GET',
                     input: `${ENDPOINT['ARVAN_VIDEO']}${data['file_id']}`,
                 });
-                videoURL = new ArvanVideoPresenter( response );
+                videoURL = new ArvanVideoPresenter( response ).url;
                 if ( !videoURL ) {
                     NOTIFICATION_EL.Notification({
-                        type: 'simple', text: "ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.",
+                        type: 'warn',
+                        text: "ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.",
                     });
                     return '';
                 }

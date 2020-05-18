@@ -31,18 +31,16 @@ export default class ShareVideoPresenter extends BasePresenter {
     }
 
     publish_date() {
-        // return this.data.description;
-        //
-        return DateService.getJalaaliDate( 1589653669.319 )
+        return DateService.getJalaaliDate( this.data.date )
     }
 }
 
 export class ArvanVideoPresenter {
     constructor({ data }) {
+        this.url = '';
         const { mp4_videos } = data;
-        if (!!mp4_videos && HasLength( mp4_videos )) {
-            return mp4_videos[Length( mp4_videos ) - 1]
-        }
-        return data['video_url'] || '';
+        if (!!mp4_videos && HasLength( mp4_videos )) { this.url = mp4_videos[Length( mp4_videos ) - 1]; }
+        this.url = data['video_url'];
+        return this.url || '';
     }
 }
