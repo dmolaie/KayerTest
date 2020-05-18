@@ -1,5 +1,5 @@
 @include('fa.template.part-theme.head')
-    <div class="p-count bg-blue">
+    <div class="p-count bg-green-200">
         <header class="p-count__header bg-white">
             <a href="{{ route('index', config('app.locale')) }}" class="block">
                 <img src="{{ asset('/images/ic_ehda-center.png') }}"
@@ -10,7 +10,7 @@
         </header>
         <main class="w-full">
             <div class="container cursor-default text-center">
-                <h1 class="font-base font-bold">
+                <h1 class="font-lg font-bold">
                     تعامل انجمن اهدای عضو ایرانیان با گروه ورزش شبکه سه سیما
                 </h1>
                 <div class="w-full">
@@ -24,58 +24,62 @@
                         </span>
                     </h2>
                 </div>
-                <p class="font-sm font-bold">
+                <p class="font-base font-bold">
                     از ابتدای برنامه
-                    ۵۰,۳۰۵
+                    <span  class="text-white">
+                        ۵۰,۳۰۵
+                    </span>
                     نفر در کمپین شرکت کرده‌اند.
                 </p>
-                <div class="p-count__progressBar flex items-start justify-around sm:flex-col-reverse">
-                    <div class="p-count__progressBar_item w-1/3 text-blue-800 sm:w-full">
-                        <figure class="progress_bar__item_icon block relative">
+                <div class="p-count__progressBar flex items-start justify-center sm:flex-col-reverse">
+                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full"
+                         id="seconds"
+                    >
+                        <figure class="p-count__progressBar_icon block relative">
                             <svg viewBox="0 0 78 78" class="c-progress c-progress-10 block m-0-auto">
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="18"
                                         fill="none"
-                                        class="c-progress_bar"
+                                        class="c-progress__bar"
                                 />
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="1.3"
                                         fill="none"
-                                        class="c-progress_body"
+                                        class="c-progress__body"
                                 />
                             </svg>
                         </figure>
-                        <p class="progress_bar__item_title font-base-bold sm:font-1xs">
-                            <span class="l:font-24">
-                                ۱۰
-                            </span>
+                        <p class="p-count__progressBar_title font-base-bold sm:font-1xs">
+                            <span class="c-progress__value l:font-24"
+                            > </span>
                             ثانیه
                         </p>
                     </div>
-                    <div class="p-count__progressBar_item w-1/3 text-blue-800 sm:w-full">
-                        <figure class="progress_bar__item_icon block relative">
+                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full"
+                         id="minutes"
+                    >
+                        <figure class="p-count__progressBar_icon block relative">
                             <svg viewBox="0 0 78 78" class="c-progress c-progress-2 block m-0-auto">
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="18"
                                         fill="none"
-                                        class="c-progress_bar"
+                                        class="c-progress__bar"
                                 />
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="1.3"
                                         fill="none"
-                                        class="c-progress_body"
+                                        class="c-progress__body"
                                 />
                             </svg>
                         </figure>
-                        <p class="progress_bar__item_title font-base-bold sm:font-1xs">
-                            <span class="l:font-24">
-                                ۲
-                            </span>
+                        <p class="p-count__progressBar_title font-base-bold sm:font-1xs">
+                            <span class="c-progress__value l:font-24"
+                            > </span>
                             دقیقه
                         </p>
                     </div>
-                    <div class="p-count__progressBar_item w-1/3 text-blue-800 sm:w-full">
-                        <figure class="progress_bar__item_icon block relative">
+                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full">
+                        <figure class="p-count__progressBar_icon block relative">
                             <svg viewBox="0 0 78 78" class="c-progress c-progress-12 block m-0-auto">
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="18"
@@ -90,14 +94,14 @@
                             </svg>
                         </figure>
                         <p class="progress_bar__item_title font-base-bold sm:font-1xs">
-                            <span class="l:font-24">
-                                ۱۲
-                            </span>
+                            <span class="l:font-24"
+                                  id="hours"
+                            > </span>
                             ساعت
                         </p>
                     </div>
-                    <div class="p-count__progressBar_item w-1/3 text-blue-800 sm:w-full">
-                        <figure class="progress_bar__item_icon block relative">
+                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full">
+                        <figure class="p-count__progressBar_icon block relative">
                             <svg viewBox="0 0 78 78" class="c-progress c-progress-12 block m-0-auto">
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="18"
@@ -112,9 +116,9 @@
                             </svg>
                         </figure>
                         <p class="progress_bar__item_title font-base-bold sm:font-1xs">
-                            <span class="l:font-24">
-                                ۱۲
-                            </span>
+                            <span class="l:font-24"
+                                  id="days"
+                            > </span>
                             روز
                         </p>
                     </div>
@@ -122,3 +126,56 @@
             </div>
         </main>
     </div>
+
+    <script>
+        const CLASS_PREFIX = 'c-progress';
+        const DAYS_ELEMENT = document.getElementById('days');
+        const HOURS_ELEMENT = document.getElementById('hours');
+        const MINUTES_ELEMENT = document.getElementById('minutes');
+        const SECONDS_ELEMENT = document.getElementById('seconds');
+
+        const CalculateProgressValue = value => (
+            (2 * Math.PI * 30) * (1 - value)
+        );
+
+        const setValueIntoElement = (element, value, text) => {
+            try {
+                let svgElement = element.querySelector(`.${CLASS_PREFIX}__bar`);
+                svgElement.style.transitionDuration = `${ !!value ? '.7s' : 0 }`;
+                svgElement.style.strokeDashoffset = CalculateProgressValue( value );
+                let textElement = element.querySelector(`.${CLASS_PREFIX}__value`);
+                textElement.textContent = text;
+            } catch ( exception ) {}
+        };
+
+        const countUpTimer = ( start_data ) => {
+            const DISTANCE = Date.now() - start_data;
+            const SECONDS_PER_HOUR = 60 * 60 * 1e3;
+
+            const DAYS    = DISTANCE / (SECONDS_PER_HOUR * 24);
+            const HOURS   = (DISTANCE % (SECONDS_PER_HOUR * 24)) / SECONDS_PER_HOUR;
+            const MINUTES = Math.floor((DISTANCE % SECONDS_PER_HOUR) / (60 * 1e3));
+            const SECONDS = Math.floor((DISTANCE % (60 * 1e3)) / 1e3);
+
+            console.log(MINUTES, (DISTANCE % SECONDS_PER_HOUR) / (60 * 1e3));
+            setValueIntoElement(
+                SECONDS_ELEMENT,
+                SECONDS >= 59 ? 1 : (SECONDS / 60),
+                SECONDS,
+            );
+
+            setValueIntoElement(
+                MINUTES_ELEMENT,
+                MINUTES >= 59 ? 1 : (MINUTES / 60),
+                MINUTES,
+            );
+            // console.log('MINUTES: ', MINUTES, 'SECONDS: ', SECONDS);
+            // DAYS_ELEMENT.textContent    = Math.floor( DAYS );
+            // HOURS_ELEMENT.textContent   = Math.floor( HOURS );
+            // MINUTES_ELEMENT.textContent = MINUTES;
+        };
+        countUpTimer( 1388565000000 );
+        setInterval(() => {
+            countUpTimer( 1388565000000 );
+        }, 1e3)
+    </script>
