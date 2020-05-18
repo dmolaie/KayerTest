@@ -78,46 +78,48 @@
                             دقیقه
                         </p>
                     </div>
-                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full">
+                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full"
+                         id="hours"
+                    >
                         <figure class="p-count__progressBar_icon block relative">
                             <svg viewBox="0 0 78 78" class="c-progress c-progress-12 block m-0-auto">
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="18"
                                         fill="none"
-                                        class="c-progress_bar"
+                                        class="c-progress__bar"
                                 />
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="1.3"
                                         fill="none"
-                                        class="c-progress_body"
+                                        class="c-progress__body"
                                 />
                             </svg>
                         </figure>
-                        <p class="progress_bar__item_title font-base-bold sm:font-1xs">
-                            <span class="l:font-24"
-                                  id="hours"
+                        <p class="p-count__progressBar_title font-base-bold sm:font-1xs">
+                            <span class="c-progress__value l:font-24"
                             > </span>
                             ساعت
                         </p>
                     </div>
-                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full">
+                    <div class="p-count__progressBar_item xl:w-1/6 w-1/5 text-blue-800 sm:w-full"
+                         id="days"
+                    >
                         <figure class="p-count__progressBar_icon block relative">
                             <svg viewBox="0 0 78 78" class="c-progress c-progress-12 block m-0-auto">
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="18"
                                         fill="none"
-                                        class="c-progress_bar"
+                                        class="c-progress__bar"
                                 />
                                 <circle cx="39" cy="39" r="30"
                                         stroke-width="1.3"
                                         fill="none"
-                                        class="c-progress_body"
+                                        class="c-progress__body"
                                 />
                             </svg>
                         </figure>
-                        <p class="progress_bar__item_title font-base-bold sm:font-1xs">
-                            <span class="l:font-24"
-                                  id="days"
+                        <p class="p-count__progressBar_title font-base-bold sm:font-1xs">
+                            <span class="c-progress__value l:font-24"
                             > </span>
                             روز
                         </p>
@@ -152,12 +154,11 @@
             const DISTANCE = Date.now() - start_data;
             const SECONDS_PER_HOUR = 60 * 60 * 1e3;
 
-            const DAYS    = DISTANCE / (SECONDS_PER_HOUR * 24);
+            const DAYS    = Math.floor(DISTANCE / (SECONDS_PER_HOUR * 24));
             const HOURS   = (DISTANCE % (SECONDS_PER_HOUR * 24)) / SECONDS_PER_HOUR;
             const MINUTES = Math.floor((DISTANCE % SECONDS_PER_HOUR) / (60 * 1e3));
             const SECONDS = Math.floor((DISTANCE % (60 * 1e3)) / 1e3);
 
-            console.log(MINUTES, (DISTANCE % SECONDS_PER_HOUR) / (60 * 1e3));
             setValueIntoElement(
                 SECONDS_ELEMENT,
                 SECONDS >= 59 ? 1 : (SECONDS / 60),
@@ -169,6 +170,20 @@
                 MINUTES >= 59 ? 1 : (MINUTES / 60),
                 MINUTES,
             );
+
+            setValueIntoElement(
+                HOURS_ELEMENT,
+                1,
+                Math.floor( HOURS ),
+            );
+
+            setValueIntoElement(
+                DAYS_ELEMENT,
+                1,
+                DAYS,
+            );
+
+            console.log('DAYS: ', DAYS);
             // console.log('MINUTES: ', MINUTES, 'SECONDS: ', SECONDS);
             // DAYS_ELEMENT.textContent    = Math.floor( DAYS );
             // HOURS_ELEMENT.textContent   = Math.floor( HOURS );
@@ -176,6 +191,6 @@
         };
         countUpTimer( 1388565000000 );
         setInterval(() => {
-            countUpTimer( 1388565000000 );
+            countUpTimer( 1576909800 * 1e3 );
         }, 1e3)
     </script>
