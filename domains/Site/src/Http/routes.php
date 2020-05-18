@@ -30,8 +30,9 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
             Route::get('/volunteers', 'PagesController@legaterVolunteers')->name('volunteers');
             Route::get('/volunteers-final-step',
                 'PagesController@legaterVolunteersFinalStep')->name('volunteers.finalstep');
-            Route::get('/client-profile', 'PagesController@clientProfile')->name('client.profile');
-            Route::get('/edit-client-profile', 'PagesController@editClientProfile')->name('edit.client.profile');
+            Route::get('/client-profile', 'PagesController@clientProfile')->name('client.profile')->middleware('web');
+            Route::get('/edit-client-profile', 'PagesController@editClientProfile')->name('edit.client.profile')->middleware('web');
+            Route::get('/video-profile/{userId}', 'PagesController@showVideoProfile')->name('video.show')->middleware('web');
 
             Route::get('/ngo-history', 'PagesController@history')->name('ngo-history');
             Route::get('/structure-and-organization',

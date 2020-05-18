@@ -127,6 +127,11 @@ class PagesController extends EhdaBaseController
         return view('site::' . $request->language . '.pages.dashboard-edit', compact('data'));
     }
 
+    public function showVideoProfile(Request $request)
+    {
+        return view('site::' . $request->language . '.pages.dashboard-share');
+    }
+
     public function pages($language, $slug, MenusContentService $menusContentService)
     {
         $menuTyps = config('menus.menus_type');
