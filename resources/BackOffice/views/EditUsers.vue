@@ -1036,7 +1036,6 @@
                 .then(this.$nextTick)
                 .then(() => {
                     this.$set(this, 'isPending', false);
-                    console.log(CopyOf(this.user));
                     this.$set(this, 'form', CopyOf( this.user ));
                 });
         },
