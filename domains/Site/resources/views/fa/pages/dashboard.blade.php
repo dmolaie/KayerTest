@@ -25,7 +25,7 @@
                             >
                                 ویرایش پروفایل
                             </a>
-                            <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
+                            <a href="{{ route('page.video.show', [config('app.locale'), auth()->user()->id ]) }}"
                                class="anchor__item text-white font-lg font-bold rounded-6 bg-blue-100 l:transition-background l:hover:bg-blue-200 text-center sm:m-b-25"
                             >
                                 ارسال ویدیو

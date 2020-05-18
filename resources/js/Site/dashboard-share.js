@@ -40,7 +40,11 @@ const TBODY_ELEMENT = document.querySelector('.d-share__tbody');
 
 let USER_STORE = null;
 
-const USER_ID = 5;
+let USER_ID = null;
+
+try {
+    USER_ID = window.location.pathname.match(/\d+$/)[0];
+} catch (e) {}
 
 class Video {
     #file = null;
@@ -295,7 +299,7 @@ try {
             formData.append('file_id', video['id']);
             formData.append('video_url', video['url']);
             formData.append('convert_mode', "auto");
-            formData.append('title', 'انجمن اهدا عضو ایرانیان - شناسه کاربر: ۷۴');
+            formData.append('title', `انجمن اهدا عضو ایرانیان - شناسه کاربر: ${USER_ID}`);
 
             return await request({
                 body: formData,
@@ -369,8 +373,7 @@ try {
                 }).then(response => response.data);
 
                 let user_video = PENDING_FILES.find(item => item.filename === fileName);
-                user_video = user_video || PENDING_FILES[0];
-
+                //user_video = user_video || PENDING_FILES[0];
                 let newData = await changeStatusVideo( user_video );
                 await assignVideoToUser({
                     user_id: USER_ID,
