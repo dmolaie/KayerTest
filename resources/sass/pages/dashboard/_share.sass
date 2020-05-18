@@ -98,6 +98,7 @@ $border-color: darken($dropbox-background, 4%)
     &--submit
       color: $blue-200
       background: transparentize($sail, (1 - .64))
+      @include SpinnerLoading(20px, 2px, $blue-200)
       @include L_Screen
         &:hover
           background-color: $sail
@@ -137,5 +138,33 @@ $border-color: darken($dropbox-background, 4%)
       height: 100%
       background-color: $blue
       transition: width .1s linear
+    &--loading
+      &::before
+        $stripes-size: 24px
+        $stripes-color: transparentize($black, (1 - .08))
+        content: " "
+        position: absolute
+        top: 0
+        left: 0
+        bottom: 0
+        right: -46px
+        background: linear-gradient(-45deg,$stripes-color 25%,transparent 25%,transparent 50%,$stripes-color 50%,$stripes-color 75%,transparent 75%,transparent)
+          size: $stripes-size $stripes-size
+        animation: stripes .6s linear infinite
   .h-0
     height: 0 !important
+  &__loading
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: transparentize($white, (1 - .9))
+    border-radius: 0 0 10px 10px
+    @include SpinnerLoading(64px, 4px, $blue)
+    position: fixed
+    pointer-events: auto !important
+    transition: opacity .12s ease-in-out
+    z-index: 5
+    &--hidden
+      opacity: 0
+      pointer-events: none !important

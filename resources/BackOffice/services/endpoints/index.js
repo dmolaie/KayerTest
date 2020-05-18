@@ -78,6 +78,9 @@ const CREATE_SLIDER_LIST = "CREATE_SLIDER_LIST";
 const DELETE_SLIDER_LIST = "DELETE_SLIDER_LIST";
 const SITE_GET_GALLERY_LIST = 'SITE_GET_GALLERY_LIST';
 const SITE_GET_CATEGORY_LIST = 'SITE_GET_CATEGORY_LIST';
+const GET_ARVANVOD_ITEM = 'GET_ARVANVOD_ITEM';
+const CREATE_ARVANVOD_ITEM = 'CREATE_ARVANVOD_ITEM';
+const DELETE_ARVANVOD_ITEM = 'DELETE_ARVANVOD_ITEM';
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[LOGOUT] = '/user/logout';
@@ -162,6 +165,10 @@ endpoints[DELETE_SLIDER_LIST] = `/slider/${VER_1_0}/admin/delete/:id`;
 
 endpoints[SITE_GET_CATEGORY_LIST] = `/category/v1/category-list-by-type`;
 endpoints[SITE_GET_GALLERY_LIST] = `/:lang/page/gallery/list-content`;
+
+endpoints[GET_ARVANVOD_ITEM] = `/arvanvod/${VER_1_0}/admin/list`;
+endpoints[CREATE_ARVANVOD_ITEM] = `/arvanvod/${VER_1_0}/admin/create`;
+endpoints[DELETE_ARVANVOD_ITEM] = `/arvanvod/${VER_1_0}/admin/delete`;
 
 export default class Endpoint {
     static get API_DOMAIN() {
@@ -454,6 +461,18 @@ export default class Endpoint {
 
     static get DELETE_SLIDER_LIST() {
         return endpoints[DELETE_SLIDER_LIST]
+    }
+
+    static get GET_ARVANVOD_ITEM() {
+        return endpoints[GET_ARVANVOD_ITEM]
+    }
+
+    static get CREATE_ARVANVOD_ITEM() {
+        return endpoints[CREATE_ARVANVOD_ITEM]
+    }
+
+    static get DELETE_ARVANVOD_ITEM() {
+        return endpoints[DELETE_ARVANVOD_ITEM]
     }
 
     static get( endpoint, params = {} ) {

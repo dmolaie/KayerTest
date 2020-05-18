@@ -1,10 +1,13 @@
 $border: #c8edfc
+$pagination-width: 30px
+$pagination-height: 30px
 
 .pagination
   &__item
     color: #788b90
-    @include Size( 28px )
-    line-height: 28px
+    min-width: $pagination-width
+    height: $pagination-height
+    line-height: $pagination-height
     background-color: #fafcfe
     border:
       right: 1px solid $border
@@ -18,7 +21,9 @@ $border: #c8edfc
       border-radius: 0 0 $radius $radius
     button
       color: #788b90
-      @include Size( 28px )
+      padding: 0 5px
+      min-width: $pagination-width
+      height: $pagination-height
     &--selected
       color: $white !important
       background-color: $blue-100

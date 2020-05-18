@@ -90,9 +90,7 @@ export default class ManageLegateService extends BaseService {
 
     async processFetchAsyncData() {
         try {
-            let {
-                query
-            } = this.$vm.$route;
+            let { query } = this.$vm.$route;
             await Promise.all([
                 this.getVolunteersListFilterBy( query ),
             ]);

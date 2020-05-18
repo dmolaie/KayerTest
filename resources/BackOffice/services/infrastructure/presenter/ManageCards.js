@@ -29,6 +29,7 @@ export class SingleManageCardsPresenter extends BasePresenter {
             created_at: String,
             location: String,
             mobile: String,
+            has_video: Boolean
         })
     }
 
@@ -65,7 +66,11 @@ export class SingleManageCardsPresenter extends BasePresenter {
     }
 
     mobile() {
-        return this.data.mobile || '09215162087'
+        return this.data.mobile || ''
+    }
+
+    has_video() {
+        return !!this.data.file_id;
     }
 }
 

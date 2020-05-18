@@ -524,7 +524,13 @@
                                 <br>
                                 2. داوطلبانی که در سامانه های دیگر ثبت نام نموده و از طریق این سامانه ها و یا از طریق
                                 مراجعه به هر یک از واحدهای فراهم آوری کشور یا ارگانهای دیگر کارت دریافت نموده اند همچنین
-                                می توانند برای ثبت اطلاعات خود در سامانه www.ehda.center نیز اقدام نمایند تا اطلاعات
+                                می توانند برای ثبت اطلاعات خود در سامانه
+                                <a href="/"
+                                   class="text-blue-100 font-sm font-bold l:transition-color l:hover:color-blue-200 p-0-5"
+                                >
+                                    ehdacenter.ir
+                                </a>
+                                نیز اقدام نمایند تا اطلاعات
                                 آنها در سامانه مرکزی نیز ثبت شده و از تمام کشور قابل دسترسی باشد.
                                 <br>
                                 3. در صورتیکه علاوه بر ثبت اطلاعات تان در سامانه مرکزی اهدای عضو تمایل دارید کارت اهدای
@@ -546,7 +552,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{secure_asset('js/site/vendors~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{secure_asset('js/site/donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{secure_asset('js/site/donation-card.js')}}" defer></script>
 @endsection

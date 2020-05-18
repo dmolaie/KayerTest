@@ -220,7 +220,7 @@
                                     <a href="/"
                                        class="text-blue-100 font-sm font-bold l:transition-color l:hover:color-blue-200 p-0-5"
                                     >
-                                        www.ehda.center
+                                        ehdacenter.ir
                                     </a>
                                 </li>
                                 <li class="i-page__list_item i-page__text md:font-sm flex items-center text-bayoux font-base text-right">
@@ -310,7 +310,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{secure_asset('js/site/vendors~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{secure_asset('js/site/donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
     <script src="{{secure_asset('js/site/volunteers.js')}}" defer></script>
 @endsection

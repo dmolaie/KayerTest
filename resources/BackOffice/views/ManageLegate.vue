@@ -714,11 +714,10 @@
             async oninputSearchField() {
                 try {
                     clearTimeout( this.searchTimeout );
-                    this.searchTimeout = null;
                     this.searchTimeout = await setTimeout(async () => {
                         await Service.HandelSearchAction( this.filter.search, this.$route );
                         this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
-                    }, 350)
+                    }, 1500)
                 } catch (e) {}
             },
             onClickActionButton( item ) {

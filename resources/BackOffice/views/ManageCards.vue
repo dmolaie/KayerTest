@@ -90,12 +90,16 @@
                                             v-text="item.full_name"
                                             @click.stop="onClickShowUserInfoModal( item.user_id )"
                                     > </button>
-                                    <div class="w-full flex items-start flex-col">
-                                        <span class="m-legate__status m-post__status--published m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs">
-                                             دارای کارت اهدا
+                                    <div class="w-full flex flex-wrap items-end">
+                                        <span class="m-legate__status m-post__status--published m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-b-0">
+                                            دارای کارت اهدا
                                         </span>
-                                        <span class="m-legate__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-1xs"
+                                        <span class="m-legate__status m-post__status inline-flex items-center border border-solid rounded bg-white text-blue-100 font-1xs m-b-0"
                                               v-text="'شناسه کارت: ' + item.card_id"
+                                        > </span>
+                                        <span class="m-legate__status m-legate__status--video m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-b-0"
+                                              v-text="'ویدیو'"
+                                              v-if="item.has_video"
                                         > </span>
                                     </div>
                                 </div>
@@ -398,7 +402,7 @@
                         this.displayNotification(exception, { type: 'error' });
                     }
                     this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
-                }, 350);
+                }, 1500);
             },
             async onClickShowUserInfoModal( user_id ) {
                 try {

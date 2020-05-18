@@ -91,10 +91,13 @@ export default class ManageEventService extends BaseService {
     async getEventListFilterBy( querystring = {} ) {
         try {
             const QUERY_STRING = CopyOf( querystring );
-            if ( QUERY_STRING['status'] === StatusService.MY_POST_STATUS ) {
+            if ( QUERY_STRING['status'] === void 0 ) {
+                QUERY_STRING['status'] = StatusService.PUBLISH_STATUS;
+            } else if ( QUERY_STRING['status'] === StatusService.MY_POST_STATUS ) {
                 delete QUERY_STRING['status'];
                 QUERY_STRING['publisher_id'] = this.$store.getters[GET_USER_ID]
             }
+            console.log('QUERY_STRING', QUERY_STRING);
             let response = await EventService.getEventList( QUERY_STRING );
             BaseService.commitToStore(this.$store, M_EVENT_SET_DATA, response);
         } catch ( exception ) {
@@ -105,8 +108,9 @@ export default class ManageEventService extends BaseService {
     async processFetchAsyncData() {
         try {
             let { query } = this.$vm.$route;
-            let QUERY_STRING = HasLength( query ) ? query : DEFAULT_STATUS;
-            await this.getEventListFilterBy( QUERY_STRING );
+            await this.getEventListFilterBy({
+                status: query['status'] || StatusService.PUBLISH_STATUS
+            });
         } catch ( exception ) {
             const MESSAGE = ExceptionService._GetErrorMessage( exception );
             this.$vm.displayNotification(MESSAGE, { type:'error' })
@@ -115,11 +119,10 @@ export default class ManageEventService extends BaseService {
 
     async HandelSearchAction(searchValue, { query }) {
         try {
-            let QUERY_STRING = query;
             (HasLength( searchValue.trim() )) ? (
-                QUERY_STRING['title'] = searchValue.trim()
-            ) : delete QUERY_STRING['title'];
-            await this.getEventListFilterBy( QUERY_STRING );
+                query['title'] = searchValue.trim()
+            ) : delete query['title'];
+            await this.getEventListFilterBy( query );
         } catch ( exception ) {
             throw exception;
         }
@@ -127,14 +130,13 @@ export default class ManageEventService extends BaseService {
 
     async HandleFilterAction(create_date_start, create_date_end, { query }) {
         try {
-            let QUERY_STRING = HasLength( query ) ? query : DEFAULT_STATUS;
             (!!create_date_start) ? (
-                QUERY_STRING['create_date_start'] = create_date_start
-            ) : delete QUERY_STRING['create_date_start'];
+                query['create_date_start'] = create_date_start
+            ) : delete query['create_date_start'];
             (!!create_date_end) ? (
-                QUERY_STRING['create_date_end'] = create_date_end
-            ) : delete QUERY_STRING['create_date_end'];
-            await this.getEventListFilterBy( QUERY_STRING );
+                query['create_date_end'] = create_date_end
+            ) : delete query['create_date_end'];
+            await this.getEventListFilterBy( query );
         } catch ( exception ) {
             throw exception;
         }

@@ -125,7 +125,7 @@ export class SingleLegatePresenter extends BasePresenter {
     }
 
     has_video() {
-        return !!this.data.video;
+        return !!this.data.file_id;
     }
 }
 

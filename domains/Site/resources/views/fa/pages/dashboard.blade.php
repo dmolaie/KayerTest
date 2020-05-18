@@ -25,6 +25,11 @@
                             >
                                 ویرایش پروفایل
                             </a>
+                            <a href="{{route('page.edit.client.profile',config('app.locale'))}}"
+                               class="anchor__item text-white font-lg font-bold rounded-6 bg-blue-100 l:transition-background l:hover:bg-blue-200 text-center sm:m-b-25"
+                            >
+                                ارسال ویدیو
+                            </a>
                             <a href="{{route('page.volunteers',config('app.locale'))}}"
                                class="anchor__item text-white font-lg font-bold rounded-6 bg-green l:transition-background l:hover:bg-green-200 text-center"
                             >

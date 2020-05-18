@@ -216,6 +216,15 @@
                                    label="name" :searchable="true" :filterBy="handelEventFieldSearch"
                         />
                     </div>
+                    <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <button class="e-user__download w-full text-bayoux border border-solid rounded font-sm font-medium"
+                                :class="{ 'spinner-loading': shouldBeShowSpinnerVideo }"
+                                :disabled="!form.has_video"
+                                @click.prevent="onClickUserVideo( form.file_id )"
+                        >
+                            ویدیو ارسالی کاربر
+                        </button>
+                    </div>
                 </div>
                 <span class="e-user__divider w-full block"> </span>
                 <p class="e-user__label font-sm font-bold text-blue cursor-default">
@@ -759,6 +768,7 @@
             isPending: true,
             isModuleRegistered: false,
             shouldBeShowSpinnerLoading: false,
+            shouldBeShowSpinnerVideo: false,
         }),
         computed: {
             ...mapState({
@@ -1007,6 +1017,17 @@
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
                 }
+            },
+            async onClickUserVideo( file_id ) {
+                try {
+                    if ( !file_id ) return false;
+                    this.$set(this, 'shouldBeShowSpinnerVideo', true);
+                    await Service.openUserVideo( file_id );
+                } catch ( exception ) {
+                    this.displayNotification(exception, {type: 'error'});
+                } finally {
+                    this.$set(this, 'shouldBeShowSpinnerVideo', false);
+                }
             }
         },
         created() {
@@ -1016,7 +1037,7 @@
                 .then(() => {
                     this.$set(this, 'isPending', false);
                     this.$set(this, 'form', CopyOf( this.user ));
-                })
+                });
         },
         beforeDestroy() {
             Service._UnregisterStoreModule();
