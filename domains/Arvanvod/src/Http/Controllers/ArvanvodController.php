@@ -53,7 +53,7 @@ class ArvanvodController extends EhdaBaseController
         } catch (ModelNotFoundException $exception) {
             return $this->response(
                 [],
-                Response::HTTP_NOT_FOUND,
+                Response::HTTP_OK,
                 trans('arvanvod::response.arvanvod_not_found')
             );
         }

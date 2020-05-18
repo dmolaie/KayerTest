@@ -28,7 +28,8 @@ class ArvanvodInfoDTOMaker
             ->setUserId($arvanvod->user_id)
             ->setFileId($arvanvod->file_id)
             ->setLink($arvanvod->link)
-            ->setDescription($arvanvod->description);
+            ->setDescription($arvanvod->description)
+            ->setDate(strtotime($arvanvod->created_at));
         return $ArvanvodInfoDTO;
     }
 }

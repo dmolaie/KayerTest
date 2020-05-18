@@ -23,7 +23,8 @@ class ArvanvodInfoPresenter
             'user_id' => $arvanInfoDTO->getUserId(),
             'file_id' => $arvanInfoDTO->getFileId(),
             'link' => $arvanInfoDTO->getLink(),
-            'description' => $arvanInfoDTO->getDescription()
+            'description' => $arvanInfoDTO->getDescription(),
+            'date' => $arvanInfoDTO->getDate()
         ];
     }
 }

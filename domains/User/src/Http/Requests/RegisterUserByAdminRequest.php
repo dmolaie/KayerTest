@@ -37,7 +37,7 @@ class RegisterUserByAdminRequest extends EhdaBaseRequest
             'city_of_birth'         => 'integer',
             'date_of_birth'         => 'required|numeric',
             'job_title'             => 'string|max:50|min:3',
-            'last_education_degree' => 'integer|max:8|min:0',
+            'last_education_degree' => 'integer|max:11|min:0',
             'phone'                 => 'regex:/^0\d{2,3}\d{8}$/',
             'mobile'                => 'required|regex:/(09)[0-9]{9}/',
             'current_province_id'   => 'required|integer',
@@ -77,7 +77,7 @@ class RegisterUserByAdminRequest extends EhdaBaseRequest
             ->setCityOfBirth($this['city_of_birth'])
             ->setDateOfBirth(Carbon::createFromTimestamp($this['date_of_birth'])->toDateString())
             ->setJobTitle($this['job_title'])
-            ->setLastEducationDegree(isset($this['last_education_degree']) ? config('user.education_degree')[$this['last_education_degree']] : null)
+            ->setLastEducationDegree(!empty($this['last_education_degree']) ? config('user.education_degree')[$this['last_education_degree']] : null)
             ->setPhone($this['phone'])
             ->setMobile($this['mobile'])
             ->setCurrentCityId($this['current_city_id'])
