@@ -1,8 +1,8 @@
 @extends('fa.template.master')
     @section('content')
         <div class="d-share i-page">
-            <div class="container">
-                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold">
+            <div class="container sm:p-0">
+                <h1 class="i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">
                         ارسال ویدیو
                     </span>
@@ -15,7 +15,7 @@
                              id="uploadArea"
                         >
                             <div class="d-share__column w-3/4 sm:w-full m-0-auto">
-                                <label class="d-share__drop w-full text-blue-800 flex items-center justify-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none">
+                                <label class="d-share__drop w-full text-blue-800 flex items-center justify-center font-sm font-medium border border-solid rounded text-center cursor-pointer user-select-none sm:font-xs">
                                     <input type="file" accept="video/*" name="videos[]"
                                            class="d-share__uploadField none w-0 h-0 overflow-hidden pointer-event-none"
                                     >
@@ -55,15 +55,15 @@
                         </div>
                     </form>
                 </div>
-                <h2 class="d-share__secondTitle i-page__head flex items-center justify-center text-blue font-24 font-bold">
+                <h2 class="d-share__secondTitle i-page__head flex items-center justify-center text-blue font-24 font-bold sm:font-lg">
                     <span class="i-page__title text-center cursor-default">
                         مدیریت ویدیو
                     </span>
                 </h2>
-                <div class="inner-box inner-box--white">
-                    <div class="d-share__table w-full rounded text-blue-800">
-                        <div class="w-full block">
-                            <div class="d-share__thead w-full flex font-1xs font-bold text-center cursor-default">
+                <div class="d-share__wrapper inner-box inner-box--white">
+                    <div class="d-share__table w-full rounded text-blue-800 sm:flex">
+                        <div class="w-full block sm:w-1/2">
+                            <div class="d-share__thead w-full flex font-1xs font-bold text-center cursor-default sm:h-full sm:flex-col">
                                 <div class="d-share__cell flex-2 text-right">
                                     مشاهده ویدیو
                                 </div>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-share__tbody w-full block"></div>
+                        <div class="d-share__tbody w-full block sm:w-1/2"></div>
                     </div>
                 </div>
             </div>

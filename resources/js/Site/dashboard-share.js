@@ -132,10 +132,10 @@ const createManageTable = response => {
     try {
         if (!HasLength( response )) return emptyManageTable();
         TBODY_ELEMENT.innerHTML = (`
-            <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
+            <div class="d-share__tr w-full flex font-xs font-bold cursor-default sm:h-full sm:flex-col">
                 <div class="d-share__cell flex-2 inline-flex items-center justify-start">
                     <button ${VIDEO_LINK_ATTR}='${JSON.stringify({ file_id: response.file_id })}'
-                       class="d-share__watch text-blue l:transition-color l:hover:color-blue-200"
+                       class="d-share__watch text-blue l:transition-color l:hover:color-blue-200 sm:m-0-auto"
                     >
                         مشاهده ویدیو
                     </button>
@@ -162,8 +162,8 @@ const createManageTable = response => {
 
 const emptyManageTable = () => {
     TBODY_ELEMENT.innerHTML = (`
-        <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
-            <div class="d-share__cell w-full text-center">ویدیویی برای نمایش وجود ندارد.</div>
+        <div class="d-share__tr w-full flex font-xs font-bold cursor-default sm:h-full">
+            <div class="d-share__cell w-full text-center sm:flex sm:items-center sm:justify-center">ویدیویی برای نمایش وجود ندارد.</div>
         </div>
     `).trim();
 };
@@ -341,6 +341,7 @@ try {
 
             if ( HasLength( USER_STORE ) ) throw new Error("ابتدا ویدیو بارگزاری قبلی را حذف کنید.");
             if ( !FILE_TYPE.includes('video') ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
+            if ( FILE_SIZE > 200 ) throw new Error("حجم ویدیو ارسالی باید کمتر از ۲۰۰ مگابایت باشد.");
 
             const video = new Video( file );
             IMAGE_PREVIEW.src = await video.getThumbnails();
@@ -514,7 +515,13 @@ try {
                     input: `${ENDPOINT['ARVAN_VIDEO']}${data['file_id']}`,
                 });
                 videoURL = new ArvanVideoPresenter( response ).url;
-                if ( !videoURL ) {
+                if ( !videoURL && ( USER_STORE['max_pending_time'] < Date.now() ) ) {
+                    NOTIFICATION_EL.Notification({
+                        type: 'error',
+                        text: "پردازش ویدیو با شکست مواجه شده است. لطفا بار دیگر ویدیو را بارگزاری کنید.",
+                    });
+                    return '';
+                } else if ( !videoURL ) {
                     NOTIFICATION_EL.Notification({
                         type: 'warn',
                         text: "ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.",

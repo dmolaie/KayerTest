@@ -13,6 +13,7 @@ export default class ShareVideoPresenter extends BasePresenter {
                 file_id: String,
                 description: String,
                 publish_date: String,
+                max_pending_time: Number,
             })
         }
         return {};
@@ -32,6 +33,11 @@ export default class ShareVideoPresenter extends BasePresenter {
 
     publish_date() {
         return DateService.getJalaaliDate( this.data.date )
+    }
+
+    max_pending_time() {
+        // 10 minute
+        return (parseInt( this.data.date ) * 1e3) + ( 15 * 6e4 );
     }
 }
 
