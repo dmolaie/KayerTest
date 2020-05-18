@@ -176,7 +176,10 @@ export default class ManageGalleryService {
     async getGalleryListFilterBy( querystring = {} ) {
         try {
             const QUERY_STRING = CopyOf( querystring );
-            if ( QUERY_STRING['status'] === StatusService.MY_POST_STATUS ) {
+
+            if ( QUERY_STRING['status'] === void 0 ) {
+                QUERY_STRING['status'] = StatusService.PUBLISH_STATUS;
+            } else if ( QUERY_STRING['status'] === StatusService.MY_POST_STATUS ) {
                 delete QUERY_STRING['status'];
                 QUERY_STRING['publisher_id'] = this.$store.getters[GET_USER_ID]
             }
@@ -202,7 +205,6 @@ export default class ManageGalleryService {
         try {
             let newData = CopyOf( Object.values( this.$vm.items ) );
             let findIndex = newData.findIndex( item => item.media_id === media_id );
-            console.log('findIndex: ', newData, findIndex, media_id);
             if ( findIndex >= 0 ) newData.splice(findIndex, 1);
             BaseService.commitToStore(this.$store, M_GALLERY_UPDATE_DATA, newData);
         } catch ( exception ) {}
@@ -230,11 +232,10 @@ export default class ManageGalleryService {
 
     async handelSearchAction(searchValue, { query }) {
         try {
-            let QUERY_STRING = query;
             (HasLength( searchValue.trim() )) ? (
-                QUERY_STRING['first_title'] = searchValue.trim()
-            ) : delete QUERY_STRING['first_title'];
-            await this.getGalleryListFilterBy( QUERY_STRING );
+                query['first_title'] = searchValue.trim()
+            ) : delete query['first_title'];
+            await this.getGalleryListFilterBy( query );
         } catch ( exception ) {
             throw exception;
         }
@@ -242,14 +243,13 @@ export default class ManageGalleryService {
 
     async handleFilterAction(create_date_start, create_date_end, { query }) {
         try {
-            let QUERY_STRING = HasLength( query ) ? query : DEFAULT_STATUS;
             (!!create_date_start) ? (
-                QUERY_STRING['create_date_start'] = create_date_start
-            ) : delete QUERY_STRING['create_date_start'];
+                query['create_date_start'] = create_date_start
+            ) : delete query['create_date_start'];
             (!!create_date_end) ? (
-                QUERY_STRING['create_date_end'] = create_date_end
-            ) : delete QUERY_STRING['create_date_end'];
-            await this.getGalleryListFilterBy( QUERY_STRING );
+                query['create_date_end'] = create_date_end
+            ) : delete query['create_date_end'];
+            await this.getGalleryListFilterBy( query );
         } catch ( exception ) {
             throw exception;
         }

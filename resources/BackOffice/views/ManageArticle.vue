@@ -331,7 +331,7 @@
         data: () => ({
             paginateKeyCounter: 0,
             keyCounter: 0,
-            timeout: 330,
+            timeout: 1500,
             timeoutID: null,
             filter: {
                 create_date_start: '',

@@ -508,7 +508,7 @@
                     } catch ( exception ) {
                         this.displayNotification(exception, { type: 'error' })
                     }
-                }, 350)
+                }, 1200)
             },
             onChangeDateStartField( unix ) {
                 this.$set(this.filter, 'create_date_start', unix)

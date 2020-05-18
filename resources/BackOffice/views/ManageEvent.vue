@@ -519,7 +519,7 @@
                     this.search.timeout = setTimeout(async () => {
                         await Service.HandelSearchAction(this.search.value, this.$route);
                         this.$set(this, 'paginateKeyCounter', this.paginateKeyCounter + 1);
-                    }, 350)
+                    }, 1200)
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 }

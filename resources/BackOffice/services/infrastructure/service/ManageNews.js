@@ -52,11 +52,10 @@ export default class ManageNewsService extends BaseService {
     }
 
     async processFetchAsyncData() {
-        let {
-            query
-        } = this.$vm.$route;
-        let queryString = HasLength( query ) ? query : DEFAULT_STATUS;
-        await this._GetNewsListFilterBy( queryString );
+        let { query } = this.$vm.$route;
+        await this._GetNewsListFilterBy({
+            status: query['status'] || StatusService.PUBLISH_STATUS
+        });
     }
 
     async HandleFilterAction( { create_date_start, create_date_end}, { query } ) {
