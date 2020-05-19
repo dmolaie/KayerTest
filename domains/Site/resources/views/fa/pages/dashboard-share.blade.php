@@ -8,6 +8,17 @@
                     </span>
                 </h1>
                 <div class="d-share__body inner-box inner-box--white">
+                    <div class="d-share__alert w-3/4 sm:w-full cursor-default">
+                        <div class="text-bayoux font-base font-bold text-justify sm:font-sm sm:font-medium">
+                            همیار گرامی,
+                            <br/>
+                            برای ارسال ویدیو,  حداکثر 30 ثانیه از خود ویدیو تهیه کنید و در قالب یکی از فرمت های زیر ارسال نمایید .
+                            <br/>
+                            MP4, AVI , M4V
+                            <br/>
+                            در صورت تمایل میتوانید ویدیو قبلی را حذف و ویدیوی جدیدی ارسال نمایید .
+                        </div>
+                    </div>
                     <form enctype="multipart/form-data" novalidate
                           class="w-full block"
                     >
@@ -25,7 +36,7 @@
                         </div>
                         <div class="d-share__row d-share__details w-full h-0 block overflow-hidden">
                             <div class="w-full">
-                                <div class="w-3/4 m-auto">
+                                <div class="w-3/4 m-auto sm:w-full">
                                     <div class="d-share__preview w-full flex items-center font-sm font-medium border border-solid rounded text-center cursor-default user-select-none">
                                         <figure class="d-share__previewCover flex-shrink-0 relative border border-solid rounded">
                                             <img src="" alt="ارسال ویدیو"
@@ -37,7 +48,12 @@
                                             <div class="d-share__progressbar w-full relative border border-solid overflow-hidden"
                                                  style="--progress: 0%"
                                             ></div>
-                                            <p class="d-share__size font-xs font-bold text-left"></p>
+                                            <div class="flex items-center justify-between">
+                                                <p class="d-share__size font-xs font-bold text-left"></p>
+                                                <button class="d-share__cancel text-red font-xs font-bold none">
+                                                    لغو بارگذاری ویدیو
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                     <label class="w-full block">
@@ -106,5 +122,5 @@
     @section('scripts')
         <script src="{{ secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
         <script src="{{ secure_asset('js/site/vendors~dashboard-share.js') }}" defer></script>
-        <script src="{{ secure_asset('js/site/dashboard-share.js') }}" defer></script>
+        <script src="{{ secure_asset('js/site/dashboard-share.js?v=c298c7f8233d') }}" defer></script>
     @endsection
