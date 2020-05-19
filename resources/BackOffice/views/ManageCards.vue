@@ -98,7 +98,7 @@
                                               v-text="'شناسه کارت: ' + item.card_id"
                                         > </span>
                                         <span class="m-legate__status m-legate__status--video m-post__status inline-flex items-center border border-solid rounded bg-white font-1xs m-b-0"
-                                              v-text="'ویدیو'"
+                                              v-text="'دارای ویدیو'"
                                               v-if="item.has_video"
                                         > </span>
                                     </div>
