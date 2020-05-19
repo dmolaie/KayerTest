@@ -42,6 +42,8 @@ export const MANAGE_CATEGORY = 'MANAGE_CATEGORY';
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const MANAGE_SLIDER = 'MANAGE_SLIDER';
 export const CREATE_SLIDER = 'CREATE_SLIDER';
+export const MANAGE_COUNT_UP = 'MANAGE_COUNT_UP';
+export const CREATE_COUNT_UP = 'CREATE_COUNT_UP';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
@@ -569,6 +571,66 @@ const Routes = new VueRouter({
                     {
                         name: 'افزودن'
                     },
+                ]
+            }
+        },
+        {
+            name: MANAGE_COUNT_UP,
+            path: '/manage/counter',
+            component: GetViews('ManageCountUp' ),
+            meta: {
+                title: 'صفحات شمارنده',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات شمارنده'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
+            name: MANAGE_COUNT_UP,
+            path: '/manage/counter',
+            component: GetViews('ManageCountUp' ),
+            meta: {
+                title: 'صفحات شمارنده',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات شمارنده'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
+            name: CREATE_COUNT_UP,
+            path: '/manage/counter/:lang(fa)/create',
+            component: GetViews('CreateCountUp' ),
+            meta: {
+                title: 'صفحات شمارنده',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات شمارنده'
+                    },
+                    {
+                        name: 'ایجاد'
+                    }
                 ]
             }
         },
