@@ -14,11 +14,13 @@ const ENDPOINT = {
     "ARVAN_VIDEO": `https://napi.arvancloud.com/vod/2.0/videos/`
 };
 
+const VIDEO_FORMAT_REGEX = /mp4$|mpg4$|mpeg4$|m4v$|x-m4v$|avi$|msvideo$|x-msvideo$/;
 const VIDEO_LINK_ATTR = 'data-url';
 const DATA_ITEM_ATTR = 'data-item';
 const SUCCESS_TEXT = "بارگزاری کامل شد";
 const LOADING_TEXT = "در حال بارگذاری ویدیو ...";
 const HEIGHT_0_CLASSNAME = 'h-0';
+const DISPLAY_NONE_CLASS = 'none';
 const SPINNER_LOADING_CLASSNAME = 'spinner-loading';
 const DROP_BOX_ACTIVE_CLASSNAME = 'd-share__drop--hover';
 const HIDDEN_LOADING_CLASSNAME = 'd-share__loading--hidden';
@@ -37,6 +39,7 @@ const NOTIFICATION_EL = document.querySelector('.d-share .notification');
 const SUBMIT_BUTTON = document.querySelector('.d-share .d-share__submit');
 const TEXTAREA = document.querySelector('.d-share .d-share__textarea');
 const TBODY_ELEMENT = document.querySelector('.d-share__tbody');
+const CANCEL_BUTTON = document.querySelector('.d-share__cancel');
 
 let USER_STORE = null;
 
@@ -132,10 +135,10 @@ const createManageTable = response => {
     try {
         if (!HasLength( response )) return emptyManageTable();
         TBODY_ELEMENT.innerHTML = (`
-            <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
+            <div class="d-share__tr w-full flex font-xs font-bold cursor-default sm:h-full sm:flex-col">
                 <div class="d-share__cell flex-2 inline-flex items-center justify-start">
                     <button ${VIDEO_LINK_ATTR}='${JSON.stringify({ file_id: response.file_id })}'
-                       class="d-share__watch text-blue l:transition-color l:hover:color-blue-200"
+                       class="d-share__watch text-blue l:transition-color l:hover:color-blue-200 sm:m-0-auto"
                     >
                         مشاهده ویدیو
                     </button>
@@ -162,8 +165,8 @@ const createManageTable = response => {
 
 const emptyManageTable = () => {
     TBODY_ELEMENT.innerHTML = (`
-        <div class="d-share__tr w-full flex font-xs font-bold cursor-default">
-            <div class="d-share__cell w-full text-center">ویدیویی برای نمایش وجود ندارد.</div>
+        <div class="d-share__tr w-full flex font-xs font-bold cursor-default sm:h-full">
+            <div class="d-share__cell w-full text-center sm:flex sm:items-center sm:justify-center">ویدیویی برای نمایش وجود ندارد.</div>
         </div>
     `).trim();
 };
@@ -206,6 +209,7 @@ const STEPS = {
 
 try {
     let fileName = null,
+        upload = null,
         isPending = false;
 
     const DROP_BOX_HOVER = {
@@ -214,6 +218,28 @@ try {
         },
         hidden() {
             DROP_BOX.classList.remove(DROP_BOX_ACTIVE_CLASSNAME);
+        }
+    };
+
+    const LAYOUT_STATE = {
+        beforeUpload() {
+            try {
+                CANCEL_BUTTON.classList.remove( DISPLAY_NONE_CLASS );
+                PROGRESSBAR_EL.style.setProperty('--progress', "0%");
+                PROGRESSBAR_EL.classList.add( LOADING_PROGRESS_BAR );
+                STATUS_EL.textContent = LOADING_TEXT;
+            } catch ( exception ) {}
+        },
+        errorUpload() {
+            // upload = null;
+            CANCEL_BUTTON.classList.add( DISPLAY_NONE_CLASS );
+        },
+        successUpload() {
+            try {
+                // upload = null;
+                STATUS_EL.textContent = SUCCESS_TEXT;
+                CANCEL_BUTTON.classList.add( DISPLAY_NONE_CLASS );
+            } catch ( exception ) {}
         }
     };
 
@@ -232,9 +258,7 @@ try {
     const uploadVideoInAbrVod = async file => {
         try {
             return await new Promise((resolve, reject) => {
-                PROGRESSBAR_EL.style.setProperty('--progress', "0%");
-                PROGRESSBAR_EL.classList.add( LOADING_PROGRESS_BAR );
-                STATUS_EL.textContent = LOADING_TEXT;
+                LAYOUT_STATE.beforeUpload();
 
                 const OPTIONS = {
                     "acceptLanguage": "en",
@@ -242,8 +266,8 @@ try {
                     "url": ENDPOINT['ARVAN_UPLOAD_FILE'],
                     "uuid": file.name + file.size + file.lastModified,
                 };
-
-                let upload = new tus.Upload(file, {
+                upload = null;
+                upload = new tus.Upload(file, {
                     fingerprint: () => {
                         return Promise.resolve(OPTIONS['uuid'])
                     },
@@ -262,6 +286,7 @@ try {
                         STEPS.showStep2();
                     },
                     onError: function ( error) {
+                        LAYOUT_STATE.errorUpload();
                         reject(error);
                     },
                     onProgress: function (bytesUploaded, bytesTotal) {
@@ -272,7 +297,7 @@ try {
                         } catch (e) {}
                     },
                     onSuccess: function ( response ) {
-                        STATUS_EL.textContent = SUCCESS_TEXT;
+                        LAYOUT_STATE.successUpload();
                         resolve({
                             url: upload.url,
                             name: upload.file.name
@@ -292,6 +317,19 @@ try {
             STEPS.showStep1();
         }
     };
+
+    CANCEL_BUTTON.addEventListener(
+        'click',
+        async event => {
+            try {
+                event.preventDefault();
+                resetInputFile();
+                STEPS.showStep1();
+                await upload.abort();
+                //LAYOUT_STATE.errorUpload();
+            } catch ( exception ) {}
+        }
+    );
 
     const changeStatusVideo = async video => {
         try {
@@ -340,7 +378,8 @@ try {
             const FILE_SIZE = getSizeOfVideo(file.size);
 
             if ( HasLength( USER_STORE ) ) throw new Error("ابتدا ویدیو بارگزاری قبلی را حذف کنید.");
-            if ( !FILE_TYPE.includes('video') ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
+            if ( !VIDEO_FORMAT_REGEX.test( FILE_TYPE ) ) throw new Error( INVALID_FORMAT_ERROR_MESSAGE );
+            if ( FILE_SIZE > 200 ) throw new Error("حجم ویدیو ارسالی باید کمتر از ۲۰۰ مگابایت باشد.");
 
             const video = new Video( file );
             IMAGE_PREVIEW.src = await video.getThumbnails();
@@ -423,7 +462,6 @@ try {
 try {
     let selectedItem = null;
     let videoURL = null, isPending = false;
-    const DISPLAY_NONE_CLASS = 'none';
     const OPENED_CLASSNAME = 'd-share__confirm--opened';
     const CLOSED_CLASSNAME = 'd-share__confirm--closed';
     const REMOVE_BUTTON_CLASSNAME = 'd-share__tButton';
@@ -513,8 +551,15 @@ try {
                     method: 'GET',
                     input: `${ENDPOINT['ARVAN_VIDEO']}${data['file_id']}`,
                 });
-                videoURL = new ArvanVideoPresenter( response ).url;
-                if ( !videoURL ) {
+                let presenter = new ArvanVideoPresenter( response );
+                videoURL = presenter.url;
+                if ( !videoURL && presenter.is_failed ) {
+                    NOTIFICATION_EL.Notification({
+                        type: 'error',
+                        text: "پردازش ویدیو با شکست مواجه شده است. لطفا بار دیگر ویدیو را بارگزاری کنید.",
+                    });
+                    return '';
+                } else if ( !videoURL ) {
                     NOTIFICATION_EL.Notification({
                         type: 'warn',
                         text: "ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.",

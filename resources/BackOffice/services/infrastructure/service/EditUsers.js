@@ -156,14 +156,19 @@ export default class EditUserService extends BaseService {
                     .catch(except => reject(except))
             });
 
-            let videoURL = new ArvanVODPresenter( response ).url;
-            if ( !videoURL ) {
+            let videoURL = new ArvanVODPresenter( response );
+            if ( !videoURL.url && videoURL.is_failed ) {
+                this.$vm.displayNotification('پردازش ویدیو با شکست مواجه شده است. لطفا بار دیگر ویدیو را بارگزاری کنید.', {
+                    type: 'error',
+                });
+                return '';
+            } else if ( !videoURL.url ) {
                 this.$vm.displayNotification('ویدیو در حال پردازش است لطفا در زمان دیگری امتحان کنید.', {
                     type: 'warn',
                 });
                 return '';
             }
-            window.open(videoURL, '_blank');
+            window.open(videoURL.url, '_blank');
         } catch ( exception ) {
             throw ExceptionService._GetErrorMessage( exception );
         }
