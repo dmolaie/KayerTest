@@ -62,7 +62,7 @@ class CategoryService
     {
         $categories = $this->categoryRepository->findCategoryWithSlugs($categorySlugs);
         $categories = $this->categoryDTOMaker->convertMany($categories);
-        return collect($categories)->map(function($item){
+        return collect($categories)->map(function ($item) {
             return $item->getId();
         })->toArray();
     }
@@ -98,7 +98,14 @@ class CategoryService
     public function getActiveCategoryByType(string $categoryType): array
     {
         $categories = $this->categoryRepository->findCategoryWithType(
-            $categoryType,true);
+            $categoryType, true);
+        return $this->categoryDTOMaker->convertMany($categories);
+    }
+
+    public function findCategoryWithParentSlug(string $slug)
+    {
+        $categories = $this->categoryRepository->findCategoryWithParentSlug(
+            $slug, true);
         return $this->categoryDTOMaker->convertMany($categories);
     }
 }

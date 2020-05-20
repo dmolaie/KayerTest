@@ -34,10 +34,22 @@ class CategoryRepository
             ->whereNull('parent_id')->get();
     }
 
+    public function findCategoryWithParentSlug(string $parentCategory, $justActive = false)
+    {
+        return $this->entityName::whereHas('parent',
+            function ($q) use ($parentCategory) {
+                $q->where('slug', '=', $parentCategory);
+
+            })
+            ->when($justActive, function ($query) {
+                $query->where('is_active', '1');
+            })->get();
+    }
+
     public function findCategoryWithSlugs(array $categorySlugs)
     {
         return $this->entityName::whereIn('slug', $categorySlugs)
-            ->whereNull('parent_id')->get();
+            ->where('is_active', 1)->get();
     }
 
     public function createCategory(CategoryCreateDTO $createCategoryCreateDTO): Category

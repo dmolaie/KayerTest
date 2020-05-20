@@ -5,8 +5,8 @@ Route::redirect('/', app()->getLocale());
 Route::domain('{subdomain}.' . config('app.url'))->group(function () {
     Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.languages')]], function () {
         Route::prefix('page')->name('page.domain.')->group(function () {
-            Route::get('/iran_news', 'PagesController@newsListIranDomain')->name('news-list-iran');
-            Route::get('/world-news', 'PagesController@newsListWorldDomain')->name('news-list-world');
+            Route::get('/iran_news', 'PagesController@newsListIran')->name('news-list-iran');
+            Route::get('/world-news', 'PagesController@newsListWorld')->name('news-list-world');
             Route::get('/events', 'PagesController@eventsListDomain')->name('events-list');
 
         });
@@ -42,7 +42,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => config('app.la
             Route::get('/mission-and-vision', 'PagesController@missionAndVision')->name('mission-and-vision');
             Route::get('/iran_news', 'PagesController@newsListIran')->name('news-list-iran');
             Route::get('/world-news', 'PagesController@newsListWorld')->name('news-list-world');
-            Route::get('/events', 'PagesController@eventsList')->name('events-list');
+            Route::get('/events', 'PagesController@eventsListDomain')->name('events-list');
 
 
             Route::prefix('gallery')->name('gallery.')->group(function () {
