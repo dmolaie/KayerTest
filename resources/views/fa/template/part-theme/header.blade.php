@@ -42,9 +42,11 @@
                     @endif
                 </div>
             @endforeach
-            <div class="header__user header__user--{{auth()->check() ? 'active' : 'toggle'}} relative flex items-center m-r-auto">
+            <a href="{{route('index',config('app.locale'))}}" class="header__nav_btn header__nav_btn--home m-r-auto"></a>
+            <button class="header__nav_btn header__nav_btn--search bg-size-contain"></button>
+            <div class="header__user header__user--{{auth()->check() ? 'active' : 'toggle'}} relative flex items-center">
                 <a href="{{route('admin.login')}}"
-                   class="flex items-center header__user_link"
+                   class="header__user--text flex items-center header__user_link"
                 >
                     @if(auth()->check())
                         <span class="text-green-300 font-sm font-bold text-nowrap">
@@ -52,7 +54,7 @@
                     </span>
                     @endif
                 </a>
-                <div class="block relative">
+                <div class="header__user--icon relative flex items-center {{ !auth()->check() ? 'login-box border border-solid rounded' : '' }}">
                     <a href="{{route('admin.login')}}"
                        class="block header__nav_btn header__nav_btn--user bg-size-contain m-0"></a>
                     @if( auth()->check() )
@@ -94,10 +96,15 @@
                             </a>
                         </div>
                     @endif
+                    @if( !auth()->check() )
+                        <a href="{{ route('admin.login') }}"
+                           class="login-box__text text-waterloo font-sm font-bold"
+                        >
+                            ورود
+                        </a>
+                    @endif
                 </div>
             </div>
-            <a href="{{route('index',config('app.locale'))}}" class="header__nav_btn header__nav_btn--home"></a>
-            <button class="header__nav_btn header__nav_btn--search bg-size-contain"></button>
             <div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">
                 <a href="{{route('index','en')}}"
                    class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'en' ? 'header__nav_lang--active' : '' }}"
@@ -212,16 +219,19 @@
                     </button>
                 @else
                     <a href="{{ route('admin.login') }}"
-                       class="m-header__button"
+                       class="login-box flex items-center border border-solid rounded font-sm font-bold"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 18 21"
-                             class="block w-full h-full object-contain"
-                        >
-                            <g fill="#00B1F5">
-                                <path d="M8.414 9.865c1.355 0 2.529-.486 3.488-1.445.959-.959 1.445-2.132 1.445-3.487s-.486-2.529-1.445-3.488C10.942.486 9.769 0 8.414 0S5.885.486 4.926 1.445c-.959.959-1.445 2.132-1.445 3.487 0 1.356.486 2.53 1.446 3.488.959.96 2.132 1.445 3.487 1.445zM17.045 15.748c-.028-.399-.083-.834-.166-1.294-.083-.463-.19-.9-.318-1.301-.132-.414-.312-.822-.535-1.213-.23-.407-.502-.76-.806-1.052-.319-.304-.708-.549-1.16-.728-.448-.177-.946-.267-1.478-.267-.21 0-.411.086-.802.34-.24.157-.521.338-.835.538-.268.171-.632.331-1.08.476-.439.142-.883.214-1.322.214-.44 0-.884-.072-1.322-.214-.449-.145-.812-.305-1.08-.476-.31-.198-.592-.38-.836-.538-.39-.255-.592-.34-.801-.34-.533 0-1.03.09-1.48.268-.45.178-.84.423-1.158.728-.304.29-.576.644-.806 1.05-.223.392-.403.8-.535 1.214-.128.4-.235.838-.318 1.301-.082.46-.138.895-.166 1.295-.027.391-.041.798-.041 1.209 0 1.069.34 1.934 1.01 2.573.662.63 1.538.95 2.603.95h9.86c1.066 0 1.941-.32 2.603-.95.67-.638 1.01-1.504 1.01-2.573 0-.413-.013-.82-.04-1.21z"/>
-                            </g>
-                        </svg>
+                        <div class="m-header__button">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 18 21"
+                                 class="block w-full h-full object-contain"
+                            >
+                                <g fill="#00B1F5">
+                                    <path d="M8.414 9.865c1.355 0 2.529-.486 3.488-1.445.959-.959 1.445-2.132 1.445-3.487s-.486-2.529-1.445-3.488C10.942.486 9.769 0 8.414 0S5.885.486 4.926 1.445c-.959.959-1.445 2.132-1.445 3.487 0 1.356.486 2.53 1.446 3.488.959.96 2.132 1.445 3.487 1.445zM17.045 15.748c-.028-.399-.083-.834-.166-1.294-.083-.463-.19-.9-.318-1.301-.132-.414-.312-.822-.535-1.213-.23-.407-.502-.76-.806-1.052-.319-.304-.708-.549-1.16-.728-.448-.177-.946-.267-1.478-.267-.21 0-.411.086-.802.34-.24.157-.521.338-.835.538-.268.171-.632.331-1.08.476-.439.142-.883.214-1.322.214-.44 0-.884-.072-1.322-.214-.449-.145-.812-.305-1.08-.476-.31-.198-.592-.38-.836-.538-.39-.255-.592-.34-.801-.34-.533 0-1.03.09-1.48.268-.45.178-.84.423-1.158.728-.304.29-.576.644-.806 1.05-.223.392-.403.8-.535 1.214-.128.4-.235.838-.318 1.301-.082.46-.138.895-.166 1.295-.027.391-.041.798-.041 1.209 0 1.069.34 1.934 1.01 2.573.662.63 1.538.95 2.603.95h9.86c1.066 0 1.941-.32 2.603-.95.67-.638 1.01-1.504 1.01-2.573 0-.413-.013-.82-.04-1.21z"/>
+                                </g>
+                            </svg>
+                        </div>
+                        ورود
                     </a>
                 @endif
             </div>

@@ -78,18 +78,20 @@
                         <p class="text-bayoux font-sm-bold cursor-default md:m-b-20">
                             انتشار: ۱۱:۲۹ / ۱۸ فروردین ۱۳۹۷
                         </p>
-                        <div class="i-page__short inline-flex items-center l:m-r-auto md:m-b-20 sm:flex-col">
-                            <span class="text-bayoux font-sm-bold cursor-default">
-                                لینک کوتاه:
-                            </span>
-                            <div class="clipboard relative cursor-pointer text-blue-800 font-sm border border-solid i-page__box rounded-1/2 m-r-10">
-                                <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
-                                    کپی شد
+                        @if(false)
+                            <div class="i-page__short inline-flex items-center md:m-b-20 sm:flex-col">
+                                <span class="text-bayoux font-sm-bold cursor-default">
+                                    لینک کوتاه:
                                 </span>
-                                https://ehda.center/PNWVzX
+                                <div class="clipboard relative cursor-pointer text-blue-800 font-sm border border-solid i-page__box rounded-1/2 m-r-10">
+                                    <span class="clipboard__message absolute w-full h-full flex items-center font-xs-bold opacity-0 transition-opacity pointer-event-none user-select-none">
+                                        کپی شد
+                                    </span>
+                                    https://ehda.center/PNWVzX
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex items-center border border-solid i-page__box rounded-1/2 l:m-r-20 user-select-none">
+                        @endif
+                        <div class="flex items-center border border-solid i-page__box rounded-1/2 l:m-r-auto user-select-none">
                             <a href=""
                                target="_blank"
                                class="i-page__social ic--gmail transition-opacity opacity-80 l:hover:opacity-1"></a>
