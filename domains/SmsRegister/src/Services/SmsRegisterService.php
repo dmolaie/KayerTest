@@ -45,8 +45,7 @@ class SmsRegisterService
         SmsRegisterRepository $smsRegisterRepository,
         UserService $userService,
         NationalAuthenticationService $nationalAuthenticationService
-    )
-    {
+    ) {
 
         $this->smsRegisterRepository = $smsRegisterRepository;
         $this->nationalAuthenticationService = $nationalAuthenticationService;
@@ -87,6 +86,7 @@ class SmsRegisterService
 
             $userInfoDTO = $this->userService->register($userRegisterDTO);
             $smsRegisterDTO->setContent($this->makeMessageContent($userInfoDTO));
+            $this->smsRegisterRepository->changeToComplete($nationalCode->national_code);
             event(new SmsRegisterEvent($smsRegisterDTO));
         } catch (ModelNotFoundException $exception) {
             $smsRegisterDTO->setContent(
@@ -102,10 +102,10 @@ class SmsRegisterService
             $temporalLog = new TemporalLogDTO();
             $temporalLog->setLogTitle('register user by sms failed')
                 ->setLogData([
-                    'content' => $smsRegisterDTO->getContent(),
-                    'mobile' => $smsRegisterDTO->getMobileNumber(),
+                    'content'              => $smsRegisterDTO->getContent(),
+                    'mobile'               => $smsRegisterDTO->getMobileNumber(),
                     'secondRequestContent' => $smsRegisterDTO->getSecondRequestContent(),
-                    'message' => $exception->getMessage()
+                    'message'              => $exception->getMessage()
                 ]);
             event(new TemporalLogEvent($temporalLog));
 
@@ -144,11 +144,11 @@ class SmsRegisterService
     private function makeMessageContent(UserLoginDTO $userInfoDTO)
     {
         return
-            $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName() .'،'
+            $userInfoDTO->getName() . ' ' . $userInfoDTO->getLastName() . '،'
             . ' ' . PHP_EOL .
             trans('smsRegister::response.ehda_card_address')
             . ' ' . PHP_EOL .
-            'https://'.config('app.url').'/cart-secound/process/social/'. $userInfoDTO->getRole()->pivot->pivotParent->uuid
+            'https://' . config('app.url') . '/cart-secound/process/social/' . $userInfoDTO->getRole()->pivot->pivotParent->uuid
             . ' ' . PHP_EOL .
             trans('smsRegister::response.card_id')
             . ' ' . $userInfoDTO->getCardId()
