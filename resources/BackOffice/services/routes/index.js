@@ -617,7 +617,7 @@ const Routes = new VueRouter({
         {
             name: CREATE_COUNT_UP,
             path: '/manage/counter/:lang(fa)/create',
-            component: GetViews('CreateCountUp'),
+            component: GetViews('CreateCountUp' ),
             meta: {
                 title: 'صفحات شمارنده',
                 breadcrumb: [
