@@ -14,7 +14,7 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->loadAssetsFrom();
 
-        $this->registerPublishing();
+        $this->registerPublishing(); 
     }
 
     /**
