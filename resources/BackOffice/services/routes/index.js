@@ -575,6 +575,66 @@ const Routes = new VueRouter({
             }
         },
         {
+            name: MANAGE_COUNT_UP,
+            path: '/manage/counter',
+            component: GetViews('ManageCountUp' ),
+            meta: {
+                title: 'صفحات شمارنده',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات شمارنده'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
+            name: MANAGE_COUNT_UP,
+            path: '/manage/counter',
+            component: GetViews('ManageCountUp' ),
+            meta: {
+                title: 'صفحات شمارنده',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات شمارنده'
+                    },
+                    {
+                        name: 'مدیریت'
+                    }
+                ]
+            }
+        },
+        {
+            name: CREATE_COUNT_UP,
+            path: '/manage/counter/:lang(fa)/create',
+            component: GetViews('CreateCountUp' ),
+            meta: {
+                title: 'صفحات شمارنده',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'صفحات شمارنده'
+                    },
+                    {
+                        name: 'ایجاد'
+                    }
+                ]
+            }
+        },
+        {
             name: NOT_FOUND,
             path: '/*',
             component: GetViews('NotFound' ),
