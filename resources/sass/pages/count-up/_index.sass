@@ -1,5 +1,7 @@
 .p-count
   height: 100%
+  &__main
+    min-height: 600px
   &__header
     padding: 15px 20px
   &__logo
@@ -18,6 +20,14 @@
       padding: 5px 8px 0
       margin: 0 -30px 4px 0
       border-right: 2px solid red
+  &__social
+    top: 50%
+    left: 0
+    transform: translateY(-50%)
+  &__media
+    margin: 10px 20px
+  &__icon
+    @include Size( 30px )
   &__progressBar
     &_icon
       &::before

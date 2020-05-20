@@ -5,11 +5,13 @@ namespace Domains\Site\Http\Controllers;
 
 
 use App\Http\Controllers\EhdaBaseController;
+use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Domains\Location\Entities\City;
 use Domains\Location\Entities\Province;
 use Domains\Media\Http\Presenters\MediaPaginateInfoPresenter;
 use Domains\Media\Services\Contracts\DTOs\MediaFilterDTO;
 use Domains\Menu\Services\MenusContentService;
+use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\Site\Http\Presenters\CategoryInfoPresenter;
 use Domains\Site\Services\SiteServices;
 use Illuminate\Http\Request;
@@ -37,25 +39,36 @@ class PagesController extends EhdaBaseController
 
     public function newsListIran(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews(['iran-news'], $subdomain);
-        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
+        $newsFilterDTO = new NewsFilterDTO();
+        $newsFilterDTO->setNewsInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setFirstTitle($request->first_title)
+            ->setPaginationCount($request->page_count)
+            ->setLanguage($language ?? 'fa');
+        $categories = is_array($request->categories) ? $request->categories : ['iran_news'];
+
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $news = $this->siteServices->getFilterNews($newsFilterDTO, $subDomain, $categories);
+
+        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByParentSlug('iran-news'));
         return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
 
     public function newsListWorld(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews(['world-news'], $subdomain);
-        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('events'));
-        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
-    }
+        $newsFilterDTO = new NewsFilterDTO();
+        $newsFilterDTO->setNewsInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setFirstTitle($request->first_title)
+            ->setPaginationCount($request->page_count)
+            ->setLanguage($language ?? 'fa');
+        $categories = is_array($request->categories) ? $request->categories : ['world-news'];
 
-    public function eventsList(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
-    {
-        $events = $this->siteServices->getFilterEvent();
-        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('event'));
-        return view('site::' . $request->language . '.pages.events-list', compact('events', 'categories'));
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $news = $this->siteServices->getFilterNews($newsFilterDTO, $subDomain, $categories);
+
+        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByParentSlug('world-news'));
+        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
     }
 
     public function interactions(Request $request)
@@ -207,27 +220,20 @@ class PagesController extends EhdaBaseController
         return view('site::' . $menusContent->getLanguage() . '.pages.page', compact('menusContent'));
     }
 
-    public function newsListIranDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
-    {
-        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews(['iran-news'], $subdomain);
-        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
-        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
-    }
-
-    public function newsListWorldDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
-    {
-        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getFilterNews(['world-news'], $subdomain);
-        $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('news'));
-        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
-    }
-
     public function eventsListDomain(Request $request, CategoryInfoPresenter $categoryInfoPresenter)
     {
-        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $events = $this->siteServices->getFilterEvent($subdomain);
+        $eventFilterDTO = new EventFilterDTO();
+        $eventFilterDTO->setEventInputStatus('published')
+            ->setSort($request->sort ?? 'DESC')
+            ->setFirstTitle($request->first_title)
+            ->setPaginationCount($request->page_count)
+            ->setLanguage($language ?? 'fa');
+        $categories = is_array($request->categories) ? $request->categories : null;
+
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $events = $this->siteServices->getFilterEvent($eventFilterDTO, $subDomain, $categories);
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByType('event'));
+
         return view('site::' . $request->language . '.pages.events-list', compact('events', 'categories'));
     }
 
@@ -254,7 +260,11 @@ class PagesController extends EhdaBaseController
         return view('site::fa.pages.gallery');
     }
 
-    public function galleryListContent($language, Request $request, MediaPaginateInfoPresenter $mediaPaginateInfoPresenter) {
+    public function galleryListContent(
+        $language,
+        Request $request,
+        MediaPaginateInfoPresenter $mediaPaginateInfoPresenter
+    ) {
         $type = $request->type ?? 'voice';
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
@@ -270,6 +280,7 @@ class PagesController extends EhdaBaseController
         );
         return $this->response($media, Response::HTTP_OK);
     }
+
     public function galleryVideo($language, string $slug, Request $request)
     {
         $type = 'video';
@@ -277,7 +288,7 @@ class PagesController extends EhdaBaseController
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
             ->setSort($request->sort ?? 'DESC')
-            ->setLanguage($language??'fa')
+            ->setLanguage($language ?? 'fa')
             ->setType($type);
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
         $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
@@ -305,7 +316,7 @@ class PagesController extends EhdaBaseController
         $mediaFilter = new MediaFilterDTO();
         $mediaFilter->setMediaInputStatus('published')
             ->setSort($request->sort ?? 'DESC')
-            ->setLanguage($language??'fa')
+            ->setLanguage($language ?? 'fa')
             ->setType($type);
         $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
         $mediaList = $this->siteServices->getMediaListByType($mediaFilter, $subDomain);
@@ -356,11 +367,14 @@ class PagesController extends EhdaBaseController
 
         return view('site::fa.pages.gallery-audio', compact('mediaList', 'mediaDetail'));
     }
-    public function showDetailArticle($language, string $slug){
+
+    public function showDetailArticle($language, string $slug)
+    {
 
         $menusContent = $this->siteServices->getDetailArticle($slug);
         return view('site::' . $menusContent->getLanguage() . '.pages.page', compact('menusContent'));
     }
+
     public function map(Request $request)
     {
         return view('site::fa.pages.map');

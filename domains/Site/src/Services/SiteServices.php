@@ -114,26 +114,20 @@ class SiteServices
         return $this->menusService->getPageContent($pageSlug);
     }
 
-    public function getFilterNews($categories, $subdomain = null)
+    public function getFilterNews(NewsFilterDTO $newsFilterDTO, $subDomain = null, $categorySlugs = null)
     {
-        $this->newsFilterDTO->setNewsInputStatus('published');
-        $this->newsFilterDTO->setSort('DESC');
-        $categoryIds = $this->getCategoryIdBySlug($categories);
-        $this->newsFilterDTO->setCategoryIds($categoryIds);
-        $globalSubDomain = $this->getLocations('global-fa');
-        if (!$subdomain) {
-            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
-            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        }
+        $province = $subDomain ?? $this->getLocations('global-fa');
+        $newsFilterDTO->setCategoryIds(
+            $categorySlugs ? $this->getCategoryIdBySlug($categorySlugs) : null)
+            ->setProvinceIds([$province->id]);
+        $newsList = $this->newsService->filterNews($newsFilterDTO);
 
-        $this->newsFilterDTO->addProvinceId($subdomain->id);
-        $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        if (empty($news)) {
-            $this->newsFilterDTO->setProvinceIds([]);
-            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
-            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
+        if (!empty($newsList->getItems())) {
+            return $newsList->getPaginationRecords();
         }
-        return $news;
+        $newsFilterDTO->setProvinceIds([$this->getLocations('global-fa')->id]);
+
+        return $this->newsService->filterNews($newsFilterDTO)->getPaginationRecords();
     }
 
     private function getCategoryIdBySlug($categorySlugs)
@@ -146,25 +140,20 @@ class SiteServices
         return $this->provinceService->finBySlug($slug);
     }
 
-    public function getFilterEvent($subdomain = null)
+    public function getFilterEvent(EventFilterDTO $eventFilterDTO, $subDomain = null, $categorySlugs = null)
     {
-        $this->eventFilterDTO->setEventInputStatus('published');
-        $this->eventFilterDTO->setSort('DESC');
-        $globalSubDomain = $this->getLocations('global-fa');
+        $province = $subDomain ?? $this->getLocations('global-fa');
+        $eventFilterDTO->setCategoryIds(
+            $categorySlugs ? $this->getCategoryIdBySlug($categorySlugs) : null)
+            ->setProvinceIds([$province->id]);
+        $eventList = $this->eventService->filterEvent($eventFilterDTO);
 
-        if (!$subdomain) {
-            $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
-            return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+        if (!empty($eventList->getItems())) {
+            return $eventList->getPaginationRecords();
         }
+        $eventFilterDTO->setProvinceIds([$this->getLocations('global-fa')->id]);
 
-        $this->eventFilterDTO->addProvinceId($subdomain->id);
-        $events = $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
-
-        if (empty($events)) {
-            $this->eventFilterDTO->addProvinceId($globalSubDomain->id);
-            return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
-        }
-        return $this->eventService->filterEvent($this->eventFilterDTO)->getItems();
+        return $this->eventService->filterEvent($eventFilterDTO)->getPaginationRecords();
     }
 
     public function getDetailNews($slug)
@@ -254,11 +243,11 @@ class SiteServices
         return $this->userService->getUserBaseInfoWithUuid($uuid);
     }
 
-    public function getMediaListByType(MediaFilterDTO $mediaFilter, $subDomain = null, $categorySlug = null)
+    public function getMediaListByType(MediaFilterDTO $mediaFilter, $subDomain = null, $categorySlugs = null)
     {
         $province = $subDomain ?? $this->getLocations('global-fa');
         $mediaFilter->setCategoryIds(
-            $categorySlug ? $this->getCategoryIdBySlug($categorySlug) : null)
+            $categorySlugs ? $this->getCategoryIdBySlug($categorySlugs) : null)
             ->setProvinceId($province->id);
         $media = $this->mediaService->filterMedia($mediaFilter);
         if (!empty($media->getItems())) {
@@ -309,5 +298,10 @@ class SiteServices
         }
         $sliderFilterDTO->setProvinceIds([$this->getLocations('global-fa')->id]);
         return $this->sliderService->filterSlider($sliderFilterDTO)->getItems();
+    }
+
+    public function getActiveCategoryByParentSlug(string $slug)
+    {
+        return $this->categoryService->findCategoryWithParentSlug($slug);
     }
 }

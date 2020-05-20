@@ -142,7 +142,7 @@ try {
                     donationCard(CARD_LABEL),
                     donationCard(CARD_LABEL, 'mini'),
                     donationCard(CARD_LABEL, 'social'),
-                    await printCard({
+                    printCard({
                         name: CARD_LABELS[0],
                         mobile: CARD_LABELS[1],
                         email: ''
@@ -155,7 +155,6 @@ try {
                 document.querySelector('.social_cart').src = response[2].base64;
                 document.querySelector('.d-social_cart').href = response[2].download;
                 document.querySelector('.print_card').src = response[3].base64;
-                document.querySelector('.d-print_card').href = response[3].download;
                 document.querySelectorAll('.' + LOADING_CLASS)
                     .forEach(item => item.classList.remove( LOADING_CLASS ))
             } catch (e) { }

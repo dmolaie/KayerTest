@@ -3,10 +3,18 @@ $label-height: 32px
 $table-border: 1px solid #d2e3f4
 $dropbox-background: #bde8fa
 $border-color: darken($dropbox-background, 4%)
+$mobile-padding: 30px 20px
 
 .d-share
+  &__alert
+    margin: 0 auto 20px
   &__body
     padding: 66px 47px 64px
+    @include Sm_Screen
+      padding: $mobile-padding
+  &__wrapper
+    @include Sm_Screen
+      padding: $mobile-padding
   &__label
     margin-bottom: 6px
   &__textarea
@@ -25,6 +33,8 @@ $border-color: darken($dropbox-background, 4%)
     height: calc(100% - #{$label-height})
     background-color: transparentize($dropbox-background, (1 - .2))
     transition: background-color $duration, border-color $duration
+    @include Sm_Screen
+      padding: 66px 15px
     &--hover, &:active
       border-color: $border-color
       background-color: transparentize($dropbox-background, (1 - .4))
@@ -53,6 +63,8 @@ $border-color: darken($dropbox-background, 4%)
     left: 0
   &__secondTitle
     margin: 35px 0 45px
+    @include Sm_Screen
+      margin: 0
   .flex-2
     flex: 2 1 0
   &__table
@@ -60,10 +72,19 @@ $border-color: darken($dropbox-background, 4%)
     background-color: #f0f3f8
   &__cell
     padding: 12px 20px
+    @include Sm_Screen
+      flex: 1 !important
+      text-align: center
   &__action
     width: 140px
+    @include Sm_Screen
+      width: 100%
   &__thead
     border-bottom: $table-border
+    @include Sm_Screen
+      border:
+        bottom: none
+        left: $table-border
   &__tr
     &:not(:last-of-type)
       border-bottom: $table-border
@@ -87,6 +108,10 @@ $border-color: darken($dropbox-background, 4%)
     transform: translateY(35vh)
     @include Xl_Screen
       width: 38%
+    @include Md_Screen
+      width: 64%
+    @include Sm_Screen
+      width: 90%
   &__confirmTitle
     margin-bottom: 42px
   &__confirmButton

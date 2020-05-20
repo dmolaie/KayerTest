@@ -19,5 +19,5 @@
     </div>
 
     <script src="{{ secure_asset('js/site/runtime.js') }}" defer ></script>
-    <script src="{{ secure_asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js') }}" defer ></script>
+    <script src="{{ secure_asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js?v=c298c7f8233d') }}" defer ></script>
     <script src="{{ secure_asset('js/site/card-print.js') }}" defer ></script>
