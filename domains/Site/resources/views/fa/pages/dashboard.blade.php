@@ -203,9 +203,8 @@
                                             این نسخه از کارت اهدای عضو، با وضوح تصویری بالا، بهترین گزینه برای چاپ با چاپ‌گرهای خانگی است.
                                         </div>
                                         <div class="flex w-full items-center justify-space sm:flex-col">
-                                            <a  href=""
-                                                target="_blank" download="کارت-اهدا-عضو-{{ auth()->user()->name .'-'. auth()->user()->last_name }}.png"
-                                                class="d-print_card content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2">
+                                            <a href="{{ route('print-cart', [ auth()->user()->uuid ]) }}" target="_blank"
+                                               class="d-print_card content__button content__button--download text-bayoux flex-1 border-2 border-solid rounded-1/2 font-base text-center sm:w-1/2">
                                                 دانلود
                                             </a>
                                             <a href="{{ route('print-cart', [ auth()->user()->uuid ]) }}" target="_blank"

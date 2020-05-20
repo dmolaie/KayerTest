@@ -6,7 +6,7 @@ const DONATION_CARD = {
         textY: 375,
         color: '#424242',
         font: '36px Zar',
-        url: '/images/cards/single.jpg',
+        url: '/images/cards/single.jpg?v=c298c7f8233d',
     },
     ['mini']: {
         type: 'mini',
@@ -15,7 +15,7 @@ const DONATION_CARD = {
         textY: 905,
         color: '#424242',
         font: '36px Zar',
-        url: '/images/cards/mini.jpg',
+        url: '/images/cards/mini.jpg?v=c298c7f8233d',
     },
     ['social']: {
         type: 'social',
@@ -25,14 +25,14 @@ const DONATION_CARD = {
         textY2: 1134,
         color: '#01aef0',
         font: '48px Zar',
-        url: '/images/cards/social.jpg',
+        url: '/images/cards/social.jpg?v=c298c7f8233d',
     },
     ['print']: {
         type: 'social',
         width: 2480,
         height: 3425,
         color: '#424242',
-        url: '/images/cards/print.jpg',
+        url: '/images/cards/print.jpg?v=c298c7f8233d',
     }
 };
 
