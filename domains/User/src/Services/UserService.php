@@ -111,7 +111,7 @@ class UserService
             throw new UserUnAuthorizedException(trans('user::response.authenticate.user_is_not_active'));
         }
 
-        if (\auth()->check()) {
+        if (\auth()->check() && \auth()->user()->is_active) {
             $user = \auth()->user();
             $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
