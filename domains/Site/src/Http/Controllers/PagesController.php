@@ -89,7 +89,7 @@ class PagesController extends EhdaBaseController
     public function donationAndCard(Request $request)
     {
         $data['gender'] = array_keys(config('user.user_genders'));
-        $data['day'] = range(1, 30);
+        $data['day'] = range(1, 31);
         $data['month'] = config('user.month');
         $data['year'] = range(1300, 1399);
         $data['state'] = $this->siteServices->getProvince();
@@ -111,7 +111,7 @@ class PagesController extends EhdaBaseController
             return redirect()->route('page.volunteers', config('app.locale'));
         }
         $data['dataSessionUser'] = $request->session();
-        $data['day'] = range(1, 30);
+        $data['day'] = range(1, 31);
         $data['month'] = config('user.month');
         $data['year'] = range(1300, 1399);
         $data['state'] = $this->siteServices->getProvince();
@@ -131,7 +131,7 @@ class PagesController extends EhdaBaseController
     public function editClientProfile(Request $request)
     {
         $data['gender'] = array_keys(config('user.user_genders'));
-        $data['day'] = range(1, 30);
+        $data['day'] = range(1, 31);
         $data['month'] = config('user.month');
         $data['year'] = range(1300, 1399);
         $data['state'] = $this->siteServices->getProvince();
