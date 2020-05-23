@@ -7,6 +7,7 @@ return array(
         'user_not_login'          => 'شما لاگین نیستید.',
         'error_password' => 'پسورد اشتباه است',
         'user_cant_access' => 'شما دسترسی ندارید',
+        'user_is_not_active' => 'کاربر غیرفعال می باشد.'
     ],
     'is_not_admin'                     => 'دسترسی شما ادمین نیست.',
     'success_login'                    => 'لاگین با موفقیت انجام شد.',

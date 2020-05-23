@@ -106,7 +106,12 @@ class UserService
         $loginController = new LoginController();
         $loginController->login($request);
 
-        if (\auth()->check() && \auth()->user()->is_active) {
+        if(\auth()->check() && !\auth()->user()->is_active){
+            $loginController->logout($request);
+            throw new UserUnAuthorizedException(trans('user::response.authenticate.user_is_not_active'));
+        }
+
+        if (\auth()->check()) {
             $user = \auth()->user();
             $role = $this->getUserImportantActiveOrPendingRole($user);
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
