@@ -8,6 +8,7 @@ use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Domains\Category\Services\CategoryService;
 use Domains\Event\Services\Contracts\DTOs\EventFilterDTO;
 use Domains\Event\Services\EventService;
+use Domains\Location\Services\CityServices;
 use Domains\Location\Services\ProvinceService;
 use Domains\Locations\Repositories\CityRepository;
 use Domains\Locations\Transformers\CityTransformer;
@@ -73,6 +74,10 @@ class SiteServices
      * @var SliderService
      */
     private $sliderService;
+    /**
+     * @var CityServices
+     */
+    private $cityServices;
 
 
     public function __construct(
@@ -84,6 +89,7 @@ class SiteServices
         EventFilterDTO $eventFilterDTO,
         ArticleService $articleService,
         ProvinceService $provinceService,
+        CityServices $cityServices,
         UserService $userService,
         MediaService $mediaService,
         SliderService $sliderService
@@ -96,6 +102,7 @@ class SiteServices
         $this->articleService = $articleService;
         $this->eventFilterDTO = $eventFilterDTO;
         $this->provinceService = $provinceService;
+        $this->cityServices = $cityServices;
         $this->userService = $userService;
         $this->mediaService = $mediaService;
         $this->sliderService = $sliderService;
@@ -138,6 +145,16 @@ class SiteServices
     public function getLocations($slug)
     {
         return $this->provinceService->finBySlug($slug);
+    }
+
+    public function getProvince()
+    {
+        return $this->provinceService->getAll();
+    }
+
+    public function getCities()
+    {
+        return $this->cityServices->getAll();
     }
 
     public function getFilterEvent(EventFilterDTO $eventFilterDTO, $subDomain = null, $categorySlugs = null)

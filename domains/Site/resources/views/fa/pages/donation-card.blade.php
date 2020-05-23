@@ -190,8 +190,8 @@
                                                     انتخاب کنید...
                                                 </option>
                                                 @foreach($data['state'] as $state)
-                                                    <option value="{{$state['id']}}">
-                                                        {{$state['name']}}
+                                                    <option value="{{$state->getId()}}">
+                                                        {{$state->getName()}}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -254,8 +254,8 @@
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
                                                     @foreach($data['state'] as $state)
-                                                        <option value="{{$state['id']}}">
-                                                            {{$state['name']}}
+                                                        <option value="{{$state->getId()}}">
+                                                            {{$state->getName()}}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -364,8 +364,8 @@
                                                         محل سکونت را انتخاب نمایید
                                                     </option>
                                                     @foreach($data['state'] as $state)
-                                                        <option value="{{$state['id']}}">
-                                                            {{$state['name']}}
+                                                        <option value="{{$state->getId()}}">
+                                                            {{$state->getName()}}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -552,7 +552,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{secure_asset('js/site/donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
-    <script src="{{secure_asset('js/site/donation-card.js')}}" defer></script>
+    <script src="{{asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{asset('js/site/donation-card~edit-profile~gallery~volunteers~volunteers-final.js')}}" defer></script>
+    <script src="{{asset('js/site/donation-card.js')}}" defer></script>
 @endsection

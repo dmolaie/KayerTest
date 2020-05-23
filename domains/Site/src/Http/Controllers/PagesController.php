@@ -91,9 +91,9 @@ class PagesController extends EhdaBaseController
         $data['gender'] = array_keys(config('user.user_genders'));
         $data['day'] = range(1, 30);
         $data['month'] = config('user.month');
-        $data['year'] = range(1330, 1381);
-        $data['state'] = Province::get(['id', 'name'])->toArray();
-        $data['city'] = City::get(['id', 'name'])->toArray();
+        $data['year'] = range(1300, 1399);
+        $data['state'] = $this->siteServices->getProvince();
+        $data['city'] = $this->siteServices->getCities();
         $data['education_degree'] = config('user.education_degree');
         return view('site::' . $request->language . '.pages.donation-card', compact('data'));
     }
@@ -113,9 +113,9 @@ class PagesController extends EhdaBaseController
         $data['dataSessionUser'] = $request->session();
         $data['day'] = range(1, 30);
         $data['month'] = config('user.month');
-        $data['year'] = range(1330, 1381);
-        $data['state'] = Province::get(['id', 'name'])->toArray();
-        $data['city'] = City::get(['id', 'name'])->toArray();
+        $data['year'] = range(1300, 1399);
+        $data['state'] = $this->siteServices->getProvince();
+        $data['city'] = $this->siteServices->getCities();
         $data['education_degree'] = config('user.education_degree');
         $data['know_community_by'] = config('user.know_community_by');
         $data['user_marital_statuses'] = config('user.user_marital_statuses');
@@ -133,9 +133,9 @@ class PagesController extends EhdaBaseController
         $data['gender'] = array_keys(config('user.user_genders'));
         $data['day'] = range(1, 30);
         $data['month'] = config('user.month');
-        $data['year'] = range(1330, 1381);
-        $data['state'] = Province::get(['id', 'name'])->toArray();
-        $data['city'] = City::get(['id', 'name'])->toArray();
+        $data['year'] = range(1300, 1399);
+        $data['state'] = $this->siteServices->getProvince();
+        $data['city'] = $this->siteServices->getCities();
         $data['education_degree'] = config('user.education_degree');
         return view('site::' . $request->language . '.pages.dashboard-edit', compact('data'));
     }

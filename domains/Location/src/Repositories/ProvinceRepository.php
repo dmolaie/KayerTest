@@ -10,7 +10,7 @@ class ProvinceRepository
 
     public function getAll()
     {
-        return $this->entityName::all();
+        return $this->entityName::where('is_show','=',true)->get();
     }
 
     public function find(int $id)
