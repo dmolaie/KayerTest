@@ -56,6 +56,15 @@ class ProvinceService
     }
 
     /**
+     * @return array
+     */
+    public function getAllWithoutGlobal(): array
+    {
+        $cities = $this->provinceRepository->getAll(true);
+        return $this->provinceDTOMaker->convertMany($cities);
+    }
+
+    /**
      * @param int $id
      * @return Contracts\DTOs\ProvinceDTO
      */
