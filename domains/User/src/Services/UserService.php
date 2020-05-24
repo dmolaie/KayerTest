@@ -111,7 +111,7 @@ class UserService
             throw new UserUnAuthorizedException(trans('user::response.authenticate.user_is_not_active'));
         }
 
-        $checkRoleClient = $this->checkActiveClient(\auth()->user()->roles()->get());
+        $checkRoleClient = $this->checkActiveStatusRole(\auth()->user()->roles()->get());
 
         if (array_key_exists(config('role.roles.client.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.client.name')] == false ||
             array_key_exists(config('role.roles.legate.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.legate.name')] == false ||
@@ -134,7 +134,7 @@ class UserService
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
     }
 
-    public function checkActiveClient($roles)
+    private function checkActiveStatusRole($roles)
     {
         if (!$roles) {
             return false;
