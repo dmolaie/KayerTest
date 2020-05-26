@@ -46,10 +46,15 @@ class CheckUserNationalCodeRequest extends FormRequest
             ];
         }
 
-
-        $this->step = 'second';
+        if (!empty($this[0]['Content']) && strlen($this[0]['Content']) == 8) {
+            $this->step = 'second';
+            return [
+                '0.Content'         => ['required', 'digits:8', 'numeric', 'min:10000000', new BirthDateRequest],
+                '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
+            ];
+        }
         return [
-            '0.Content'         => ['required', 'digits:8', 'numeric', 'min:10000000', new BirthDateRequest],
+            '0.Content'         => [new FailDateRequest],
             '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
         ];
     }
@@ -97,13 +102,13 @@ class CheckUserNationalCodeRequest extends FormRequest
             $smsRegisterDTO->setNationalCode($this[0]['Content'])
                 ->setFirstRequestContent($this->all());
             return $smsRegisterDTO;
-        }elseif ($this->step =='second'){
+        } elseif ($this->step == 'second') {
             $date = $this->convertDate($this[0]['Content']);
             $smsRegisterDTO->setBirthDate($date)
                 ->setSecondRequestContent($this->all());
             return $smsRegisterDTO;
         }
-        $date = explode('-',$this[0]['Content']);
+        $date = explode('-', $this[0]['Content']);
         $smsRegisterDTO->setName($date[0])
             ->setLastName($date[1])
             ->setThirdRequestContent($this->all());

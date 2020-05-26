@@ -186,8 +186,8 @@
                                             انتخاب کنید...
                                         </option>
                                         @foreach($data['state'] as $state)
-                                            <option value="{{$state['id']}}">
-                                                {{$state['name']}}
+                                            <option value="{{$state->getId()}}">
+                                                {{$state->getName()}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -206,8 +206,8 @@
                                             انتخاب کنید...
                                         </option>
                                         @foreach($data['city'] as $city)
-                                            <option value="{{$city['id']}}">
-                                                {{$city['name']}}
+                                            <option value="{{$city->getId()}}">
+                                                {{$city->getName()}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -293,8 +293,8 @@
                                             انتخاب کنید...
                                         </option>
                                         @foreach($data['state'] as $state)
-                                            <option value="{{$state['id']}}">
-                                                {{$state['name']}}
+                                            <option value="{{$state->getId()}}">
+                                                {{$state->getName()}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -313,8 +313,8 @@
                                             انتخاب کنید...
                                         </option>
                                         @foreach($data['city'] as $city)
-                                            <option value="{{$city['id']}}">
-                                                {{$city['name']}}
+                                            <option value="{{$city->getId()}}">
+                                                {{$city->getName()}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -386,8 +386,8 @@
                                             انتخاب کنید...
                                         </option>
                                         @foreach($data['state'] as $state)
-                                            <option value="{{$state['id']}}">
-                                                {{$state['name']}}
+                                            <option value="{{$state->getId()}}">
+                                                {{$state->getName()}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -406,8 +406,8 @@
                                             انتخاب کنید...
                                         </option>
                                         @foreach($data['city'] as $city)
-                                            <option value="{{$city['id']}}">
-                                                {{$city['name']}}
+                                            <option value="{{$city->getId()}}">
+                                                {{$city->getName()}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -483,8 +483,8 @@
                                         انتخاب کنید...
                                     </option>
                                     @foreach($data['state'] as $state)
-                                        <option value="{{$state['id']}}">
-                                            {{$state['name']}}
+                                        <option value="{{$state->getId()}}">
+                                            {{$state->getName()}}
                                         </option>
                                     @endforeach
                                 </select>
@@ -500,8 +500,8 @@
                                         انتخاب کنید...
                                     </option>
                                     @foreach($data['city'] as $city)
-                                        <option value="{{$city['id']}}">
-                                            {{$city['name']}}
+                                        <option value="{{$city->getId()}}">
+                                            {{$city->getName()}}
                                         </option>
                                     @endforeach
                                 </select>

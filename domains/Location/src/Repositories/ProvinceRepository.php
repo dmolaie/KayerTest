@@ -8,9 +8,11 @@ class ProvinceRepository
 {
     protected $entityName = Province::class;
 
-    public function getAll()
+    public function getAll($global = null)
     {
-        return $this->entityName::all();
+        return $this->entityName::when($global, function ($query){
+            return $query->where('is_show','=',true);
+        })->get();
     }
 
     public function find(int $id)
