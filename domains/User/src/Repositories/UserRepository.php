@@ -3,6 +3,7 @@
 
 namespace Domains\User\Repositories;
 
+use Domains\Role\Services\Contracts\DTOs\RoleInfoDTO;
 use Domains\User\Entities\User;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
@@ -51,9 +52,11 @@ class UserRepository
         $user->receive_email = $userRegisterInfoDTO->getReceiveEmail() ?? $user->receive_email;
         $user->creator_id = $userInfo ? $user->creator_id : $userRegisterInfoDTO->getCreatedBy();
         $user->register_type = $userInfo ? $user->register_type : $userRegisterInfoDTO->getRegisterType();
-        $cardId = $userRegisterInfoDTO->getCardId()??($this->entityName::latest('id')->first() ? $this->entityName::latest('id')->first()->id + 1 : 1);
+        $cardId = $userRegisterInfoDTO->getCardId() ?? ($this->entityName::latest('id')->first() ? $this->entityName::latest('id')->first()->id + 1 : 1);
         $user->card_id = $user->card_id ?? $cardId;
-
+        if (in_array($userRegisterInfoDTO->getRoleType(), ['client', 'legate'])) {
+            $user->{'is_' . $userRegisterInfoDTO->getRoleType()} = $userRegisterInfoDTO->getRoleStatus();
+        }
         if ($userRegisterInfoDTO->getPassword()) {
             $user->password = bcrypt($userRegisterInfoDTO->getPassword());
         }
@@ -166,11 +169,16 @@ class UserRepository
                 return $query->where('national_code', $userSearchDTO->getNationalCode());
             })
             ->when($userSearchDTO->getRoleType(), function ($query) use ($userSearchDTO) {
+                if (in_array($userSearchDTO->getRoleType(), ['client', 'legate'])) {
+                    {
+                        return $query->whereNotNull('is_' . $userSearchDTO->getRoleType());
+                    }
+                }
                 return $query->whereHas(
                     'roles', function ($query) use ($userSearchDTO) {
                     $query->where('roles.type', $userSearchDTO->getRoleType());
                 });
-            })->with('arvanvod')
+            })->with(['arvanvod','roles'])
             ->paginate(config('user.user_paginate_count'));
     }
 
@@ -205,13 +213,19 @@ class UserRepository
 
     public function addNewRoleToUser(
         int $userId,
-        int $roleId,
+        RoleInfoDTO $roleInfoDTO,
         string $roleStatus
     ) {
         $user = $this->entityName::findOrFail($userId);
-        $user->roles()->detach($roleId);
+        if (in_array($roleInfoDTO->getType(), ['client', 'legate'])) {
+            $user->{'is_' . $roleInfoDTO->getType()} = $roleStatus;
+            if ($user->getDirty()) {
+                $user->save();
+            }
+        }
+        $user->roles()->detach($roleInfoDTO->getId());
         $user->roles()->attach(
-            $roleId,
+            $roleInfoDTO->getId(),
             ['status' => $roleStatus]);
         return $user;
     }
@@ -219,18 +233,19 @@ class UserRepository
     public function getUserReport($type, $sort, $status, $registerFrom, $registerEnd, $paginate)
     {
         return $this->entityName
-            ::whereHas('roles', function ($query) use ($type, $status) {
-                $query->when(!empty($type), function ($query) use ($type, $status) {
-                    $query->where('type', '=', $type);
-                })->when($status, function ($query) use ($status) {
-                    return $query->where('status', '=', $status);
-                });
+            ::when(!empty($type), function ($query) use ($type, $status) {
+
+                if ($status) {
+                    return $query->where('is_' . $type, '=', $status);
+                }
+
+                return $query->whereNotNull('is_' . $type);
             })
             ->when($registerFrom, function ($query) use ($registerFrom) {
-                return $query->where('created_at', '<=', $registerFrom);
+                return $query->where('created_at', '>=', $registerFrom);
             })
             ->when($registerEnd, function ($query) use ($registerEnd) {
-                return $query->where('created_at', '>=', $registerEnd);
+                return $query->where('created_at', '<=', $registerEnd);
             });
     }
 }
