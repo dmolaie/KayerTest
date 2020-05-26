@@ -106,18 +106,21 @@ class UserService
         $loginController = new LoginController();
         $loginController->login($request);
 
+
         if (\auth()->check() && !\auth()->user()->is_active) {
             $loginController->logout($request);
             throw new UserUnAuthorizedException(trans('user::response.authenticate.user_is_not_active'));
         }
 
-        $checkRoleClient = $this->checkActiveStatusRole(\auth()->user()->roles()->get());
+        if(\auth()->user()){
+            $checkRoleClient = $this->checkActiveStatusRole(\auth()->user()->roles()->get());
 
-        if (array_key_exists(config('role.roles.client.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.client.name')] == false ||
-            array_key_exists(config('role.roles.legate.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.legate.name')] == false ||
-            array_key_exists(config('role.roles.admin.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.admin.name')] == false ) {
-            $loginController->logout($request);
-            throw new UserUnAuthorizedException(trans('user::response.user_dose_not_have_active_role'));
+            if (array_key_exists(config('role.roles.client.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.client.name')] == false ||
+                array_key_exists(config('role.roles.legate.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.legate.name')] == false ||
+                array_key_exists(config('role.roles.admin.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.admin.name')] == false ) {
+                $loginController->logout($request);
+                throw new UserUnAuthorizedException(trans('user::response.user_dose_not_have_active_role'));
+            }
         }
 
         if (\auth()->check() && \auth()->user()->is_active) {
