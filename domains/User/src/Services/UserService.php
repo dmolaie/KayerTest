@@ -106,9 +106,23 @@ class UserService
         $loginController = new LoginController();
         $loginController->login($request);
 
+        if (\auth()->check() && !\auth()->user()->is_active) {
+            $loginController->logout($request);
+            throw new UserUnAuthorizedException(trans('user::response.authenticate.user_is_not_active'));
+        }
+
+        $checkRoleClient = $this->checkActiveStatusRole(\auth()->user()->roles()->get());
+
+        if (array_key_exists(config('role.roles.client.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.client.name')] == false ||
+            array_key_exists(config('role.roles.legate.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.legate.name')] == false ||
+            array_key_exists(config('role.roles.admin.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.admin.name')] == false ) {
+            $loginController->logout($request);
+            throw new UserUnAuthorizedException(trans('user::response.user_dose_not_have_active_role'));
+        }
+
         if (\auth()->check() && \auth()->user()->is_active) {
             $user = \auth()->user();
-            $role = $this->getUserImportantActiveOrPendingRole($user);
+            $role = $this->getUserImportantActiveOrPendingRole(\auth()->user());
             $loginDTO->setToken(Auth::user()->createToken('ehda')->accessToken);
             $loginDTO->setRole($role);
             $loginDTO->setId($user->id);
@@ -118,6 +132,21 @@ class UserService
         }
         $loginController->logout($request);
         throw new UserUnAuthorizedException(trans('admin::response.authenticate.error_username_password'));
+    }
+
+    private function checkActiveStatusRole($roles)
+    {
+        if (!$roles) {
+            return false;
+        }
+        $data = [];
+        foreach ($roles as $role) {
+            $data[$role->type] = true;
+            if ($role->pivot->status == config('user.user_role_inactive')) {
+                $data[$role->type] = false;
+            }
+        }
+        return $data;
     }
 
     /**
@@ -342,7 +371,7 @@ class UserService
         $usersClient = [];
         $usersLegate = [];
 
-        if ($usersRegisterReportDTO->isTypeClient() ) {
+        if ($usersRegisterReportDTO->isTypeClient()) {
             $usersClient = $this->userRepository->getUserReport(config('user.client_role_type'), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
         }
 
@@ -364,13 +393,12 @@ class UserService
         );
     }
 
-
     public function allUserReport(UsersRegisterReportDTO $usersRegisterReportDTO)
     {
         $usersClient = [];
         $usersLegate = [];
 
-        if ($usersRegisterReportDTO->isTypeClient() ) {
+        if ($usersRegisterReportDTO->isTypeClient()) {
             $usersClient = $this->userRepository->getUserReport(config('user.client_role_type'), $usersRegisterReportDTO->getSort(), $usersRegisterReportDTO->getStatusClient(), $usersRegisterReportDTO->getRegisterFromClient(), $usersRegisterReportDTO->getRegisterEndClient(), $usersRegisterReportDTO->getPaginate());
         }
 

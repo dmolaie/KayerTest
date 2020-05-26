@@ -121,9 +121,23 @@ $navBg: #bde8fa
     @include Xl_Screen
       margin-left: (30px - 6)
     &--active
+      margin-right: -6px
       .header__nav_btn--user
         margin-right: 6px
         background-image: url("/../images/ic_user--green.svg")
+      .header__user--icon, .header__user--text
+        border: 1px solid #b9d948
+        background: $white
+      .header__user--icon
+        padding: 5px 0 5px 5px
+        border:
+          radius: 4px 0 0 4px
+          right: none
+      .header__user--text
+        padding: 4px 9px 2px 5px
+        border:
+          radius: 0 4px 4px 0
+          left: none
   &__dropdown
     top: 38px
     left: 50%
@@ -156,3 +170,15 @@ $navBg: #bde8fa
       .header__dropdown
         visibility: visible
         pointer-events: all
+  .login-box
+    margin-right: -6px
+    border-color: #9dcddb
+    padding: 3px 0 3px 5px
+    background-color: transparentize($white, (1 - .56))
+    transition: background-color $duration
+    &:hover
+      background-color: $white
+    &__text
+      $gap: 6px
+      margin-right: -$gap
+      padding-right: $gap
