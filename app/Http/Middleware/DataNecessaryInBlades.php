@@ -30,7 +30,7 @@ class DataNecessaryInBlades
     public function handle($request, Closure $next)
     {
         $listOfMenu = $this->menuService->getListSite(true);
-        $listOfProvince = $this->provinceService->getAllWithoutGlobal();
+        $listOfProvince = $this->provinceService->getAll(true);
         $language = request()->language;
         \View::share(['menus' => $listOfMenu, 'provinces' => $listOfProvince, 'language' => $language]);
         return $next($request);

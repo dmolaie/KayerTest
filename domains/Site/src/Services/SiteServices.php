@@ -149,7 +149,7 @@ class SiteServices
 
     public function getProvince()
     {
-        return $this->provinceService->getAllWithoutGlobal();
+        return $this->provinceService->getAll(true);
     }
 
     public function getCities()

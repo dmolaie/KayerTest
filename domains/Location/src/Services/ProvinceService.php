@@ -49,18 +49,9 @@ class ProvinceService
     /**
      * @return array
      */
-    public function getAll(): array
+    public function getAll($global = false): array
     {
         $cities = $this->provinceRepository->getAll();
-        return $this->provinceDTOMaker->convertMany($cities);
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllWithoutGlobal(): array
-    {
-        $cities = $this->provinceRepository->getAll(true);
         return $this->provinceDTOMaker->convertMany($cities);
     }
 
