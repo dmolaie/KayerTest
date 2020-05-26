@@ -15,6 +15,8 @@ import {
     toEnglishDigits
 } from '@vendor/plugin/helper';
 
+const USER_EXCEPTION = "شما با کاربر دیگری وارد شده اید.لطفا ابتدا خارج شوید و سپس وارد شوید.";
+
 export default class LoginService extends BaseService {
     constructor( layout ) {
         super();
@@ -35,6 +37,9 @@ export default class LoginService extends BaseService {
 
     async SignInRequest( payload ) {
         try {
+            if ( !!TokenService._GetToken ) {
+                throw new Error( USER_EXCEPTION );
+            }
             const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]');
             this.$vm.$set( this.$vm, 'shouldBeShowSpinnerLoading', true );
             let response = await HTTPService.postRequest( Endpoint.get( Endpoint.SIGN_IN ), {
