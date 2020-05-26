@@ -289,9 +289,10 @@ class UserService
 
     public function addNewRoleToUser(int $userId, int $roleId): UserBriefInfoDTO
     {
+        $roleInfo = $this->roleServices->getRoleWithId($roleId);
         $user = $this->userRepository->addNewRoleToUser(
             $userId,
-            $roleId,
+            $roleInfo,
             config('user.user_role_active_status')
         );
         return $this->userBriefInfoDTOMaker->convert($user);
@@ -310,9 +311,10 @@ class UserService
 
     public function changeUserRoleStatus(UserChangeRoleDTO $userChangeRoleDTO)
     {
+        $roleInfo = $this->roleServices->getRoleWithId($userChangeRoleDTO->getRoleId());
         $user = $this->userRepository->addNewRoleToUser(
             $userChangeRoleDTO->getUserId(),
-            $userChangeRoleDTO->getRoleId(),
+            $roleInfo,
             $userChangeRoleDTO->getRoleStatus()
         );
         return $this->userBriefInfoDTOMaker->convert($user);
