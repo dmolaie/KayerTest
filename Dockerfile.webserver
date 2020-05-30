@@ -1,5 +1,6 @@
 FROM registry.arna.ir/nodejs/nodejs as js-files
 WORKDIR /app
+RUN echo 'API_DOMAIN=""' > .env
 COPY . .
 RUN npm i
 RUN npm run prod:site
