@@ -2,7 +2,7 @@
     <div class="c-card e-user c-post w-full">
         <div class="main w-full inner-box inner-box--white w-full rounded-2">
             <div class="c-card__step c-card__step--1"
-                 v-if="step === 1 && authentication"
+                 v-if="shouldBeShowInquiryStep && showInquiryStep"
             >
                 <p class="font-sm font-bold text-blue cursor-default">
                     استعلام کد ملی
@@ -16,19 +16,19 @@
                     >
                         <input type="text" placeholder="۱۰ رقم بدون خط تیره" autocomplete="off"
                                v-model="form.national_code"
-                               @focus="hiddenValidationError('national_code')"
-                               @blur="nationalCodeValidate('national_code')"
+                               @focus="hideErrorMessage('national_code')"
+                               @blur="validateNationalCode('national_code', form.national_code)"
                                class="c-card__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                         />
                         <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                               v-show="validation.national_code.show"
-                              v-text="validation.national_code.text"
+                              v-text="validation.national_code.value"
                         > </span>
                     </label>
                 </div>
                 <button class="c-card__button c-card__button--submit block text-white font-sm font-bold rounded m-0-auto"
                         :class="{ 'spinner-loading': spinnerLoading.submit }"
-                        @click.prevent="onClickCheckNationalCodeButton"
+                        @click.prevent="onClickCheckNationalCodeButton( form.national_code )"
                 >
                     استعلام کد ملی
                 </button>
@@ -51,12 +51,12 @@
                                    v-model="form.name"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('name')"
-                                   @blur="persianCharValidate('name', 'نام', true)"
+                                   @focus="hideErrorMessage('name')"
+                                   @blur="validatePersianCharacter('name', form.name, true)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.name.show"
-                                  v-text="validation.name.text"
+                                  v-text="validation.name.value"
                             > </span>
                         </label>
                     </div>
@@ -71,12 +71,12 @@
                                    v-model="form.last_name"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('last_name')"
-                                   @blur="persianCharValidate('last_name', 'نام خانوادگی', true)"
+                                   @focus="hideErrorMessage('last_name')"
+                                   @blur="validatePersianCharacter('last_name', form.last_name, true)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.last_name.show"
-                                  v-text="validation.last_name.text"
+                                  v-text="validation.last_name.value"
                             > </span>
                         </label>
                     </div>
@@ -89,7 +89,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       :value="0" v-model="form.gender"
+                                       :value="gender['male']" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     آقا
@@ -99,7 +99,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       :value="1" v-model="form.gender"
+                                       :value="gender['female']" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     خانم
@@ -109,7 +109,7 @@
                                 <input type="radio"
                                        class="e-user__radio none"
                                        name="gender" required="required" autocomplete="off"
-                                       :value="2" v-model="form.gender"
+                                       :value="gender['other']" v-model="form.gender"
                                 />
                                 <span class="e-user__radio--label w-full h-full block text-bayoux font-sm font-normal">
                                     سایر
@@ -128,12 +128,12 @@
                                    v-model="form.father_name"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('father_name')"
-                                   @blur="persianCharValidate('father_name', 'نام پدر', true)"
+                                   @focus="hideErrorMessage('father_name')"
+                                   @blur="validatePersianCharacter('father_name', form.father_name, true)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.father_name.show"
-                                  v-text="validation.father_name.text"
+                                  v-text="validation.father_name.value"
                             > </span>
                         </label>
                     </div>
@@ -147,17 +147,17 @@
                             <input type="text" autocomplete="off"
                                    v-model="form.identity_number" placeholder="فقط عدد"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                   @focus="hiddenValidationError('identity_number')"
-                                   @blur="numberValidator('identity_number', 'شماره شناسنامه')"
+                                   @focus="hideErrorMessage('identity_number')"
+                                   @blur="validateOnlyNumber('identity_number', form.identity_number)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.identity_number.show"
-                                  v-text="validation.identity_number.text"
+                                  v-text="validation.identity_number.value"
                             > </span>
                         </label>
                     </div>
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0"
-                         v-if="!authentication"
+                         v-if="!showInquiryStep"
                     >
                         <span class="c-card__text block text-blue-800 text-required font-sm font-bold text-right cursor-default">
                             کدملی
@@ -167,13 +167,13 @@
                         >
                             <input type="text" placeholder="۱۰ رقم بدون خط تیره" autocomplete="off"
                                    v-model="form.national_code"
-                                   @focus="hiddenValidationError('national_code')"
-                                   @blur="nationalCodeValidate('national_code')"
+                                   @focus="hideErrorMessage('national_code')"
+                                   @blur="validateNationalCode('national_code', form.national_code)"
                                    class="c-card__input input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             />
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.national_code.show"
-                                  v-text="validation.national_code.text"
+                                  v-text="validation.national_code.value"
                             > </span>
                         </label>
                     </div>
@@ -233,26 +233,6 @@
                 </p>
                 <div class="flex flex-wrap items-end">
                     <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
-                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
-                            ایمیل
-                        </span>
-                        <label class="relative w-full block"
-                               :class="{ 'c-card__hasError': validation.email.show }"
-                        >
-                            <input type="text" autocomplete="off"
-                                   v-model="form.email"
-                                   placeholder="حروف انگلیسی"
-                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                   @focus="hiddenValidationError('email')"
-                                   @blur="emailValidator('email', 'ایمیل')"
-                            >
-                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validation.email.show"
-                                  v-text="validation.email.text"
-                            > </span>
-                        </label>
-                    </div>
-                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="c-card__text block text-required text-blue-800 font-sm font-bold text-right cursor-default">
                             تلفن همراه
                         </span>
@@ -263,12 +243,32 @@
                                    v-model="form.mobile"
                                    placeholder="تلفن همراه"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                   @focus="hiddenValidationError('mobile')"
-                                   @blur="mobileValidator('mobile', 'تلفن همراه', true)"
+                                   @focus="hideErrorMessage('mobile')"
+                                   @blur="validateMobileNumber('mobile', form.mobile, true)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.mobile.show"
-                                  v-text="validation.mobile.text"
+                                  v-text="validation.mobile.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="c-card__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="c-card__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            ایمیل
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'c-card__hasError': validation.email.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   v-model="form.email"
+                                   placeholder="حروف انگلیسی"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                                   @focus="hideErrorMessage('email')"
+                                   @blur="validateEmail('email', form.email)"
+                            >
+                            <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.email.show"
+                                  v-text="validation.email.value"
                             > </span>
                         </label>
                     </div>
@@ -309,12 +309,12 @@
                                    v-model="form.current_address"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('current_address')"
-                                   @blur="persianCharValidate('current_address', 'آدرس محل سکونت')"
+                                   @focus="hideErrorMessage('current_address')"
+                                   @blur="validatePersianCharacter('current_address', form.current_address, false)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.current_address.show"
-                                  v-text="validation.current_address.text"
+                                  v-text="validation.current_address.value"
                             > </span>
                         </label>
                     </div>
@@ -329,12 +329,12 @@
                                    v-model="form.phone"
                                    placeholder="تلفن محل سکونت ۱۱ رقمی خود را وارد نمایید"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                   @focus="hiddenValidationError('phone')"
-                                   @blur="phoneNumberValidate('phone', 'تلفن محل سکونت')"
+                                   @focus="hideErrorMessage('phone')"
+                                   @blur="validatePhoneNumber('phone', form.phone)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.phone.show"
-                                  v-text="validation.phone.text"
+                                  v-text="validation.phone.value"
                             > </span>
                         </label>
                     </div>
@@ -349,12 +349,12 @@
                                    v-model="form.home_postal_code"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                                   @focus="hiddenValidationError('home_postal_code')"
-                                   @blur="postalCodeValidate('home_postal_code', 'کد‌پستی محل سکونت')"
+                                   @focus="hideErrorMessage('home_postal_code')"
+                                   @blur="validatePostalCode('work_postal_code', form.work_postal_code)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.home_postal_code.show"
-                                  v-text="validation.home_postal_code.text"
+                                  v-text="validation.home_postal_code.value"
                             > </span>
                         </label>
                     </div>
@@ -385,12 +385,12 @@
                                    v-model="form.education_field"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('education_field')"
-                                   @blur="persianCharValidate('education_field', 'رشته تحصیلی')"
+                                   @focus="hideErrorMessage('education_field')"
+                                   @blur="validatePersianCharacter('education_field', form.education_field)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.education_field.show"
-                                  v-text="validation.education_field.text"
+                                  v-text="validation.education_field.value"
                             > </span>
                         </label>
                     </div>
@@ -431,12 +431,12 @@
                                    v-model="form.job_title"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('job_title')"
-                                   @blur="persianCharValidate('job_title', 'شغل')"
+                                   @focus="hideErrorMessage('job_title')"
+                                   @blur="validatePersianCharacter('job_title', form.job_title)"
                             >
                             <span class="c-card__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
                                   v-show="validation.job_title.show"
-                                  v-text="validation.job_title.text"
+                                  v-text="validation.job_title.value"
                             > </span>
                         </label>
                     </div>
@@ -460,7 +460,7 @@
                         <input type="checkbox"
                                class="checkbox-square__input"
                                name="receive_email"
-                               :checked="form.password_change"
+                               :checked="true"
                         />
                         <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"> </span>
                         <span class="checkbox-square__label font-sm font-medium rounded user-select-none">
@@ -493,86 +493,35 @@
 
 <script>
     import { mapState } from 'vuex';
-    import {
-        HasLength, Length, toEnglishDigits, OnlyPersianAlphabet,
-        PostalCodeValidator, OnlyNumber, PhoneNumberValidator, EmailValidator, NationalCodeValidator
-    } from '@vendor/plugin/helper';
+    import { HasLength, CopyOf } from '@vendor/plugin/helper';
+    import RegisterFormService from '@services/service/RegisterForm';
     import CreateCardsService from '@services/service/CreateCards';
     import SelectCm from '@vendor/components/select/Index.vue';
 
-    let MOUTH = [
-        { id: 1,  name: 'فروردین' },
-        { id: 2,  name: 'اردیبهشت' },
-        { id: 3,  name: 'خرداد' },
-        { id: 4,  name: 'تیر' },
-        { id: 5,  name: 'مرداد' },
-        { id: 6,  name: 'شهریور' },
-        { id: 7,  name: 'مهر' },
-        { id: 8,  name: 'آبان' },
-        { id: 9,  name: 'آذر' },
-        { id: 10, name: 'دی' },
-        { id: 11, name: 'بهمن' },
-        { id: 12, name: 'اسفند' },
-    ];
-
-    let Service = null;
-
-    /**
-     * TODO: Refactor date_of_birth methods
-     */
+    let Service = null, FormValidator = null;
 
     export default {
         name: "CreateCards",
         data: () => ({
-            step: 1,
             isPending: true,
-            form: {
-                national_code: '',
-                name: '',
-                last_name: '',
-                gender: '',
-                father_name: '',
-                identity_number: '',
-                date_of_birth: '',
-                province_of_birth: '',
-                city_of_birth: '',
-                event_id: '',
-                email: '',
-                mobile: '',
-                current_province_id: '',
-                current_city_id: '',
-                current_address: '',
-                phone: '',
-                home_postal_code: '',
-                last_education_degree: '',
-                education_field: '',
-                education_province_id: '',
-                education_city_id: '',
-                job_title: '',
-                receive_email: false,
-                password_change: true
-            },
+            shouldBeShowInquiryStep: true,
+            gender: RegisterFormService.gender,
+            day: RegisterFormService.day,
+            year: RegisterFormService.year,
+            month: RegisterFormService.month,
+            form: RegisterFormService.form,
             date_of_birth_year: '',
             date_of_birth_month: '',
             date_of_birth_day: '',
             validation: {
-                national_code: { text: '', show: false },
-                name: { text: '', show: false },
-                last_name: { text: '', show: false },
-                father_name: { text: '', show: false },
-                identity_number: { text: '', show: false },
-                email: { text: '', show: false },
-                mobile: { text: '', show: false },
-                current_address: { text: '', show: false },
-                phone: { text: '', show: false },
-                home_postal_code: { text: '', show: false },
-                education_field: { text: '', show: false },
-                job_title: { text: '', show: false },
+                name: {}, last_name: {}, father_name: {}, identity_number: {}, national_code: {}, date_of_birth: {},
+                mobile: {}, email: {},
+                current_address: {}, phone: {}, home_postal_code: {},
+                education_field: {},
+                job_title: {},
             },
             cities: { birth: {}, current: {}, education: {} },
-            spinnerLoading: {
-                submit: false
-            },
+            spinnerLoading: { submit: false },
             isModuleRegistered: false
         }),
         components: { SelectCm },
@@ -581,105 +530,50 @@
                 provinces: ({ CreateCardsStore }) => CreateCardsStore.provinces,
                 education: ({ CreateCardsStore }) => CreateCardsStore.education,
                 events: ({ CreateCardsStore }) => CreateCardsStore.events,
-                authentication: ({ CreateCardsStore }) => CreateCardsStore.authentication?.register_by_admin,
+                showInquiryStep: ({ CreateCardsStore }) => CreateCardsStore.authentication?.register_by_admin,
             }),
-            day: () => {
-                let arr = [];
-                for (let i = 1; i <= 31; i ++) {
-                    arr.push({
-                        id: i,
-                        name: i
-                    })
-                }
-                return arr
-            },
-            month: () => {
-                return MOUTH
-            },
-            year: () => {
-                let arr = [];
-                for (let i = 30; i < 82; i ++) {
-                    arr.push({
-                        id: parseFloat(('13' + i)),
-                        name: parseFloat(('13' + i))
-                    })
-                }
-                return arr
-            },
         },
         watch: {
             async 'form.province_of_birth'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                if ( !!response ) this.$set(this.cities, 'birth', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'birth', result);
             },
             async 'form.current_province_id'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                this.$set(this.cities, 'current', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'current', result);
             },
             async 'form.education_province_id'( id ) {
-                let response = await Service.getCityByProvincesId( id );
-                if ( !!response ) this.$set(this.cities, 'education', response);
+                let result = await RegisterFormService.getCityByProvincesId( id );
+                this.$set(this.cities, 'education', result);
             },
         },
         methods: {
-            setValidationError( name, text = '' ) {
-                this.$set(this.validation, `${name}`, {text, show: true});
+            setErrorMassage(field, value) {
+                FormValidator.setErrorMassage = { field, value };
             },
-            hiddenValidationError( name ) {
-                this.$set(this.validation, `${name}`, {text: '', show: false});
+            hideErrorMessage( field ) {
+                FormValidator.hideErrorMassage( field );
             },
-            nationalCodeValidate( name )  {
-                let field = this.form[name];
-                if (HasLength( field )) {
-                    if (!NationalCodeValidator(toEnglishDigits( field )))
-                        this.setValidationError(name, `فرمت کدملی اشتباه است.`);
-                } else this.setValidationError(name, `فیلد کدملی ضروری است.`);
+            validateNationalCode(field, value) {
+                FormValidator.validateNationalCode(field, value);
             },
-            persianCharValidate(name, name_fa, required = false) {
-                let field = this.form[name];
-                if ( required ) {
-                    if ( HasLength(field) ) {
-                        if (!OnlyPersianAlphabet(field))
-                           this.setValidationError(name, `${name_fa} را با حروف فارسی وارد نمایید.`);
-                    } else this.setValidationError(name, `فیلد ${name_fa} ضروری است.`)
-                } else {
-                    if (HasLength(field) && !OnlyPersianAlphabet(field))
-                        this.setValidationError(name, `${name_fa} را با حروف فارسی وارد نمایید.`);
-                }
+            validatePersianCharacter(field, value,  is_required = false) {
+                FormValidator.validatePersianCharacter(field, value, is_required);
             },
-            numberValidator(name, name_fa) {
-                let field = this.form[name];
-                if (HasLength( field ) && !OnlyNumber(toEnglishDigits(field)))
-                    this.setValidationError(name, `فرمت ${name_fa} اشتباه است.`);
+            validateOnlyNumber(field, value, is_required = false) {
+                FormValidator.validateOnlyNumber(field, value, is_required);
             },
-            emailValidator(name, name_fa) {
-                let field = this.form[name];
-                if (HasLength( field ) && !EmailValidator(toEnglishDigits(field)))
-                    this.setValidationError(name, `فرمت ${name_fa} اشتباه است.`)
+            validateEmail(field, value, is_required = false) {
+                FormValidator.validateEmail(field, value, is_required);
             },
-            mobileValidator(name, name_fa, required = false) {
-                let field = this.form[name];
-                if ( required ) {
-                    if ( HasLength(field) ) {
-                        if (!PhoneNumberValidator(toEnglishDigits(field)))
-                           this.setValidationError(name, `فرمت ${name_fa} اشتباه است.`);
-                    } else this.setValidationError(name, `فیلد ${name_fa} ضروری است.`)
-                } else {
-                    if (HasLength( field ) && !PhoneNumberValidator(toEnglishDigits(field)))
-                        this.setValidationError(name, `فرمت ${name_fa} اشتباه است.`);
-                }
+            validateMobileNumber(field, value, is_required = false) {
+                FormValidator.validateMobileNumber(field, value, is_required);
             },
-            phoneNumberValidate(name, name_fa) {
-                let field = this.form[name];
-                if ( HasLength( field ) ) {
-                    if (!OnlyNumber(toEnglishDigits( field )) || Length( field ) !== 11)
-                        this.setValidationError(name, `فرمت ${name_fa} اشتباه است.`);
-                }
+            validatePhoneNumber(field, value, is_required = false) {
+                FormValidator.validatePhoneNumber(field, value, is_required);
             },
-            postalCodeValidate(name, name_fa) {
-                let field = this.form[name];
-                if (HasLength( field ) && !PostalCodeValidator( field ))
-                    this.setValidationError(name, `فرمت ${name_fa} اشتباه است.`);
+            validatePostalCode(field, value, is_required = false) {
+                FormValidator.validatePostalCode(field, value, is_required);
             },
             updateProvinceOfBirthField({ id }) {
                 this.$set(this.form, 'province_of_birth', id);
@@ -694,7 +588,7 @@
             },
             async handelEventFieldSearch( search ) {
                 try {
-                    return await Service.handelEventFieldSearch( search );
+                    return await RegisterFormService.handelEventFieldSearch( search );
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
                 }
@@ -712,13 +606,14 @@
                 this.updateBirthDateField();
             },
             updateBirthDateField() {
-                let {
+                let { date_of_birth_year, date_of_birth_month, date_of_birth_day } = this;
+                const DATE = FormValidator.convertSolarHijriToTimestamp([
                     date_of_birth_year,
                     date_of_birth_month,
                     date_of_birth_day
-                } = this;
-                if ( !!date_of_birth_year && !!date_of_birth_month && !!date_of_birth_day )
-                    this.$set(this.form, 'date_of_birth', Service.jalaaliToTimestamp(date_of_birth_year, date_of_birth_month, date_of_birth_day));
+                ]);
+                this.$set(this.form, 'date_of_birth', DATE);
+                console.log(this.form.date_of_birth);
             },
             updateCurrentProvinceField({ id }) {
                 this.$set(this.form, 'current_province_id', id);
@@ -739,39 +634,31 @@
             updateEducationCityField({ id }) {
                 this.$set(this.form, 'education_city_id', id);
             },
-            async onClickCheckNationalCodeButton() {
+            async onClickCheckNationalCodeButton( national_code ) {
                 try {
+                    this.validateNationalCode('national_code', national_code);
                     this.$set(this.spinnerLoading, 'submit', true);
-                    let result = await Service.validateUserNationalCode( this.form.national_code );
+                    let result = await Service.validateUserNationalCode( national_code );
                     this.displayNotification(result, { type: 'success' });
-                    this.$set(this, 'step', this.step + 1);
+                    this.$set(this, 'shouldBeShowInquiryStep', false);
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {
                     this.$set(this.spinnerLoading, 'submit', false);
                 }
             },
-            checkFormValidation() {
-                try {
-                    let findInvalidField = (
-                        Object.values( this.validation )
-                            .filter(({ show }) => show)
-                    );
-                    if ( HasLength( findInvalidField ) ) {
-                        this.displayNotification(findInvalidField[0].text, {type: 'error'});
-                        return false
-                    }
-                    return true;
-                } catch (e) {}
-            },
             async onClickRegisterDonationCard() {
                 try {
                     this.$set(this.spinnerLoading, 'submit', true);
-                    let formIsValid = this.checkFormValidation();
-                    if ( formIsValid ) {
-                        let result = await Service.registerDonationCard();
-                        this.displayNotification(result, { type: 'success' });
-                    }
+                    const DUPLICATE_FORM = CopyOf( this.form );
+                    FormValidator.checkRequiredField([
+                        'name', 'last_name', 'gender', 'father_name', 'national_code', 'date_of_birth',
+                        'mobile', 'current_province_id', 'current_city_id', 'last_education_degree',
+                    ], DUPLICATE_FORM);
+                    FormValidator.checkFromValidation( this.validation );
+                    const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload( DUPLICATE_FORM );
+                    let result = await Service.registerDonationCard( REQUEST_PAYLOAD );
+                    this.displayNotification(result, { type: 'success' });
                     this.pushRouter({ name: 'MANAGE_CARDS' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
@@ -784,6 +671,7 @@
             }
         },
         created() {
+            FormValidator = new RegisterFormService( this.validation );
             Service = new CreateCardsService( this );
             Service.processFetchAsyncData()
                 .then(this.$nextTick)
