@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ehda-webserver-cluster-ip-service
+  namespace: ehda
+  labels:
+    app: ehda-webserver
+spec:
+  type: ClusterIP
+  selector:
+    app: ehda-webserver
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ehda-webserver
+  labels:
+    app: ehda-webserver
+spec:
+  selector:
+    matchLabels:
+      app: ehda-webserver
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ehda-webserver
+    spec:
+      containers:
+      - image: registry.arna.ir/ehda/webserver:2
+        imagePullPolicy: IfNotPresent
+        name: ehda-webserver
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/conf.d/default.conf
+          name: ehda-nginx-config
+          subPath: default.conf
+        - mountPath: /var/www/storage/app/public
+          name: webserver-storage
+        - mountPath: /var/www/public/images
+          name: webserver-images
+      volumes:
+      - name: ehda-nginx-config
+        configMap:
+          name: ehda-nginx-config1
+      - name: webserver-storage
+        persistentVolumeClaim:
+          claimName: ehda-webserver-pv-claim
+      - name: webserver-images
+        persistentVolumeClaim:
+          claimName: ehda-images-pv-claim
+
+      imagePullSecrets:
+      - name: registry
+      nodeSelector:
+        ehdacenter: "true"
