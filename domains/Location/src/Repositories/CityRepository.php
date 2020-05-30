@@ -34,4 +34,10 @@ class CityRepository
         return $this->entityName::whereIn('id', $cityIds)
             ->get();
     }
+
+    public function findByName($city)
+    {
+        return $this->entityName::where('name','like', '%'.$city.'%')
+            ->get();
+    }
 }
