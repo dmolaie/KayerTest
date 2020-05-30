@@ -63,6 +63,15 @@ class CityServices
         $cities = $this->cityRepository->findWithProvinceId($province_id);
         return $this->cityDTOMaker->convertMany($cities);
     }
+    /**
+     * @param $cityName
+     * @return array
+     */
+    public function findByName($cityName)
+    {
+        $cities = $this->cityRepository->findByName($cityName);
+        return $this->cityDTOMaker->convertMany($cities);
+    }
 
     public function searchCities(SearchCityDTO $citySearchDTO)
     {
