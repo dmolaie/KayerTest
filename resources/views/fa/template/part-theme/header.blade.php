@@ -4,7 +4,7 @@
             <a href="{{ route('index',config('app.locale')) }}"
                class="header__logo block m-l-auto"
             >
-                @if($language == 'fa')
+                @if(app()->getLocale() == 'fa')
                     <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                          alt="انجمن اهدای عضو ایرانیان"
                          class="header__logo_image block object-contain"
