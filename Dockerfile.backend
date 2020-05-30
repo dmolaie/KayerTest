@@ -1,0 +1,26 @@
+FROM registry.arna.ir/php/php-composer:7.2-fpm as vendor
+RUN docker-php-ext-install mbstring && pecl install mongodb
+WORKDIR /app
+COPY . .
+RUN echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/docker-php-ext-mongo.ini
+RUN ls -ltrh storage/
+RUN mkdir storage/framework
+RUN ls -ltrh storage/framework
+RUN mkdir storage/framework/cache 
+RUN mkdir storage/framework/views
+RUN mkdir storage/framework/sessions
+RUN chmod -R 777 storage/framework
+RUN ls -ltrh storage/framework
+RUN composer update
+
+FROM registry.arna.ir/php/php:7.3-fpm as ehda
+WORKDIR /var/www/
+RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+COPY . .
+COPY --from=vendor /app/vendor/ /var/www/vendor
+RUN mkdir -p /var/www/storage/framework/cache 
+RUN mkdir -p /var/www/storage/framework/views
+RUN mkdir -p /var/www/storage/framework/sessions
+RUN chmod -R 777 /var/www/storage/ && chmod -R 755 /var/www/public
+RUN php artisan cache:clear && php artisan config:clear 
+RUN php artisan storage:link
