@@ -77,7 +77,7 @@ class RegisterUserByAdminRequest extends EhdaBaseRequest
             ->setCityOfBirth($this['city_of_birth'])
             ->setDateOfBirth(Carbon::createFromTimestamp($this['date_of_birth'])->toDateString())
             ->setJobTitle($this['job_title'])
-            ->setLastEducationDegree(!empty($this['last_education_degree']) ? config('user.education_degree')[$this['last_education_degree']] : null)
+            ->setLastEducationDegree(!is_null($this['last_education_degree']) ? config('user.education_degree')[$this['last_education_degree']] : null)
             ->setPhone($this['phone'])
             ->setMobile($this['mobile'])
             ->setCurrentCityId($this['current_city_id'])
