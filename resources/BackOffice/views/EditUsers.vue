@@ -11,18 +11,18 @@
                             نام
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.name.show }"
+                               :class="{ 'e-user__has-error': validation.name.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.name"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('name')"
-                                   @blur="persianCharValidate('name', 'نام', true)"
+                                   @focus="hideErrorMessage('name')"
+                                   @blur="validatePersianCharacter('name', form.name, true)"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.name.show"
-                                  v-text="validationErrors.name.text"
+                                  v-show="validation.name.show"
+                                  v-text="validation.name.value"
                             > </span>
                         </label>
                     </div>
@@ -31,18 +31,18 @@
                             نام خانوادگی
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.last_name.show }"
+                               :class="{ 'e-user__has-error': validation.last_name.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.last_name"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('last_name')"
-                                   @blur="persianCharValidate('last_name', 'نام خانوادگی', true)"
+                                   @focus="hideErrorMessage('last_name')"
+                                   @blur="validatePersianCharacter('last_name', form.last_name, true)"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.last_name.show"
-                                  v-text="validationErrors.last_name.text"
+                                  v-show="validation.last_name.show"
+                                  v-text="validation.last_name.value"
                             > </span>
                         </label>
                     </div>
@@ -88,18 +88,18 @@
                             نام پدر
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.father_name.show }"
+                               :class="{ 'e-user__has-error': validation.father_name.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.father_name"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('father_name')"
-                                   @blur="persianCharValidate('father_name', 'نام پدر')"
+                                   @focus="hideErrorMessage('father_name')"
+                                   @blur="validatePersianCharacter('father_name', form.father_name)"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.father_name.show"
-                                  v-text="validationErrors.father_name.text"
+                                  v-show="validation.father_name.show"
+                                  v-text="validation.father_name.value"
                             > </span>
                         </label>
                     </div>
@@ -108,18 +108,18 @@
                             شماره شناسنامه
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.identity_number.show }"
+                               :class="{ 'e-user__has-error': validation.identity_number.show }"
                         >
                             <input type="text" autocomplete="off"
                                    placeholder="فقط عدد"
                                    v-model="form.identity_number"
-                                   @focus="hiddenValidationError('identity_number')"
-                                   @blur="numberValidator('identity_number', 'شماره شناسنامه')"
+                                   @focus="hideErrorMessage('identity_number')"
+                                   @blur="validateOnlyNumber('identity_number', form.identity_number)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.identity_number.show"
-                                  v-text="validationErrors.identity_number.text"
+                                  v-show="validation.identity_number.show"
+                                  v-text="validation.identity_number.value"
                             > </span>
                         </label>
                     </div>
@@ -141,17 +141,17 @@
                         <div class="e-user__date w-full flex items-stretch text-center user-select-none">
                             <select-cm class="e-user__date--day w-1/3"
                                        :options="day"
-                                       label="name" :value="form.birth.day || ''"
+                                       label="name" :value="form.birth && form.birth.day || ''"
                                        @onChange="updateDayOfBirthDateField"
                             />
                             <select-cm class="e-user__date--month w-1/3"
                                        :options="month"
-                                       label="name" :value="form.birth.month || ''"
+                                       label="name" :value="form.birth && form.birth.month || ''"
                                        @onChange="updateMonthOfBirthDateField"
                             />
                             <select-cm class="e-user__date--year w-1/3"
                                        :options="year"
-                                       label="name" :value="form.birth.year || ''"
+                                       label="name" :value="form.birth && form.birth.year || ''"
                                        @onChange="updateYearOfBirthDateField"
                             />
                         </div>
@@ -232,42 +232,22 @@
                 </p>
                 <div class="flex flex-wrap items-end">
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
-                        <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
-                            ایمیل
-                        </span>
-                        <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.email.show }"
-                        >
-                            <input type="text" autocomplete="off"
-                                   placeholder="حروف انگلیسی"
-                                   v-model="form.email"
-                                   @focus="hiddenValidationError('email')"
-                                   @blur="emailValidator('email', 'ایمیل')"
-                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
-                            >
-                            <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.email.show"
-                                  v-text="validationErrors.email.text"
-                            > </span>
-                        </label>
-                    </div>
-                    <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
                         <span class="e-user__text block text-blue-800 text-required font-sm font-bold text-right cursor-default">
                             تلفن همراه
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.mobile.show }"
+                               :class="{ 'e-user__has-error': validation.mobile.show }"
                         >
                             <input type="text" autocomplete="off"
                                    placeholder="تلفن همراه ۱۱ رقمی خود را وارد نمایید"
                                    v-model="form.mobile"
-                                   @focus="hiddenValidationError('mobile')"
-                                   @blur="mobileValidator('mobile', 'تلفن همراه', true)"
+                                   @focus="hideErrorMessage('mobile')"
+                                   @blur="validateMobileNumber('mobile', form.mobile, true)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.mobile.show"
-                                  v-text="validationErrors.mobile.text"
+                                  v-show="validation.mobile.show"
+                                  v-text="validation.mobile.value"
                             > </span>
                         </label>
                     </div>
@@ -276,18 +256,38 @@
                             تلفن اضطراری
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.essential_mobile.show }"
+                               :class="{ 'e-user__has-error': validation.essential_mobile.show }"
                         >
                             <input type="text" autocomplete="off"
                                    placeholder="تلفن اضطراری ۱۱ رقمی خود را وارد نمایید"
                                    v-model="form.essential_mobile"
-                                   @focus="hiddenValidationError('essential_mobile')"
-                                   @blur="mobileValidator('essential_mobile', 'تلفن اضطراری')"
+                                   @focus="hideErrorMessage('essential_mobile')"
+                                   @blur="validateMobileNumber('essential_mobile', form.essential_mobile)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.essential_mobile.show"
-                                  v-text="validationErrors.essential_mobile.text"
+                                  v-show="validation.essential_mobile.show"
+                                  v-text="validation.essential_mobile.value"
+                            > </span>
+                        </label>
+                    </div>
+                    <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0">
+                        <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
+                            ایمیل
+                        </span>
+                        <label class="relative w-full block"
+                               :class="{ 'e-user__has-error': validation.email.show }"
+                        >
+                            <input type="text" autocomplete="off"
+                                   placeholder="حروف انگلیسی"
+                                   v-model="form.email"
+                                   @focus="hideErrorMessage('email')"
+                                   @blur="validateEmail('email', form.email)"
+                                   class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
+                            >
+                            <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
+                                  v-show="validation.email.show"
+                                  v-text="validation.email.value"
                             > </span>
                         </label>
                     </div>
@@ -324,18 +324,18 @@
                             نشانی منزل
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.current_address.show }"
+                               :class="{ 'e-user__has-error': validation.current_address.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.current_address"
                                    placeholder="حروف فارسی"
-                                   @focus="hiddenValidationError('current_address')"
-                                   @blur="persianCharValidate('current_address', 'نشانی منزل')"
+                                   @focus="hideErrorMessage('current_address')"
+                                   @blur="validatePersianCharacter('current_address', form.current_address, false)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.current_address.show"
-                                  v-text="validationErrors.current_address.text"
+                                  v-show="validation.current_address.show"
+                                  v-text="validation.current_address.value"
                             > </span>
                         </label>
                     </div>
@@ -344,18 +344,18 @@
                             تلفن محل سکونت
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.phone.show }"
+                               :class="{ 'e-user__has-error': validation.phone.show }"
                         >
                             <input type="text" autocomplete="off"
                                    placeholder="تلفن محل سکونت ۱۱ رقمی خود را وارد نمایید"
                                    v-model="form.phone"
-                                   @focus="hiddenValidationError('phone')"
-                                   @blur="phoneNumberValidate('phone', 'تلفن محل سکونت')"
+                                   @focus="hideErrorMessage('phone')"
+                                   @blur="validatePhoneNumber('phone', form.phone)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.phone.show"
-                                  v-text="validationErrors.phone.text"
+                                  v-show="validation.phone.show"
+                                  v-text="validation.phone.value"
                             > </span>
                         </label>
                     </div>
@@ -364,18 +364,18 @@
                             کد‌پستی محل سکونت
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.home_postal_code.show }"
+                               :class="{ 'e-user__has-error': validation.home_postal_code.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.home_postal_code"
                                    placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
-                                   @focus="hiddenValidationError('home_postal_code')"
-                                   @blur="postalCodeValidate('home_postal_code', 'کد‌پستی محل سکونت')"
+                                   @focus="hideErrorMessage('home_postal_code')"
+                                   @blur="validatePostalCode('home_postal_code', form.home_postal_code)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.home_postal_code.show"
-                                  v-text="validationErrors.home_postal_code.text"
+                                  v-show="validation.home_postal_code.show"
+                                  v-text="validation.home_postal_code.value"
                             > </span>
                         </label>
                     </div>
@@ -401,18 +401,18 @@
                             رشته تحصیلی
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.education_field.show }"
+                               :class="{ 'e-user__has-error': validation.education_field.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.education_field"
                                    placeholder="حروف فارسی"
-                                   @focus="hiddenValidationError('education_field')"
-                                   @blur="persianCharValidate('education_field', 'رشته تحصیلی')"
+                                   @focus="hideErrorMessage('education_field')"
+                                   @blur="validatePersianCharacter('education_field', form.education_field)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.education_field.show"
-                                  v-text="validationErrors.education_field.text"
+                                  v-show="validation.education_field.show"
+                                  v-text="validation.education_field.value"
                             > </span>
                         </label>
                     </div>
@@ -449,18 +449,18 @@
                             شغل
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.job_title.show }"
+                               :class="{ 'e-user__has-error': validation.job_title.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.job_title"
                                    placeholder="حروف فارسی"
-                                   @focus="hiddenValidationError('job_title')"
-                                   @blur="persianCharValidate('job_title', 'شغل')"
+                                   @focus="hideErrorMessage('job_title')"
+                                   @blur="validatePersianCharacter('job_title', form.job_title)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.job_title.show"
-                                  v-text="validationErrors.job_title.text"
+                                  v-show="validation.job_title.show"
+                                  v-text="validation.job_title.value"
                             > </span>
                         </label>
                     </div>
@@ -487,23 +487,24 @@
                         />
                     </div>
                     <div class="e-user__field w-1/3 xl:w-1/4 md:w-1/2 sm:w-full flex-shrink-0"
-                         :class="{ 'e-user__has-error': validationErrors.address_of_work.show }"
+                         :class="{ 'e-user__has-error': validation.address_of_work.show }"
                     >
                         <span class="e-user__text block text-blue-800 font-sm font-bold text-right cursor-default">
                             نشانی محل کار
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.address_of_work.show }"
+                               :class="{ 'e-user__has-error': validation.address_of_work.show }"
                         >
                             <input type="text" autocomplete="off"
                                    placeholder="حروف فارسی"
                                    v-model="form.address_of_work"
-                                   @focus="hiddenValidationError('address_of_work')"
+                                   @focus="hideErrorMessage('address_of_work')"
+                                   @blur="validatePersianCharacter('address_of_work', form.address_of_work, false)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.address_of_work.show"
-                                  v-text="validationErrors.address_of_work.text"
+                                  v-show="validation.address_of_work.show"
+                                  v-text="validation.address_of_work.value"
                             > </span>
                         </label>
                     </div>
@@ -512,18 +513,18 @@
                             تلفن محل کار
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.work_phone.show }"
+                               :class="{ 'e-user__has-error': validation.work_phone.show }"
                         >
                             <input type="text" autocomplete="off"
                                    placeholder="تلفن محل کار ۱۱ رقمی خود را وارد نمایید"
                                    v-model="form.work_phone"
-                                   @focus="hiddenValidationError('work_phone')"
-                                   @blur="phoneNumberValidate('work_phone', 'تلفن محل کار')"
+                                   @focus="hideErrorMessage('work_phone')"
+                                   @blur="validatePhoneNumber('work_phone', form.work_phone)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.work_phone.show"
-                                  v-text="validationErrors.work_phone.text"
+                                  v-show="validation.work_phone.show"
+                                  v-text="validation.work_phone.value"
                             > </span>
                         </label>
                     </div>
@@ -532,18 +533,18 @@
                             کد‌پستی محل کار
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.work_postal_code.show }"
+                               :class="{ 'e-user__has-error': validation.work_postal_code.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.work_postal_code"
                                    placeholder="کد پستی ۱۰ رقمی خود را بدون خط تیره وارد نمایید"
-                                   @focus="hiddenValidationError('work_postal_code')"
-                                   @blur="postalCodeValidate('work_postal_code', 'کد‌پستی محل کار')"
+                                   @focus="hideErrorMessage('work_postal_code')"
+                                   @blur="validatePostalCode('work_postal_code', form.work_postal_code)"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.work_postal_code.show"
-                                  v-text="validationErrors.work_postal_code.text"
+                                  v-show="validation.work_postal_code.show"
+                                  v-text="validation.work_postal_code.text"
                             > </span>
                         </label>
                     </div>
@@ -569,18 +570,18 @@
                             انگیزه‌ی همکاری
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.motivation_for_cooperation.show }"
+                               :class="{ 'e-user__has-error': validation.motivation_for_cooperation.show }"
                         >
                             <input type="text" autocomplete="off"
                                    v-model="form.motivation_for_cooperation"
                                    placeholder="حروف فارسی"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg"
-                                   @focus="hiddenValidationError('motivation_for_cooperation')"
-                                   @blur="persianCharValidate('motivation_for_cooperation', 'انگیزه‌ی همکاری')"
+                                   @focus="hideErrorMessage('motivation_for_cooperation')"
+                                   @blur="validatePersianCharacter('motivation_for_cooperation', form.motivation_for_cooperation)"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.motivation_for_cooperation.show"
-                                  v-text="validationErrors.motivation_for_cooperation.text"
+                                  v-show="validation.motivation_for_cooperation.show"
+                                  v-text="validation.motivation_for_cooperation.value"
                             > </span>
                         </label>
                     </div>
@@ -589,18 +590,18 @@
                             فرصت همکاری
                         </span>
                         <label class="relative w-full block"
-                               :class="{ 'e-user__has-error': validationErrors.day_of_cooperation.show }"
+                               :class="{ 'e-user__has-error': validation.day_of_cooperation.show }"
                         >
                             <input type="text" autocomplete="off"
                                    class="input input--blue block w-full border-blue-100-1 rounded font-sm font-normal transition-bg direction-ltr"
                                    v-model="form.day_of_cooperation"
                                    placeholder="تعداد روز در ماه"
-                                   @focus="hiddenValidationError('day_of_cooperation')"
-                                   @blur="dayOfCooperationValidate"
+                                   @focus="hideErrorMessage('day_of_cooperation')"
+                                   @blur="validateDayOfCooperation('day_of_cooperation', form.day_of_cooperation)"
                             >
                             <span class="e-user__error error-message absolute w-full text-red font-xs font-bold pointer-event-none"
-                                  v-show="validationErrors.day_of_cooperation.show"
-                                  v-text="validationErrors.day_of_cooperation.text"
+                                  v-show="validation.day_of_cooperation.show"
+                                  v-text="validation.day_of_cooperation.value"
                             > </span>
                         </label>
                     </div>
@@ -616,7 +617,7 @@
                     >
                         <input type="checkbox"
                                class="checkbox-square__input"
-                               name="field_of_activities"
+                               name="field_of_activities[]"
                                :value="activity.id"
                                v-model="form.field_of_activities"
                         />
@@ -644,8 +645,7 @@
                     <label class="checkbox-square relative flex items-center w-full cursor-pointer font-xs-bold">
                         <input type="checkbox"
                                class="checkbox-square__input"
-                               name="password_change"
-                               v-model="form.password_change"
+                               name="password_change" v-model="form.password_change"
                         />
                         <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"> </span>
                         <span class="checkbox-square__label font-sm font-medium rounded user-select-none">
@@ -679,86 +679,25 @@
     import {
         mapState
     } from 'vuex';
-    import {
-        HasLength, Length, toEnglishDigits, OnlyPersianAlphabet, CopyOf,
-        PostalCodeValidator, OnlyNumber, PhoneNumberValidator, EmailValidator
-    } from "@vendor/plugin/helper";
-    import DateService from '@vendor/plugin/date';
+    import { toEnglishDigits,CopyOf } from "@vendor/plugin/helper";
     import SelectCm from '@vendor/components/select/Index.vue';
     import EditUserService from '@services/service/EditUsers';
     import RegisterFormService from '@services/service/RegisterForm';
 
-    let Service = null;
+    let Service = null, FormValidator = null;
 
     export default {
         name: "EditUsers",
         data: () => ({
             cities: { birth: {}, current: {}, education: {}, work: {} },
-            form: {
-                event_id: '',
-                event_name: '',
-                date_of_birth: String,
-                birth: {day: '', month: '', year: ''},
-                province_of_work: '',
-                province_of_work_name: '',
-                city_of_work: '',
-                city_of_work_name: '',
-                education_province_id: '',
-                education_province_name: '',
-                education_city_id: '',
-                education_city_name: '',
-                current_province_id: '',
-                current_province_name: '',
-                current_city_id: '',
-                current_city_name: '',
-                province_of_birth: '',
-                province_of_birth_name: '',
-                city_of_birth: '',
-                city_of_birth_name: '',
-                name: '',
-                last_name: '',
-                gender: '',
-                marital_status: '',
-                father_name: '',
-                identity_number: '',
-                national_code: '',
-                email: '',
-                mobile: '',
-                essential_mobile: '',
-                current_address: '',
-                phone: '',
-                home_postal_code: '',
-                last_education_degree: '',
-                education_field: '',
-                job_title: '',
-                address_of_work: '',
-                work_phone: '',
-                work_postal_code: '',
-                know_community_by: '',
-                motivation_for_cooperation: '',
-                day_of_cooperation: '',
-                field_of_activities: [],
-                receive_email: false,
-                password_change: false,
-            },
-            validationErrors: {
-                name: { text: '', show: false },
-                last_name: { text: '', show: false },
-                father_name: { text: '', show: false },
-                identity_number: { text: '', show: false },
-                email: { text: '', show: false },
-                mobile: { text: '', show: false },
-                essential_mobile: { text: '', show: false },
-                current_address: { text: '', show: false },
-                phone: { text: '', show: false },
-                home_postal_code: { text: '', show: false },
-                education_field: { text: '', show: false },
-                job_title: { text: '', show: false },
-                address_of_work: { text: '', show: false },
-                work_phone: { text: '', show: false },
-                work_postal_code: { text: '', show: false },
-                day_of_cooperation: { text: '', show: false },
-                motivation_for_cooperation: { text: '', show: false },
+            form: RegisterFormService.form,
+            validation: {
+                name: {}, last_name: {}, father_name: {}, identity_number: {}, national_code: {}, date_of_birth: {},
+                mobile: {}, essential_mobile: {}, email: {},
+                current_address: {}, phone: {}, home_postal_code: {},
+                education_field: {},
+                job_title: {}, address_of_work: {}, work_phone: {}, work_postal_code: {},
+                motivation_for_cooperation: {}, day_of_cooperation: {}
             },
             gender: RegisterFormService.gender,
             day: RegisterFormService.day,
@@ -808,92 +747,34 @@
                 this.$set(this.cities, 'work', result);
             },
         },
-        components: {
-            SelectCm
-        },
+        components: { SelectCm },
         methods: {
-            /**
-             * TODO: re-factor validate functions
-             */
-            persianCharValidate(name, message, required = false) {
-                let field = this.form[name];
-                if ( required ) {
-                    if ( HasLength(field) ) {
-                        OnlyPersianAlphabet(field) ? (
-                            this.hiddenValidationError( name )
-                        ) : (
-                            this.setValidationError(name, `${message} را با حروف فارسی وارد نمایید.`)
-                        )
-                    } else this.setValidationError(name, `فیلد ${message} ضروری است.`)
-                } else {
-                    if ( HasLength(field) ) {
-                        ( OnlyPersianAlphabet(field) ) ? (
-                            this.hiddenValidationError( name )
-                        ) : (
-                            this.setValidationError(name, `${message} را با حروف فارسی وارد نمایید.`)
-                        )
-                    } else this.hiddenValidationError( name );
-                }
+            setErrorMassage(field, value) {
+                FormValidator.setErrorMassage = { field, value };
             },
-            numberValidator(name, message) {
-                let field = this.form[name];
-                if ( HasLength( field ) ) {
-                    OnlyNumber( field ) ? (
-                        this.hiddenValidationError()
-                    ) : (
-                        this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                    );
-                } else this.hiddenValidationError();
+            hideErrorMessage( field ) {
+                FormValidator.hideErrorMassage( field );
             },
-            phoneNumberValidate(name, message) {
-                let field = this.form[name];
-                if ( HasLength( field ) ) {
-                    ( OnlyNumber( field ) && Length( field ) === 11 ) ? (
-                        this.hiddenValidationError()
-                    ) : (
-                        this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                    );
-                } else this.hiddenValidationError();
+            validatePersianCharacter(field, value,  is_required = false) {
+                FormValidator.validatePersianCharacter(field, value, is_required);
             },
-            mobileValidator(name, message, required = false) {
-                let field = this.form[name];
-                if ( required ) {
-                    if ( HasLength(field) ) {
-                        PhoneNumberValidator(field) ? (
-                            this.hiddenValidationError( name )
-                        ) : (
-                            this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                        )
-                    } else this.setValidationError(name, `فیلد ${message} ضروری است.`)
-                } else {
-                    if ( HasLength( field ) ) {
-                        ( PhoneNumberValidator( field ) ) ? (
-                            this.hiddenValidationError()
-                        ) : (
-                            this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                        );
-                    } else this.hiddenValidationError();
-                }
+            validateOnlyNumber(field, value, is_required = false) {
+                FormValidator.validateOnlyNumber(field, value, is_required);
             },
-            postalCodeValidate(name, message) {
-                let field = this.form[name];
-                if ( HasLength( field ) ) {
-                ( PostalCodeValidator( field ) ) ? (
-                    this.hiddenValidationError()
-                ) : (
-                    this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                );
-                } else this.hiddenValidationError();
+            validatePhoneNumber(field, value, is_required = false) {
+                FormValidator.validatePhoneNumber(field, value, is_required);
             },
-            emailValidator(name, message) {
-                let field = this.form[name];
-                if ( HasLength( field ) ) {
-                    ( EmailValidator( field ) ) ? (
-                        this.hiddenValidationError()
-                    ) : (
-                        this.setValidationError(name, `فرمت ${message} اشتباه است.`)
-                    );
-                } else this.hiddenValidationError();
+            validateMobileNumber(field, value, is_required = false) {
+                FormValidator.validateMobileNumber(field, value, is_required);
+            },
+            validatePostalCode(field, value, is_required = false) {
+                FormValidator.validatePostalCode(field, value, is_required);
+            },
+            validateEmail(field, value, is_required = false) {
+                FormValidator.validateEmail(field, value, is_required);
+            },
+            validateDayOfCooperation(field, value) {
+                FormValidator.validateDayOfCooperation(field, value);
             },
             updateEventField({ id }) {
                 this.$set(this.form, 'event_id', id)
@@ -954,53 +835,28 @@
             },
             updateBirthDateField() {
                 let {day, month, year} = this.form.birth;
-                let findItem = MOUTH.find(({name}) => name === month);
+                let findItem = RegisterFormService.month.find(({name}) => name === month);
                 let jm = !!findItem ? findItem.id : month;
-                let date = DateService.jalaaliToTimestamp(parseInt(toEnglishDigits(year)), parseInt(toEnglishDigits(jm)), parseInt(toEnglishDigits(day)));
-                this.$set(this.form, 'date_of_birth', date);
-            },
-            dayOfCooperationValidate() {
-                let { day_of_cooperation } = this.form;
-                ( HasLength( day_of_cooperation ) ) ? (
-                    (
-                        OnlyNumber( toEnglishDigits(day_of_cooperation) ) &&
-                        /\b([1-9]|[12][0-9]|3[0])\b/.test( toEnglishDigits(day_of_cooperation) )
-                    ) ? this.hiddenValidationError('day_of_cooperation') : (
-                        this.setValidationError('day_of_cooperation', 'فرصت همکاری باید عددی بین ۱ تا ۳۰ باشد.')
-                    )
-                ) : (
-                    this.hiddenValidationError('day_of_cooperation')
-                )
-            },
-            setValidationError( name, text = '' ) {
-                this.$set(this.validationErrors, `${name}`, {text, show: true});
-            },
-            hiddenValidationError( name ) {
-                this.$set(this.validationErrors, `${name}`, {text: '', show: false});
-            },
-            checkFormValidation() {
-                try {
-                    let findInvalidField = (
-                        Object.values( this.validationErrors )
-                            .filter(({ show }) => show)
-                    );
-                    if ( HasLength( findInvalidField ) ) {
-                        this.displayNotification(findInvalidField[0].text, {type: 'error'});
-                        return false
-                    }
-                    return true;
-                } catch (e) {}
+                const DATE = FormValidator.convertSolarHijriToTimestamp([
+                    parseInt(toEnglishDigits(year)),
+                    parseInt(toEnglishDigits(jm)),
+                    parseInt(toEnglishDigits(day))
+                ]);
+                this.$set(this.form, 'date_of_birth', DATE);
             },
             async onClickSubmitButton() {
                 try {
                     this.$set(this, 'shouldBeShowSpinnerLoading', true);
-                    let formIsValid = this.checkFormValidation();
-                    if ( formIsValid ) {
-                        let response = await Service.SaveEditUserByAdmin();
-                        this.displayNotification(response, {type: 'success'});
-                        this.goBack();
-                        // this.pushRouter({ name: 'MANAGE_LEGATE' });
-                    }
+                    const DUPLICATE_FORM = CopyOf( this.form );
+                    FormValidator.checkRequiredField([
+                        'name', 'last_name', 'gender', 'national_code', 'date_of_birth', 'mobile',
+                        'current_province_id', 'current_city_id'
+                    ], DUPLICATE_FORM);
+                    FormValidator.checkFromValidation( this.validation );
+                    const REQUEST_PAYLOAD = RegisterFormService.createRequestPayload( DUPLICATE_FORM );
+                    let response = await Service.SaveEditUserByAdmin( REQUEST_PAYLOAD );
+                    this.displayNotification(response, {type: 'success'});
+                    this.goBack();
                 } catch ( exception ) {
                     this.displayNotification(exception, {type: 'error'});
                 } finally {
@@ -1011,11 +867,11 @@
                 this.goBack();
                 // this.pushRouter({ name: 'MANAGE_LEGATE' });
             },
-            async handelEventFieldSearch( value ) {
+            async handelEventFieldSearch( search ) {
                 try {
-                    return await Service.handelEventFieldSearch( value );
+                    return await RegisterFormService.handelEventFieldSearch( search );
                 } catch ( exception ) {
-                    this.displayNotification(exception, {type: 'error'});
+                    this.displayNotification(exception, { type: 'error' });
                 }
             },
             async onClickUserVideo( file_id ) {
@@ -1031,6 +887,7 @@
             }
         },
         created() {
+            FormValidator = new RegisterFormService( this.validation );
             Service = new EditUserService( this );
             Service.processFetchAsyncData()
                 .then(this.$nextTick)

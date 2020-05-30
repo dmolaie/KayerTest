@@ -8,8 +8,8 @@
 </main>
 @include('fa.template.part-theme.footer')
 @include('fa.template.part-theme.subdomain')
-<script src="{{ secure_asset('js/site/runtime.js') }}" defer ></script>
-<script src="{{ secure_asset('js/site/master.js') }}" defer ></script>
+<script src="{{ secure_asset('js/site/runtime.js?v=c1590828349') }}" defer ></script>
+<script src="{{ secure_asset('js/site/master.js?v=c1590828349') }}" defer ></script>
 @yield('scripts')
 </body>
 </html>
