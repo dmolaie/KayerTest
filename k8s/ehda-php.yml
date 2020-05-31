@@ -32,7 +32,7 @@ spec:
         app: ehda-php
     spec:
       containers:
-      - image: registry.arna.ir/ehda/ehda:TAG
+      - image: registry.arna.ir/ehda/backend:TAG
         imagePullPolicy: IfNotPresent
         name: ehda-php
         lifecycle:
