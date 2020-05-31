@@ -32,7 +32,7 @@ spec:
         app: ehda-webserver
     spec:
       containers:
-      - image: registry.arna.ir/ehda/webserver:2
+      - image: registry.arna.ir/ehda/webserver:TAG
         imagePullPolicy: IfNotPresent
         name: ehda-webserver
         ports:

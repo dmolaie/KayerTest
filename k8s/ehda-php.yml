@@ -32,7 +32,7 @@ spec:
         app: ehda-php
     spec:
       containers:
-      - image: registry.arna.ir/ehda/ehda:2
+      - image: registry.arna.ir/ehda/ehda:TAG
         imagePullPolicy: IfNotPresent
         name: ehda-php
         ports:
