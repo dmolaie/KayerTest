@@ -35,6 +35,10 @@ spec:
       - image: registry.arna.ir/ehda/ehda:TAG
         imagePullPolicy: IfNotPresent
         name: ehda-php
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "php artisan passport:install"]
         ports:
         - containerPort: 9000
           name: ehda-php
