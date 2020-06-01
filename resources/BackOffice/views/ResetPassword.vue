@@ -302,6 +302,7 @@
                         mobile: mobile.value,
                         national_code: national_code.value,
                     });
+                    this.countdownReset();
                     // this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
