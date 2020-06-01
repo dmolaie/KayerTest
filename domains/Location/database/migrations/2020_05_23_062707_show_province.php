@@ -25,6 +25,9 @@ class ShowProvince extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('provinces');
+        Schema::table('provinces', function (Blueprint $table) {
+
+            $table->dropColumn('is_show');
+        });
     }
 }
