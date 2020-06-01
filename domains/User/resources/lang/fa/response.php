@@ -5,11 +5,15 @@ return array(
     'authenticate'                     => [
         'error_username_password' => 'نام کاربری و پسورد اشتباه است',
         'user_not_login'          => 'شما لاگین نیستید.',
-        'error_password' => 'پسورد اشتباه است',
-        'user_cant_access' => 'شما دسترسی ندارید',
-        'user_is_not_active' => 'کاربر غیرفعال می باشد.'
+        'error_password'          => 'پسورد اشتباه است',
+        'user_cant_access'        => 'شما دسترسی ندارید',
+        'user_is_not_active'      => 'کاربر غیرفعال می باشد.'
     ],
     'is_not_admin'                     => 'دسترسی شما ادمین نیست.',
+    'mobile_validation'                => 'تلفن‌ همراه وارد شده با تلفن همراه ثبت‌نام شده یکی نمی‌باشد.',
+    'passwordResetToken'               => 'برای تغییر رمز عبور کارت اهدا کدبازیابی شما: ',
+    'canNotResetPassword'              => 'کدبازیابی شما نامعتبر است.',
+    'passwordChanged'                  => 'رمز عبور با موفقیت تغییر یافت.',
     'success_login'                    => 'لاگین با موفقیت انجام شد.',
     'edit_profile_successful'          => 'تغییرات با موفقیت انجام شد.',
     'change_password_successful'       => 'تغییر رمز با موفقیت انجام شد.',
