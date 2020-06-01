@@ -48,7 +48,7 @@
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
                                     :class="{ 'spinner-loading': spinnerLoading.firstStep }"
-                                    v-text="'ارسال کد بازیابی گذرواژه'"
+                                    v-text="'ارسال کدبازیابی گذرواژه'"
                             > </button>
                             <div class="m-reset__link text-center">
                                 <router-link :to="{ name: 'LOGIN' }"
@@ -72,7 +72,7 @@
                                        @blur="validateRegisterCode"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
-                                      v-text="'کد بازیابی'"
+                                      v-text="'کدبازیابی'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
                                       v-text="form.code.error"
@@ -80,7 +80,7 @@
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
                                     :class="{ 'spinner-loading': spinnerLoading.secondStep }"
-                                    v-text="'بررسی کد بازیابی گذرواژه'"
+                                    v-text="'بررسی کدبازیابی گذرواژه'"
                             > </button>
                             <div class="m-reset__timer m-reset__link font-sm font-bold text-center cursor-default">
                                 <template v-if="!countdown.is_finished">
