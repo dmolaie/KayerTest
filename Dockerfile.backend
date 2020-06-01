@@ -12,6 +12,7 @@ RUN mkdir storage/framework/sessions
 RUN chmod -R 777 storage/framework
 RUN ls -ltrh storage/framework
 RUN composer update
+RUN composer dump
 
 FROM registry.arna.ir/php/php:7.3-fpm as ehda
 WORKDIR /var/www/
