@@ -22,5 +22,6 @@ RUN mkdir -p /var/www/storage/framework/cache
 RUN mkdir -p /var/www/storage/framework/views
 RUN mkdir -p /var/www/storage/framework/sessions
 RUN chmod -R 777 /var/www/storage/ && chmod -R 755 /var/www/public
+RUN php artisan migrate
 RUN php artisan cache:clear && php artisan config:clear 
 RUN php artisan storage:link
