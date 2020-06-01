@@ -165,5 +165,6 @@ return array(
         'register_from_legate'        => 'تاریخ شروع ثبت نام سفیر',
         'register_end_legate'         => 'تاریخ شروع ثبت نام سفیر',
         'status_legate'               => 'وضعیت کاربران',
+        'token'                       => 'کدبازیابی',
     ),
 );

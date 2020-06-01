@@ -26,15 +26,15 @@
     <link rel="icon" type="image/x-icon" href="{{ secure_asset('images/favicon/favicon.ico?v=c298c7f8233d') }}">
     <link href="{{ secure_asset('images/favicon/favicon.ico?v=c298c7f8233d') }}" rel="shortcut icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ secure_asset('css/appStyle.css?v=c1590828349') }}" rel="stylesheet">
+    <link href="{{ secure_asset('css/appStyle.css?v=cLHzFc01590828349') }}" rel="stylesheet">
     <title>
         انجمن اهدای عضو ایرانیان
     </title>
 </head>
 <body class="h-full overflow-x-hidden">
     <div id="app"></div>
-    <script src="{{ secure_asset('js/office/runtime.js?v=c1590828349') }}" defer></script>
-    <script src="{{ secure_asset('js/office/vendors~app.js?v=c1590828349') }}" defer></script>
-    <script src="{{ secure_asset('js/office/app.js?v=c1590828349') }}" defer></script>
+    <script src="{{ secure_asset('js/office/runtime.js?v=cLHzFc01590828349') }}" defer></script>
+    <script src="{{ secure_asset('js/office/vendors~app.js?v=cLHzFc01590828349') }}" defer></script>
+    <script src="{{ secure_asset('js/office/app.js?v=cLHzFc01590828349') }}" defer></script>
 </body>
 </html>

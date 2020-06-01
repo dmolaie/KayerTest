@@ -70,6 +70,14 @@ class UserBriefInfoDTO
      * @var null|string
      */
     protected $fileId;
+    /**
+     * @var null|string
+     */
+    protected $mobile;
+    /**
+     * @var string
+     */
+    protected $registerType;
 
     /**
      * @return null
@@ -83,7 +91,7 @@ class UserBriefInfoDTO
      * @param null $fileId
      * @return UserBriefInfoDTO
      */
-    public function setFileId( $fileId): UserBriefInfoDTO
+    public function setFileId($fileId): UserBriefInfoDTO
     {
         $this->fileId = $fileId;
         return $this;
@@ -338,6 +346,42 @@ class UserBriefInfoDTO
     public function setCreatedBy(?array $createdBy): UserBriefInfoDTO
     {
         $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * @param string|null $mobile
+     * @return UserBriefInfoDTO
+     */
+    public function setMobile(?string $mobile): UserBriefInfoDTO
+    {
+        $this->mobile = $mobile;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegisterType(): string
+    {
+        return $this->registerType;
+    }
+
+    /**
+     * @param string $registerType
+     * @return UserBriefInfoDTO
+     */
+    public function setRegisterType(string $registerType): UserBriefInfoDTO
+    {
+        $this->registerType = $registerType;
         return $this;
     }
 
