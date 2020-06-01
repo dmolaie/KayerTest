@@ -81,6 +81,9 @@ const SITE_GET_CATEGORY_LIST = 'SITE_GET_CATEGORY_LIST';
 const GET_ARVANVOD_ITEM = 'GET_ARVANVOD_ITEM';
 const CREATE_ARVANVOD_ITEM = 'CREATE_ARVANVOD_ITEM';
 const DELETE_ARVANVOD_ITEM = 'DELETE_ARVANVOD_ITEM';
+const RESET_PASSWORD_GET_TOKEN = 'RESET_PASSWORD_GET_TOKEN';
+const RESET_PASSWORD_VALIDATE_TOKEN = 'RESET_PASSWORD_VALIDATE_TOKEN';
+const RESET_PASSWORD_NEW_PASSWORD = 'RESET_PASSWORD_NEW_PASSWORD';
 
 endpoints[SIGN_IN] = '/user/login';
 endpoints[LOGOUT] = '/user/logout';
@@ -169,6 +172,10 @@ endpoints[SITE_GET_GALLERY_LIST] = `/:lang/page/gallery/list-content`;
 endpoints[GET_ARVANVOD_ITEM] = `/arvanvod/${VER_1_0}/admin/list`;
 endpoints[CREATE_ARVANVOD_ITEM] = `/arvanvod/${VER_1_0}/admin/create`;
 endpoints[DELETE_ARVANVOD_ITEM] = `/arvanvod/${VER_1_0}/admin/delete`;
+
+endpoints[RESET_PASSWORD_GET_TOKEN] = `/user/${VER_1_0}/password/reset/token`;
+endpoints[RESET_PASSWORD_VALIDATE_TOKEN] = `/user/${VER_1_0}/password/reset/validate-token`;
+endpoints[RESET_PASSWORD_NEW_PASSWORD] = `/user/${VER_1_0}/password/reset`;
 
 export default class Endpoint {
     static get API_DOMAIN() {
@@ -473,6 +480,18 @@ export default class Endpoint {
 
     static get DELETE_ARVANVOD_ITEM() {
         return endpoints[DELETE_ARVANVOD_ITEM]
+    }
+
+    static get RESET_PASSWORD_GET_TOKEN() {
+        return endpoints[RESET_PASSWORD_GET_TOKEN];
+    }
+
+    static get RESET_PASSWORD_VALIDATE_TOKEN() {
+        return endpoints[RESET_PASSWORD_VALIDATE_TOKEN]
+    }
+
+    static get RESET_PASSWORD_NEW_PASSWORD() {
+        return endpoints[RESET_PASSWORD_NEW_PASSWORD]
     }
 
     static get( endpoint, params = {} ) {
