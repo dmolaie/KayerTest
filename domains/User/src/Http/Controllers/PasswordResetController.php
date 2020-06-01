@@ -8,6 +8,7 @@ use App\Http\Controllers\EhdaBaseController;
 use Domains\User\Exceptions\PasswordResetMobileValidationException;
 use Domains\User\Http\Requests\PasswordResetTokenRequest;
 use Domains\User\Http\Requests\ResetPasswordByTokenRequest;
+use Domains\User\Http\Requests\ResetPasswordValidateTokenRequest;
 use Domains\User\Services\PasswordResetService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
@@ -58,6 +59,18 @@ class PasswordResetController extends EhdaBaseController
             return $this->response([], Response::HTTP_OK, trans('user::response.passwordChanged'));
 
         }catch (ModelNotFoundException $exception){
+            return $this->response([], Response::HTTP_NOT_FOUND, trans('user::response.canNotResetPassword'));
+        }
+    }
+
+    public function resetPasswordValidationToken(ResetPasswordValidateTokenRequest $request)
+    {
+        try {
+            $this->passwordResetService->validateToken($request->createResetPasswordDTO());
+
+            return $this->response([], Response::HTTP_OK, trans('user::response.tokenIsValid'));
+
+        } catch (ModelNotFoundException $exception) {
             return $this->response([], Response::HTTP_NOT_FOUND, trans('user::response.canNotResetPassword'));
         }
     }

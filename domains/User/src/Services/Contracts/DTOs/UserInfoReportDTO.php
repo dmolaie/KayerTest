@@ -39,6 +39,10 @@ class UserInfoReportDTO
     protected $email;
 
     /**
+     * @var string
+     */
+    protected $registerType;
+    /**
      * @return string
      */
     public function getNationalCode(): string
@@ -143,6 +147,24 @@ class UserInfoReportDTO
     public function setEmail(?string $email): UserInfoReportDTO
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegisterType(): string
+    {
+        return $this->registerType;
+    }
+
+    /**
+     * @param string $registerType
+     * @return UserInfoReportDTO
+     */
+    public function setRegisterType(string $registerType): UserInfoReportDTO
+    {
+        $this->registerType = $registerType;
         return $this;
     }
 
