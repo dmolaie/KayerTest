@@ -31,6 +31,7 @@ class UserBriefInfoPresenter
             'created_by'       => $userBriefInfoDTO->getCreatedBy(),
             'created_at'       => strtotime($userBriefInfoDTO->getCreatedAt()),
             'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt()),
+            'register_type'    => trans('user::baseLang.register_type.' . $userBriefInfoDTO->getRegisterType()),
             'file_id'          => $userBriefInfoDTO->getFileId(),
         ];
     }

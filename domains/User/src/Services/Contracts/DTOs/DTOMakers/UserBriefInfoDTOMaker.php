@@ -40,6 +40,7 @@ class UserBriefInfoDTOMaker
             ] : null)
             ->setCreatedAt($user->created_at)
             ->setMobile($user->mobile)
+            ->setRegisterType($user->register_type)
             ->setFileId( !$user->arvanvod->isEmpty() ? current(current($user->arvanvod))->file_id : null);
         return $userBriefInfoDTO;
 

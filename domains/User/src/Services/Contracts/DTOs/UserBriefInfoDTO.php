@@ -74,6 +74,10 @@ class UserBriefInfoDTO
      * @var null|string
      */
     protected $mobile;
+    /**
+     * @var string
+     */
+    protected $registerType;
 
     /**
      * @return null
@@ -360,6 +364,24 @@ class UserBriefInfoDTO
     public function setMobile(?string $mobile): UserBriefInfoDTO
     {
         $this->mobile = $mobile;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegisterType(): string
+    {
+        return $this->registerType;
+    }
+
+    /**
+     * @param string $registerType
+     * @return UserBriefInfoDTO
+     */
+    public function setRegisterType(string $registerType): UserBriefInfoDTO
+    {
+        $this->registerType = $registerType;
         return $this;
     }
 

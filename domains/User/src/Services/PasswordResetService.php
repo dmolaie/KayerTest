@@ -108,10 +108,16 @@ class PasswordResetService
      */
     public function changePassword(ResetPasswordDTO $resetPasswordDTO)
     {
-        $this->passwordResetRepository->findNotExpireToken($resetPasswordDTO);
+        $this->validateToken($resetPasswordDTO);
         $userInfo = $this->getUserInfo($resetPasswordDTO->getNationalCode());
         $this->userService->changePasswordByAdmin($userInfo->getId(),$resetPasswordDTO->getPassword());
         return;
 
+    }
+
+    public function validateToken(ResetPasswordDTO $resetPasswordDTO)
+    {
+        $this->passwordResetRepository->findNotExpireToken($resetPasswordDTO);
+        return;
     }
 }

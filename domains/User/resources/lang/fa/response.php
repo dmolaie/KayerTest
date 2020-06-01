@@ -14,6 +14,7 @@ return array(
     'passwordResetToken'               => 'انجمن اهدای عضو ایرانیان ' . PHP_EOL . 'کدبازیابی کلمه عبور شما : ',
     'canNotResetPassword'              => 'کدبازیابی شما نامعتبر است.',
     'passwordChanged'                  => 'رمز عبور با موفقیت تغییر یافت.',
+    'tokenIsValid'                     => 'کدبازیابی معتبر است.',
     'success_login'                    => 'لاگین با موفقیت انجام شد.',
     'edit_profile_successful'          => 'تغییرات با موفقیت انجام شد.',
     'change_password_successful'       => 'تغییر رمز با موفقیت انجام شد.',

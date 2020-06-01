@@ -24,6 +24,7 @@ class UserInfoReportDTOMaker
             ->setLastName($user->last_name)
             ->setDateOfBirth(strtotime($user->date_of_birth))
             ->setMobile($user->mobile)
+            ->setRegisterType($user->register_type)
             ->setEmail($user->email);
         return $userFullInfoDTO;
     }
