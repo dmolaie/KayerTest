@@ -32,9 +32,13 @@ spec:
         app: ehda-php
     spec:
       containers:
-      - image: registry.arna.ir/ehda/ehda:2
+      - image: registry.arna.ir/ehda/backend:TAG
         imagePullPolicy: IfNotPresent
         name: ehda-php
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "php artisan passport:install"]
         ports:
         - containerPort: 9000
           name: ehda-php
