@@ -6,9 +6,7 @@ import {
     HasLength, OnlyNumber,
     NationalCodeValidator, Length,
     PhoneNumberValidator, toEnglishDigits,
-    RedirectRoute
 } from "@vendor/plugin/helper";
-import { GET_USER_HAS_ACCESS,GET_IS_USER_LOGGED_IN } from '@services/store/Login';
 
 const PASSWORD_MIN_LENGTH = 8;
 const LOCATION = {
@@ -118,39 +116,41 @@ export default class ResetPasswordService {
         } catch (  exception ) {}
     }
 
-    async onClickSendingSMSButton() {
+    async onClickSendingSMSButton({ national_code, mobile }) {
         try {
-            await new Promise(resolve => {
-                setTimeout(() => {
-                    resolve()
-                }, 1000)
-            })
+            await HTTPService.getRequest(Endpoint.get(Endpoint.RESET_PASSWORD_GET_TOKEN), {
+                mobile: toEnglishDigits( mobile ),
+                national_code: toEnglishDigits( national_code )
+            }, true);
         } catch ( exception ) {
-            throw ExceptionService._GetErrorMessage( exception )
+            throw ExceptionService._GetErrorMessage( exception );
         }
     }
 
-    async onClick() {
+    async onClickRegisterToken({ token, national_code, mobile }) {
         try {
-            await new Promise(resolve => {
-                setTimeout(() => {
-                    resolve()
-                }, 1000)
-            })
+            await HTTPService.postRequest(Endpoint.get(Endpoint.RESET_PASSWORD_VALIDATE_TOKEN), {
+                token: toEnglishDigits( token ),
+                mobile: toEnglishDigits( mobile ),
+                national_code: toEnglishDigits( national_code )
+            }, {}, true);
         } catch ( exception ) {
-            throw ExceptionService._GetErrorMessage( exception )
+            throw ExceptionService._GetErrorMessage( exception );
         }
     }
 
-    async onClickNewPasswordButton() {
+    async onClickNewPasswordButton({ token, national_code, mobile, password, password_confirmation }) {
         try {
-            await new Promise(resolve => {
-                setTimeout(() => {
-                    resolve()
-                }, 1000)
-            })
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.RESET_PASSWORD_NEW_PASSWORD), {
+                token: toEnglishDigits( token ),
+                mobile: toEnglishDigits( mobile ),
+                national_code: toEnglishDigits( national_code ),
+                password: toEnglishDigits( password ),
+                password_confirmation: toEnglishDigits( password_confirmation )
+            }, {}, true);
+            return response.message || "تغییر گذرواژه با موفقیت انجام شد.";
         } catch ( exception ) {
-            throw ExceptionService._GetErrorMessage( exception )
+            throw ExceptionService._GetErrorMessage( exception );
         }
     }
 }

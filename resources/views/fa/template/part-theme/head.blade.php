@@ -25,7 +25,7 @@
     <link rel="icon" type="image/x-icon" href="{{ secure_asset('images/favicon/favicon.ico?v=c298c7f8233d') }}">
     <link href="{{ secure_asset('images/favicon/favicon.ico?v=c298c7f8233d') }}" rel="shortcut icon">
     @yield('meta')
-    <link rel="stylesheet" href="{{secure_asset('css/style.css?v=c1590828349')}}" />
+    <link rel="stylesheet" href="{{secure_asset('css/style.css?v=9cb30c0533ccf29c5238')}}" />
     @yield('styles')
     <title>
         انجمن اهدای عضو ایرانیان
