@@ -22,19 +22,21 @@ class SendSmsNotification
      */
     public function handle(sendSmsEvent $event)
     {
-        try {
-        $sendMessageUrl = config('notify.sendMessageUrl');
-        foreach ($event->sendSmsDTO->getChannelTypes() as $channelType) {
-            $jsonToSend = $this->makeRequestBody($event, $channelType);
-            $this->sendNotification($jsonToSend, $sendMessageUrl);
-            return;
-        }
-        } catch (\Exception $exception) {
-            $this->addLog('INTERNAL SERVER ERROR', [
-                $exception->getMessage()
-            ]);
-        }
 
+        foreach ($event->sendSmsDTO->getChannelTypes() as $channelType) {
+
+            try {
+                $sendMessageUrl = config('notify.sendMessageUrl');
+                $jsonToSend = $this->makeRequestBody($event, $channelType);
+                $this->sendNotification($jsonToSend, $sendMessageUrl);
+
+            } catch (\Exception $exception) {
+                $this->addLog('INTERNAL SERVER ERROR', [
+                    $exception->getMessage()
+                ]);
+            }
+
+        }
     }
 
     /**
@@ -48,7 +50,7 @@ class SendSmsNotification
         $uid = (string)Str::uuid();
         $dateMessage = Carbon::now()->format('Y-m-d\TH:i:s.v\Z');
         $sid = ($channelType == "Imi") ? config('notify.ImiSid') : config('notify.MtnSid');
-        $messageType = "Content";
+        $messageType = ($channelType == "Imi") ? "Content" : "PremiumContent";
         $mobileNumber = $event->sendSmsDTO->getMobileNumber();
         $appId = config('notify.appId');
         $signatureMessage = $dateMessage . "," . $uid . "," . $sid . "," . $channelType . "," . $messageType . "," . $mobileNumber . "," . $content;

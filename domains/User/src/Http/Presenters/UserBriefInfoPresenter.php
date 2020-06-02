@@ -33,6 +33,7 @@ class UserBriefInfoPresenter
             'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt()),
             'register_type'    => trans('user::baseLang.register_type.' . $userBriefInfoDTO->getRegisterType()),
             'file_id'          => $userBriefInfoDTO->getFileId(),
+            'year_death'       => $userBriefInfoDTO->getYearDeath(),
         ];
     }
 
