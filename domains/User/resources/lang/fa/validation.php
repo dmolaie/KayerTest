@@ -34,7 +34,7 @@ return array(
     "date_format"           => ":attribute با الگوی :format مطاقبت ندارد.",
     "different"             => ":attribute و :other باید متفاوت باشند.",
     "digits"                => ":attribute باید :digits رقم باشد.",
-    "digits_between"        => ":attribute باید بین :min و :max رقم باشد.",
+    "digits_between"        => ":attribute باید طول بین :min و :max رقم باشد.",
     "email"                 => "فرمت :attribute معتبر نیست.",
     "exists"                => ":attribute انتخاب شده، معتبر نیست.",
     "image"                 => ":attribute باید تصویر باشد.",
@@ -42,14 +42,14 @@ return array(
     "integer"               => ":attribute باید نوع داده ای عددی (integer) باشد.",
     "ip"                    => ":attribute باید IP آدرس معتبر باشد.",
     "max"                   => array(
-        "numeric" => ":attribute نباید بزرگتر از :max باشد.",
+        "numeric" => ":attribute نباید طول بزرگتر از :max باشد.",
         "file"    => ":attribute نباید بزرگتر از :max کیلوبایت باشد.",
         "string"  => ":attribute نباید بیشتر از :max کاراکتر باشد.",
         "array"   => ":attribute نباید بیشتر از :max آیتم باشد.",
     ),
     "mimes"                 => ":attribute باید یکی از فرمت های :values باشد.",
     "min"                   => array(
-        "numeric" => ":attribute نباید کوچکتر از :min باشد.",
+        "numeric" => ":attribute نباید طول کوچکتر از :min باشد.",
         "file"    => ":attribute نباید کوچکتر از :min کیلوبایت باشد.",
         "string"  => ":attribute نباید کمتر از :min کاراکتر باشد.",
         "array"   => ":attribute نباید کمتر از :min آیتم باشد.",
@@ -65,7 +65,7 @@ return array(
     "required_without_all"  => ":attribute الزامی است زمانی که :values موجود نیست.",
     "same"                  => ":attribute و :other باید مانند هم باشند.",
     "size"                  => array(
-        "numeric" => ":attribute باید برابر با :size باشد.",
+        "numeric" => ":attribute باید تعداد اعداد برابر با :size باشد.",
         "file"    => ":attribute باید برابر با :size کیلوبایت باشد.",
         "string"  => ":attribute باید برابر با :size کاراکتر باشد.",
         "array"   => ":attribute باسد شامل :size آیتم باشد.",
@@ -165,5 +165,6 @@ return array(
         'register_from_legate'        => 'تاریخ شروع ثبت نام سفیر',
         'register_end_legate'         => 'تاریخ شروع ثبت نام سفیر',
         'status_legate'               => 'وضعیت کاربران',
+        'year'                        => 'سال وفات',
     ),
 );

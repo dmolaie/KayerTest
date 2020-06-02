@@ -32,6 +32,7 @@ class UserBriefInfoPresenter
             'created_at'       => strtotime($userBriefInfoDTO->getCreatedAt()),
             'updated_at'       => strtotime($userBriefInfoDTO->getUpdatedAt()),
             'file_id'          => $userBriefInfoDTO->getFileId(),
+            'year_death'       => $userBriefInfoDTO->getYearDeath(),
         ];
     }
 

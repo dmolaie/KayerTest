@@ -55,7 +55,10 @@ class User extends Authenticatable
         'is_active',
         'creator_id',
         'register_type',
-        'uuid'
+        'uuid',
+        'angel',
+        'date_death',
+        'image_profile'
     ];
 
     public static function boot()

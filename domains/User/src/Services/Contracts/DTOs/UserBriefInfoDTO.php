@@ -70,6 +70,10 @@ class UserBriefInfoDTO
      * @var null|string
      */
     protected $fileId;
+    /**
+     * @var null|int
+     */
+    protected $yearDeath;
 
     /**
      * @return null
@@ -339,6 +343,22 @@ class UserBriefInfoDTO
     {
         $this->createdBy = $createdBy;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getYearDeath()
+    {
+        return $this->yearDeath;
+    }
+
+    /**
+     * @param int|null $yearDeath
+     */
+    public function setYearDeath( $yearDeath)
+    {
+        $this->yearDeath = $yearDeath;
     }
 
 
