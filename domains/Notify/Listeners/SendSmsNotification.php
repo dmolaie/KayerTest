@@ -48,7 +48,7 @@ class SendSmsNotification
         $uid = (string)Str::uuid();
         $dateMessage = Carbon::now()->format('Y-m-d\TH:i:s.v\Z');
         $sid = ($channelType == "Imi") ? config('notify.ImiSid') : config('notify.MtnSid');
-        $messageType = "Content";
+        $messageType = ($channelType == "Imi") ? "Content" : "PremiumContent";
         $mobileNumber = $event->sendSmsDTO->getMobileNumber();
         $appId = config('notify.appId');
         $signatureMessage = $dateMessage . "," . $uid . "," . $sid . "," . $channelType . "," . $messageType . "," . $mobileNumber . "," . $content;
