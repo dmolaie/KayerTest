@@ -50,7 +50,7 @@ export const DASHBOARD_PAGE_TITLE = 'داشبورد';
 export const LOGIN_PAGE_TITLE = 'ورود به حساب کاربری';
 
 const GetViews = component => () =>
-    import(/* webpackChunkName: "[request]" */ `@views/${component}.vue`);
+    import(/* webpackChunkName: "bud.[request]" */ `@views/${component}.vue`);
 
 const Routes = new VueRouter({
     mode: "hash",

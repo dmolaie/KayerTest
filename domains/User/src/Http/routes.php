@@ -29,4 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/user-basic-register-info', 'UserController@userBasicRegisterInfo')->name('user-basic-register-info');
+Route::get('/password/reset/token', 'PasswordResetController@getPasswordResetToken')->name('password-reset-token');
+Route::post('/password/reset/validate-token', 'PasswordResetController@resetPasswordValidationToken')->name('password-reset');
+Route::post('/password/reset', 'PasswordResetController@resetPasswordByToken')->name('password-reset');
 Route::post('angel/search-user-angel', 'UserController@searchUserAngel')->name('search-user-angel');

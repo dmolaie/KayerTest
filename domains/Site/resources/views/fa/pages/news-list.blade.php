@@ -1,6 +1,15 @@
 @extends('fa.template.master')
 @section('title', ' | اخبار')
 @section('content')
+    @php
+        $searchValue = request()->get('first_title') ?? '';
+
+        function isChecked( $slug ) {
+            $selectedCategories = Request::get('categories') ?? [];
+            if (empty( $selectedCategories )) return true;
+            return in_array($slug, $selectedCategories);
+        }
+    @endphp
     <div class="i-page n-list-page">
         <div class="n-list__header block w-full bg-blue-100">
             <div class="container flex items-center">
@@ -16,7 +25,7 @@
                     </p>
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
-                    <img src="{{ secure_asset('/images/img_news-list.png') }}"
+                    <img src="{{ asset('/images/img_news-list.png') }}"
                          alt="اخبار ایران"
                          class="block w-full h-full object-contain"
                     />
@@ -62,8 +71,8 @@
                             <label class="i-page__panel_label flex items-center w-full border border-solid rounded">
                                 <input type="text"
                                        class="i-page__panel_input w-full bg-transparent text-blue-100"
-                                       placeholder="جستجو در خبرها"
-                                       autocomplete="off"
+                                       placeholder="جستجو در خبرها" autocomplete="off"
+                                       value="{{ $searchValue }}"
                                 />
                             </label>
                         </div>
@@ -72,22 +81,15 @@
                                 دسته‌بندی اخبار
                             </p>
                             @foreach($categories as $category)
-                                <label class="checkbox-square relative flex items-center cursor-pointer font-xs-bold"
-                                       style="margin-right: {{$category['gap']}}px"
+                                <button class="checkbox-square relative w-full flex items-center cursor-pointer font-xs-bold {{ isChecked( $category['slug'] ) ? 'checked' : '' }}"
+                                        style="margin-right: {{$category['gap']}}px" data-slug="{{ $category['slug'] }}"
                                 >
-                                    <input type="radio"
-                                           class="checkbox-square__input"
-                                           name="news"
-                                    />
-                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded"></span>
-                                    <span class="checkbox-square__label rounded user-select-none">
+                                    <span class="checkbox-square__checkbox relative flex-shrink-0 border border-solid rounded pointer-event-none"></span>
+                                    <span class="checkbox-square__label rounded user-select-none pointer-event-none">
                                          {{ $category['name_fa'] }}
                                     </span>
-                                </label>
+                                </button>
                             @endforeach
-                            {{-- <button class="i-page__panel_button relative text-blue-800 font-xs-bold">
-                                بیشتر...
-                            </button> --}}
                         </div>
                     </div>
                 </aside>
@@ -114,6 +116,7 @@
                             </div>
                         </a>
                     @endforeach
+                    {!! $news->appends(Request::capture()->except('page'))->render() !!}
                 </div>
             </div>
         </div>
@@ -121,6 +124,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
-    <script src="{{secure_asset('js/site/news_list.js')}}" defer></script>
+    <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+    <script src="{{asset('js/site/news_list.js')}}" defer></script>
 @endsection

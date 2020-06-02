@@ -96,5 +96,5 @@
     @endsection
 
     @section('scripts')
-        <script src="{{secure_asset('js/site/faq.js')}}" defer></script>
+        <script src="{{asset('js/site/faq.js')}}" defer></script>
     @endsection

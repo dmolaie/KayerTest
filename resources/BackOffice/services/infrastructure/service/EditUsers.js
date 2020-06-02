@@ -7,11 +7,8 @@ import EditUser, {
     E_USER_SET_DATA, E_USER_SET_BASIC_DATA,
     E_USER_SET_PROVINCES, E_USER_SET_EVENT
 } from '@services/store/EditUsers';
-import { ProvincesPresenter, } from '@vendor/infrastructure/presenter/MainPresenter';
 import { EventService } from '@services/service/ManageEvent';
-import { CopyOf, toEnglishDigits } from "@vendor/plugin/helper";
 import { UPDATE_USER, GET_USER_ID }  from '@services/store/Login';
-import { EventPresenter } from '@services/presenter/EditUsers';
 import ArvanVODPresenter from '@services/presenter/ArvanVod';
 
 export default class EditUserService extends BaseService {
@@ -56,69 +53,14 @@ export default class EditUserService extends BaseService {
         }
     }
 
-    async getCityByProvincesId( province_id ) {
+    async SaveEditUserByAdmin( payload ) {
         try {
-            if ( !!province_id ) {
-                let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), {
-                    province_id
-                });
-                return { ...new ProvincesPresenter( response.data ) }
-            }
-        } catch ( exception ) {
-            const EXCEPTION = ExceptionService._GetErrorMessage( exception );
-            this.$vm.displayNotification(EXCEPTION, { type: 'error' });
-        }
-    }
+            delete payload['birth'];
+            delete payload['card_id'];
+            delete payload['has_card'];
+            delete payload['has_video'];
 
-    async handelEventFieldSearch( title ) {
-        try {
-            const QUERYSTRING = !!title ? { title } : {};
-            let response = await EventService.getEventList( QUERYSTRING );
-            return new EventPresenter( response?.data?.items || [] );
-        } catch ( exception ) {
-            throw exception;
-        }
-    }
-
-    get _RequestBody() {
-        try {
-            let form = CopyOf(this.$vm.form);
-            delete form['province_of_birth_name'];
-            delete form['city_of_birth_name'];
-            delete form['current_province_name'];
-            delete form['current_city_name'];
-            delete form['province_of_work_name'];
-            delete form['city_of_work_name'];
-            delete form['education_province_name'];
-            delete form['education_city_name'];
-            delete form['birth'];
-            delete form['national_code'];
-            delete form['card_id'];
-            delete form['has_card'];
-            delete form['file_id'];
-            delete form['has_video'];
-
-            if ( typeof form['marital_status'] === 'object' ) delete form['marital_status'];
-
-            Object.entries( form )
-                .forEach(([key, value]) => {
-                    if ( !form[key] && typeof form[key] === 'string' )
-                        delete form[key];
-                    else if ( typeof form[key] === 'string' )
-                        form[key] = toEnglishDigits( value )
-                });
-
-            if ( !!form['day_of_cooperation'] )
-                form['day_of_cooperation'] = parseInt(form['day_of_cooperation']);
-
-            return form;
-        } catch (e) {}
-    }
-
-    async SaveEditUserByAdmin() {
-        try {
-            let REQUEST_BODY = this._RequestBody;
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), REQUEST_BODY);
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), payload);
             if (response?.data?.id === this.$store.getters[GET_USER_ID])
                 BaseService.commitToStore(this.$store, UPDATE_USER, response);
             return response.message;
@@ -127,7 +69,7 @@ export default class EditUserService extends BaseService {
                 Object.entries( exception?.errors )
                     .forEach( ([key, val]) => {
                         if ( this.$vm.validationErrors[key] )
-                            this.$vm.setValidationError(key, val[0])
+                            this.$vm.setErrorMassage(key, val[0])
                     });
             }
             throw ExceptionService._GetErrorMessage( exception );

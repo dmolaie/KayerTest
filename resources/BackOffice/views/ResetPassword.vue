@@ -48,7 +48,7 @@
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
                                     :class="{ 'spinner-loading': spinnerLoading.firstStep }"
-                                    v-text="'ارسال کد بازیابی گذرواژه'"
+                                    v-text="'ارسال کدبازیابی گذرواژه'"
                             > </button>
                             <div class="m-reset__link text-center">
                                 <router-link :to="{ name: 'LOGIN' }"
@@ -60,7 +60,7 @@
                         </form>
                     </template>
                     <template v-if="isActiveStep( LAYOUT_MANAGE['ENTER_REGISTER_CODE'] )">
-                        <form @submit.prevent="onClick" class="w-full">
+                        <form @submit.prevent="onClickRegisterToken" class="w-full">
                             <label class="m-login__wrapper relative block w-full"
                                    :class="{
                                        'm-login__wrapper--active': !!form.code.value,
@@ -72,7 +72,7 @@
                                        @blur="validateRegisterCode"
                                 />
                                 <span class="m-login__label absolute font-lg font-bold pointer-event-none user-select-none z-2"
-                                      v-text="'کد بازیابی'"
+                                      v-text="'کدبازیابی'"
                                 > </span>
                                 <span class="m-login__error absolute block text-red font-sm font-bold pointer-event-none"
                                       v-text="form.code.error"
@@ -80,7 +80,7 @@
                             </label>
                             <button class="m-reset__submit m-login__submit block w-full text-white font-lg font-bold rounded user-select-none"
                                     :class="{ 'spinner-loading': spinnerLoading.secondStep }"
-                                    v-text="'بررسی کد بازیابی گذرواژه'"
+                                    v-text="'بررسی کدبازیابی گذرواژه'"
                             > </button>
                             <div class="m-reset__timer m-reset__link font-sm font-bold text-center cursor-default">
                                 <template v-if="!countdown.is_finished">
@@ -219,7 +219,12 @@
                 try {
                     if ( this.checkValidationFirstStep() ) {
                         this.$set(this.spinnerLoading, 'firstStep', true);
-                        await Service.onClickSendingSMSButton();
+                        const { national_code, mobile } = this.form;
+                        await Service.onClickSendingSMSButton({
+                            mobile: mobile.value,
+                            national_code: national_code.value,
+                        });
+                        // this.displayNotification(result, { type: 'success' });
                         this.changeActiveStep( LAYOUT_MANAGE['ENTER_REGISTER_CODE'] );
                         this.countdownStart();
                     }
@@ -262,24 +267,45 @@
                     );
                 } catch ( exception ) {}
             },
-            async onClick() {
+            checkValidationSecondStep() {
                 try {
-                    this.$set(this.spinnerLoading, 'secondStep', true);
-                    await Service.onClick();
-                    this.changeActiveStep( LAYOUT_MANAGE['ENTER_NEW_PASSWORD'] );
+                    this.validateRegisterCode();
+                    return ([
+                        !this.form.code.error,
+                    ].every(error => error))
+                } catch (e) {}
+            },
+            async onClickRegisterToken() {
+                try {
+                    if ( this.checkValidationSecondStep() ) {
+                        this.$set(this.spinnerLoading, 'secondStep', true);
+                        const { national_code, mobile, code } = this.form;
+                        await Service.onClickRegisterToken({
+                            token: code.value,
+                            mobile: mobile.value,
+                            national_code: national_code.value,
+                        });
+                        // this.displayNotification(result, { type: 'success' });
+                        this.changeActiveStep( LAYOUT_MANAGE['ENTER_NEW_PASSWORD'] );
+                    }
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
                 } finally {
                     this.$set(this.spinnerLoading, 'secondStep', false);
                 }
             },
-            onClickResendButton() {
+            async onClickResendButton() {
                 try {
-                    // this.$set(this.spinnerLoading, 'secondStep', true);
+                    this.$set(this.spinnerLoading, 'firstStep', true);
+                    const { national_code, mobile } = this.form;
+                    await Service.onClickSendingSMSButton({
+                        mobile: mobile.value,
+                        national_code: national_code.value,
+                    });
+                    this.countdownReset();
+                    // this.displayNotification(result, { type: 'success' });
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' })
-                } finally {
-                    // this.$set(this.spinnerLoading, 'secondStep', false);
                 }
             },
             validatePassword() {
@@ -311,7 +337,19 @@
                 try {
                     if ( this.checkValidationThirdStep() ) {
                         this.$set(this.spinnerLoading, 'thirdStep', true);
-                        await Service.onClickNewPasswordButton();
+                        const {
+                            national_code,
+                            mobile, code,
+                            password, password_confirmation
+                        } = this.form;
+                        let result = await Service.onClickNewPasswordButton({
+                            token: code.value,
+                            mobile: mobile.value,
+                            national_code: national_code.value,
+                            password: password.value,
+                            password_confirmation: password_confirmation.value
+                        });
+                        this.displayNotification(result, { type: 'success' });
                         this.pushRouter( { name: 'LOGIN' } );
                     }
                 } catch ( exception ) {

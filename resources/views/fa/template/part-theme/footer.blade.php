@@ -61,7 +61,7 @@
             </nav>
             <a href="{{ route('map') }}" target="_blank"
                class="footer__map l:m-r-auto rounded-3 overflow-hidden md:w-full md:rounded-0">
-                <img src="{{ secure_asset('images/img_map.jpg?v=c298c7f8233d') }}"
+                <img src="{{ asset('images/img_map.jpg?v=c298c7f8233d') }}"
                      alt="نقشه-انجمن-اهدا-عضو"
                      class="object-cover w-full h-full block">
             </a>

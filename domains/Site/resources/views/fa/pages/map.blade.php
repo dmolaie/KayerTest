@@ -1,6 +1,6 @@
 @include('fa.template.part-theme.head')
-    <link rel="stylesheet" href="{{ secure_asset('mapir/css/mapp.min.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('mapir/css/fa/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('mapir/css/mapp.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('mapir/css/fa/style.css') }}">
 @extends('fa.template.master')
     @section('content')
         <div class="i-page">
@@ -19,10 +19,10 @@
         </div>
     @endsection
     @section('scripts')
-        <script type="text/javascript" src="{{ secure_asset('js/site/runtime.js') }}" defer ></script>
-        <script type="text/javascript" src="{{ secure_asset('js/site/master.js') }}" defer ></script>
-        <script type="text/javascript" src="{{ secure_asset('mapir/js/jquery-3.2.1.min.js') }}" defer></script>
-        <script type="text/javascript" src="{{ secure_asset('mapir/js/mapp.env.js') }}" defer></script>
-        <script type="text/javascript" src="{{ secure_asset('mapir/js/mapp.min.js') }}" defer></script>
-        <script type="text/javascript" src="{{ secure_asset('js/site/map.js') }}" defer></script>
+        <script type="text/javascript" src="{{ asset('js/site/runtime.js') }}" defer ></script>
+        <script type="text/javascript" src="{{ asset('js/site/master.js') }}" defer ></script>
+        <script type="text/javascript" src="{{ asset('mapir/js/jquery-3.2.1.min.js') }}" defer></script>
+        <script type="text/javascript" src="{{ asset('mapir/js/mapp.env.js') }}" defer></script>
+        <script type="text/javascript" src="{{ asset('mapir/js/mapp.min.js') }}" defer></script>
+        <script type="text/javascript" src="{{ asset('js/site/map.js') }}" defer></script>
     @endsection

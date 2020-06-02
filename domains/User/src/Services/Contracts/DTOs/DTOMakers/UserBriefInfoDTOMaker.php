@@ -39,6 +39,8 @@ class UserBriefInfoDTOMaker
                 'id'   => $user->createdBy->id,
             ] : null)
             ->setCreatedAt($user->created_at)
+            ->setMobile($user->mobile)
+            ->setRegisterType($user->register_type)
             ->setFileId( !$user->arvanvod->isEmpty() ? current(current($user->arvanvod))->file_id : null)
             ->setYearDeath( $user->date_death ? $user->date_death : null);
         return $userBriefInfoDTO;

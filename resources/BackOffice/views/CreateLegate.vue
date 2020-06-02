@@ -857,12 +857,13 @@
                     if (HasLength( national_code ) && NationalCodeValidator( national_code )) {
                         this.$set(this, 'spinnerLoading', true);
                         let result = await Service.nationalCodeInquiry( national_code );
-                        this.$set(this, 'spinnerLoading', false);
                         this.$set(this, 'shouldBeShowInquiryStep', false);
                         this.displayNotification(result, { type: 'success' });
                     }
                 } catch ( exception ) {
                     this.displayNotification(exception, { type: 'error' });
+                } finally {
+                    this.$set(this, 'spinnerLoading', false);
                 }
             },
             async createLegateUser() {

@@ -65,59 +65,13 @@ export default class UserSettingsService extends BaseService {
         }
     }
 
-    async getCityByProvincesId( province_id ) {
+    async SaveUserProfile( payload ) {
         try {
-            if ( !!province_id ) {
-                let response = await HTTPService.getRequest(Endpoint.get(Endpoint.GET_CITY_BY_PROVINCES_ID), {
-                    province_id
-                });
-                return { ...new ProvincesPresenter( response.data ) }
-            }
-        } catch ( exception ) {
-            const EXCEPTION = ExceptionService._GetErrorMessage( exception );
-            this.$vm.displayNotification(EXCEPTION, { type: 'error' });
-        }
-    }
-
-    get _RequestPayload() {
-        try {
-            let form = CopyOf(this.$vm.form);
-            delete form['card_id'];
-            delete form['has_card'];
-            delete form['education_province_name'];
-            delete form['education_city_name'];
-            delete form['province_of_birth_name'];
-            delete form['city_of_birth_name'];
-            delete form['current_province_name'];
-            delete form['current_city_name'];
-            delete form['province_of_work_name'];
-            delete form['city_of_work_name'];
-            form['gender'] = parseInt(form['gender']);
-            ( typeof form['marital_status'] !== 'object' ) ? (
-                form['marital_status'] = parseInt(form['marital_status'])
-            ) : delete form['marital_status'];
-            delete form['birth'];
-            delete form['national_code'];
-
-            Object.entries( form )
-                .forEach(([key, value]) => {
-                    if ( !form[key] && typeof form[key] === 'string' )
-                        delete form[key];
-                    else if ( typeof form[key] === 'string' )
-                        form[key] = toEnglishDigits( value )
-                });
-
-            if ( !!form['day_of_cooperation'] )
-                form['day_of_cooperation'] = parseInt(form['day_of_cooperation']);
-
-            return form;
-        } catch (e) {}
-    }
-
-    async SaveUserProfile() {
-        try {
-            let REQUEST_BODY = this._RequestPayload;
-            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), REQUEST_BODY);
+            delete payload['birth'];
+            delete payload['card_id'];
+            delete payload['has_card'];
+            delete payload['has_video'];
+            let response = await HTTPService.postRequest(Endpoint.get(Endpoint.EDIT_USER_BY_ADMIN), payload);
             BaseService.commitToStore(this.$store, UPDATE_USER, response);
             return response.message;
         } catch ( exception ) {
@@ -125,7 +79,7 @@ export default class UserSettingsService extends BaseService {
                 Object.entries( exception?.errors )
                     .forEach( ([key, val]) => {
                         if ( this.$vm.validationErrors[key] )
-                            this.$vm.setValidationError(key, val[0])
+                            this.$vm.setErrorMassage(key, val[0])
                     });
             }
             throw ExceptionService._GetErrorMessage( exception );

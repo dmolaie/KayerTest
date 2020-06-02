@@ -40,6 +40,7 @@ const LOCATION = {
     ['motivation_for_cooperation']: 'انگیزه‌ی همکاری',
     ['day_of_cooperation']: 'فرصت همکاری',
     ['field_of_activities']: 'زمینه فعالیت',
+    ['last_education_degree']: 'میزان تحصیلات',
 };
 
 export default class RegisterFormService {
@@ -127,12 +128,11 @@ export default class RegisterFormService {
     }
 
     static get year() {
-        const YEARS = [],
-              PREFIX = '13';
-        for (let i = 30; i < 82; i ++) {
+        const YEARS = [];
+        for (let i = 1330; i <= 1399; i ++) {
             YEARS.push({
-                id: parseFloat(PREFIX + i),
-                name: parseFloat(PREFIX + i)
+                id: i,
+                name: i
             })
         }
         return YEARS;

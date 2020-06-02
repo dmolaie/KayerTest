@@ -12,7 +12,7 @@
                         <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div class="w-full rounded-inherit rounded-br-none rounded-bl-none">
                                 <div class="gau-page__player relative rounded-inherit">
-                                    <img src="{{ secure_asset('/images/slider/image_slider--1.jpg') }}"
+                                    <img src="{{ asset('/images/slider/image_slider--1.jpg') }}"
                                          alt="{{ $mediaDetail->getFirstTitle() }}"
                                          class="w-full block rounded-inherit"
                                     />
@@ -57,7 +57,7 @@
                                         >
                                             <figure class="episode__cover relative flex-shrink-0 rounded-1/2 has-skeleton pointer-event-none">
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt="{{ $mediaDetail->getFirstTitle() }}"
                                                      class="episode__image block absolute w-full h-full rounded-inherit object-cover"
                                                 >
@@ -90,7 +90,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_play absolute bg-white rounded-50"></span>
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -115,7 +115,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_camera absolute"></span>
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -139,7 +139,7 @@
                                            class="ga-page__card relative w-full block font-xs font-bold bg-white border border-solid rounded-10 has-shadow">
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -165,7 +165,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_play absolute bg-white rounded-50"></span>
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -190,7 +190,7 @@
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <span class="ga-page__card_camera absolute"></span>
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -214,7 +214,7 @@
                                            class="ga-page__card relative w-full block font-xs font-bold bg-white border border-solid rounded-10 has-shadow">
                                             <figure class="ga-page__card_image relative w-full block rounded-inherit rounded-bl-none rounded-br-none has-skeleton">
                                                 <img src=""
-                                                     data-src="{{ secure_asset('/images/img_default.jpg') }}"
+                                                     data-src="{{ asset('/images/img_default.jpg') }}"
                                                      alt=""
                                                      class="block w-full h-full rounded-inherit object-cover"
                                                 >
@@ -244,7 +244,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
-        <script src="{{secure_asset('js/site/vendors~gallery-audio.js')}}" defer></script>
-        <script src="{{secure_asset('js/site/gallery-audio.js')}}" defer></script>
+        <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+        <script src="{{asset('js/site/vendors~gallery-audio.js')}}" defer></script>
+        <script src="{{asset('js/site/gallery-audio.js')}}" defer></script>
     @endsection

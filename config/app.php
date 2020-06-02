@@ -201,6 +201,7 @@ return [
         \Domains\Media\MediaServiceProvider::class,
         \Domains\Slider\SliderServiceProvider::class,
         \Domains\Arvanvod\ArvanvodServiceProvider::class,
+        \Domains\Notify\NotifyServiceProvider::class,
 
 
     ],

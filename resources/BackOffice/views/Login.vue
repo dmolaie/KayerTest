@@ -100,6 +100,13 @@
                                 @click.prevent="onClickSubmitButton"
                                 v-text="'ورود'"
                         > </button>
+                        <div class="w-full text-center">
+                            <router-link :to="{ name: 'RESET_PASSWORD' }"
+                                         class="m-login_forget inline-block font-base font-bold"
+                            >
+                                بازیابی گذرواژه
+                            </router-link>
+                        </div>
                     </form>
                 </div>
             </div>

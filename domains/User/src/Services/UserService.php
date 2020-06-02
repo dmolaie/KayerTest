@@ -443,6 +443,13 @@ class UserService
         return in_array(null, $provinceIds, true) ? [] : array_unique($provinceIds);
     }
 
+    public function getUserInfoByNationalCode(string $nationalCode)
+    {
+        $user = $this->userRepository->findByNationalCode($nationalCode);
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+
     public function userAngel(UserAngelDTO $angelDTO)
     {
         $user =  $this->userRepository->userAngel($angelDTO);
