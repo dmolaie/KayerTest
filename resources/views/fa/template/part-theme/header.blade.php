@@ -10,7 +10,7 @@
                          class="header__logo_image block object-contain"
                     />
                 @else
-                    <img src="{{ asset('/images/ic_ehdaCenter--en.png') }}"
+                    <img src="{{ secure_asset('/images/ic_ehdaCenter--en.png') }}"
                          alt="انجمن اهدای عضو ایرانیان"
                          class="header__logo_image block object-contain"
                     />
@@ -138,12 +138,12 @@
            class="m-header__logo"
         >
             @if($language   == 'fa')
-                <img src="{{ asset('/images/ic_ehda-center.png') }}"
+                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="h-full block object-contain"
                 />
             @else
-                <img src="{{ asset('/images/ic_ehdaCenter--en.png') }}"
+                <img src="{{ secure_asset('/images/ic_ehdaCenter--en.png') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="h-full block object-contain"
                 />
