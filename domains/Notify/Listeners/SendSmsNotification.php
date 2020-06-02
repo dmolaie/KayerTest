@@ -22,19 +22,21 @@ class SendSmsNotification
      */
     public function handle(sendSmsEvent $event)
     {
-        try {
-        $sendMessageUrl = config('notify.sendMessageUrl');
-        foreach ($event->sendSmsDTO->getChannelTypes() as $channelType) {
-            $jsonToSend = $this->makeRequestBody($event, $channelType);
-            $this->sendNotification($jsonToSend, $sendMessageUrl);
-            return;
-        }
-        } catch (\Exception $exception) {
-            $this->addLog('INTERNAL SERVER ERROR', [
-                $exception->getMessage()
-            ]);
-        }
 
+        foreach ($event->sendSmsDTO->getChannelTypes() as $channelType) {
+
+            try {
+                $sendMessageUrl = config('notify.sendMessageUrl');
+                $jsonToSend = $this->makeRequestBody($event, $channelType);
+                $this->sendNotification($jsonToSend, $sendMessageUrl);
+
+            } catch (\Exception $exception) {
+                $this->addLog('INTERNAL SERVER ERROR', [
+                    $exception->getMessage()
+                ]);
+            }
+
+        }
     }
 
     /**
