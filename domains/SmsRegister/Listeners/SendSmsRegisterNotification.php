@@ -66,7 +66,7 @@ class SendSmsRegisterNotification
         $dateMessage = Carbon::now()->format('Y-m-d\TH:i:s.v\Z');
         $channelType = $event->smsRegisterDTO->getChannelType();
         $sid = ($channelType == "Imi") ? config('smsRegister.ImiSid') : config('smsRegister.MtnSid');
-        $messageType = "Content";
+        $messageType = ($channelType == "Imi") ? "Content" : "PremiumContent";
         $mobileNumber = $event->smsRegisterDTO->getMobileNumber();
         $appId = config('smsRegister.appId');
         $signatureMessage = $dateMessage . "," . $uid . "," . $sid . "," . $channelType . "," . $messageType . "," . $mobileNumber . "," . $content;
