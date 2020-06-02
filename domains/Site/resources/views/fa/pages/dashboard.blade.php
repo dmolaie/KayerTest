@@ -67,7 +67,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-full">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ secure_asset('/images/cards/single_overlay.jpg') }}"
+                                            <img src="{{ asset('/images/cards/single_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="single_cart w-full block object-contain"
                                             />
@@ -100,7 +100,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ secure_asset('/images/cards/mini_overlay.jpg') }}"
+                                            <img src="{{ asset('/images/cards/mini_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="mini_cart w-full block object-contain"
                                             />
@@ -139,7 +139,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ secure_asset('/images/cards/social_overlay.jpg') }}"
+                                            <img src="{{ asset('/images/cards/social_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="social_cart w-full block object-contain"
                                             />
@@ -186,7 +186,7 @@
                                 <div class="flex flex-start md:flex-col">
                                     <div class="w-1/2.5 xl:w-1/3 flex-shrink-0 md:w-3/4 md:m-0-auto">
                                         <figure class="image_loading content__image w-full block border border-solid">
-                                            <img src="{{ secure_asset('/images/cards/print_overlay.jpg') }}"
+                                            <img src="{{ asset('/images/cards/print_overlay.jpg') }}"
                                                  alt="{{ auth()->user()->name .'-'. auth()->user()->last_name }}"
                                                  class="print_card w-full block object-contain"
                                             />
@@ -237,6 +237,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{secure_asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js?v=c298c7f8233d')}}" defer></script>
-        <script src="{{secure_asset('js/site/dashboard.js')}}" defer></script>
+        <script src="{{asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js?v=c298c7f8233d')}}" defer></script>
+        <script src="{{asset('js/site/dashboard.js')}}" defer></script>
     @endsection

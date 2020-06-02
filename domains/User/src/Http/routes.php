@@ -25,9 +25,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/user-roles/{id}', 'UserController@userRoles')->middleware('auth:api')->name('user-roles')->where('id', '[0-9]+');
     Route::post('/user-report', 'UserController@userReport')->middleware('auth:api')->name('user-report');
     Route::post('/all-user-report', 'UserController@allUserReport')->middleware('auth:api')->name('all-user-report');
+    Route::post('/add-user-angel', 'UserController@addUserAngel')->middleware('auth:api')->name('add-user-angel');
 });
 
 Route::get('/user-basic-register-info', 'UserController@userBasicRegisterInfo')->name('user-basic-register-info');
 Route::get('/password/reset/token', 'PasswordResetController@getPasswordResetToken')->name('password-reset-token');
 Route::post('/password/reset/validate-token', 'PasswordResetController@resetPasswordValidationToken')->name('password-reset');
 Route::post('/password/reset', 'PasswordResetController@resetPasswordByToken')->name('password-reset');
+Route::post('angel/search-user-angel', 'UserController@searchUserAngel')->name('search-user-angel');

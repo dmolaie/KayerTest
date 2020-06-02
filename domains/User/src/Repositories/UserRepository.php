@@ -5,6 +5,7 @@ namespace Domains\User\Repositories;
 
 use Domains\Role\Services\Contracts\DTOs\RoleInfoDTO;
 use Domains\User\Entities\User;
+use Domains\User\Services\Contracts\DTOs\UserAngelDTO;
 use Domains\User\Services\Contracts\DTOs\UserRegisterInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserSearchDTO;
 
@@ -247,5 +248,26 @@ class UserRepository
             ->when($registerEnd, function ($query) use ($registerEnd) {
                 return $query->where('created_at', '<=', $registerEnd);
             });
+    }
+
+    public function userAngel(UserAngelDTO $angelDTO)
+    {
+        $user = $this->entityName::findOrFail($angelDTO->getUserId());
+        $user->angel = true;
+        $user->date_death = $angelDTO->getYear();
+        if (!empty($user->getDirty())) {
+            $user->save();
+        }
+        return $user;
+    }
+
+    public function searchUserAngel(UserAngelDTO $userAngelDTO)
+    {
+        return $this->entityName
+            ::where('angel','=',true)->when($userAngelDTO->getName(), function ($query) use ($userAngelDTO) {
+        return $query->where('name', 'like', '%' . $userAngelDTO->getName() . '%')
+            ->orWhere('last_name', 'like', '%' . $userAngelDTO->getName() . '%')
+            ->where('angel','=',true);
+    })->paginate(config('user.user_paginate_count'));
     }
 }

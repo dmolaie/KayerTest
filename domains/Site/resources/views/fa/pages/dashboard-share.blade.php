@@ -120,7 +120,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{ secure_asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
-        <script src="{{ secure_asset('js/site/vendors~dashboard-share.js') }}" defer></script>
-        <script src="{{ secure_asset('js/site/dashboard-share.js?v=c298c7f8233d') }}" defer></script>
+        <script src="{{ asset('js/site/vendors~dashboard-share~donation-card~edit-profile~gallery~volunteers~volunteers-final.js') }}" defer></script>
+        <script src="{{ asset('js/site/vendors~dashboard-share.js') }}" defer></script>
+        <script src="{{ asset('js/site/dashboard-share.js?v=c298c7f8233d') }}" defer></script>
     @endsection

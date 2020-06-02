@@ -8,6 +8,7 @@ use App\Http\Controllers\EhdaBaseController;
 use Domains\News\Http\Presenters\UsersReportPaginateInfoPresenter;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
+use Domains\User\Http\Presenters\UserAngelPaginateInfoPresenter;
 use Domains\User\Http\Presenters\UserBaseProfileInfo;
 use Domains\User\Http\Presenters\UserBasicRegisterInfoPresenter;
 use Domains\User\Http\Presenters\UserBriefInfoPresenter;
@@ -24,8 +25,10 @@ use Domains\User\Http\Requests\ChangeUserRoleStatusRequest;
 use Domains\User\Http\Requests\LegateRegisterRequest;
 use Domains\User\Http\Requests\RegisterLegateByAdminRequest;
 use Domains\User\Http\Requests\RegisterUserByAdminRequest;
+use Domains\User\Http\Requests\SearchUserAngelRequest;
 use Domains\User\Http\Requests\UpdateUserInfoByAdminRequest;
 use Domains\User\Http\Requests\UpdateUserInfoRequest;
+use Domains\User\Http\Requests\UserAngelRequest;
 use Domains\User\Http\Requests\UserInfoByAdminRequest;
 use Domains\User\Http\Requests\UserListForAdminRequest;
 use Domains\User\Http\Requests\UserRegisterRequest;
@@ -437,5 +440,24 @@ class UserController extends EhdaBaseController
                 trans('user::response.user_not_found')
             );
         }
+    }
+
+    public function addUserAngel(UserAngelRequest $request, UserBriefInfoPresenter $briefInfoPresenter)
+    {
+        $userAngel = $this->userService->userAngel($request->addUserAngel());
+        return $this->response(
+            $briefInfoPresenter->transform($userAngel),
+            Response::HTTP_OK,
+            trans('user::response.success_add_user_angels')
+        );
+    }
+
+    public function searchUserAngel(SearchUserAngelRequest $request,UserAngelPaginateInfoPresenter $userAngelPaginateInfoPresenter)
+    {
+        $usersPaginateInfoDTOs = $this->userService->filterUsersAngel($request->searchUserAngel());
+        return $this->response(
+            $userAngelPaginateInfoPresenter->transform($usersPaginateInfoDTOs),
+            Response::HTTP_OK
+        );
     }
 }

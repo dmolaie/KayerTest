@@ -13,11 +13,14 @@ use Domains\User\Entities\User;
 use Domains\User\Exceptions\UserDoseNotHaveActiveRole;
 use Domains\User\Exceptions\UserUnAuthorizedException;
 use Domains\User\Repositories\UserRepository;
+use Domains\User\Services\Contracts\DTOs\AngelUserBriefInfoDTO;
+use Domains\User\Services\Contracts\DTOs\DTOMakers\UserAngelBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserBriefInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserFullInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserInfoReportDTOMaker;
 use Domains\User\Services\Contracts\DTOs\DTOMakers\UserRoleInfoDTOMaker;
 use Domains\User\Services\Contracts\DTOs\UserAdditionalInfoDTO;
+use Domains\User\Services\Contracts\DTOs\UserAngelDTO;
 use Domains\User\Services\Contracts\DTOs\UserBriefInfoDTO;
 use Domains\User\Services\Contracts\DTOs\UserChangeRoleDTO;
 use Domains\User\Services\Contracts\DTOs\UserFullInfoDTO;
@@ -446,5 +449,20 @@ class UserService
         return $this->userBriefInfoDTOMaker->convert($user);
     }
 
+
+    public function userAngel(UserAngelDTO $angelDTO)
+    {
+        $user =  $this->userRepository->userAngel($angelDTO);
+        return $this->userBriefInfoDTOMaker->convert($user);
+    }
+
+    public function filterUsersAngel(UserAngelDTO $userAngelDTO): PaginationDTOMaker
+    {
+        $users = $this->userRepository->searchUserAngel($userAngelDTO);
+        return $this->paginationDTOMaker->perform(
+            $users,
+            UserAngelBriefInfoDTOMaker::class
+        );
+    }
 }
 
