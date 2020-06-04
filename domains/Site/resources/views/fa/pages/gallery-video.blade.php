@@ -18,7 +18,7 @@
                     <div class="flex-1">
                         <div class="inner-box inner-box--white p-0 m-t-0 text-right overflow-hidden">
                             <div id="video_player">
-                                <img src="{{ asset('/images/video-placeholder.png') }}"
+                                <img src="{{secure_asset('/images/video-placeholder.png') }}"
                                      alt="video-placeholder"
                                      class="w-full block"
                                 >
@@ -96,5 +96,5 @@
         <script type="text/JavaScript" id="aparat_script"
                 src="https://www.aparat.com/embed/{{ getVideoUUIDFromPatch(current($mediaDetail->getContentFiles())) }}?data[rnddiv]=video_player&data[responsive]=yes">
         </script>
-        <script src="{{ asset('js/site/gallery-video.js') }}" defer></script>
+        <script src="{{secure_asset('js/site/gallery-video.js') }}" defer></script>
     @endsection

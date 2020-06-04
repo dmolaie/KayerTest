@@ -3,7 +3,7 @@
     <div class="p-login flex items-stretch w-full h-full">
         <div class="p-login__content relative h-full flex items-start justify-center flex-wrap bg-white l:w-5/12 md:w-full">
             <figure class="ehda-logo w-full">
-                <img src="{{ asset('/images/ic_ehda-center.png') }}"
+                <img src="{{secure_asset('/images/ic_ehda-center.png') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="ehda-logo__image block w-full h-full m-0-auto object-contain"
                 />

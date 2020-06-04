@@ -2,7 +2,7 @@
     <div class="p-count bg-green-200">
         <header class="p-count__header bg-white">
             <a href="{{ route('index', config('app.locale')) }}" class="block">
-                <img src="{{ asset('/images/ic_ehda-center.png') }}"
+                <img src="{{ secure_asset('/images/ic_ehda-center.png') }}"
                      alt="انجمن اهدای عضو ایرانیان"
                      class="p-count__logo block"
                 >
