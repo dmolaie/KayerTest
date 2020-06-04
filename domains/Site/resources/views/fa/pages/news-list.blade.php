@@ -25,7 +25,7 @@
                     </p>
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
-                    <img src="{{ asset('/images/img_news-list.png') }}"
+                    <img src="{{ secure_asset('/images/img_news-list.png') }}"
                          alt="اخبار ایران"
                          class="block w-full h-full object-contain"
                     />

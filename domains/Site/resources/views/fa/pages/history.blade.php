@@ -42,21 +42,21 @@
                     <div class="l:w-280 l:m-r-45 md:w-100 md:m-b-20">
                         <figure class="block w-full m-b-10 has-skeleton">
                             <img src=""
-                                 data-src="{{ asset('images/3W6A0137.jpg') }}"
+                                 data-src="{{secure_asset('images/3W6A0137.jpg') }}"
                                  alt=""
                                  class="history-page__cover block w-full h-full rounded-3 object-cover"
                             />
                         </figure>
                         <figure class="block w-full m-b-10 has-skeleton">
                             <img src=""
-                                 data-src="{{ asset('images/اکی-ساختمان.jpg') }}"
+                                 data-src="{{secure_asset('images/اکی-ساختمان.jpg') }}"
                                  alt=""
                                  class="history-page__cover block w-full h-full rounded-3 object-cover"
                             />
                         </figure>
                         <figure class="block w-full has-skeleton">
                             <img src=""
-                                 data-src="{{ asset('images/3W6A0155.jpg') }}"
+                                 data-src="{{secure_asset('images/3W6A0155.jpg') }}"
                                  alt=""
                                  class="history-page__cover block w-full h-full rounded-3 object-cover"
                             />
@@ -69,7 +69,7 @@
                             اهداف اصلی:
                         </p>
                         <figure class="history-page__chart block max-w-full m-0-auto xl:w-1/3 l:w-1/2 sm:w-full">
-                            <img src="{{ asset( '/images/img_history--1.png' ) }}"
+                            <img src="{{secure_asset( '/images/img_history--1.png' ) }}"
                                  alt="اهداف اصلی"
                                  class="block object-contain md:max-w-100 m-0-auto"
                             />
@@ -80,7 +80,7 @@
                             اهداف فرعی:
                         </p>
                         <figure class="history-page__chart block max-w-full m-0-auto xl:w-1/3 l:w-1/2 sm:w-full">
-                            <img src="{{ asset('/images/img_history--2.png') }}"
+                            <img src="{{secure_asset('/images/img_history--2.png') }}"
                                  alt="اهداف فرعی"
                                  class="block object-contain md:max-w-100 m-0-auto"
                             />

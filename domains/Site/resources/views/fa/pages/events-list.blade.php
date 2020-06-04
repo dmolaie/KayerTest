@@ -25,7 +25,7 @@
                     </p>
                 </div>
                 <figure class="n-list__header_cover flex-shrink-0">
-                    <img src="{{ asset('/images/img__events-cover.png') }}"
+                    <img src="{{secure_asset('/images/img__events-cover.png') }}"
                          alt="رویداد"
                          class="block w-full h-full object-contain"
                     />
