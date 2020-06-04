@@ -244,7 +244,7 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
-        <script src="{{asset('js/site/vendors~gallery-audio.js')}}" defer></script>
-        <script src="{{asset('js/site/gallery-audio.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/vendors~gallery-audio.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/gallery-audio.js')}}" defer></script>
     @endsection
