@@ -237,6 +237,6 @@
     @endsection
 
     @section('scripts')
-        <script src="{{asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js?v=c298c7f8233d')}}" defer></script>
-        <script src="{{asset('js/site/dashboard.js')}}" defer></script>
+        <script src="{{secure_asset('js/site/card-mini~card-print~card-single~card-social~dashboard.js?v=c298c7f8233d')}}" defer></script>
+        <script src="{{secure_asset('js/site/dashboard.js')}}" defer></script>
     @endsection

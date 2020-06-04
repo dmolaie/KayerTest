@@ -47,5 +47,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/site/login.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/login.js')}}" defer></script>
 @endsection

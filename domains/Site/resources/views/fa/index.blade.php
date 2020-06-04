@@ -3,7 +3,7 @@
     <meta name="robots" content="index, follow">
     <meta property="og:url" content="{{ url()->full() }}">
     <meta property="og:title" content="انجمن اهدای عضو ایرانیان">
-    <meta property="og:image" content="{{ asset('/images/ic_ehda-center.png') }}"/>
+    <meta property="og:image" content="{{ secure_asset('/images/ic_ehda-center.png') }}"/>
 @endsection
 @section('content')
     <div class="p-home flex flex-col">
@@ -55,42 +55,42 @@
                     لحظه‌ها مهم است…
                 </h4>
                 <figure class="section__image flex items-center justify-center">
-                    <img src="{{ asset('/images/ic_person--blue.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--blue.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
                     <span class="blue_symbol text-blue">
                         =
                     </span>
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
-                    <img src="{{ asset('/images/ic_person--gray.svg') }}"
+                    <img src="{{ secure_asset('/images/ic_person--gray.svg') }}"
                          alt="/"
                          class="ic_person"
                     />
@@ -342,6 +342,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js') }}" defer></script>
-    <script src="{{ asset('js/site/home.js') }}" defer></script>
+    <script src="{{ secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js') }}" defer></script>
+    <script src="{{ secure_asset('js/site/home.js') }}" defer></script>
 @endsection

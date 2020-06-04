@@ -124,6 +124,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
-    <script src="{{asset('js/site/news_list.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/vendors~gallery-audio~gallery-images~home~news_list~news_show.js')}}" defer></script>
+    <script src="{{secure_asset('js/site/news_list.js')}}" defer></script>
 @endsection
