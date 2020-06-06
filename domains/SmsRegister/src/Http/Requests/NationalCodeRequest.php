@@ -4,45 +4,44 @@
 namespace Domains\SmsRegister\Http\Requests;
 
 use Illuminate\Contracts\Validation\Rule;
-use Morilog\Jalali\Jalalian;
+use Illuminate\Support\Facades\Validator;
 
-class BirthDateRequest implements Rule
+class NationalCodeRequest implements Rule
 {
     /**
      * Determine if the validation rule passes.
      *
-     * @param  mixed $value
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $code)
     {
         $code = $this->convertToEnglishNumber($code);
-        try {
-            $date = str_split($code, 4);
+        $validator = Validator::make(['national_code' => $code], [
+            'national_code' => 'unique:users,national_code',
+        ]);
 
-            $year = $date[0];
-            $monthDay = str_split($date[1], 2);
-            $month = $monthDay[0];
-            $day = $monthDay[1];
-
-            $date = (new Jalalian($year, $month, $day))->toCarbon()->toDateString();
-            return true;
-        } catch (\Exception $exception) {
-            return false;
-
-        }catch (\Throwable $exception){
+        if ($validator->fails()) {
             return false;
         }
-    }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        return trans('smsRegister::response.validation.birth_date_all');
+        if (strlen($code) == 10) {
+            if (!preg_match('/^[0-9]{10}$/', $code))
+                return false;
+            for ($i = 0; $i < 10; $i++)
+                if (preg_match('/^' . $i . '{10}$/', $code))
+                    return false;
+            for ($i = 0, $sum = 0; $i < 9; $i++)
+                $sum += ((10 - $i) * intval(substr($code, $i, 1)));
+            $ret = $sum % 11;
+            $parity = intval(substr($code, 9, 1));
+            if (($ret < 2 && $ret == $parity) || ($ret >= 2 && $ret == 11 - $parity))
+                return true;
+            return false;
+        } elseif (strlen($code) == 12 || strlen($code) == 16) {
+            return true;
+        }
+        return false;
     }
 
     private function convertToEnglishNumber($string)
@@ -61,5 +60,15 @@ class BirthDateRequest implements Rule
         $string = str_replace($arabicDecimal, $newNumbers, $string);
         $string = str_replace($arabic, $newNumbers, $string);
         return str_replace($persian, $newNumbers, $string);
+    }
+
+    /**
+     * Get the validation error message.
+     *
+     * @return string
+     */
+    public function message()
+    {
+        return trans('user::validation.error_code_national');
     }
 }
