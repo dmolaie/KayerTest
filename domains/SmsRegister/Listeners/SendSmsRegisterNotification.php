@@ -22,6 +22,7 @@ class SendSmsRegisterNotification
      */
     public function handle(SmsRegisterEvent $event)
     {
+        dd($event->smsRegisterDTO);
         $this->addLog('call event SmsRegisterEvent', [
             $event->smsRegisterDTO->getMobileNumber(),
             $event->smsRegisterDTO->getContent()
