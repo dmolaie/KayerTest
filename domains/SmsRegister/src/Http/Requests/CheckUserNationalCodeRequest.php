@@ -4,7 +4,6 @@ namespace Domains\SmsRegister\Http\Requests;
 
 use Domains\SmsRegister\Events\SmsRegisterEvent;
 use Domains\SmsRegister\Services\Contracts\DTOs\SmsRegisterDTO;
-use Domains\User\Http\Requests\NationalCodeRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
@@ -38,18 +37,19 @@ class CheckUserNationalCodeRequest extends FormRequest
                 '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
-        if (!empty($this[0]['Content'])) {
+
+        if (!empty($this[0]['Content']) && (strlen($this[0]['Content']) == 10 || strlen($this[0]['Content']) == 20)) {
             $this->step = 'first';
             return [
-                '0.Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
+                '0.Content'         => ['required', new NationalCodeRequest()],
                 '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
 
-        if (!empty($this[0]['Content']) && strlen($this[0]['Content']) == 8) {
+        if (!empty($this[0]['Content']) && (strlen($this[0]['Content']) == 8 || strlen($this[0]['Content']) == 16)) {
             $this->step = 'second';
             return [
-                '0.Content'         => ['required', 'digits:8', 'numeric', 'min:10000000', new BirthDateRequest],
+                '0.Content'         => ['required', new BirthDateRequest],
                 '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
@@ -99,15 +99,16 @@ class CheckUserNationalCodeRequest extends FormRequest
             ->setMobileNumber($this[0]['UserPhoneNumber'])
             ->setChannelType($this[0]["ChannelType"] ?? '‫‪Imi‬‬');
         if ($this->step == 'first') {
-            $smsRegisterDTO->setNationalCode($this[0]['Content'])
+            $smsRegisterDTO->setNationalCode($this->convertToEnglishNumber($this[0]['Content']))
                 ->setFirstRequestContent($this->all());
             return $smsRegisterDTO;
         } elseif ($this->step == 'second') {
-            $date = $this->convertDate($this[0]['Content']);
+            $date = $this->convertDate($this->convertToEnglishNumber($this[0]['Content']));
             $smsRegisterDTO->setBirthDate($date)
                 ->setSecondRequestContent($this->all());
             return $smsRegisterDTO;
         }
+
         $date = explode('-', $this[0]['Content']);
         $smsRegisterDTO->setName($date[0])
             ->setLastName($date[1])
@@ -157,5 +158,22 @@ class CheckUserNationalCodeRequest extends FormRequest
             event(new SmsRegisterEvent($smsRegister));
         }
         return;
+    }
+
+    private function convertToEnglishNumber($string = null) {
+        $newNumbers = range(0, 9);
+        // 1. Persian HTML decimal
+        $persianDecimal = array('&#1776;', '&#1777;', '&#1778;', '&#1779;', '&#1780;', '&#1781;', '&#1782;', '&#1783;', '&#1784;', '&#1785;');
+        // 2. Arabic HTML decimal
+        $arabicDecimal = array('&#1632;', '&#1633;', '&#1634;', '&#1635;', '&#1636;', '&#1637;', '&#1638;', '&#1639;', '&#1640;', '&#1641;');
+        // 3. Arabic Numeric
+        $arabic = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
+        // 4. Persian Numeric
+        $persian = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+
+        $string =  str_replace($persianDecimal, $newNumbers, $string);
+        $string =  str_replace($arabicDecimal, $newNumbers, $string);
+        $string =  str_replace($arabic, $newNumbers, $string);
+        return str_replace($persian, $newNumbers, $string);
     }
 }
