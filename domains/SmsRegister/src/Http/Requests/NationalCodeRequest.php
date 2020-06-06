@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class NationalCodeRequest implements Rule
 {
+    public $state = 'invalid';
     /**
      * Determine if the validation rule passes.
      *
@@ -22,6 +23,7 @@ class NationalCodeRequest implements Rule
         ]);
 
         if ($validator->fails()) {
+            $this->state = 'duplicate';
             return false;
         }
 
@@ -69,6 +71,9 @@ class NationalCodeRequest implements Rule
      */
     public function message()
     {
-        return trans('user::validation.error_code_national');
+        if($this->state == 'invalid'){
+            return trans('user::validation.error_code_national');
+        }
+        return trans('smsRegister::response.validation.national_code_unique');
     }
 }
