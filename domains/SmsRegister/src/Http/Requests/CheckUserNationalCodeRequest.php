@@ -38,7 +38,7 @@ class CheckUserNationalCodeRequest extends FormRequest
                 '0.UserPhoneNumber' => 'required|regex:/(989)[0-9]{9}/',
             ];
         }
-        if (!empty($this[0]['Content']) && strlen($this[0]['Content']) == 10) {
+        if (!empty($this[0]['Content'])) {
             $this->step = 'first';
             return [
                 '0.Content'         => ['required', 'unique:users,national_code', 'numeric', new NationalCodeRequest],
