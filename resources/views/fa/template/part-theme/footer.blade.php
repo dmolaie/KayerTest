@@ -35,11 +35,11 @@
                 >
                     سفیران اهدای عضو
                 </a>
-                <a href=""
+               {{-- <a href=""
                    class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
                     فرشتگان ماندگار
-                </a>
+                </a>--}}
             </nav>
             <nav class="footer__nav flex flex-col l:m-r-auto">
                 <p class="footer__nav_title font-xs-bold text-blue-100 cursor-default">
