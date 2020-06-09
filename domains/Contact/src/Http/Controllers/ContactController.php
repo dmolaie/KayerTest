@@ -49,23 +49,22 @@ class ContactController extends EhdaBaseController
         );
     }
 
-    public function getDetail(string $id,
-        ContactDetailPresenter $contactInfoPresenter)
-    {
-        try{
+    public function getDetail(
+        string $id,
+        ContactDetailPresenter $contactInfoPresenter
+    ) {
+        try {
             $contactDTO = $this->contactService->getDetail($id);
             return $this->response(
                 $contactInfoPresenter->transform($contactDTO),
                 Response::HTTP_OK
             );
-        }catch (ModelNotFoundException $exception){
+        } catch (ModelNotFoundException $exception) {
             return $this->response(
                 [],
                 Response::HTTP_NOT_FOUND,
                 trans('contact::response.contact_not_found')
             );
         }
-
-
     }
 }

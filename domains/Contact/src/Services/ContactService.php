@@ -3,12 +3,14 @@
 
 namespace Domains\Contact\Services;
 
+use Domains\Contact\Mail\ContactEmail;
 use Domains\Contact\Repositories\ContactRepository;
 use Domains\Contact\Services\Contracts\DTOs\ContactCreateDTO;
 use Domains\Contact\Services\Contracts\DTOs\ContactDTO;
 use Domains\Contact\Services\Contracts\DTOs\ContactFilterDTO;
 use Domains\Contact\Services\Contracts\DTOs\DTOMakers\ContactDetailDTOMaker;
 use Domains\Contact\Services\Contracts\DTOs\DTOMakers\ContactDTOMaker;
+use Illuminate\Support\Facades\Mail;
 
 class ContactService
 {
@@ -40,6 +42,8 @@ class ContactService
     public function createContact(ContactCreateDTO $createContactCreateDTO): ContactDTO
     {
         $contact = $this->contactRepository->createContact($createContactCreateDTO);
+        Mail::send(new ContactEmail($createContactCreateDTO));
+
         return $this->contactDTOMaker->convert($contact);
     }
 
