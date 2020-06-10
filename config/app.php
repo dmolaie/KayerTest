@@ -202,6 +202,7 @@ return [
         \Domains\Slider\SliderServiceProvider::class,
         \Domains\Arvanvod\ArvanvodServiceProvider::class,
         \Domains\Notify\NotifyServiceProvider::class,
+        \Domains\Contact\ContactServiceProvider::class,
 
 
     ],
