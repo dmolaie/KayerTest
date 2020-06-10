@@ -45,12 +45,13 @@ export const CREATE_SLIDER = 'CREATE_SLIDER';
 export const MANAGE_COUNT_UP = 'MANAGE_COUNT_UP';
 export const CREATE_COUNT_UP = 'CREATE_COUNT_UP';
 export const NOT_FOUND = 'NOT_FOUND';
+export const PRINT_CARDS = 'PRINT_CARDS';
 
 export const DASHBOARD_PAGE_TITLE = 'داشبورد';
 export const LOGIN_PAGE_TITLE = 'ورود به حساب کاربری';
 
 const GetViews = component => () =>
-    import(/* webpackChunkName: "bud.[request]" */ `@views/${component}.vue`);
+    import(/* webpackChunkName: "bnd.[request]" */ `@views/${component}.vue`);
 
 const Routes = new VueRouter({
     mode: "hash",
@@ -633,6 +634,27 @@ const Routes = new VueRouter({
                     }
                 ]
             }
+        },
+        {
+            name: PRINT_CARDS,
+            path: '/manage/cards/print',
+            component: GetViews( 'PrintCards' ),
+            meta: {
+                title: 'چاپ کارت‌های اهدای عضو',
+                breadcrumb: [
+                    {
+                        route: DASHBOARD,
+                        name: 'انجمن اهدای عضو ایرانیان',
+                    },
+                    {
+                        name: 'کارت‌های اهدای عضو'
+                    },
+                    {
+                        name: 'چاپ'
+                    },
+                ]
+            }
+
         },
         {
             name: NOT_FOUND,
