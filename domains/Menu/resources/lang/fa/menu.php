@@ -17,6 +17,7 @@ return [
         "text_gallery"    => 'گالری متنی',
         "video_gallery"   => 'گالری تصویری',
         "voice_gallery"   => 'گالری صوتی',
+        "print"           => 'چاپ',
         "profile_setting" => 'تنظیمات حساب',
     ]
 ];

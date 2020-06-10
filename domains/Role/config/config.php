@@ -11,8 +11,12 @@ return [
             'name'  => 'manager',
             'label' => 'مدیر'
         ],
-        'legate'  => [
+        'support' => [
             'id'    => 3,
+            'name'  => 'support',
+            'label' => 'پشتیبان'
+        ],
+        'legate'  => [
             'name'  => 'legate',
             'label' => 'سفیر'
         ],

@@ -38,6 +38,15 @@ class RoleTableSeeder extends Seeder
                 'name'       => 'client',
                 'type'       => 'client',
                 'label'      => 'کاربر عادی',
+                'priority'   => '5',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id'         => 3,
+                'name'       => 'support',
+                'type'       => 'support',
+                'label'      => 'پشتیبان',
                 'priority'   => '4',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
