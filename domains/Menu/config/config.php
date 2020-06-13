@@ -15,23 +15,24 @@ return [
     ],
     'admin_menu'    => [
 
-        "dashboard"      => [
-            'roles'=>[
+        "dashboard"       => [
+            'roles'    => [
                 'admin'   => ['active', 'pending', 'inactive',],
                 'manager' => ['active', 'pending', 'inactive',],
                 'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
-                ],
-            'children'=>[]
+                'support' => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
+            ],
+            'children' => []
 
         ],
-        "menu_manager" => [
+        "menu_manager"    => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
 
         ],
-        "event"        => [
+        "event"           => [
             'roles'    => [
                 'admin'   => ['active'],
                 'manager' => ['active'],
@@ -39,7 +40,7 @@ return [
             ],
             'children' => []
         ],
-        "news"         => [
+        "news"            => [
             'roles'    => [
                 'admin'   => ['active'],
                 'manager' => ['active'],
@@ -48,49 +49,57 @@ return [
             'children' => []
 
         ],
-        "article"      => [
+        "article"         => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
         ],
-        "slider" => [
+        "slider"          => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
         ],
-        "ehda_card" => [
+        "ehda_card"       => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
         ],
-        "user" => [
+        "user"            => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
         ],
-        "report" => [
+        "report"          => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
         ],
-        "category" => [
+        "category"        => [
             'roles'    => [
                 'admin' => ['active'],
             ],
             'children' => []
         ],
-        "gallery" => [
-            'roles'=>[
+        "print"           => [
+            'roles'    => [
+                'admin'   => ['active'],
+                'support' => ['active'],
+            ],
+            'children' => []
+
+        ],
+        "gallery"         => [
+            'roles'    => [
                 'admin'   => ['active'],
                 'manager' => ['active'],
                 'legate'  => ['active'],
-                ],
-            'children'=>[
+            ],
+            'children' => [
                 "image_gallery" => [
                     'roles'    => [
                         'admin'   => ['active'],
@@ -136,6 +145,7 @@ return [
                 'admin'   => ['active', 'pending', 'inactive',],
                 'manager' => ['active', 'pending', 'inactive',],
                 'legate'  => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
+                'support' => ['active', 'pending', 'inactive', 'wait_for_documents', 'wait_for_exam'],
             ],
             'children' => []
 

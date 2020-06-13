@@ -66,6 +66,10 @@ export const menus = {
         route: { name: 'MANAGE_GALLERY', params: { type: 'video' } },
         icon: 'ic_newspaper--blue.svg'
     },
+    ['print']: {
+        route: { name: 'PRINT_CARDS' },
+        icon: 'ic_newspaper--blue.svg'
+    }
 };
 
 export default class MenusPresenter {

@@ -33,8 +33,8 @@
 </head>
 <body class="h-full overflow-x-hidden">
     <div id="app"></div>
-    <script src="{{ secure_asset('js/office/runtime.js ') }}" defer></script>
-    <script src="{{ secure_asset('js/office/vendors~app.js') }}" defer></script>
-    <script src="{{ secure_asset('js/office/app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/office/runtime.js?v=c12a159181939x') }}" defer></script>
+    <script src="{{ secure_asset('js/office/vendors~app.js?v=c12a159181939x') }}" defer></script>
+    <script src="{{ secure_asset('js/office/app.js?v=c12a159181939x') }}" defer></script>
 </body>
 </html>
