@@ -21,6 +21,7 @@ export class SingleManageCardsPresenter extends BasePresenter {
 
         return this.mapProps({
             user_id: Number,
+            uuid: String,
             card_id: String,
             avatar: String,
             name: String,
@@ -31,6 +32,10 @@ export class SingleManageCardsPresenter extends BasePresenter {
             mobile: String,
             has_video: Boolean
         })
+    }
+
+    uuid() {
+        return this.data.uuid || ''
     }
 
     user_id() {
