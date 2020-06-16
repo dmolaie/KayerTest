@@ -91,10 +91,10 @@
                                     <span class="i-page__sub-title">
                                         سفیران مشاهیر :
                                     </span>
-                                    <a href=""
-                                       class="router-link relative inline-block font-xs-bold m-r-auto">
-                                        بیشتر
-                                    </a>
+                                    {{--<a href=""--}}
+                                       {{--class="router-link relative inline-block font-xs-bold m-r-auto">--}}
+                                        {{--بیشتر--}}
+                                    {{--</a>--}}
                                 </p>
                                 <div class="fou-page__volunteers__list flex flex-wrap items-start justify-between xl:justify-around">
                                     <div class="fou-page__volunteers__list_item relative border border-solid border-blue-100 rounded-50 has-shadow">
