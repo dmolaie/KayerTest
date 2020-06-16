@@ -184,51 +184,6 @@
                 </div>
             </div>
         </section>
-        <section class="info__section">
-            <div class="container sm:p-0">
-                <div class="section__title flex items-end sm:p-0-20">
-                    <h4 class="i-page__sub-title font-24 text-blue-800 cursor-default text-nowrap line-height-1 sm:font-sm">
-                        دانستنی‌های اهدا
-                    </h4>
-                    <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
-                    <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
-                    <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
-                    {{-- <a href=""
-                       class="router-link relative none font-xs-bold sm:block sm:m-r-auto sm:m-b-2">
-                        بیشتر
-                    </a> --}}
-                </div>
-                <div class="max-w-full overflow-x-hidden">
-                    <div class="carousel__container">
-                        <div class="swiper-wrapper">
-                            @foreach($knowledgeArticles as $knowledgeArticle)
-                                <div class="swiper-slide">
-                                    <a href="{{ route('article-short-link', $knowledgeArticle->getUuid()) }}"
-                                       class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
-                                        <figure class="info__cart_image block w-full m-0-auto">
-                                            <img src="/{{$knowledgeArticle->getAttachmentFiles() ? current($knowledgeArticle->getAttachmentFiles())['path'] : ''}}"
-                                                 alt="{{$knowledgeArticle->getFirstTitle()}}"
-                                                 class="block w-full h-full rounded object-contain"
-                                            />
-                                        </figure>
-                                        <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
-                                            {{$knowledgeArticle->getFirstTitle()}}
-                                        </p>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="carousel__pagination carousel__pagination--blue none sm:flex justify-center"></div>
-                    </div>
-                </div>
-                <div class="block text-left m-t-20 sm:none">
-                    {{-- <a href=""
-                       class="router-link relative inline-block font-xs-bold">
-                        بیشتر
-                    </a> --}}
-                </div>
-            </div>
-        </section>
         <section class="events__section bg--sky-blue">
             <div class="container sm:p-0">
                 <div class="section__title flex items-end sm:p-0-20">
@@ -338,6 +293,52 @@
                 </div>
             </div>
         </section>
+        <section class="info__section">
+            <div class="container sm:p-0">
+                <div class="section__title flex items-end sm:p-0-20">
+                    <h4 class="i-page__sub-title font-24 text-blue-800 cursor-default text-nowrap line-height-1 sm:font-sm">
+                        دانستنی‌های اهدا
+                    </h4>
+                    <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
+                    <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
+                    <button class="carousel-btn carousel-btn--right flex-shrink-0 m-r-30 sm:none"></button>
+                    {{-- <a href=""
+                       class="router-link relative none font-xs-bold sm:block sm:m-r-auto sm:m-b-2">
+                        بیشتر
+                    </a> --}}
+                </div>
+                <div class="max-w-full overflow-x-hidden">
+                    <div class="carousel__container">
+                        <div class="swiper-wrapper">
+                            @foreach($knowledgeArticles as $knowledgeArticle)
+                                <div class="swiper-slide">
+                                    <a href="{{ route('article-short-link', $knowledgeArticle->getUuid()) }}"
+                                       class="info__cart relative block rounded-3 border border-solid bg-white w-full has-shadow">
+                                        <figure class="info__cart_image block w-full m-0-auto">
+                                            <img src="/{{$knowledgeArticle->getAttachmentFiles() ? current($knowledgeArticle->getAttachmentFiles())['path'] : ''}}"
+                                                 alt="{{$knowledgeArticle->getFirstTitle()}}"
+                                                 class="block w-full h-full rounded object-contain"
+                                            />
+                                        </figure>
+                                        <p class="info__cart_title w-full text-blue-800 font-xs font-bold text-center sm:font-1xs">
+                                            {{$knowledgeArticle->getFirstTitle()}}
+                                        </p>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="carousel__pagination carousel__pagination--blue none sm:flex justify-center"></div>
+                    </div>
+                </div>
+                <div class="block text-left m-t-20 sm:none">
+                    {{-- <a href=""
+                       class="router-link relative inline-block font-xs-bold">
+                        بیشتر
+                    </a> --}}
+                </div>
+            </div>
+        </section>
+
     </div>
 @endsection
 

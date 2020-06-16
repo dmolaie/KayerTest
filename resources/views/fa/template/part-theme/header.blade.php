@@ -105,20 +105,20 @@
                     @endif
                 </div>
             </div>
-            <div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">
-                <a href="{{route('index','en')}}"
-                   class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'en' ? 'header__nav_lang--active' : '' }}"
-                   lang="en"
-                >
-                    en
-                </a>
-                <a href="{{route('index','fa')}}"
-                   class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'fa' ? 'header__nav_lang--active' : '' }}"
-                   lang="fa"
-                >
-                    fa
-                </a>
-            </div>
+            {{--<div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">--}}
+                {{--<a href="{{route('index','en')}}"--}}
+                   {{--class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'en' ? 'header__nav_lang--active' : '' }}"--}}
+                   {{--lang="en"--}}
+                {{-->--}}
+                    {{--en--}}
+                {{--</a>--}}
+                {{--<a href="{{route('index','fa')}}"--}}
+                   {{--class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'fa' ? 'header__nav_lang--active' : '' }}"--}}
+                   {{--lang="fa"--}}
+                {{-->--}}
+                    {{--fa--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </nav>
 </header>
