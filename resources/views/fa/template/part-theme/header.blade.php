@@ -105,20 +105,20 @@
                     @endif
                 </div>
             </div>
-            <div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">
-                <a href="{{route('index','en')}}"
-                   class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'en' ? 'header__nav_lang--active' : '' }}"
-                   lang="en"
-                >
-                    en
-                </a>
-                <a href="{{route('index','fa')}}"
-                   class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'fa' ? 'header__nav_lang--active' : '' }}"
-                   lang="fa"
-                >
-                    fa
-                </a>
-            </div>
+            {{--<div class="header__nav_lang inline-flex rounded-3 text-center overflow-hidden">--}}
+                {{--<a href="{{route('index','en')}}"--}}
+                   {{--class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'en' ? 'header__nav_lang--active' : '' }}"--}}
+                   {{--lang="en"--}}
+                {{-->--}}
+                    {{--en--}}
+                {{--</a>--}}
+                {{--<a href="{{route('index','fa')}}"--}}
+                   {{--class="header__nav_lang text-uppercase font-xs-bold flex-1 l:transition {{ app()->getLocale() == 'fa' ? 'header__nav_lang--active' : '' }}"--}}
+                   {{--lang="fa"--}}
+                {{-->--}}
+                    {{--fa--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </nav>
 </header>
@@ -149,7 +149,7 @@
                 />
             @endif
         </a>
-        <div class="m-header__language absolute inline-flex rounded-3 text-center overflow-hidden opacity-0">
+        {{--<div class="m-header__language absolute inline-flex rounded-3 text-center overflow-hidden opacity-0">
             <a href="{{route('index','en')}}"
                class="m-header__lang m-header__lang--en text-uppercase text-waterloo font-2xs font-bold flex-1 l:transition {{ app()->getLocale() == 'en' ? 'm-header__lang--active' : '' }}"
                lang="en"
@@ -162,7 +162,7 @@
             >
                 fa
             </a>
-        </div>
+        </div>--}}
     </div>
     <div class="m-header__middle none">
         <nav class="m-header__nav opacity-0">

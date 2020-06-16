@@ -50,7 +50,7 @@
                                                                  class="gai-page__modal_image swiper-lazy w-full block object-contain rounded-inherit rounded-br-none rounded-bl-none"
                                                             />
                                                             <div class="rounded-inherit spinner-loading swiper-lazy-preloader"></div>
-                                                            <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-24 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2 md:font-base sm:font-sm">
+                                                            <figcaption class="gai-page__modal_caption relative w-full bg-blue flex items-center justify-between font-20 font-bold rounded rounded-tr-none rounded-tl-none user-select-none cursor-default z-2 md:font-base sm:font-sm">
                                                                 <span class="text-white">
                                                                     {{ $nestedMedia['title'] ? $nestedMedia['title'] : $mediaDetail->getFirstTitle() }}
                                                                 </span>
