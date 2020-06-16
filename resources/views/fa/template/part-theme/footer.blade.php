@@ -10,11 +10,11 @@
                 >
                     خانه
                 </a>
-                <a href=""
-                   class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
-                >
-                    حمایت مالی
-                </a>
+                {{--<a href=""--}}
+                   {{--class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"--}}
+                {{-->--}}
+                    {{--حمایت مالی--}}
+                {{--</a>--}}
                 <a href="{{ route('page.gallery.art-ehda', config('app.locale')) }}"
                    class="footer__nav_item text-gray font-1xs-medium text-nowrap l:transition-color l:hover:color-blue-100"
                 >
