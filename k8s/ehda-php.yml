@@ -38,7 +38,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "php artisan passport:install"]
+              command: ["/bin/sh", "-c", "php artisan passport:install; php artisan migrate"]
         ports:
         - containerPort: 9000
           name: ehda-php
