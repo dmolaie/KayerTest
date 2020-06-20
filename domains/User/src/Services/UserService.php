@@ -117,10 +117,16 @@ class UserService
 
         if(\auth()->user()){
             $checkRoleClient = $this->checkActiveStatusRole(\auth()->user()->roles()->get());
-
-            if (array_key_exists(config('role.roles.client.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.client.name')] == false ||
-                array_key_exists(config('role.roles.legate.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.legate.name')] == false ||
-                array_key_exists(config('role.roles.admin.name'), $checkRoleClient) && $checkRoleClient[config('role.roles.admin.name')] == false ) {
+//            if (array_key_exists(config('role.roles.client.name'),
+//                    $checkRoleClient) && $checkRoleClient[config('role.roles.client.name')] == false ||
+//                array_key_exists(config('role.roles.legate.name'),
+//                    $checkRoleClient) && $checkRoleClient[config('role.roles.legate.name')] == false ||
+//                array_key_exists(config('role.roles.admin.name'),
+//                    $checkRoleClient) && $checkRoleClient[config('role.roles.admin.name')] == false) {
+//                $loginController->logout($request);
+//                throw new UserUnAuthorizedException(trans('user::response.user_dose_not_have_active_role'));
+//            }
+            if (!$checkRoleClient) {
                 $loginController->logout($request);
                 throw new UserUnAuthorizedException(trans('user::response.user_dose_not_have_active_role'));
             }
@@ -143,13 +149,12 @@ class UserService
     private function checkActiveStatusRole($roles)
     {
         if (!$roles) {
-            return false;
+            return [];
         }
         $data = [];
         foreach ($roles as $role) {
-            $data[$role->type] = true;
-            if ($role->pivot->status == config('user.user_role_inactive')) {
-                $data[$role->type] = false;
+            if (!in_array($role->pivot->status, [config('user.user_role_inactive'), config('user.user_role_deleted')])) {
+                $data[$role->type] = true;
             }
         }
         return $data;

@@ -26,6 +26,7 @@ return [
     'user_role_wait_for_documents' => 'wait_for_documents',
     'user_role_wait_for_exam'      => 'wait_for_exam',
     'user_role_inactive'           => 'inactive',
+    'user_role_deleted'           => 'deleted',
     'user_admin_role_id'           => '1',
     'education_degree'             => trans('user::baseLang.education_degree'),
     'field_of_activities'          => trans('user::baseLang.field_of_activities'),
