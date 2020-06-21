@@ -27,6 +27,7 @@
 
     .text-black-600 {
         color: #1a202c;
+        font-weight: 600;
     }
 
     .app__container .app__from--label:not(:last-of-type) {
@@ -61,6 +62,7 @@
         top: 41mm;
         /*left: 43mm;*/
         font-size: 12px;
+        font-weight: 600;
         /*bottom: 11mm;*/
         transform: translateX(-50%);
     }

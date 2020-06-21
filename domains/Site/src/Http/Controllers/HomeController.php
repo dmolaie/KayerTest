@@ -7,6 +7,7 @@ namespace Domains\Site\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Domains\Article\Services\Contracts\DTOs\ArticleFilterDTO;
 use Domains\News\Http\Requests\NewsListForAdminRequest;
+use Domains\News\Services\Contracts\DTOs\NewsFilterDTO;
 use Domains\Site\Services\SiteServices;
 use Domains\Slider\Services\Contracts\DTOs\SliderFilterDTO;
 
@@ -25,25 +26,35 @@ class HomeController extends Controller
     public function index(NewsListForAdminRequest $request)
     {
 
-        $subdomain = $this->siteServices->getSubdomain($request->getHttpHost());
-        $news = $this->siteServices->getNews($status = 'published', $sort = 'DESC', $subdomain);
-        $event = $this->siteServices->getEvent($status = 'published', $sort = 'DESC', $subdomain);
+        $subDomain = $this->siteServices->getSubdomain($request->getHttpHost());
+        $language = $request->language ?? 'fa';
+        $sort = 'DESC';
+        $pageCount = 20;
+        $newsFilterDTO = new NewsFilterDTO();
+        $newsFilterDTO->setNewsInputStatus('published')
+            ->setSort($sort)
+            ->setPaginationCount($pageCount)
+            ->setLanguage($language);
+        $categories = ['world-special-news', 'iran-special-news'];
+
+        $news = $this->siteServices->getFilterNews($newsFilterDTO, $subDomain, $categories)->items();
+        $event = $this->siteServices->getEvent($status = 'published', $sort = $sort, $subDomain);
         $sliderFilterDTO = new SliderFilterDTO();
         $sliderFilterDTO->setSliderInputStatus('published')
-            ->setLanguage($request->language ?? 'fa')
-            ->setPaginationCount(20)
-            ->setSort('DESC');
-        $sliders = $this->siteServices->getSliderList($sliderFilterDTO, $subdomain);
+            ->setLanguage($language)
+            ->setPaginationCount($pageCount)
+            ->setSort($sort);
+        $sliders = $this->siteServices->getSliderList($sliderFilterDTO, $subDomain);
 
         $articleFilter = new ArticleFilterDTO();
         $articleFilter->setArticleInputStatus('published')
-            ->setLanguage($request->language ?? 'fa')
-            ->setSort('DESC');
+            ->setLanguage($language)
+            ->setSort($sort);
         $knowledgeArticles = $this->siteServices->getArticleList(
             $articleFilter,
-            $subdomain,
+            $subDomain,
             ['article-knowledge']);
-        return view('site::' . $request->language . '.index', compact('news', 'event', 'knowledgeArticles','sliders'));
+        return view('site::' . $language . '.index', compact('news', 'event', 'knowledgeArticles', 'sliders'));
     }
 
 }
