@@ -14,7 +14,7 @@ class AdminMenuPresenter
         }
 
         $menuList = $this->menuList($roleDTO, config('menus.admin_menu'));
-        return $menuList ?? $this->defaultMenu();
+        return count($menuList) > 0 ? $menuList : $this->defaultMenu();
     }
 
     private function defaultMenu()
