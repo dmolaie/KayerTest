@@ -203,27 +203,6 @@ class SiteServices
         return $this->articleService->getArticleDetailWithUuid($uuid);
     }
 
-    public function getNews($status, $sort, $subdomain = null)
-    {
-        $globalSubDomain = $this->getLocations('global-fa');
-        $this->newsFilterDTO->setNewsInputStatus($status);
-        $this->newsFilterDTO->setSort($sort);
-
-        if (!$subdomain) {
-            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
-            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        }
-        $this->newsFilterDTO->addProvinceId($subdomain->id);
-        $news = $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-
-        if (empty($news)) {
-            $this->newsFilterDTO->setProvinceIds([]);
-            $this->newsFilterDTO->addProvinceId($globalSubDomain->id);
-            return $this->newsService->filterNews($this->newsFilterDTO)->getItems();
-        }
-        return $news;
-    }
-
     public function getEvent($status, $sort, $subdomain = null)
     {
         $globalSubDomain = $this->getLocations('global-fa');

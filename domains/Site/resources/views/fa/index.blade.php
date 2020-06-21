@@ -237,7 +237,7 @@
             <div class="container sm:p-0">
                 <div class="section__title flex items-end sm:p-0-20">
                     <h4 class="i-page__sub-title font-24 text-blue-800 cursor-default text-nowrap line-height-1 sm:font-sm">
-                        اخبار اهدا
+                        اخبار ویژه اهدا
                     </h4>
                     <span class="p-home__line p-home__line--blue flex items-end justify-end block w-full sm:none"></span>
                     <button class="carousel-btn carousel-btn--left flex-shrink-0 sm:none"></button>
