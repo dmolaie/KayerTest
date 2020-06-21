@@ -68,7 +68,7 @@ class PagesController extends EhdaBaseController
         $news = $this->siteServices->getFilterNews($newsFilterDTO, $subDomain, $categories);
 
         $categories = $categoryInfoPresenter->transformMany($this->siteServices->getActiveCategoryByParentSlug('world-news'));
-        return view('site::' . $request->language . '.pages.news-list', compact('news', 'categories'));
+        return view('site::' . $request->language . '.pages.news-list-world', compact('news', 'categories'));
     }
 
     public function interactions(Request $request)
