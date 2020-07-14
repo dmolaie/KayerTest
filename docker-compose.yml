@@ -1,0 +1,104 @@
+version: '2'
+
+services:
+  ehda_db:
+    image: mysql:5.7
+    container_name: ehda_db
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql"
+      MYSQL_DATABASE: "ehda"
+    networks:
+      kayer-network:
+        aliases:
+          - ehda-mysql
+    volumes:
+      - 'ehda-mysqldb:/var/lib/mysql'
+      - '/etc/localtime:/etc/localtime:ro'
+
+  nginx:
+      image: nginx
+      ports:
+          - "80:80"
+      depends_on:
+        - php-fpm
+      volumes:
+          - '/etc/localtime:/etc/localtime:ro'
+          - ./docker-compose/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+          - ./docker-compose/nginx/main.conf:/etc/nginx/nginx.conf
+          - '.:/var/www/'
+      networks:
+          - kayer-network
+
+  php-fpm:
+      build: docker-compose/php/
+      volumes:
+          - '/etc/localtime:/etc/localtime:ro'
+          - ./docker-compose/php/php.ini:/usr/local/etc/php/php.ini
+          - ./docker-compose/php/phperror.log:/var/log/phperror.log
+          - .:/var/www/
+          - ./docker-compose/php/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+      networks:
+          - kayer-network
+      working_dir: '/var/www/'
+
+  composer:
+      build: docker-compose/composer/
+      volumes:
+          - '.:/code'
+          - './docker-compose/composer/cache:/root/.composer/cache'
+      working_dir: /code
+      networks:
+          - kayer-network
+
+  nodejs:
+    build: ./docker-compose/nodejs/
+    depends_on:
+      - php-fpm
+    volumes:
+      - '.:/code'
+      - '/etc/localtime:/etc/localtime:ro'
+    networks:
+      - kayer-network
+    working_dir: /code
+
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin:latest'
+    ports:
+      - '8012:80'
+    depends_on:
+      - ehda_db
+    restart: always
+    environment:
+      PMA_HOST: ehda-mysql
+      PMA_ARBITRARY: 1
+      PMA_USER: 'root'
+      PMA_PASSWORD: 'mysql'
+    networks:
+      - kayer-network
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+
+  mongo-report:
+    image: mongo:4.2
+    ports:
+      - '7071:27017'
+    volumes:
+      - './docker-compose/mongodb-report:/data/db'
+      - '/etc/localtime:/etc/localtime:ro'
+    restart: always
+    networks:
+      kayer-network:
+        aliases:
+          - mongodb
+volumes:
+  ehda-mysqldb:
+
+networks:
+  kayer-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
