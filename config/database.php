@@ -63,18 +63,6 @@ return [
             ]) : [],
         ],
 
-        'mongodb' => [
-            'driver' => 'mongodb',
-            'host' => explode(',',env('DB_HOST_MONGO', '127.0.0.1')),
-            'port' => env('DB_PORT_MONGO', '27017'),
-            'database' => env('DB_DATABASE_MONGO'),
-            'username' => env('DB_USERNAME_MONGO'),
-            'password' => env('DB_PASSWORD_MONGO'),
-            'options' => [
-                'database' => 'admin' // sets the authentication database required by mongo 3
-            ]
-        ],
-
         'pgsql' => [
             'driver'         => 'pgsql',
             'url'            => env('DATABASE_URL'),

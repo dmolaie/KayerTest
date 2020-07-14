@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: "mysql"
       MYSQL_DATABASE: "ehda"
     networks:
-      ehda-network:
+      kayer-network:
         aliases:
           - ehda-mysql
     volumes:
@@ -27,7 +27,7 @@ services:
           - ./docker-compose/nginx/main.conf:/etc/nginx/nginx.conf
           - '.:/var/www/'
       networks:
-          - ehda-network
+          - kayer-network
 
   php-fpm:
       build: docker-compose/php/
@@ -38,7 +38,7 @@ services:
           - .:/var/www/
           - ./docker-compose/php/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       networks:
-          - ehda-network
+          - kayer-network
       working_dir: '/var/www/'
 
   composer:
@@ -48,7 +48,7 @@ services:
           - './docker-compose/composer/cache:/root/.composer/cache'
       working_dir: /code
       networks:
-          - ehda-network
+          - kayer-network
 
   nodejs:
     build: ./docker-compose/nodejs/
@@ -58,7 +58,7 @@ services:
       - '.:/code'
       - '/etc/localtime:/etc/localtime:ro'
     networks:
-      - ehda-network
+      - kayer-network
     working_dir: /code
 
   phpmyadmin:
@@ -74,7 +74,7 @@ services:
       PMA_USER: 'root'
       PMA_PASSWORD: 'mysql'
     networks:
-      - ehda-network
+      - kayer-network
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
 
@@ -87,14 +87,14 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
     restart: always
     networks:
-      ehda-network:
+      kayer-network:
         aliases:
           - mongodb
 volumes:
   ehda-mysqldb:
 
 networks:
-  ehda-network:
+  kayer-network:
     driver: bridge
     driver_opts:
       com.docker.network.enable_ipv6: "false"

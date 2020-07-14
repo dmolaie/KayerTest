@@ -174,35 +174,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*
-         * Package Add in Project
-         */
-        Intervention\Image\ImageServiceProvider::class,
-        Jenssegers\Mongodb\MongodbServiceProvider::class,
-        Mews\Captcha\CaptchaServiceProvider::class,
 
 
         /*
          * Package Service Providers...
          */
-        \Domains\Location\LocationServiceProvider::class,
-        \Domains\Site\SiteServiceProvider::class,
-        \Domains\Admin\AdminServiceProvider::class,
-        \Domains\User\UserServiceProvider::class,
-        \Domains\Role\RoleServiceProvider::class,
-        \Domains\Category\CategoryServiceProvider::class,
-        \Domains\Attachment\AttachmentServiceProvider::class,
-        \Domains\News\NewsServiceProvider::class,
-        \Domains\Event\EventServiceProvider::class,
-        \Domains\Article\ArticleServiceProvider::class,
-        \Domains\Menu\MenusServiceProvider::class,
-        \Domains\SmsRegister\SmsRegisterServiceProvider::class,
-        \Domains\NationalAuthentication\NationalAuthenticationServiceProvider::class,
-        \Domains\Media\MediaServiceProvider::class,
-        \Domains\Slider\SliderServiceProvider::class,
-        \Domains\Arvanvod\ArvanvodServiceProvider::class,
-        \Domains\Notify\NotifyServiceProvider::class,
-        \Domains\Contact\ContactServiceProvider::class,
 
 
     ],
@@ -255,9 +231,6 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-        'Image'        => Intervention\Image\Facades\Image::class,
-        'Captcha'      => Mews\Captcha\Facades\Captcha::class,
-
 
     ],
 
